@@ -1,0 +1,166 @@
+﻿<!DOCTYPE HTML>
+<html>
+<!--
+===============================================================================
+ LEWE.COM DOCUMENTATION
+ _____________________________________________________________________________
+
+ Copyright: (c) 2005-2012 by Lewe.com
+ Contact:   George Lewe (george@lewe.com)
+ _____________________________________________________________________________
+
+ This documentation is copyrighted by Lewe.com. It may NOT be redistributed 
+ and/or modified in any way without written approval by Lewe.com.
+
+===============================================================================
+-->
+<head>
+   <title>Database Maintenance</title>
+   <meta NAME="keywords" CONTENT="announcements,backup,Clean up,CLEANUP,csv,Database,Database Management,Delete Records,download,export,orphaned,orphaned announcements,restore,save,sql,xml">
+   <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+   <link REL="stylesheet" TYPE="text/css" HREF="styles.css" />
+   <style TYPE="text/css">
+      a { color: #0000FF; text-decoration: none }
+      a:visited {color: #0000FF }
+      a:hover {color: #E4641C; text-decoration: underline }
+      a.weblink {color: #0000FF; text-decoration: underline }
+      a.weblink:visited {color: #0000FF}
+      a.weblink:hover {color: #E4641C }
+      a.popuplink {color: #FF0000; text-decoration: none}
+      a.popuplink:visited {color: #FF0000}
+      a.popuplink:hover {color: #FF0000; text-decoration: underline}
+      a.filelink {color: #04BC14; text-decoration: none}
+      a.filelink:visited {color: #04BC14}
+      a.filelink:hover {color: #04BC14; text-decoration: underline}
+      .fsmall {
+         font-size: 10px;
+         font-family: Verdana, Helvetica, sans-serif;
+         text-align: center;
+         margin: 10px 0px 0px 0px;
+      }
+      .crumbs {font-size: 8pt; margin-bottom: 3px; margin-top: 0px; color: #000000}
+      .crumbs a {text-decoration: underline; color: #000000}
+      .crumbs a:visited {text-decoration: underline; color: #000000}
+      .crumbs a:hover {color: #000099}
+   </style>
+   
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "manage_database.html");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+
+<body STYLE="margin: 0px 0px 0px 0px; background: #FFFFFF;">
+   
+   
+   
+   <table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" STYLE="margin: 0px; background: #E4E1DC;">
+      <tr VALIGN="bottom">
+         <td ALIGN="left" VALIGN="bottom" STYLE="padding: 0px 6px 6px 10px;">
+            <span CLASS="crumbs">
+            <b>Navigation:</b>&nbsp;
+            
+            
+               <a href="administration.html">Administration</a>
+            
+            </span>
+         </td>
+         <td ALIGN="right"><img SRC="lewe.gif" BORDER="0"></td>
+      </tr>
+      <tr VALIGN="bottom">
+         <td ALIGN="left" STYLE="padding: 6px 6px 6px 10px;">
+            <h1 class="p_Heading1"><span class="f_Heading1">Database Maintenance</span></h1>
+
+         </td>
+         <td ALIGN="right" VALIGN="middle" STYLE="padding: 0px 10px 0px 0px;">
+            <span STYLE="font-size: 9pt">
+            
+            <a HREF="manage_declination.html" ONMOUSEOVER="document.images.prev.src='btn_prev_1.gif'" ONMOUSEOUT="document.images.prev.src='btn_prev_0.gif'">
+            <img NAME="prev" SRC="btn_prev_0.gif" BORDER="0" ALT="Previous page"></a>
+            
+            
+            <a HREF="administration.html" ONMOUSEOVER="document.images.main.src='btn_home_1.gif'" ONMOUSEOUT="document.images.main.src='btn_home_0.gif'">
+            <img NAME="main" SRC="btn_home_0.gif" BORDER="0" ALT="Return to chapter overview"></a>
+            
+            <a HREF="system_log_page.html" ONMOUSEOVER="document.images.next.src='btn_next_1.gif'" ONMOUSEOUT="document.images.next.src='btn_next_0.gif'">
+            <img NAME="next" SRC="btn_next_0.gif" BORDER="0" ALT="Next page"></a>
+            
+            
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <td COLSPAN="2" STYLE="height: 3px; background: url(header_bg_shadow.png)"></td>
+      </tr>
+   </table>
+   
+   
+   
+      <div STYLE="margin: 5px 5px 12px 10px;">
+         <div><div style="width:538px;padding:0px"><img src="manage_database.png" width="538" height="159" style="border:none" alt="Manage Database" title="Manage Database" /><p style="text-align:center"><span class="f_ImageCaption">Manage Database</span></p></div></div>
+<p>&nbsp;</p>
+<p>The Database Management is new in Version 2.2. It offers a clean-up feature for old user templates and also a much easier approach to clear the database.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Clean up old templates and day notes</span></h2>
+<p>Once you have used TeamCal Pro for a few months you may want to delete user absence records and day notes of the past.<br />
+Enter the year and the month of the date that you want to use as the key date (data including this month and before will be deleted).<br />
+Also choose wether you want to</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete user related templates and day notes</span><br />
+to delete user related records only or wether you want to:</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete month templates and general day notes</span><br />
+as well.</p><p>&nbsp;</p>
+<p>Example: Year=2004 and Month=07 will delete all user templates older than and including July 2004.<br />
+You need to confirm the deletion by typing in &quot;CLEANUP&quot; in the confirmation text box.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Delete database records</span></h2>
+<div><div style="width:536px;padding:0px"><img src="manage_database_2.png" width="536" height="339" style="border:none" alt="Delete Database Records" title="Delete Database Records" /><p style="text-align:center"><span class="f_ImageCaption">Delete Database Records</span></p></div></div>
+<p>&nbsp;</p>
+<p>You will find an easy way here to erase a large amount of data from your database.<br />
+&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete all users, their absence templates and day notes (except &quot;admin&quot;)</span><br />
+This option will delete all users except 'admin' including their absence templates and day notes.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete all groups</span><br />
+This option will delete all groups.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete all holidays (except &quot;weekend&quot; and &quot;business day&quot;)</span><br />
+This option will delete all custom holidays. 'Weekend' and 'Business day' will not be erased since these two day types are basic to drawing a calendar (marking each Saturday and Sunday).<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete all regions incl. templates and day notes (except &quot;default&quot;)</span><br />
+This option will delete all regions, all their month templates and all their general day notes. The 'default' region will not be deleted. If you just want to clear the default region (TeamCal Pro's base calendar, use the 'Delete all holidays' and/or the 'Delete all general day note' option.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete all absence types</span><br />
+This option will delete all absence types. 'Present' is a special absence type and will stay as such in the database.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete all general day notes</span><br />
+This option will delete all general day notes, those not assigned to a specific user.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 41px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete all announcements</span><br />
+This option will delete all announcements and all assignments to users of them<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 41px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete all orphaned announcements</span><br />
+This option will delete only those announcements that have been read and confirmed by all users the announcements were assigned to.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Clear System Log</span><br />
+This option will clear the system log.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Delete custom permission schemes (except &quot;Default&quot;)</span><br />
+This option will delete all custom permission schemes that you might have created so far. The &quot;Default&quot; permission scheme comes with TeamCal Pro and cannot be deleted. This and the fact that administrators can always access the permission scheme editor makes sure that you cannot lock yourself out of TeamCal Pro.</p><p>&nbsp;</p>
+<p>You need to confirm the deletion by typing in &quot;DELETE&quot; in the confirmation text box.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Export Database</span></h2>
+<div><div style="width:537px;padding:0px"><img src="manage_database_3.png" width="537" height="200" style="border:none" alt="Export Database" title="Export Database" /><p style="text-align:center"><span class="f_ImageCaption">Export Database</span></p></div></div>
+<p>You can export specific tables or the complete database from within TeamCal Pro's Database Maintenance page. In the &quot;Table to export&quot; drop down list select the table you want to export, or just leave the selection to &quot;All&quot; which will export all tables. Chose one of the formatting options that you would like the data to be presented. You can chose between 'CSV', 'SQL' and 'XML'. You can also decide where you want the output of the export to go. Select 'Browser' if you just want to see the data in your browser window. Select 'File Download' if you want to save the export to a local drive.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Restore Database</span></h2>
+<div><div style="width:533px;padding:0px"><img src="manage_database_4.png" width="533" height="147" style="border:none" alt="Restore Database" title="Restore Database" /><p style="text-align:center"><span class="f_ImageCaption">Restore Database</span></p></div></div>
+<p>With version 3.0 TeamCal Pro supports backup and restore of the database. A file downloaded via <a href="menu.html" class="topiclink">'Download Database Dump'</a> in the Administration menu can be used to restore the database here. Click the [Browse] button to select a file from your local hard drive. Then click [Restore] to restore your TeamCal Pro database.</p>
+<p><span style="font-weight: bold; color: #ff0000;">Restoring the database will overwrite all current data !!!</span></p>
+<h2 class="p_Heading2"><span class="f_Heading2">Buttons</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Delete Records]</span><br />
+Submits your deletion request<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Browse]</span><br />
+Click to select a database dump file to restore<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Export]</span><br />
+Exports the database according to your selection<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Restore]</span><br />
+Click to restore the database from the selected file</p><p>&nbsp;</p>
+
+      </div>
+   
+</body>
+</html>
+

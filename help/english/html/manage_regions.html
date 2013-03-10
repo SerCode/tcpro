@@ -1,0 +1,162 @@
+﻿<!DOCTYPE HTML>
+<html>
+<!--
+===============================================================================
+ LEWE.COM DOCUMENTATION
+ _____________________________________________________________________________
+
+ Copyright: (c) 2005-2012 by Lewe.com
+ Contact:   George Lewe (george@lewe.com)
+ _____________________________________________________________________________
+
+ This documentation is copyrighted by Lewe.com. It may NOT be redistributed 
+ and/or modified in any way without written approval by Lewe.com.
+
+===============================================================================
+-->
+<head>
+   <title>Regions</title>
+   <meta NAME="keywords" CONTENT="hide region,ical,import,manage regions,merge regions,region,region name,regions">
+   <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+   <link REL="stylesheet" TYPE="text/css" HREF="styles.css" />
+   <style TYPE="text/css">
+      a { color: #0000FF; text-decoration: none }
+      a:visited {color: #0000FF }
+      a:hover {color: #E4641C; text-decoration: underline }
+      a.weblink {color: #0000FF; text-decoration: underline }
+      a.weblink:visited {color: #0000FF}
+      a.weblink:hover {color: #E4641C }
+      a.popuplink {color: #FF0000; text-decoration: none}
+      a.popuplink:visited {color: #FF0000}
+      a.popuplink:hover {color: #FF0000; text-decoration: underline}
+      a.filelink {color: #04BC14; text-decoration: none}
+      a.filelink:visited {color: #04BC14}
+      a.filelink:hover {color: #04BC14; text-decoration: underline}
+      .fsmall {
+         font-size: 10px;
+         font-family: Verdana, Helvetica, sans-serif;
+         text-align: center;
+         margin: 10px 0px 0px 0px;
+      }
+      .crumbs {font-size: 8pt; margin-bottom: 3px; margin-top: 0px; color: #000000}
+      .crumbs a {text-decoration: underline; color: #000000}
+      .crumbs a:visited {text-decoration: underline; color: #000000}
+      .crumbs a:hover {color: #000099}
+   </style>
+   
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "manage_regions.html");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+
+<body STYLE="margin: 0px 0px 0px 0px; background: #FFFFFF;">
+   
+   
+   
+   <table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" STYLE="margin: 0px; background: #E4E1DC;">
+      <tr VALIGN="bottom">
+         <td ALIGN="left" VALIGN="bottom" STYLE="padding: 0px 6px 6px 10px;">
+            <span CLASS="crumbs">
+            <b>Navigation:</b>&nbsp;
+            
+            
+               <a href="administration.html">Administration</a>
+            
+            </span>
+         </td>
+         <td ALIGN="right"><img SRC="lewe.gif" BORDER="0"></td>
+      </tr>
+      <tr VALIGN="bottom">
+         <td ALIGN="left" STYLE="padding: 6px 6px 6px 10px;">
+            <h1 class="p_Heading1"><span class="f_Heading1">Regions</span></h1>
+
+         </td>
+         <td ALIGN="right" VALIGN="middle" STYLE="padding: 0px 10px 0px 0px;">
+            <span STYLE="font-size: 9pt">
+            
+            <a HREF="absence_icons.html" ONMOUSEOVER="document.images.prev.src='btn_prev_1.gif'" ONMOUSEOUT="document.images.prev.src='btn_prev_0.gif'">
+            <img NAME="prev" SRC="btn_prev_0.gif" BORDER="0" ALT="Previous page"></a>
+            
+            
+            <a HREF="administration.html" ONMOUSEOVER="document.images.main.src='btn_home_1.gif'" ONMOUSEOUT="document.images.main.src='btn_home_0.gif'">
+            <img NAME="main" SRC="btn_home_0.gif" BORDER="0" ALT="Return to chapter overview"></a>
+            
+            <a HREF="manage_holiday_types.html" ONMOUSEOVER="document.images.next.src='btn_next_1.gif'" ONMOUSEOUT="document.images.next.src='btn_next_0.gif'">
+            <img NAME="next" SRC="btn_next_0.gif" BORDER="0" ALT="Next page"></a>
+            
+            
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <td COLSPAN="2" STYLE="height: 3px; background: url(header_bg_shadow.png)"></td>
+      </tr>
+   </table>
+   
+   
+   
+      <div STYLE="margin: 5px 5px 12px 10px;">
+         <div><div style="width:812px;padding:0px"><img src="manage_regions.png" width="812" height="460" style="border:none" alt="Manage Regions Dialog" title="Manage Regions Dialog" /><p style="text-align:center"><span class="f_ImageCaption">Manage Regions Dialog</span></p></div></div>
+<p>&nbsp;</p>
+<p>Regions in TeamCal Pro are used to provide different base calendars. You can set up different holidays in each region. The Manage Regions page will list all currently configured regions in TeamCal Pro. You can directly change the region name and the description. You can only add, update or delete one region at a time. The 'default' region is listed on this page for editing only. It cannot be deleted or changed. At the bottom of the dialog you can also merge two regions.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Add Regions</span></h2>
+<p>There are two ways to add a region. You can add an empty region by just specifying a name and a description. Or you can add a region by importing an iCal file. Since TeamCal Pro is a day-based calendar, make sure that your iCal file only contains whole day events.</p>
+<p>&nbsp;</p>
+<p>The iCal import is very popular for importing school holidays. Here is a great site to get ready-to-go iCal files for school holidays: <a href="http://www.calendarlabs.com/ical-calendar-holidays.php" target="_blank" class="weblink">http://www.calendarlabs.com/ical-calendar-holidays.php</a>.</p>
+<p>&nbsp;</p>
+<h2 class="p_Heading21"><span class="f_Heading21">Input Fields</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Shortname</span><br />
+Enter a short name here. This name will be shown in selection lists.</p><p>&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Description</span><br />
+Enter a long name for your region.</p><p>&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Hide</span><br />
+Check this box if you want to hide this region from being selected by users.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Browse</span><br />
+Click browse to select an iCal file from your local hard drive<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Holiday selection drop down</span><br />
+Select the event type that will be used in the TeamCal Pro region for all iCal events.</p><h2 class="p_Heading21"><span class="f_Heading21">Buttons</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Add]</span><br />
+Adds a new region as entered in the text boxes on the left of the button.</p><p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Import iCal]</span><br />
+Imports the selected iCal file</p><p>&nbsp;</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Edit Regions</span></h2>
+<h2 class="p_Heading21"><span class="f_Heading21">Input Fields</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Shortname</span><br />
+Enter a short name here. This name will be shown in selection lists.</p><p>&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Description</span><br />
+Enter a long name for your region.</p><p>&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Hide</span><br />
+Check this box if you want to hide this region from being selected by users.<br />
+&nbsp;</p><h2 class="p_Heading21"><span class="f_Heading21">Buttons</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Update]</span><br />
+Updates a region as entered in the text boxes on the left of the button.</p><p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Delete]</span><br />
+Deletes the region shown left of the button.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Edit]</span><br />
+Opens the month template editor for this region.<br />
+&nbsp;</p><h2 class="p_Heading2"><span class="f_Heading2">Merge Regions</span></h2>
+<p>You can merge one region into another. What this feature does is, it takes all holidays of the source region and copies them into the target region. You can select whether a holiday in the target region is overwritten or not. All months of the region are merged.</p>
+<p>&nbsp;</p>
+<h2 class="p_Heading21"><span class="f_Heading21">Input Fields</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Source region</span><br />
+Select the source region for the merge.</p><p>&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Target region</span></p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span>Select the target region for the merge.</p><p>&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">Overwrite</span><br />
+Check this box if you want existing holidays in the target region to be overwritten by the holidays in the source regions.<br />
+&nbsp;</p><h2 class="p_Heading21"><span class="f_Heading21">Buttons</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Merge]</span><br />
+Start the merge.</p><p>&nbsp;</p>
+
+      </div>
+   
+</body>
+</html>
+

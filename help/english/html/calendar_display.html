@@ -1,0 +1,170 @@
+﻿<!DOCTYPE HTML>
+<html>
+<!--
+===============================================================================
+ LEWE.COM DOCUMENTATION
+ _____________________________________________________________________________
+
+ Copyright: (c) 2005-2012 by Lewe.com
+ Contact:   George Lewe (george@lewe.com)
+ _____________________________________________________________________________
+
+ This documentation is copyrighted by Lewe.com. It may NOT be redistributed 
+ and/or modified in any way without written approval by Lewe.com.
+
+===============================================================================
+-->
+<head>
+   <title>Calendar Display</title>
+   <meta NAME="keywords" CONTENT="calendar display,business day,weekend day,public holiday,holiday,template,administrator,absence symbols,absence,symbols,daynote,Birthday,wrench,profile,Remainder,allowance,expandable,section,user note,popup,popup info">
+   <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+   <link REL="stylesheet" TYPE="text/css" HREF="styles.css" />
+   <style TYPE="text/css">
+      a { color: #0000FF; text-decoration: none }
+      a:visited {color: #0000FF }
+      a:hover {color: #E4641C; text-decoration: underline }
+      a.weblink {color: #0000FF; text-decoration: underline }
+      a.weblink:visited {color: #0000FF}
+      a.weblink:hover {color: #E4641C }
+      a.popuplink {color: #FF0000; text-decoration: none}
+      a.popuplink:visited {color: #FF0000}
+      a.popuplink:hover {color: #FF0000; text-decoration: underline}
+      a.filelink {color: #04BC14; text-decoration: none}
+      a.filelink:visited {color: #04BC14}
+      a.filelink:hover {color: #04BC14; text-decoration: underline}
+      .fsmall {
+         font-size: 10px;
+         font-family: Verdana, Helvetica, sans-serif;
+         text-align: center;
+         margin: 10px 0px 0px 0px;
+      }
+      .crumbs {font-size: 8pt; margin-bottom: 3px; margin-top: 0px; color: #000000}
+      .crumbs a {text-decoration: underline; color: #000000}
+      .crumbs a:visited {text-decoration: underline; color: #000000}
+      .crumbs a:hover {color: #000099}
+   </style>
+   
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "calendar_display.html");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+
+<body STYLE="margin: 0px 0px 0px 0px; background: #FFFFFF;">
+   
+   
+   
+   <table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" STYLE="margin: 0px; background: #E4E1DC;">
+      <tr VALIGN="bottom">
+         <td ALIGN="left" VALIGN="bottom" STYLE="padding: 0px 6px 6px 10px;">
+            <span CLASS="crumbs">
+            <b>Navigation:</b>&nbsp;
+            
+            
+               <a href="main_interface.html">Main Interface</a>
+            
+            </span>
+         </td>
+         <td ALIGN="right"><img SRC="lewe.gif" BORDER="0"></td>
+      </tr>
+      <tr VALIGN="bottom">
+         <td ALIGN="left" STYLE="padding: 6px 6px 6px 10px;">
+            <h1 class="p_Heading1"><span class="f_Heading1">Calendar Display</span></h1>
+
+         </td>
+         <td ALIGN="right" VALIGN="middle" STYLE="padding: 0px 10px 0px 0px;">
+            <span STYLE="font-size: 9pt">
+            
+            <a HREF="homepage.html" ONMOUSEOVER="document.images.prev.src='btn_prev_1.gif'" ONMOUSEOUT="document.images.prev.src='btn_prev_0.gif'">
+            <img NAME="prev" SRC="btn_prev_0.gif" BORDER="0" ALT="Previous page"></a>
+            
+            
+            <a HREF="main_interface.html" ONMOUSEOVER="document.images.main.src='btn_home_1.gif'" ONMOUSEOUT="document.images.main.src='btn_home_0.gif'">
+            <img NAME="main" SRC="btn_home_0.gif" BORDER="0" ALT="Return to chapter overview"></a>
+            
+            <a HREF="year_calendar_display.html" ONMOUSEOVER="document.images.next.src='btn_next_1.gif'" ONMOUSEOUT="document.images.next.src='btn_next_0.gif'">
+            <img NAME="next" SRC="btn_next_0.gif" BORDER="0" ALT="Next page"></a>
+            
+            
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <td COLSPAN="2" STYLE="height: 3px; background: url(header_bg_shadow.png)"></td>
+      </tr>
+   </table>
+   
+   
+   
+      <div STYLE="margin: 5px 5px 12px 10px;">
+         <h2 class="p_Heading2"><span class="f_Heading2">Calendar</span></h2>
+<div class="p_ImageCaption"><div style="width:450px;padding:0px"><img src="calendar_display.png" width="450" height="300" style="border:none" alt="Calendar Display" title="Calendar Display" /><p style="text-align:center"><span class="f_ImageCaption">Calendar Display</span></p></div></div>
+<p>&nbsp;</p>
+<p>The calendar display uses the same format for each month. You see the month name and year in the upper left header cell. Right next to it are the day of month fields under which the corresponding days of week are indicated. Each day is vertically colored corresponding to its day type (business day, weekend day, public holiday, etc.).</p>
+<p>&nbsp;</p>
+<p>The holiday template for a month can be changed by clicking the notepad symbol on the right of the month name in the upper left cell. This button will only be displayed if you hold administrator or group manager rights. The Month Template dialog will open.</p>
+<p>&nbsp;</p>
+<p>A row for each TeamCal user shows his specific absence symbols for each and every day of the given month.</p>
+<p>&nbsp;</p>
+<p>You can click on a name to view the profile of the user. If you hold administrator rights you can edit the users' profile by clicking on his name. Clicking on your own name when logged in will open the edit dialog for your profile.</p>
+<p>&nbsp;</p>
+<p>Right to the name of the user you can find a little wrench symbol that you can click to edit the absences of the specific user. If you are a regular user you will only see the wrench button next to your own name. If you hold group manager rights you will see the button next to your own name and all names of the members of the managed group. Administrators see all wrench buttons.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Avatars</span></h2>
+<p>If the Avatar feature is enabled an avatar image pops up when moving the mouse over the user icon. Note: The user icon feature must be switched on as well for the avatars to function.</p>
+<p>&nbsp;</p>
+<div><div style="width:177px;padding:0px"><img src="calendar_display_4.png" width="177" height="212" style="border:none" alt="Avatar Display" title="Avatar Display" /><p style="text-align:center"><span class="f_ImageCaption">Avatar Display</span></p></div></div>
+<h2 class="p_Heading2"><span class="f_Heading2">User Popup Info</span></h2>
+<p>User popup notes can be set in the user profile. If a user popup note was entered a little red corner icon is displayed in the upper right corner of the user name field in the calendar display. The popup will show when the mouse is moved over the field showing the wrench icon.</p>
+<p>&nbsp;</p>
+<div><div style="width:358px;padding:0px"><img src="calendar_display_6.png" width="358" height="126" style="border:none" alt="User popup note" title="User popup note" /><p style="text-align:center"><span class="f_ImageCaption">User popup note</span></p></div></div>
+<h2 class="p_Heading2"><span class="f_Heading2">Day Notes, Birthdays</span></h2>
+<p>You can set a general day note for the day and each user can set a personal day note for a given day. If such a day note exists a little red mark will be displayed in the upper right corner of its cell (see image below). When moving the mouse over that cell the day note will pop-up like a tool tip. You can maintain the general day notes in the month template dialog and the personal day notes in the user calendar dialog. The personal day notes may be disabled for regular users by the administrator.</p>
+<p>&nbsp;</p>
+<p>Birthdays are shown in a similar way, indicated by a little green mark. Wether the birthday for a user is shown in the calendar or not can be set in the user profile dialog. If you want to show the birthday but hide the age (You're welcome, Ladies!) you can also set that in the user profile.</p>
+<p>&nbsp;</p>
+<p>When a day holds a personal day note and a birthday the red mark will be used. Both information can be read in the pop-up.</p>
+<p class="p_ImageCaption"><span class="f_ImageCaption">&nbsp;</span></p>
+<div class="p_ImageCaption"><div style="width:142px;padding:0px"><img src="daynote.jpg" width="142" height="106" style="border:none" alt="Daynote Marker" title="Daynote Marker" /><p style="text-align:center"><span class="f_ImageCaption">Daynote Marker</span></p></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="p_ImageCaption"><div style="width:80px;padding:0px"><img src="birthday.jpg" width="80" height="61" style="border:none" alt="Birthday Marker" title="Birthday Marker" /><p style="text-align:center"><span class="f_ImageCaption">Birthday Marker</span></p></div></div>
+<h2 class="p_Heading2"><span class="f_Heading2">Remainder</span></h2>
+<p>The <span style="font-style: italic; font-weight: bold;">Remainder</span> display is an expandable section. You can display or hide the remainders by clicking the little toggle icon right next to the weekday row. It will display the remaining allowance for each absence type for each person for the current year. The figures will always show the values for the current year (January 1st - December 31st), even if you display a month of the previous or next year.</p>
+<p>&nbsp;</p>
+<p>The administrator can configure which absence types will be included in this section. He can also set wether the total available at the beginning of the current year will be shown next to the remainder (a.g.: 7/12). The allowance will include the left-over of the last year which can be changed in the users profile.</p>
+<p>&nbsp;</p>
+<div><div style="width:240px;padding:0px"><img src="calendar_display_3.png" width="240" height="272" style="border:none" alt="Remainder Display" title="Remainder Display" /><p style="text-align:center"><span class="f_ImageCaption">Remainder Display</span></p></div></div>
+<h2 class="p_Heading2"><span class="f_Heading2">Totals Display</span></h2>
+<p>The remainder section can be configured to also include a totals section. This section displays the amount of instances per absence type taken for the month displayed. So if a user has been checked three home office days for the current month a '3' will be shown here. Whether an absence type is included in this totals section can be configured per each absence type.</p>
+<p>&nbsp;</p>
+<div><div style="width:86px;padding:0px"><img src="calendar_display_7.png" width="86" height="290" style="border:none" alt="Totals Display" title="Totals Display" /><p style="text-align:center"><span class="f_ImageCaption">Totals Display</span></p></div></div>
+<h2 class="p_Heading2"><span class="f_Heading2">Sort Order</span></h2>
+<p>Next to the &quot;Name&quot; caption you can see an arrow indicating the sort order of the user list. If the arrow points down the user list is sorted ascending by last name (A first, Z last). Click the arrow to revers the list into a descending order (Z first, A last).</p>
+<p>&nbsp;</p>
+<div><div style="width:145px;padding:0px"><img src="calendar_display_5.png" width="145" height="155" style="border:none" alt="Sort Arrow" title="Sort Arrow" /><p style="text-align:center"><span class="f_ImageCaption">Sort Arrow</span></p></div></div>
+<h2 class="p_Heading2"><span class="f_Heading2">Summary</span></h2>
+<p>The summary display is an expandable section. You can display or hide the summary by clicking the little toggle icon right next to the &quot;Summary&quot; title.</p>
+<p>A couple of more rows will show the different counts of presence and absence.</p>
+<p>&nbsp;</p>
+<p>The <span style="font-style: italic; font-weight: bold;">Summary</span> section shows the amount of present and absent people for each day. The <span style="font-style: italic; font-weight: bold;">Absence Summary</span> section shows the count of each absence type (not marked to count as 'present') per day.</p>
+<p>&nbsp;</p>
+<p><span style="font-style: italic; font-weight: bold;">Present</span>: How many people are present or have taken absence types that count as 'present'</p>
+<p><span style="font-style: italic; font-weight: bold;">Absent</span>: How many people have taken absences</p>
+<p><span style="font-style: italic; font-weight: bold;">Delta</span>: Weight (Delta) between presence and absence. E.g. if 5 of 8 users are absence and 3 are present the delta is 5-3=2.</p>
+<p>&nbsp;</p>
+<div><div style="width:492px;padding:0px"><img src="calendar_display_2.png" width="492" height="312" style="border:none" alt="Summary Display" title="Summary Display" /><p style="text-align:center"><span class="f_ImageCaption">Summary Display</span></p></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      </div>
+   
+</body>
+</html>
+

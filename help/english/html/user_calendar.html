@@ -1,0 +1,147 @@
+﻿<!DOCTYPE HTML>
+<html>
+<!--
+===============================================================================
+ LEWE.COM DOCUMENTATION
+ _____________________________________________________________________________
+
+ Copyright: (c) 2005-2012 by Lewe.com
+ Contact:   George Lewe (george@lewe.com)
+ _____________________________________________________________________________
+
+ This documentation is copyrighted by Lewe.com. It may NOT be redistributed 
+ and/or modified in any way without written approval by Lewe.com.
+
+===============================================================================
+-->
+<head>
+   <title>User Calendar</title>
+   <meta NAME="keywords" CONTENT="Date Range,Date Range Input,notebook,notebook icon,tooltip">
+   <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+   <link REL="stylesheet" TYPE="text/css" HREF="styles.css" />
+   <style TYPE="text/css">
+      a { color: #0000FF; text-decoration: none }
+      a:visited {color: #0000FF }
+      a:hover {color: #E4641C; text-decoration: underline }
+      a.weblink {color: #0000FF; text-decoration: underline }
+      a.weblink:visited {color: #0000FF}
+      a.weblink:hover {color: #E4641C }
+      a.popuplink {color: #FF0000; text-decoration: none}
+      a.popuplink:visited {color: #FF0000}
+      a.popuplink:hover {color: #FF0000; text-decoration: underline}
+      a.filelink {color: #04BC14; text-decoration: none}
+      a.filelink:visited {color: #04BC14}
+      a.filelink:hover {color: #04BC14; text-decoration: underline}
+      .fsmall {
+         font-size: 10px;
+         font-family: Verdana, Helvetica, sans-serif;
+         text-align: center;
+         margin: 10px 0px 0px 0px;
+      }
+      .crumbs {font-size: 8pt; margin-bottom: 3px; margin-top: 0px; color: #000000}
+      .crumbs a {text-decoration: underline; color: #000000}
+      .crumbs a:visited {text-decoration: underline; color: #000000}
+      .crumbs a:hover {color: #000099}
+   </style>
+   
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "user_calendar.html");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+
+<body STYLE="margin: 0px 0px 0px 0px; background: #FFFFFF;">
+   
+   
+   
+   <table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" STYLE="margin: 0px; background: #E4E1DC;">
+      <tr VALIGN="bottom">
+         <td ALIGN="left" VALIGN="bottom" STYLE="padding: 0px 6px 6px 10px;">
+            <span CLASS="crumbs">
+            <b>Navigation:</b>&nbsp;
+            
+            
+               <a href="dialogs.html">Dialogs</a>
+            
+            </span>
+         </td>
+         <td ALIGN="right"><img SRC="lewe.gif" BORDER="0"></td>
+      </tr>
+      <tr VALIGN="bottom">
+         <td ALIGN="left" STYLE="padding: 6px 6px 6px 10px;">
+            <h1 class="p_Heading1"><span class="f_Heading1">User Calendar</span></h1>
+
+         </td>
+         <td ALIGN="right" VALIGN="middle" STYLE="padding: 0px 10px 0px 0px;">
+            <span STYLE="font-size: 9pt">
+            
+            <a HREF="month_template.html" ONMOUSEOVER="document.images.prev.src='btn_prev_1.gif'" ONMOUSEOUT="document.images.prev.src='btn_prev_0.gif'">
+            <img NAME="prev" SRC="btn_prev_0.gif" BORDER="0" ALT="Previous page"></a>
+            
+            
+            <a HREF="dialogs.html" ONMOUSEOVER="document.images.main.src='btn_home_1.gif'" ONMOUSEOUT="document.images.main.src='btn_home_0.gif'">
+            <img NAME="main" SRC="btn_home_0.gif" BORDER="0" ALT="Return to chapter overview"></a>
+            
+            <a HREF="register.html" ONMOUSEOVER="document.images.next.src='btn_next_1.gif'" ONMOUSEOUT="document.images.next.src='btn_next_0.gif'">
+            <img NAME="next" SRC="btn_next_0.gif" BORDER="0" ALT="Next page"></a>
+            
+            
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <td COLSPAN="2" STYLE="height: 3px; background: url(header_bg_shadow.png)"></td>
+      </tr>
+   </table>
+   
+   
+   
+      <div STYLE="margin: 5px 5px 12px 10px;">
+         <div class="p_ImageCaption"><div style="width:800px;padding:0px"><img src="usercalendar.png" width="800" height="471" style="border:none" alt="User Calendar Dialog" title="User Calendar Dialog" /><p style="text-align:center"><span class="f_ImageCaption">User Calendar Dialog</span></p></div></div>
+<p>&nbsp;</p>
+<p>The user calendar dialog displays a specific month and shows a row with check boxes for each configured absence type. If you want to set a certain absence type for a specific day just check the box in the corresponding field and click [Apply]. You can check several boxes before applying your changes. The appropriate days will then be colored according to your new settings.</p>
+<p>&nbsp;</p>
+<p>Clicking the [Clear] button will uncheck all markers and apply the changes to the database. So you don't need to click [Apply] after clicking [Clear]. </p>
+<h2 class="p_Heading2"><span class="f_Heading2">Personal Day notes</span></h2>
+<p>In the day note row you will see a notebook icon for each day. Clicking this icon will open the <a href="daynote_dialog.html" class="topiclink">day note dialog</a>. You can store a user specific note of 80 characters for each day. A day holding a day note will be displayed with a special marker in the regular <a href="calendar_display.html" class="topiclink">calendar display</a>. There the day note will pop up like a tool tip when moving the mouse over the marked cell.</p>
+<div><div style="width:102px;padding:0px"><img src="daynoteicons.png" width="102" height="86" style="border:none" alt="Daynote Icons" title="Daynote Icons" /><p style="text-align:center"><span class="f_ImageCaption">Daynote Icons</span></p></div></div>
+<p>&nbsp;</p>
+<p>After you're done click [Close]. The dialog will close and the main page will automatically be reloaded and reflect your changes of the users calendar.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Date Range Input</span></h2>
+<p>If you want to enter a longer period of absence you can use the date range input to do so. Select the absence type in the drop down box, then enter the From- and To-date of the absence. Note that the range must be within the month you are editing. If you wanna enter a range that spans over two months you must edit both months separately.</p>
+<p>If the &quot;Mark only business days&quot; box is checked, only business days will be marked with the absence. Weekend days and Holidays, if they are not configured as business days will not be marked.</p>
+<p>&nbsp;</p>
+<div><div style="width:494px;padding:0px"><img src="usercalendar_range.png" width="494" height="125" style="border:none" alt="Date Range Input" title="Date Range Input" /><p style="text-align:center"><span class="f_ImageCaption">Date Range Input</span></p></div></div>
+<h2 class="p_Heading2"><span class="f_Heading2">Recurring Input</span></h2>
+<p>Another way of marking absences is the recurring input. Say you have a day off every Friday. Just check the Friday checkbox in the Recurring Input frame, pick the appropriate absence type in the drop down list in the same frame and click Apply. All Fridays in the upper portion will then be marked with that absence type.</p>
+<p>If the &quot;Mark only business days&quot; box is checked, only business days will be marked with the absence. Weekend days and Holidays, if they are not configured as business days will not be marked.</p>
+<p>&nbsp;</p>
+<div><div style="width:495px;padding:0px"><img src="usercalendar_recurring.png" width="495" height="122" style="border:none" alt="Recurring Input" title="Recurring Input" /><p style="text-align:center"><span class="f_ImageCaption">Recurring Input</span></p></div></div>
+<h2 class="p_Heading2"><span class="f_Heading2">Comment/Reason</span></h2>
+<p>This field offers the input of a comment for this absence request. It may be used to give a reason for the request that can be used by the manager to approve the request in case it is declined based on the declination management settings. This comment will be put in the notification e-mails.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Buttons</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[&lt;&lt;]</span><br />
+Page one month backward<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[&gt;&gt;]</span><br />
+Page one month forward<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Clear]</span><br />
+Clears all check marks in the calendar and applies it to the database.</p><p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Apply]</span><br />
+Writes the information in the dialog to the database.</p><p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Help]</span><br />
+Open this section of this manual.</p><p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Done]</span><br />
+Closes the dialog and refreshes the page that launched the dialog.</p><p>  </p>
+
+      </div>
+   
+</body>
+</html>
+

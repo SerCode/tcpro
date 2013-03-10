@@ -1,0 +1,199 @@
+﻿<!DOCTYPE HTML>
+<html>
+<!--
+===============================================================================
+ LEWE.COM DOCUMENTATION
+ _____________________________________________________________________________
+
+ Copyright: (c) 2004-2013 by Lewe.com
+ Contact:   George Lewe (george@lewe.com)
+ _____________________________________________________________________________
+
+ This documentation is copyrighted by Lewe.com. It may NOT be redistributed 
+ and/or modified in any way without written approval by Lewe.com.
+
+===============================================================================
+-->
+<head>
+   <title>TeamCal Pro Help</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta http-equiv="Content-Style-Type" content="text/css" />
+   <link rel="stylesheet" type="text/css" href="css/manuals.css" />
+   <link rel="stylesheet" type="text/css" href="styles.css" />
+   <link rel="shortcut icon" href="images/favicon.ico" />
+   <style type="text/css">
+      .navtitle      { font-family: Tahoma,Helvetica; font-weight: bold; font-size: 12pt; color: #5A5A5A; margin-bottom: 16px; }
+      .navsubtitle   { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 10pt;color: #5A5A5A; }
+      .navbar        { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #5A5A5A; text-decoration: none; }
+      a.navbar       { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #000080; text-decoration: none; }
+      a.navbar:hover { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #000080; text-decoration: underline; }
+      .heading1 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #000080; text-decoration: none; }
+      .heading2 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #000080; text-decoration: none; }
+      .heading3 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #000080; text-decoration: none; }
+      .heading4 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #000080; text-decoration: none; }
+      .heading5 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #000080; text-decoration: none; }
+      .heading6 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #000080; text-decoration: none; }
+      .hilight1 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+      .hilight2 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+      .hilight3 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+      .hilight4 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+      .hilight5 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+      .hilight6 { font-family: Tahoma,Helvetica; font-weight: normal; font-size: 8pt; color: #FFFFFF; background: #002682; text-decoration: none; }
+      TD.toc { padding-bottom: 2px; padding-right: 4px }
+   </style>
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript">
+     var parentScope = (parent.hmNavigationFrame);
+     if (!parentScope) {
+		      var s = document.createElement("script");
+		      s.setAttribute("type","text/javascript");
+		      s.setAttribute("src", "helpman_navigation.js");
+		      document.getElementsByTagName("head")[0].appendChild(s);
+	    }
+     else {
+       if (initialtocstate != "expandall") parent.hmAddCss(document, "#toc li ul { display: none }");
+     }
+     function loadicons() { var icons = new Array(); for (i=0; i<arguments.length; i++) { icons[i] = new Image(); icons[i].src = arguments[i]; } }
+     function loadtoc() { if (parentScope) parent.loadstate(document.getElementById("toc")); else loadstate(document.getElementById("toc")); }
+     function savetoc() { if (parentScope) parent.savestate(document.getElementById("toc")); else savestate(document.getElementById("toc")); }
+     function clicked(node, event) { deselect(); if (parentScope) parent.hmNodeClicked(node, event); else hmNodeClicked(node, event); }
+     function dblclicked(node) { if (parentScope) parent.hmNodeDblclicked(node); else hmNodeDblclicked(node); }
+     function deselect() { if (window.getSelection) window.getSelection().removeAllRanges(); else if (document.selection) document.selection.empty(); }
+     $(document).ready(function(){
+       loadtoc();
+       $(window).onunload = savetoc;
+     });
+   </script>
+</head>
+   <body style="background: #F9F9F9;  border-right: 1px solid #BBBBBB;">
+      <table style="width: 100%; height: 100%;">
+         <tr>
+            <td style="padding:4px; vertical-align: top;">
+               <p class="crumbs">
+                  <b>Version 3.5.002, March 2013</b><br>
+                  &nbsp;
+               </p>
+               <p class="navbar">
+                  <b>Content</b>
+                  
+                  | <a class="navbar" href="tcpro_kwindex.html">Index</a>
+                  
+                  
+                  | <a class="navbar" href="tcpro_ftsearch.html">Search</a>
+                  
+               </p>
+               <hr size="1">
+               <!-- Place holder for the TOC - this variable is REQUIRED! -->
+               <ul id="toc" style="list-style-type:none;display:block;padding-left:0;margin:0">
+<li class="heading1" id="i1" data-bg="collapsed_chapter.gif;expanded_chapter.gif" style="background:url(expanded_chapter.gif) no-repeat;cursor:pointer;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading1" id="a1" href="introduction.html" target="hmcontent"><span class="heading1" id="s1" ondblclick="return dblclicked(this)">Introduction</span></a>
+<ul id="ul1" style="list-style-type:none;margin-left:-2px;padding:0">
+<li class="heading2" id="i1.1" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a1.1" href="teamcal_pro_license.html" target="hmcontent"><span class="heading2" id="s1.1">TeamCal Pro License</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i2" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading1" id="a2" href="installation.html" target="hmcontent"><span class="heading1" id="s2">Installation</span></a>
+</li>
+<li class="heading1" id="i3" data-bg="collapsed_chapter.gif;expanded_chapter.gif" style="background:url(expanded_chapter.gif) no-repeat;cursor:pointer;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading1" id="a3" href="main_interface.html" target="hmcontent"><span class="heading1" id="s3" ondblclick="return dblclicked(this)">Main Interface</span></a>
+<ul id="ul3" style="list-style-type:none;margin-left:-2px;padding:0">
+<li class="heading2" id="i3.1" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a3.1" href="menu.html" target="hmcontent"><span class="heading2" id="s3.1">Menu Bar</span></a>
+</li>
+<li class="heading2" id="i3.2" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a3.2" href="homepage.html" target="hmcontent"><span class="heading2" id="s3.2">Homepage</span></a>
+</li>
+<li class="heading2" id="i3.3" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a3.3" href="calendar_display.html" target="hmcontent"><span class="heading2" id="s3.3">Calendar Display</span></a>
+</li>
+<li class="heading2" id="i3.4" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a3.4" href="year_calendar_display.html" target="hmcontent"><span class="heading2" id="s3.4">Year Calendar Display</span></a>
+</li>
+<li class="heading2" id="i3.5" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a3.5" href="announcement_popup.html" target="hmcontent"><span class="heading2" id="s3.5">Announcement Popup</span></a>
+</li>
+<li class="heading2" id="i3.6" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a3.6" href="announcement_display.html" target="hmcontent"><span class="heading2" id="s3.6">Announcement Page</span></a>
+</li>
+<li class="heading2" id="i3.7" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a3.7" href="statistics_display.html" target="hmcontent"><span class="heading2" id="s3.7">Global Statistics Display</span></a>
+</li>
+<li class="heading2" id="i3.8" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a3.8" href="statistics_display_2.html" target="hmcontent"><span class="heading2" id="s3.8">Remainder Current Year</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i4" data-bg="collapsed_chapter.gif;expanded_chapter.gif" style="background:url(expanded_chapter.gif) no-repeat;cursor:pointer;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading1" id="a4" href="dialogs.html" target="hmcontent"><span class="heading1" id="s4" ondblclick="return dblclicked(this)">Dialogs</span></a>
+<ul id="ul4" style="list-style-type:none;margin-left:-2px;padding:0">
+<li class="heading2" id="i4.1" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.1" href="daynote_dialog.html" target="hmcontent"><span class="heading2" id="s4.1">Daynote</span></a>
+</li>
+<li class="heading2" id="i4.2" data-bg="collapsed_chapter.gif;expanded_chapter.gif" style="background:url(expanded_chapter.gif) no-repeat;cursor:pointer;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.2" href="edit_profile.html" target="hmcontent"><span class="heading2" id="s4.2" ondblclick="return dblclicked(this)">Add/Edit Profile</span></a>
+<ul id="ul4.2" style="list-style-type:none;margin-left:-2px;padding:0">
+<li class="heading3" id="i4.2.1" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading3" id="a4.2.1" href="personal_data.html" target="hmcontent"><span class="heading3" id="s4.2.1">Personal Data</span></a>
+</li>
+<li class="heading3" id="i4.2.2" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading3" id="a4.2.2" href="membership.html" target="hmcontent"><span class="heading3" id="s4.2.2">Membership</span></a>
+</li>
+<li class="heading3" id="i4.2.3" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading3" id="a4.2.3" href="options.html" target="hmcontent"><span class="heading3" id="s4.2.3">Options</span></a>
+</li>
+<li class="heading3" id="i4.2.4" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading3" id="a4.2.4" href="privileges.html" target="hmcontent"><span class="heading3" id="s4.2.4">Account</span></a>
+</li>
+<li class="heading3" id="i4.2.5" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading3" id="a4.2.5" href="absences.html" target="hmcontent"><span class="heading3" id="s4.2.5">Absences</span></a>
+</li>
+<li class="heading3" id="i4.2.6" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading3" id="a4.2.6" href="absences_2.html" target="hmcontent"><span class="heading3" id="s4.2.6">Avatar</span></a>
+</li>
+<li class="heading3" id="i4.2.7" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading3" id="a4.2.7" href="other.html" target="hmcontent"><span class="heading3" id="s4.2.7">Other</span></a>
+</li>
+</ul>
+</li>
+<li class="heading2" id="i4.3" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.3" href="legend_dialog.html" target="hmcontent"><span class="heading2" id="s4.3">Legend</span></a>
+</li>
+<li class="heading2" id="i4.4" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.4" href="login.html" target="hmcontent"><span class="heading2" id="s4.4">Login</span></a>
+</li>
+<li class="heading2" id="i4.5" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.5" href="message_center.html" target="hmcontent"><span class="heading2" id="s4.5">Message Center</span></a>
+</li>
+<li class="heading2" id="i4.6" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.6" href="month_template.html" target="hmcontent"><span class="heading2" id="s4.6">Month Template</span></a>
+</li>
+<li class="heading2" id="i4.7" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.7" href="user_calendar.html" target="hmcontent"><span class="heading2" id="s4.7">User Calendar</span></a>
+</li>
+<li class="heading2" id="i4.8" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.8" href="register.html" target="hmcontent"><span class="heading2" id="s4.8">User Registration</span></a>
+</li>
+<li class="heading2" id="i4.9" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a4.9" href="view_profile.html" target="hmcontent"><span class="heading2" id="s4.9">View Profile</span></a>
+</li>
+</ul>
+</li>
+<li class="heading1" id="i5" data-bg="collapsed_chapter.gif;expanded_chapter.gif" style="background:url(expanded_chapter.gif) no-repeat;cursor:pointer;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading1" id="a5" href="administration.html" target="hmcontent"><span class="heading1" id="s5" ondblclick="return dblclicked(this)">Administration</span></a>
+<ul id="ul5" style="list-style-type:none;margin-left:-2px;padding:0">
+<li class="heading2" id="i5.1" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.1" href="configuration.html" target="hmcontent"><span class="heading2" id="s5.1">Configuration</span></a>
+</li>
+<li class="heading2" id="i5.2" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.2" href="permissions.html" target="hmcontent"><span class="heading2" id="s5.2">Permissions</span></a>
+</li>
+<li class="heading2" id="i5.3" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.3" href="manage_users.html" target="hmcontent"><span class="heading2" id="s5.3">Users</span></a>
+</li>
+<li class="heading2" id="i5.4" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.4" href="manage_groups.html" target="hmcontent"><span class="heading2" id="s5.4">Groups</span></a>
+</li>
+<li class="heading2" id="i5.5" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.5" href="group_assignment.html" target="hmcontent"><span class="heading2" id="s5.5">Group Assignment</span></a>
+</li>
+<li class="heading2" id="i5.6" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.6" href="manage_absence_types.html" target="hmcontent"><span class="heading2" id="s5.6">Absence Types</span></a>
+</li>
+<li class="heading2" id="i5.7" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.7" href="absence_icons.html" target="hmcontent"><span class="heading2" id="s5.7">Absence Icon</span></a>
+</li>
+<li class="heading2" id="i5.8" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.8" href="manage_regions.html" target="hmcontent"><span class="heading2" id="s5.8">Regions</span></a>
+</li>
+<li class="heading2" id="i5.9" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.9" href="manage_holiday_types.html" target="hmcontent"><span class="heading2" id="s5.9">Holiday Types</span></a>
+</li>
+<li class="heading2" id="i5.10" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.10" href="manage_declination.html" target="hmcontent"><span class="heading2" id="s5.10">Declination</span></a>
+</li>
+<li class="heading2" id="i5.11" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.11" href="manage_database.html" target="hmcontent"><span class="heading2" id="s5.11">Database Maintenance</span></a>
+</li>
+<li class="heading2" id="i5.12" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.12" href="system_log_page.html" target="hmcontent"><span class="heading2" id="s5.12">System Log Page</span></a>
+</li>
+<li class="heading2" id="i5.13" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.13" href="upload_dialog.html" target="hmcontent"><span class="heading2" id="s5.13">Icon Upload Dialog</span></a>
+</li>
+<li class="heading2" id="i5.14" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.14" href="absence_assigment.html" target="hmcontent"><span class="heading2" id="s5.14">Absence to Group Assignment</span></a>
+</li>
+<li class="heading2" id="i5.15" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.15" href="user_import.html" target="hmcontent"><span class="heading2" id="s5.15">User Import</span></a>
+</li>
+<li class="heading2" id="i5.16" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.16" href="template_user.html" target="hmcontent"><span class="heading2" id="s5.16">Template User</span></a>
+</li>
+<li class="heading2" id="i5.17" style="background:url(topic_entry.gif) no-repeat;margin-top:2px;margin-left:0;padding-left:22px" onclick="return clicked(this,event)"><a class="heading2" id="a5.17" href="theme_support.html" target="hmcontent"><span class="heading2" id="s5.17">Theme Support</span></a>
+</li>
+</ul>
+</li>
+</ul>
+<script type="text/javascript">loadicons('expanded_chapter.gif','collapsed_chapter.gif','topic_entry.gif');</script>
+            </td>
+         </tr>
+      </table>
+   </body>
+</html>

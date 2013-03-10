@@ -1,0 +1,124 @@
+﻿<!DOCTYPE HTML>
+<html>
+<!--
+===============================================================================
+ LEWE.COM DOCUMENTATION
+ _____________________________________________________________________________
+
+ Copyright: (c) 2005-2012 by Lewe.com
+ Contact:   George Lewe (george@lewe.com)
+ _____________________________________________________________________________
+
+ This documentation is copyrighted by Lewe.com. It may NOT be redistributed 
+ and/or modified in any way without written approval by Lewe.com.
+
+===============================================================================
+-->
+<head>
+   <title>Year Calendar Display</title>
+   <meta NAME="keywords" CONTENT="year,year calendar,calendar week,overview,popup,week number,daynotes,user notes">
+   <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+   <link REL="stylesheet" TYPE="text/css" HREF="styles.css" />
+   <style TYPE="text/css">
+      a { color: #0000FF; text-decoration: none }
+      a:visited {color: #0000FF }
+      a:hover {color: #E4641C; text-decoration: underline }
+      a.weblink {color: #0000FF; text-decoration: underline }
+      a.weblink:visited {color: #0000FF}
+      a.weblink:hover {color: #E4641C }
+      a.popuplink {color: #FF0000; text-decoration: none}
+      a.popuplink:visited {color: #FF0000}
+      a.popuplink:hover {color: #FF0000; text-decoration: underline}
+      a.filelink {color: #04BC14; text-decoration: none}
+      a.filelink:visited {color: #04BC14}
+      a.filelink:hover {color: #04BC14; text-decoration: underline}
+      .fsmall {
+         font-size: 10px;
+         font-family: Verdana, Helvetica, sans-serif;
+         text-align: center;
+         margin: 10px 0px 0px 0px;
+      }
+      .crumbs {font-size: 8pt; margin-bottom: 3px; margin-top: 0px; color: #000000}
+      .crumbs a {text-decoration: underline; color: #000000}
+      .crumbs a:visited {text-decoration: underline; color: #000000}
+      .crumbs a:hover {color: #000099}
+   </style>
+   
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "year_calendar_display.html");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+
+<body STYLE="margin: 0px 0px 0px 0px; background: #FFFFFF;">
+   
+   
+   
+   <table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" STYLE="margin: 0px; background: #E4E1DC;">
+      <tr VALIGN="bottom">
+         <td ALIGN="left" VALIGN="bottom" STYLE="padding: 0px 6px 6px 10px;">
+            <span CLASS="crumbs">
+            <b>Navigation:</b>&nbsp;
+            
+            
+               <a href="main_interface.html">Main Interface</a>
+            
+            </span>
+         </td>
+         <td ALIGN="right"><img SRC="lewe.gif" BORDER="0"></td>
+      </tr>
+      <tr VALIGN="bottom">
+         <td ALIGN="left" STYLE="padding: 6px 6px 6px 10px;">
+            <h1 class="p_Heading1"><span class="f_Heading1">Year Calendar Display</span></h1>
+
+         </td>
+         <td ALIGN="right" VALIGN="middle" STYLE="padding: 0px 10px 0px 0px;">
+            <span STYLE="font-size: 9pt">
+            
+            <a HREF="calendar_display.html" ONMOUSEOVER="document.images.prev.src='btn_prev_1.gif'" ONMOUSEOUT="document.images.prev.src='btn_prev_0.gif'">
+            <img NAME="prev" SRC="btn_prev_0.gif" BORDER="0" ALT="Previous page"></a>
+            
+            
+            <a HREF="main_interface.html" ONMOUSEOVER="document.images.main.src='btn_home_1.gif'" ONMOUSEOUT="document.images.main.src='btn_home_0.gif'">
+            <img NAME="main" SRC="btn_home_0.gif" BORDER="0" ALT="Return to chapter overview"></a>
+            
+            <a HREF="announcement_popup.html" ONMOUSEOVER="document.images.next.src='btn_next_1.gif'" ONMOUSEOUT="document.images.next.src='btn_next_0.gif'">
+            <img NAME="next" SRC="btn_next_0.gif" BORDER="0" ALT="Next page"></a>
+            
+            
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <td COLSPAN="2" STYLE="height: 3px; background: url(header_bg_shadow.png)"></td>
+      </tr>
+   </table>
+   
+   
+   
+      <div STYLE="margin: 5px 5px 12px 10px;">
+         <p><span style="font-size: 10pt;">New in version 3.0 is the year calendar display. It shows the absences of one user for a full calendar year (January 1st - December 31st.).</span></p>
+<p>&nbsp;</p>
+<div><div style="width:500px;padding:0px"><img src="year01.png" width="500" height="344" style="border:none" alt="Year Calendar Display" title="Year Calendar Display" /><p style="text-align:center"><span class="f_ImageCaption">Year Calendar Display</span></p></div></div>
+<p>&nbsp;</p>
+<p>After selecting 'Year Calendar' from the 'View' menu, the display defaults to the current year for the user currently logged in. If the user 'admin' is logged in the first user (alphabetically by last name) is displayed.</p>
+<p>&nbsp;</p>
+<p>Based on your user account's authorization you can select other years and users in the menu bar of the year calendar page:</p>
+<div><div style="width:391px;padding:0px"><img src="year03.png" width="391" height="43" style="border:none" alt="Year Calendar Page Menu Bar" title="Year Calendar Page Menu Bar" /><p style="text-align:center"><span class="f_ImageCaption">Year Calendar Page Menu Bar</span></p></div></div>
+<p>&nbsp;</p>
+<p>The display itself offers many features you already know from the monthly view. You will find popup menus for day notes and user notes, you will find icons to edit each month's holidays and the calendar of each month for the selected user. The current day (if the current year is displayed) will be marked with the 'today border color' set in the configuration of TeamCal Pro. Also, each Monday shows the calendar week number of that week in the year at the bottom of the cell.</p>
+<div><div style="width:526px;padding:0px"><img src="year02.png" width="526" height="280" style="border:none" alt="Year Calendar Details" title="Year Calendar Details" /><p style="text-align:center"><span class="f_ImageCaption">Year Calendar Details</span></p></div></div>
+<p>&nbsp;</p>
+
+      </div>
+   
+</body>
+</html>
+

@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<!--
+===============================================================================
+ LEWE.COM DOCUMENTATION
+ _____________________________________________________________________________
+
+ Copyright: (c) 2004-2013 by Lewe.com
+ Contact:   George Lewe (george@lewe.com)
+ _____________________________________________________________________________
+
+ This documentation is copyrighted by Lewe.com. It may NOT be redistributed 
+ and/or modified in any way without written approval by Lewe.com.
+
+===============================================================================
+-->
+<head>
+  <title>TeamCal Pro Help</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="helpman_settings.js"></script>
+  <script type="text/javascript" src="helpman_navigation.js"></script>
+
+  <link type="text/css" href="styles.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="favicon.ico" />
+
+  <style type="text/css">
+    html,body { 
+      margin:0; 
+      padding:0; 
+      height:100%; 
+      overflow:hidden; 
+      background:#FFFFFF;
+    }
+
+    #hmheadbox {
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      top: 0px;
+      height: 60px;
+      background: #FFFFFF;
+      border: 2px solid #333399;
+    }
+
+    #hmheadbox p {
+      font-size: 160%;
+      font-weight: bold;
+      margin-top: 16px;
+      margin-left: 8px;
+    }
+
+    #hmnavbox {
+      position: absolute;
+      left: 0px;
+      width: 250px;
+      min-width: 50px;
+      top: 60px;
+      bottom: 0px;
+      border: 2px solid #333399;
+    }
+
+    #hmcontentbox {
+      position: absolute;
+      top: 60px;
+      right: 0px;
+      bottom: 0px;
+      left: 250px;
+      border: 2px solid #333399;
+    }
+
+    iframe {
+      position: absolute;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+      border:none;
+    }
+  </style>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      if (!hmSupportsAbspos()) {
+      	$(window).bind("resize", function() {
+      	  hmNoAbsposResize($("#hmheadbox"), true, false);
+      	  hmNoAbsposResize($("#hmnavbox"), false, true);
+      	  hmNoAbsposResize($("#hmcontentbox"), true, true);
+	    });
+	    $(window).trigger("resize");
+	  }
+      hmCreateVSplitter($("#hmnavbox"),$("#hmcontentbox"));
+    });
+  </script>
+
+</head>
+<body>
+<div id="hmheadbox">
+<!doctype HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<head>
+   <title>TeamCal Pro Help</title>
+   <meta http-equiv="Content-type" content="text/html;charset=iso-8859-1">
+   <meta http-equiv="Content-Style-Type" content="text/css">
+   <meta http-equiv="Pragma" content="no-cache">
+   <meta http-equiv="Expires" content="-1">
+   <link rel="stylesheet" type="text/css" href="css/manuals.css">
+   <link rel="shortcut icon" href="images/favicon.ico" />
+</head>
+   <body style="margin: 0px;" >
+      <table class="headerpage">
+         <tr>
+            <td class="white" style="vertical-align: top;">
+               <table class="header">
+                   <tr>
+                       <td class="header-left"><img src="images/logo.gif" width="264" height="55" alt="" /></td>
+                       <td class="header-right"></td>
+                   </tr>
+                   <tr>
+                       <td class="header-subtitle" colspan="2">&nbsp;</td>
+                   </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+   </body>
+</html>
+</div>
+<div id="hmnavbox">
+  <iframe name="hmnavigation" id="hmnavigation" src="tcpro_content.html" seamless="seamless" title="Navigation Pane" frameborder="0"></iframe>
+</div>
+
+<div id="hmcontentbox" >
+  <script type="text/javascript">
+    var defaulttopic="introduction.html";
+    if (location.href.lastIndexOf("?") > 0) defaulttopic=location.href.substring(location.href.lastIndexOf("?")+1,location.href.length).replace(/:/g,"");
+    document.write('<iframe name="hmcontent" id="hmcontent" src="'+defaulttopic+'" seamless="seamless" title="Content Page" frameborder="0"></iframe>');
+  </script>
+  <noscript>
+    <iframe name="hmcontent" id="hmcontent" src="introduction.html" seamless="seamless" title="Content Page" frameborder="0"></iframe>
+  </noscript>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,166 @@
+﻿<!DOCTYPE HTML>
+<html>
+<!--
+===============================================================================
+ LEWE.COM DOCUMENTATION
+ _____________________________________________________________________________
+
+ Copyright: (c) 2005-2012 by Lewe.com
+ Contact:   George Lewe (george@lewe.com)
+ _____________________________________________________________________________
+
+ This documentation is copyrighted by Lewe.com. It may NOT be redistributed 
+ and/or modified in any way without written approval by Lewe.com.
+
+===============================================================================
+-->
+<head>
+   <title>Declination</title>
+   <meta NAME="keywords" CONTENT="absence threshold,declination,declination management,declination period,period,threshold">
+   <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+   <link REL="stylesheet" TYPE="text/css" HREF="styles.css" />
+   <style TYPE="text/css">
+      a { color: #0000FF; text-decoration: none }
+      a:visited {color: #0000FF }
+      a:hover {color: #E4641C; text-decoration: underline }
+      a.weblink {color: #0000FF; text-decoration: underline }
+      a.weblink:visited {color: #0000FF}
+      a.weblink:hover {color: #E4641C }
+      a.popuplink {color: #FF0000; text-decoration: none}
+      a.popuplink:visited {color: #FF0000}
+      a.popuplink:hover {color: #FF0000; text-decoration: underline}
+      a.filelink {color: #04BC14; text-decoration: none}
+      a.filelink:visited {color: #04BC14}
+      a.filelink:hover {color: #04BC14; text-decoration: underline}
+      .fsmall {
+         font-size: 10px;
+         font-family: Verdana, Helvetica, sans-serif;
+         text-align: center;
+         margin: 10px 0px 0px 0px;
+      }
+      .crumbs {font-size: 8pt; margin-bottom: 3px; margin-top: 0px; color: #000000}
+      .crumbs a {text-decoration: underline; color: #000000}
+      .crumbs a:visited {text-decoration: underline; color: #000000}
+      .crumbs a:hover {color: #000099}
+   </style>
+   
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="helpman_topicinit.js"></script>
+
+   <script type="text/javascript">
+     HMSyncTOC("index.html", "manage_declination.html");
+   </script>
+   <script type="text/javascript" src="highlight.js"></script>
+   <script type="text/javascript">
+     $(document).ready(function(){highlight();});
+   </script>
+</head>
+
+<body STYLE="margin: 0px 0px 0px 0px; background: #FFFFFF;">
+   
+   
+   
+   <table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0" STYLE="margin: 0px; background: #E4E1DC;">
+      <tr VALIGN="bottom">
+         <td ALIGN="left" VALIGN="bottom" STYLE="padding: 0px 6px 6px 10px;">
+            <span CLASS="crumbs">
+            <b>Navigation:</b>&nbsp;
+            
+            
+               <a href="administration.html">Administration</a>
+            
+            </span>
+         </td>
+         <td ALIGN="right"><img SRC="lewe.gif" BORDER="0"></td>
+      </tr>
+      <tr VALIGN="bottom">
+         <td ALIGN="left" STYLE="padding: 6px 6px 6px 10px;">
+            <h1 class="p_Heading1"><span class="f_Heading1">Declination</span></h1>
+
+         </td>
+         <td ALIGN="right" VALIGN="middle" STYLE="padding: 0px 10px 0px 0px;">
+            <span STYLE="font-size: 9pt">
+            
+            <a HREF="manage_holiday_types.html" ONMOUSEOVER="document.images.prev.src='btn_prev_1.gif'" ONMOUSEOUT="document.images.prev.src='btn_prev_0.gif'">
+            <img NAME="prev" SRC="btn_prev_0.gif" BORDER="0" ALT="Previous page"></a>
+            
+            
+            <a HREF="administration.html" ONMOUSEOVER="document.images.main.src='btn_home_1.gif'" ONMOUSEOUT="document.images.main.src='btn_home_0.gif'">
+            <img NAME="main" SRC="btn_home_0.gif" BORDER="0" ALT="Return to chapter overview"></a>
+            
+            <a HREF="manage_database.html" ONMOUSEOVER="document.images.next.src='btn_next_1.gif'" ONMOUSEOUT="document.images.next.src='btn_next_0.gif'">
+            <img NAME="next" SRC="btn_next_0.gif" BORDER="0" ALT="Next page"></a>
+            
+            
+            </span>
+         </td>
+      </tr>
+      <tr>
+         <td COLSPAN="2" STYLE="height: 3px; background: url(header_bg_shadow.png)"></td>
+      </tr>
+   </table>
+   
+   
+   
+      <div STYLE="margin: 5px 5px 12px 10px;">
+         <div><div style="width:668px;padding:0px"><img src="manage_declination.png" width="668" height="492" style="border:none" alt="Declination Management" title="Declination Management" /><p style="text-align:center"><span class="f_ImageCaption">Declination Management</span></p></div></div>
+<p>&nbsp;</p>
+<p>The declination management basically offers a check how many colleagues are already marked absent for a given day before a new absence request is confirmed. The absence threshold can be set here.</p>
+<p>&nbsp;</p>
+<p>Example: Let's say the absence threshold is set to 50% based on Group. The group has 10 members, 4 of them have checked vacation on July 5th. A fifth member now uses TeamCal and checks July 5th for vacation as well and clicks Apply. The absence threshold for 50% will be reached so TeamCal will decline the request (a pop-up will be displayed to the user) and send a notification mail according to the settings in the above dialog.</p>
+<p>&nbsp;</p>
+<p>Also a date can be set before which all absence requests are declined.</p>
+<h2 class="p_Heading2"><span class="f_Heading2">Options</span></h2>
+<h2 class="p_Heading21"><span class="f_Heading21">Threshold Declination</span></h2>
+<p>Switches absence threshold checking and absence request declination on/off</p>
+<p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Activate</span><br />
+Select this box to activate this declination feature<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Threshold in %</span><br />
+Allowed percentage of absence</p><p style="margin: 0px 0px 0px 24px;">&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Based on All</span><br />
+Absence threshold is checked against all users</p><p style="margin: 0px 0px 0px 24px;">&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Based on Group</span><br />
+Absence threshold is checked against all users</p><p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
+<h2 class="p_Heading21"><span class="f_Heading21">Decline Before</span></h2>
+<p>Switches absence past checking and declination on/off</p>
+<p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Activate</span><br />
+Select this box to activate this declination feature<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Before today</span><br />
+Declines all absence request if they are before the day they are entered. This only applies to a change from present to absent.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Before date</span><br />
+<img src="date_picker.png" width="281" height="214" alt="" style="border:none" /><br />
+Enter the date here before which no absence request is accepted. Absence requests for the date it self will be accepted. This only applies to a change from present to absent.<br />
+&nbsp;</p><h2 class="p_Heading21"><span class="f_Heading21">Decline Period</span></h2>
+<p>Defines a period in which no absences are allowed. Regular users will receive a declination error when requesting an absence within this period.</p>
+<p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Activate</span><br />
+Select this box to activate this declination feature<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Start date</span><br />
+<img src="date_picker.png" width="281" height="214" alt="" style="border:none" /><br />
+Enter the date here that is the beginning of the declination period. The date itself is included in the period.<br />
+&nbsp;</p><p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">End date</span><br />
+<img src="date_picker.png" width="281" height="214" alt="" style="border:none" /><br />
+Enter the date here that is the end of the declination period. The date itself is included in the period.</p><p style="margin: 0px 0px 0px 24px;">&nbsp;</p>
+<h2 class="p_Heading21"><span class="f_Heading21">Declination Notifications</span></h2>
+<p>Switches absence threshold checking and absence request declination on/off</p>
+<p> &nbsp; &nbsp; &nbsp; </p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Requesting user</span><br />
+Send a mail about the declination to the requesting user</p><p style="margin: 0px 0px 0px 24px;">&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Group Manager</span><br />
+Send a mail about the declination to the appropriate group manager</p><p style="margin: 0px 0px 0px 24px;">&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Director(s)</span><br />
+Send a mail about the declination to all directors</p><p style="margin: 0px 0px 0px 24px;">&nbsp;</p>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 24px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-style: italic; font-weight: bold;">Administrator</span><br />
+Send a mail about the declination to the administrator</p><p> &nbsp; </p>
+<h2 class="p_Heading2"><span class="f_Heading2">Buttons</span></h2>
+<p style="text-align: left; padding: 0px 0px 0px 17px; margin: 0px 0px 0px 0px;"><span style="font-size:9pt; font-family: 'Arial Unicode MS','Lucida Sans Unicode','Arial';color:#000000;display:inline-block;width:17px;margin-left:-17px">&#8226;</span><span style="font-weight: bold;">[Apply]</span><br />
+Apply the settings made in this dialog</p><p>&nbsp;</p>
+
+      </div>
+   
+</body>
+</html>
+

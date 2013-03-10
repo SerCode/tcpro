@@ -1,0 +1,387 @@
+<?php
+/**
+ * editmonth.php
+ *
+ * Displays the edit month dialog
+ *
+ * @package TeamCalPro
+ * @version 3.5.002
+ * @author George Lewe
+ * @copyright Copyright (c) 2004-2013 by George Lewe
+ * @link http://www.lewe.com
+ * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
+ */
+
+//echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+
+/**
+ * Set parent flag to control access to child scripts
+ */
+define( '_VALID_TCPRO', 1 );
+
+/**
+ * Includes
+ */
+require_once ("config.tcpro.php");
+require_once ("includes/functions.tcpro.php");
+getOptions();
+if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
+else                                  require ("includes/lang/english.tcpro.php");
+
+require_once ("includes/tcconfig.class.php");
+require_once ("includes/tcdaynote.class.php");
+require_once ("includes/tcholiday.class.php");
+require_once ("includes/tclogin.class.php");
+require_once ("includes/tclog.class.php");
+require_once ("includes/tcmonth.class.php");
+require_once ("includes/tcuser.class.php");
+
+$C = new tcConfig;
+$H = new tcHoliday;
+$H2 = new tcHoliday;
+$L = new tcLogin;
+$LOG = new tcLog;
+$M = new tcMonth;
+$N = new tcDaynote;
+$UL = new tcUser;
+$error=FALSE;
+
+/**
+ * Check if allowed
+ */
+if (!isAllowed("editGlobalCalendar")) showError("notallowed");
+
+if (isset ($_REQUEST['region'])) $region = $_REQUEST['region']; else $region = $CONF['options']['region'];
+if (isset ($_REQUEST['Year']))   $Year = $_REQUEST['Year']; else $Year = date('Y');
+if (isset ($_REQUEST['Month']))  $Month = $_REQUEST['Month']; else $Month = date('M');
+
+/**
+ * =========================================================================
+ * BACKWARD
+ */
+if ( isset($_POST['btn_bwd']) ) {
+   $Year=$_POST['hid_bwdYear'];
+   $Month=$_POST['hid_bwdMonth'];
+}
+/**
+ * =========================================================================
+ * FORWARD
+ */
+if ( isset($_POST['btn_fwd']) ) {
+   $Year=$_POST['hid_fwdYear'];
+   $Month=$_POST['hid_fwdMonth'];
+}
+
+$weekdays = $LANG['weekdays'];
+/**
+ * First create a timestamp
+ */
+$mytime = $Month . " 1," . $Year;
+$myts = strtotime($mytime);
+/**
+ * Get number of days in month
+ */
+$nofdays = date("t", $myts);
+/**
+ * Get first weekday of the month
+ */
+$mydate = getdate($myts);
+$monthno = sprintf("%02d", intval($mydate['mon']));
+$weekday1 = $mydate['wday'];
+if ($weekday1 == "0") $weekday1 = "7";
+$dayofweek = intval($weekday1);
+/**
+ * Prepare the Fwd/Bwd buttons
+ */
+if (intval($monthno)==12) {
+   $fwdMonth=$CONF['monthnames'][1];
+   $fwdYear=$Year+1;
+}
+else {
+   $fwdMonth=$CONF['monthnames'][intval($monthno)+1];
+   $fwdYear=$Year;
+}
+
+if (intval($monthno)==1) {
+   $bwdMonth=$CONF['monthnames'][12];
+   $bwdYear=$Year-1;
+}
+else {
+   $bwdMonth=$CONF['monthnames'][intval($monthno)-1];
+   $bwdYear=$Year;
+}
+
+/**
+ * See if a template exists. If not, create one.
+ */
+$found = $M->findByName($region, $Year.$monthno);
+if (!$found || !$M->template) {
+   $M->region = $region;
+   $M->yearmonth = $Year . $monthno;
+   $M->template = createMonthTemplate($Year, $Month);
+   $M->create();
+   /**
+    * Log this event
+    */
+   $LOG->log("logMonth", $L->checkLogin(), "Missing month template created: " . $M->region . " " . $M->yearmonth . " " . $M->template);
+}
+/**
+ * =========================================================================
+ * APPLY
+ */
+if (isset ($_POST['btn_apply'])) {
+   /**
+    * First clear out the template
+    */
+   $template = "";
+   $dayofweek = intval($weekday1);
+   for ($i = 1; $i <= $nofdays; $i++) {
+      switch ($dayofweek) {
+         case 1 : $template .= '0'; break;
+         case 2 : $template .= '0'; break;
+         case 3 : $template .= '0'; break;
+         case 4 : $template .= '0'; break;
+         case 5 : $template .= '0'; break;
+         case 6 : if ($C->readConfig("satBusi")) $template .= '0'; else $template .= '1'; break;
+         case 7 : if ($C->readConfig("sunBusi")) $template .= '0'; else $template .= '1'; break;
+      }
+      $dayofweek += 1;
+      if ($dayofweek == 8) $dayofweek = 1;
+   }
+   /**
+    * Now add the check marks
+    * If several check marks are set for the same day the last day type
+    * row wins.
+    */
+   foreach ($_POST as $key => $value) {
+      $cfgname = substr($key, 0, 5);
+      if ($H->findByName($cfgname)) {
+         $day = substr($key, 5, 2);
+         $index = intval($day) - 1;
+         $template[$index] = $H->cfgsym;
+      }
+   }
+   /**
+    * Write the new template
+    */
+   $M->template = $template;
+   $M->update($M->region, $M->yearmonth);
+   /**
+    * Log this event
+    */
+   $LOG->log("logMonth", $L->checkLogin(), "Month template updated: " . $M->region . " " . $M->yearmonth . " " . $M->template);
+   /**
+    * Send notification e-Mails
+    */
+   $subject = $LANG['monthnames'][intval($monthno)] . " " . trim($Year);
+   sendNotification("monthchange", $subject, "");
+}
+/**
+ * =========================================================================
+ * CLEAR
+ */
+else if (isset ($_POST['btn_clear'])) {
+   /**
+    * First clear out the template
+    */
+   $template = "";
+   $dayofweek = intval($weekday1);
+   for ($i = 1; $i <= $nofdays; $i++) {
+      switch ($dayofweek) {
+         case 1 : $template .= '0'; break;
+         case 2 : $template .= '0'; break;
+         case 3 : $template .= '0'; break;
+         case 4 : $template .= '0'; break;
+         case 5 : $template .= '0'; break;
+         case 6 : if ($C->readConfig("satBusi")) $template .= '0'; else $template .= '1'; break;
+         case 7 : if ($C->readConfig("sunBusi")) $template .= '0'; else $template .= '1'; break;
+      }
+      $dayofweek += 1;
+      if ($dayofweek == 8) $dayofweek = 1;
+   }
+   /**
+    * Write the new template
+    */
+   $M->template = $template;
+   $M->update($M->region, $M->yearmonth);
+   /**
+    * Log this event
+    */
+   $LOG->log("logMonth", $L->checkLogin(), "Month template updated: " . $M->region . " " . $M->yearmonth . " " . $M->template);
+   /**
+    * Send notification e-Mails
+    */
+   $subject = $LANG['monthnames'][intval($monthno)] . " " . trim($Year);
+   sendNotification("monthchange", $subject, "");
+}
+
+require("includes/header.html.inc.php");
+?>
+<body>
+   <div id="content">
+      <div id="content-content">
+         <form  name="monthform" method="POST" action="<?=($_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."&amp;region=".$region."&amp;Year=".$Year."&amp;Month=".$Month)?>">
+            <table class="dlg">
+               <tr>
+                  <td class="dlg-header">
+                     <?php printDialogTop($LANG['month_edit']." ".$LANG['monthnames'][intval($monthno)]." ".$Year." (".$LANG['month_region'].": ".$region.")","month_template.html","ico_holidays.png"); ?>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="dlg-body">
+                     <?php
+                     /**
+                      * Month frame: Day of month
+                      */
+                     ?>
+                     <br>
+                     <table class="month">
+                        <tr>
+                           <td class="month"><?=$LANG['monthnames'][intval($monthno)] . "&nbsp;" . trim($Year)?></td>
+                           <td class="month-button">&nbsp;</td>
+                           <?php
+                           /**
+                            * Daynumber row
+                            */
+                           for ($i = 1; $i <= $nofdays; $i = $i +1) {
+                              if ($H->findBySymbol($M->template[$i -1])) {
+                                 if ($H->cfgname == 'busi') {
+                                    // A business day has a special bgcolor in this dayofmonth row
+                                    echo "<td class=\"daynum\">" . $i . "</td>";
+                                 } else {
+                                    echo "<td class=\"daynum-" . $H->cfgname . "\">" . $i . "</td>";
+                                 }
+                              } else {
+                                 echo "<td class=\"daynum\">" . $i . "</td>";
+                              }
+                           }
+                           ?>
+                        </tr>
+                        <tr>
+                           <td class="title" style="font-size: 8pt;">
+                              <input title="<?=$LANG['tt_page_bwd']?>" name="btn_bwd" type="submit" class="button" value="&lt;&lt;">
+                              <input title="<?=$LANG['tt_page_fwd']?>" name="btn_fwd" type="submit" class="button" value="&gt;&gt;">
+                              <input type="hidden" name="hid_fwdMonth" value="<?=$fwdMonth?>">
+                              <input type="hidden" name="hid_fwdYear" value="<?=$fwdYear?>">
+                              <input type="hidden" name="hid_bwdMonth" value="<?=$bwdMonth?>">
+                              <input type="hidden" name="hid_bwdYear" value="<?=$bwdYear?>">
+                           </td>
+                           <td class="title-button">&nbsp;</td>
+                           <?php
+                           /**
+                            * Weekday columns
+                            */
+                           $x = intval($weekday1);
+                           for ($i = 1; $i <= $nofdays; $i = $i +1) {
+                              if ($H->findBySymbol($M->template[$i -1])) {
+                                 if ($H->cfgname == 'busi') {
+                                    // A business day has a special bgcolor in this dayofweek row
+                                    echo "<td class=\"weekday\">" . $weekdays[$x] . "</td>";
+                                 } else {
+                                    echo "<td class=\"weekday-" . $H->cfgname . "\">" . $weekdays[$x] . "</td>";
+                                 }
+                              } else {
+                                 echo "<td class=\"weekday\">" . $weekdays[$x] . "</td>";
+                              }
+                              if ($x <= 6)
+                                 $x += 1;
+                              else
+                                 $x = 1;
+                           }
+                           ?>
+                        </tr>
+                        <tr>
+                           <td class="name"><?=$LANG['month_daynote']?></td>
+                           <td class="name-button">&nbsp;</td>
+                           <?php
+                           /**
+                            * Daynote columns
+                            */
+                           $x = intval($weekday1);
+                           for ($i = 1; $i <= $nofdays; $i = $i +1) {
+                              if ($i < 10)
+                                 $dd = "0" . strval($i);
+                              else
+                                 $dd = strval($i);
+                              if ($H->findBySymbol($M->template[$i -1])) {
+                                 if ($H->cfgname == 'busi') {
+                                    if ($N->findByDay($Year . $monthno . $dd, "all", $region))
+                                       $style = "weekday-note";
+                                    else
+                                       $style = "weekday";
+                                 } else {
+                                    if ($N->findByDay($Year . $monthno . $dd, "all", $region))
+                                       $style = "weekday-" . $H->cfgname . "-note";
+                                    else
+                                       $style = "weekday-" . $H->cfgname;
+                                 }
+                              } else {
+                                 if ($N->findByDay($Year . $monthno . $dd, "all", $region))
+                                    $style = "weekday-note";
+                                 else
+                                    $style = "weekday";
+                              }
+                              echo "<td class=\"" . $style . "\">";
+                              if (isAllowed("editGlobalDaynotes")) {
+                                 echo "<a href=\"javascript:this.blur(); openPopup('daynote.php?lang=" . $CONF['options']['lang'] . "&amp;date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20" . $LANG['monthnames'][intval($monthno)] . "%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\">
+                                          <img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"" . $LANG['month_daynote_tooltip'] . "\" border=\"0\">
+                                       </a>
+                                    </td>\n";
+                              }
+                              if ($x <= 6)
+                                 $x += 1;
+                              else
+                                 $x = 1;
+                           }
+                           ?>
+                        </tr>
+                        <?php
+                        /**
+                         * Holiday rows
+                         */
+                        $i = 1;
+                        $holidays = $H->getAll();
+                        foreach ($holidays as $row) {
+                           // Show a row for each type of day except business and weekend.
+                           if ($row['cfgsym'] != '0' && $row['cfgsym'] != '1') {
+                              echo "
+                                 <tr>
+                                    <td class=\"name\">" . $row['dspname'] . "</td>
+                                    <td class=\"name-button\">&nbsp;</td>";
+                              for ($count = 0; $count < strlen($M->template); $count++) {
+                                 if ($M->template[$count] == $row['cfgsym']) {
+                                    echo "
+                                       <td class=\"day-" . $row['cfgname'] . "\">
+                                          <input name=\"" . $row['cfgname'] . strval($count +1) . "\" id=\"" . $row['cfgname'] . strval($count +1) . "\" type=\"checkbox\" value=\"" . $row['cfgname'] . strval($count +1) . "\" CHECKED>";
+                                 } else {
+                                    if ($H2->findBySymbol($M->template[$count])) {
+                                       echo "<td class=\"day-" . $H2->cfgname . "\">";
+                                    } else {
+                                       echo "<td class=\"day\">";
+                                    }
+                                    echo "<input name=\"" . $row['cfgname'] . strval($count +1) . "\" id=\"" . $row['cfgname'] . strval($count +1) . "\" type=\"checkbox\" value=\"" . $row['cfgname'] . strval($count +1) . "\">";
+                                 }
+                                 echo "</td>";
+                              }
+                              echo "</tr>";
+                           }
+                        }
+                        ?>
+                     </table>
+                     <br>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="dlg-menu">
+                     <input name="btn_clear" type="submit" class="button" value="<?=$LANG['btn_clear']?>">
+                     <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
+                     <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?month_template.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+                     <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
+                     <input name="btn_done" type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_done']?>">
+                  </td>
+               </tr>
+            </table>
+         </form>
+      </div>
+   </div>
+<?php require("includes/footer.html.inc.php"); ?>
