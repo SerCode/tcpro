@@ -1643,6 +1643,7 @@ $LANG['decl_notify_manager'] = 'Group Manager';
 $LANG['decl_notify_director'] = 'Director(s)';
 $LANG['decl_notify_admin'] = 'Administrator';
 
+
 /**
  * ============================================================================
  * Added in TeamCal Pro 3.5.002
@@ -1654,4 +1655,67 @@ $LANG['decl_notify_admin'] = 'Administrator';
 $LANG['log_tt_notallowed'] = 'This event type is currently logged. You are not allowed to change this setting.';
 $LANG['log_btn_clearlog'] = 'Clear system log';
 $LANG['log_clear_confirm'] = 'Are you sure you want to clear the system log? All entries will be deleted.';
+
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.5.003
+ */
+
+/*
+ * Absence type page
+ */
+$LANG['abs_sel_abs'] = 'Select absence type';
+$LANG['abs_sel_confirm'] = "Are you sure you want to select this absence type?\\nAll changes to the current one that have not been applied will be lost.";
+$LANG['abs_title'] = 'Absence type settings for "';
+$LANG['abs_name'] = 'Name';
+$LANG['abs_name_desc'] = 'The absence type name is used in lists and descriptions and should tell what this absence type is about, e.g. "Duty trip". It can be 80 characters long.';
+$LANG['abs_symbol'] = 'Symbol';
+$LANG['abs_symbol_desc'] = 'The absence type symbol is used in the calendar display if no icon is set for this absence type. Chose a single character.';
+$LANG['abs_icon'] = 'Icon';
+$LANG['abs_icon_desc'] = 'The absence type icon is used in the calendar display. If no icon is set for this absence type, the symbol will be used instead.';
+$LANG['abs_color'] = 'Text color';
+$LANG['abs_color_desc'] = 'In case the character symbol is used, this is the color it is displayed in. Click into the field to open the color picker.';
+$LANG['abs_bgcolor'] = 'Background color';
+$LANG['abs_bgcolor_desc'] = 'This is the background color used for this absence type, independent from symbol or icon. Click into the field to open the color picker.';
+$LANG['abs_factor'] = 'Factor';
+$LANG['abs_factor_desc'] = 'TeamCal can count the amount of days taken per absence type. You can find the results in the "Absence" tab of the user '.
+'profile dialog. The "Factor" field here offers the option to multiply each found absence with a value of your choice. The default is 1.<br>'.
+'Example: You create an absence type called "Half Day Training". You would want to assign it the factor 0.5 in order to get the total count of '.
+'training days. An employee that has taken 10 half training days would end up with a total of 5 (10 * 0.5 = 5).<br>'.
+'Setting the factor to 0 will exclude the absence type from the count.';
+$LANG['abs_allowance'] = 'Allowance';
+$LANG['abs_allowance_desc'] = 'Set an allowance for this absence type per year here. This amount refers to the current calendar year. When displaying '.
+'a user profile the absence count section will contain the remaining amount for this absence type for the user (A negative value will indicate that the '.
+'user has used too many absence days of this type.). If allowance is set to 0 no limit is assumed.';
+$LANG['abs_show_in_remainder'] = 'Show in remainder';
+$LANG['abs_show_in_remainder_desc'] = 'The Calendar Display offers an expandable section to display the remaining allowance for each absence type for '.
+'each user for the current year. Use this switch to decide which absence types shall be included in that display. If none of the absence types is '.
+'marked for display in the remainder section then no expand/collapse button will be visible in the calendar display even though showing the remainder '.
+'is generally switched on (config.inc.php).<br>'.
+'Note: It does not seem to make sense to include an absence type in the remainder display when the Factor is set to 0. The allowance and remaining allowance will always be the same.';
+$LANG['abs_show_totals'] = 'Show totals';
+$LANG['abs_show_totals_desc'] = 'The remainder section can be configured to also include a totals display for the current month. This totals '.
+'section shows the sums of each absence type taken for the month displayed. Use this switch to include this absence type in that section. '.
+'If none of the absence types is marked for display in the totals section then the totals section will not be shown at all.';
+$LANG['abs_approval_required'] = 'Approval required';
+$LANG['abs_approval_required_desc'] = 'Checking this box defines that this absence type requires approval by the group manager, director or '.
+'administrator. A regular user choosing this absence type in his calendar will receive an error message telling him so. The group manager of '.
+'this user will receive an e-Mail informing him that his approval is required for this request. He can then enter this absence for the user '.
+'if he approves it.';
+$LANG['abs_counts_as_present'] = 'Counts as present';
+$LANG['abs_counts_as_present_desc'] = 'Checking this box defines that this absence type counts as "present". Let\'s say you maintain an absence '.
+'type "Home Office" but since this person is working you do not want to count this as "absent". In that case check the box and all Home Office '.
+'absences count as present in the summary count section. Thus, "Home Office" is also not listed in the absence type list in the summary count.';
+$LANG['abs_manager_only'] = 'Manager only';
+$LANG['abs_manager_only_desc'] = 'Checking this box defines that this absence type is only available to directors and managers. A regular '.
+'member can see this absence type in his calendar but all check boxes are disabled. Only his manager or the director can check the boxes for him. '.
+'This feature comes in handy if only the manager or director is supposed to manage this absence, e.g. vacation.';
+$LANG['abs_hide_in_profile'] = 'Hide in profile';
+$LANG['abs_hide_in_profile_desc'] = 'Checking this box defines that regular users cannot see this absence type on the Absences tab of their profile. '.
+'Only Managers, Directors or Administrator will see it there. This feature is useful if a manager wants to use an absence type for tracking '.
+'purposes only or if the remainders are of no interest to regular users.';
+$LANG['abs_confidential'] = 'Confidential';
+$LANG['abs_confidential_desc'] = 'Checking this box marks this absence type a "confidential". The public and regular users cannot see this absence '.
+'in the calendar, except it is the regular user\'s own absence. This feature is useful if you want to hide sensitive absence types from regular users.';
 ?>
