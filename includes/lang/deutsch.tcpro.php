@@ -1654,4 +1654,81 @@ $LANG['decl_notify_admin'] = 'Administratoren';
 $LANG['log_tt_notallowed'] = 'Dieser Ereignistyp wird zurzeit gelogt. Du bist nicht berechtigt, diese Einstellung zu &auml;ndern.';
 $LANG['log_btn_clearlog'] = 'System log l&ouml;schen';
 $LANG['log_clear_confirm'] = 'Bist du sicher, dass du das System log l&ouml;schen willst? Alle Eintr&auml;ge werden gel&ouml;scht.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.5.003
+ */
+
+/*
+ * Absence type page
+ */
+$LANG['abs_sel_abs'] = 'Abwesenheitstyp ausw&auml;hlen';
+$LANG['abs_sel_confirm'] = "Soll dieser Abwesenheitstyp ausgew&auml;hlt werden?\\nAlle noch nicht gespeicherten &Auml;nderungen gehen verloren.";
+$LANG['abs_del_confirm'] = "Soll dieser Abwesenheitstyp ausgew&auml;hlt werden?: ";
+$LANG['abs_create_abs'] = 'Neuer Abwesenheitstyp (Name)';
+$LANG['abs_title'] = 'Abwesenheitstyp Einstellungen f&uml;r "';
+$LANG['abs_help_title'] = 'Abwesenheitstyp Einstellungen';
+$LANG['abs_sample'] = 'Beispielanzeige';
+$LANG['abs_sample_desc'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen (nach Speicherung).';
+$LANG['abs_name'] = 'Name';
+$LANG['abs_name_desc'] = 'Der Name wird in Listen und Beschreibungen benutzt. Er sollte aussagekr&auml;ftig sein, z.B. "Dienstreise". Maximal 80 Zeichen.';
+$LANG['abs_symbol'] = 'Symbol';
+$LANG['abs_symbol_desc'] = 'Das Symbol wird im Kalender engezeigt, wenn kein Icon gesetzt wurde. Es wird ausserdem in Emails benutzt. '.
+'Das Symbol ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Symbol f&uuml;r mehrere Abwesenheitstypen benutzt werden. '.
+'Als Standard wird "A" eingesetzt.';
+$LANG['abs_icon'] = 'Icon';
+$LANG['abs_icon_desc'] = 'Das Icon wird im Kalender benutzt. Wenn kein Icon ausgew&auml;hlt wird, wird stattdessen das Symbol angezeigt.';
+$LANG['abs_color'] = 'Textfarbe';
+$LANG['abs_color_desc'] = 'Wenn das Symbol benutzt wird (kein Icon), wird diese Textfarbe benutzt. Ein Farbdialog erscheint beim Klicken in das Feld.';
+$LANG['abs_bgcolor'] = 'Hintergundfarbe';
+$LANG['abs_bgcolor_desc'] = 'Die Hintergundfarbe wird im Kalender benutzt, egal ob Symbol oder Icon gew&auml;hlt ist. Ein Farbdialog erscheint beim Klicken in das Feld.';
+$LANG['abs_factor'] = 'Faktor';
+$LANG['abs_factor_desc'] = 'TeamCal kann die genommen Tage dieses Abwesenheitstypen summieren. Das Ergebnis kann im "Abwesenheiten" Reiter des '.
+'Nutzerprofils eingesehen werden. Der "Faktor" hier bietet einen Multiplikator f&uuml;r diesen Abwesenheitstypen f&uuml;r diese Berechnung. Der Standard ist 1.<br>'.
+'Beispiel: Du kannst einen Abwesenheitstypen "Halbtagstraining" anlegen. Du w&uuml;rdest den Faktor dabei logischerweise auf 0.5 setzen, um die korrekte Summe '.
+'genommener Trainingstage zu erhalten. Ein Nutzer, der 10 Halbtagstrainings genommen hat, k&auml;me so auf eine Summe von 5 (10 * 0.5 = 5) ganzen Trainingstagen.<br>'.
+'Wenn der Faktor auf 0 gesetzt wird, wird er von der Berechnung ausgeschlossen.';
+$LANG['abs_allowance'] = 'Erlaubte Anzahl';
+$LANG['abs_allowance_desc'] = 'Hier kann die erlaubte Anzahl pro Kalenderjahr f&uuml;r diesen Typen gesetzt werden. Im Nutzerprofil '.
+'wird die genommene und noch verbleibende Anzahl angezeigt (Ein negativer Wert in der Anzeige bedeutet, dass der Nutzer die erlaubte Anzahl '.
+'&uuml;berschritten hat.). Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
+$LANG['abs_show_in_remainder'] = 'Verbleibende anzeigen';
+$LANG['abs_show_in_remainder_desc'] = 'Im Kalender gibt es eine aufklappbare "Verbleibend" Anzeige f&uuml;r alle Abwesenheitstypen pro Jahr pro Nutzer. '.
+'Mit diesem Schalter kann bestimmt werden, ob dieser Typ in der Anzeige enthalten sein soll. Wenn kein Abwesenheitstyp f&uuml;r diese Anzeige '.
+'aktiviert it, ist die Anzeige auch nicht sichtbar, auch wenn die Anzeige grunds&auml;tzlich in der Konfiguration eingeschaltet ist<br>'.
+'Hinweis: Es macht keinen Sinn, einen Typen in der Verbleibend-Anzeige anzuzeigen, wenn der Faktor auf 0 gesetzt ist. Die erlaubte und '.
+'verbleibende Anzahl wird dann immer gleich sein.';
+$LANG['abs_show_totals'] = 'Summen anzeigen';
+$LANG['abs_show_totals_desc'] = 'Die Verbleibend-Anzeige kann konfiguriert werden, so dass sie die genommenen Tage pro Monat anzeigt. Dieser Wert zeigt '.
+'die Summe der genommenen Tage dieses Typen f&uuml;r den angezeigten Monat an. Dieser Schalter aktiviert diesen Typen daf&uuml;r. '.
+'Wenn kein Abwesenheitstyp dafuer aktiviert ist, wird der Summenteil nicht angezeigt.';
+$LANG['abs_approval_required'] = 'Genehmigung erforderlich';
+$LANG['abs_approval_required_desc'] = 'Dieser Schalter macht den Typen genehmigungspflichtig durch einen Manager, Direktor oder Administrator. '.
+'Ein normaler Nutzer wird dann eine Fehlermeldung erhalten, wenn er diesen Typen eintr&auml;gt. Der Manager der Gruppe erh&auml;lt aber eine Email, '.
+'dass eine Genehmigung seinerseits erforderlich ist. Er kann dann den Kalender dieses Nutzers bearbeiten und die entsprechende Abwesenheit '.
+'eintragen.';
+$LANG['abs_counts_as_present'] = 'Z&auml;hlt als anwesend';
+$LANG['abs_counts_as_present_desc'] = 'Dieser Schalter definiert einen Typen als "anwesend". Dies bietet sich z.B. beim Abwesenheitstyp '.
+'"Heimarbeit" an. Weil die Person arbeitet, m&ouml;chte man dies nicht als "abwesend" z&auml;hlen. Mit diesem Schalter aktiviert wird dann der Typ '.
+'in den Summen als anwesend gewertet. Somit w&uuml;rde "Heimarbeit" dann auch nicht in den Abwesenheiten angezeigt.';
+$LANG['abs_manager_only'] = 'Nur Manager';
+$LANG['abs_manager_only_desc'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Manager und Direktoren diesen Typen setzen. Ein normaler '.
+'Nutzer kann den Abwesenheitstypen zwar sehen, aber nicht sezten. Diese Funktion macht Sinn, wenn z.B. nur Manager und Direktoren einen Typen wie '.
+'"Urlaub" managen.';
+$LANG['abs_hide_in_profile'] = 'Im Profil verbergen';
+$LANG['abs_hide_in_profile_desc'] = 'Dieser Schalter kann benutzt werden, um diesen Typen f&uuml;r normale Nutzer nicht im "Abwesenheiten" Reiter der '.
+'Nutzerprofile anzuzeigen. Nur Manager, Direktoren und Administratoren k&ouml;nnen ihn dort sehen. Diese Funktion macht Sinn, wenn Manager einen Typen '.
+'nur zum Zwecke von Nachverfolgung nutzt oder die verbleibende Anzahl f&uuml;r den normalen Nutzer uninteressant ist.';
+$LANG['abs_confidential'] = 'Vertraulich';
+$LANG['abs_confidential_desc'] = 'Dieser Schalter macht den Typen "vertraulich". Normale Nutzer k&ouml;nnen diese Abwesenheit nicht im Kalender '.
+'sehen, ausser es ist ihre eigene Abwesenheit. Dies kann f&uuml;r sensitive Abwesenheiten wie "Krankheit" n&uuml;tzlich sein.';
+
+/**
+ * Error Messages
+ */
+$LANG['err_input_abs_no_name'] = 'Du musst einen Namen f&uuml;r diesen Abwesenheitstypen angeben.';
+$LANG['err_input_abs_name'] = 'Nur alphanumerische Zeichen, Leerzeichen, Bindestriche und Unterstriche sind beim Namen erlaubt.';
+$LANG['err_input_abs_symbol'] = 'Nur alphanumerische Zeichen und -=+*#$%&*()_ sind beim Symbol erlaubt.';
+$LANG['err_input_abs_color'] = 'Nur hexadezimale Zeichen sind bei den Fabrwerten erlaubt.';
 ?>

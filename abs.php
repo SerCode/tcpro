@@ -66,12 +66,38 @@ if ( isset($_POST['sel_abs']) ) {
  */
 if ( isset($_POST['btn_create']) ) {
 
-
+   if (isset($_POST['txt_create_name']) AND !empty($_POST['txt_create_name'])) {
+      if (!preg_match('/^[a-zA-Z0-9-_\x20]*$/', $_POST['txt_create_name'])) {
+        showError("input",$LANG['err_input_abs_name']);
+      }
+      else {
+         $A->name = $_POST['txt_create_name'];
+         $A->symbol = "A";
+         $A->icon = "No";
+         $A->color = "000000";
+         $A->bgcolor = "FFFFFF";
+         $A->factor = 1;
+         $A->allowance = 0;
+         $A->show_in_remainder = 1;
+         $A->show_totals = 1;
+         $A->approval_required = 0;
+         $A->counts_a_present = 0;
+         $A->manager_only = 0;
+         $A->hide_in_profile = 0;
+         $A->confidential = 0;
+         $A->create();
+         $absid = $A->getLastId();
+         //print $absid;
+      }
+   }
+   else {
+      showError("input",$LANG['err_input_abs_no_name']);
+   }
+    
    /**
     * Log this event
     */
-   $LOG->log("logAbsence",$L->checkLogin(),"Absence type created '".$A->name." (".$A->id.")' was created or reset");
-   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$A->id."&lang=".$CONF['options']['lang']);
+   $LOG->log("logAbsence",$L->checkLogin(),"Absence type created: ".$A->name." (".$absid.")");
 }
 
 /**
@@ -80,12 +106,74 @@ if ( isset($_POST['btn_create']) ) {
  */
 else if ( isset($_POST['btn_apply']) ) {
 
+   if (!empty($_POST['txt_name'])) {
+      if (!preg_match('/^[a-zA-Z0-9-_\x20]*$/', $_POST['txt_name'])) {
+         showError("input",$LANG['err_input_abs_name']);
+      }
+      else {
+         $A->name = $_POST['txt_name'];
+      }
+   }
+   
+   if (!empty($_POST['txt_symbol'])) {
+      if (!preg_match('/^[a-zA-Z0-9-=+*#$%&*()_]*$/', $_POST['txt_symbol'])) {
+         showError("input",$LANG['err_input_abs_symbol']);
+      }
+      else {
+         $A->symbol = $_POST['txt_symbol'];
+      }
+   }
+    
+   if (!empty($_POST['txt_color'])) {
+      if (!preg_match('/^[a-fA-F0-9]*$/', $_POST['txt_color'])) {
+         showError("input",$LANG['err_input_abs_color']);
+      }
+      else {
+         $A->color = $_POST['txt_color'];
+      }
+   }
+   
+   if (!empty($_POST['txt_bgcolor'])) {
+      if (!preg_match('/^[a-fA-F0-9]*$/', $_POST['txt_bgcolor'])) {
+         showError("input",$LANG['err_input_abs_color']);
+      }
+      else {
+         $A->bgcolor = $_POST['txt_bgcolor'];
+      }
+   }
+    
+   $A->icon = $_POST['sel_icon'];
+   if ( isset($_POST['chk_factor']) && $_POST['chk_factor'] ) $A->factor=1; else $A->factor=0;
+   if ( isset($_POST['chk_allowance']) && $_POST['chk_allowance'] ) $A->allowance=1; else $A->allowance=0;
+   if ( isset($_POST['chk_show_in_remainder']) && $_POST['chk_show_in_remainder'] ) $A->show_in_remainder=1; else $A->show_in_remainder=0;
+   if ( isset($_POST['chk_show_totals']) && $_POST['chk_show_totals'] ) $A->show_totals=1; else $A->show_totals=0;
+   if ( isset($_POST['chk_approval_required']) && $_POST['chk_approval_required'] ) $A->approval_required=1; else $A->approval_required=0;
+   if ( isset($_POST['chk_counts_as_present']) && $_POST['chk_counts_as_present'] ) $A->counts_as_present=1; else $A->counts_as_present=0;
+   if ( isset($_POST['chk_manager_only']) && $_POST['chk_manager_only'] ) $A->manager_only=1; else $A->manager_only=0;
+   if ( isset($_POST['chk_hide_in_profile']) && $_POST['chk_hide_in_profile'] ) $A->hide_in_profile=1; else $A->hide_in_profile=0;
+   if ( isset($_POST['chk_confidential']) && $_POST['chk_confidential'] ) $A->confidential=1; else $A->confidential=0;
 
+   $A->update($_POST['txt_absid']);
+   
    /**
     * Log this event
     */
-   $LOG->log("logAbsence",$L->checkLogin(),"Absence type created '".$A->name." (".$A->id.")' was created or reset");
-   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$A->id."&lang=".$CONF['options']['lang']);
+   $LOG->log("logAbsence",$L->checkLogin(),"Absence type updated: ".$A->name." (".$_POST['txt_absid'].")");
+}
+
+/**
+ * ========================================================================
+ * DELETE
+ */
+else if ( isset($_POST['btn_delete']) ) {
+   
+   $A->delete($_POST['txt_absid']);
+   
+   /**
+    * Log this event
+    */
+   $LOG->log("logAbsence",$L->checkLogin(),"Absence type deleted: ".$A->name." (".$_POST['txt_absid'].")");
+   header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
 }
 
 require("includes/header.html.inc.php");
@@ -99,7 +187,7 @@ require("includes/menu.inc.php");
          <tr>
             <td style="padding: 8px 14px 8px 14px; border-right: 1px solid #333333;">
                <form name="form-sel-abs" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?absid=".$absid."&amp;lang=".$CONF['options']['lang']?>">
-                  <?=$LANG['perm_sel_scheme']?>&nbsp;
+                  <?=$LANG['abs_sel_abs']?>&nbsp;
                   <script type="text/javascript">var sel_absid_cache;</script>
                   <select id="sel_abs" name="sel_abs" class="select" onclick="sel_absid_cache=this.value" onchange="if (confirm('<?=$LANG['abs_sel_confirm']?>')) this.form.submit(); else this.value=sel_absid_cache;" style="background-image: url(<?=$CONF['app_icon_dir'].$A->icon?>); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;">
                      <?php
@@ -109,21 +197,56 @@ require("includes/menu.inc.php");
                   </select>
                </form>
             </td>
-         </tr>
+            <td style="padding: 8px 14px 8px 14px;">
+               <form name="form-create-abs" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?absid=".$absid."&amp;lang=".$CONF['options']['lang']?>">
+                  &nbsp;&nbsp;<?=$LANG['abs_create_abs']?>&nbsp;
+                  <input name="txt_create_name" id="txt_create_name" maxlength="80" size="40" type="text" class="text" value="">
+                  &nbsp;&nbsp;<input name="btn_create" type="submit" class="button" value="<?=$LANG['btn_create']?>">
+               </form>
+            </td>
+            </tr>
       </table>
       <br>
 
       <form class="form" name="form-abs" method="POST" action="<?=$_SERVER['PHP_SELF']."?absid=".$A->id."&amp;lang=".$CONF['options']['lang']?>">
+      <input name="txt_absid" type="hidden" class="text" value="<?=$A->id?>">
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="2">
-               <?php printDialogTop($LANG['abs_title'].$A->name."\" (ID=".$A->id.")","abs.html","ico_absences.png"); ?>
+               <?php printDialogTop($LANG['abs_help_title'],"abs.html","ico_absences.png"); ?>
+            </td>
+         </tr>
+         
+         <tr>
+            <td class="dlg-menu" colspan="2" style="text-align: left;">
+               <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
+               <input name="btn_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
+               <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?permissions.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+            </td>
+         </tr>
+
+         <?php $style="2"; ?> 
+
+         <!-- Sample -->
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
+         <tr>
+            <td class="config-row<?=$style?>" style="width: 60%;">
+               <span class="config-key"><?=$LANG['abs_sample']?></span><br>
+               <span class="config-comment"><?=$LANG['abs_sample_desc']?></span>
+            </td>
+            <td class="config-row<?=$style?>">
+               <div id="sample" style="color: #<?=$A->color?>; background-color: #<?=$A->bgcolor?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
+               <?php if ($A->icon=="No") {?>
+                  <?=$A->symbol?>
+               <?php } else { ?>
+                  <img src="<?=$CONF['app_icon_dir'].$A->icon?>" alt="" style="vertical-align: middle;">
+               <?php } ?>
+               </div>
             </td>
          </tr>
          
          <!-- Name -->
-         <?php $style="2"; 
-         if ($style=="1") $style="2"; else $style="1"; ?>
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
          <tr>
             <td class="config-row<?=$style?>" style="width: 60%;">
                <span class="config-key"><?=$LANG['abs_name']?></span><br>
@@ -142,7 +265,7 @@ require("includes/menu.inc.php");
                <span class="config-comment"><?=$LANG['abs_symbol_desc']?></span>
             </td>
             <td class="config-row<?=$style?>">
-               <input class="text" name="txt_symbol" id="txt_symbol" type="text" size="2" maxlength="1" value="<?=$A->symbol?>">
+               <input class="text" name="txt_symbol" id="txt_symbol" type="text" size="2" maxlength="1" value="<?=$A->symbol?>" onchange="document.getElementById('sample').innerHTML=this.value;">
             </td>
          </tr>
          
@@ -154,7 +277,17 @@ require("includes/menu.inc.php");
                <span class="config-comment"><?=$LANG['abs_icon_desc']?></span>
             </td>
             <td class="config-row<?=$style?>" style="text-align: left; width: 40%; vertical-align: top;">
-               <script type="text/javascript">function switchAbsIcon(image) { document.getElementById('sel_icon').style.backgroundImage="url('<?=$CONF['app_icon_dir']?>"+image+"')"; }</script>
+               <script type="text/javascript">
+                  function switchAbsIcon(image) { 
+                     document.getElementById('sel_icon').style.backgroundImage="url('<?=$CONF['app_icon_dir']?>"+image+"')";
+                     if (image!="No") {
+                        document.getElementById('sample').innerHTML='<img src="<?=$CONF['app_icon_dir']?>'+image+'" alt="" style="vertical-align: middle;">';
+                     }
+                     else {
+                        document.getElementById('sample').innerHTML='<?=$A->symbol?>';
+                     }
+                  }
+               </script>
                <select id="sel_icon" name="sel_icon" class="select" onchange="javascript: switchAbsIcon(this.value);" style="background-image: url(<?=$CONF['app_icon_dir'].$A->icon?>); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;">
                   <option value="No" <?=(($A->icon=="No")?"SELECTED":"")?>><?=$LANG['no']?></option>
                   <?php
@@ -180,7 +313,7 @@ require("includes/menu.inc.php");
             </td>
             <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                <input class="text" name="txt_color" id="txt_color" type="text" size="6" maxlength="6" value="<?=$A->color?>">
-               <span id="color_sample" style="background-color: #<?=$A->color?>; margin: 0px 0px 0px 10px; padding: 4px;"><img src="img/blank.png" style="width: 20px; height: 20px;"></span>
+               <span id="color_sample" style="background-color: #<?=$A->color?>; margin: 0px 0px 0px 10px; padding: 4px;"><img src="img/blank.png" alt="" style="width: 20px; height: 20px;"></span>
             </td>
          </tr>
 
@@ -193,7 +326,7 @@ require("includes/menu.inc.php");
             </td>
             <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                <input class="text" name="txt_bgcolor" id="txt_bgcolor" type="text" size="6" maxlength="6" value="<?=$A->bgcolor?>">
-               <span id="bgcolor_sample" style=" background-color: #<?=$A->bgcolor?>; margin: 0px 0px 0px 10px; padding: 4px;"><img src="img/blank.png" style="width: 20px; height: 20px;"></span>
+               <span id="bgcolor_sample" style=" background-color: #<?=$A->bgcolor?>; margin: 0px 0px 0px 10px; padding: 4px;"><img src="img/blank.png" alt="" style="width: 20px; height: 20px;"></span>
             </td>
          </tr>
 
@@ -308,6 +441,7 @@ require("includes/menu.inc.php");
          <tr>
             <td class="dlg-menu" colspan="2" style="text-align: left;">
                <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
+               <input name="btn_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
                <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?permissions.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
             </td>
          </tr>
@@ -316,5 +450,8 @@ require("includes/menu.inc.php");
       </form>
    </div>
 </div>
-<script type="text/javascript">$(function() { $( "#txt_color, #txt_bgcolor" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind('keyup', function(){ $(this).ColorPickerSetColor(this.value); }); });</script>
+<script type="text/javascript">
+   $(function() { $( "#txt_color" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); document.getElementById('color_sample').style.backgroundColor='#'+el.value; document.getElementById('sample').style.color='#'+el.value; }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind('keyup', function(){ $(this).ColorPickerSetColor(this.value); }); });
+   $(function() { $( "#txt_bgcolor" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); document.getElementById('bgcolor_sample').style.backgroundColor='#'+el.value; document.getElementById('sample').style.backgroundColor='#'+el.value; }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind('keyup', function(){ $(this).ColorPickerSetColor(this.value); }); });
+</script>
 <?php require("includes/footer.html.inc.php"); ?>

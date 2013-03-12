@@ -1821,7 +1821,7 @@ function setRequests() {
 /**
  * Shows the error page
  */
-function showError($error="notallowed",$closeButton=FALSE) {
+function showError($error="notallowed",$message="",$closeButton=FALSE) {
    global $CONF, $LANG, $U;
    switch($error) {
       case "notarget":
@@ -1833,6 +1833,12 @@ function showError($error="notallowed",$closeButton=FALSE) {
       case "notallowed":
          $err_short=$LANG['err_not_authorized_short'];
          $err_long=$LANG['err_not_authorized_long'];
+         $err_module=$_SERVER['SCRIPT_NAME'];
+         $err_btn_close=$closeButton;
+         break;
+      case "input":
+         $err_short=$LANG['err_input_caption'];
+         $err_long=$message;
          $err_module=$_SERVER['SCRIPT_NAME'];
          $err_btn_close=$closeButton;
          break;

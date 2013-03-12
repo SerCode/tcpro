@@ -1643,7 +1643,6 @@ $LANG['decl_notify_manager'] = 'Group Manager';
 $LANG['decl_notify_director'] = 'Director(s)';
 $LANG['decl_notify_admin'] = 'Administrator';
 
-
 /**
  * ============================================================================
  * Added in TeamCal Pro 3.5.002
@@ -1656,7 +1655,6 @@ $LANG['log_tt_notallowed'] = 'This event type is currently logged. You are not a
 $LANG['log_btn_clearlog'] = 'Clear system log';
 $LANG['log_clear_confirm'] = 'Are you sure you want to clear the system log? All entries will be deleted.';
 
-
 /**
  * ============================================================================
  * Added in TeamCal Pro 3.5.003
@@ -1665,13 +1663,20 @@ $LANG['log_clear_confirm'] = 'Are you sure you want to clear the system log? All
 /*
  * Absence type page
  */
-$LANG['abs_sel_abs'] = 'Select absence type';
+$LANG['abs_sel_abs'] = 'Select existing absence type';
 $LANG['abs_sel_confirm'] = "Are you sure you want to select this absence type?\\nAll changes to the current one that have not been applied will be lost.";
-$LANG['abs_title'] = 'Absence type settings for "';
+$LANG['abs_del_confirm'] = "Are you sure you want to delete this absence type: ";
+$LANG['abs_create_abs'] = 'New absence type (name)';
+$LANG['abs_title'] = 'Absence type seetings for "';
+$LANG['abs_help_title'] = 'Absence type settings';
+$LANG['abs_sample'] = 'Sample display';
+$LANG['abs_sample_desc'] = 'This is how your absence type will look in your calendar based on your current settings after they have been saved. This sample always uses the default symbol "A".';
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_desc'] = 'The absence type name is used in lists and descriptions and should tell what this absence type is about, e.g. "Duty trip". It can be 80 characters long.';
 $LANG['abs_symbol'] = 'Symbol';
-$LANG['abs_symbol_desc'] = 'The absence type symbol is used in the calendar display if no icon is set for this absence type. Chose a single character.';
+$LANG['abs_symbol_desc'] = 'The absence type symbol is used in the calendar display if no icon is set for this absence type. It is also used in '.
+'notification emails. Chose a single character. A symbol is mandatory for each absence type, however, you are not restricted and can use the same '.
+'character for mutliple absence types. The default is "A".';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_desc'] = 'The absence type icon is used in the calendar display. If no icon is set for this absence type, the symbol will be used instead.';
 $LANG['abs_color'] = 'Text color';
@@ -1692,7 +1697,7 @@ $LANG['abs_show_in_remainder'] = 'Show in remainder';
 $LANG['abs_show_in_remainder_desc'] = 'The Calendar Display offers an expandable section to display the remaining allowance for each absence type for '.
 'each user for the current year. Use this switch to decide which absence types shall be included in that display. If none of the absence types is '.
 'marked for display in the remainder section then no expand/collapse button will be visible in the calendar display even though showing the remainder '.
-'is generally switched on (config.inc.php).<br>'.
+'is generally switched on.<br>'.
 'Note: It does not seem to make sense to include an absence type in the remainder display when the Factor is set to 0. The allowance and remaining allowance will always be the same.';
 $LANG['abs_show_totals'] = 'Show totals';
 $LANG['abs_show_totals_desc'] = 'The remainder section can be configured to also include a totals display for the current month. This totals '.
@@ -1718,4 +1723,12 @@ $LANG['abs_hide_in_profile_desc'] = 'Checking this box defines that regular user
 $LANG['abs_confidential'] = 'Confidential';
 $LANG['abs_confidential_desc'] = 'Checking this box marks this absence type a "confidential". The public and regular users cannot see this absence '.
 'in the calendar, except it is the regular user\'s own absence. This feature is useful if you want to hide sensitive absence types from regular users.';
+
+/**
+ * Error Messages
+ */
+$LANG['err_input_abs_no_name'] = 'You have to enter a name for the new absence type.';
+$LANG['err_input_abs_name'] = 'Please use only alphanumeric characters, blanks, hyphens and underscores in the absence type name.';
+$LANG['err_input_abs_symbol'] = 'Please use only alphanumeric characters and any of -=+*#$%&*()_ in the absence type symbol.';
+$LANG['err_input_abs_color'] = 'Please use only hexadecimal characters as color and background color values.';
 ?>

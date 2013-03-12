@@ -73,7 +73,7 @@ if (!class_exists("tcAbs")) {
                      `counts_as_present`,
                      `manager_only`,
                      `hide_in_profile`,
-                     `confidential`,
+                     `confidential`
                     ) ";
          
          $query .= "VALUES (
@@ -90,10 +90,11 @@ if (!class_exists("tcAbs")) {
                    '".$this->counts_as_present."',
                    '".$this->manager_only."',
                    '".$this->hide_in_profile."',
-                   '".$this->confidential."',
+                   '".$this->confidential."'
                    )";
          
          $result = $this->db->db_query($query);
+         return $this->db->db_query("SELECT LAST_INSERT_ID()");
       }
 
       /**
@@ -184,6 +185,29 @@ if (!class_exists("tcAbs")) {
          return $rc;
       }
 
+      
+      /**
+       * Gets the last auto-increment ID
+       * 
+       * @return string Next auto-incremente ID
+       */ 
+      function getLastId() {
+         $result = mysql_query('SHOW TABLE STATUS LIKE "'.$this->table.'";');
+         $row = mysql_fetch_assoc($result);
+         return intval($row['Auto_increment'])-1;
+      }
+            
+      /**
+       * Gets the next auto-increment ID
+       * 
+       * @return string Next auto-incremente ID
+       */ 
+      function getNextId() {
+         $result = mysql_query('SHOW TABLE STATUS LIKE "'.$this->table.'"');
+         $row = mysql_fetch_assoc($result);
+         return $row['auto_increment'];
+      }
+            
       /**
        * Updates an absence type by it's symbol from the current array data
        * 
