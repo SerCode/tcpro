@@ -504,6 +504,7 @@ function createCSS($theme) {
    require_once ($CONF['app_root'] . "includes/csshandler.class.php");
    require_once ($CONF['app_root'] . "includes/tcconfig.class.php");
    require_once ($CONF['app_root'] . "includes/tcabsence.class.php");
+   require_once ($CONF['app_root'] . "includes/tcabs.class.php");
    require_once ($CONF['app_root'] . "includes/tcholiday.class.php");
    require_once ($CONF['app_root'] . "includes/tcstyles.class.php");
 
@@ -519,253 +520,96 @@ function createCSS($theme) {
    $CSS->parseFile("themes/".$theme."/css/default.css");
    $CSS->setKey(".noscreen","display: none;");
 
+   $toBorderWidth = $C->readConfig("todayBorderSize");
+   $toBorderColor = $C->readConfig("todayBorderColor");
+   $daytypes = array('','-note','-bday','-bdaynote');
+   $otherdaytypes = array('-sum-present', '-sum-absent', '-sum-delta-negative', '-sum-delta-positive', '-day-absent');
+    
    /**
     * Create the today based styles in the array
     */
    $readkey=$CSS->getKeyProperties("td.daynum");
    $CSS->setKey("td.todaynum"," ".$readkey);
-   $CSS->setProperty("td.todaynum","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.todaynum","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
+   $CSS->setProperty("td.todaynum","border-right",$toBorderWidth."px solid #".$toBorderColor);
+   $CSS->setProperty("td.todaynum","border-left",$toBorderWidth."px solid #".$toBorderColor);
 
-   $readkey=$CSS->getKeyProperties("td.weekday");
-   $CSS->setKey("td.toweekday"," ".$readkey);
-   $CSS->setProperty("td.toweekday","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.toweekday","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
+   foreach($daytypes as $dtype){
+      $readkey=$CSS->getKeyProperties("td.weekday".$dtype);
+      $CSS->setKey("td.toweekday".$dtype," ".$readkey);
+      $CSS->setProperty("td.toweekday".$dtype,"border-right",$toBorderWidth."px solid #".$toBorderColor);
+      $CSS->setProperty("td.toweekday".$dtype,"border-left",$toBorderWidth."px solid #".$toBorderColor);
+      
+      $readkey=$CSS->getKeyProperties("td.day".$dtype);
+      $CSS->setKey("td.today".$dtype," ".$readkey);
+      $CSS->setProperty("td.today".$dtype,"border-right",$toBorderWidth."px solid #".$toBorderColor);
+      $CSS->setProperty("td.today".$dtype,"border-left",$toBorderWidth."px solid #".$toBorderColor);
+   }
 
-   $readkey=$CSS->getKeyProperties("td.weekday-note");
-   $CSS->setKey("td.toweekday-note"," ".$readkey);
-   $CSS->setProperty("td.toweekday-note","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.toweekday-note","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.weekday-bday");
-   $CSS->setKey("td.toweekday-bday"," ".$readkey);
-   $CSS->setProperty("td.toweekday-bday","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.toweekday-bday","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.weekday-bdaynote");
-   $CSS->setKey("td.toweekday-bdaynote"," ".$readkey);
-   $CSS->setProperty("td.toweekday-bdaynote","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.toweekday-bdaynote","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day");
-   $CSS->setKey("td.today"," ".$readkey);
-   $CSS->setProperty("td.today","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day-note");
-   $CSS->setKey("td.today-note"," ".$readkey);
-   $CSS->setProperty("td.today-note","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today-note","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day-bday");
-   $CSS->setKey("td.today-bday"," ".$readkey);
-   $CSS->setProperty("td.today-bday","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today-bday","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day-bdaynote");
-   $CSS->setKey("td.today-bdaynote"," ".$readkey);
-   $CSS->setProperty("td.today-bdaynote","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today-bdaynote","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day-sum-present");
-   $CSS->setKey("td.today-sum-present"," ".$readkey);
-   $CSS->setProperty("td.today-sum-present","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today-sum-present","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day-sum-absent");
-   $CSS->setKey("td.today-sum-absent"," ".$readkey);
-   $CSS->setProperty("td.today-sum-absent","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today-sum-absent","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day-sum-delta-negative");
-   $CSS->setKey("td.today-sum-delta-negative"," ".$readkey);
-   $CSS->setProperty("td.today-sum-delta-negative","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today-sum-delta-negative","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day-sum-delta-positive");
-   $CSS->setKey("td.today-sum-delta-positive"," ".$readkey);
-   $CSS->setProperty("td.today-sum-delta-positive","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today-sum-delta-positive","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-   $readkey=$CSS->getKeyProperties("td.day-day-absent");
-   $CSS->setKey("td.today-day-absent"," ".$readkey);
-   $CSS->setProperty("td.today-day-absent","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.today-day-absent","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
+   foreach($otherdaytypes as $odtype) {
+      $readkey=$CSS->getKeyProperties("td.day".$odtype);
+      $CSS->setKey("td.today".$odtype," ".$readkey);
+      $CSS->setProperty("td.today".$odtype,"border-right",$toBorderWidth."px solid #".$toBorderColor);
+      $CSS->setProperty("td.today".$odtype,"border-left",$toBorderWidth."px solid #".$toBorderColor);
+   }
 
    $readkey=$CSS->getKeyProperties("td.legend");
    $CSS->setKey("td.legend-today"," ".$readkey);
-   $CSS->setProperty("td.legend-today","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-   $CSS->setProperty("td.legend-today","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
+   $CSS->setProperty("td.legend-today","border-right",$toBorderWidth."px solid #".$toBorderColor);
+   $CSS->setProperty("td.legend-today","border-left",$toBorderWidth."px solid #".$toBorderColor);
 
    /**
     * Add/replace/change the holiday based styles in the array
     */
    $holidays = $H->getAll();
    foreach ($holidays as $hol) {
-      $H->findByName($hol['cfgname']);
 
       $readkey=$CSS->getKeyProperties("td.daynum");
-      $CSS->setKey("td.daynum-".$H->cfgname," ".$readkey);
-      $CSS->setProperty("td.daynum-".$H->cfgname,"background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.daynum-".$H->cfgname,"color","#".$H->dspcolor);
+      $CSS->setKey("td.daynum-".$hol['cfgname']," ".$readkey);
+      $CSS->setProperty("td.daynum-".$hol['cfgname'],"background-color","#".$hol['dspbgcolor']);
+      $CSS->setProperty("td.daynum-".$hol['cfgname'],"color","#".$hol['dspcolor']);
 
-      $readkey=$CSS->getKeyProperties("td.todaynum");
-      $CSS->setKey("td.todaynum-".$H->cfgname," ".$readkey);
-      $CSS->setProperty("td.todaynum-".$H->cfgname,"color","#".$H->dspcolor);
-      $CSS->setProperty("td.todaynum-".$H->cfgname,"background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.todaynum-".$H->cfgname,"border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.todaynum-".$H->cfgname,"border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
+      $CSS->setKey("td.todaynum-".$hol['cfgname']," ".$readkey);
+      $CSS->setProperty("td.todaynum-".$hol['cfgname'],"color","#".$hol['dspcolor']);
+      $CSS->setProperty("td.todaynum-".$hol['cfgname'],"background-color","#".$hol['dspbgcolor']);
+      $CSS->setProperty("td.todaynum-".$hol['cfgname'],"border-right",$toBorderWidth."px solid #".$toBorderColor);
+      $CSS->setProperty("td.todaynum-".$hol['cfgname'],"border-left",$toBorderWidth."px solid #".$toBorderColor);
 
-      $readkey=$CSS->getKeyProperties("td.weekday");
-      $CSS->setKey("td.weekday-".$H->cfgname," ".$readkey);
-      $CSS->setProperty("td.weekday-".$H->cfgname,"background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.weekday-".$H->cfgname,"color","#".$H->dspcolor);
+      foreach($daytypes as $dtype){
+         $readkey=$CSS->getKeyProperties("td.weekday".$dtype);
+         $CSS->setKey("td.weekday-".$hol['cfgname'].$dtype," ".$readkey);
+         $CSS->setProperty("td.weekday-".$hol['cfgname'].$dtype,"background-color","#".$hol['dspbgcolor']);
+         $CSS->setProperty("td.weekday-".$hol['cfgname'].$dtype,"color","#".$hol['dspcolor']);
 
-      $readkey=$CSS->getKeyProperties("td.weekday-note");
-      $CSS->setKey("td.weekday-".$H->cfgname."-note"," ".$readkey);
-      $CSS->setProperty("td.weekday-".$H->cfgname."-note","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.weekday-".$H->cfgname."-note","color","#".$H->dspcolor);
+         $CSS->setKey("td.toweekday-".$hol['cfgname'].$dtype," ".$readkey);
+         $CSS->setProperty("td.toweekday-".$hol['cfgname'].$dtype,"background-color","#".$hol['dspbgcolor']);
+         $CSS->setProperty("td.toweekday-".$hol['cfgname'].$dtype,"color","#".$hol['dspcolor']);
+         $CSS->setProperty("td.toweekday-".$hol['cfgname'].$dtype,"border-right",$toBorderWidth."px solid #".$toBorderColor);
+         $CSS->setProperty("td.toweekday-".$hol['cfgname'].$dtype,"border-left",$toBorderWidth."px solid #".$toBorderColor);
 
-      $readkey=$CSS->getKeyProperties("td.weekday-bdaynote");
-      $CSS->setKey("td.weekday-".$H->cfgname."-bdaynote"," ".$readkey);
-      $CSS->setProperty("td.weekday-".$H->cfgname."-bdaynote","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.weekday-".$H->cfgname."-bdaynote","color","#".$H->dspcolor);
+         $readkey=$CSS->getKeyProperties("td.day".$dtype);
+         $CSS->setKey("td.day-".$hol['cfgname'].$dtype," ".$readkey);
+         $CSS->setProperty("td.day-".$hol['cfgname'].$dtype,"background-color","#".$hol['dspbgcolor']);
+         $CSS->setProperty("td.day-".$hol['cfgname'].$dtype,"color","#".$hol['dspcolor']);
+      
+         $CSS->setKey("td.today-".$hol['cfgname'].$dtype," ".$readkey);
+         $CSS->setProperty("td.today-".$hol['cfgname'].$dtype,"background-color","#".$hol['dspbgcolor']);
+         $CSS->setProperty("td.today-".$hol['cfgname'].$dtype,"color","#".$hol['dspcolor']);
+         $CSS->setProperty("td.today-".$hol['cfgname'].$dtype,"border-right",$toBorderWidth."px solid #".$toBorderColor);
+         $CSS->setProperty("td.today-".$hol['cfgname'].$dtype,"border-left",$toBorderWidth."px solid #".$toBorderColor);
+      }
 
-      $readkey=$CSS->getKeyProperties("td.toweekday");
-      $CSS->setKey("td.toweekday-".$H->cfgname," ".$readkey);
-      $CSS->setProperty("td.toweekday-".$H->cfgname,"background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.toweekday-".$H->cfgname,"color","#".$H->dspcolor);
-      $CSS->setProperty("td.toweekday-".$H->cfgname,"border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.toweekday-".$H->cfgname,"border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.toweekday-note");
-      $CSS->setKey("td.toweekday-".$H->cfgname."-note"," ".$readkey);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-note","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-note","color","#".$H->dspcolor);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-note","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-note","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.toweekday-bday");
-      $CSS->setKey("td.toweekday-".$H->cfgname."-bday"," ".$readkey);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-bday","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-bday","color","#".$H->dspcolor);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-bday","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-bday","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.toweekday-bdaynote");
-      $CSS->setKey("td.toweekday-".$H->cfgname."-bdaynote"," ".$readkey);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-bdaynote","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-bdaynote","color","#".$H->dspcolor);
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-bdaynote","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.toweekday-".$H->cfgname."-bdaynote","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.day");
-      $CSS->setKey("td.day-".$H->cfgname," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname,"background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname,"color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-note");
-      $CSS->setKey("td.day-".$H->cfgname."-note"," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname."-note","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname."-note","color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-bday");
-      $CSS->setKey("td.day-".$H->cfgname."-bday"," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname."-bday","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname."-bday","color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-bdaynote");
-      $CSS->setKey("td.day-".$H->cfgname."-bdaynote"," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname."-bdaynote","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname."-bdaynote","color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-sum-present");
-      $CSS->setKey("td.day-".$H->cfgname."-sum-present"," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname."-sum-present","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname."-sum-present","color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-sum-absent");
-      $CSS->setKey("td.day-".$H->cfgname."-sum-absent"," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname."-sum-absent","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname."-sum-absent","color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-sum-delta-negative");
-      $CSS->setKey("td.day-".$H->cfgname."-sum-delta-negative"," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname."-sum-delta-negative","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname."-sum-delta-negative","color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-sum-delta-positive");
-      $CSS->setKey("td.day-".$H->cfgname."-sum-delta-positive"," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname."-sum-delta-positive","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname."-sum-delta-positive","color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-day-absent");
-      $CSS->setKey("td.day-".$H->cfgname."-day-absent"," ".$readkey);
-      $CSS->setProperty("td.day-".$H->cfgname."-day-absent","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.day-".$H->cfgname."-day-absent","color","#".$H->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.today");
-      $CSS->setKey("td.today-".$H->cfgname," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname,"background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname,"color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname,"border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname,"border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-note");
-      $CSS->setKey("td.today-".$H->cfgname."-note"," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname."-note","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-note","color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-note","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname."-note","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-bday");
-      $CSS->setKey("td.today-".$H->cfgname."-bday"," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname."-bday","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-bday","color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-bday","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname."-bday","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-bdaynote");
-      $CSS->setKey("td.today-".$H->cfgname."-bdaynote"," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname."-bdaynote","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-bdaynote","color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-bdaynote","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname."-bdaynote","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-sum-present");
-      $CSS->setKey("td.today-".$H->cfgname."-sum-present"," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-present","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-present","color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-present","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-present","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-sum-absent");
-      $CSS->setKey("td.today-".$H->cfgname."-sum-absent"," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-absent","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-absent","color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-absent","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-absent","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-sum-delta-negative");
-      $CSS->setKey("td.today-".$H->cfgname."-sum-delta-negative"," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-delta-negative","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-delta-negative","color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-delta-negative","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-delta-negative","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-sum-delta-positive");
-      $CSS->setKey("td.today-".$H->cfgname."-sum-delta-positive"," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-delta-positive","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-delta-positive","color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-delta-positive","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname."-sum-delta-positive","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-day-absent");
-      $CSS->setKey("td.today-".$H->cfgname."-day-absent"," ".$readkey);
-      $CSS->setProperty("td.today-".$H->cfgname."-day-absent","background-color","#".$H->dspbgcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-day-absent","color","#".$H->dspcolor);
-      $CSS->setProperty("td.today-".$H->cfgname."-day-absent","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.today-".$H->cfgname."-day-absent","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
+      foreach($otherdaytypes as $odtype){
+         $readkey=$CSS->getKeyProperties("td.day".$odtype);
+         $CSS->setKey("td.day-".$hol['cfgname'].$odtype," ".$readkey);
+         $CSS->setProperty("td.day-".$hol['cfgname'].$odtype,"background-color","#".$hol['dspbgcolor']);
+         $CSS->setProperty("td.day-".$hol['cfgname'].$odtype,"color","#".$hol['dspcolor']);
+         
+         $CSS->setKey("td.today-".$hol['cfgname'].$odtype," ".$readkey);
+         $CSS->setProperty("td.today-".$hol['cfgname'].$odtype,"background-color","#".$hol['dspbgcolor']);
+         $CSS->setProperty("td.today-".$hol['cfgname'].$odtype,"color","#".$hol['dspcolor']);
+         $CSS->setProperty("td.today-".$hol['cfgname'].$odtype,"border-right",$toBorderWidth."px solid #".$toBorderColor);
+         $CSS->setProperty("td.today-".$hol['cfgname'].$odtype,"border-left",$toBorderWidth."px solid #".$toBorderColor);
+      }
    }
 
    /**
@@ -773,55 +617,38 @@ function createCSS($theme) {
     */
    $absences = $A->getAll();
    foreach ($absences as $abs) {
-      $A->findByName($abs['cfgname']);
-      
-      $readkey=$CSS->getKeyProperties("td.day");
-      $CSS->setKey("td.".$A->cfgname," ".$readkey);
-      $CSS->setProperty("td.".$A->cfgname,"background-color","#".$A->dspbgcolor);
-      $CSS->setProperty("td.".$A->cfgname,"color","#".$A->dspcolor);
+      foreach($daytypes as $daytype){
+         $readkey=$CSS->getKeyProperties("td.day".$daytype);
+         $CSS->setKey("td.".$abs['cfgname'].$daytype," ".$readkey);
+         $CSS->setProperty("td.".$abs['cfgname'].$daytype,"background-color","#".$abs['dspbgcolor']);
+         $CSS->setProperty("td.".$abs['cfgname'].$daytype,"color","#".$abs['dspcolor']);
+         
+         $CSS->setKey("td.to".$abs['cfgname'].$daytype," ".$readkey);
+         $CSS->setProperty("td.to".$abs['cfgname'].$daytype,"background-color","#".$abs['dspbgcolor']);
+         $CSS->setProperty("td.to".$abs['cfgname'].$daytype,"color","#".$abs['dspcolor']);
+         $CSS->setProperty("td.to".$abs['cfgname'].$daytype,"border-right",$toBorderWidth."px solid #".$toBorderColor);
+         $CSS->setProperty("td.to".$abs['cfgname'].$daytype,"border-left",$toBorderWidth."px solid #".$toBorderColor);
+      }
+   }
 
-      $readkey=$CSS->getKeyProperties("td.day-note");
-      $CSS->setKey("td.".$A->cfgname."-note"," ".$readkey);
-      $CSS->setProperty("td.".$A->cfgname."-note","background-color","#".$A->dspbgcolor);
-      $CSS->setProperty("td.".$A->cfgname."-note","color","#".$A->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-bday");
-      $CSS->setKey("td.".$A->cfgname."-bday"," ".$readkey);
-      $CSS->setProperty("td.".$A->cfgname."-bday","background-color","#".$A->dspbgcolor);
-      $CSS->setProperty("td.".$A->cfgname."-bday","color","#".$A->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.day-bdaynote");
-      $CSS->setKey("td.".$A->cfgname."-bdaynote"," ".$readkey);
-      $CSS->setProperty("td.".$A->cfgname."-bdaynote","background-color","#".$A->dspbgcolor);
-      $CSS->setProperty("td.".$A->cfgname."-bdaynote","color","#".$A->dspcolor);
-
-      $readkey=$CSS->getKeyProperties("td.today");
-      $CSS->setKey("td.to".$A->cfgname," ".$readkey);
-      $CSS->setProperty("td.to".$A->cfgname,"background-color","#".$A->dspbgcolor);
-      $CSS->setProperty("td.to".$A->cfgname,"color","#".$A->dspcolor);
-      $CSS->setProperty("td.to".$A->cfgname,"border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.to".$A->cfgname,"border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-note");
-      $CSS->setKey("td.to".$A->cfgname."-note"," ".$readkey);
-      $CSS->setProperty("td.to".$A->cfgname."-note","background-color","#".$A->dspbgcolor);
-      $CSS->setProperty("td.to".$A->cfgname."-note","color","#".$A->dspcolor);
-      $CSS->setProperty("td.to".$A->cfgname."-note","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.to".$A->cfgname."-note","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-bday");
-      $CSS->setKey("td.to".$A->cfgname."-bday"," ".$readkey);
-      $CSS->setProperty("td.to".$A->cfgname."-bday","background-color","#".$A->dspbgcolor);
-      $CSS->setProperty("td.to".$A->cfgname."-bday","color","#".$A->dspcolor);
-      $CSS->setProperty("td.to".$A->cfgname."-bday","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.to".$A->cfgname."-bday","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-
-      $readkey=$CSS->getKeyProperties("td.today-bdaynote");
-      $CSS->setKey("td.to".$A->cfgname."-bdaynote"," ".$readkey);
-      $CSS->setProperty("td.to".$A->cfgname."-bdaynote","background-color","#".$A->dspbgcolor);
-      $CSS->setProperty("td.to".$A->cfgname."-bdaynote","color","#".$A->dspcolor);
-      $CSS->setProperty("td.to".$A->cfgname."-bdaynote","border-right",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
-      $CSS->setProperty("td.to".$A->cfgname."-bdaynote","border-left",$C->readConfig("todayBorderSize")."px solid #".$C->readConfig("todayBorderColor"));
+   /**
+    * Add/replace/change the NEW absence based styles in the array
+    */
+   $A = new tcAbs;
+   $absences = $A->getAll();
+   foreach ($absences as $abs) {
+      foreach($daytypes as $daytype){
+         $readkey=$CSS->getKeyProperties("td.day".$daytype);
+         $CSS->setKey("td.day".$daytype."-a".$abs['id']," ".$readkey);
+         $CSS->setProperty("td.day".$daytype."-a".$abs['id'],"background-color","#".$abs['bgcolor']);
+         $CSS->setProperty("td.day".$daytype."-a".$abs['id'],"color","#".$abs['color']);
+         
+         $CSS->setKey("td.today".$daytype."-a".$abs['id']," ".$readkey);
+         $CSS->setProperty("td.today".$daytype."-a".$abs['id'],"background-color","#".$abs['bgcolor']);
+         $CSS->setProperty("td.today".$daytype."-a".$abs['id'],"color","#".$abs['color']);
+         $CSS->setProperty("td.today".$daytype."-a".$abs['id'],"border-left",$toBorderWidth."px solid #".$toBorderColor);
+         $CSS->setProperty("td.today".$daytype."-a".$abs['id'],"border-right",$toBorderWidth."px solid #".$toBorderColor);
+      }
    }
 
    /**

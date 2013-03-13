@@ -87,11 +87,18 @@ if ( isset($_POST['btn_create']) ) {
          $A->confidential = 0;
          $A->create();
          $absid = $A->getLastId();
-         //print $absid;
       }
    }
    else {
       showError("input",$LANG['err_input_abs_no_name']);
+   }
+   
+   /**
+    * Create the theme css files so it includes this absence type
+    */
+   $themearray = getThemes();
+   foreach ($themearray as $theme) {
+      createCSS($theme["name"]);
    }
     
    /**
@@ -156,6 +163,14 @@ else if ( isset($_POST['btn_apply']) ) {
    $A->update($_POST['txt_absid']);
    
    /**
+    * Create the theme css files so it includes this absence type
+    */
+   $themearray = getThemes();
+   foreach ($themearray as $theme) {
+      createCSS($theme["name"]);
+   }
+    
+   /**
     * Log this event
     */
    $LOG->log("logAbsence",$L->checkLogin(),"Absence type updated: ".$A->name." (".$_POST['txt_absid'].")");
@@ -213,7 +228,7 @@ require("includes/menu.inc.php");
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="2">
-               <?php printDialogTop($LANG['abs_help_title'],"abs.html","ico_absences.png"); ?>
+               <?php printDialogTop($LANG['abs_title'].$A->name."' (ID=".$A->id.")","abs.html","ico_absences.png"); ?>
             </td>
          </tr>
          
