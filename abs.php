@@ -29,12 +29,17 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options
 else require ("includes/lang/english.tcpro.php");
 
 require_once("includes/tcabs.class.php");
+require_once("includes/tcabsgroup.class.php");
+require_once("includes/tcconfig.class.php");
+require_once("includes/tcgroup.class.php");
 require_once("includes/tclog.class.php");
 require_once("includes/tclogin.class.php");
 require_once("includes/tcuser.class.php");
 
 $A = new tcAbs;
+$AG = new tcAbsGroup;
 $C = new tcConfig;
+$G = new tcGroup;
 $L = new tcLogin;
 $LOG = new tcLog;
 $U = new tcUser;
@@ -94,7 +99,15 @@ if ( isset($_POST['btn_create']) ) {
    }
    
    /**
-    * Create the theme css files so it includes this absence type
+    * Assign it to all groups by default
+    */
+   $groups = $G->getAll();
+   foreach ($groups as $group) {
+      $AG->assign($absid,$group['groupname']);
+   }
+         
+   /**
+    * Create the theme css files so they include it's colors
     */
    $themearray = getThemes();
    foreach ($themearray as $theme) {
@@ -161,7 +174,18 @@ else if ( isset($_POST['btn_apply']) ) {
    if ( isset($_POST['chk_confidential']) && $_POST['chk_confidential'] ) $A->confidential=1; else $A->confidential=0;
 
    $A->update($_POST['txt_absid']);
+
    
+   /**
+    * Assign it to the selected groups
+    */
+   if (isset($_POST['abs_groups'])) {
+      $AG->unassignAbs($_POST['txt_absid']);
+      foreach ($_POST['abs_groups'] as $group) {
+         $AG->assign($_POST['txt_absid'],$group);
+      }
+   }
+    
    /**
     * Create the theme css files so it includes this absence type
     */
@@ -450,6 +474,25 @@ require("includes/menu.inc.php");
             </td>
             <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                <input name="chk_confidential" id="chk_confidential" value="chk_confidential" type="checkbox" <?=(intval($A->confidential)?"CHECKED":"")?>>
+            </td>
+         </tr>
+
+         <!-- Group assignments -->
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
+         <tr>
+            <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+               <span class="config-key"><?=$LANG['abs_groups']?></span><br>
+               <span class="config-comment"><?=$LANG['abs_groups_desc']?></span>
+            </td>
+            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+               <select name="abs_groups[]" id="abs_groups" class="select" multiple="multiple" size="6">
+               <?php
+               $groups = $G->getAll();
+               foreach ($groups as $group) {
+                  if ($AG->isAssigned($absid,$group['groupname'])) { $selected="selected"; } else { $selected=""; } ?>
+                  <option class="option" value="<?=$group['groupname']?>" <?=$selected?>><?=$group['groupname']?></option>
+               <?php } ?>
+               </select>
             </td>
          </tr>
 

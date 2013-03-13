@@ -1667,7 +1667,7 @@ $LANG['abs_sel_abs'] = 'Abwesenheitstyp ausw&auml;hlen';
 $LANG['abs_sel_confirm'] = "Soll dieser Abwesenheitstyp ausgew&auml;hlt werden?\\nAlle noch nicht gespeicherten &Auml;nderungen gehen verloren.";
 $LANG['abs_del_confirm'] = "Soll dieser Abwesenheitstyp ausgew&auml;hlt werden?: ";
 $LANG['abs_create_abs'] = 'Neuer Abwesenheitstyp (Name)';
-$LANG['abs_title'] = 'Abwesenheitstyp Einstellungen f&uml;r "';
+$LANG['abs_title'] = 'Abwesenheitstyp Einstellungen f&uuml;r "';
 $LANG['abs_help_title'] = 'Abwesenheitstyp Einstellungen';
 $LANG['abs_sample'] = 'Beispielanzeige';
 $LANG['abs_sample_desc'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen (nach Speicherung).';
@@ -1723,6 +1723,9 @@ $LANG['abs_hide_in_profile_desc'] = 'Dieser Schalter kann benutzt werden, um die
 $LANG['abs_confidential'] = 'Vertraulich';
 $LANG['abs_confidential_desc'] = 'Dieser Schalter macht den Typen "vertraulich". Normale Nutzer k&ouml;nnen diese Abwesenheit nicht im Kalender '.
 'sehen, ausser es ist ihre eigene Abwesenheit. Dies kann f&uuml;r sensitive Abwesenheiten wie "Krankheit" n&uuml;tzlich sein.';
+$LANG['abs_groups'] = 'Gruppenzuordnung';
+$LANG['abs_groups_desc'] = 'W&auml;hle die Gruppen aus, f&uuml;r die dieser Abwesenheitstyp g&uuml;ltig sein soll. Wenn eine Gruppe nicht '.
+'ausgew&auml;hlt ist, k&ouml;nnen Mitglieder dieser Gruppe den Abwesenheitstyp nicht nutzen.';
 
 /**
  * Error Messages

@@ -1723,6 +1723,9 @@ $LANG['abs_hide_in_profile_desc'] = 'Checking this box defines that regular user
 $LANG['abs_confidential'] = 'Confidential';
 $LANG['abs_confidential_desc'] = 'Checking this box marks this absence type a "confidential". The public and regular users cannot see this absence '.
 'in the calendar, except it is the regular user\'s own absence. This feature is useful if you want to hide sensitive absence types from regular users.';
+$LANG['abs_groups'] = 'Group assignments';
+$LANG['abs_groups_desc'] = 'Select the groups for which this absence type is valid. If a group is not assigned, members of that group cannot use '.
+'this absence type.';
 
 /**
  * Error Messages
