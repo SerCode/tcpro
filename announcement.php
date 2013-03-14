@@ -63,9 +63,14 @@ if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
     * Log this event
     */
    $chars = array("-", " ", ":");
-   $ats = str_replace($chars, "", $_REQUEST['annid']);
+   $ats = str_replace($chars, "", $_POST['ats']);
    $LOG->log("logAnnouncement",$user,"Announcement ".$ats." confirmed by ".$UL->username);
 }
+
+/**
+ * =========================================================================
+ * CONFIRM ALL
+ */
 else if ( isset($_POST['btn_confirm_all'])) {
    $query  = "DELETE FROM ".$AN->uatable." WHERE username='".$UL->username."';";
    $result = $AN->db->db_query($query);

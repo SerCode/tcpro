@@ -1734,4 +1734,9 @@ $LANG['err_input_abs_no_name'] = 'You have to enter a name for the new absence t
 $LANG['err_input_abs_name'] = 'Please use only alphanumeric characters, blanks, hyphens and underscores in the absence type name.';
 $LANG['err_input_abs_symbol'] = 'Please use only alphanumeric characters and any of -=+*#$%&*()_ in the absence type symbol.';
 $LANG['err_input_abs_color'] = 'Please use only hexadecimal characters as color and background color values.';
+
+/**
+ * Edit Calendar
+ */
+$LANG['month_current_absence'] = 'Current absence';
 ?>

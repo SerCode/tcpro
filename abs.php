@@ -92,32 +92,35 @@ if ( isset($_POST['btn_create']) ) {
          $A->confidential = 0;
          $A->create();
          $absid = $A->getLastId();
+   
+         /**
+          * Assign it to all groups by default
+          */
+         $groups = $G->getAll();
+         foreach ($groups as $group) {
+            $AG->assign($absid,$group['groupname']);
+         }
+               
+         /**
+          * Create the theme css files so they include it's colors
+          */
+         $themearray = getThemes();
+         foreach ($themearray as $theme) {
+            createCSS($theme["name"]);
+         }
+          
+         $absences = $A->getAll();
+         $A->get($absid);
+         
+         /**
+          * Log this event
+          */
+         $LOG->log("logAbsence",$L->checkLogin(),"Absence type created: ".$A->name." (".$absid.")");
       }
    }
    else {
       showError("input",$LANG['err_input_abs_no_name']);
    }
-   
-   /**
-    * Assign it to all groups by default
-    */
-   $groups = $G->getAll();
-   foreach ($groups as $group) {
-      $AG->assign($absid,$group['groupname']);
-   }
-         
-   /**
-    * Create the theme css files so they include it's colors
-    */
-   $themearray = getThemes();
-   foreach ($themearray as $theme) {
-      createCSS($theme["name"]);
-   }
-    
-   /**
-    * Log this event
-    */
-   $LOG->log("logAbsence",$L->checkLogin(),"Absence type created: ".$A->name." (".$absid.")");
 }
 
 /**
@@ -174,7 +177,9 @@ else if ( isset($_POST['btn_apply']) ) {
    if ( isset($_POST['chk_confidential']) && $_POST['chk_confidential'] ) $A->confidential=1; else $A->confidential=0;
 
    $A->update($_POST['txt_absid']);
-
+   
+   $absences = $A->getAll();
+   $absid=$_POST['txt_absid'];
    
    /**
     * Assign it to the selected groups
@@ -207,7 +212,8 @@ else if ( isset($_POST['btn_apply']) ) {
 else if ( isset($_POST['btn_delete']) ) {
    
    $A->delete($_POST['txt_absid']);
-   
+   $absences = $A->getAll();
+    
    /**
     * Log this event
     */
@@ -230,7 +236,8 @@ require("includes/menu.inc.php");
                   <script type="text/javascript">var sel_absid_cache;</script>
                   <select id="sel_abs" name="sel_abs" class="select" onclick="sel_absid_cache=this.value" onchange="if (confirm('<?=$LANG['abs_sel_confirm']?>')) this.form.submit(); else this.value=sel_absid_cache;" style="background-image: url(<?=$CONF['app_icon_dir'].$A->icon?>); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;">
                      <?php
-                        foreach ($absences as $abs) { ?>
+                     $absences = $A->getAll();
+                     foreach ($absences as $abs) { ?>
                            <option style="background-image: url(<?=$CONF['app_icon_dir'].$abs['icon']?>); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="<?=$abs['id']?>" <?=(($abs['id']==$A->id)?"SELECTED":"")?>><?=$abs['name']?></option>
                      <?php } ?>
                   </select>

@@ -51,7 +51,8 @@ $user=$L->checkLogin();
 $UL->findByName($user);
 
 /**
- * Process form
+ * =========================================================================
+ * CONFIRM
  */
 if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
    $query  = "DELETE FROM ".$AN->uatable." WHERE ats='".$_POST['ats']."' AND username='".$UL->username."';";
@@ -64,6 +65,11 @@ if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
    $ats = str_replace($chars, "", $_POST['ats']);
    $LOG->log("logAnnouncement",$L->checkLogin(),"Announcement ".$ats." confirmed by ".$UL->username);
 }
+
+/**
+ * =========================================================================
+ * CONFIRM ALL
+ */
 else if ( isset($_POST['btn_confirm_all'])) {
    $query  = "DELETE FROM ".$AN->uatable." WHERE username='".$UL->username."';";
    $result = $AN->db->db_query($query);

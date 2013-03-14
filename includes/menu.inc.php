@@ -123,6 +123,7 @@ $m = buildMenu();
             ['<img src="themes/<?=$theme?>/img/menu/ico_usr_member.png" />','<?=$LANG['mnu_tools_admin_usergroups']?>','groupassign.php?lang=<?=$CONF['options']['lang']?>',null,null],
             <?php }
             if ($m['mnu_tools_admin_absences']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_absences.png" />','<?=$LANG['mnu_tools_admin_absences']?>','abs.php?lang=<?=$CONF['options']['lang']?>',null,null],
             ['<img src="themes/<?=$theme?>/img/menu/ico_absences.png" />','<?=$LANG['mnu_tools_admin_absences']?>','absences.php?lang=<?=$CONF['options']['lang']?>',null,null],
             <?php }
             if ($m['mnu_tools_admin_regions']) { ?>
