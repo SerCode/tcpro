@@ -75,8 +75,8 @@ $countto = str_replace("-","",$C->readConfig("defperiodto"));
  * Process form
  */
 if ( isset($_POST['btn_send']) ) {
-   $to .= $U->email;
-   mail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n");
+   $to = $U->email;
+   sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']));
    $msg = true;
    $message = $LANG['message_msgsent'];
 }

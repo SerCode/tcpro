@@ -1535,19 +1535,14 @@ function sendAccountCreatedMail($uname, $pwd) {
    $U = new tcUser;
 
    if ($U->findByName($uname)) {
-      $message = '';
+      $to = $U->email;
       $subject = $LANG['user_add_subject'];
       $message = $LANG['user_add_greeting'];
       $message .= $LANG['user_add_info_1'];
       $message .= $U->username;
       $message .= $LANG['user_add_info_2'] . $pwd;
       $message .= $LANG['user_add_info_3'];
-      $to = $U->email;
-      $headers = "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n";
-      if ($C->readConfig("emailNotifications")) {
-         if ($C->readConfig("mailSMTP")) sendSMTPmail($C->readConfig("mailFrom"), $to, stripslashes($subject), stripslashes($message));
-         else mail($to, stripslashes($subject), stripslashes($message), $headers);
-      }
+      sendEmail($to, $subject, $message);
    }
 }
 
@@ -1724,7 +1719,6 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
          $to = $row['email'];
          $subject = stripslashes($LANG['notification_subject']);
          $message .= stripslashes($LANG['notification_signature']);
-         $headers = "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n";
          /*
           * Set to TRUE for Debug
           */
@@ -1734,61 +1728,70 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
                  $type." - message: " . $message . "\n\n".
                  "headers: " . $headers . "</textarea>";
          }
-         if ($C->readConfig("mailSMTP")) {
-            sendSMTPmail($C->readConfig("mailFrom"), $to, $subject, $message);
-         }
-         else {
-            mail($to, $subject, $message, $headers);
-         }
+         sendEmail($to, $subject, $message);
       }
    }
    return;
 }
 
 /**
- * Sends an eMail via SMTP
- * Requires the PEAR Mail package installed on the server that Tcpro is run
+ * Sends an eMail, either via SMTP or regular PHP mail
+ * Requires the PEAR Mail package installed on the server that Tcpro is running on
  *
- * @param  string $from        eMail from address
  * @param  string $to          eMail to address
  * @param  string $subject     eMail subject
  * @param  string $body        eMail body
- * @return bool                SMTP success
+ * @return bool                Email success
  */
-function sendSMTPmail($from, $to, $subject, $body) {
+function sendEmail($to, $subject, $body, $from='') {
    global $CONF;
    require_once "Mail.php";
 
-   $host     = $C->readConfig("mailSMTPHost");
-   $port     = $C->readConfig("mailSMTPPort");
-   $username = $C->readConfig("mailSMTPUser");
-   $password = $C->readConfig("mailSMTPPassword");;
-
-   $headers = array (
-      'From' => $from,
-      'To' => $to,
-      'Subject' => $subject
-   );
-
-   $smtp = Mail::factory(
-      'smtp',
-      array (
-         'host' => $host,
-         'port' => $port,
-         'auth' => true,
-         'username' => $username,
-         'password' => $password
-      )
-   );
-
-   $mail = $smtp->send($to, $headers, $body);
-
-   if (PEAR::isError($mail)) {
-      echo("<p>" . $mail->getMessage() . "</p>");
-      return FALSE;
+   if ($C->readConfig("mailSMTP")) {
+      if (!strlen($from)) $from = $C->readConfig("mailFrom");
+      $host     = $C->readConfig("mailSMTPHost");
+      $port     = $C->readConfig("mailSMTPPort");
+      $username = $C->readConfig("mailSMTPUser");
+      $password = $C->readConfig("mailSMTPPassword");;
+   
+      $headers = array (
+         'From' => $from,
+         'To' => $to,
+         'Subject' => $subject
+      );
+   
+      $smtp = Mail::factory(
+         'smtp',
+         array (
+            'host' => $host,
+            'port' => $port,
+            'auth' => true,
+            'username' => $username,
+            'password' => $password
+         )
+      );
+   
+      $mail = $smtp->send($to, $headers, $body);
+   
+      if (PEAR::isError($mail)) {
+         echo("<p>" . $mail->getMessage() . "</p>");
+         return FALSE;
+      }
+      else {
+         return TRUE;
+      }
    }
    else {
-      return TRUE;
+      if (!strlen($from)) {
+         $from = $C->readConfig("mailFrom");
+         $replyto = $C->readConfig("mailReply");
+      }
+      else {
+         $replyto = $from;
+      }
+      $headers = "From: ".$from."\r\n"."Reply-To: ".$replyto."\r\n";
+      $result = mail($to, $subject, $body, $headers);
+      return $result;
    }
 }
 

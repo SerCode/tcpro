@@ -860,14 +860,15 @@ if (isset($_POST['btn_apply'])) {
          $notification.=$notificationerror;
          $notification.=$LANG['notification_decl_sign'];
 
-         $headers = "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n";
-
          /*
           * Send email to requesting user if configured so in Declination Management
           */
          if ( $C->readConfig("declNotifyUser") ) {
             $to = $U->email;
-            mail($to, stripslashes($subject), stripslashes($notification), $headers);
+            sendEmail($to, $subject, $notification);
+            /*
+             * Set to TRUE for debug
+             */
             if (FALSE) {
                echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
                     "Subject: ".stripslashes($subject)."\n\n".
@@ -879,7 +880,6 @@ if (isset($_POST['btn_apply'])) {
           * Send email to group manager of requesting user if configured so in Declination Management
           */
          if ( $C->readConfig("declNotifyManager") ) {
-            // $grps=explode(",",$groups);
             foreach($affectedgroups as $grp) {
                $query  = "SELECT DISTINCT ".$U->table.".email FROM ".$U->table.",".$UG->table." " .
                          "WHERE ".$U->table.".username=".$UG->table.".username " .
@@ -888,7 +888,7 @@ if (isset($_POST['btn_apply'])) {
                $result = $UG->db->db_query($query);
                while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) {
                   $to = $row[0];
-                  mail($to, stripslashes($subject), stripslashes($notification), $headers);
+                  sendEmail($to, $subject, $notification);
                }
             }
          }
@@ -903,7 +903,15 @@ if (isset($_POST['btn_apply'])) {
                $U->findByName($row[0]);
                if ($U->checkUserType($CONF['UTDIRECTOR'])) {
                   $to = $U->email;
-                  mail($to, stripslashes($subject), stripslashes($notification), $headers);
+                  sendEmail($to, $subject, $notification);
+                  /*
+                   * Set to TRUE for debug
+                   */
+                  if (FALSE) {
+                     echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
+                          "Subject: ".$subject."\n\n".
+                          $notification."</textarea>";
+                  }
                }
             }
          }
@@ -917,12 +925,14 @@ if (isset($_POST['btn_apply'])) {
                $U->findByName($u['username']);
                if ($U->checkUserType($CONF['UTADMIN'])) {
                   $to = $U->email;
-                  //echo "<script type=\"text/javascript\">alert(\"Mail to admin: ".$to."\");</script>";
-                  mail($to, stripslashes($subject), stripslashes($notification), $headers);
+                  sendEmail($to, $subject, $notification);
+                  /*
+                   * Set to TRUE for debug
+                   */
                   if (FALSE) {
                      echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
-                          "Subject: ".stripslashes($subject)."\n\n".
-                          stripslashes($notification)."</textarea>";
+                          "Subject: ".$subject."\n\n".
+                          $notification."</textarea>";
                   }
                }
             }

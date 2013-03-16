@@ -156,8 +156,7 @@ if ( isset($_POST['btn_submit']) AND in_array($_POST['lst_group'],$G->getGroups(
              */
             $amessage .= $LANG['register_admin_mail_message_3'];
             $ato = $UA->email;
-            $aheaders = "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n";
-            mail($ato, stripslashes($asubject), stripslashes($amessage), $aheaders);
+            sendEmail($ato, $asubject, $amessage);
 
             /**
              * eMail to User
@@ -167,8 +166,7 @@ if ( isset($_POST['btn_submit']) AND in_array($_POST['lst_group'],$G->getGroups(
             $message = str_replace("[USERNAME]",$U->username,$message);
             $message = str_replace("[PASSWORD]",trim($_POST['txt_password']),$message);
             $to = $U->email;
-            $headers = "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n";
-            mail($to, stripslashes($subject), stripslashes($message), $headers);
+            sendEmail($to, $subject, $message);
          }
       }
       else {

@@ -95,20 +95,11 @@ if (isset($_POST['btn_send'])) {
 
       $user=$L->checkLogin();
       $UL->findByName($user);
-      if ( strlen($UL->email) ) $headers="From: ".$UL->email;
-      else                      $headers="From: ".$C->readConfig("mailFrom");
+      if (strlen($UL->email)) $from=$UL->email; else $from='';
 
-      if ($C->readConfig("mailSMTP")) {
-         if ( sendSMTPmail($C->readConfig("mailFrom"), $to, stripslashes($_POST['subject']), stripslashes($_POST['msg'])) ) {
-            $msgsent = true;
-            $LOG->log("logAnnouncement",$L->checkLogin(),"e-Mail message sent by ".$UL->username." to ".$to);
-         }
-      }
-      else {
-         if ( mail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), $headers) ) {
-            $msgsent = true;
-            $LOG->log("logAnnouncement",$L->checkLogin(),"e-Mail message sent by ".$UL->username." to ".$to);
-         }
+      if ( sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), $from) ) {
+         $msgsent = true;
+         $LOG->log("logAnnouncement",$L->checkLogin(),"e-Mail message sent by ".$UL->username." to ".$to);
       }
 
    }

@@ -73,8 +73,7 @@ else {
             $message .= $LANG['verify_mail_message'];
             $message = str_replace("[USERNAME]",$U->username,$message);
             $to = $UA->email;
-            $headers = "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n";
-            mail($to, stripslashes($subject), stripslashes($message), $headers);
+            sendEmail($to, $subject, $message);
 
             $info .= $LANG['verify_info_approval'];
             $LOG->log("logRegistration", $U->username, "User verified, approval needed: " . $U->username . " (" . $fullname . ")");
