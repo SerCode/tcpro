@@ -185,6 +185,56 @@ if (!class_exists("tcAbs")) {
          return $rc;
       }
 
+      /**
+       * Gets the approval required value of an absence type
+       *
+       * @param string $absid Record ID
+       * @return boolean Approval required
+       */
+      function getApprovalRequired($absid = '') {
+         $rc=0;
+         $query = "SELECT approval_required FROM `".$this->table."` WHERE id='".$absid."';";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            $rc = $row['approval_required'];
+         }
+         return $rc;
+      }
+      
+      /**
+       * Gets the name of an absence type
+       *
+       * @param string $absid Record ID
+       * @return string Absence type name
+       */
+      function getName($absid = '') {
+         $rc='unknown';
+         $query = "SELECT name FROM `".$this->table."` WHERE id='".$absid."';";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            $rc = $row['name'];
+         }
+         return $rc;
+      }
+      
+         /**
+       * Gets the symbol of an absence type
+       *
+       * @param string $absid Record ID
+       * @return string Absence type symbol
+       */
+      function getSymbol($absid = '') {
+         $rc='?';
+         $query = "SELECT symbol FROM `".$this->table."` WHERE id='".$absid."';";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            $rc = $row['symbol'];
+         }
+         return $rc;
+      }
       
       /**
        * Gets the last auto-increment ID

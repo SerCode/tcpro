@@ -65,6 +65,7 @@ $CONF['db_table_options']           = $CONF['db_table_prefix'].'tc_options';
 $CONF['db_table_permissions']        = $CONF['db_table_prefix'].'tc_permissions';
 $CONF['db_table_regions']           = $CONF['db_table_prefix'].'tc_regions';
 $CONF['db_table_styles']            = $CONF['db_table_prefix'].'tc_styles';
+$CONF['db_table_tpl']               = $CONF['db_table_prefix'].'tc_tpl';
 $CONF['db_table_templates']         = $CONF['db_table_prefix'].'tc_templates';
 $CONF['db_table_users']             = $CONF['db_table_prefix'].'tc_users';
 $CONF['db_table_user_announcement'] = $CONF['db_table_prefix'].'tc_user_announcement';
