@@ -37,7 +37,7 @@ if (!class_exists("tcAbs")) {
       var $show_in_remainder = 1;
       var $show_totals = 1;
       var $approval_required = 0;
-      var $counts_a_present = 0;
+      var $counts_as_present = 0;
       var $manager_only = 0;
       var $hide_in_profile = 0;
       var $confidential = 0;

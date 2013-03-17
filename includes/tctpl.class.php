@@ -151,6 +151,31 @@ if (!class_exists("tcTpl")) {
       }
 
       /**
+       * Counts the absences of one ID of a given username, year, month and day
+       * 
+       * @param string $uname Username to find
+       * @param string $year Year to find (YYYY)
+       * @param string $month Month to find (MM)
+       * @param string $day Day of month to find (D)
+       * @return integer 0 or absence ID count
+       */
+      function countAbsence($uname='', $year='', $month='', $absid, $start=1, $end=0) {
+         $rc = 0;
+         $mytime = $month . " 1," . $year;
+         $myts = strtotime($mytime);
+         if (!$end OR $end>31) $end = date("t",$myts);
+         $query = "SELECT * FROM `".$this->table."` WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".sprintf("%02d",$month)."';";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            for ($i=$start; $i<=$end; $i++) {
+               if ($row['abs'.$i]==$absid) $rc++;
+            }
+         }
+         return $rc;
+      }
+
+      /**
        * Gest a template by username, year and month
        * 
        * @param string $uname Username to find

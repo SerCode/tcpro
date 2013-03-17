@@ -54,6 +54,7 @@ $CONF['db_table_abs_group']         = $CONF['db_table_prefix'].'tc_abs_group';
 $CONF['db_table_absence']           = $CONF['db_table_prefix'].'tc_absence';
 $CONF['db_table_absence_group']     = $CONF['db_table_prefix'].'tc_absence_group';
 $CONF['db_table_allowance']         = $CONF['db_table_prefix'].'tc_allowance';
+$CONF['db_table_allow']             = $CONF['db_table_prefix'].'tc_allow';
 $CONF['db_table_announcements']     = $CONF['db_table_prefix'].'tc_announcements';
 $CONF['db_table_config']            = $CONF['db_table_prefix'].'tc_config';
 $CONF['db_table_daynotes']          = $CONF['db_table_prefix'].'tc_daynotes';

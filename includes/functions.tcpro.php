@@ -331,6 +331,64 @@ function clearFlag($flagset, $bitmask) {
  * @param   string $cntto       Date to count to (including)
  * @return  integer             Result of the count
  */
+function countAbs($user, $absid, $from, $to) {
+   global $CONF;
+   require_once ($CONF['app_root'] . "includes/tcabs.class.php");
+   require_once ($CONF['app_root'] . "includes/tctpl.class.php");
+
+   $A = new tcAbs;
+   $T = new tcTpl;
+
+   // Figure out starting month and ending month
+   $startyear = intval(substr($from, 0, 4));
+   $startmonth = intval(substr($from, 4, 2));
+   $startday = intval(substr($from, 6, 2));
+   $endyear = intval(substr($to, 0, 4));
+   $endmonth = intval(substr($to, 4, 2));
+   $endday = intval(substr($to, 6, 2));
+
+   // Get the count factor for this absence type
+   $factor = $A->getFactor($absid);
+
+   // Now count
+   $count = 0;
+   $firstday = $startday;
+   if ($firstday < 1 || $firstday > 31) $firstday = 1;
+
+   $year = $startyear;
+   $month = $startmonth;
+   while (intval($year.sprintf("%02d",$month))<=intval($endyear.$endmonth)) {
+      if ($year==$startyear AND $month==$startmonth) {
+         $count+=$T->countAbsence($user,$year,$month,$absid,$startday);
+      }
+      else if ($year==$endyear AND $month==$endmonth) {
+         $count+=$T->countAbsence($user,$year,$month,$absid,1,$endday);
+      }
+      else {
+         $count+=$T->countAbsence($user,$year,$month,$absid);
+      }
+      
+      if ($month==12) {
+         $year++;
+         $month = 1;
+      }
+      else {
+         $month++;
+      }
+   }
+   return $count;
+}
+
+/**
+ * Counts all occurences of a given absence type for a given user in a given
+ * time period
+ *
+ * @param   string $cntuser     User to count for
+ * @param   string $cntabsence  Absence type to count
+ * @param   string $cntfrom     Date to count from (including)
+ * @param   string $cntto       Date to count to (including)
+ * @return  integer             Result of the count
+ */
 function countAbsence($cntuser, $cntabsence, $cntfrom, $cntto) {
    global $CONF;
    require_once ($CONF['app_root'] . "includes/tcabsence.class.php");
