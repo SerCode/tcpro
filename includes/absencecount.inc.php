@@ -60,7 +60,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                            $allow = $A->allowance;
                         }
                         //echo "<script type=\"text/javascript\">alert(\"Debug: ".$countfrom."|".$countto." \");</script>";
-                        $taken=countAbs($U->username,$A->id,$countfrom,$countto);
+                        $taken=countAbsence($U->username,$A->id,$countfrom,$countto);
                         $remain = $lstyr + $allow - $taken;
                         if ($remain<0) $stylesuffix="r"; else $stylesuffix="";
                         if ($rowstyle==1) $rowstyle=0; else $rowstyle=1;
@@ -88,8 +88,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                           </td>
 
                           <?php if ($allowed) { ?>
-                          <td class="dlg-frame-bodyc" style="text-align: center;"><input name="lastyear-<?=$A->id?>" id="lastyear-<?=$A->id?>" size="1" maxlength="3" type="text" class="text" style="text-align: center;" value="<?=$lstyr?>"></td>
-                          <td class="dlg-frame-bodyc" style="text-align: center;"><input name="allowance-<?=$A->id?>" id="allowance-<?=$A->id?>" size="1" maxlength="3" type="text" class="text" style="text-align: center;" value="<?=$allow?>"></td>
+                          <td class="dlg-frame-bodyc" style="text-align: center;"><input name="lastyear-<?=$A->id?>" id="lastyear-<?=$A->id?>" size="2" maxlength="4" type="text" class="text" style="text-align: center;" value="<?=$lstyr?>"></td>
+                          <td class="dlg-frame-bodyc" style="text-align: center;"><input name="allowance-<?=$A->id?>" id="allowance-<?=$A->id?>" size="2" maxlength="4" type="text" class="text" style="text-align: center;" value="<?=$allow?>"></td>
                           <?php } else { ?>
                           <td class="dlg-frame-bodyc" style="text-align: center;" ><?=$lstyr?></td>
                           <td class="dlg-frame-bodyc" style="text-align: center;" ><?=$allow?></td>

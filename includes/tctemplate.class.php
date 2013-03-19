@@ -33,8 +33,38 @@ if (!class_exists("tcTemplate")) {
       var $username = ''; // link to username of user table
       var $year = '';
       var $month = '';
-      var $template = '';
-
+      var $abs1 = 0;
+      var $abs2 = 0;
+      var $abs3 = 0;
+      var $abs4 = 0;
+      var $abs5 = 0;
+      var $abs6 = 0;
+      var $abs7 = 0;
+      var $abs8 = 0;
+      var $abs9 = 0;
+      var $abs10 = 0;
+      var $abs11 = 0;
+      var $abs12 = 0;
+      var $abs13 = 0;
+      var $abs14 = 0;
+      var $abs15 = 0;
+      var $abs16 = 0;
+      var $abs17 = 0;
+      var $abs18 = 0;
+      var $abs19 = 0;
+      var $abs20 = 0;
+      var $abs21 = 0;
+      var $abs22 = 0;
+      var $abs23 = 0;
+      var $abs24 = 0;
+      var $abs25 = 0;
+      var $abs26 = 0;
+      var $abs27 = 0;
+      var $abs28 = 0;
+      var $abs29 = 0;
+      var $abs30 = 0;
+      var $abs31 = 0;
+      
       /**
        * Constructor
        */
@@ -51,29 +81,29 @@ if (!class_exists("tcTemplate")) {
        * Creates a template from local variables
        */
       function create() {
-         $query = "INSERT INTO `" . $this->table . "` ";
-         $query .= "(`username`,`year`,`month`,`template`) ";
+         $query = "INSERT INTO `".$this->table."` (`username`,`year`,`month`,`abs1`,`abs2`,`abs3`,`abs4`,`abs5`,`abs6`,`abs7`,`abs8`,`abs9`,`abs10`,`abs11`,`abs12`,`abs13`,`abs14`,`abs15`,`abs16`,`abs17`,`abs18`,`abs19`,`abs20`,`abs21`,`abs22`,`abs23`,`abs24`,`abs25`,`abs26`,`abs27`,`abs28`,`abs29`,`abs30`,`abs31`) ";
          $query .= "VALUES ('";
          $query .= $this->username . "','";
          $query .= $this->year . "','";
          $query .= $this->month . "','";
-         $query .= $this->template . "'";
+         for ($i=1; $i<=31; $i++) {
+            $prop='abs'.$i;
+            $query .= $this->$prop."','";
+         }
+         $query = substr($query,0,-2);
          $query .= ")";
          $result = $this->db->db_query($query);
       }
 
       /**
-       * Creates a template from parameters
-       * 
+       * Deletes a template by username, year and month
+       *  
        * @param string $uname Username this template is for
        * @param string $year Year of the template (YYYY)
        * @param string $month Month of the template (MM)
        */
       function deleteTemplate($uname = '', $year = '', $month = '') {
-         $query = "DELETE FROM `" . $this->table . "` ";
-         $query .= "WHERE `username` = '" . $uname . "'";
-         $query .= " AND  `year` = '" . $year . "'";
-         $query .= " AND  `month` = '" . $month . "'";
+         $query = "DELETE FROM `".$this->table."` WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."'";
          $result = $this->db->db_query($query);
       }
 
@@ -83,7 +113,7 @@ if (!class_exists("tcTemplate")) {
        * @param integer $id ID of record to delete
        */
       function deleteById($id = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `id` = '" . $id . "'";
+         $query = "DELETE FROM `".$this->table."` WHERE `id`='".$id."'";
          $result = $this->db->db_query($query);
       }
 
@@ -93,24 +123,76 @@ if (!class_exists("tcTemplate")) {
        * @param string $uname Username to delete all records of
        */
       function deleteByUser($uname = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `username` = '" . $uname . "'";
+         $query = "DELETE FROM `".$this->table."` WHERE `username`='".$uname."'";
          $result = $this->db->db_query($query);
       }
 
       /**
-       * Finds a template for a given username, year and month
+       * Gets the absence ID of a given username, year, month and day
+       * 
+       * @param string $uname Username to find
+       * @param string $year Year to find (YYYY)
+       * @param string $month Month to find (MM)
+       * @param string $day Day of month to find (D)
+       * @return integer 0 or absence ID
+       */
+      function getAbsence($uname='', $year='', $month='', $day='1') {
+         $rc = 0;
+         $query = "SELECT abs".$day." FROM `".$this->table."` WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."'";
+         $result = $this->db->db_query($query);
+
+         if ($this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            return $row['abs'.$day];
+         }
+         else {
+            return $rc;
+         }
+      }
+
+      /**
+       * Counts the absences of one ID of a given username, year, month and day
+       * 
+       * @param string $uname Username to find
+       * @param string $year Year to find (YYYY)
+       * @param string $month Month to find (MM)
+       * @param string $day Day of month to find (D)
+       * @return integer 0 or absence ID count
+       */
+      function countAbsence($uname='%', $year='', $month='', $absid, $start=1, $end=0) {
+         $rc = 0;
+         $mytime = $month . " 1," . $year;
+         $myts = strtotime($mytime);
+         if (!$end OR $end>31) $end = date("t",$myts);
+         $query = "SELECT * FROM `".$this->table."` WHERE `username` LIKE '".$uname."' AND `year`='".$year."' AND `month`='".sprintf("%02d",$month)."';";
+         $result = $this->db->db_query($query);
+         if ($uname!="%" AND $this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            for ($i=$start; $i<=$end; $i++) {
+               if ($row['abs'.$i]==$absid) $rc++;
+            }
+         }
+         else if ($this->db->db_numrows($result)) {
+            while ($row = $this->db->db_fetch_array($result)) {
+               for ($i=$start; $i<=$end; $i++) {
+                  if ($row['abs'.$i]==$absid) $rc++;
+               }
+            }
+         }
+         return $rc;
+      }
+
+      /**
+       * Gest a template by username, year and month
        * 
        * @param string $uname Username to find
        * @param string $year Year to find (YYYY)
        * @param string $month Month to find (MM)
        * @return integer Result of MySQL query
        */
-      function findTemplate($uname = '', $year = '', $month = '') {
+      function getTemplate($uname='', $year='', $month='') {
          $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` ";
-         $query .= "WHERE `username` = '" . $uname . "'";
-         $query .= " AND  `year` = '" . $year . "'";
-         $query .= " AND  `month` = '" . $month . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."'";
          $result = $this->db->db_query($query);
 
          if ($this->db->db_numrows($result) == 1) {
@@ -118,22 +200,24 @@ if (!class_exists("tcTemplate")) {
             $this->username = $row['username'];
             $this->year = $row['year'];
             $this->month = $row['month'];
-            $this->template = $row['template'];
+            for ($i=1; $i<=31; $i++) {
+               $prop='abs'.$i;
+               $this->$prop = $row[$prop];
+            }
             $rc = 1;
          }
          return $rc;
       }
 
       /**
-       * Finds a template for a given ID
+       * Gets a template by ID
        * 
        * @param string $id Record ID to find
        * @return integer Result of MySQL query
        */
-      function findTemplateById($id = '') {
+      function getTemplateById($id = '') {
          $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` ";
-         $query .= "WHERE `id` = '" . $id . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `id`='".$id."'";
          $result = $this->db->db_query($query);
 
          if ($this->db->db_numrows($result) == 1) {
@@ -141,7 +225,10 @@ if (!class_exists("tcTemplate")) {
             $this->username = $row['username'];
             $this->year = $row['year'];
             $this->month = $row['month'];
-            $this->template = $row['template'];
+            for ($i=1; $i<=31; $i++) {
+               $prop='abs'.$i;
+               $this->$prop = $row[$prop];
+            }
             $rc = 1;
          }
          return $rc;
@@ -155,33 +242,39 @@ if (!class_exists("tcTemplate")) {
        * @param string $month Month for update (MM)
        */
       function update($uname, $year, $month) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `username`   = '" . $this->username . "', ";
-         $query .= "`year`       = '" . $this->year . "', ";
-         $query .= "`month`      = '" . $this->month . "', ";
-         $query .= "`template`   = '" . $this->template . "' ";
-         $query .= "WHERE `username` = '" . $uname . "'";
-         $query .= " AND  `year`     = '" . $year . "'";
-         $query .= " AND  `month`    = '" . $month . "'";
+         $query = "UPDATE `" . $this->table . "` SET ";
+         $query .= "`username` = '".$this->username."', ";
+         $query .= "`year`     = '".$this->year."', ";
+         $query .= "`month`    = '".$this->month."', ";
+         for ($i=1; $i<=31; $i++) {
+            $prop='abs'.$i;
+            $query .= "`".$prop."`='".$this->$prop."', ";
+         }
+         $query = substr($query,0,-2);
+         $query .= " WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."'";
          $result = $this->db->db_query($query);
       }
 
       /**
-       * Replaces a symbol in all templates. This needs to be done if an admin
-       * changes the symbol of an absence type
+       * Replaces an absence ID in all templates.
        * 
        * @param string $symopld Symbol to be replaced
        * @param string $symnew Symbol to replace with
        */
-      function replaceSymbol($symold, $symnew) {
+      function replaceAbsID($absidold, $absidnew) {
          $query = "SELECT * FROM `" . $this->table . "`";
          $result = $this->db->db_query($query);
          while ($row = $this->db->db_fetch_array($result)) {
-            $this->findTemplateById($row['id']);
-            // Replace symbol in this record
-            $this->template = str_replace($symold, $symnew, $this->template);
-            // Now update the record
-            $qry = "UPDATE `".$this->table."` SET `template` = '".$this->template."' WHERE `id` = '".$row['id']."';";
+            $qry = "UPDATE `".$this->table."` SET ";
+            for ($i=1; $i<=31; $i++) {
+               if ($row['abs'.$i]==$absidold) {
+                  $prop='abs'.$i;
+                  $row[$prop]=$absidnew;
+                  $qry .= "`".$prop."`='".$row[$prop]."', ";
+               }
+            }
+            $qry = substr($qry,0,-2);
+            $qry.= " WHERE `id`='".$row['id']."';";
             $res = $this->db->db_query($qry);
          }
       }

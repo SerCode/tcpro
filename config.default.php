@@ -49,12 +49,10 @@ $CONF['db_pass']   ="";
  * Table names
  */
 $CONF['db_table_prefix']            = "my_";
-$CONF['db_table_abs']               = $CONF['db_table_prefix'].'tc_abs';
 $CONF['db_table_abs_group']         = $CONF['db_table_prefix'].'tc_abs_group';
-$CONF['db_table_absence']           = $CONF['db_table_prefix'].'tc_absence';
+$CONF['db_table_absence']           = $CONF['db_table_prefix'].'tc_absences';
 $CONF['db_table_absence_group']     = $CONF['db_table_prefix'].'tc_absence_group';
-$CONF['db_table_allowance']         = $CONF['db_table_prefix'].'tc_allowance';
-$CONF['db_table_allow']             = $CONF['db_table_prefix'].'tc_allow';
+$CONF['db_table_allowance']         = $CONF['db_table_prefix'].'tc_allowances';
 $CONF['db_table_announcements']     = $CONF['db_table_prefix'].'tc_announcements';
 $CONF['db_table_config']            = $CONF['db_table_prefix'].'tc_config';
 $CONF['db_table_daynotes']          = $CONF['db_table_prefix'].'tc_daynotes';
@@ -63,10 +61,9 @@ $CONF['db_table_holidays']          = $CONF['db_table_prefix'].'tc_holidays';
 $CONF['db_table_log']               = $CONF['db_table_prefix'].'tc_log';
 $CONF['db_table_months']            = $CONF['db_table_prefix'].'tc_months';
 $CONF['db_table_options']           = $CONF['db_table_prefix'].'tc_options';
-$CONF['db_table_permissions']        = $CONF['db_table_prefix'].'tc_permissions';
+$CONF['db_table_permissions']       = $CONF['db_table_prefix'].'tc_permissions';
 $CONF['db_table_regions']           = $CONF['db_table_prefix'].'tc_regions';
 $CONF['db_table_styles']            = $CONF['db_table_prefix'].'tc_styles';
-$CONF['db_table_tpl']               = $CONF['db_table_prefix'].'tc_tpl';
 $CONF['db_table_templates']         = $CONF['db_table_prefix'].'tc_templates';
 $CONF['db_table_users']             = $CONF['db_table_prefix'].'tc_users';
 $CONF['db_table_user_announcement'] = $CONF['db_table_prefix'].'tc_user_announcement';

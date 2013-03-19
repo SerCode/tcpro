@@ -67,6 +67,22 @@ if (!class_exists("tcUserGroup")) {
       }
 
       /**
+       * Reads all usernames of a given group
+       * 
+       * @param string $groupname Group to search by
+       * @return array $uarray Array with all group records
+       */
+      function getAllforGroup($groupname) {
+         $uarray = array();
+         $query = "SELECT username FROM `".$this->table."` WHERE groupname='".$groupname."' ORDER BY username ASC;";
+         $result = $this->db->db_query($query);
+         while ($row=$this->db->db_fetch_array($result)) {
+            $uarray[] = $row['username'];
+         }
+         return $uarray;
+      }
+
+      /**
        * Reads all records for a given user into an array
        * 
        * @param string $username Username to find

@@ -323,8 +323,8 @@ require( "includes/menu.inc.php" );
                      /**
                       * Try to find this users template for this month
                       */
-                     $found = $T->findTemplate($showuser,$showyear,$monthno);
-                     if (!$found || !strlen($T->template)) {
+                     $found = $T->getTemplate($showuser,$showyear,$monthno);
+                     if (!$found) {
                         /**
                          * No template found for this user and month.
                          * Create a default one.
@@ -332,9 +332,9 @@ require( "includes/menu.inc.php" );
                         $T->username = $showuser;
                         $T->year = $showyear;
                         $T->month = $monthno;
-                        $T->template = "";
-                        for ($t=0; $t<$yarray[$m]['nofdays']; $t++ ) {
-                           $T->template .= $CONF['present'];
+                        for ($t=1; $t<=$yarray[$m]['nofdays']; $t++ ) {
+                           $prop='abs'.$t;
+                           $T->$prop = 0;
                         }
                         $T->create();
                      }
@@ -501,23 +501,22 @@ require( "includes/menu.inc.php" );
                                * Set style and color background based on absence.
                                * This overwrites the holiday settings.
                                */
-                              $A->findBySymbol($T->template[$n-1]);
-                              if ($A->cfgsym != $CONF['present'] ) {
-                                 $title=" title=\"".$A->dspname."\"";
-                                 if ( substr_count($addstyle,"background-color: #") ) {
-                                    $pos=strpos($addstyle,"background-color: #");
-                                    $replace="background-color: #".$A->dspbgcolor.";";
+                              $prop='abs'.$n;
+                              if ($A->get($T->$prop)) {
+                                 $title=" title=\"".$A->name."\"";
+                                 if ($pos=strpos($addstyle,"background-color: #")) {
+                                    $replace="background-color: #".$A->bgcolor.";";
                                     $addstyle=substr_replace($addstyle,$replace,$pos,26);
                                  }
                                  else
-                                    $addstyle.=" background-color: #".$A->dspbgcolor.";";
+                                    $addstyle.=" background-color: #".$A->bgcolor.";";
 
-                                 $addstyle.=" color: #" . $A->dspcolor.";";
-                                 if ($A->iconfile) {
-                                    $content="<img align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->iconfile."\" width=\"16\" height=\"16\">";
+                                 $addstyle.=" color: #" . $A->color.";";
+                                 if ($A->icon!='No') {
+                                    $content="<img align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
                                  }
                                  else {
-                                    $content=$A->dspsym;
+                                    $content=$A->symbol;
                                  }
                               }
                               else {

@@ -331,13 +331,13 @@ function clearFlag($flagset, $bitmask) {
  * @param   string $cntto       Date to count to (including)
  * @return  integer             Result of the count
  */
-function countAbs($user, $absid, $from, $to) {
+function countAbsence($user='%', $absid, $from, $to) {
    global $CONF;
-   require_once ($CONF['app_root'] . "includes/tcabs.class.php");
-   require_once ($CONF['app_root'] . "includes/tctpl.class.php");
+   require_once ($CONF['app_root'] . "includes/tcabsence.class.php");
+   require_once ($CONF['app_root'] . "includes/tctemplate.class.php");
 
-   $A = new tcAbs;
-   $T = new tcTpl;
+   $A = new tcAbsence;
+   $T = new tcTemplate;
 
    // Figure out starting month and ending month
    $startyear = intval(substr($from, 0, 4));
@@ -357,7 +357,10 @@ function countAbs($user, $absid, $from, $to) {
 
    $year = $startyear;
    $month = $startmonth;
-   while (intval($year.sprintf("%02d",$month))<=intval($endyear.$endmonth)) {
+   $ymstart = intval($year.sprintf("%02d",$month));
+   $ymend= intval($endyear.sprintf("%02d",$endmonth));
+
+   while ($ymstart<=$ymend) {
       if ($year==$startyear AND $month==$startmonth) {
          $count+=$T->countAbsence($user,$year,$month,$absid,$startday);
       }
@@ -375,99 +378,18 @@ function countAbs($user, $absid, $from, $to) {
       else {
          $month++;
       }
+      $ymstart = intval($year.sprintf("%02d",$month));
    }
-   return $count;
-}
-
-/**
- * Counts all occurences of a given absence type for a given user in a given
- * time period
- *
- * @param   string $cntuser     User to count for
- * @param   string $cntabsence  Absence type to count
- * @param   string $cntfrom     Date to count from (including)
- * @param   string $cntto       Date to count to (including)
- * @return  integer             Result of the count
- */
-function countAbsence($cntuser, $cntabsence, $cntfrom, $cntto) {
-   global $CONF;
-   require_once ($CONF['app_root'] . "includes/tcabsence.class.php");
-   require_once ($CONF['app_root'] . "includes/tctemplate.class.php");
-
-   $A = new tcAbsence;
-   $T = new tcTemplate;
-
-   // Figure out starting month and ending month
-   $startyear = intval(substr($cntfrom, 0, 4));
-   $startmonth = intval(substr($cntfrom, 4, 2));
-   $startday = intval(substr($cntfrom, 6, 2));
-   $endyear = intval(substr($cntto, 0, 4));
-   $endmonth = intval(substr($cntto, 4, 2));
-   $endday = intval(substr($cntto, 6, 2));
-
-   // Get the count factor for this absence type
-   $factor = $A->getFactor($cntabsence);
-
-   // Now count
-   $count = 0;
-   $year = $startyear;
-   $month = $startmonth;
-   $firstday = $startday;
-   if ($firstday < 1 || $firstday > 31)
-      $firstday = 1;
-   if ($cntuser == "*")
-      $whereUser = "";
-   else
-      $whereUser = "`username`='" . $cntuser . "' AND ";
-
-   while ($year . sprintf("%02d", $month) <= $endyear . sprintf("%02d", $endmonth))
-   {
-      $query2 = "SELECT * FROM `" . $T->table . "` WHERE " . $whereUser . " `year`='" . $year . "' AND `month`='" . sprintf("%02d", $month) . "';";
-      $result2 = $T->db->db_query($query2);
-      while ($row2 = $T->db->db_fetch_array($result2, MYSQL_ASSOC))
-      {
-         if ($year == $endyear && $month == $endmonth)
-         {
-            // This is the last template. Make sure we just read it up to the specified endday.
-            if ($endday < strlen($row2['template']))
-               $lastday = $endday;
-            else
-               $lastday = strlen($row2['template']);
-         }
-         else
-         {
-            $lastday = strlen($row2['template']);
-         }
-         for ($i = $firstday -1; $i < $lastday; $i++)
-         {
-            if ($row2['template'][$i] == $cntabsence)
-               $count += 1 * $factor;
-         }
-         //echo "<script type=\"text/javascript\">alert(\"Debug: ".$row2['template']." | ".$count."\");</script>";
-      }
-      if ($month == 12)
-      {
-         $year++;
-         $month = 1;
-      }
-      else
-      {
-         $month++;
-      }
-      $firstday = 1;
-   }
-
    return $count;
 }
 
 /**
  * Counts all business days or man days in a given time period
  *
- * @param   boolean $cntManDays  Switch whether to multiply the business days by the
- *                               amount of users and return that value instead
- * @param   string $cntfrom      Date to count from (including)
- * @param   string $cntto        Date to count to (including)
- * @return  boolean              True if reached, false if not
+ * @param boolean $cntManDays Switch whether to multiply the business days by the amount of users and return that value instead
+ * @param string $cntfrom Date to count from (including)
+ * @param string $cntto Date to count to (including)
+ * @return boolean True if reached, false if not
  */
 function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
    global $CONF;
@@ -560,9 +482,8 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
 function createCSS($theme) {
    global $CONF;
    require_once ($CONF['app_root'] . "includes/csshandler.class.php");
-   require_once ($CONF['app_root'] . "includes/tcconfig.class.php");
    require_once ($CONF['app_root'] . "includes/tcabsence.class.php");
-   require_once ($CONF['app_root'] . "includes/tcabs.class.php");
+   require_once ($CONF['app_root'] . "includes/tcconfig.class.php");
    require_once ($CONF['app_root'] . "includes/tcholiday.class.php");
    require_once ($CONF['app_root'] . "includes/tcstyles.class.php");
 
@@ -671,28 +592,8 @@ function createCSS($theme) {
    }
 
    /**
-    * Add/replace/change the absence based styles in the array
+    * Add/replace/change absence based styles in the array
     */
-   $absences = $A->getAll();
-   foreach ($absences as $abs) {
-      foreach($daytypes as $daytype){
-         $readkey=$CSS->getKeyProperties("td.day".$daytype);
-         $CSS->setKey("td.".$abs['cfgname'].$daytype," ".$readkey);
-         $CSS->setProperty("td.".$abs['cfgname'].$daytype,"background-color","#".$abs['dspbgcolor']);
-         $CSS->setProperty("td.".$abs['cfgname'].$daytype,"color","#".$abs['dspcolor']);
-         
-         $CSS->setKey("td.to".$abs['cfgname'].$daytype," ".$readkey);
-         $CSS->setProperty("td.to".$abs['cfgname'].$daytype,"background-color","#".$abs['dspbgcolor']);
-         $CSS->setProperty("td.to".$abs['cfgname'].$daytype,"color","#".$abs['dspcolor']);
-         $CSS->setProperty("td.to".$abs['cfgname'].$daytype,"border-right",$toBorderWidth."px solid #".$toBorderColor);
-         $CSS->setProperty("td.to".$abs['cfgname'].$daytype,"border-left",$toBorderWidth."px solid #".$toBorderColor);
-      }
-   }
-
-   /**
-    * Add/replace/change the NEW absence based styles in the array
-    */
-   $A = new tcAbs;
    $absences = $A->getAll();
    foreach ($absences as $abs) {
       foreach($daytypes as $daytype){
@@ -1133,7 +1034,7 @@ function getOptions() {
       $CONF['options']['region'] = trim($_REQUEST['region']);
 
    if (isset ($_REQUEST['absencefilter']) && strlen($_REQUEST['absencefilter'])
-       AND in_array($_REQUEST['absencefilter'],$A->getAbsences())
+       AND in_array($_REQUEST['absencefilter'],$A->getAll())
       )
       $CONF['options']['absencefilter'] = trim($_REQUEST['absencefilter']);
 

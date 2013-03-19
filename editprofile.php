@@ -28,8 +28,8 @@ getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");
 
-require_once( "includes/tcabs.class.php" );
-require_once( "includes/tcallow.class.php" );
+require_once( "includes/tcabsence.class.php" );
+require_once( "includes/tcallowance.class.php" );
 require_once( "includes/tcavatar.class.php" );
 require_once( "includes/tcconfig.class.php");
 require_once( "includes/tcdaynote.class.php" );
@@ -43,28 +43,28 @@ require_once( "includes/tcuser.class.php" );
 require_once( "includes/tcusergroup.class.php" );
 require_once( "includes/tcuseroption.class.php" );
 
-$A  = new tcAbs;
-$AV = new tcAvatar;
-$B  = new tcAllow;
-$C = new tcConfig;
-$G  = new tcGroup;
-$L  = new tcLogin;
+$A   = new tcAbsence;
+$AV  = new tcAvatar;
+$B   = new tcAllowance;
+$C   = new tcConfig;
+$G   = new tcGroup;
+$L   = new tcLogin;
 $LOG = new tcLog;
-$N  = new tcDaynote;
-$R  = new tcRegion;
-$T  = new tcTemplate;
-$U  = new tcUser;
-$UG = new tcUserGroup;
-$UL = new tcUser;
-$UO = new tcUserOption;
+$N   = new tcDaynote;
+$R   = new tcRegion;
+$T   = new tcTemplate;
+$U   = new tcUser;
+$UG  = new tcUserGroup;
+$UL  = new tcUser;
+$UO  = new tcUserOption;
 
 $error=false;
 $grouprights=false;
 $msg = false;
 $pwdmismatch = false;
 
-if ($user = $L->checkLogin()) $UL->findByName($user);
-if ( isset($_REQUEST['username']) ) $U->findByName(stripslashes($_REQUEST['username']));
+if ($user=$L->checkLogin()) $UL->findByName($user);
+if (isset($_REQUEST['username'])) $U->findByName(stripslashes($_REQUEST['username']));
 
 /**
  * Check authorization
