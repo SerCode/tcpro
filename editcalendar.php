@@ -358,7 +358,7 @@ if (isset($_POST['btn_apply'])) {
             /**
              * ABSENCE THRESHOLD
              */
-            if ( $C->readConfig("declAbsence") AND $oldtemplate[$i]==$CONF['present'] ) {
+            if ( $C->readConfig("declAbsence") ) {
                if ($C->readConfig("declBase")=="group") {
                   /**
                    * There is a declination threshold for groups.
@@ -753,14 +753,15 @@ if (isset($_POST['btn_apply'])) {
          $notification.=$notificationerror;
          $notification.=$LANG['notification_decl_sign'];
 
-         $headers = "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n";
-
          /*
           * Send email to requesting user if configured so in Declination Management
           */
          if ( $C->readConfig("declNotifyUser") ) {
             $to = $U->email;
-            mail($to, stripslashes($subject), stripslashes($notification), $headers);
+            sendEmail($to, $subject, $notification);
+            /*
+             * Set to TRUE for debug
+             */
             if (FALSE) {
                echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
                     "Subject: ".stripslashes($subject)."\n\n".
@@ -772,7 +773,6 @@ if (isset($_POST['btn_apply'])) {
           * Send email to group manager of requesting user if configured so in Declination Management
           */
          if ( $C->readConfig("declNotifyManager") ) {
-            // $grps=explode(",",$groups);
             foreach($affectedgroups as $grp) {
                $query  = "SELECT DISTINCT ".$U->table.".email FROM ".$U->table.",".$UG->table." " .
                          "WHERE ".$U->table.".username=".$UG->table.".username " .
@@ -781,7 +781,7 @@ if (isset($_POST['btn_apply'])) {
                $result = $UG->db->db_query($query);
                while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) {
                   $to = $row[0];
-                  mail($to, stripslashes($subject), stripslashes($notification), $headers);
+                  sendEmail($to, $subject, $notification);
                }
             }
          }
@@ -796,7 +796,15 @@ if (isset($_POST['btn_apply'])) {
                $U->findByName($row[0]);
                if ($U->checkUserType($CONF['UTDIRECTOR'])) {
                   $to = $U->email;
-                  mail($to, stripslashes($subject), stripslashes($notification), $headers);
+                  sendEmail($to, $subject, $notification);
+                  /*
+                   * Set to TRUE for debug
+                   */
+                  if (FALSE) {
+                     echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
+                          "Subject: ".$subject."\n\n".
+                          $notification."</textarea>";
+                  }
                }
             }
          }
@@ -810,12 +818,14 @@ if (isset($_POST['btn_apply'])) {
                $U->findByName($u['username']);
                if ($U->checkUserType($CONF['UTADMIN'])) {
                   $to = $U->email;
-                  //echo "<script type=\"text/javascript\">alert(\"Mail to admin: ".$to."\");</script>";
-                  mail($to, stripslashes($subject), stripslashes($notification), $headers);
+                  sendEmail($to, $subject, $notification);
+                  /*
+                   * Set to TRUE for debug
+                   */
                   if (FALSE) {
                      echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
-                          "Subject: ".stripslashes($subject)."\n\n".
-                          stripslashes($notification)."</textarea>";
+                          "Subject: ".$subject."\n\n".
+                          $notification."</textarea>";
                   }
                }
             }
@@ -1096,7 +1106,7 @@ $CONF['options']['lang']=$currlang;
                                     </select>
                                  </td>
                                  <td style="padding-right: 4px;">
-                                    <script>
+                                    <script type="text/javascript">
                                        $(function() { $( "#rangefrom" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
                                        $(function() { $( "#rangeto" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
                                     </script>
@@ -1203,9 +1213,9 @@ $CONF['options']['lang']=$currlang;
    </div>
 </div>
 <?php
-require( "includes/footer.html.inc.php" );
 //
 // Show javascript error message to user if there is one
 //
 if ($error_decl) echo "<script type=\"text/javascript\">alert(\"".$errormessage."\");</script>";
+require( "includes/footer.html.inc.php" );
 ?>

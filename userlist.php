@@ -149,8 +149,7 @@ else if ( isset($_POST['btn_usr_pwd_reset']) AND ($_POST['usr_hidden']!="admin")
    $message .= $LANG['notification_sign'];
    $to = $U->email;
    $subject = stripslashes($LANG['notification_usr_pwd_subject']);
-   $headers = "From: " . $C->readConfig("mailFrom") . "\r\n" . "Reply-To: " . $C->readConfig("mailReply") . "\r\n";
-   mail($to, $subject, $message, $headers);
+   sendEmail($to, $subject, $message);
    /**
     * Log this event
     */
