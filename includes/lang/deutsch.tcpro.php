@@ -1734,4 +1734,11 @@ $LANG['err_input_abs_no_name'] = 'Du musst einen Namen f&uuml;r diesen Abwesenhe
 $LANG['err_input_abs_name'] = 'Nur alphanumerische Zeichen, Leerzeichen, Bindestriche und Unterstriche sind beim Namen erlaubt.';
 $LANG['err_input_abs_symbol'] = 'Nur alphanumerische Zeichen und -=+*#$%&*()_ sind beim Symbol erlaubt.';
 $LANG['err_input_abs_color'] = 'Nur hexadezimale Zeichen sind bei den Fabrwerten erlaubt.';
+$LANG['err_input_abs_factor'] = 'Nur numerische Eingaben sind beim Faktor erlaubt.';
+$LANG['err_input_abs_allowance'] = 'Nur numerische Eingaben sind beim Erlaubte Anzahl erlaubt.';
+
+/**
+ * Edit Calendar
+ */
+$LANG['month_current_absence'] = 'Aktuelle Abwesenheit';
 ?>
