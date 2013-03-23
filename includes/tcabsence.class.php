@@ -287,6 +287,16 @@ if (!class_exists("tcAbsence")) {
          return $result;
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    }
 }
 ?>

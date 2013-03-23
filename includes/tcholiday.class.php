@@ -191,6 +191,16 @@ if (!class_exists("tcHoliday")) {
          $this->options = $this->options | $bitmask;
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcHoliday
 
 } // if ( !class_exists( "tcHoliday" ) ) {

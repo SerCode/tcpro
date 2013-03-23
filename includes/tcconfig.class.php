@@ -97,6 +97,16 @@ if (!class_exists("tcConfig")) {
          $result = $this->db->db_query($query);
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLES '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcConfig
 
 } // End if (!class_exists("tcConfig"))

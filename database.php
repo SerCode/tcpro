@@ -126,6 +126,28 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
             $query  = "DELETE FROM `".$N->table."` WHERE `yyyymmdd`<=".$keydate;
             $result = $N->db->db_query($query);
          }
+         if ( $_POST['chkDBOptimize'] ) {
+            /**
+             * Optimize tables
+             */
+            $A->optimize();
+            $AG->optimize();
+            $AN->optimize();
+            $B->optimize();
+            $C->optimize();
+            $G->optimize();
+            $H->optimize();
+            $LOG->optimize();
+            $M->optimize();
+            $N->optimize();
+            $P->optimize();
+            $R->optimize();
+            $S->optimize();
+            $T->optimize();
+            $U->optimize();
+            $UG->optimize();
+            $UO->optimize();
+         }
          /**
           * Log this event
           */
@@ -436,8 +458,12 @@ require("includes/menu.inc.php");
                      <td><?=$LANG['admin_dbmaint_cleanup_chkUsers']?></td>
                   </tr>
                   <tr>
-                     <td><input name="chkDBCleanupMonths" id="chkDBCleanupMonths" type="checkbox" value="chkDBCleanupMonths"></td>
+                     <td><input name="chkDBCleanupMonths" id="chkDBCleanupMonths" type="checkbox" value="chkDBCleanupMonths" CHECKED></td>
                      <td><?=$LANG['admin_dbmaint_cleanup_chkMonths']?></td>
+                  </tr>
+                  <tr>
+                     <td><input name="chkDBOptimize" id="chkDBOptimize" type="checkbox" value="chkDBOptimize" CHECKED></td>
+                     <td><?=$LANG['admin_dbmaint_cleanup_chkOptimize']?></td>
                   </tr>
                   <tr><td colspan="2">
                   <br>

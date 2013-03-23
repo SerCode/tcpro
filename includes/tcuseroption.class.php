@@ -191,13 +191,20 @@ if (!class_exists("tcUserOption")) {
        * @param string $updvalue New value
        */
       function updateRegion($region_old, $region_new='default') {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `value` = '" . $region_new . "' ";
-         $query .= "WHERE `option` = 'defregion' ";
-         $query .= "AND `value` = '" . $region_old . "'";
+         $query = "UPDATE `".$this->table."` SET `value`='".$region_new."' WHERE `option`='defregion' AND `value`='".$region_old."'";
          $result = $this->db->db_query($query);
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcUserOption
 
 } // if (!class_exists("tcUserOption"))

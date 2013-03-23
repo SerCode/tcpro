@@ -1742,4 +1742,9 @@ $LANG['err_input_abs_allowance'] = 'Nur numerische Eingaben sind beim Erlaubte A
  * Edit Calendar
  */
 $LANG['month_current_absence'] = 'Aktuelle Abwesenheit';
+
+/**
+ * Database maintenance
+ */
+$LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Tabellen optimieren'
 ?>

@@ -232,6 +232,16 @@ if (!class_exists("tcDaynote")) {
          $result = $this->db->db_query($query);
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcDaynote
 
 } // if ( !class_exists( "tcDaynote" ) ) {

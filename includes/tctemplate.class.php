@@ -279,6 +279,16 @@ if (!class_exists("tcTemplate")) {
          }
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcTemplate
 
 } // if ( !class_exists( "tcTemplate" ) ) {

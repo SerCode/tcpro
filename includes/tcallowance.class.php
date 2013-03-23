@@ -163,6 +163,17 @@ if (!class_exists("tcAllowance")) {
          $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."', `curryear`='".$curryear."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
+      
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcAllowance
 } // if ( !class_exists( "tcAllowance" ) ) {
 ?>

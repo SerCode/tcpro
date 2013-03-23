@@ -327,6 +327,16 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcUserGroup
 
 } // if (!class_exists("tcUserGroup"))

@@ -125,13 +125,22 @@ if (!class_exists("tcPermission")) {
        * @param string $scheme Name of the permission scheme
        * @return integer Query result, or 0 if query not successful
        */
-      function deleteScheme($scheme)
-      {
+      function deleteScheme($scheme) {
          $query = "DELETE FROM ".$this->table." WHERE scheme = '".$scheme."';";
          $result = $this->db->db_query($query);
          return $result;
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcPermission
 
 } // End if (!class_exists("tcPermission"))

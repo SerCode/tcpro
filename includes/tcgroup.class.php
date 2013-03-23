@@ -205,6 +205,16 @@ if (!class_exists("tcGroup")) {
          $this->options = $this->options | $bitmask;
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcGroup
 
 } // if ( !class_exists( "tcGroup" ) ) {

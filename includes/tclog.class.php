@@ -88,6 +88,16 @@ if (!class_exists("tcLog")) {
          }
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcLog
 
 } // if ( !class_exists( "tcLog" ) ) {

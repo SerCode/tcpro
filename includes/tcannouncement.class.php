@@ -171,6 +171,17 @@ if (!class_exists("tcAnnouncement")) {
          $result = $this->db->db_query($query);
       }
       
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result1 = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         $result2 = $this->db->db_query('OPTIMIZE TABLE '.$this->uatable);
+         return $result1+$result2;
+      }
+            
    } // End Class tcAnnouncement
 } // if ( !class_exists( "tcAnnouncement" ) ) {
 ?>

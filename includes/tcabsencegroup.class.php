@@ -135,6 +135,17 @@ if (!class_exists("tcAbsenceGroup")) {
          $query = "UPDATE `".$this->table."` SET `group`='".$groupnew."' WHERE `group`='".$groupold."'";
          $result = $this->db->db_query($query);
       }
+      
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcAbsGroup
 } // if (!class_exists("tcAbsGroup"))
 ?>

@@ -1742,4 +1742,9 @@ $LANG['err_input_abs_allowance'] = 'Please use a float number for Allowance.';
  * Edit Calendar
  */
 $LANG['month_current_absence'] = 'Current absence';
+
+/**
+ * Database maintenance
+ */
+$LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Optimize tables'
 ?>

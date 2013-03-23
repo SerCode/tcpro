@@ -396,6 +396,16 @@ if (!class_exists("tcUser")) {
          $result = $this->db->db_query($query);
       }
 
+      /**
+       * Optimize table
+       * 
+       * @return boolean Optimize result
+       */ 
+      function optimize() {
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
+      }
+            
    } // End Class tcUser
 
 } // if ( !class_exists( "tcUser" ) ) {
