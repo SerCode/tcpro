@@ -148,19 +148,15 @@ if (isset ($_POST['btn_apply'])) {
       $dayofweek += 1;
       if ($dayofweek == 8) $dayofweek = 1;
    }
+
    /**
-    * Now add the check marks
-    * If several check marks are set for the same day the last day type
-    * row wins.
+    * Check the radio boxes
     */
-   foreach ($_POST as $key => $value) {
-      $cfgname = substr($key, 0, 5);
-      if ($H->findByName($cfgname)) {
-         $day = substr($key, 5, 2);
-         $index = intval($day) - 1;
-         $template[$index] = $H->cfgsym;
-      }
+   for ($i=1; $i<=$nofdays; $i++) {
+      $key = 'opt_hol_'.$i;
+      if (isset($_POST[$key])) $template[$i-1] = $_POST[$key];
    }
+    
    /**
     * Write the new template
     */
@@ -348,18 +344,18 @@ require("includes/header.html.inc.php");
                                  <tr>
                                     <td class=\"name\">" . $row['dspname'] . "</td>
                                     <td class=\"name-button\">&nbsp;</td>";
-                              for ($count = 0; $count < strlen($M->template); $count++) {
+                              for ($count=0; $count<strlen($M->template); $count++) {
                                  if ($M->template[$count] == $row['cfgsym']) {
                                     echo "
-                                       <td class=\"day-" . $row['cfgname'] . "\">
-                                          <input name=\"" . $row['cfgname'] . strval($count +1) . "\" id=\"" . $row['cfgname'] . strval($count +1) . "\" type=\"checkbox\" value=\"" . $row['cfgname'] . strval($count +1) . "\" CHECKED>";
+                                       <td class=\"day-".$row['cfgname']."\">
+                                          <input name=\"opt_hol_".($count+1)."\" type=\"radio\" value=\"".$row['cfgsym']."\" CHECKED>";
                                  } else {
                                     if ($H2->findBySymbol($M->template[$count])) {
-                                       echo "<td class=\"day-" . $H2->cfgname . "\">";
+                                       echo "<td class=\"day-".$H2->cfgname."\">";
                                     } else {
                                        echo "<td class=\"day\">";
                                     }
-                                    echo "<input name=\"" . $row['cfgname'] . strval($count +1) . "\" id=\"" . $row['cfgname'] . strval($count +1) . "\" type=\"checkbox\" value=\"" . $row['cfgname'] . strval($count +1) . "\">";
+                                    echo "<input name=\"opt_hol_".($count+1)."\" type=\"radio\" value=\"".$row['cfgsym']."\">";
                                  }
                                  echo "</td>";
                               }
