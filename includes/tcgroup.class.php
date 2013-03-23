@@ -102,11 +102,35 @@ if (!class_exists("tcGroup")) {
       /**
        * Reads all group records into an array
        * 
+       * @param boolean $excludeHidden If TRUE, exclude hidden groups
        * @return array $grouparray Array with all group records
        */
       function getAll($excludeHidden=FALSE, $order='groupname', $sort='ASC') {
          $grouparray = array();
          $query = "SELECT * FROM `".$this->table."` ORDER BY `".$order."` ".$sort.";";
+         $result = $this->db->db_query($query);
+         while ( $row=$this->db->db_fetch_array($result) ) {
+            if (!$excludeHidden) {
+               $grouparray[] = $row;
+            }
+            else {
+               $this->options = $row['options'];
+               if (!$this->checkOptions($this->hide)) $grouparray[] = $row;
+            }
+         }
+         return $grouparray;
+      }
+
+      /**
+       * Reads all records from a given group into an array
+       *
+       * @param string $group Group to look for
+       * @param boolean $excludeHidden If TRUE, exclude hidden groups
+       * @return array $grouparray Array with all group records
+       */
+      function getAllByGroup($group="%", $excludeHidden=FALSE) {
+         $grouparray = array();
+         $query = "SELECT * FROM `".$this->table."` WHERE groupname LIKE '".$group."' ORDER BY groupname ASC;";
          $result = $this->db->db_query($query);
          while ( $row=$this->db->db_fetch_array($result) ) {
             if (!$excludeHidden) {

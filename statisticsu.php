@@ -184,21 +184,18 @@ require( "includes/menu.inc.php" );
                      /**
                       * Loop through all groups
                       */
-                     $queryG  = "SELECT `groupname` FROM `".$G->table."` WHERE `groupname` LIKE '".$statgroup."' ORDER BY `groupname`;";
-                     $resultG = $G->db->db_query($queryG);
-                     while ( $rowG = $G->db->db_fetch_array($resultG) ){
-                        $G->findByName(stripslashes($rowG['groupname']));
+                     $groups = $G->getAllByGroup($statgroup);
+                     foreach ($groups as $group) {
+                        $G->findByName($group['groupname']);
                         if (!$G->checkOptions($CONF['G_HIDE']) ) {
                            $total=0;
                            /**
                             * Now loop through all users in this group
                             */
-                           $queryUG  = "SELECT `username` FROM `".$UG->table."` WHERE `groupname`='".$rowG['groupname']."' AND `username`!='admin' AND `username` LIKE '".$statuser."';";
-                           $resultUG = $UG->db->db_query($queryUG);
-                           while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
-                              $U1->findByName($rowUG['username']);
-                              if ( !$U1->checkUserType($CONF['UTTEMPLATE']) )
-                              {
+                           $gusers = $UG->getAllforGroup($group['groupname']);
+                           foreach ($gusers as $guser) {
+                              $U1->findByName($guser);
+                              if ( !$U1->checkUserType($CONF['UTTEMPLATE']) ) {
                                  if ( strlen($U1->firstname)) $displayname = $U1->lastname.", ".$U1->firstname;
                                  else                         $displayname = $U1->lastname;
                                  echo "<fieldset style=\"text-align: left; width: 96%;\"><legend>".$LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname."</legend>";
@@ -218,25 +215,24 @@ require( "includes/menu.inc.php" );
                                  unset($legend);
                                  unset($value);
                                  $sum=0;
-                                 $absences = $A->getAll('dspname');
-                                 foreach ($absences as $rowA) {
-                                    $A->findBySymbol($rowA['cfgsym']);
-                                    if ($A->cfgsym!="." AND $A->allowance>0 AND $A->factor>0) {
+                                 $absences = $A->getAll();
+                                 foreach ($absences as $abs) {
+                                    if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) {
                                        $total=0;
-                                       if ( $B->findAllowance($rowUG['username'],$A->cfgsym) ) {
+                                       if ( $B->find($guser,$A->id) ) {
                                           $lstyr = $B->lastyear;
                                           $allow = $B->curryear;
                                        }else{
                                           $lstyr = 0;
                                           $allow = $A->allowance;
                                        }
-                                       $taken=countAbsence(addslashes($rowUG['username']),$A->cfgsym,$periodFrom,$periodTo);
+                                       $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                        $total += ($lstyr+$allow)-($taken);
                                        $sum += $total;
-                                       $legend[] = $rowA['dspname'];
+                                       $legend[] = $A->name;
                                        $value[] = $total;
                                        echo "<tr>" .
-                                             "   <td class=\"stat-caption\" style=\"white-space:nowrap;\">".$rowA['dspname']."</td>" .
+                                             "   <td class=\"stat-caption\" style=\"white-space:nowrap;\">".$A->name."</td>" .
                                              "   <td class=\"stat-value\" style=\"width: auto;\">".$lstyr."</td>" .
                                              "   <td class=\"stat-value\" style=\"width: auto;\">".$allow."</td>" .
                                              "   <td class=\"stat-value\" style=\"width: auto; color: #AA0000;\">".$taken."</td>" .

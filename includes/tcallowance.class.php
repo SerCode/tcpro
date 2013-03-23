@@ -32,9 +32,9 @@ if (!class_exists("tcAllowance")) {
       var $logtype = '';
       var $id = NULL;
       var $username = '';
-      var $abssym = '';
-      var $lastyear = '0';
-      var $curryear = '0';
+      var $absid = 0;
+      var $lastyear = 0;
+      var $curryear = 0;
 
       /**
        * Constructor
@@ -50,30 +50,36 @@ if (!class_exists("tcAllowance")) {
 
       /**
        * Creates an allowance record
-       * 
-       * @param string $createuser User name for this allowance record
-       * @param string $createsym Absence type for this allowance record
-       * @param integer $createlastyear Number of taken absences of this type in the last year
-       * @param integer $createcurryear Allowance for this absence for the current year
        */
-      function createAllowance($createuser, $createsym, $createlastyear, $createcurryear) {
-         $query = "INSERT INTO `" . $this->table . "` ";
-         $query .= "(`username`,`abssym`,`lastyear`,`curryear`) ";
-         $query .= "VALUES ('";
-         $query .= $createuser . "','";
-         $query .= $createsym . "','";
-         $query .= $createlastyear . "','";
-         $query .= $createcurryear . "'";
+      function create() {
+         $query = "INSERT INTO `".$this->table."` (`username`,`absid`,`lastyear`,`curryear`) VALUES (";
+         $query .= "'".$this->username."', ";
+         $query .= $this->absid.", ";
+         $query .= $this->lastyear.", ";
+         $query .= $this->curryear." ";
          $query .= ")";
          $result = $this->db->db_query($query);
       }
 
       /**
-       * Deletes a record by ID taken from local variable
+       * Updates an allowance record from the local variables
        * 
        */
-      function deleteById() {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `id` = '" . $this->id . "'";
+      function update() {
+         $query = "UPDATE `" . $this->table . "` SET ";
+         $query .= "`username`='".$this->username."', ";
+         $query .= "`absid`=".$this->absid.", ";
+         $query .= "`lastyear`=".$this->lastyear.", ";
+         $query .= "`curryear`=".$this->curryear." ";
+         $query .= "WHERE `id`=".$this->id.";";
+         $result = $this->db->db_query($query);
+      }
+
+      /**
+       * Deletes an allowance record
+       */
+      function delete() {
+         $query = "DELETE FROM `".$this->table."` WHERE `id` = '".$this->id."'";
          $result = $this->db->db_query($query);
       }
 
@@ -82,8 +88,8 @@ if (!class_exists("tcAllowance")) {
        * 
        * @param string $symbol Absence symbol to delete
        */
-      function deleteBySymbol($symbol = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `abssym` = '" . $symbol . "'";
+      function deleteAbs($absid='') {
+         $query = "DELETE FROM `".$this->table."` WHERE `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
 
@@ -92,8 +98,8 @@ if (!class_exists("tcAllowance")) {
        * 
        * @param string $symbol Absence symbol to delete
        */
-      function deleteByUser($uname = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `username` = '" . $uname . "'";
+      function deleteUser($username='') {
+         $query = "DELETE FROM `".$this->table."` WHERE `username`='".$username."'";
          $result = $this->db->db_query($query);
       }
 
@@ -105,33 +111,20 @@ if (!class_exists("tcAllowance")) {
        * @param string $findsym Absence type to find
        * @return boolean True if allowance exists, false if not
        */
-      function findAllowance($finduser, $findsym) {
+      function find($username, $absid) {
          $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `username` = '" . $finduser . "' AND `abssym` = '" . $findsym . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
          if ($this->db->db_numrows($result) == 1) {
             $row = $this->db->db_fetch_array($result);
+            $this->id = $row['id'];
             $this->username = $row['username'];
-            $this->abssym = $row['abssym'];
+            $this->absid = $row['absid'];
             $this->lastyear = $row['lastyear'];
             $this->curryear = $row['curryear'];
             $rc = 1;
          }
          return $rc;
-      }
-
-      /**
-       * Updates an allowance record from the local variables
-       * 
-       */
-      function update() {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `username`   = '" . $this->username . "', ";
-         $query .= "`abssym`     = '" . $this->abssym . "', ";
-         $query .= "`lastyear`   = '" . $this->lastyear . "', ";
-         $query .= "`curryear`   = '" . $this->curryear . "' ";
-         $query .= "WHERE `id`       = '" . $this->id . "'";
-         $result = $this->db->db_query($query);
       }
 
       /**
@@ -141,10 +134,8 @@ if (!class_exists("tcAllowance")) {
        * @param string $updsym Absence type to find
        * @param integer $newlast New value for last year
        */
-      function updateLastyear($upduser, $updsym, $newlast) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `lastyear`   = '" . $newlast . "' ";
-         $query .= "WHERE `username` = '" . $upduser . "' AND `abssym` = '" . $updsym . "'";
+      function updateLastyear($username, $absid, $lastyear) {
+         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
 
@@ -155,10 +146,8 @@ if (!class_exists("tcAllowance")) {
        * @param string $updsym Absence type to find
        * @param integer $newcurr New value for current year
        */
-      function updateCurryear($upduser, $updsym, $newcurr) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `curryear`   = '" . $newcurr . "' ";
-         $query .= "WHERE `username` = '" . $upduser . "' AND `abssym` = '" . $updsym . "'";
+      function updateCurryear($username, $absid, $curryear) {
+         $query = "UPDATE `".$this->table."` SET `curryear`='".$newcurr."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
 
@@ -170,11 +159,8 @@ if (!class_exists("tcAllowance")) {
        * @param integer $newlast New value for last year
        * @param integer $newcurr New value for current year
        */
-      function updateAllowance($upduser, $updsym, $newlast, $newcurr) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `lastyear`   = '" . $newlast . "', ";
-         $query .= "`curryear`   = '" . $newcurr . "' ";
-         $query .= "WHERE `username` = '" . $upduser . "' AND `abssym` = '" . $updsym . "'";
+      function updateAllowance($username, $absid, $lastyear, $curryear) {
+         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."', `curryear`='".$curryear."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
    } // End Class tcAllowance

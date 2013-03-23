@@ -44,23 +44,23 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                <?php
                $countfrom = str_replace("-","",$countfrom);
                $countto = str_replace("-","",$countto);
-               $query  = "SELECT `cfgsym` FROM `".$A->table."` ORDER BY `dspname`;";
-               $result = $A->db->db_query($query);
                $rowstyle=0;
-               while ( $row = $A->db->db_fetch_array($result,MYSQL_ASSOC) ){
-                  $A->findBySymbol($row['cfgsym']);
-                  if ( $A->cfgsym!="." && $A->factor>0 ) {
-                     if ( !$A->checkOptions($CONF['A_HIDE_IN_PROFILE']) ||
+               $absences=$A->getAll();
+               foreach ($absences as $abs) {
+                  $A->get($abs['id']);
+                  if ( $A->factor ) {
+                     if ( !$A->hide_in_profile ||
                           ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR']) || $UL->checkUserType($CONF['UTMANAGER']) )
                         ) {
-                        if ( $B->findAllowance($U->username,$A->cfgsym)) {
+                        if ( $B->find($U->username,$A->id)) {
                            $lstyr = $B->lastyear;
                            $allow = $B->curryear;
                         }else{
                            $lstyr = 0;
                            $allow = $A->allowance;
                         }
-                        $taken=countAbsence(addslashes($U->username),$A->cfgsym,$countfrom,$countto);
+                        //echo "<script type=\"text/javascript\">alert(\"Debug: ".$countfrom."|".$countto." \");</script>";
+                        $taken=countAbsence($U->username,$A->id,$countfrom,$countto);
                         $remain = $lstyr + $allow - $taken;
                         if ($remain<0) $stylesuffix="r"; else $stylesuffix="";
                         if ($rowstyle==1) $rowstyle=0; else $rowstyle=1;
@@ -76,20 +76,20 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                         <tr class="row<?=$rowstyle?>">
                           <td class="dlg-frame-bodyc" style="text-align: left; vertical-align: middle;">
                               <div style="border: 1px solid #000000; height: 24px; width: 24px; float: left; background-color: #<?=$A->dspbgcolor?>; text-align: center; vertical-align: middle; margin-right: 4px;">
-                                 <?php if ($A->iconfile) { ?>
-                                    <img style="padding-top: 4px;" alt="" src="<?=$CONF['app_icon_dir'].$A->iconfile?>">
+                                 <?php if ($A->icon!='No') { ?>
+                                    <img style="padding-top: 4px;" alt="" src="<?=$CONF['app_icon_dir'].$A->icon?>">
                                  <?php
                                  }
                                  else { ?>
-                                    <?=$A->dspsym?>
+                                    <?=$A->symbol?>
                                  <?php } ?>
                               </div>
-                              <?=$A->dspname?>&nbsp;(<?=$A->cfgsym?>)
+                              <?=$A->name?>&nbsp;(<?=$A->symbol?>)
                           </td>
 
                           <?php if ($allowed) { ?>
-                          <td class="dlg-frame-bodyc" style="text-align: center;"><input name="lastyear-<?=$A->cfgsym?>" id="lastyear-<?=$A->cfgsym?>" size="1" maxlength="3" type="text" class="text" style="text-align: center;" value="<?=$lstyr?>"></td>
-                          <td class="dlg-frame-bodyc" style="text-align: center;"><input name="allowance-<?=$A->cfgsym?>" id="allowance-<?=$A->cfgsym?>" size="1" maxlength="3" type="text" class="text" style="text-align: center;" value="<?=$allow?>"></td>
+                          <td class="dlg-frame-bodyc" style="text-align: center;"><input name="lastyear-<?=$A->id?>" id="lastyear-<?=$A->id?>" size="2" maxlength="4" type="text" class="text" style="text-align: center;" value="<?=$lstyr?>"></td>
+                          <td class="dlg-frame-bodyc" style="text-align: center;"><input name="allowance-<?=$A->id?>" id="allowance-<?=$A->id?>" size="2" maxlength="4" type="text" class="text" style="text-align: center;" value="<?=$allow?>"></td>
                           <?php } else { ?>
                           <td class="dlg-frame-bodyc" style="text-align: center;" ><?=$lstyr?></td>
                           <td class="dlg-frame-bodyc" style="text-align: center;" ><?=$allow?></td>

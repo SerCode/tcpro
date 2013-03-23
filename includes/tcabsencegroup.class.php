@@ -1,12 +1,12 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcabsencegroup.class.php
+ * tcabsgroup.class.php
  * 
- * Contains the class to interface with the absence group record
+ * Contains the class to interface with the abs group table
  *
  * @package TeamCalPro
- * @version 3.5.002 
+ * @version 3.5.003 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -49,27 +49,22 @@ if (!class_exists("tcAbsenceGroup")) {
       /**
        * Creates a record assigning an absence type to a group
        * 
-       * @param string $absence Absence symbol
+       * @param string $absid Absence ID
        * @param string $group Group short name
        */
-      function assign($absence, $group) {
-         $query = "INSERT INTO `" . $this->table . "` ";
-         $query .= "(`absence`,`group`) ";
-         $query .= "VALUES ('";
-         $query .= $absence . "','";
-         $query .= $group . "'";
-         $query .= ")";
+      function assign($absid, $group) {
+         $query = "INSERT INTO `".$this->table."` (`absid`,`group`) VALUES ('".$absid."','".$group."')";
          $result = $this->db->db_query($query);
       }
 
       /**
        * Deletes a record matching absence and group
        * 
-       * @param string $absence Absence symbol
+       * @param string $absid Absence ID
        * @param string $group Group short name
        */
-      function unassign($absence='', $group='') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `absence` = '" . $absence . " AND `group` = " .$group. "'";
+      function unassign($absid='', $group='') {
+         $query = "DELETE FROM `".$this->table."` WHERE `absid`='".$absid." AND `group`=".$group."'";
          $result = $this->db->db_query($query);
       }
 
@@ -78,8 +73,8 @@ if (!class_exists("tcAbsenceGroup")) {
        * 
        * @param string $absence Absence symbol
        */
-      function unassignAbsence($absence = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `absence` = '" . $absence . "'";
+      function unassignAbs($absid='') {
+         $query = "DELETE FROM `".$this->table."` WHERE `absid` = '".$absid."'";
          $result = $this->db->db_query($query);
       }
 
@@ -89,20 +84,19 @@ if (!class_exists("tcAbsenceGroup")) {
        * @param string $group Group short name
        */
       function unassignGroup($group = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `group` = '" . $group . "'";
+         $query = "DELETE FROM `".$this->table."` WHERE `group`='".$group."'";
          $result = $this->db->db_query($query);
       }
 
       /**
        * Checks whether an absence is assigned to a group
        * 
-       * @param string $absence Absence symbol
+       * @param string $absid Absence ID
        * @param string $group Group short name
        */
-      function isAssigned($absence, $group) {
+      function isAssigned($absid, $group) {
          $rc = 0;
-         // see if absence is member of group
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `absence` = '" . $absence . "' AND `group` = '" . $group . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `absid`='".$absid."' AND `group`='".$group."'";
          $result = $this->db->db_query($query);
          // exactly one row found (a good thing!)
          if ($this->db->db_numrows($result) == 1) {
@@ -116,23 +110,18 @@ if (!class_exists("tcAbsenceGroup")) {
        * 
        */
       function update() {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `absence`   = '" . $this->absence . "', ";
-         $query .= "`group`  = '" . $this->group . "' ";
-         $query .= "WHERE `id`       = '" . $this->id . "'";
+         $query = "UPDATE `".$this->table."` SET `absid`='".$this->absid."', `group`='".$this->group."' WHERE `id`='".$this->id."'";
          $result = $this->db->db_query($query);
       }
 
       /**
        * Updates the absence type of an existing record
        * 
-       * @param string $absold Absence type to change
-       * @param string $absnew New absence type
+       * @param string $absold Absence ID to change
+       * @param string $absnew New absence ID
        */
       function updateAbsence($absold, $absnew) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `absence`   = '" . $absnew . "' ";
-         $query .= "WHERE `absence` = '" . $absold . "'";
+         $query = "UPDATE `".$this->table."` SET `absence`='".$absnew."' WHERE `absid`='".$absold."'";
          $result = $this->db->db_query($query);
       }
 
@@ -143,11 +132,9 @@ if (!class_exists("tcAbsenceGroup")) {
        * @param string $absnew New group name
        */
       function updateGroupname($groupold, $groupnew) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `group`   = '" . $groupnew . "' ";
-         $query .= "WHERE `group` = '" . $groupold . "'";
+         $query = "UPDATE `".$this->table."` SET `group`='".$groupnew."' WHERE `group`='".$groupold."'";
          $result = $this->db->db_query($query);
       }
-   } // End Class tcAbsenceGroup
-} // if (!class_exists("tcAbsenceGroup"))
+   } // End Class tcAbsGroup
+} // if (!class_exists("tcAbsGroup"))
 ?>

@@ -43,28 +43,28 @@ require_once( "includes/tcuser.class.php" );
 require_once( "includes/tcusergroup.class.php" );
 require_once( "includes/tcuseroption.class.php" );
 
-$A  = new tcAbsence;
-$AV = new tcAvatar;
-$B  = new tcAllowance;
-$C = new tcConfig;
-$G  = new tcGroup;
-$L  = new tcLogin;
+$A   = new tcAbsence;
+$AV  = new tcAvatar;
+$B   = new tcAllowance;
+$C   = new tcConfig;
+$G   = new tcGroup;
+$L   = new tcLogin;
 $LOG = new tcLog;
-$N  = new tcDaynote;
-$R  = new tcRegion;
-$T  = new tcTemplate;
-$U  = new tcUser;
-$UG = new tcUserGroup;
-$UL = new tcUser;
-$UO = new tcUserOption;
+$N   = new tcDaynote;
+$R   = new tcRegion;
+$T   = new tcTemplate;
+$U   = new tcUser;
+$UG  = new tcUserGroup;
+$UL  = new tcUser;
+$UO  = new tcUserOption;
 
 $error=false;
 $grouprights=false;
 $msg = false;
 $pwdmismatch = false;
 
-if ($user = $L->checkLogin()) $UL->findByName($user);
-if ( isset($_REQUEST['username']) ) $U->findByName(stripslashes($_REQUEST['username']));
+if ($user=$L->checkLogin()) $UL->findByName($user);
+if (isset($_REQUEST['username'])) $U->findByName(stripslashes($_REQUEST['username']));
 
 /**
  * Check authorization
@@ -331,39 +331,44 @@ if (isset($_POST['btn_apply'])) {
  */
 elseif ( isset($_POST['btn_abs_update']) ) {
 
+   
    $countfrom = stripslashes($_POST['cntfrom']);
    $countto = stripslashes($_POST['cntto']);
 
-   $absences = $A->getAll("dspname");
-   foreach ($absences as $row) {
-      $A->findBySymbol($row['cfgsym']);
-      if ($A->cfgsym!=".") {
-         if ( isset($_POST['lastyear-'.$A->cfgsym]) && isset($_POST['allowance-'.$A->cfgsym]) ) {
-            if ( is_numeric($_POST['lastyear-'.$A->cfgsym]) && is_numeric($_POST['allowance-'.$A->cfgsym]) ) {
-               $newlastyear = floatval($_POST['lastyear-'.$A->cfgsym]);
-               $newallowance = floatval($_POST['allowance-'.$A->cfgsym]);
-               if ($B->findAllowance($U->username,$A->cfgsym)) {
-                  /**
-                   * This user has an individual allowance record for this
-                   * absence type. Let's update it...
-                   */
-                  $B->updateAllowance($U->username,$A->cfgsym,$newlastyear,$newallowance);
-               }
-               else {
-                  /**
-                   * This user does not have an individual allowance record
-                   * for this absence type yet. Let's create one if a left
-                   * over from last year was specified or if the allowance
-                   * differs from the general allowance for this absence type.
-                   */
-                  if ( $newlastyear>0 || $newallowance<>floatval($A->allowance)) {
-                     $B->createAllowance($U->username,$A->cfgsym,$newlastyear,$newallowance);
-                  }
-               }
+   $absences = $A->getAll();
+   foreach ($absences as $abs) {
+      $A->get($abs['id']);
+      if ( isset($_POST['lastyear-'.$A->id]) && isset($_POST['allowance-'.$A->id]) ) {
+         if ( is_numeric($_POST['lastyear-'.$A->id]) && is_numeric($_POST['allowance-'.$A->id]) ) {
+            $newlastyear = floatval($_POST['lastyear-'.$A->id]);
+            $newallowance = floatval($_POST['allowance-'.$A->id]);
+            if ($B->find($U->username,$A->id)) {
+               /**
+                * This user has an individual allowance record for this
+                * absence type. Let's update it...
+                */
+               $B->lastyear=$newlastyear;
+               $B->curryear=$newallowance;
+               $B->update();
             }
             else {
-               echo "<script type=\"text/javascript\">alert(\"".$LANG['err_allowance_not_numeric']."\");</script>";
+               /**
+                * This user does not have an individual allowance record
+                * for this absence type yet. Let's create one if a left
+                * over from last year was specified or if the allowance
+                * differs from the general allowance for this absence type.
+                */
+               if ( $newlastyear>0 || $newallowance<>floatval($A->allowance)) {
+                  $B->username=$U->username;
+                  $B->absid=$A->id;
+                  $B->lastyear=$newlastyear;
+                  $B->curryear=$newallowance;
+                  $B->create();
+               }
             }
+         }
+         else {
+            echo "<script type=\"text/javascript\">alert(\"".$LANG['err_allowance_not_numeric']."\");</script>";
          }
       }
    }
@@ -371,7 +376,7 @@ elseif ( isset($_POST['btn_abs_update']) ) {
     * Log this event
     */
    $LOG->log("logUser",$L->checkLogin(),"User allowance updated: ".$U->username);
-   header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username."&lang=".$CONF['options']['lang']);
+   //header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username."&lang=".$CONF['options']['lang']);
 }
 /**
  * =========================================================================
@@ -536,8 +541,7 @@ require( "includes/header.html.inc.php" );
                                        <input style="vertical-align: middle; margin-right: 8px;" name="uo_owngroups" id="uo_owngroups" type="checkbox" value="uo_owngroups" <?=$UO->true($U->username,"owngroupsonly")?"CHECKED":""?> ><?=$LANG['uo_owngroupsonly']?><br>
                                        <input style="vertical-align: middle; margin-right: 8px;" name="uo_showbirthday" id="uo_showbirthday" type="checkbox" value="uo_showbirthday" onclick="javascript: var obj = document.getElementById('thisid'); if (document.forms[0].uo_showbirthday.checked==true) { document.forms[0].uo_ignoreage.disabled=false; obj.style.color = '#333333'; } else { document.forms[0].uo_ignoreage.disabled=true; document.forms[0].uo_ignoreage.checked=false; obj.style.color = '#BBBBBB'; }" <?=$UO->true($U->username,"showbirthday")?"CHECKED":""?> ><?=$LANG['uo_showbirthday']?><br>
                                        <input style="vertical-align: middle; margin-left: 26px; margin-right: 8px;" name="uo_ignoreage" id="uo_ignoreage" type="checkbox" value="uo_ignoreage" <?=$UO->true($U->username,"ignoreage")?"CHECKED":""?>><span id="thisid"><?=$LANG['uo_ignoreage']?></span><br>
-                                       <script type="text/javascript"><br>
-                                       <!--
+                                       <script type="text/javascript">
                                        var obj = document.getElementById('thisid');
                                        if (document.forms[0].uo_showbirthday.checked==true) {
                                           document.forms[0].uo_ignoreage.disabled=false;
@@ -547,7 +551,6 @@ require( "includes/header.html.inc.php" );
                                           document.forms[0].uo_ignoreage.checked=false;
                                           obj.style.color = '#BBBBBB';
                                        }
-                                       -->
                                        </script>
                                        <input style="vertical-align: middle; margin-right: 8px;" name="uo_notifybirthday" id="uo_notifybirthday" type="checkbox" value="uo_notifybirthday" <?=$UO->true($U->username,"notifybirthday")?"CHECKED":""?> ><?=$LANG['uo_notifybirthday']?><br>
                                        <br>

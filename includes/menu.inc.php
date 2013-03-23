@@ -288,13 +288,12 @@ if ( $C->readConfig("showLanguage") OR
                <?php
                require_once( $CONF['app_root']."includes/tcabsence.class.php" );
                $A = new tcAbsence;
-               $query  = "SELECT dspname,cfgsym FROM `".$CONF['db_table_absence']."` WHERE 1 ORDER BY `dspname`;";
-               $result = $A->db->db_query($query);
-               while ( $row = $A->db->db_fetch_array($result) ){
-                  if ($CONF['options']['absencefilter']==$row['cfgsym']) { ?>
-                     <option value="<?=$row['cfgsym']?>" selected><?=$row['dspname']?></option>
+               $absences = $A->getAll();
+               foreach ($absences as $abs){
+                  if ($CONF['options']['absencefilter']==$abs['id']) { ?>
+                     <option value="<?=$abs['id']?>" selected><?=$abs['name']?></option>
                   <?php } else { ?>
-                     <option value="<?=$row['cfgsym']?>"><?=$row['dspname']?></option>
+                     <option value="<?=$abs['id']?>"><?=$row['name']?></option>
                   <?php }
                } ?>
             </select>

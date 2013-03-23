@@ -38,6 +38,7 @@ require_once( "includes/tclogin.class.php" );
 require_once( "includes/tclog.class.php" );
 require_once( "includes/tcmonth.class.php" );
 require_once( "includes/tctemplate.class.php" );
+require_once( "includes/tctemplate.class.php" );
 require_once( "includes/tcuser.class.php" );
 require_once( "includes/tcusergroup.class.php" );
 
@@ -177,7 +178,7 @@ $notifygroup = $U->notify_group;
 /**
  * Try to find this user's current template for this month
  */
-$found = $T->findTemplate($U->username,$Year,$monthno);
+$found = $T->getTemplate($U->username,$Year,$monthno);
 if (!$found) {
    /**
     * No template found for this user and month yet.
@@ -186,9 +187,9 @@ if (!$found) {
    $T->username = $U->username;
    $T->year = $Year;
    $T->month = $monthno;
-   $T->template = "";
-   for ($i=0; $i<intval($nofdays); $i++ ) {
-      $T->template .= $CONF['present'];
+   for ($i=1; $i<=intval($nofdays); $i++ ) {
+      $prop='abs'.$i;      
+      $T->$prop = 0;
    }
    $T->create();
    /**
@@ -203,25 +204,18 @@ if (!$found) {
  */
 if (isset($_POST['btn_apply'])) {
    /**
-    * Create a new blank template
+    * Now get all single day requests
     */
-   $newtemplate = "";
-   for ($i=0; $i<intval($nofdays); $i++ ) $newtemplate .= $CONF['present'];
-
-   /**
-    * Create an array of all requested absences
-    */
-   $absarray = array();
-   foreach($_POST as $key=>$value)
-   {
+   $requested = array();
+   for ($i=1; $i<=$nofdays; $i++) {
+      $key = 'opt_abs_'.$i;
+      if (isset($_POST[$key])) $requested[$i] = $_POST[$key];
+      else $requested[$i] = '0';
+   }
+    
+   foreach($_POST as $key=>$value) {
       /**
-       * First get the absence check marks in the upper portion.
-       * Each key there ends with a number. No other key does.
-       */
-      if ( is_numeric(substr($key,-1)) ) $absarray[] = $key;
-
-      /**
-       * Then get the range input
+       * Get the range input
        */
       if ( $key=="rangeabs" && strlen($_POST['rangefrom']) && strlen($_POST['rangeto']) ) {
 	   	$yearfrom = substr($_POST['rangefrom'],0,4);
@@ -237,17 +231,15 @@ if (isset($_POST['btn_apply'])) {
             echo "<script type=\"text/javascript\">alert(\"".$LANG['cal_range_start']."\");</script>";
          }
          else {
-            if (isset($_POST['range_only_business'])) {
-               for ($i=intval($dayfrom);$i<=intval($dayto);$i++) {
+            for ($i=intval($dayfrom);$i<=intval($dayto);$i++) {
+               if (isset($_POST['range_only_business'])) {
                   if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['rangeabs'].sprintf("%02d",$i);
+                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $requested[$i]=$_POST['rangeabs'];
                   }
                }
-            }
-            else {
-	            for ($i=intval($dayfrom);$i<=intval($dayto);$i++) {
-		            $absarray[]=$_POST['rangeabs'].sprintf("%02d",$i);
-	            }
+               else {
+		            $requested[$i]=$_POST['rangeabs'];
+               }
             }
          }
       }
@@ -255,234 +247,118 @@ if (isset($_POST['btn_apply'])) {
       /**
        * Then get the recurring input
        */
-      if ( $key=="monday" ) {
-         $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x==1) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
+      $wdays = array('monday'=>1, 'tuesday'=>2, 'wednesday'=>3, 'thursday'=>4, 'friday'=>5, 'saturday'=>6, 'sunday'=>7);
+      foreach ($wdays as $wday => $wdaynr) {
+         if ( $key==$wday ) {
+            $x = intval($weekday1);
+            for ($i=1; $i<=$nofdays; $i++) {
+               if ($x==$wdaynr) {
+                  if (isset($_POST['recurring_only_business'])) {
+                     if ( $H->findBySymbol($M->template[$i-1]) ) {
+                        if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $requested[$i]=$_POST['recurrabs'];
+                     }
+                  }
+                  else {
+                     $requested[$i]=$_POST['recurrabs'];
                   }
                }
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-         else {
-	         for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x==1 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-	            if($x<=6) $x+=1; else $x = 1;
-	         }
-         }
-      }
-      if ( $key=="tuesday" ) {
-         $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x==2) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-                  }
-               }
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-         else {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x==2 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-               if($x<=6) $x+=1; else $x = 1;
+              if($x<=6) $x++; else $x=1;
             }
          }
       }
-      if ( $key=="wednesday" ) {
-         $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x==3) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-                  }
-               }
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-         else {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x==3 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-      }
-      if ( $key=="thursday" ) {
-         $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x==4) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-                  }
-               }
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-         else {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x==4 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-      }
-      if ( $key=="friday" ) {
-         $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x==5) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-                  }
-               }
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-         else {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x==5 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-                  if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-      }
-      if ( $key=="saturday" ) {
-         $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x==6) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-                  }
-               }
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-         else {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x==6 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-      }
-      if ( $key=="sunday" ) {
-         $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x==7) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-                  }
-               }
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-         else {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x==7 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-               if($x<=6) $x+=1; else $x = 1;
-            }
-         }
-      }
+      
       if ( $key=="workdays" ) {
          $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x>=1 AND $x<=5) {
+         for ($i=1; $i<=$nofdays; $i++) {
+            if ($x>=1 AND $x<=5) {
+               if (isset($_POST['recurring_only_business'])) {
                   if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
+                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $requested[$i]=$_POST['recurrabs'];
                   }
                }
-               if($x<=6) $x+=1; else $x = 1;
+               else {
+                  $requested[$i]=$_POST['recurrabs'];
+               }
             }
-         }
-         else {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x>=1 AND $x<=5 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-               if($x<=6) $x+=1; else $x = 1;
-            }
+            if($x<=6) $x++; else $x=1;
          }
       }
+
       if ( $key=="weekend" ) {
          $x = intval($weekday1);
-         if (isset($_POST['recurring_only_business'])) {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ($x>=6 AND $x<=7) {
+         for ($i=1; $i<=$nofdays; $i=$i+1) {
+            if ($x>=6 AND $x<=7) {
+               if (isset($_POST['recurring_only_business'])) {
                   if ( $H->findBySymbol($M->template[$i-1]) ) {
-                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
+                     if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $requested[$i]=$_POST['recurrabs'];
                   }
                }
-               if($x<=6) $x+=1; else $x = 1;
+               else {
+                  $requested[$i]=$_POST['recurrabs'];
+               }
             }
-         }
-         else {
-            for ($i=1; $i<=$nofdays; $i=$i+1) {
-               if ( $x>=6 AND $x<=7 ) $absarray[]=$_POST['recurrabs'].sprintf("%02d",$i);
-               if($x<=6) $x+=1; else $x = 1;
-            }
+            if($x<=6) $x++; else $x=1;
          }
       }
+
    }
 
    /**
-    * Now create the new requested template from absarray
-    */
-   foreach($absarray as $key) {
-      $type = substr($key, 0, strlen($key)-2); // $type = requested cfgname
-      $ixx = intval(substr($key,-2)); // $ixx = number of day in month, last two characters in $key
-      $query  = "SELECT cfgsym FROM `".$A->table."` WHERE cfgname='".$type."'";
-      $result = $A->db->db_query($query);
-      if ($A->db->db_numrows($result)==1) {
-         $row = $A->db->db_fetch_array($result,MYSQL_NUM);
-         if ($ixx) $newtemplate[$ixx-1] = $row[0];
-      }
-      else {
-         if ($ixx) $newtemplate[$ixx-1] = $CONF['present'];
-      }
-   }
-
-   /**
-    * We have the current template in $T->template
-    * We have the new template in $newtemplate
+    * We have the current absences in $T
+    * We have the new absences in $requested
+    * We will create an array for all accepted absences: $accepted
+    * We will create an array for all unapproved absences: $unapproved
     * Now we have to check each requested absence (removed or added) by comparison.
-    * If any of them is not accepted we have to reject that one.
-    * The valid ones will survive in the new template.
+    * If rejected, we will write the absence from $T into $accepted
+    * If accepted, we will write the absence from $requested into $accepted
     *
-    * Let's assume all is good. Set the corresponding flags.
+    * Let's assume all is good. Set the corresponding flag
     */
    $declined=FALSE;
    $errorarray = array();
-
-   $oldtemplate = $T->template;
    $usergroups = $UG->getAllforUser($U->username);
 
+   /**
+    * Check whether $T and $requested differ in any way.
+    * Otherwise we can save us the trouble of the one by one comparison.
+    * Once we are at it, fill the default accepted array with what is in $T
+    * Also, use this loop to initiate the unapproved array
+    */
+   $accepted = array();
+   $difference=FALSE;
+   for ($i=1; $i<=$nofdays; $i++) {
+      $prop='abs'.$i;
+      if ($T->$prop!=$requested[$i]) {
+         $difference=TRUE;
+      }
+      $accepted[$i]=$requested[$i];
+      $unapproved[$i]='0';
+   } 
+    
    /**
     * Only go through this if the new template is different from the old
     * and if the user requesting this is not the Admin
     */
-   if ($oldtemplate!=$newtemplate AND !$isAdmin) {
+   if ($difference AND !$isAdmin) {
       /**
        * Create an array that will hold only groups affected by a declination.
-       * This array is used late to send emails to only the affected managers.
+       * This array is used later to send emails to only the affected managers.
        */
       $affectedgroups=array();
       /**
-       * Loop through each day of the template
+       * Loop through each day for the comparison
        */
-      for ($i=0; $i<strlen($newtemplate); $i++) {
+      for ($i=1; $i<=$nofdays; $i++) {
+         $prop='abs'.$i;
          /**
           * See if there was a change requested for this day
           */
-         if ($oldtemplate[$i]!=$newtemplate[$i]) {
+         if ($T->$prop!=$requested[$i]) {
 
             /**
              * ABSENCE THRESHOLD
              */
-            if ( $C->readConfig("declAbsence") AND $oldtemplate[$i]==$CONF['present'] ) {
+            if ( $C->readConfig("declAbsence") ) {
                if ($C->readConfig("declBase")=="group") {
                   /**
                    * There is a declination threshold for groups.
@@ -508,7 +384,8 @@ if (isset($_POST['btn_apply'])) {
                      $declined=TRUE;
                      $groups = substr($groups,0,strlen($groups)-2);
                      $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_group_threshold'].$groups;
-                     $newtemplate[$i] = $oldtemplate[$i];
+                     $unapproved[$i]=$requested[$i];
+                     $accepted[$i]=$T->$prop;
                   }
                }
                else {
@@ -518,7 +395,8 @@ if (isset($_POST['btn_apply'])) {
                       */
                      $declined=TRUE;
                      $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_total_threshold'];
-                     $newtemplate[$i] = $oldtemplate[$i];
+                     $unapproved[$i]=$requested[$i];
+                     $accepted[$i]=$T->$prop;
                   }
                }
             }
@@ -526,7 +404,7 @@ if (isset($_POST['btn_apply'])) {
             /**
              * MIN_PRESENT or MAX_ABSENT
              */
-            if ( $oldtemplate[$i]==$CONF['present'] ) {
+            if ($T->$prop=='0') {
                $groups_min = "";
                $groups_max = "";
                foreach ($usergroups as $row) {
@@ -561,7 +439,8 @@ if (isset($_POST['btn_apply'])) {
                   $declined=TRUE;
                   $groups_min = substr($groups_min,0,strlen($groups_min)-2);
                   $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_min_present'].$groups_min;
-                  $newtemplate[$i] = $oldtemplate[$i];
+                  $unapproved[$i]=$requested[$i];
+                  $accepted[$i]=$T->$prop;
                }
                if (strlen($groups_max)) {
                   /**
@@ -570,7 +449,8 @@ if (isset($_POST['btn_apply'])) {
                   $declined=TRUE;
                   $groups_max = substr($groups_max,0,strlen($groups_max)-2);
                   $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_max_absent'].$groups_max;
-                  $newtemplate[$i] = $oldtemplate[$i];
+                  $unapproved[$i]=$requested[$i];
+                  $accepted[$i]=$T->$prop;
                }
             }
 
@@ -607,7 +487,8 @@ if (isset($_POST['btn_apply'])) {
                      $declined=TRUE;
                      $dspDate = substr($blockBeforeDate,0,4)."-".substr($blockBeforeDate,4,2)."-".substr($blockBeforeDate,6,2);
                      $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_before'].$dspDate.".";
-                     $newtemplate[$i] = $oldtemplate[$i];
+                     $unapproved[$i]=$requested[$i];
+                     $accepted[$i]=$T->$prop;
                   }
                }
             }
@@ -642,66 +523,73 @@ if (isset($_POST['btn_apply'])) {
                      $dspStartDate = substr($startDate,0,4)."-".substr($startDate,4,2)."-".substr($startDate,6,2);
                      $dspEndDate = substr($endDate,0,4)."-".substr($endDate,4,2)."-".substr($endDate,6,2);
                      $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_period'].$dspStartDate.$LANG['err_decl_and'].$dspEndDate.".";
-                     $newtemplate[$i] = $oldtemplate[$i];
+                     $unapproved[$i]=$requested[$i];
+                     $accepted[$i]=$T->$prop;
                   }
                }
             }
 
             /**
-             * ABSENCE APPROVAL
+             * APPROVAL REQUIRED
              */
             $approvalRequired=FALSE;
-            if ($oldtemplate[$i]!=$CONF['present']) {
-               $A->findBySymbol($oldtemplate[$i]);
-               if ( $A->checkOptions($CONF['A_APPROVAL']) ) {
-                  if  ( !$isDirector AND !$isManager ) {
-                     $approvalRequired=TRUE;
-                  }
-               }
+            if ($T->$prop!='0') {
+               if ($A->getApprovalRequired($T->$prop) AND !$isDirector AND !$isManager) $approvalRequired=TRUE;
                if ($approvalRequired) {
                   /**
                    * The old absence type requires approval and cannot be changed
                    */
                   $declined=TRUE;
-                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->dspname.$LANG['err_decl_approval'];
-                  $newtemplate[$i] = $oldtemplate[$i];
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
+                  $unapproved[$i]=$requested[$i];
+                  $accepted[$i]=$T->$prop;
                }
             }
-            if ($newtemplate[$i]!=$CONF['present']) {
-               $A->findBySymbol($newtemplate[$i]);
-               if ( $A->checkOptions($CONF['A_APPROVAL']) ) {
-                  // echo "<script type=\"text/javascript\">alert(\"".$newtemplate[$i]."\");</script>";
-                  if  ( !$isDirector AND !$isManager ) {
-                     $approvalRequired=TRUE;
-                  }
-               }
+            if ($requested[$i]!='0') {
+               if ($A->getApprovalRequired($requested[$i]) AND !$isDirector AND !$isManager) $approvalRequired=TRUE;
                if ($approvalRequired) {
                   /**
                    * The new absence type requires approval and cannot be set
                    */
                   $declined=TRUE;
-                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->dspname.$LANG['err_decl_approval'];
-                  $newtemplate[$i] = $oldtemplate[$i];
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
+                  $unapproved[$i]=$requested[$i];
+                  $accepted[$i]=$T->$prop;
                }
             }
 
-         } // if ($oldtemplate[$i]!=$newtemplate[$i]) {
+         } // if ($T->$prop!=$newtemplate[$i]) {
 
-      } // for ($i=0; $i<strlen($newtemplate); $i++) {
+      } // Loop thru each day
 
-   } // if ($oldtemplate!=$newtemplate AND !$isAdmin) {
+   } // if ($difference AND !$isAdmin) {
 
+   /*
+    * Todo: Do something with the $unapproved array
+    */
+     
+   /*
+    * After this check we now have $T and the $accepted array
+    * Let's see if there are differences
+    */
+   $difference=FALSE;
+   for ($i=1; $i<=$nofdays; $i++) {
+      $prop='abs'.$i;
+      if ($T->$prop!=$accepted[$i]) {
+         $difference=TRUE;
+         break;
+      }
+   }
 
-   if ($oldtemplate!=$newtemplate) {
+   if ($difference) {
       /**
-       * One or more absence changes are valid after the previous check. Update the template.
+       * One or more absence changes are accpeted. Update $T.
        */
       if ( $U->checkUserType($CONF['UTTEMPLATE']) ) {
          /**
           * This is a template user. We must not overwrite his old template yet.
-          * We need to compare it with the new template to find the differences.
-          * Then we have to go through the templates of all other users in the same
-          * group and adjust accordingly.
+          * We have to go through the templates of all other users in the same
+          * group first and adjust them accordingly.
           *
           */
          $query  = "SELECT groupname FROM `".$UG->table."` WHERE username='".$U->username."'";
@@ -725,19 +613,29 @@ if (isset($_POST['btn_apply'])) {
                /**
                 * Find the template for the current loop user, otherwise create a fresh one
                 */
-               if (!$rc=$TT->findTemplate($UT->username,$Year,$monthno)) {
-                  $freshtemplate = "";
-                  for ($i=0; $i<intval($nofdays); $i++ ) {
-                     $freshtemplate .= $CONF['present'];
+               if (!$rc=$TT->getTemplate($UT->username,$Year,$monthno)) {
+                  /**
+                   * No template found for this template user. Create a default one.
+                   */
+                  $TT->username = $UT->username;
+                  $TT->year = $Year;
+                  $TT->month = $monthno;
+                  for ($i=1; $i<=intval($nofdays); $i++ ) {
+                     $prop='abs'.$i;      
+                     $TT->$prop = 0;
                   }
-                  $TT->template = $freshtemplate;
+                  $TT->create();
+                  /**
+                   * Log this event
+                   */
+                  $LOG->log("logUser",$L->checkLogin(),"Template user default template created: ".$TT->username."|".$TT->year.$TT->month);
                }
                /**
                 * Loop through each day and compare the templates. Set new value from template
                 * based on rules.
-                * $T->template = old template of the template user
-                * $newtemplate = new template of the template user
-                * $TT->template = template of the current user in the loop
+                * $T = old absences of the template user
+                * $accepted = new absences of the template user
+                * $TT = absences of the current user in the loop
                 *
                 * Template User Old | Template User New | Current User | Action to Regular User
                 * -----------------------------------------------------------------------------
@@ -748,16 +646,19 @@ if (isset($_POST['btn_apply'])) {
                 * absence x         | absence y         | absence x    | set absence y
                 *
                 */
-               for ($it=0; $it<strlen($newtemplate); $it++) {
-                  if ( $newtemplate[$it]==$CONF['present'] && $T->template[$it]==$TT->template[$it] ) {
-                     $TT->template[$it] = $newtemplate[$it];
-                  }
-                  else if ( $newtemplate[$it]!=$CONF['present'] && $TT->template[$it]==$CONF['present'] ) {
-                     $TT->template[$it] = $newtemplate[$it];
-                  }
-                  else if ( $newtemplate[$it]!=$CONF['present'] && $T->template[$it]!=$CONF['present'] &&
-                            $newtemplate[$it]!=$T->template[$it] && $TT->template[$it]==$T->template[$it] ) {
-                     $TT->template[$it] = $newtemplate[$it];
+               for ($it=1; $it<=intval($nofdays); $it++ ) {
+                  $prop='abs'.$it;      
+                  if ( ($accepted[$it]=='0' AND $T->$prop==$TT->$prop) OR 
+                       ($accepted[$it]!='0' AND $TT->$prop=='0') OR
+                       ($accepted[$it]!='0' AND $T->$prop!='0' AND $accepted[$it]!=$T->$prop AND $TT->$prop==$T->$prop)
+                     ) {
+                     /* 
+                      * Current user and template user match and new absence is present. OR
+                      * Current user is present but new absence is absent. OR
+                      * Current user and template user match. Old absence and new absence is not present and not the same. 
+                      * => Set current user to new absence.
+                      */
+                     $TT->$prop = $accepted[$it];
                   }
                }
                /**
@@ -769,28 +670,20 @@ if (isset($_POST['btn_apply'])) {
       }
 
       /**
-       * Template was changed. Update it.
+       * Now we can finally updated the current users absences with the new accepted ones.
        * Send notification e-Mails.
        * Then log the event.
        */
-      $T->template=$newtemplate;
-      $T->update($U->username,$Year,$monthno);
-
-      /**
-       * Since the database symbols of the absence types may not be the same
-       * as the display symbols (e.g. due to an absence type update) we need
-       * to replace them in the template string that is sent out per mail.
-       */
       $mailtemplate="";
-      for ($i=0; $i<strlen($T->template); $i++) {
-         if ($T->template[$i]<>$CONF['present']) {
-            $A->findBySymbol($T->template[$i]);
-            $mailtemplate.=$A->dspsym;
-         }
-         else {
-            $mailtemplate.=$CONF['present'];
-         }
-      }
+      $logtemplate="|";
+      for ($i=1; $i<=$nofdays; $i++) {
+         $prop='abs'.$i;
+         $T->$prop=$accepted[$i];
+         $symbol=$A->getSymbol($T->$prop);
+         $mailtemplate.=$symbol;
+         $logtemplate.=$symbol."|";
+      } 
+      $T->update($U->username,$Year,$monthno);
 
       /**
        * Create an ASCII table for the template
@@ -811,7 +704,7 @@ if (isset($_POST['btn_apply'])) {
       $ninfo .= "\n\n";
       $ats = $A->getAll();
       foreach ($ats as $at) {
-         $ninfo .= $at['cfgsym']." = ".$at['dspname']."\n";
+         $ninfo .= $at['symbol']." = ".$at['name']."\n";
       }
 
       /**
@@ -828,7 +721,7 @@ if (isset($_POST['btn_apply'])) {
       /**
        * Log this event
        */
-      $LOG->log("logUser",$L->checkLogin(),"User template changed: ".$U->username." ".$T->year.$T->month." ".$mailtemplate);
+      $LOG->log("logUser",$L->checkLogin(),"User template changed: ".$U->username." ".$T->year.$T->month." ".$logtemplate);
 
    }
 
@@ -952,25 +845,24 @@ if (isset($_POST['btn_apply'])) {
  */
 else if (isset($_POST['btn_clear'])) {
    /**
-    * First create default template
+    * Reset absences to present for this month
     */
-   $T->template = "";
-   for ($i=0; $i<intval($nofdays); $i++ ) {
-      $T->template .= $CONF['present'];
+   $mailtemplate='';
+   for ($i=1; $i<=intval($nofdays); $i++ ) {
+      $prop='abs'.$i;
+      $T->$prop = 0;
+      $mailtemplate.='0';
    }
-   /**
-    * Update his template for this month
-    */
    $T->update($U->username,$Year,$monthno);
    $query  = "SELECT groupname FROM `".$UG->table."` WHERE username='".$U->username."'";
    $result = $UG->db->db_query($query);
    while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) {
-      sendNotification("usercalchange",$U->firstname." ".$U->lastname, $row[0],$T->year.$T->month." ".$T->template);
+      sendNotification("usercalchange",$U->firstname." ".$U->lastname, $row[0],$T->year.$T->month." ".$mailtemplate);
    }
    /**
     * Log this event
     */
-   $LOG->log("logUser",$L->checkLogin(),"User template cleared: ".$U->username." ".$T->year.$T->month." ".$T->template);
+   $LOG->log("logUser",$L->checkLogin(),"User template cleared: ".$U->username." ".$T->year.$T->month." ".$mailtemplate);
 }
 
 $currlang = $CONF['options']['lang'];
@@ -989,15 +881,15 @@ $CONF['options']['lang']=$currlang;
          </tr>
          <tr>
             <td class="dlg-body"><br>
+               
+               <!-- CALENDAR -->
                <table class="month">
+               
+                  <!-- Day of month row -->
                   <tr>
                      <td class="month"><?=$LANG['monthnames'][intval($monthno)]."&nbsp;".trim($Year)?></td>
                      <td class="month-button">&nbsp;</td>
-                     <?php
-                     /**
-                      * Month frame: Day of month
-                      */
-                     for ($i=1; $i<=$nofdays; $i=$i+1) {
+                     <?php for ($i=1; $i<=$nofdays; $i=$i+1) {
                         if ( $H->findBySymbol($M->template[$i-1]) ) {
                            if ( $H->cfgname=='busi' ) {
                               /**
@@ -1017,12 +909,11 @@ $CONF['options']['lang']=$currlang;
                         }
                      }
 
-                     /**
-                      * Month frame: Weekday
-                      */
                      $x = intval($weekday1);
                      ?>
                   </tr>
+                  
+                  <!-- Weekday row -->
                   <tr>
                      <td class="title" style="font-size: 8pt;">
                         <input title="<?=$LANG['tt_page_bwd']?>" name="btn_bwd" type="submit" class="button" value="&lt;&lt;">
@@ -1057,61 +948,76 @@ $CONF['options']['lang']=$currlang;
                      }
                      ?>
                   </tr>
-                  <?php
-                  /**
-                   * Show Daynote row
-                   */
+                  
+                  <!-- Daynote row -->
+                  <?php 
                   if ($user = $L->checkLogin()) $UL->findByName($user);
                   if ( !intval($C->readConfig("hideDaynotes")) ||
                        ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR']) || $UL->checkUserType($CONF['UTMANAGER']) )
                      ) {
-                     $x = intval($weekday1);
-                     echo "
+                     $x = intval($weekday1); ?>
                      <tr>
-                        <td class=\"name\">".$LANG['month_daynote']."</td>
-                        <td class=\"name-button\">&nbsp;</td>";
-                     for ($i=1; $i<=$nofdays; $i=$i+1) {
+                        <td class="title"><?=$LANG['month_daynote']?></td>
+                        <td class="title-button">&nbsp;</td>
+                     <?php for ($i=1; $i<=$nofdays; $i=$i+1) {
                         if ($i<10) $dd="0".strval($i); else $dd=strval($i);
                         if ( $H->findBySymbol($M->template[$i-1]) ) {
                            if ( $H->cfgname=='busi' ) {
                               if ( $N->findByDay($Year.$monthno.$dd,$U->username) ) $style="weekday-note"; else $style="weekday";
-                           }else{
+                           } else {
                               if ( $N->findByDay($Year.$monthno.$dd,$U->username) ) $style="weekday-".$H->cfgname."-note"; else $style="weekday-".$H->cfgname;
                            }
-                         }else{
-                            if ( $N->findByDay($Year.$monthno.$dd,$U->username) ) $style="weekday-note"; else $style="weekday";
-                         }
-                        echo "
-                            <td class=\"".$style."\">
-                                <a href=\"javascript:this.blur();openPopup('daynote.php?lang=".$CONF['options']['lang']."&amp;date=".$Year.$monthno.$dd."&amp;daynotefor=".$U->username."&amp;region=default&amp;datestring=".$dd."%20".$LANG['monthnames'][intval($monthno)]."%20".$Year."','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\">
-                                    <img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"".$LANG['month_daynote_tooltip']."\" border=\"0\">
-                                </a>
-                            </td>\n";
-                        if($x<=6) $x+=1; else $x = 1;
-                     }
-                     echo "
-                     </tr>";
-                  }
+                        } else {
+                           if ( $N->findByDay($Year.$monthno.$dd,$U->username) ) $style="weekday-note"; else $style="weekday";
+                        } ?>
+                        <td class="<?=$style?>">
+                          <a href="javascript:this.blur();openPopup('daynote.php?lang=<?=$CONF['options']['lang']?>&amp;date=<?=$Year.$monthno.$dd?>&amp;daynotefor=<?=$U->username?>&amp;region=default&amp;datestring=<?=$dd?>%20<?=$LANG['monthnames'][intval($monthno)]?>%20<?=$Year?>','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');">
+                             <img src="themes/<?=$theme?>/img/ico_daynote.png" alt="" title="<?=$LANG['month_daynote_tooltip']?>" border="0">
+                          </a>
+                        </td>
+                        <?php if($x<=6) $x+=1; else $x = 1;
+                     } ?>
+                     </tr>
+                  <?php } ?>
 
+                  <!-- Current absence row -->
+                  <tr>
+                     <td class="title"><?=$LANG['month_current_absence']?></td>
+                     <td class="title-button">&nbsp;</td>
+                     <?php for($idx=1; $idx<=strlen($M->template); $idx++) {
+                        $prop='abs'.$idx;
+                        $inner="&nbsp;";
+                        if ( $A->get($T->$prop) ) { 
+                           $class="day-a".$A->id;
+                           $inner="<img align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
+                        }
+                        else {
+                           if ( $H->findBySymbol($M->template[$idx-1]) ) $class="day-".$H->cfgname;
+                           else $class="day";
+                        } ?>
+                        <td class="<?=$class?>"><?=$inner?></td>
+                     <?php } ?>
+                  </tr>
+                  
+                  <?php 
                   /**
                    * Absence type loop
                    */
                   $approvalNeeded=false;
                   $absences = $A->getAll();
-                  foreach ($absences as $row) {
+                  foreach ($absences as $abs) {
                      /**
                       * Make sure this absence type is allowed for this group
                       */
-                     $A->findBySymbol($row['cfgsym']);
                      $showthisabsence=false;
                      $showdisabled=false;
                      $groups = $G->getAll();
                      foreach ($groups as $Grow) {
                         if ($UG->isMemberOfGroup($U->username,$Grow['groupname']) &&
-                            $AG->isAssigned($row['cfgsym'],$Grow['groupname'])
+                            $AG->isAssigned($abs['id'],$Grow['groupname'])
                            ) {
                            $showthisabsence=true;
-                           if ($A->checkOptions($CONF['A_MGR_ONLY'])) {
+                           if ($abs['manager_only']) {
                               if ( ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR'])) || ($UL->checkUserType($CONF['UTMANAGER']) && $UG->isMemberOfGroup($UL->username,$Grow['groupname'])) ) {
                                  $showdisabled=false;
                               }
@@ -1119,46 +1025,41 @@ $CONF['options']['lang']=$currlang;
                                  $showdisabled=true;
                               }
                            }
-                           if ( $A->checkOptions($CONF['A_APPROVAL']) ) $approvalNeeded=true;
+                           if ($abs['approval_required']) $approvalNeeded=true;
                         }
                      }
 
                      /**
                       * Show the absence row
                       */
-                     if ($showthisabsence) {
-                        if ($row['cfgname'] != "present" ) {
-                           echo "
-                           <tr>
-                              <td class=\"name\">".str_replace(" ","&nbsp;",$row['dspname'])."</td>
-                              <td class=\"name-button\">&nbsp;</td>";
-                           $count=0;
-                           /**
-                            * Show a line for this absence type covering each day of the month
-                            */
-                           for($idx=0; $idx<strlen($M->template); $idx++) {
-                              if ( ($count+1)<10 ) $strcount = "0".strval($count+1); else $strcount = strval($count+1);
-                              if ( $T->template[$idx] == $row['cfgsym'] ) {
-                                 echo "
-                                 <td class=\"".$row['cfgname']."\">
-                                    <input name=\"".$row['cfgname'].$strcount."\" type=\"checkbox\" id=\"".$row['cfgname'].$strcount."\" value=\"".$row['cfgname'].$strcount."\" CHECKED ".($showdisabled?'DISABLED':'').">";
-                              }else{
-                                 if ( $H->findBySymbol($M->template[$count]) ) {
-                                    echo "<td class=\"day-".$H->cfgname."\">";
-                                 }else{
-                                    echo "<td class=\"day\">";
-                                 }
-                                 echo "<input name=\"".$row['cfgname'].$strcount."\" type=\"checkbox\" id=\"".$row['cfgname'].$strcount."\" value=\"".$row['cfgname'].$strcount."\" ".($showdisabled?'DISABLED':'').">";
-                              }
-                              $count+=1;
-                              echo "</td>";
+                     if ($showthisabsence) { ?>
+                        <tr>
+                           <td class="name"><?=str_replace(" ","&nbsp;",$abs['name'])?></td>
+                           <td class="name-button">&nbsp;</td>
+                        <?php
+                        /**
+                         * Show a line for this absence type covering each day of the month
+                         */
+                        for($idx=1; $idx<=strlen($M->template); $idx++) {
+                           $prop='abs'.$idx;
+                           if ( $A->get($T->$prop) ) { 
+                              $class="day-a".$A->id;
                            }
-                           echo "</tr>\n";
-                        }
-                     }
+                           else {
+                              if ( $H->findBySymbol($M->template[$idx-1]) ) $class="day-".$H->cfgname;
+                              else $class="day";
+                           }
+                           if ($T->$prop==$abs['id']) $checked="checked"; else $checked=''; 
+                           ?>
+                           <td class="<?=$class?>"><input name="opt_abs_<?=$idx?>" type="radio" value="<?=$abs['id']?>" <?=$checked?> <?=($showdisabled?'DISABLED':'')?>></td>
+                        <?php } ?>
+                        </tr>
+                     <?php }
                   }
                   ?>
                </table>
+               
+               <!-- RANGE INPUTS -->
                <table style="width: 100%;">
                   <tr>
                      <td width="50%" style="vertical-align: top;">
@@ -1174,21 +1075,19 @@ $CONF['options']['lang']=$currlang;
                                  <td style="padding-right: 4px;">
                                     <select name="rangeabs" id="rangeabs" class="select">
                                     <?php
-                                    $absences = $A->getAll();
-                                    foreach ($absences as $row) {
+                                    foreach ($absences as $abs) {
                                        /**
                                         * Make sure this users calendar only contains those absence types
                                         * that his group(s) is(are) entitled for
                                         */
-                                       $A->findBySymbol($row['cfgsym']);
                                        $showthisabsence=false;
                                        $groups = $G->getAll();
                                        foreach ($groups as $Grow) {
                                           if ($UG->isMemberOfGroup($U->username,$Grow['groupname']) &&
-                                              $AG->isAssigned($row['cfgsym'],$Grow['groupname'])
+                                              $AG->isAssigned($abs['id'],$Grow['groupname'])
                                              ) {
                                              $showthisabsence=true;
-                                             if ($A->checkOptions($CONF['A_MGR_ONLY'])) {
+                                             if ($abs['manager_only']) {
                                                 if ( ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR'])) || ($UL->checkUserType($CONF['UTMANAGER']) && $UG->isMemberOfGroup($UL->username,$Grow['groupname'])) ) {
                                                    $showthisabsence=true;
                                                 }
@@ -1196,18 +1095,18 @@ $CONF['options']['lang']=$currlang;
                                                    $showthisabsence=false;
                                                 }
                                              }
-                                             if ( $A->checkOptions($CONF['A_APPROVAL']) ) $approvalNeeded=true;
+                                             if ($abs['approval_required']) $approvalNeeded=true;
                                           }
                                        }
-                                       if ($showthisabsence && $row['cfgname']!="present") {
-                                          echo "            <option class=\"option\" value=\"".$row['cfgname']."\">".$row['dspname']."</option>\n";
-                                       }
+                                       if ($showthisabsence) { ?>
+                                          <option class="option" value="<?=$abs['id']?>"><?=$abs['name']?></option>
+                                       <?php }
                                     }
                                     ?>
                                     </select>
                                  </td>
                                  <td style="padding-right: 4px;">
-                                    <script>
+                                    <script type="text/javascript">
                                        $(function() { $( "#rangefrom" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
                                        $(function() { $( "#rangeto" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
                                     </script>
@@ -1246,21 +1145,19 @@ $CONF['options']['lang']=$currlang;
                               <td rowspan="2" style="padding-left: 10px; vertical-align: top;">
                                  <select name="recurrabs" id="recurrabs" class="select">
                                  <?php
-                                 $absences = $A->getAll();
-                                 foreach ($absences as $row) {
+                                 foreach ($absences as $abs) {
                                     /*
                                      * Make sure this users calendar only contains those absence types
                                      * that his group(s) is(are) entitled for
                                      */
-                                    $A->findBySymbol($row['cfgsym']);
                                     $showthisabsence=false;
                                     $groups = $G->getAll();
                                     foreach ($groups as $Grow) {
                                        if ($UG->isMemberOfGroup($U->username,$Grow['groupname']) &&
-                                           $AG->isAssigned($row['cfgsym'],$Grow['groupname'])
+                                           $AG->isAssigned($abs['id'],$Grow['groupname'])
                                           ) {
                                           $showthisabsence=true;
-                                          if ($A->checkOptions($CONF['A_MGR_ONLY'])) {
+                                          if ($abs['manager_only']) {
                                              if ( ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR'])) || ($UL->checkUserType($CONF['UTMANAGER']) && $UG->isMemberOfGroup($UL->username,$Grow['groupname'])) ) {
                                                 $showthisabsence=true;
                                              }
@@ -1268,12 +1165,12 @@ $CONF['options']['lang']=$currlang;
                                                 $showthisabsence=false;
                                              }
                                           }
-                                          if ( $A->checkOptions($CONF['A_APPROVAL']) ) $approvalNeeded=true;
+                                          if ($abs['approval_required']) $approvalNeeded=true;
                                        }
                                     }
-                                    if ($showthisabsence && $row['cfgname']!="present") {
-                                       echo "            <option class=\"option\" value=\"".$row['cfgname']."\">".$row['dspname']."</option>\n";
-                                    }
+                                    if ($showthisabsence) { ?>
+                                       <option class="option" value="<?=$abs['id']?>"><?=$abs['name']?></option>
+                                    <?php }
                                  }
                                  ?>
                                  </select><br>
@@ -1315,11 +1212,10 @@ $CONF['options']['lang']=$currlang;
       </form>
    </div>
 </div>
-
 <?php
-require( "includes/footer.html.inc.php" );
 //
 // Show javascript error message to user if there is one
 //
 if ($error_decl) echo "<script type=\"text/javascript\">alert(\"".$errormessage."\");</script>";
+require( "includes/footer.html.inc.php" );
 ?>

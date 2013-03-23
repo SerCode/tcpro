@@ -86,7 +86,7 @@ if (!class_exists("myDB")) {
          switch ($this->db_type) {
             case 1 : // MySQL
             $upp_query = strtoupper($query);
-            if (strpos($upp_query, 'UPDATE') || strpos($upp_query, 'INSERT') || strpos($upp_query, 'DELETE')) {
+            if (strpos($upp_query, 'UPDATE') || strpos($upp_query, 'INSERT') || strpos($upp_query, 'DELETE') || strpos($upp_query, 'TRUNCATE')) {
                // We are changing the database so throw away the cache
                myDB::$query_cache = array();               
             }

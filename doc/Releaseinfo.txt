@@ -3,6 +3,28 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.000]
+
+DATE
+2013-03-10
+
+IMPROVEMENTS
+01 Unlimited absence types
+   It is now possible to create unlimited absence types. The admin page for
+   absence types has been completely redone for this and also absence types
+   are stored differently in the database.The absence-group table, allowance
+   table and template table also had to be changed.
+   
+02 Radio buttons in Editcalendar
+   Only one absence type per day can be set. Therefore it made sense to
+   present absences as radio buttons instead of checkboxes in the editcalendar
+   dialog.
+   
+03 Current absence in Editcalendar
+   A row has been added to the editcalendar dialog showing the current absence
+   of the corresponding day.
+   
+------------------------------------------------------------------------------
 [3.5.002]
 
 DATE

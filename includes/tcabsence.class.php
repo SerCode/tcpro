@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcabsence.class.php
+ * tcabs.class.php
  * 
  * Contains the class to interface with the absence type table
  *
@@ -27,17 +27,21 @@ if (!class_exists("tcAbsence")) {
       var $table = '';
       var $log = '';
       var $logtype = '';
-      var $cfgsym = '';
-      var $cfgname = '';
-      var $dspsym = '';
-      var $dspname = '';
-      var $dspcolor = '';
-      var $dspbgcolor = '';
+      var $name = '';
+      var $symbol = '';
+      var $icon = '';
+      var $color = '';
+      var $bgcolor = '';
+      var $factor = 1;
       var $allowance = '0';
-      var $factor = '1';
-      var $options = '0';
-      var $iconfile = '';
-
+      var $show_in_remainder = 1;
+      var $show_totals = 1;
+      var $approval_required = 0;
+      var $counts_as_present = 0;
+      var $manager_only = 0;
+      var $hide_in_profile = 0;
+      var $confidential = 0;
+      
       /**
        * Constructor
        */ 
@@ -51,103 +55,102 @@ if (!class_exists("tcAbsence")) {
       }
 
       /**
-       * Creates an absence type
+       * Creates an absence type record
        */ 
       function create() {
-         $query = "INSERT INTO `" . $this->table . "` ";
-         $query .= "(`cfgsym`,`cfgname`,`dspsym`,`dspname`,`dspcolor`,`dspbgcolor`,`allowance`,`factor`,`options`,`iconfile`) ";
-         $query .= "VALUES ('";
-         $query .= $this->cfgsym . "','";
-         $query .= $this->cfgname . "','";
-         $query .= $this->dspsym . "','";
-         $query .= $this->dspname . "','";
-         $query .= $this->dspcolor . "','";
-         $query .= $this->dspbgcolor . "','";
-         $query .= $this->allowance . "','";
-         $query .= $this->factor . "','";
-         $query .= $this->options . "','";
-         $query .= $this->iconfile . "'";
-         $query .= ")";
+         $query = "INSERT INTO `".$this->table."` ";
+         $query .= "(
+                     `name`,
+                     `symbol`,
+                     `icon`,
+                     `color`,
+                     `bgcolor`,
+                     `factor`,
+                     `allowance`,
+                     `show_in_remainder`,
+                     `show_totals`,
+                     `approval_required`,
+                     `counts_as_present`,
+                     `manager_only`,
+                     `hide_in_profile`,
+                     `confidential`
+                    ) ";
+         
+         $query .= "VALUES (
+                   '".$this->name."',
+                   '".$this->symbol."',
+                   '".$this->icon."',
+                   '".$this->color."',
+                   '".$this->bgcolor."',
+                   '".$this->factor."',
+                   '".$this->allowance."',
+                   '".$this->show_in_remainder."',
+                   '".$this->show_totals."',
+                   '".$this->approval_required."',
+                   '".$this->counts_as_present."',
+                   '".$this->manager_only."',
+                   '".$this->hide_in_profile."',
+                   '".$this->confidential."'
+                   )";
+         
          $result = $this->db->db_query($query);
+         return $this->db->db_query("SELECT LAST_INSERT_ID()");
       }
 
       /**
-       * Deletes an absence type by it's symbol
-       */ 
-      function deleteBySymbol($symbol = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `cfgsym` = '" . $symbol . "'";
-         $result = $this->db->db_query($query);
-      }
-
-      /**
-       * Finds an absence type by it's symbol
+       * Deletes an absence type record
        * 
-       * @param string $symbol Specifies the absence type symbol to find
+       * @param string $absid Record ID
        */ 
-      function findBySymbol($symbol = '') {
+      function delete($absid = '') {
+         $result=0;
+         if (isset($absid)) {
+            $query = "DELETE FROM `".$this->table."` WHERE id='".$absid."';";
+            $result = $this->db->db_query($query);
+         }
+         return $result;
+      }
+
+      /**
+       * Deletes all absence type records
+       */ 
+      function deleteAll() {
+         $query = "TRUNCATE `".$this->table."`;";
+         $result = $this->db->db_query($query);
+         return $result;
+      }
+
+      /**
+       * Gets an absence type record
+       * 
+       * @param string $absid Record ID
+       */ 
+      function get($absid = '') {
          $rc = 0;
-         $query = "SELECT * FROM `".$this->table."` WHERE `cfgsym` = '".$symbol."';";
+         $query = "SELECT * FROM `".$this->table."` WHERE id='".$absid."';";
          $result = $this->db->db_query($query);
 
          // exactly one row found (a good thing!)
          if ($this->db->db_numrows($result) == 1) {
             $row = $this->db->db_fetch_array($result);
-            $this->cfgsym = $row['cfgsym'];
-            $this->cfgname = $row['cfgname'];
-            $this->dspsym = $row['dspsym'];
-            $this->dspname = $row['dspname'];
-            $this->dspcolor = $row['dspcolor'];
-            $this->dspbgcolor = $row['dspbgcolor'];
-            $this->allowance = $row['allowance'];
+            $this->id = $row['id'];
+            $this->name = $row['name'];
+            $this->symbol = $row['symbol'];
+            $this->icon = $row['icon'];
+            $this->color = $row['color'];
+            $this->bgcolor = $row['bgcolor'];
             $this->factor = $row['factor'];
-            $this->options = $row['options'];
-            $this->iconfile = $row['iconfile'];
+            $this->allowance = $row['allowance'];
+            $this->show_in_remainder = $row['show_in_remainder'];
+            $this->show_totals = $row['show_totals'];
+            $this->approval_required = $row['approval_required'];
+            $this->counts_as_present = $row['counts_as_present'];
+            $this->manager_only = $row['manager_only'];
+            $this->hide_in_profile = $row['hide_in_profile'];
+            $this->confidential = $row['confidential'];
             $rc = 1;
          }
          return $rc;
-      }
-
-      /**
-       * Finds an absence type by it's name
-       * 
-       * @param string $name Specifies the absence type name to find
-       */ 
-      function findByName($name = '') {
-         $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `cfgname` = '" . $name . "'";
-         $result = $this->db->db_query($query);
-
-         // Exactly one row found (a good thing!)
-         if ($this->db->db_numrows($result) == 1) {
-            $row = $this->db->db_fetch_array($result);
-            $this->cfgsym = $row['cfgsym'];
-            $this->cfgname = $row['cfgname'];
-            $this->dspsym = $row['dspsym'];
-            $this->dspname = $row['dspname'];
-            $this->dspcolor = $row['dspcolor'];
-            $this->dspbgcolor = $row['dspbgcolor'];
-            $this->allowance = $row['allowance'];
-            $this->factor = $row['factor'];
-            $this->options = $row['options'];
-            $this->iconfile = $row['iconfile'];
-            $rc = 1;
-         }
-         return $rc;
-      }
-
-      /**
-       * Reads all absence codes into an array
-       * 
-       * @return array $absarray Array with all absence codes
-       */
-      function getAbsences() {
-         $absarray = array();
-         $query = "SELECT cfgsym FROM `" . $this->table . "`";
-         $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $absarray[] = stripslashes($row['cfgsym']);
-         }
-         return $absarray;
       }
 
       /**
@@ -155,7 +158,7 @@ if (!class_exists("tcAbsence")) {
        * 
        * @return array $absarray Array with all records
        */
-      function getAll($order='cfgsym', $sort='ASC') {
+      function getAll($order='name', $sort='ASC') {
          $absarray = array();
          $query = "SELECT * FROM `".$this->table."` ORDER BY `".$order."` ".$sort.";";
          $result = $this->db->db_query($query);
@@ -168,15 +171,14 @@ if (!class_exists("tcAbsence")) {
       /**
        * Gets the factor value of an absence type
        * 
-       * @param string $symbol Specifies the absence type symbol to find
+       * @param string $absid Record ID
        * @return string Absence type factor
        */ 
-      function getFactor($symbol = '') {
+      function getFactor($absid = '') {
          $rc = 1; // default factor is 1
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `cfgsym` = '" . $symbol . "'";
+         $query = "SELECT factor FROM `".$this->table."` WHERE id='".$absid."';";
          $result = $this->db->db_query($query);
          if ($this->db->db_numrows($result) == 1) {
-            // exactly one row found ( a good thing!)
             $row = $this->db->db_fetch_array($result);
             $rc = $row['factor'];
          }
@@ -184,55 +186,107 @@ if (!class_exists("tcAbsence")) {
       }
 
       /**
+       * Gets the approval required value of an absence type
+       *
+       * @param string $absid Record ID
+       * @return boolean Approval required
+       */
+      function getApprovalRequired($absid = '') {
+         $rc=0;
+         $query = "SELECT approval_required FROM `".$this->table."` WHERE id='".$absid."';";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            $rc = $row['approval_required'];
+         }
+         return $rc;
+      }
+      
+      /**
+       * Gets the name of an absence type
+       *
+       * @param string $absid Record ID
+       * @return string Absence type name
+       */
+      function getName($absid = '') {
+         $rc='unknown';
+         $query = "SELECT name FROM `".$this->table."` WHERE id='".$absid."';";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            $rc = $row['name'];
+         }
+         return $rc;
+      }
+      
+         /**
+       * Gets the symbol of an absence type
+       *
+       * @param string $absid Record ID
+       * @return string Absence type symbol
+       */
+      function getSymbol($absid = '') {
+         $rc='.';
+         $query = "SELECT symbol FROM `".$this->table."` WHERE id='".$absid."';";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result) == 1) {
+            $row = $this->db->db_fetch_array($result);
+            $rc = $row['symbol'];
+         }
+         return $rc;
+      }
+      
+      /**
+       * Gets the last auto-increment ID
+       * 
+       * @return string Next auto-incremente ID
+       */ 
+      function getLastId() {
+         $result = mysql_query('SHOW TABLE STATUS LIKE "'.$this->table.'";');
+         $row = mysql_fetch_assoc($result);
+         return intval($row['Auto_increment'])-1;
+      }
+            
+      /**
+       * Gets the next auto-increment ID
+       * 
+       * @return string Next auto-incremente ID
+       */ 
+      function getNextId() {
+         $result = mysql_query('SHOW TABLE STATUS LIKE "'.$this->table.'"');
+         $row = mysql_fetch_assoc($result);
+         return $row['auto_increment'];
+      }
+            
+      /**
        * Updates an absence type by it's symbol from the current array data
        * 
-       * @param string $name Specifies the absence type symbol to update
+       * @param string $absid Record ID
        */ 
-      function update($symbol) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `cfgsym`     = '" . $this->cfgsym . "', ";
-         $query .= "`cfgname`    = '" . $this->cfgname . "', ";
-         $query .= "`dspsym`     = '" . $this->dspsym . "', ";
-         $query .= "`dspname`    = '" . $this->dspname . "', ";
-         $query .= "`dspcolor`   = '" . $this->dspcolor . "', ";
-         $query .= "`dspbgcolor` = '" . $this->dspbgcolor . "', ";
-         $query .= "`allowance`  = '" . $this->allowance . "', ";
-         $query .= "`factor`     = '" . $this->factor . "', ";
-         $query .= "`options`    = '" . $this->options . "', ";
-         $query .= "`iconfile`   = '" . $this->iconfile . "' ";
-         $query .= "WHERE `cfgsym`   = '" . $symbol . "';";
-         $result = $this->db->db_query($query);
+      function update($absid='') {
+         $result=0;
+         if (isset($absid)) {
+            $query = "UPDATE `".$this->table."` SET 
+                     `name`              = '".$this->name."', 
+                     `symbol`            = '".$this->symbol."', 
+                     `icon`              = '".$this->icon."', 
+                     `color`             = '".$this->color."', 
+                     `bgcolor`           = '".$this->bgcolor."', 
+                     `factor`            = '".$this->factor."', 
+                     `allowance`         = '".$this->allowance."', 
+                     `show_in_remainder` = '".$this->show_in_remainder."', 
+                     `show_totals`       = '".$this->show_totals."', 
+                     `approval_required` = '".$this->approval_required."', 
+                     `counts_as_present` = '".$this->counts_as_present."', 
+                     `manager_only`      = '".$this->manager_only."', 
+                     `hide_in_profile`   = '".$this->hide_in_profile."', 
+                     `confidential`      = '".$this->confidential."' 
+                     WHERE id='".$absid."';";
+            $result = $this->db->db_query($query);
+         }
+         return $result;
       }
 
-      /**
-       * Clears flags in the option bitmask. See config.tcpro.php for predefined bitmasks.
-       * 
-       * @param integer $bitmask Bitmask with flags to clear
-       */ 
-      function clearOptions($bitmask) {
-         $this->options = $this->options & (~intval($bitmask));
-      }
-
-      /**
-       * Checks whether a bitmask ist set or not in the option field. See config.tcpro.php for predefined bitmasks.
-       * 
-       * @param integer $bitmask Bitmask with flags to check
-       */ 
-      function checkOptions($bitmask) {
-         if ($this->options & intval($bitmask))
-            return 1;
-         else
-            return 0;
-      }
-
-      /**
-       * Sets a bitmask in the option field. See config.tcpro.php for predefined bitmasks.
-       * 
-       * @param integer $bitmask Bitmask with flags to set
-       */ 
-      function setOptions($bitmask) {
-         $this->options = $this->options | intval($bitmask);
-      }
    }
 }
 ?>

@@ -205,7 +205,7 @@ require( "includes/menu.inc.php" );
          </tr>
          <tr>
             <td class="dlg-body">
-               <div align="center">
+            <div align="center">
                   <table style="width: 98%">
                      <tr>
                         <td style="vertical-align: top; width: 50%;">
@@ -239,12 +239,12 @@ require( "includes/menu.inc.php" );
                                        <select name="periodabsence" id="periodabsence" class="select">
                                           <option class="option" value="All" <?=($periodAbsence=="All"?"selected":"")?>><?=$LANG['drop_group_all']?></option>
                                           <?php
-                                          $absences = $A->getAll('dspname');
-                                          foreach ($absences as $row) {
-                                             if ($periodAbsence == $row['cfgsym'])
-                                                echo ("<option value=\"".$row['cfgsym']."\" selected>".$row['dspname']."</option>");
+                                          $absences = $A->getAll();
+                                          foreach ($absences as $abs) {
+                                             if ($periodAbsence == $abs['id'])
+                                                echo ("<option value=\"".$abs['symbol']."\" selected>".$abs['name']."</option>");
                                              else
-                                                echo ("<option value=\"".$row['cfgsym']."\" >".$row['dspname']."</option>");
+                                                echo ("<option value=\"".$abs['symbol']."\" >".$abs['name']."</option>");
                                           }
                                           ?>
                                        </select>
@@ -297,12 +297,12 @@ require( "includes/menu.inc.php" );
                                        <select name="customabsence" id="customabsence" class="select">
                                           <option class="option" value="All" <?=($periodAbsence=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
                                           <?php
-                                          $absences = $A->getAll('dspname');
-                                          foreach ($absences as $row) {
-                                             if ($periodAbsence == $row['cfgsym'])
-                                                echo ("<option value=\"" . $row['cfgsym'] . "\" SELECTED=\"selected\">" . $row['dspname'] . "</option>");
+                                          $absences = $A->getAll();
+                                          foreach ($absences as $abs) {
+                                             if ($periodAbsence == $abs['id'])
+                                                echo ("<option value=\"" . $abs['symbol'] . "\" SELECTED=\"selected\">" . $abs['name'] . "</option>");
                                              else
-                                                echo ("<option value=\"" . $row['cfgsym'] . "\" >" . $row['dspname'] . "</option>");
+                                                echo ("<option value=\"" . $abs['symbol'] . "\" >" . $abs['name'] . "</option>");
                                           }
                                           ?>
                                        </select>
@@ -333,27 +333,29 @@ require( "includes/menu.inc.php" );
                    * Get totals per user
                    */
                   $totaluser=0;
-                  $queryG  = "SELECT `groupname` FROM `".$G->table."` WHERE `groupname` LIKE '".$statgroup."' ORDER BY `groupname`;";
-                  $resultG = $G->db->db_query($queryG);
-                  while ( $rowG = $G->db->db_fetch_array($resultG) ){
-                     $G->findByName(stripslashes($rowG['groupname']));
+                  $groups = $G->getAllByGroup($statgroup);
+                  foreach ($groups as $group) {
+                     $G->findByName($group['groupname']);
                      if (!$G->checkOptions($CONF['G_HIDE']) ) {
                         $total=0;
-                        $queryUG  = "SELECT `username` FROM `".$UG->table."` WHERE `groupname`='".$rowG['groupname']."' AND `username`!='admin';";
-                        $resultUG = $UG->db->db_query($queryUG);
-                        while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
-                           $U1->findByName($rowUG['username']);
+                        $gusers = $UG->getAllforGroup($group['groupname']);
+                        foreach ($gusers as $guser) {
+                           $U1->findByName($guser);
                            if ( !$U1->checkUserType($CONF['UTTEMPLATE']) ) {
                               $total=0;
-                              if ( $periodAbsence=="All" )
-                                 $queryA  = "SELECT `cfgsym` FROM `".$A->table."`;";
-                              else
-                                 $queryA  = "SELECT `cfgsym` FROM `".$A->table."` WHERE `cfgsym`='$periodAbsence';";
-                              $resultA = $A->db->db_query($queryA);
-                              while ( $rowA = $A->db->db_fetch_array($resultA,MYSQL_ASSOC) ){
-                                 $A->findBySymbol($rowA['cfgsym']);
-                                 if ($rowA['cfgsym'] != $CONF['present'] AND !$A->checkOptions($CONF['A_PRESENCE'])) {
-                                    $count=countAbsence($rowUG['username'],$rowA['cfgsym'],$periodFrom,$periodTo);
+                              if ($periodAbsence=="All") {
+                                 $absences=$A->getAll();
+                                 foreach ($absences as $abs) {
+                                    if ($A->get($abs['id']) AND !$A->counts_as_present) {
+                                       $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                       $total+=$count;
+                                       $totaluser+=$count;
+                                    }
+                                 }
+                              }
+                              else {
+                                 if ($A->get($periodAbsence) AND !$A->counts_as_present) {
+                                    $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                     $total+=$count;
                                     $totaluser+=$count;
                                  }
@@ -390,24 +392,29 @@ require( "includes/menu.inc.php" );
                    * Get totals per user
                    */
                   $totaluser=0;
-                  $queryG  = "SELECT `groupname` FROM `".$G->table."` WHERE `groupname` LIKE '".$statgroup."' ORDER BY `groupname`;";
-                  $resultG = $G->db->db_query($queryG);
-                  while ( $rowG = $G->db->db_fetch_array($resultG) ){
-                     $G->findByName(stripslashes($rowG['groupname']));
+                  $groups = $G->getAllByGroup($statgroup);
+                  foreach ($groups as $group) {
+                     $G->findByName($group['groupname']);
                      if (!$G->checkOptions($CONF['G_HIDE']) ) {
                         $total=0;
-                        $queryUG  = "SELECT `username` FROM `".$UG->table."` WHERE `groupname`='".$rowG['groupname']."' AND `username`!='admin';";
-                        $resultUG = $UG->db->db_query($queryUG);
-                        while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
-                           $U1->findByName($rowUG['username']);
+                        $gusers = $UG->getAllforGroup($group['groupname']);
+                        foreach ($gusers as $guser) {
+                           $U1->findByName($guser);
                            if ( !$U1->checkUserType($CONF['UTTEMPLATE']) ) {
                               $total=0;
-                              $queryA  = "SELECT `cfgsym` FROM `".$A->table."`;";
-                              $resultA = $A->db->db_query($queryA);
-                              while ( $rowA = $A->db->db_fetch_array($resultA,MYSQL_ASSOC) ){
-                                 $A->findBySymbol($rowA['cfgsym']);
-                                 if ($rowA['cfgsym'] == $CONF['present'] OR $A->checkOptions($CONF['A_PRESENCE'])) {
-                                    $count=countAbsence($rowUG['username'],$rowA['cfgsym'],$periodFrom,$periodTo);
+                              /*
+                               * Count all non-absences
+                               */
+                              $count=countAbsence($guser,0,$periodFrom,$periodTo);
+                              $total+=$count;
+                              $totaluser+=$count;
+                              /*
+                               * Count all absences that count as present
+                               */
+                              $absences=$A->getAll();
+                              foreach($absences as $abs) {
+                                 if ($A->get($abs['id']) AND $A->counts_as_present) {
+                                    $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                     $total+=$count;
                                     $totaluser+=$count;
                                  }
@@ -446,31 +453,32 @@ require( "includes/menu.inc.php" );
                    * Get totals per group
                    */
                   $totalgroup=0;
-                  $queryG  = "SELECT `groupname` FROM `".$G->table."` WHERE `groupname` LIKE '".$statgroup."' ORDER BY `groupname`;";
-                  $resultG = $G->db->db_query($queryG);
-                  while ( $rowG = $G->db->db_fetch_array($resultG) ){
-                     $G->findByName(stripslashes($rowG['groupname']));
+                  $groups = $G->getAllByGroup($statgroup);
+                  foreach ($groups as $group) {
+                     $G->findByName($group['groupname']);
                      if (!$G->checkOptions($CONF['G_HIDE']) ) {
                         $total=0;
-                        $queryUG  = "SELECT `username` FROM `".$UG->table."` WHERE `groupname`='".$rowG['groupname']."' AND `username`!='admin';";
-                        $resultUG = $UG->db->db_query($queryUG);
-                        while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
-                           if ( $periodAbsence=="All" )
-                              $queryA  = "SELECT `cfgsym` FROM `".$A->table."`;";
-                           else
-                              $queryA  = "SELECT `cfgsym` FROM `".$A->table."` WHERE `cfgsym`='$periodAbsence';";
-                           $resultA = $A->db->db_query($queryA);
-                           while ( $rowA = $A->db->db_fetch_array($resultA,MYSQL_ASSOC) ){
-                              $A->findBySymbol($rowA['cfgsym']);
-                              if ($rowA['cfgsym'] != $CONF['present'] AND !$A->checkOptions($CONF['A_PRESENCE'])) {
-                                 $total+=countAbsence($rowUG['username'],$rowA['cfgsym'],$periodFrom,$periodTo);
+                        $gusers = $UG->getAllforGroup($group['groupname']);
+                        foreach ($gusers as $guser) {
+                           $U1->findByName($guser);
+                           if ( $periodAbsence=="All" ) {
+                              $absences=$A->getAll();
+                              foreach ($absences as $abs) {
+                                 if ($A->get($abs['id']) AND !$A->counts_as_present) {
+                                    $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                 }
+                              }
+                           }
+                           else {
+                              if ($A->get($periodAbsence) AND !$A->counts_as_present) {
+                                 $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                               }
                            }
                         }
-                        $legend[] = $rowG['groupname'];
+                        $legend[] = $group['groupname'];
                         $value[] = $total;
                         $totalgroup += $total;
-                        echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$rowG['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                        echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$group['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
                      }
                   }
 
@@ -478,9 +486,9 @@ require( "includes/menu.inc.php" );
                    * Get totals of all team members
                    */
                   $totaluser=0;
-                  $absences = $A->getAll('dspname');
-                  foreach ($absences as $rowA) {
-                     if ($rowA['cfgsym']!='.') $totaluser+=countAbsence("*",$rowA['cfgsym'],$periodFrom,$periodTo);
+                  $absences = $A->getAll();
+                  foreach ($absences as $abs) {
+                     if ($A->get($abs['id']) AND !$A->counts_as_present) $totaluser+=countAbsence("%",$abs['id'],$periodFrom,$periodTo);
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." days</b></td></tr>\n\r";
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." days</b></td></tr>\n\r";
@@ -507,28 +515,33 @@ require( "includes/menu.inc.php" );
                   $totalgroup=0;
                   $legend=array();
                   $value=array();
-                  $queryG  = "SELECT `groupname` FROM `".$G->table."` WHERE `groupname` LIKE '".$statgroup."' ORDER BY `groupname`;";
-                  $resultG = $G->db->db_query($queryG);
-                  while ( $rowG = $G->db->db_fetch_array($resultG) ){
-                     $G->findByName(stripslashes($rowG['groupname']));
+                  $groups = $G->getAllByGroup($statgroup);
+                  foreach ($groups as $group) {
+                     $G->findByName($group['groupname']);
                      if (!$G->checkOptions($CONF['G_HIDE']) ) {
                         $total=0;
-                        $queryUG  = "SELECT `username` FROM `".$UG->table."` WHERE `groupname`='".$rowG['groupname']."' AND `username`!='admin';";
-                        $resultUG = $UG->db->db_query($queryUG);
-                        while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
-                           $queryA  = "SELECT `cfgsym` FROM `".$A->table."`;";
-                           $resultA = $A->db->db_query($queryA);
-                           while ( $rowA = $A->db->db_fetch_array($resultA,MYSQL_ASSOC) ){
-                              $A->findBySymbol($rowA['cfgsym']);
-                              if ($rowA['cfgsym'] == $CONF['present'] OR $A->checkOptions($CONF['A_PRESENCE'])) {
-                                 $total+=countAbsence($rowUG['username'],$rowA['cfgsym'],$periodFrom,$periodTo);
+                        $gusers = $UG->getAllforGroup($group['groupname']);
+                        foreach ($gusers as $guser) {
+                           /*
+                            * Count all non-absences
+                            */
+                           $count=countAbsence($guser,0,$periodFrom,$periodTo);
+                           $total+=$count;
+                           $totaluser+=$count;
+                           /*
+                            * Count all absences that count as present
+                            */
+                           $absences=$A->getAll();
+                           foreach($absences as $abs) {
+                              if ($A->get($abs['id']) AND $A->counts_as_present) {
+                                 $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                               }
                            }
                         }
-                        $legend[] = $rowG['groupname'];
+                        $legend[] = $group['groupname'];
                         $value[] = $total;
                         $totalgroup += $total;
-                        echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$rowG['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                        echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$group['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
                      }
                   }
 
@@ -536,9 +549,10 @@ require( "includes/menu.inc.php" );
                    * Get totals of all team members
                    */
                   $totaluser=0;
-                  $absences = $A->getAll('dspname');
-                  foreach ($absences as $rowA) {
-                     if ($rowA['cfgsym']=='.') $totaluser+=countAbsence("*",$rowA['cfgsym'],$periodFrom,$periodTo);
+                  $totaluser+=countAbsence('%',0,$periodFrom,$periodTo);
+                  $absences = $A->getAll();
+                  foreach ($absences as $absA) {
+                     if ($A->get($abs['id']) AND $A->counts_as_present) $totaluser+=countAbsence('%',$abs['id'],$periodFrom,$periodTo);
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." days</b></td></tr>\n\r";
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." days</b></td></tr>\n\r";
@@ -565,26 +579,24 @@ require( "includes/menu.inc.php" );
                   $legend=array();
                   $value=array();
                   $sum=0;
-                  $absences = $A->getAll('dspname');
-                  foreach ($absences as $rowA) {
-                     if ($rowA['cfgsym']!='.') {
+                  $absences = $A->getAll();
+                  foreach ($absences as $abs) {
+                     if (!$abs['counts_as_present']) {
                         $total=0;
-                        $queryG  = "SELECT `groupname` FROM `".$G->table."` WHERE `groupname` LIKE '".$statgroup."' ORDER BY `groupname`;";
-                        $resultG = $G->db->db_query($queryG);
-                        while ( $rowG = $G->db->db_fetch_array($resultG) ){
-                           $G->findByName(stripslashes($rowG['groupname']));
+                        $groups = $G->getAllByGroup($statgroup);
+                        foreach ($groups as $group) {
+                           $G->findByName($group['groupname']);
                            if (!$G->checkOptions($CONF['G_HIDE']) ) {
-                              $queryUG  = "SELECT `username` FROM `".$UG->table."` WHERE `groupname`='".$rowG['groupname']."' AND `username`!='admin';";
-                              $resultUG = $UG->db->db_query($queryUG);
-                              while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
-                                 $total+=countAbsence($rowUG['username'],$rowA['cfgsym'],$periodFrom,$periodTo);
+                              $gusers = $UG->getAllforGroup($group['groupname']);
+                              foreach ($gusers as $guser) {
+                                 $total+=countAbsence($guser,$abs['id'],$periodFrom,$periodTo);
                               }
                            }
                         }
                         $sum+=$total;
-                        $legend[] = $rowA['dspname'];
+                        $legend[] = $abs['name'];
                         $value[] = $total;
-                        echo "<tr><td class=\"stat-caption\">".$rowA['dspname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                        echo "<tr><td class=\"stat-caption\">".$abs['name']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
                      }
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." days</b></td></tr>\n\r";
@@ -610,21 +622,18 @@ require( "includes/menu.inc.php" );
                   $legend=array();
                   $value=array();
                   $sum=0;
-                  $absences = $A->getAll('dspname');
-                  foreach ($absences as $rowA) {
-                     $A->findBySymbol($rowA['cfgsym']);
-                     if ($A->cfgsym!="." && $A->allowance>0 && $A->factor>0) {
+                  $absences = $A->getAll();
+                  foreach ($absences as $abs) {
+                     if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) {
                         $total=0;
 
-                        $queryG  = "SELECT `groupname` FROM `".$G->table."` WHERE `groupname` LIKE '".$statgroup."' ORDER BY `groupname`;";
-                        $resultG = $G->db->db_query($queryG);
-                        while ( $rowG = $G->db->db_fetch_array($resultG) ){
-                           $G->findByName(stripslashes($rowG['groupname']));
+                        $groups = $G->getAllByGroup($statgroup);
+                        foreach ($groups as $group) {
+                           $G->findByName($group['groupname']);
                            if (!$G->checkOptions($CONF['G_HIDE']) ) {
-                              $queryUG  = "SELECT `username` FROM `".$UG->table."` WHERE `groupname`='".$rowG['groupname']."' AND `username`!='admin';";
-                              $resultUG = $UG->db->db_query($queryUG);
-                              while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
-                                 if ( $B->findAllowance($rowUG['username'],$A->cfgsym) ) {
+                              $gusers = $UG->getAllforGroup($group['groupname']);
+                              foreach ($gusers as $guser) {
+                                 if ( $B->find($guser,$A->id) ) {
                                     $lstyr = $B->lastyear;
                                     $allow = $B->curryear;
                                  }else{
@@ -633,15 +642,15 @@ require( "includes/menu.inc.php" );
                                  }
                                  $periodFrom = $yeartoday."0101";
                                  $periodTo = $yeartoday."1231";
-                                 $taken=countAbsence(addslashes($rowUG['username']),$A->cfgsym,$periodFrom,$periodTo);
+                                 $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                  $total += ($lstyr+$allow)-($taken);
                                  $sum += $total;
                               }
                            }
                         }
-                        $legend[] = $rowA['dspname'];
+                        $legend[] = $abs['name'];
                         $value[] = $total;
-                        echo "<tr><td class=\"stat-caption\">".$rowA['dspname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                        echo "<tr><td class=\"stat-caption\">".$abs['name']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
                      }
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." days</b></td></tr>\n\r";
