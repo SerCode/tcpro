@@ -57,6 +57,7 @@ $monthnames = $CONF['monthnames'];
 $today = getdate();
 $curryear = $today['year']; // numeric value, 4 digits
 $currmonth = $today['mon']; // numeric value
+
 /**
  * =========================================================================
  * ADD

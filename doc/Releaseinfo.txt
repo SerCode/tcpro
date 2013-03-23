@@ -8,6 +8,14 @@ TEAMCAL PRO RELEASE INFO
 DATE
 2013-03-10
 
+BUGFIXES
+01 Avatars not shown
+   I introduced a bug that caused the avatars not to be shown anymore. Fixed.
+   
+02 Calendar sort by name
+   I introduced a bug that caused the sort-by-name not to work anymore. Fixed.
+
+
 IMPROVEMENTS
 01 Unlimited absence types
    It is now possible to create unlimited absence types. The admin page for
@@ -23,6 +31,15 @@ IMPROVEMENTS
 03 Current absence in Editcalendar
    A row has been added to the editcalendar dialog showing the current absence
    of the corresponding day.
+   
+04 Charset UTF-8
+   The charsets were not consistent, leading to unexpected results when special
+   characters were submitted on the config page. Charset now set to UTF-8.
+   
+05 Consistent use of SMTP mail
+   Using SMTP mail send was possible but not use all along TCP. I changed that
+   now so all mail sending activities are either PHP mail or SMTP.
+
    
 ------------------------------------------------------------------------------
 [3.5.002]

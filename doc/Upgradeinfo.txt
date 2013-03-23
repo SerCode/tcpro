@@ -13,7 +13,7 @@ including a copy of your database.
 Download the release 3.6.000 and overwrite all files in your current copy
 installation.
 
-Edit your config.tcpro.php file and make sure these entries are set:
+Edit your config.tcpro.php file and make sure these entries exit:
 $CONF['db_table_absence']           = $CONF['db_table_prefix'].'tc_absences';
 $CONF['db_table_absence_group']     = $CONF['db_table_prefix'].'tc_absence_group';
 $CONF['db_table_allowance']         = $CONF['db_table_prefix'].'tc_allowances';
@@ -26,8 +26,9 @@ This helper will upgrade your current database to the new tables necessary to
 support the unlimited absence types. The script will display some messages on
 the screen showing the changes done to your database.
 
-Load TeamCal Pro copy in your browser. It should now show your old data in the
-new version.
+Load your TeamCal Pro copy in your browser. It should now show your old data 
+in the new version. Perform a few tests and if you're happy make it your 
+production instance.
 
 ------------------------------------------------------------------------------
 [3.5.001] -> [3.5.002]

@@ -57,12 +57,12 @@ $currmonth = $today['mon'];                   // numeric value
 $daytoday   = sprintf("%02d",$today['mday']); // Numeric representation of todays' day of the month
 $monthtoday = sprintf("%02d",$today['mon']);  // Numeric representation of todays' month
 $yeartoday  = $today['year'];                 // A full numeric representation of todays' year, 4 digits
+
 /**
  * =========================================================================
  * APPLY
  */
 if ( isset($_POST['btn_apply']) ) {
-
    /**
     * Calendar display options
     */
@@ -135,6 +135,7 @@ if ( isset($_POST['btn_apply']) ) {
       $_POST['periodfrom'] = $yeartoday."-01-01";
       $_POST['periodto'] = $yeartoday."-12-31";
    }
+   
    $C->saveConfig("appSubTitle",htmlspecialchars($_POST['txt_appSubTitle']));
    if ($_POST['opt_homepage']) $C->saveConfig("homepage",$_POST['opt_homepage']);
    $C->saveConfig("welcomeTitle",htmlspecialchars(addslashes($_POST['txt_welcomeTitle'])));
@@ -991,10 +992,8 @@ if (ini_get('register_globals')) {
             <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                <select id="sel_timeZone" name="sel_timeZone" class="select" onchange="javascript:">
                   <option value="default" <?=(($C->readConfig("timeZone")=="default")?"SELECTED":"")?>>default</option>
-                  <?php
-                  foreach ($timezone as $tz) {
-                  ?>
-                     <option value="<?=$tz["name"]?>" <?=(($C->readConfig("timeZone")==$tz["name"])?"SELECTED":"")?>><?=$tz["name"]?></option>
+                  <?php foreach ($timezone as $tz) { ?>
+                  <option value="<?=$tz["name"]?>" <?=(($C->readConfig("timeZone")==$tz["name"])?"SELECTED":"")?>><?=$tz["name"]?></option>
                   <?php } ?>
                </select>
             </td>

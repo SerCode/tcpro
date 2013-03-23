@@ -1657,7 +1657,7 @@ $LANG['log_clear_confirm'] = 'Are you sure you want to clear the system log? All
 
 /**
  * ============================================================================
- * Added in TeamCal Pro 3.5.003
+ * Added in TeamCal Pro 3.6.000
  */
 
 /*
