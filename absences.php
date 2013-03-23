@@ -275,7 +275,7 @@ require("includes/menu.inc.php");
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="2">
-               <?php printDialogTop($LANG['abs_title'].$A->name."' (ID=".$A->id.")","abs.html","ico_absences.png"); ?>
+               <?php printDialogTop($LANG['abs_title'].$A->name."' (ID=".$A->id.")","manage_absence_types.html","ico_absences.png"); ?>
             </td>
          </tr>
          

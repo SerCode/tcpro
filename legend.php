@@ -111,40 +111,36 @@ require("includes/header.html.inc.php" );
                            <div align="center">
                               <table style="width: 100%;">
                                  <tr>
-                                    <td class="dlg-caption" colspan="2"><?=$LANG['col_day_symbols']?></td>
+                                    <td class="dlg-caption" colspan="2"><?=$LANG['col_day_holidays']?></td>
                                  </tr>
                                  <?php
                                  $holidays = $H->getAll();
-                                 foreach ($holidays as $holiday) {
-                                    echo "
+                                 foreach ($holidays as $holiday) { ?>
                                     <tr>
-                                       <td class=\"day-".$holiday['cfgname']."\">&nbsp;</td>
-                                       <td class=\"legend\">".$holiday['dspname']."</td>
+                                       <td class="day-<?=$holiday['cfgname']?>">&nbsp;</td>
+                                       <td class="legend"><?=$holiday['dspname']?></td>
                                     </tr>
-                                    ";
-                                 }
-                                 $atypes = $A->getAll();
-                                 foreach ($atypes as $atype) {
-                                    if ($atype['cfgsym']!=".") { ?>
+                                 <?php } ?>
+                                 <tr>
+                                    <td class="dlg-caption" colspan="2"><?=$LANG['col_day_absences']?></td>
+                                 </tr>
+                                 <?php $atypes = $A->getAll();
+                                 foreach ($atypes as $atype) { ?>
                                        <tr>
-                                          <td class="<?=$atype['cfgname']?>" width="20">
-                                             <?php if ($atype['iconfile']) { ?>
-                                                <img align="top" alt="" src="<?=$CONF['app_icon_dir'].$atype['iconfile']?>" width="16" height="16">
+                                          <td class="day-a<?=$atype['id']?>" width="20">
+                                             <?php if ($atype['icon']) { ?>
+                                                <img align="top" alt="" src="<?=$CONF['app_icon_dir'].$atype['icon']?>" width="16" height="16">
                                              <?php } else {
-                                                echo $atype['dspsym'];
+                                                echo $atype['symbol'];
                                              } ?>
                                           </td>
-                                          <td class="legend"><?=$atype['dspname']?></td>
+                                          <td class="legend"><?=$atype['name']?></td>
                                        </tr>
-                                    <?php }
-                                 }
-                                 echo "
+                                 <?php } ?>
                                  <tr>
-                                    <td class=\"legend-today\">&nbsp;</td>
-                                    <td class=\"legend\">".$LANG['legend_today']."</td>
+                                    <td class="legend-today">&nbsp;</td>
+                                    <td class="legend"><?=$LANG['legend_today']?></td>
                                  </tr>
-                                 ";
-                                 ?>
                               </table>
                            </div>
                         </td>

@@ -227,7 +227,8 @@ $LANG['ed_delete_confirm'] = "Bist du sicher, dass du diesen Tages-Typ l&ouml;sc
  */
 $LANG['teamcal_legend'] = 'TeamCal Pro Legende';
 $LANG['col_month_header'] = 'Monatsfelder';
-$LANG['col_day_symbols'] = 'Tagessymbole';
+$LANG['col_day_holidays'] = 'Feiertage';
+$LANG['col_day_absences'] = 'Abwesenheiten';
 $LANG['dom_prefix'] = 'Monatstag:';
 $LANG['dow_prefix'] = 'Wochentag:';
 $LANG['dow_daynote'] = 'Wochentag: mit Tagesnotiz';

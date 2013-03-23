@@ -227,7 +227,8 @@ $LANG['ed_delete_confirm'] = "Are you sure you want to delete this day type?\\r\
  */
 $LANG['teamcal_legend'] = 'TeamCal Pro Legend';
 $LANG['col_month_header'] = 'Month Header';
-$LANG['col_day_symbols'] = 'Day Symbols';
+$LANG['col_day_holidays'] = 'Holidays';
+$LANG['col_day_absences'] = 'Absence types';
 $LANG['dom_prefix'] = 'Day of month:';
 $LANG['dow_prefix'] = 'Day of week:';
 $LANG['dow_daynote'] = 'Day of week: with daynote';
