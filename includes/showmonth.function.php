@@ -671,14 +671,13 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          }
          
          foreach ($users as $usr) {
-            $tempManager = false;
             $monthBody='';
          
             $U->findByName($usr['user']);
          
             /**
              * Permission to view this user?
-            */
+             */
             $allowed=FALSE;
             if ( $user == $U->username ) {
                $allowed=TRUE;
@@ -724,9 +723,39 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                $monthBody .= "<td class=\"name\">\n\r";
          
                /**
-                * Get user avatar if configured
+                * Get user icon if configured
                 */
                if ($C->readConfig("showUserIcons")) {
+                  /**
+                   * Select user icon, make it female if necessary and put it in the body
+                   */
+                  if ( $U->checkUserType($CONF['UTADMIN']) ) {
+                     $icon = "ico_usr_admin";
+                     $icon_tooltip = $LANG['icon_admin'];
+                  }
+                  else if ( $U->checkUserType($CONF['UTMANAGER']) ) {
+                     $icon = "ico_usr_manager";
+                     $icon_tooltip = $LANG['icon_manager'];
+                  }
+                  else {
+                     $icon = "ico_usr";
+                     $icon_tooltip = $LANG['icon_user'];
+                  }
+                  if ( !$U->checkUserType($CONF['UTMALE']) ) $icon .= "_f.png"; else $icon .= ".png";
+            
+                  /**
+                   * If user is a related user (not member but shown in this group), just use grey icon
+                   */
+                  if ($groupfilter!="All" AND $groupfilter!="Allbygroup") {
+                     if ($usr['mship']=="related") {
+                        $icon = "ico_usr_grey.png";
+                        $icon_tooltip = $LANG['cal_tt_related_1'].$groupfilter.$LANG['cal_tt_related_2'];
+                     }
+                  }
+         
+                  /**
+                   * Get user avatar if configured (only works with icons enabled)
+                   */
                   $avatar_link='';
                   $avatar_close='';
                   if ($C->readConfig("showAvatars")) {
@@ -741,44 +770,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                         $avatar_close="</a>";
                      }
                   }
+               
+                  $monthBody .= $avatar_link."<img src=\"themes/".$theme."/img/".$icon."\" alt=\"img\" title=\"".$icon_tooltip."\" style=\"border: 0px; padding-right: 2px; vertical-align: top;\">".$avatar_close;
                }
-         
-               if (!empty($managerOf)) {
-                  foreach ($managerOf as $value) {
-                     if (($currentgroup == $value) || ($groupfilter == $value)) {
-                        $tempManager = true;
-                     }
-                  }
-               }
-         
-               /**
-                * Select user icon, make it female if necessary and put it in the body
-                */
-               if ( $U->checkUserType($CONF['UTADMIN']) ) {
-                  $icon = "ico_usr_admin";
-                  $icon_tooltip = $LANG['icon_admin'];
-               }
-               else if ( $U->checkUserType($CONF['UTMANAGER']) ) {
-                  $icon = "ico_usr_manager";
-                  $icon_tooltip = $LANG['icon_manager'];
-               }
-               else {
-                  $icon = "ico_usr";
-                  $icon_tooltip = $LANG['icon_user'];
-               }
-               if ( !$U->checkUserType($CONF['UTMALE']) ) $icon .= "_f.png"; else $icon .= ".png";
-         
-               /**
-                * If user is a related user (not member but shown in this group), just use grey icon
-                */
-               if ($groupfilter!="All" AND $groupfilter!="Allbygroup") {
-                  if ($usr['mship']=="related") {
-                     $icon = "ico_usr_grey.png";
-                     $icon_tooltip = $LANG['cal_tt_related_1'].$groupfilter.$LANG['cal_tt_related_2'];
-                  }
-               }
-         
-               $monthBody .= "<img src=\"themes/".$theme."/img/".$icon."\" alt=\"img\" title=\"".$icon_tooltip."\" style=\"border: 0px; padding-right: 2px; vertical-align: top;\">";
          
                /**
                 * Check permission to edit or view the profile
