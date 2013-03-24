@@ -22,14 +22,14 @@ getOptions();
 require( $CONF['app_root']."includes/lang/".$CONF['options']['lang'].".tcpro.php");
 
 require_once( $CONF['app_root']."models/group_model.php" );
-require_once( $CONF['app_root']."includes/tcregion.class.php" );
+require_once( $CONF['app_root']."models/region_model.php" );
 require_once( $CONF['app_root']."models/user_announcement_model.php" );
 require_once ($CONF['app_root']."includes/tcusergroup.class.php");
 require_once ($CONF['app_root']."includes/tcuseroption.class.php");
 
 $G = new Group_model;
 $L = new Login_model;
-$R = new tcRegion;
+$R = new Region_model;
 $UA = new User_announcement_model;
 $UG = new tcUserGroup;
 $UL = new tcUser;

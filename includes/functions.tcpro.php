@@ -937,7 +937,7 @@ function getOptions() {
    require_once ($CONF['app_root']."models/absence_model.php");
    require_once ($CONF['app_root']."models/group_model.php");
    require_once ($CONF['app_root']."models/login_model.php");
-   require_once ($CONF['app_root']."includes/tcregion.class.php");
+   require_once ($CONF['app_root']."models/region_model.php");
    require_once ($CONF['app_root']."includes/tcuser.class.php");
    require_once ($CONF['app_root']."includes/tcuseroption.class.php");
 
@@ -945,7 +945,7 @@ function getOptions() {
    $C = new Config_model;
    $G = new Group_model;
    $L = new Login_model;
-   $R = new tcRegion;
+   $R = new Region_model;
    $UL = new tcUser;
    $UO = new tcUserOption;
    $user = $L->checkLogin();

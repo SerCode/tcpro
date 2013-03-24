@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcregion.class.php
+ * region_model.php
  * 
  * Contains the class dealing with the regions table
  *
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcRegion")) {
+if (!class_exists("Region_model")) {
    /**
     * Requires the database class
     */
@@ -25,7 +25,7 @@ if (!class_exists("tcRegion")) {
     * Provides objects and methods to interface with the region table
     * @package TeamCalPro
     */
-   class tcRegion {
+   class Region_model {
       var $db = '';
       var $table = '';
       var $log = '';
@@ -36,10 +36,11 @@ if (!class_exists("tcRegion")) {
       var $description = '';
       var $options = '0';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcRegion() {
+      function Region_model() {
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new myDB;
@@ -47,6 +48,7 @@ if (!class_exists("tcRegion")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Creates a new region record from local class variables
        */
@@ -61,6 +63,7 @@ if (!class_exists("tcRegion")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a region record for a given region name
        * 
@@ -71,6 +74,7 @@ if (!class_exists("tcRegion")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a region record and load values in local class variables
        * 
@@ -93,6 +97,7 @@ if (!class_exists("tcRegion")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all records into an array
        * 
@@ -108,6 +113,7 @@ if (!class_exists("tcRegion")) {
          return $rarray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all region names into an array
        * 
@@ -123,6 +129,7 @@ if (!class_exists("tcRegion")) {
          return $regionarray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a region record for a given region name from local class variables
        * 
@@ -137,6 +144,7 @@ if (!class_exists("tcRegion")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Clears flags in the option bitmask. See config.tcpro.php for predefined bitmasks.
        * 
@@ -146,6 +154,7 @@ if (!class_exists("tcRegion")) {
          $this->options = $this->options & (~$bitmask);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a bitmask ist set or not in the option field. See config.tcpro.php for predefined bitmasks.
        * 
@@ -158,6 +167,7 @@ if (!class_exists("tcRegion")) {
             return 0;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Sets a bitmask in the option field. See config.tcpro.php for predefined bitmasks.
        * 
@@ -167,6 +177,7 @@ if (!class_exists("tcRegion")) {
          $this->options = $this->options | $bitmask;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -177,7 +188,6 @@ if (!class_exists("tcRegion")) {
          return $result;
       }
             
-   } // End Class tcRegion
-
-} // if ( !class_exists( "tcRegion" ) ) {
+   }
+}
 ?>

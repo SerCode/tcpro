@@ -34,7 +34,7 @@ require_once("models/holiday_model.php" );
 require_once("models/log_model.php" );
 require_once("models/login_model.php" );
 require_once("models/month_model.php" );
-require_once("includes/tcregion.class.php" );
+require_once("models/region_model.php" );
 require_once("includes/tcuser.class.php" );
 require_once("includes/tcuseroption.class.php" );
 
@@ -45,8 +45,8 @@ $L = new Login_model;
 $LOG = new Log_model;
 $M = new Month_model;
 $M2 = new Month_model;
-$R  = new tcRegion;
-$R2  = new tcRegion;
+$R  = new Region_model;
+$R2  = new Region_model;
 $U  = new tcUser;
 $UO  = new tcUserOption;
 
