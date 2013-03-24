@@ -481,7 +481,7 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
  */
 function createCSS($theme) {
    global $CONF;
-   require_once ($CONF['app_root']."includes/csshandler.class.php");
+   require_once ($CONF['app_root']."models/css_model.php");
    require_once ($CONF['app_root']."models/absence_model.php");
    require_once ($CONF['app_root']."models/config_model.php");
    require_once ($CONF['app_root']."models/holiday_model.php");
@@ -489,7 +489,7 @@ function createCSS($theme) {
 
    $A   = new Absence_model;
    $H   = new Holiday_model;
-   $CSS = new cssHandler;
+   $CSS = new Css_model;
    $C   = new Config_model;
    $S   = new Styles_model;
 
