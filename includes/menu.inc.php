@@ -21,13 +21,13 @@ require_once( $CONF['app_root']."includes/functions.tcpro.php" );
 getOptions();
 require( $CONF['app_root']."includes/lang/".$CONF['options']['lang'].".tcpro.php");
 
-require_once( $CONF['app_root']."includes/tcgroup.class.php" );
+require_once( $CONF['app_root']."models/group_model.php" );
 require_once( $CONF['app_root']."includes/tcregion.class.php" );
 require_once( $CONF['app_root']."models/user_announcement_model.php" );
 require_once ($CONF['app_root']."includes/tcusergroup.class.php");
 require_once ($CONF['app_root']."includes/tcuseroption.class.php");
 
-$G = new tcGroup;
+$G = new Group_model;
 $L = new tcLogin;
 $R = new tcRegion;
 $UA = new User_announcement_model;

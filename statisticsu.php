@@ -31,7 +31,7 @@ else                                  require ("includes/lang/english.tcpro.php"
 require_once( "models/absence_model.php" );
 require_once( "models/allowance_model.php" );
 require_once( "models/config_model.php" );
-require_once( "includes/tcgroup.class.php" );
+require_once( "models/group_model.php" );
 require_once( "includes/tclogin.class.php" );
 require_once( "includes/tcmonth.class.php" );
 require_once( "includes/tcstatistic.class.php" );
@@ -42,7 +42,7 @@ require_once( "includes/tcusergroup.class.php" );
 $A = new Absence_model;
 $B = new Allowance_model;
 $C = new Config_model;
-$G = new tcGroup;
+$G = new Group_model;
 $L = new tcLogin;
 $M = new tcMonth;
 $ST = new tcStatistic;

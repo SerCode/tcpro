@@ -43,7 +43,7 @@ require_once( "includes/tcuseroption.class.php" );
 $AV = new Avatar_model;
 $B = new Allowance_model;
 $C = new Config_model;
-$G = new tcGroup;
+$G = new Group_model;
 $L = new tcLogin;
 $LOG = new tcLog;
 $N  = new Daynote_model;

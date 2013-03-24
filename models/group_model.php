@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcgroup.class.php
+ * group_model.php
  * 
  * Contains the class dealing with the group table
  *
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcGroup")) {
+if (!class_exists("Group_model")) {
    /**
     * Requires the database class
     */
@@ -25,7 +25,7 @@ if (!class_exists("tcGroup")) {
     * Provides objects and methods to interface with the group table
     * @package TeamCalPro
     */
-   class tcGroup {
+   class Group_model {
       var $db = '';
       var $table = '';
       var $log = '';
@@ -36,10 +36,11 @@ if (!class_exists("tcGroup")) {
       var $min_present = '1';
       var $max_absent = '1';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcGroup() {
+      function Group_model() {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -49,6 +50,7 @@ if (!class_exists("tcGroup")) {
          $this->hide = $CONF['G_HIDE'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Creates a new group record from local class variables
        */
@@ -65,6 +67,7 @@ if (!class_exists("tcGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a group record for a given group name
        * 
@@ -75,6 +78,7 @@ if (!class_exists("tcGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a group record for a given group name and loads values in local class variables
        * 
@@ -99,6 +103,7 @@ if (!class_exists("tcGroup")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all group records into an array
        * 
@@ -121,6 +126,7 @@ if (!class_exists("tcGroup")) {
          return $grouparray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all records from a given group into an array
        *
@@ -144,6 +150,7 @@ if (!class_exists("tcGroup")) {
          return $grouparray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all group names into an array
        * 
@@ -159,6 +166,7 @@ if (!class_exists("tcGroup")) {
          return $grouparray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a group record for a given group name from local class variables
        * 
@@ -175,6 +183,7 @@ if (!class_exists("tcGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Clears flags in the option bitmask. See config.tcpro.php for predefined bitmasks.
        * 
@@ -184,6 +193,7 @@ if (!class_exists("tcGroup")) {
          $this->options = $this->options & (~$bitmask);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a bitmask ist set or not in the option field. See config.tcpro.php for predefined bitmasks.
        * 
@@ -196,6 +206,7 @@ if (!class_exists("tcGroup")) {
             return 0;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Sets a bitmask in the option field. See config.tcpro.php for predefined bitmasks.
        * 
@@ -205,6 +216,7 @@ if (!class_exists("tcGroup")) {
          $this->options = $this->options | $bitmask;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -215,7 +227,6 @@ if (!class_exists("tcGroup")) {
          return $result;
       }
             
-   } // End Class tcGroup
-
-} // if ( !class_exists( "tcGroup" ) ) {
+   }
+}
 ?>

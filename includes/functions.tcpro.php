@@ -736,13 +736,13 @@ function createMonthTemplate($yr, $mt) {
 function declineThresholdReached($year, $month, $day, $base, $group = '') {
    global $CONF;
    require_once ($CONF['app_root'] . "models/config_model.php");
-   require_once ($CONF['app_root'] . "includes/tcgroup.class.php");
+   require_once ($CONF['app_root'] . "models/group_model.php");
    require_once ($CONF['app_root'] . "includes/tctemplate.class.php");
    require_once ($CONF['app_root'] . "includes/tcuser.class.php");
    require_once ($CONF['app_root'] . "includes/tcusergroup.class.php");
 
    $C = new Config_model;
-   $G = new tcGroup;
+   $G = new Group_model;
    $T = new tcTemplate;
    $U = new tcUser;
    $UG = new tcUserGroup;
@@ -935,7 +935,7 @@ function getOptions() {
 
    require_once ($CONF['app_root']."models/config_model.php");
    require_once ($CONF['app_root']."models/absence_model.php");
-   require_once ($CONF['app_root']."includes/tcgroup.class.php");
+   require_once ($CONF['app_root']."models/group_model.php");
    require_once ($CONF['app_root']."includes/tclogin.class.php");
    require_once ($CONF['app_root']."includes/tcregion.class.php");
    require_once ($CONF['app_root']."includes/tcuser.class.php");
@@ -943,7 +943,7 @@ function getOptions() {
 
    $A = new Absence_model;
    $C = new Config_model;
-   $G = new tcGroup;
+   $G = new Group_model;
    $L = new tcLogin;
    $R = new tcRegion;
    $UL = new tcUser;
