@@ -45,10 +45,10 @@ if (!class_exists("tcLogin")) {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
-         require_once ($CONF['app_root'] . "includes/tcconfig.class.php");
+         require_once ($CONF['app_root'] . "models/config_model.php");
          require_once ($CONF['app_root'] . "includes/tcuseroption.class.php");
 
-         $this->C = new tcConfig;
+         $this->C = new Config_model;
          $this->db = new myDB;
          $this->U = new tcUser;
          $this->UO = new tcUserOption;

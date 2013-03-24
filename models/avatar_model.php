@@ -38,8 +38,8 @@ if (!class_exists("Avatar_model")) {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
-         require_once( $CONF['app_root']."includes/tcconfig.class.php" );
-         $C = new tcConfig;
+         require_once( $CONF['app_root']."models/config_model.php" );
+         $C = new Config_model;
          $this->maxHeight = $C->readConfig("avatarHeight");
          $this->maxWidth = $C->readConfig("avatarWidth");
          $this->maxSize = "250000";

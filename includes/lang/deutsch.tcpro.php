@@ -18,8 +18,8 @@ unset($LANG);
 /**
  * Includes
  */
-require_once ($CONF['app_root'] . "includes/tcconfig.class.php");
-$LC = new tcConfig;
+require_once ($CONF['app_root'] . "models/config_model.php");
+$LC = new Config_model;
 
 /**
  * Common

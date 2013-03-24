@@ -33,7 +33,7 @@ require_once("includes/tclog.class.php");
 require_once("includes/tclogin.class.php");
 require_once("includes/tcuser.class.php");
 
-$C = new tcConfig;
+$C = new Config_model;
 $L = new tcLogin;
 $LOG = new tcLog;
 $P = new tcPermission;

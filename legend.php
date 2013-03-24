@@ -29,11 +29,11 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options
 else                                  require ("includes/lang/english.tcpro.php");
 
 require_once("models/absence_model.php" );
-require_once("includes/tcconfig.class.php" );
+require_once("models/config_model.php" );
 require_once("includes/tcholiday.class.php" );
 
 $A = new Absence_model;
-$C = new tcConfig;
+$C = new Config_model;
 $H = new tcHoliday;
 
 require("includes/header.html.inc.php" );

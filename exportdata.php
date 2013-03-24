@@ -30,9 +30,9 @@ else                                  require ("includes/lang/english.tcpro.php"
 
 require_once( "includes/csvhandler.class.php" );
 require_once( "includes/xmlhandler.class.php" );
-require_once( "includes/tcconfig.class.php" );
+require_once( "models/config_model.php" );
 require_once( "includes/tcuser.class.php" );
-$C = new tcConfig;
+$C = new Config_model;
 $U  = new tcUser;
 
 /**

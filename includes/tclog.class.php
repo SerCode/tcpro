@@ -77,8 +77,8 @@ if (!class_exists("tcLog")) {
        */
       function log($type, $user, $event) {
          global $CONF;
-         require_once ($CONF['app_root'] . "includes/tcconfig.class.php");
-         $C = new tcConfig;
+         require_once ($CONF['app_root'] . "models/config_model.php");
+         $C = new Config_model;
          
          if ($C->readConfig($type)) {
             $ts = date("YmdHis");
