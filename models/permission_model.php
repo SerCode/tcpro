@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcpermission.class.php
+ * permission_model.php
  *
  * Contains the class dealing with permission schemes
  *
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcPermission")) {
+if (!class_exists("Permission_model")) {
    /**
     * Requires the database class
     */
@@ -25,15 +25,16 @@ if (!class_exists("tcPermission")) {
     * Provides objects and methods to interface with the config table
     * @package TeamCalPro
     */
-   class tcPermission {
+   class Permission_model {
       var $db = '';
       var $table = '';
       var $log = '';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcPermission() {
+      function Permission_model() {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -42,6 +43,7 @@ if (!class_exists("tcPermission")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Read all unique scheme names
        *
@@ -55,6 +57,7 @@ if (!class_exists("tcPermission")) {
          return $schemes;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Read all unique scheme names
        *
@@ -71,6 +74,7 @@ if (!class_exists("tcPermission")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Read the value of a permission
        *
@@ -90,6 +94,7 @@ if (!class_exists("tcPermission")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Update/create a permission
        *
@@ -119,6 +124,7 @@ if (!class_exists("tcPermission")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Delete a permission scheme
        *
@@ -131,6 +137,7 @@ if (!class_exists("tcPermission")) {
          return $result;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -141,7 +148,6 @@ if (!class_exists("tcPermission")) {
          return $result;
       }
             
-   } // End Class tcPermission
-
-} // End if (!class_exists("tcPermission"))
+   }
+}
 ?>

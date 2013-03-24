@@ -31,7 +31,7 @@ else require ("includes/lang/english.tcpro.php");
 require_once("models/config_model.php");
 require_once("models/log_model.php");
 require_once("models/login_model.php");
-require_once("includes/tcpermission.class.php");
+require_once("models/permission_model.php");
 require_once("includes/tcregion.class.php");
 require_once("includes/tcuser.class.php");
 require_once("includes/timezones.inc.php");
@@ -39,7 +39,7 @@ require_once("includes/timezones.inc.php");
 $C = new Config_model;
 $L = new Login_model;
 $LOG = new Log_model;
-$P = new tcPermission;
+$P = new Permission_model;
 $R = new tcRegion;
 $U  = new tcUser;
 

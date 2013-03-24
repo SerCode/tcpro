@@ -29,12 +29,12 @@ function isAllowed($permission='') {
 
    require_once ($CONF['app_root'] . "models/config_model.php");
    require_once ($CONF['app_root'] . "models/login_model.php");
-   require_once ($CONF['app_root'] . "includes/tcpermission.class.php");
+   require_once ($CONF['app_root'] . "models/permission_model.php");
    require_once ($CONF['app_root'] . "includes/tcuser.class.php");
 
    $C = new Config_model;
    $L = new Login_model;
-   $P = new tcPermission;
+   $P = new Permission_model;
    $UL = new tcUser;
 
    $pscheme = $C->readConfig("permissionScheme");

@@ -28,7 +28,7 @@ getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else require ("includes/lang/english.tcpro.php");
 
-require_once("includes/tcpermission.class.php");
+require_once("models/permission_model.php");
 require_once("models/log_model.php");
 require_once("models/login_model.php");
 require_once("includes/tcuser.class.php");
@@ -36,7 +36,7 @@ require_once("includes/tcuser.class.php");
 $C = new Config_model;
 $L = new Login_model;
 $LOG = new Log_model;
-$P = new tcPermission;
+$P = new Permission_model;
 $U = new tcUser;
 
 /**
