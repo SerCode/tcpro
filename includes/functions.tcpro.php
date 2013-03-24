@@ -333,10 +333,10 @@ function clearFlag($flagset, $bitmask) {
  */
 function countAbsence($user='%', $absid, $from, $to) {
    global $CONF;
-   require_once ($CONF['app_root'] . "includes/tcabsence.class.php");
+   require_once ($CONF['app_root']."models/absence_model.php");
    require_once ($CONF['app_root'] . "includes/tctemplate.class.php");
 
-   $A = new tcAbsence;
+   $A = new Absence_model;
    $T = new tcTemplate;
 
    // Figure out starting month and ending month
@@ -481,13 +481,13 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
  */
 function createCSS($theme) {
    global $CONF;
-   require_once ($CONF['app_root'] . "includes/csshandler.class.php");
-   require_once ($CONF['app_root'] . "includes/tcabsence.class.php");
-   require_once ($CONF['app_root'] . "includes/tcconfig.class.php");
-   require_once ($CONF['app_root'] . "includes/tcholiday.class.php");
-   require_once ($CONF['app_root'] . "includes/tcstyles.class.php");
+   require_once ($CONF['app_root']."includes/csshandler.class.php");
+   require_once ($CONF['app_root']."models/absence_model.php");
+   require_once ($CONF['app_root']."includes/tcconfig.class.php");
+   require_once ($CONF['app_root']."includes/tcholiday.class.php");
+   require_once ($CONF['app_root']."includes/tcstyles.class.php");
 
-   $A   = new tcAbsence;
+   $A   = new Absence_model;
    $H   = new tcHoliday;
    $CSS = new cssHandler;
    $C   = new tcConfig;
@@ -933,15 +933,15 @@ function getOptions() {
    global $_REQUEST;
    global $_POST;
 
-   require_once ($CONF['app_root'] . "includes/tcconfig.class.php");
-   require_once ($CONF['app_root'] . "includes/tcabsence.class.php");
-   require_once ($CONF['app_root'] . "includes/tcgroup.class.php");
-   require_once ($CONF['app_root'] . "includes/tclogin.class.php");
-   require_once ($CONF['app_root'] . "includes/tcregion.class.php");
-   require_once ($CONF['app_root'] . "includes/tcuser.class.php");
-   require_once ($CONF['app_root'] . "includes/tcuseroption.class.php");
+   require_once ($CONF['app_root']."includes/tcconfig.class.php");
+   require_once ($CONF['app_root']."models/absence_model.php");
+   require_once ($CONF['app_root']."includes/tcgroup.class.php");
+   require_once ($CONF['app_root']."includes/tclogin.class.php");
+   require_once ($CONF['app_root']."includes/tcregion.class.php");
+   require_once ($CONF['app_root']."includes/tcuser.class.php");
+   require_once ($CONF['app_root']."includes/tcuseroption.class.php");
 
-   $A = new tcAbsence;
+   $A = new Absence_model;
    $C = new tcConfig;
    $G = new tcGroup;
    $L = new tcLogin;

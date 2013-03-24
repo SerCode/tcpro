@@ -29,7 +29,7 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options
 else                                  require ("includes/lang/english.tcpro.php");
 
 require_once( "includes/functions.tcpro.php" );
-require_once( "includes/tcabsence.class.php" );
+require_once( "models/absence_model.php" );
 require_once( "includes/tcconfig.class.php" );
 require_once( "includes/tcdaynote.class.php" );
 require_once( "includes/tcholiday.class.php" );
@@ -40,7 +40,7 @@ require_once( "includes/tcuser.class.php" );
 require_once( "includes/tcusergroup.class.php" );
 require_once( "includes/tcuseroption.class.php" );
 
-$A  = new tcAbsence;
+$A  = new Absence_model;
 $C  = new tcConfig;
 $D  = new tcDaynote;
 $H  = new tcHoliday;

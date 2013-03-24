@@ -29,7 +29,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    global $LANG;
    global $theme;
 
-   require_once( "includes/tcabsence.class.php" );
+   require_once( "models/absence_model.php" );
    require_once( "includes/tcallowance.class.php" );
    require_once( "includes/tcconfig.class.php" );
    require_once( "includes/tcdaynote.class.php" );
@@ -42,8 +42,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    require_once( "includes/tcusergroup.class.php" );
    require_once( "includes/tcuseroption.class.php" );
 
-   $A  = new tcAbsence;
-   $AC = new tcAbsence; // for Absence Count Array
+   $A  = new Absence_model;
+   $AC = new Absence_model; // for Absence Count Array
    $AL = new tcAllowance; // for Absence Count Array
    $C  = new tcConfig;
    $G  = new tcGroup;

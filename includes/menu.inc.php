@@ -286,8 +286,8 @@ if ( $C->readConfig("showLanguage") OR
             <select id="absencefilter" name="absencefilter" class="select" onchange="javascript:">
                <option value="All" <?=($CONF['options']['absencefilter']=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
                <?php
-               require_once( $CONF['app_root']."includes/tcabsence.class.php" );
-               $A = new tcAbsence;
+               require_once( $CONF['app_root']."models/absence_model.php" );
+               $A = new Absence_model;
                $absences = $A->getAll();
                foreach ($absences as $abs){
                   if ($CONF['options']['absencefilter']==$abs['id']) { ?>
