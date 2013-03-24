@@ -29,7 +29,7 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options
 else                                  require ("includes/lang/english.tcpro.php");
 
 require_once( "models/config_model.php");
-require_once( "includes/tclogin.class.php" );
+require_once( "models/login_model.php" );
 require_once( "models/group_model.php" );
 require_once( "includes/tcuser.class.php" );
 require_once( "includes/csvhandler.class.php" );
@@ -37,7 +37,7 @@ require_once( "includes/csvhandler.class.php" );
 $C = new Config_model;
 $CSV = new csvImport;
 $G = new Group_model;
-$L = new tcLogin;
+$L = new Login_model;
 $U = new tcUser;
 
 $error=FALSE;

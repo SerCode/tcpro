@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tclogin.class.php
+ * login_model.php
  * 
  * Contains the class dealing with login functions
  * 
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcLogin")) {
+if (!class_exists("Login_model")) {
    /**
     * Requires the database class
     */
@@ -25,7 +25,7 @@ if (!class_exists("tcLogin")) {
     * Provides objects and methods to manage login activities
     * @package TeamCalPro
     */
-   class tcLogin {
+   class Login_model {
       var $user = '';
       var $salt = '';
       var $bad_logins = 0;
@@ -36,10 +36,11 @@ if (!class_exists("tcLogin")) {
       var $log = '';
       var $logtype = '';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcLogin() {
+      function Login_model() {
          global $_POST;
          global $_SERVER;
          global $CONF;
@@ -61,6 +62,7 @@ if (!class_exists("tcLogin")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks the TeamCal cookie and if it exists and is valid and if the user
        * is logged in we get the user info from the database.
@@ -101,6 +103,7 @@ if (!class_exists("tcLogin")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Based on the global config parameter 'pw_strength' Passwords must be:
        *  -min_pw_length long
@@ -182,6 +185,7 @@ if (!class_exists("tcLogin")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Returns the current password rules
        * @return string The current password rules
@@ -219,7 +223,7 @@ if (!class_exists("tcLogin")) {
          return $errors;
       }
       
-      
+      // ---------------------------------------------------------------------
       /**
        * LDAP authentication
        * (Thanks to Aleksandr Babenko for the original code.)
@@ -271,8 +275,8 @@ if (!class_exists("tcLogin")) {
          // true => successful bind, false => failed bind
          return $ldapbind ? 0 : 92; 
       }
-
       
+      // ---------------------------------------------------------------------
       /**
        * TCPRO Authentication
        * Refactored local-database authentication method
@@ -321,7 +325,7 @@ if (!class_exists("tcLogin")) {
          return $retcode;
       }
       
-      
+      // ---------------------------------------------------------------------
       /**
        * Login. Checks the login credentials and sets cookie 'teamcal' if accepted
        *
@@ -395,8 +399,8 @@ if (!class_exists("tcLogin")) {
          $this->U->update($this->U->username);
          return 0;
       }
-      
 
+      // ---------------------------------------------------------------------
       /**
        * Logs the current user out and clears the 'teamcal' cookie
        */
@@ -428,6 +432,7 @@ if (!class_exists("tcLogin")) {
          jsReloadPage("index.php?action=".$this->C->readConfig("homepage"));
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Displays the "not logged in" error message
        */
@@ -435,6 +440,7 @@ if (!class_exists("tcLogin")) {
          echo "<html><head></head><body>You're not logged in to TeamCal Pro.</body></html>";
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Displays the "not provileged" error message
        */
@@ -442,7 +448,6 @@ if (!class_exists("tcLogin")) {
          echo "<html><head></head><body>You do not have sufficient rights to perform this operation.</body></html>";
       }
 
-   } // End Class tcLogin
-
-} // if ( !class_exists( "tcLogin" ) ) {
+   }
+}
 ?>

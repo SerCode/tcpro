@@ -28,7 +28,7 @@ require_once ($CONF['app_root']."includes/tcusergroup.class.php");
 require_once ($CONF['app_root']."includes/tcuseroption.class.php");
 
 $G = new Group_model;
-$L = new tcLogin;
+$L = new Login_model;
 $R = new tcRegion;
 $UA = new User_announcement_model;
 $UG = new tcUserGroup;

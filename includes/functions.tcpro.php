@@ -28,12 +28,12 @@ function isAllowed($permission='') {
    global $CONF;
 
    require_once ($CONF['app_root'] . "models/config_model.php");
-   require_once ($CONF['app_root'] . "includes/tclogin.class.php");
+   require_once ($CONF['app_root'] . "models/login_model.php");
    require_once ($CONF['app_root'] . "includes/tcpermission.class.php");
    require_once ($CONF['app_root'] . "includes/tcuser.class.php");
 
    $C = new Config_model;
-   $L = new tcLogin;
+   $L = new Login_model;
    $P = new tcPermission;
    $UL = new tcUser;
 
@@ -80,13 +80,13 @@ function buildMenu() {
    global $CONF;
 
    require_once ($CONF['app_root'] . "models/config_model.php");
-   require_once ($CONF['app_root'] . "includes/tclogin.class.php");
+   require_once ($CONF['app_root'] . "models/login_model.php");
    require_once ($CONF['app_root'] . "includes/tcuser.class.php");
    require_once ($CONF['app_root'] . "includes/tcusergroup.class.php");
    require_once ($CONF['app_root'] . "includes/tcuseroption.class.php");
 
    $C = new Config_model;
-   $L = new tcLogin;
+   $L = new Login_model;
    $U = new tcUser; // represents the user the operation is for
    $UL = new tcUser; // represents the logged in user who wants to perform the operation
    $UG = new tcUserGroup;
@@ -936,7 +936,7 @@ function getOptions() {
    require_once ($CONF['app_root']."models/config_model.php");
    require_once ($CONF['app_root']."models/absence_model.php");
    require_once ($CONF['app_root']."models/group_model.php");
-   require_once ($CONF['app_root']."includes/tclogin.class.php");
+   require_once ($CONF['app_root']."models/login_model.php");
    require_once ($CONF['app_root']."includes/tcregion.class.php");
    require_once ($CONF['app_root']."includes/tcuser.class.php");
    require_once ($CONF['app_root']."includes/tcuseroption.class.php");
@@ -944,7 +944,7 @@ function getOptions() {
    $A = new Absence_model;
    $C = new Config_model;
    $G = new Group_model;
-   $L = new tcLogin;
+   $L = new Login_model;
    $R = new tcRegion;
    $UL = new tcUser;
    $UO = new tcUserOption;

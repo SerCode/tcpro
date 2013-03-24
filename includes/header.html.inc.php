@@ -37,11 +37,11 @@ ___________________________________________________________________________
  * Includes
  */
 require_once( $CONF['app_root']."models/config_model.php" );
-require_once( $CONF['app_root']."includes/tclogin.class.php" );
+require_once( $CONF['app_root']."models/login_model.php" );
 require_once( $CONF['app_root']."includes/tcstyles.class.php" );
 require_once( $CONF['app_root']."includes/tcuseroption.class.php" );
 $C = new Config_model;
-$L = new tcLogin;
+$L = new Login_model;
 $S = new tcStyles;
 $UO = new tcUserOption;
 

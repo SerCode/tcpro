@@ -30,7 +30,7 @@ else                                  require ("includes/lang/english.tcpro.php"
 
 require_once ("models/announcement_model.php");
 require_once ("models/config_model.php");
-require_once ("includes/tclogin.class.php");
+require_once ("models/login_model.php");
 require_once ("models/log_model.php");
 require_once ("includes/tcuser.class.php");
 require_once ("models/user_announcement_model.php");
@@ -38,7 +38,7 @@ require_once ("includes/tcuseroption.class.php");
 
 $AN = new Announcement_model;
 $C = new Config_model;
-$L = new tcLogin;
+$L = new Login_model;
 $LOG = new Log_model;
 $U = new tcUser;
 $UA = new User_announcement_model;
