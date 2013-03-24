@@ -31,7 +31,7 @@ else                                  require ("includes/lang/english.tcpro.php"
 require_once ("models/absence_model.php");
 require_once ("models/allowance_model.php");
 require_once ("models/config_model.php");
-require_once ("includes/tcdaynote.class.php");
+require_once ("models/daynote_model.php");
 require_once ("includes/tcgroup.class.php");
 require_once ("includes/tclogin.class.php");
 require_once ("includes/tclog.class.php");
@@ -46,7 +46,7 @@ $C = new Config_model;
 $G = new tcGroup;
 $L = new tcLogin;
 $LOG = new tcLog;
-$N = new tcDaynote;
+$N = new Daynote_model;
 $R = new tcRegion;
 $T = new tcTemplate;
 $U = new tcUser;

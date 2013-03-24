@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcdaynote.class.php
+ * daynote_model.php
  * 
  * Contains the class dealing with the daynote table
  *
@@ -16,7 +16,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcDaynote")) {
+if (!class_exists("Daynote_model")) {
    /**
     * Requires the database class
     */
@@ -26,7 +26,7 @@ if (!class_exists("tcDaynote")) {
     * Provides objects and methods to interface with the daynote table
     * @package TeamCalPro
     */
-   class tcDaynote {
+   class Daynote_model {
       var $db = NULL;
       var $table = NULL;
       var $log = '';
@@ -39,10 +39,11 @@ if (!class_exists("tcDaynote")) {
       var $username = '';
       var $region = '';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcDaynote() {
+      function Daynote_model() {
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new myDB;
@@ -50,6 +51,7 @@ if (!class_exists("tcDaynote")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Creates a daynote record from class variables
        */
@@ -65,6 +67,7 @@ if (!class_exists("tcDaynote")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a daynote record by date and username
        * 
@@ -80,6 +83,7 @@ if (!class_exists("tcDaynote")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a daynote record by id
        * 
@@ -90,6 +94,7 @@ if (!class_exists("tcDaynote")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all daynotes for a region
        * 
@@ -100,6 +105,7 @@ if (!class_exists("tcDaynote")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all daynotes for a user
        * 
@@ -110,6 +116,7 @@ if (!class_exists("tcDaynote")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a daynote record by date and username and loads values in local class variables
        * 
@@ -138,6 +145,7 @@ if (!class_exists("tcDaynote")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Find all daynotes for a given user and month and load them in daynotes array
        * 
@@ -166,6 +174,7 @@ if (!class_exists("tcDaynote")) {
          return $rc;
       }
            
+      // ---------------------------------------------------------------------
       /**
        * Find all daynotes for all users in a given month and load them in daynotes array
        * 
@@ -195,6 +204,7 @@ if (!class_exists("tcDaynote")) {
          return $rc;
       }  
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a daynote record by id and loads values in local class variables
        * 
@@ -219,6 +229,7 @@ if (!class_exists("tcDaynote")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a daynote record from local class variables
        */
@@ -232,6 +243,7 @@ if (!class_exists("tcDaynote")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -242,7 +254,6 @@ if (!class_exists("tcDaynote")) {
          return $result;
       }
             
-   } // End Class tcDaynote
-
-} // if ( !class_exists( "tcDaynote" ) ) {
+   }
+}
 ?>

@@ -32,7 +32,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    require_once( "models/absence_model.php" );
    require_once( "models/allowance_model.php" );
    require_once( "models/config_model.php" );
-   require_once( "includes/tcdaynote.class.php" );
+   require_once( "models/daynote_model.php" );
    require_once( "includes/tcgroup.class.php" );
    require_once( "includes/tcholiday.class.php" );
    require_once( "includes/tclogin.class.php" );
@@ -50,8 +50,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    $H  = new tcHoliday;
    $L  = new tcLogin;
    $M  = new tcMonth;
-   $N  = new tcDaynote;
-   $N2 = new tcDaynote;
+   $N  = new Daynote_model;
+   $N2 = new Daynote_model;
    $T  = new tcTemplate;
    $U  = new tcUser;
    $UG = new tcUserGroup;

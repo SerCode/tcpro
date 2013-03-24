@@ -31,7 +31,7 @@ else                                  require ("includes/lang/english.tcpro.php"
 require_once( "includes/functions.tcpro.php" );
 require_once( "models/absence_model.php" );
 require_once( "models/config_model.php" );
-require_once( "includes/tcdaynote.class.php" );
+require_once( "models/daynote_model.php" );
 require_once( "includes/tcholiday.class.php" );
 require_once( "includes/tclogin.class.php" );
 require_once( "includes/tcmonth.class.php" );
@@ -42,7 +42,7 @@ require_once( "includes/tcuseroption.class.php" );
 
 $A  = new Absence_model;
 $C  = new Config_model;
-$D  = new tcDaynote;
+$D  = new Daynote_model;
 $H  = new tcHoliday;
 $L  = new tcLogin;
 $M  = new tcMonth;

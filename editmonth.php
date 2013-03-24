@@ -29,7 +29,7 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options
 else                                  require ("includes/lang/english.tcpro.php");
 
 require_once ("models/config_model.php");
-require_once ("includes/tcdaynote.class.php");
+require_once ("models/daynote_model.php");
 require_once ("includes/tcholiday.class.php");
 require_once ("includes/tclogin.class.php");
 require_once ("includes/tclog.class.php");
@@ -42,7 +42,7 @@ $H2 = new tcHoliday;
 $L = new tcLogin;
 $LOG = new tcLog;
 $M = new tcMonth;
-$N = new tcDaynote;
+$N = new Daynote_model;
 $UL = new tcUser;
 $error=FALSE;
 
