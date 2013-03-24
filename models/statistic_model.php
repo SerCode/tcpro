@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcstatistic.class.php
+ * statistic_model.php
  *
  * Contains the class dealing with the statistics display
  *
@@ -15,12 +15,12 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcStatistic")) {
+if (!class_exists("Statistic_model")) {
    /**
     * Object and methods to manage the statics display
     * @package TeamCalPro
     */
-   class tcStatistic {
+   class Statistic_model {
       var $style_table_main='';
       var $style_td_main_header='';
       var $style_td_main_footer='';
@@ -36,16 +36,18 @@ if (!class_exists("tcStatistic")) {
       var $style_table_x_axis = '';
       var $style_td_x_legend = '';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcStatistic() {
+      function Statistic_model() {
          global $CONF;
          global $LANG;
          unset($CONF);
          require ("config.tcpro.php");
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Draws a horizontal bar graph
        *
@@ -188,6 +190,7 @@ if (!class_exists("tcStatistic")) {
          return $str;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Draws a vertical bar graph
        *
@@ -330,7 +333,6 @@ if (!class_exists("tcStatistic")) {
          return $str;
       }
 
-   } // End Class tcStatistic
-
-} // if ( !class_exists( "tcStatistic" ) ) {
+   }
+}
 ?>
