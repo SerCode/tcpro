@@ -40,6 +40,9 @@ IMPROVEMENTS
    Using SMTP mail send was possible but not use all along TCP. I changed that
    now so all mail sending activities are either PHP mail or SMTP.
 
+06 File structure
+   Changed the file structure to more clearly distinguish between models and
+   helpers.
    
 ------------------------------------------------------------------------------
 [3.5.002]

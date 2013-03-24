@@ -7,26 +7,22 @@ TEAMCAL PRO UPGRADE INFO
 
 Backup your current files and database!
 
-For this upgrade I recommend to create a copy of your current installation,
-including a copy of your database.
+For this upgrade create a copy of your database. Install a fresh 3.6.000 at
+a new location.
 
-Download the release 3.6.000 and overwrite all files in your current copy
-installation.
+Copy config.default.php => config.tcpro.php.
 
-Edit your config.tcpro.php file and make sure these entries exit:
-$CONF['db_table_absence']           = $CONF['db_table_prefix'].'tc_absences';
-$CONF['db_table_absence_group']     = $CONF['db_table_prefix'].'tc_absence_group';
-$CONF['db_table_allowance']         = $CONF['db_table_prefix'].'tc_allowances';
-$CONF['db_table_templates']         = $CONF['db_table_prefix'].'tc_templates';
+Edit config.tcpro.php, enter your URLs and point to the copy of your data-
+base. Make sure the table prefix is correct in case you used a different
+one than default.
 
-Direct your browser to the file
-upgrade35_36.php
+Direct your browser to the new installation to file: upgrade35_36.php
 
-This helper will upgrade your current database to the new tables necessary to
+This helper will upgrade your database to the new tables necessary to
 support the unlimited absence types. The script will display some messages on
 the screen showing the changes done to your database.
 
-Load your TeamCal Pro copy in your browser. It should now show your old data 
+Load your new TeamCal Pro in your browser. It should now show your old data 
 in the new version. Perform a few tests and if you're happy make it your 
 production instance.
 
