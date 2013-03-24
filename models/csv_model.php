@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * csvhandler.class.php
+ * csv_model.php
  * 
  * Provides classes to deal with CSV parsing
  *
@@ -13,23 +13,25 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
  */
 
-if (!class_exists("csvHandler")) {
+if (!class_exists("Csv_model")) {
 	/** 
 	 * Provides objects and methods to parse MySQL into CSV
 	 * @package TeamCalPro
 	 */
-	class csvHandler {
+	class Csv_model {
 	   var $headrow;
 	   var $body;
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Class constructor
 	    */
-	   function csvHandler() {
+	   function Csv_model() {
 	      $this->headrow = "";
 	      $this->body = "";
 	   }
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Creates the CSV header line with the field names
 	    * 
@@ -45,6 +47,7 @@ if (!class_exists("csvHandler")) {
 	      $this->body = $this->body . $out;
 	   }
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Writes each field value of a row
 	    * 
@@ -66,6 +69,7 @@ if (!class_exists("csvHandler")) {
 	      $this->body = $this->body . $out;
 	   }
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Returns the CSV text
 	    * 
@@ -75,9 +79,8 @@ if (!class_exists("csvHandler")) {
 	      return $this->headrow . $this->body;
 	   }
 	
-   } // End Class csvHandler
-
-} // End if (!class_exists("csvHandler"))
+   }
+}
 
 
 if (!class_exists("Sql2Csv")) {
@@ -132,7 +135,7 @@ if (!class_exists("Sql2Csv")) {
 	    */
 	   function export($result, $filename) {
 	      $meta = mysql_fetch_field($result);
-	      $csvdoc = new csvHandler($meta->table);
+	      $csvdoc = new Csv_model($meta->table);
 	
 	      $csvdoc->addHeadrow($result);
 	      while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
@@ -159,7 +162,7 @@ if (!class_exists("Sql2Csv")) {
 	   function getTableAsCsv($dbtable) {
 	      $rows = mysql_query("SELECT * FROM " . $dbtable);
 	      $meta = mysql_fetch_field($rows);
-	      $csvdoc = new csvHandler($meta->table);
+	      $csvdoc = new Csv_model($meta->table);
 	      while ($row = mysql_fetch_array($rows, MYSQL_NUM)) {
 	         $csvdoc->addElement($row, $rows);
 	      }

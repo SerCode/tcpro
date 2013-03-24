@@ -32,7 +32,7 @@ require_once( "models/config_model.php");
 require_once( "models/login_model.php" );
 require_once( "models/group_model.php" );
 require_once( "models/user_model.php" );
-require_once( "includes/csvhandler.class.php" );
+require_once( "models/csv_model.php" );
 
 $C = new Config_model;
 $CSV = new csvImport;

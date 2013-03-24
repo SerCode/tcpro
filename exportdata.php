@@ -28,7 +28,7 @@ getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");
 
-require_once( "includes/csvhandler.class.php" );
+require_once( "models/csv_model.php" );
 require_once( "includes/xmlhandler.class.php" );
 require_once( "models/config_model.php" );
 require_once( "models/user_model.php" );
@@ -166,7 +166,7 @@ function PrintOut($output,$tbl,$stats,$format='sql') {
       $s2c=new Sql2Csv($CONF['db_server'],"3306",$CONF['db_name'],$CONF['db_user'],$CONF['db_pass']);
       $result=mysql_query("SELECT * FROM ".$tbl);
       $meta = mysql_fetch_field($result);
-      $csvdoc = new csvHandler($meta->table);
+      $csvdoc = new Csv_model($meta->table);
       $csvdoc->addHeadrow($result);
       while ($row = mysql_fetch_array($result, MYSQL_NUM)) $csvdoc->addElement($row, $result);
       $output = $csvdoc->getCSVDocument();
