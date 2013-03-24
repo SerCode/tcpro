@@ -34,7 +34,7 @@ require_once( "models/avatar_model.php" );
 require_once( "models/config_model.php" );
 require_once( "models/group_model.php" );
 require_once( "models/login_model.php" );
-require_once( "includes/tctemplate.class.php" );
+require_once( "models/template_model.php" );
 require_once( "includes/tcuser.class.php" );
 require_once( "includes/tcusergroup.class.php" );
 
@@ -44,7 +44,7 @@ $B  = new Allowance_model;
 $C  = new Config_model;
 $G  = new Group_model;
 $L  = new Login_model;
-$T  = new tcTemplate;
+$T  = new Template_model;
 $U  = new tcUser;
 $UL = new tcUser;
 $UG = new tcUserGroup;

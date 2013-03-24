@@ -35,7 +35,7 @@ require_once( "models/group_model.php" );
 require_once( "models/login_model.php" );
 require_once( "models/month_model.php" );
 require_once( "models/statistic_model.php" );
-require_once( "includes/tctemplate.class.php" );
+require_once( "models/template_model.php" );
 require_once( "includes/tcuser.class.php" );
 require_once( "includes/tcusergroup.class.php" );
 
@@ -46,7 +46,7 @@ $G = new Group_model;
 $L = new Login_model;
 $M = new Month_model;
 $ST = new Statistic_model;
-$T = new tcTemplate;
+$T = new Template_model;
 $U = new tcUser;
 $U1 = new tcUser;
 $UL = new tcUser;

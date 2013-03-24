@@ -37,8 +37,8 @@ require_once( "models/holiday_model.php" );
 require_once( "models/login_model.php" );
 require_once( "models/log_model.php" );
 require_once( "models/month_model.php" );
-require_once( "includes/tctemplate.class.php" );
-require_once( "includes/tctemplate.class.php" );
+require_once( "models/template_model.php" );
+require_once( "models/template_model.php" );
 require_once( "includes/tcuser.class.php" );
 require_once( "includes/tcusergroup.class.php" );
 
@@ -51,8 +51,8 @@ $L   = new Login_model;
 $LOG = new Log_model;
 $M   = new Month_model;
 $N   = new Daynote_model;
-$T   = new tcTemplate;
-$TT  = new tcTemplate; // used for template user loop
+$T   = new Template_model;
+$TT  = new Template_model; // used for template user loop
 $U   = new tcUser;
 $UL  = new tcUser; // User logged in
 $UT  = new tcUser; // used for template user loop

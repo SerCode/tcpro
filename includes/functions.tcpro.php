@@ -334,10 +334,10 @@ function clearFlag($flagset, $bitmask) {
 function countAbsence($user='%', $absid, $from, $to) {
    global $CONF;
    require_once ($CONF['app_root']."models/absence_model.php");
-   require_once ($CONF['app_root'] . "includes/tctemplate.class.php");
+   require_once ($CONF['app_root'] . "models/template_model.php");
 
    $A = new Absence_model;
-   $T = new tcTemplate;
+   $T = new Template_model;
 
    // Figure out starting month and ending month
    $startyear = intval(substr($from, 0, 4));
@@ -737,13 +737,13 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
    global $CONF;
    require_once ($CONF['app_root'] . "models/config_model.php");
    require_once ($CONF['app_root'] . "models/group_model.php");
-   require_once ($CONF['app_root'] . "includes/tctemplate.class.php");
+   require_once ($CONF['app_root'] . "models/template_model.php");
    require_once ($CONF['app_root'] . "includes/tcuser.class.php");
    require_once ($CONF['app_root'] . "includes/tcusergroup.class.php");
 
    $C = new Config_model;
    $G = new Group_model;
-   $T = new tcTemplate;
+   $T = new Template_model;
    $U = new tcUser;
    $UG = new tcUserGroup;
 
