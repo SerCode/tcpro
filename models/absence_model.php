@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcabs.class.php
+ * absence_model.php
  * 
  * Contains the class to interface with the absence type table
  *
@@ -162,6 +162,8 @@ if (!class_exists("Absence_model")) {
       /**
        * Reads all records into an array
        * 
+       * @param string $order Column to sort by
+       * @param string $sort Sort direction
        * @return array $absarray Array with all records
        */
       function getAll($order='name', $sort='ASC') {
@@ -258,7 +260,7 @@ if (!class_exists("Absence_model")) {
       /**
        * Gets the last auto-increment ID
        * 
-       * @return string Next auto-incremente ID
+       * @return string Last auto-increment ID
        */ 
       function getLastId() {
          $result = mysql_query('SHOW TABLE STATUS LIKE "'.$this->table.'";');
@@ -270,7 +272,7 @@ if (!class_exists("Absence_model")) {
       /**
        * Gets the next auto-increment ID
        * 
-       * @return string Next auto-incremente ID
+       * @return string Next auto-increment ID
        */ 
       function getNextId() {
          $result = mysql_query('SHOW TABLE STATUS LIKE "'.$this->table.'"');

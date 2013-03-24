@@ -29,7 +29,7 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options
 else                                  require ("includes/lang/english.tcpro.php");
 
 require_once( "models/absence_model.php" );
-require_once( "includes/tcallowance.class.php" );
+require_once( "models/allowance_model.php" );
 require_once( "includes/tcavatar.class.php" );
 require_once( "includes/tcconfig.class.php");
 require_once( "includes/tcdaynote.class.php" );
@@ -45,7 +45,7 @@ require_once( "includes/tcuseroption.class.php" );
 
 $A   = new Absence_model;
 $AV  = new tcAvatar;
-$B   = new tcAllowance;
+$B   = new Allowance_model;
 $C   = new tcConfig;
 $G   = new tcGroup;
 $L   = new tcLogin;

@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcallowance.class.php
+ * allowance_model.php
  * 
  * Contains the class to interface with the allowance table
  *
@@ -12,20 +12,21 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @link http://www.lewe.com
  * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
  */
+
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcAllowance")) {
+if (!class_exists("Allowance_model")) {
    /**
     * Requires the database class
     */
    require_once ("includes/db.class.php");
    
    /**
-    * Provides objects and methods to interface with the allownace table
+    * Provides objects and methods to interface with the allowance table
     * @package TeamCalPro
     */
-   class tcAllowance {
+   class Allowance_model {
       var $db = NULL;
       var $table = '';
       var $log = '';
@@ -36,10 +37,11 @@ if (!class_exists("tcAllowance")) {
       var $lastyear = 0;
       var $curryear = 0;
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcAllowance() {
+      function Allowance_model() {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -48,6 +50,7 @@ if (!class_exists("tcAllowance")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Creates an allowance record
        */
@@ -61,6 +64,7 @@ if (!class_exists("tcAllowance")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates an allowance record from the local variables
        * 
@@ -75,6 +79,7 @@ if (!class_exists("tcAllowance")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes an allowance record
        */
@@ -83,32 +88,35 @@ if (!class_exists("tcAllowance")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all allowance records for a given absence type
        * 
-       * @param string $symbol Absence symbol to delete
+       * @param string $absid Absence ID to delete
        */
       function deleteAbs($absid='') {
          $query = "DELETE FROM `".$this->table."` WHERE `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all allowance records for a given username
        * 
-       * @param string $symbol Absence symbol to delete
+       * @param string $username Username to delete
        */
       function deleteUser($username='') {
          $query = "DELETE FROM `".$this->table."` WHERE `username`='".$username."'";
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds the allowance record for a given username and absence type and
        * fills the local variables with the values found in database
        * 
-       * @param string $finduser Username to find
-       * @param string $findsym Absence type to find
+       * @param string $username Username to find
+       * @param string $absid Absence type to find
        * @return boolean True if allowance exists, false if not
        */
       function find($username, $absid) {
@@ -127,43 +135,50 @@ if (!class_exists("tcAllowance")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates the last year amount for a user/absence
        * 
-       * @param string $upduser Username to find
-       * @param string $updsym Absence type to find
-       * @param integer $newlast New value for last year
+       * @param string $username Username to find
+       * @param string $absid Absence ID to find
+       * @param integer $lastyear New value for last year
        */
       function updateLastyear($username, $absid, $lastyear) {
-         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
+         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."' ".
+                  "WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates the current year amount for a user/absence
        * 
-       * @param string $upduser Username to find
-       * @param string $updsym Absence type to find
-       * @param integer $newcurr New value for current year
+       * @param string $username Username to find
+       * @param string $absid Absence ID to find
+       * @param integer $curryear New value for current year
        */
       function updateCurryear($username, $absid, $curryear) {
-         $query = "UPDATE `".$this->table."` SET `curryear`='".$newcurr."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
+         $query = "UPDATE `".$this->table."` SET `curryear`='".$newcurr."' ".
+                  "WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates the ast year and current year amount for a user/absence
        * 
-       * @param string $upduser Username to find
-       * @param string $updsym Absence type to find
-       * @param integer $newlast New value for last year
-       * @param integer $newcurr New value for current year
+       * @param string $username Username to find
+       * @param string $absid Absence ID to find
+       * @param integer $lastyear New value for last year
+       * @param integer $curryear New value for current year
        */
       function updateAllowance($username, $absid, $lastyear, $curryear) {
-         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."', `curryear`='".$curryear."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
+         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."', `curryear`='".$curryear."' ".
+                  "WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
       
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -174,6 +189,6 @@ if (!class_exists("tcAllowance")) {
          return $result;
       }
             
-   } // End Class tcAllowance
-} // if ( !class_exists( "tcAllowance" ) ) {
+   }
+}
 ?>

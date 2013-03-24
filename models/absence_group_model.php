@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcabsgroup.class.php
+ * absence_group_model.php
  * 
  * Contains the class to interface with the abs group table
  *
@@ -22,7 +22,7 @@ if (!class_exists("Absence_group_model")) {
    require_once ("includes/db.class.php");
    
    /**
-    * Provides objects and methods to interface with the absence group records
+    * Provides objects and methods to interface with the absence group table
     * @package TeamCalPro
     */
    class Absence_group_model {
@@ -75,7 +75,7 @@ if (!class_exists("Absence_group_model")) {
       /**
        * Deletes all records for an absence type
        * 
-       * @param string $absence Absence symbol
+       * @param string $absid Absence ID
        */
       function unassignAbs($absid='') {
          $query = "DELETE FROM `".$this->table."` WHERE `absid` = '".$absid."'";
@@ -136,8 +136,8 @@ if (!class_exists("Absence_group_model")) {
       /**
        * Updates the group name of an existing record
        * 
-       * @param string $groupold Group name type to change
-       * @param string $absnew New group name
+       * @param string $groupold Old group name
+       * @param string $groupnew New group name
        */
       function updateGroupname($groupold, $groupnew) {
          $query = "UPDATE `".$this->table."` SET `group`='".$groupnew."' WHERE `group`='".$groupold."'";
