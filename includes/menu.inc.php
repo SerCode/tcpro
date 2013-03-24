@@ -21,16 +21,16 @@ require_once( $CONF['app_root']."includes/functions.tcpro.php" );
 getOptions();
 require( $CONF['app_root']."includes/lang/".$CONF['options']['lang'].".tcpro.php");
 
-require_once( $CONF['app_root']."includes/tcannouncement.class.php" );
 require_once( $CONF['app_root']."includes/tcgroup.class.php" );
 require_once( $CONF['app_root']."includes/tcregion.class.php" );
+require_once( $CONF['app_root']."models/user_announcement_model.php" );
 require_once ($CONF['app_root']."includes/tcusergroup.class.php");
 require_once ($CONF['app_root']."includes/tcuseroption.class.php");
 
-$AN = new tcAnnouncement;
 $G = new tcGroup;
 $L = new tcLogin;
 $R = new tcRegion;
+$UA = new User_announcement_model;
 $UG = new tcUserGroup;
 $UL = new tcUser;
 $UO = new tcUserOption;
@@ -356,12 +356,10 @@ if ( $C->readConfig("showLanguage") OR
           * Display announcement icon for this user
           */
          if (isAllowed("viewAnnouncements")) {
-            $uatable = $CONF['db_table_user_announcement'];
-            $query  = "SELECT * FROM ".$uatable." WHERE ".$uatable.".username='".$UL->username."';";
-            $result = $AN->db->db_query($query);
-            if ( $AN->db->db_numrows($result) ) { ?>
-          	   <a href="announcement.php?uaname=<?=$UL->username?>"><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" title="You got Announcements..." style="padding-left: 18px; vertical-align: middle;"></a> (<?=$AN->db->db_numrows($result)?>)
-            <?php }
+            $uas=$UA->getAllForUser($UL->username);
+            if (count($uas)) { ?>
+          	   <a href="announcement.php?uaname=<?=$UL->username?>"><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" title="You got Announcements..." style="padding-left: 18px; vertical-align: middle;"></a> (<?=count($uas)?>)
+        	   <?php }
          }
          ?>
       </span>

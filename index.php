@@ -45,19 +45,21 @@ else                                  require ("includes/lang/english.tcpro.php"
  * Includes
  */
 require_once ("includes/showmonth.function.php");
-require_once ("includes/tcannouncement.class.php" );
+require_once ("models/announcement_model.php" );
 require_once ("includes/tcconfig.class.php");
 require_once ("includes/tclogin.class.php");
 require_once ("includes/tclog.class.php");
 require_once ("includes/tcuser.class.php");
+require_once ("models/user_announcement_model.php" );
 require_once ("includes/tcuseroption.class.php");
 
-$AN = new tcAnnouncement;
+$AN = new Announcement_model;
 $C = new tcConfig;
 $L = new tcLogin;
 $LOG = new tcLog;
 $U = new tcUser;
-$UA = new tcUser;
+$U2 = new tcUser;
+$UA = new User_announcement_model;
 $UO = new tcUserOption;
 
 if ($L->checkLogin()) $logged_out=FALSE; else $logged_out=TRUE;
@@ -134,11 +136,10 @@ if ( !$logged_out ) {
     * Now check for popup announcements for the logged in user
     */
    if ($user=$L->checkLogin()) {
-      $query1 = "SELECT ats FROM ".$AN->uatable." WHERE username='".$user."'";
-      $result1 = $AN->db->db_query($query1);
+      $uas=$UA->getAllForUser($user);
       $foundpopup=false;
-      while ( $row1 = $AN->db->db_fetch_array($result1,MYSQL_ASSOC) ) {
-         $AN->read($row1['ats']);
+      foreach($uas as $ua) {
+         $AN->read($ua['ats']);
          if ($AN->popup) {
             $foundpopup=true;
             break;
@@ -150,9 +151,9 @@ if ( !$logged_out ) {
           * have passed since login. (Otherwise the popup would be shown everytime
           * the calendar or homepage is displayed.)
           */
-         $UA->findByName($user);
+         $U2->findByName($user);
          $nowstamp = date("YmdHis");
-         $userstamp=$UA->last_login;
+         $userstamp=$U2->last_login;
          $userstamp=str_replace("-",'',$userstamp);
          $userstamp=str_replace(" ",'',$userstamp);
          $userstamp=str_replace(":",'',$userstamp);

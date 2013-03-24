@@ -31,7 +31,7 @@ else                                  require ("includes/lang/english.tcpro.php"
 require_once( "models/absence_model.php" );
 require_once( "models/absence_group_model.php" );
 require_once( "models/allowance_model.php" );
-require_once( "includes/tcannouncement.class.php" );
+require_once( "models/announcement_model.php" );
 require_once( "includes/tcavatar.class.php" );
 require_once( "includes/tcconfig.class.php");
 require_once( "includes/tcdaynote.class.php" );
@@ -45,12 +45,13 @@ require_once( "includes/tcregion.class.php" );
 require_once( "includes/tcstyles.class.php" );
 require_once( "includes/tctemplate.class.php" );
 require_once( "includes/tcuser.class.php" );
+require_once( "models/user_announcement_model.php" );
 require_once( "includes/tcusergroup.class.php" );
 require_once( "includes/tcuseroption.class.php" );
 
 $A  = new Absence_model;
 $AG = new Absence_group_model;
-$AN = new tcAnnouncement;
+$AN = new Announcement_model;
 $AV = new tcAvatar;
 $B  = new Allowance_model;
 $C  = new tcConfig;
@@ -65,6 +66,7 @@ $R  = new tcRegion;
 $S  = new tcStyles;
 $T  = new tcTemplate;
 $U  = new tcUser;
+$UA = new User_announcement_model;
 $UG = new tcUserGroup;
 $UO = new tcUserOption;
 
@@ -145,6 +147,7 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
             $S->optimize();
             $T->optimize();
             $U->optimize();
+            $UA->optimize();
             $UG->optimize();
             $UO->optimize();
          }
@@ -255,7 +258,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
 
       if ( isset($_POST['chkDBDeleteAnnouncements']) ) {
          $AN->clearAnnouncements();
-         $AN->clearAnnouncementAssignments();
+         $UA->deleteAll();
          /**
           * Log this event
           */
@@ -265,9 +268,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
       if ( isset($_POST['chkDBDeleteOrphAnnouncements']) ) {
          $announcements = $AN->getAll();
          foreach ($announcements as $row) {
-            $query2 = "SELECT * FROM ".$AN->uatable." WHERE ats='".$row['timestamp']."';";
-            $result2 = $AN->db->db_query($query2);
-            if ( !$AN->db->db_numrows($result2) ) $AN->delete($row['timestamp']);
+            if (!count($UA->getAllForTimestamp($row['timestamp'])) $AN->delete($row['timestamp']);
          }
          /**
           * Log this event

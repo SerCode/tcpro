@@ -28,17 +28,19 @@ getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");
 
-require_once("includes/tcannouncement.class.php");
+require_once("models/announcement_model.php");
 require_once("includes/tcconfig.class.php");
 require_once("includes/tclog.class.php");
 require_once("includes/tclogin.class.php");
 require_once("includes/tcuser.class.php");
+require_once("models/user_announcement_model.php");
 
-$AN  = new tcAnnouncement;
+$AN  = new Announcement_model;
 $C   = new tcConfig;
 $L   = new tcLogin;
 $LOG = new tcLog;
 $U   = new tcUser;
+$UA  = new User_announcement_model;
 $UL  = new tcUser;
 
 $error=FALSE;
@@ -56,8 +58,8 @@ $UL->findByName($user);
  * CONFIRM
  */
 if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
-   $query  = "DELETE FROM ".$AN->uatable." WHERE ats='".$_POST['ats']."' AND username='".$UL->username."';";
-   $result = $AN->db->db_query($query);
+
+   $UA->unassign($_POST['ats'], $UL->username);
 
    /**
     * Log this event
@@ -72,9 +74,9 @@ if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
  * CONFIRM ALL
  */
 else if ( isset($_POST['btn_confirm_all'])) {
-   $query  = "DELETE FROM ".$AN->uatable." WHERE username='".$UL->username."';";
-   $result = $AN->db->db_query($query);
-
+   
+   $AN->clearUserAnnouncements($UL->username);
+   
    /**
     * Log this event
     */
@@ -99,7 +101,7 @@ require("includes/menu.inc.php");
             <td class="dlg-caption" style="text-align: center; padding-right: 8px;"><?=$LANG['ann_col_action']?></td>
          </tr>
             <tr>
-               <?php $uas = $AN->getAllUserAnnouncements($UL->username);
+               <?php $uas = $UA->getAllForUser($UL->username);
                if (count($uas)) { ?>
                   <td class="config-row1">&nbsp;</td>
                   <td class="config-row1" style="text-align: center; vertical-align: middle;">
@@ -113,19 +115,19 @@ require("includes/menu.inc.php");
                <?php } ?>
             </tr>
          <?php $style="1";
-         foreach ($uas as $row) {
+         foreach ($uas as $ua) {
             if ($style=="1") $style="2"; else $style="1";
             ?>
             <tr>
                <td class="config-row<?=$style?>">
-                  <fieldset><legend><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" style="vertical-align: middle;">&nbsp;<?=$LANG['ann_id'].": ".$row['ats']?></legend>
-                     <br><?=$AN->read($row['ats'])?>
+                  <fieldset><legend><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" style="vertical-align: middle;">&nbsp;<?=$LANG['ann_id'].": ".$ua['ats']?></legend>
+                     <br><?=$AN->read($ua['ats'])?>
                   </fieldset>
                </td>
                <td class="config-row<?=$style?>" style="text-align: center; vertical-align: middle;">
-                  <form class="form" name="form-ann-<?=$row['ats']?>" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
-                     <input name="ats" type="hidden" class="text" value="<?=$row['ats']?>">&nbsp;
-                     <input name="btn_confirm" type="submit" class="button" value="<?=$LANG['btn_confirm']?>" onclick="return confirmSubmit('<?=$LANG['ann_delete_confirm_1'].$row['ats'].$LANG['ann_delete_confirm_2']?>');">
+                  <form class="form" name="form-ann-<?=$ua['ats']?>" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+                     <input name="ats" type="hidden" class="text" value="<?=$ua['ats']?>">&nbsp;
+                     <input name="btn_confirm" type="submit" class="button" value="<?=$LANG['btn_confirm']?>" onclick="return confirmSubmit('<?=$LANG['ann_delete_confirm_1'].$ua['ats'].$LANG['ann_delete_confirm_2']?>');">
                   </form>
                </td>
             </tr>

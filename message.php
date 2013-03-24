@@ -28,22 +28,24 @@ getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");
 
-require_once( "includes/tcannouncement.class.php" );
+require_once( "models/announcement_model.php" );
 require_once( "includes/tcconfig.class.php" );
 require_once( "includes/tcgroup.class.php" );
 require_once( "includes/tclog.class.php" );
 require_once( "includes/tclogin.class.php" );
 require_once( "includes/tcuser.class.php" );
+require_once( "models/user_announcement_model.php" );
 require_once( "includes/tcusergroup.class.php" );
 
+$AN  = new Announcement_model;
 $C   = new tcConfig;
 $G   = new tcGroup;
 $LOG = new tcLog;
 $L   = new tcLogin;
 $U   = new tcUser;
+$UA  = new User_announcement_model;
 $UL  = new tcUser;
 $UG  = new tcUserGroup;
-$AN  = new tcAnnouncement;
 
 /**
  * Check if allowed
@@ -123,7 +125,7 @@ if (isset($_POST['btn_send'])) {
             $query  = "SELECT username FROM `".$U->table."`;";
             $result = $U->db->db_query($query);
             while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
-               $AN->assign($tstamp,$row['username']);
+               $UA->assign($tstamp,$row['username']);
             }
             break;
          case "group":
@@ -133,7 +135,7 @@ if (isset($_POST['btn_send'])) {
                      " AND ".$U->table.".username=".$UG->table.".username";
             $result = $U->db->db_query($query);
             while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
-               $AN->assign($tstamp,$row['username']);
+               $UA->assign($tstamp,$row['username']);
             }
             break;
          case "user":
@@ -141,7 +143,7 @@ if (isset($_POST['btn_send'])) {
                $to = "user(s) ";
                foreach ($_POST['userto'] as $uto) {
                   $to .= "'".$uto."', ";
-                  if ( $U->findByName($uto) ) $AN->assign($tstamp,$U->username);
+                  if ( $U->findByName($uto) ) $UA->assign($tstamp,$U->username);
                }
             }
             break;

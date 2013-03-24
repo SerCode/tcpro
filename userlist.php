@@ -29,19 +29,17 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/".$CONF['options']
 else require ("includes/lang/english.tcpro.php");
 
 require_once( "models/allowance_model.php" );
-require_once( "includes/tcannouncement.class.php" );
 require_once( "includes/tcavatar.class.php" );
 require_once( "includes/tcconfig.class.php" );
 require_once( "includes/tcdaynote.class.php" );
-require_once( "includes/tcgroup.class.php" );
 require_once( "includes/tclog.class.php" );
 require_once( "includes/tclogin.class.php" );
 require_once( "includes/tctemplate.class.php" );
 require_once( "includes/tcuser.class.php" );
+require_once( "models/user_announcement_model.php" );
 require_once( "includes/tcusergroup.class.php" );
 require_once( "includes/tcuseroption.class.php" );
 
-$AN = new tcAnnouncement;
 $AV = new tcAvatar;
 $B = new Allowance_model;
 $C = new tcConfig;
@@ -51,6 +49,7 @@ $LOG = new tcLog;
 $N  = new tcDaynote;
 $T  = new tcTemplate;
 $U  = new tcUser;
+$UA = new User_announcement_model;
 $UG = new tcUserGroup;
 $UO = new tcUserOption;
 
@@ -110,7 +109,7 @@ if ( isset($_POST['btn_usr_del']) AND ($_POST['usr_hidden']!="admin") ) {
    $B->deleteByUser($deluser);
 
    // Drop his announcement list
-   $AN->clearUserAnnouncements($deluser);
+   $UA->deleteAllForUser($deluser);
 
    // Delete all avatars
    $AV->delete($U->username);

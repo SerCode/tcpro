@@ -28,15 +28,17 @@ getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");
 
-require_once("includes/tcannouncement.class.php" );
-require_once( "includes/tclog.class.php" );
+require_once("models/announcement_model.php" );
+require_once("includes/tclog.class.php" );
 require_once("includes/tclogin.class.php" );
 require_once("includes/tcuser.class.php" );
+require_once("models/user_announcement_model.php" );
 
-$AN  = new tcAnnouncement;
+$AN  = new Announcement_model;
 $L   = new tcLogin;
 $LOG = new tcLog;
 $U   = new tcUser;
+$UA  = new User_announcement_model;
 $UL  = new tcUser;
 
 /**
@@ -55,8 +57,8 @@ $UL->findByName($user);
  * CONFIRM
  */
 if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
-   $query  = "DELETE FROM ".$AN->uatable." WHERE ats='".$_POST['ats']."' AND username='".$UL->username."';";
-   $result = $AN->db->db_query($query);
+   
+   $UA->unassign($_POST['ats'], $UL->username);
 
    /**
     * Log this event
@@ -71,9 +73,9 @@ if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
  * CONFIRM ALL
  */
 else if ( isset($_POST['btn_confirm_all'])) {
-   $query  = "DELETE FROM ".$AN->uatable." WHERE username='".$UL->username."';";
-   $result = $AN->db->db_query($query);
 
+   $UA->deleteAllForUser($UL->username);
+   
    /**
     * Log this event
    */
@@ -92,7 +94,7 @@ require("includes/header.html.inc.php" );
                </td>
             </tr>
             <tr>
-               <?php $uas = $AN->getAllUserAnnouncements($UL->username);
+               <?php $uas = $UA->getAllForUser($UL->username);
                if (count($uas)) { ?>
                   <td class="config-row1" style="text-align: center; vertical-align: middle;">
                      <form class="form" name="form-all" method="POST" action="<?=$_SERVER['PHP_SELF']."?uname=".$_REQUEST['uname']?>">
@@ -107,28 +109,23 @@ require("includes/header.html.inc.php" );
             <tr>
                <td class="dlg-body">
                   <?php
-                  $query = "SELECT ats FROM ".$AN->uatable." WHERE username='".$_REQUEST['uname']."' ORDER BY ats DESC;";
-                  $result = $AN->db->db_query($query);
-                  while ( $row = $AN->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+                  $uas=$UA->getAllForUser($_REQUEST['uname']);
+                  foreach($uas as $ua) {
                      $AN->read($row['ats']);
-                     if ($AN->popup) {
-                        echo "
-                        <form class=\"form\" name=\"form-ann-".$row['ats']."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."?uname=".$_REQUEST['uname']."\">
-                        <table style=\"border-collapse: collapse; border: 0px; width: 100%;\">
+                     if ($AN->popup) { ?>
+                        <form class="form" name="form-ann-<?=$row['ats']?>" method="POST" action="<?=$_SERVER['PHP_SELF']."?uname=".$_REQUEST['uname']?>">
+                        <table style="border-collapse: collapse; border: 0px; width: 100%;">
                            <tr>
-                              <td width=\"90%\">
-                                    ".$LANG['ann_id'].": ".$row['ats']."<br><br>
-                                    ".$AN->read($row['ats'])."
-                              </td>
-                              <td style=\"text-align: right;\" width=\"10%\">
-                                 <input class=\"text\" type=\"hidden\" name=\"ats\" value=\"".$row['ats']."\">
-                                 <input name=\"btn_confirm\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_confirm']."\" onclick=\"return confirmSubmit('".$LANG['ann_delete_confirm_1'].$row['ats'].$LANG['ann_delete_confirm_2']."');\">
+                              <td width="90%"><?=$LANG['ann_id'].": ".$row['ats']."<br><br>".$AN->read($row['ats'])?></td>
+                              <td style="text-align: right;" width="10%">
+                                 <input class="text" type="hidden" name="ats" value="<?=$row['ats']?>">
+                                 <input name="btn_confirm" type="submit" class="button" value="<?=$LANG['btn_confirm']?>" onclick="return confirmSubmit('<?=$LANG['ann_delete_confirm_1'].$row['ats'].$LANG['ann_delete_confirm_2']?>')">
                               </td>
                            </tr>
                         </table>
                         </form>
-                        <HR size=\"1\">";
-                     }
+                        <HR size="1">
+                     <?php }
                   }
                   ?>
                </td>

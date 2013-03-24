@@ -28,18 +28,20 @@ getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");
 
-require_once ("includes/tcannouncement.class.php");
+require_once ("models/announcement_model.php");
 require_once ("includes/tcconfig.class.php");
 require_once ("includes/tclogin.class.php");
 require_once ("includes/tclog.class.php");
 require_once ("includes/tcuser.class.php");
+require_once ("models/user_announcement_model.php");
 require_once ("includes/tcuseroption.class.php");
 
-$AN = new tcAnnouncement;
+$AN = new Announcement_model;
 $C = new tcConfig;
 $L = new tcLogin;
 $LOG = new tcLog;
 $U = new tcUser;
+$UA = new User_announcement_model;
 $UB = new tcUser;
 $UO = new tcUserOption;
 $errors = "";
@@ -79,11 +81,11 @@ if ( isset($_POST['btn_login']) AND in_array($_POST['uname'],$U->getUsernames())
                $bdayalarm = "<strong>".$LANG['ann_bday_title'].date("d. F")."</strong><br><br>".$bdayalarm."<br>&nbsp;";
                $tstamp = date("Ymd")."000000";
                if ($AN->read($tstamp)) {
-                  $AN->unassign($tstamp,$uname);
+                  $UA->unassign($tstamp,$uname);
                   $AN->delete($tstamp);
                }
                $AN->save($tstamp,$bdayalarm,1,0);
-               $AN->assign($tstamp,$uname);
+               $UA->assign($tstamp,$uname);
             }
             if ( file_exists("installation.php") && $uname=="admin" ) {
                $tstamp = date("YmdHis");
@@ -93,7 +95,7 @@ if ( isset($_POST['btn_login']) AND in_array($_POST['uname'],$U->getUsernames())
                $popup=1;
                $silent=0;
                $AN->save($tstamp,$message,$popup,$silent);
-               $AN->assign($tstamp,$uname);
+               $UA->assign($tstamp,$uname);
             }
          }
          jsCloseAndReload("index.php?action=".$C->readConfig("homepage"));
