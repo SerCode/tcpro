@@ -394,11 +394,11 @@ function countAbsence($user='%', $absid, $from, $to) {
 function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
    global $CONF;
    require_once ($CONF['app_root'] . "models/holiday_model.php");
-   require_once ($CONF['app_root'] . "includes/tcmonth.class.php");
+   require_once ($CONF['app_root'] . "models/month_model.php");
    require_once ($CONF['app_root'] . "includes/tcuser.class.php");
 
    $H = new Holiday_model;
-   $M = new tcMonth;
+   $M = new Month_model;
    $U = new tcUser;
 
    // Figure out starting month and ending month

@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcmonth.class.php
+ * month_model.php
  * 
  * Contains the class dealing with the month table
  * 
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcMonth")) {
+if (!class_exists("Month_model")) {
    /**
     * Requires the database class
     */
@@ -25,7 +25,7 @@ if (!class_exists("tcMonth")) {
     * Provides objects and methods to manage the month table
     * @package TeamCalPro
     */
-   class tcMonth {
+   class Month_model {
       var $db = '';
       var $table = '';
       var $firstweekday = '';
@@ -41,10 +41,11 @@ if (!class_exists("tcMonth")) {
       var $template = '';
       var $region = '';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcMonth() {
+      function Month_model() {
          unset($CONF);
          require ("config.tcpro.php");
          global $LANG;
@@ -54,6 +55,7 @@ if (!class_exists("tcMonth")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Create a month template record from local variables
        */
@@ -67,6 +69,7 @@ if (!class_exists("tcMonth")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a month template record by name
        * 
@@ -77,6 +80,7 @@ if (!class_exists("tcMonth")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all records for a given region
        * 
@@ -87,6 +91,7 @@ if (!class_exists("tcMonth")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a month template record by name
        * 
@@ -111,6 +116,7 @@ if (!class_exists("tcMonth")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a month template record by name from local variables
        * 
@@ -124,6 +130,7 @@ if (!class_exists("tcMonth")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates the all records of a given region
        * 
@@ -136,6 +143,7 @@ if (!class_exists("tcMonth")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Fills local variables with information about a given year/month:
        * number of days, first weekday, month name, month number
@@ -171,6 +179,7 @@ if (!class_exists("tcMonth")) {
          $this->monthname = $LANG['monthnames'][intval($this->monthno)] . " " . $year;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Removes a holiday from all month templates
        *  
@@ -208,6 +217,7 @@ if (!class_exists("tcMonth")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -218,7 +228,6 @@ if (!class_exists("tcMonth")) {
          return $result;
       }
             
-   } // End Class tcMonth
-
-} // if ( !class_exists( "tcMonth" ) ) {
+   }
+}
 ?>
