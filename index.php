@@ -44,7 +44,7 @@ else                                  require ("includes/lang/english.tcpro.php"
 /**
  * Includes
  */
-require_once ("includes/showmonth.function.php");
+require_once ("helpers/showmonth_helper.php");
 require_once ("models/announcement_model.php" );
 require_once ("models/config_model.php");
 require_once ("models/login_model.php");

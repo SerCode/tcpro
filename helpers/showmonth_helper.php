@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * showmonth.function.php
+ * showmonth_helper.php
  *
  * Displays a month with all users and abesences. Big enough to reside in a
  * seperate file.
@@ -16,6 +16,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 
 //echo "<script type=\"text/javascript\">alert(\"Debug: "\");</script>";
 
+// ---------------------------------------------------------------------------
 /**
  *  Displays a given month with users and absences based on the passed filters
  *
