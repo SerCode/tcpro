@@ -78,7 +78,7 @@ function stateChanged(obj) {
  */
 function ajaxCheckPath(reldir, url, where) {
 
-   var url="includes/ajax.checkpath.php?reldir="+reldir+"&url="+url;
+   var url="helpers/ajax_checkpath_helper.php?reldir="+reldir+"&url="+url;
 
    xmlHttp=getXMLHttpRequest(where);
    if (xmlHttp==false) {
@@ -87,7 +87,7 @@ function ajaxCheckPath(reldir, url, where) {
    }
    if (xmlHttp.overrideMimeType) { xmlHttp.overrideMimeType('text/xml'); }
 
-   xmlHttp.callback = function () { stateChanged(xmlHttp); }
+   xmlHttp.callback = function () { stateChanged(xmlHttp); };
    xmlHttp.onreadystatechange = xmlHttp.callback;
    xmlHttp.open("POST", url, true);
    xmlHttp.send(null);
@@ -105,7 +105,7 @@ function ajaxCheckPath(reldir, url, where) {
  */
 function ajaxCheckDB(server, user, pass, db, prefix, where) {
 
-   var url="includes/ajax.checkdb.php?server="+server+"&user="+user+"&pass="+pass+"&db="+db+"&prefix="+prefix;
+   var url="helpers/ajax_checkdb_helper.php?server="+server+"&user="+user+"&pass="+pass+"&db="+db+"&prefix="+prefix;
 
    xmlHttp=getXMLHttpRequest(where);
    if (xmlHttp==false) {
@@ -114,7 +114,7 @@ function ajaxCheckDB(server, user, pass, db, prefix, where) {
    }
    if (xmlHttp.overrideMimeType) { xmlHttp.overrideMimeType('text/xml'); }
 
-   xmlHttp.callback = function () { stateChanged(xmlHttp); }
+   xmlHttp.callback = function () { stateChanged(xmlHttp); };
    xmlHttp.onreadystatechange = xmlHttp.callback;
    xmlHttp.open("POST", url, true);
    xmlHttp.send(null);

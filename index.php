@@ -36,7 +36,7 @@ if ( !file_exists("config.tcpro.php")) {
  * and overwrite defaults accordingly.
  */
 require_once ("config.tcpro.php");
-require_once ("includes/functions.tcpro.php");
+require_once ("helpers/global_helper.php");
 getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");

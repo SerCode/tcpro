@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * functions.tcpro.php
+ * global_helper.php
  *
  * Collection of global functions for TeamCal Pro
  *
@@ -15,6 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 
 //echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
+// ---------------------------------------------------------------------------
 /**
  * Checks whether a user is authorized in the active permission scheme
  *
@@ -70,6 +71,7 @@ function isAllowed($permission='') {
    }
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Builds the menu based on permissions
  *
@@ -254,6 +256,7 @@ function buildMenu() {
    return $mnu;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Unsets a bit combination in a given bitmask
  *
@@ -308,6 +311,7 @@ function checkEmail($email)
    return true;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Unsets a bit combination in a given bitmask
  *
@@ -321,6 +325,7 @@ function clearFlag($flagset, $bitmask) {
    return $newflagset;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Counts all occurences of a given absence type for a given user in a given
  * time period
@@ -383,6 +388,7 @@ function countAbsence($user='%', $absid, $from, $to) {
    return $count;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Counts all business days or man days in a given time period
  *
@@ -472,6 +478,7 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
    }
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Reads the current theme default css (default.css) file and adds/replaces
  * the holiday and absence based styles in the database.
@@ -649,6 +656,7 @@ function createCSS($theme) {
 
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Creates an empty month template marking Saturdays and Sundays as weekend
  *
@@ -723,6 +731,7 @@ function createMonthTemplate($yr, $mt) {
    return $template;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Checks wether the maximum absences threshold is reached
  *
@@ -844,6 +853,7 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
 
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Generates a password
  *
@@ -861,6 +871,7 @@ function generatePassword($length=9)
    return $password;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Extracts the file extension from a given file name
  *
@@ -875,6 +886,7 @@ function getFileExtension($str) {
    return $ext;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Gets the number of days in a given month
  *
@@ -893,6 +905,7 @@ function getMonthInfo($yr, $mt) {
    return $mi;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Gets all language directory names from the TeamCal Pro language directory
  *
@@ -924,6 +937,7 @@ function getLanguages() {
    return $langarray;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Gets all $_REQUEST and $_POST parameters and fills the $CONF['options'][] array
  *
@@ -1147,6 +1161,7 @@ function getOptions() {
       putenv("TZ=");
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Gets all theme directory names from the TeamCal Pro theme directory
  *
@@ -1166,6 +1181,7 @@ function getThemes() {
    return $dirarray;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Checks wether a bit combination is set in a given bitmask
  *
@@ -1180,6 +1196,7 @@ function isFlag($flagset, $bitmask) {
       return false;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Uses Javascript to close the current window and reload the calling page
  * without the previous POST parameters
@@ -1199,6 +1216,7 @@ function jsCloseAndReload($page = 'index.php') {
    "</html>";
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Uses Javascript to reload a page without the previous POST parameters
  *
@@ -1216,6 +1234,7 @@ function jsReload($page = "index.php") {
    "</html>";
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Sends a HTTP redirect instruction to the browser via http-equiv
  *
@@ -1230,6 +1249,7 @@ function jsReloadPage($url = '') {
    "</html>";
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Prints the top HTML code of a dialog
  *
@@ -1262,6 +1282,7 @@ function printDialogTop($title = '', $helpfile = '', $icon = '') {
          ';
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Scans a given directory for files. Optionally you can specify an array of
  * extension to look for.
@@ -1300,6 +1321,7 @@ function scanDirectory($myDir, $myExt = NULL) {
    }
 }
 
+// ---------------------------------------------------------------------------
 /**
  * If a user was added or updated we send him an info to let him know.
  * Esepcially when he was added he needs to know what URL to navigate to and
@@ -1330,6 +1352,7 @@ function sendAccountCreatedMail($uname, $pwd) {
    }
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Sends a notification eMail to one ore more users based on the type given
  *
@@ -1518,6 +1541,7 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
    return;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Sends an eMail, either via SMTP or regular PHP mail
  * Requires the PEAR Mail package installed on the server that Tcpro is running on
@@ -1581,6 +1605,7 @@ function sendEmail($to, $subject, $body, $from='') {
    }
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Sets a bit combination in a given bitmask
  *
@@ -1593,6 +1618,7 @@ function setFlag($flagset, $bitmask) {
    return $newflagset;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Builds the URL request parameters based on whats in the tc_config['options'][] array
  *
@@ -1607,6 +1633,7 @@ function setRequests() {
    return $requ;
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Shows the error page
  */
@@ -1649,6 +1676,7 @@ function showError($error="notallowed",$message="",$closeButton=FALSE) {
    die();
 }
 
+// ---------------------------------------------------------------------------
 /**
  * Validate an email address.
  *

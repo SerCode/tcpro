@@ -14,7 +14,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  */
 
 require_once ($CONF['app_root']."config.tcpro.php");
-require_once ($CONF['app_root']."includes/functions.tcpro.php");
+require_once ($CONF['app_root']."helpers/global_helper.php");
 getOptions();
 include( $CONF['app_root']."includes/lang/".$CONF['options']['lang'].".tcpro.php");
 ?>

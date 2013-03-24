@@ -1,6 +1,6 @@
 <?php
 /**
- * ajax.checkdb.php
+ * ajax_checkdb_helper.php
  * 
  * Launched via Ajax, this routine checks the accessibility of a MySQL database.
  * Used by the installation page.

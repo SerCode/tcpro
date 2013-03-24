@@ -25,7 +25,7 @@ session_start(); // Session needed to get the stored security code
  * Includes
  */
 require_once ("config.tcpro.php");
-require_once ("includes/functions.tcpro.php");
+require_once ("helpers/global_helper.php");
 getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");

@@ -21,7 +21,7 @@ define( '_VALID_TCPRO', 1 );
  * Includes
  */
 require_once ("config.tcpro.php");
-require_once ("includes/functions.tcpro.php");
+require_once ("helpers/global_helper.php");
 
 /**
  * Check authorization

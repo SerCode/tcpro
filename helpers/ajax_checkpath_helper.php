@@ -1,6 +1,6 @@
 <?php
 /**
- * ajax.checkdb.php
+ * ajax_checkpath_helper.php
  * 
  * Launched via Ajax, this routine checks the accessibility of the TeamCal Pro
  * root directory and URL. Used by the installation page.
