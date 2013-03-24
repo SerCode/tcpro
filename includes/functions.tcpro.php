@@ -82,14 +82,14 @@ function buildMenu() {
    require_once ($CONF['app_root'] . "models/config_model.php");
    require_once ($CONF['app_root'] . "models/login_model.php");
    require_once ($CONF['app_root'] . "models/user_model.php");
-   require_once ($CONF['app_root'] . "includes/tcusergroup.class.php");
+   require_once ($CONF['app_root'] . "models/user_group_model.php");
    require_once ($CONF['app_root'] . "includes/tcuseroption.class.php");
 
    $C = new Config_model;
    $L = new Login_model;
    $U = new User_model; // represents the user the operation is for
    $UL = new User_model; // represents the logged in user who wants to perform the operation
-   $UG = new tcUserGroup;
+   $UG = new User_group_model;
    $UO = new tcUserOption;
 
    /**
@@ -739,13 +739,13 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
    require_once ($CONF['app_root'] . "models/group_model.php");
    require_once ($CONF['app_root'] . "models/template_model.php");
    require_once ($CONF['app_root'] . "models/user_model.php");
-   require_once ($CONF['app_root'] . "includes/tcusergroup.class.php");
+   require_once ($CONF['app_root'] . "models/user_group_model.php");
 
    $C = new Config_model;
    $G = new Group_model;
    $T = new Template_model;
    $U = new User_model;
-   $UG = new tcUserGroup;
+   $UG = new User_group_model;
 
    if ($base=="group") {
       /*

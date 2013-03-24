@@ -37,7 +37,7 @@ require_once( "models/login_model.php" );
 require_once( "models/template_model.php" );
 require_once( "models/user_model.php" );
 require_once( "models/user_announcement_model.php" );
-require_once( "includes/tcusergroup.class.php" );
+require_once( "models/user_group_model.php" );
 require_once( "includes/tcuseroption.class.php" );
 
 $AV = new Avatar_model;
@@ -50,7 +50,7 @@ $N  = new Daynote_model;
 $T  = new Template_model;
 $U  = new User_model;
 $UA = new User_announcement_model;
-$UG = new tcUserGroup;
+$UG = new User_group_model;
 $UO = new tcUserOption;
 
 $error=FALSE;

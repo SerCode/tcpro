@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcusergroup.class.php
+ * user_group_model.php
  * 
  * Contains the class dealing with the user-group table
  * 
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcUserGroup")) {
+if (!class_exists("User_group_model")) {
    /**
     * Requires the database class
     */
@@ -25,7 +25,7 @@ if (!class_exists("tcUserGroup")) {
     * Provides objects and methods to manage the user-group table
     * @package TeamCalPro
     */
-   class tcUserGroup {
+   class User_group_model {
       var $db = '';
       var $table = '';
       var $log = '';
@@ -36,10 +36,11 @@ if (!class_exists("tcUserGroup")) {
       var $groupname = NULL;
       var $type = NULL;
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcUserGroup() {
+      function User_group_model() {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -48,6 +49,7 @@ if (!class_exists("tcUserGroup")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Creates a new user-group record
        * 
@@ -66,6 +68,7 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all usernames of a given group
        * 
@@ -82,6 +85,7 @@ if (!class_exists("tcUserGroup")) {
          return $uarray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all records for a given user into an array
        * 
@@ -98,6 +102,7 @@ if (!class_exists("tcUserGroup")) {
          return $ugarray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all records for a given user into an array
        * 
@@ -114,6 +119,7 @@ if (!class_exists("tcUserGroup")) {
          return $ugarray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Gets the first group a user has an entry for
        * 
@@ -132,6 +138,7 @@ if (!class_exists("tcUserGroup")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a user-group record by ID from local class variable
        */
@@ -140,6 +147,7 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all records for a given user
        * 
@@ -150,6 +158,7 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all records for a given group
        * 
@@ -160,6 +169,7 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all records for a given user and group (Deletes membership)
        * 
@@ -171,6 +181,7 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a given user is member od a given group
        * 
@@ -194,6 +205,7 @@ if (!class_exists("tcUserGroup")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks whether two given users share membership of at least one group
        * 
@@ -215,6 +227,7 @@ if (!class_exists("tcUserGroup")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a given user is manager of any group
        * 
@@ -230,6 +243,7 @@ if (!class_exists("tcUserGroup")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a given user is manager of a given group
        * 
@@ -246,6 +260,7 @@ if (!class_exists("tcUserGroup")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a given user is manager of another given user
        * 
@@ -266,6 +281,7 @@ if (!class_exists("tcUserGroup")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a user-group record by ID
        * 
@@ -288,6 +304,7 @@ if (!class_exists("tcUserGroup")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a user-group record from local class variables
        */
@@ -300,6 +317,7 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a groupname in all records
        * 
@@ -313,6 +331,7 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates the type of membership
        * 
@@ -327,6 +346,7 @@ if (!class_exists("tcUserGroup")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -337,7 +357,6 @@ if (!class_exists("tcUserGroup")) {
          return $result;
       }
             
-   } // End Class tcUserGroup
-
-} // if (!class_exists("tcUserGroup"))
+   }
+}
 ?>

@@ -35,7 +35,7 @@ require_once( "models/log_model.php" );
 require_once( "models/login_model.php" );
 require_once( "models/user_model.php" );
 require_once( "models/user_announcement_model.php" );
-require_once( "includes/tcusergroup.class.php" );
+require_once( "models/user_group_model.php" );
 
 $AN  = new Announcement_model;
 $C   = new Config_model;
@@ -45,7 +45,7 @@ $L   = new Login_model;
 $U   = new User_model;
 $UA  = new User_announcement_model;
 $UL  = new User_model;
-$UG  = new tcUserGroup;
+$UG  = new User_group_model;
 
 /**
  * Check if allowed

@@ -36,7 +36,7 @@ require_once( "models/group_model.php" );
 require_once( "models/login_model.php" );
 require_once( "models/template_model.php" );
 require_once( "models/user_model.php" );
-require_once( "includes/tcusergroup.class.php" );
+require_once( "models/user_group_model.php" );
 
 $A  = new Absence_model;
 $AV = new Avatar_model;
@@ -47,7 +47,7 @@ $L  = new Login_model;
 $T  = new Template_model;
 $U  = new User_model;
 $UL = new User_model;
-$UG = new tcUserGroup;
+$UG = new User_group_model;
 
 // If a user is logged in, read his record
 if ($user = $L->checkLogin()) $UL->findByName($user);

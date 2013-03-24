@@ -24,14 +24,14 @@ require( $CONF['app_root']."includes/lang/".$CONF['options']['lang'].".tcpro.php
 require_once( $CONF['app_root']."models/group_model.php" );
 require_once( $CONF['app_root']."models/region_model.php" );
 require_once( $CONF['app_root']."models/user_announcement_model.php" );
-require_once ($CONF['app_root']."includes/tcusergroup.class.php");
+require_once ($CONF['app_root']."models/user_group_model.php");
 require_once ($CONF['app_root']."includes/tcuseroption.class.php");
 
 $G = new Group_model;
 $L = new Login_model;
 $R = new Region_model;
 $UA = new User_announcement_model;
-$UG = new tcUserGroup;
+$UG = new User_group_model;
 $UL = new User_model;
 $UO = new tcUserOption;
 
@@ -386,8 +386,8 @@ if ( $C->readConfig("showLanguage") OR
          }
 
          if( $UL->checkUserType($CONF['UTMANAGER']) ) {
-            require_once( $CONF['app_root']."includes/tcusergroup.class.php" );
-            $UG = new tcUserGroup;
+            require_once( $CONF['app_root']."models/user_group_model.php" );
+            $UG = new User_group_model;
             $groups='';
             $queryUG  = "SELECT `groupname` FROM `".$CONF['db_table_user_group']."` WHERE `username`='".$UL->username."' AND `type`='manager' ORDER BY `groupname`;";
             $resultUG = $UG->db->db_query($queryUG);

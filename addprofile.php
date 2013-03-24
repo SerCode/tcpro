@@ -37,7 +37,7 @@ require_once ("models/login_model.php");
 require_once ("models/log_model.php");
 require_once ("models/template_model.php");
 require_once ("models/user_model.php");
-require_once ("includes/tcusergroup.class.php");
+require_once ("models/user_group_model.php");
 require_once ("includes/tcuseroption.class.php");
 
 $A = new Absence_model;
@@ -51,7 +51,7 @@ $R = new Region_model;
 $T = new Template_model;
 $U = new User_model;
 $UL = new User_model;
-$UG = new tcUserGroup;
+$UG = new User_group_model;
 $UO = new tcUserOption;
 
 /**
