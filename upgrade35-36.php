@@ -42,10 +42,10 @@ MERCHANTIBILITY or FITNESS FOR A PARTICULAR PURPOSE.
    <div style="border: 1px solid #000000; background-color: #FFB300; padding: 4px; font-weight: bold;">TeamCal Pro Update Helper 3.5 => 3.6</div>
 <?php
 define( '_VALID_TCPRO', 1 );
-require_once ("includes/db.class.php");
+require_once ("models/db_model.php");
 require ("config.tcpro.php");
 
-$DB = new myDB;
+$DB = new Db_model;
 $abstable_old = $CONF['db_table_prefix']."tc_absence";
 $abstable_new = $CONF['db_table_prefix']."tc_absences";
 $absgrptable_old = $CONF['db_table_prefix']."tc_absence_group";

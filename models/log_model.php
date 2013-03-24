@@ -19,7 +19,7 @@ if (!class_exists("Log_model")) {
    /**
     * Requires the database class
     */
-   require_once ("includes/db.class.php");
+   require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to interface with the logging table
@@ -45,7 +45,7 @@ if (!class_exists("Log_model")) {
       function Log_model() {
          unset($CONF);
          require ("config.tcpro.php");
-         $this->db = new myDB;
+         $this->db = new Db_model;
          $this->table = $CONF['db_table_log'];
       }
 

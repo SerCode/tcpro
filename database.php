@@ -360,7 +360,7 @@ else if ( isset($_POST['btn_rest_rest']) ) {
          /**
           * Restore database from file
           */
-         $db = new myDB;
+         $db = new Db_model;
          $db->db_connect();
          if ($file_content = file($upfile)) {
             $query = "";

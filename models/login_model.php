@@ -19,7 +19,7 @@ if (!class_exists("Login_model")) {
    /**
     * Requires the database class
     */
-   require_once ("includes/db.class.php");
+   require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to manage login activities
@@ -50,7 +50,7 @@ if (!class_exists("Login_model")) {
          require_once ($CONF['app_root'] . "models/user_option_model.php");
 
          $this->C = new Config_model;
-         $this->db = new myDB;
+         $this->db = new Db_model;
          $this->U = new User_model;
          $this->UO = new User_option_model;
          $this->salt = $CONF['salt'];

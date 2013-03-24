@@ -19,7 +19,7 @@ if (!class_exists("Absence_group_model")) {
    /**
     * Requires the database class
     */
-   require_once ("includes/db.class.php");
+   require_once ("models/db_model.php");
    
    /**
     * Provides objects and methods to interface with the absence group table
@@ -42,7 +42,7 @@ if (!class_exists("Absence_group_model")) {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
-         $this->db = new myDB;
+         $this->db = new Db_model;
          $this->table = $CONF['db_table_absence_group'];
          $this->log = $CONF['db_table_log'];
       }

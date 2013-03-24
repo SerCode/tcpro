@@ -40,7 +40,7 @@ $U  = new User_model;
  */
 if (!isAllowed("manageDatabase")) showError("notallowed", TRUE);
 
-$mydb = new myDB;
+$mydb = new Db_model;
 $tables = array (
    $CONF['db_table_absence'],
    $CONF['db_table_absence_group'],

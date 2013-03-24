@@ -19,7 +19,7 @@ if (!class_exists("Template_model")) {
    /**
     * Requires the database class
     */
-   require_once ("includes/db.class.php");
+   require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to manage the template table
@@ -73,7 +73,7 @@ if (!class_exists("Template_model")) {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
-         $this->db = new myDB;
+         $this->db = new Db_model;
          $this->table = $CONF['db_table_templates'];
          $this->log = $CONF['db_table_log'];
       }

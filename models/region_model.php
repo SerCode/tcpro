@@ -19,7 +19,7 @@ if (!class_exists("Region_model")) {
    /**
     * Requires the database class
     */
-   require_once ("includes/db.class.php");
+   require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to interface with the region table
@@ -43,7 +43,7 @@ if (!class_exists("Region_model")) {
       function Region_model() {
          unset($CONF);
          require ("config.tcpro.php");
-         $this->db = new myDB;
+         $this->db = new Db_model;
          $this->table = $CONF['db_table_regions'];
          $this->log = $CONF['db_table_log'];
       }

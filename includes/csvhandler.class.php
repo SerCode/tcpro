@@ -174,7 +174,7 @@ if (!class_exists("CsvImport")) {
    /**
     * Requires the database class
     */
-   require_once ("includes/db.class.php");
+   require_once ("models/db_model.php");
 
 	/** 
 	 * Provides objects and methods to import from a CSV file
@@ -210,7 +210,7 @@ if (!class_exists("CsvImport")) {
 	   function CsvImport($file_name = "") {
 	      global $CONF;
 	      global $LANG;
-	      $this->db = new myDB;
+	      $this->db = new Db_model;
 	      $this->table = $CONF['db_table_users'];
 	      $this->log = $CONF['db_table_log'];
 	      $this->file_name = $file_name;
