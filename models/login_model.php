@@ -47,12 +47,12 @@ if (!class_exists("Login_model")) {
          unset($CONF);
          require ("config.tcpro.php");
          require_once ($CONF['app_root'] . "models/config_model.php");
-         require_once ($CONF['app_root'] . "includes/tcuseroption.class.php");
+         require_once ($CONF['app_root'] . "models/user_option_model.php");
 
          $this->C = new Config_model;
          $this->db = new myDB;
          $this->U = new User_model;
-         $this->UO = new tcUserOption;
+         $this->UO = new User_option_model;
          $this->salt = $CONF['salt'];
          $this->bad_logins = intval($this->C->readConfig("badLogins"));
          $this->grace_period = intval($this->C->readConfig("gracePeriod"));

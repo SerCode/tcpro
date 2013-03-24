@@ -40,7 +40,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    require_once( "models/template_model.php" );
    require_once( "models/user_model.php" );
    require_once( "models/user_group_model.php" );
-   require_once( "includes/tcuseroption.class.php" );
+   require_once( "models/user_option_model.php" );
 
    $A  = new Absence_model;
    $AC = new Absence_model; // for Absence Count Array
@@ -56,7 +56,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    $U  = new User_model;
    $UG = new User_group_model;
    $UL = new User_model; // user logged in
-   $UO = new tcUserOption;
+   $UO = new User_option_model;
 
    $pscheme = $C->readConfig("permissionScheme");
    $weekdays = $LANG['weekdays'];

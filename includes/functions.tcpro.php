@@ -83,14 +83,14 @@ function buildMenu() {
    require_once ($CONF['app_root'] . "models/login_model.php");
    require_once ($CONF['app_root'] . "models/user_model.php");
    require_once ($CONF['app_root'] . "models/user_group_model.php");
-   require_once ($CONF['app_root'] . "includes/tcuseroption.class.php");
+   require_once ($CONF['app_root'] . "models/user_option_model.php");
 
    $C = new Config_model;
    $L = new Login_model;
    $U = new User_model; // represents the user the operation is for
    $UL = new User_model; // represents the logged in user who wants to perform the operation
    $UG = new User_group_model;
-   $UO = new tcUserOption;
+   $UO = new User_option_model;
 
    /**
     * Create empty menu
@@ -939,7 +939,7 @@ function getOptions() {
    require_once ($CONF['app_root']."models/login_model.php");
    require_once ($CONF['app_root']."models/region_model.php");
    require_once ($CONF['app_root']."models/user_model.php");
-   require_once ($CONF['app_root']."includes/tcuseroption.class.php");
+   require_once ($CONF['app_root']."models/user_option_model.php");
 
    $A = new Absence_model;
    $C = new Config_model;
@@ -947,7 +947,7 @@ function getOptions() {
    $L = new Login_model;
    $R = new Region_model;
    $UL = new User_model;
-   $UO = new tcUserOption;
+   $UO = new User_option_model;
    $user = $L->checkLogin();
 
    /**

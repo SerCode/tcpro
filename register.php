@@ -36,7 +36,7 @@ require_once ("models/login_model.php");
 require_once ("models/log_model.php");
 require_once ("models/user_model.php");
 require_once ("models/user_group_model.php");
-require_once ("includes/tcuseroption.class.php");
+require_once ("models/user_option_model.php");
 
 $C = new Config_model;
 $G = new Group_model;
@@ -45,7 +45,7 @@ $LOG = new Log_model;
 $U = new User_model;
 $UA = new User_model;
 $UG = new User_group_model;
-$UO = new tcUserOption;
+$UO = new User_option_model;
 $error = "";
 $information = "";
 

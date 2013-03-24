@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcuseroption.class.php
+ * user_option_model.php
  *
  * Contains the class dealing with the user-option table
  *
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcUserOption")) {
+if (!class_exists("User_option_model")) {
    /**
     * Requires the database class
     */
@@ -25,7 +25,7 @@ if (!class_exists("tcUserOption")) {
     * Provides objects and methods to manage the user-option table
     * @package TeamCalPro
     */
-   class tcUserOption {
+   class User_option_model {
       var $db = '';
       var $table = '';
       var $log = '';
@@ -36,10 +36,11 @@ if (!class_exists("tcUserOption")) {
       var $option = NULL;
       var $value = NULL;
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcUserOption() {
+      function User_option_model() {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -48,6 +49,7 @@ if (!class_exists("tcUserOption")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Creates a new user-option record
        *
@@ -66,6 +68,7 @@ if (!class_exists("tcUserOption")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a user-option record by ID from local class variable
        */
@@ -74,6 +77,7 @@ if (!class_exists("tcUserOption")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes all records for a given user
        *
@@ -84,6 +88,7 @@ if (!class_exists("tcUserOption")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Delete an option records for a given user
        *
@@ -95,6 +100,7 @@ if (!class_exists("tcUserOption")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds the value of an option for a given user
        *
@@ -118,6 +124,7 @@ if (!class_exists("tcUserOption")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds the boolean value of an option for a given user
        *
@@ -139,6 +146,7 @@ if (!class_exists("tcUserOption")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a user option
        *
@@ -161,6 +169,7 @@ if (!class_exists("tcUserOption")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Saves a user option, creates it if not exists
        *
@@ -183,6 +192,7 @@ if (!class_exists("tcUserOption")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a user option
        *
@@ -195,6 +205,7 @@ if (!class_exists("tcUserOption")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -205,7 +216,6 @@ if (!class_exists("tcUserOption")) {
          return $result;
       }
             
-   } // End Class tcUserOption
-
-} // if (!class_exists("tcUserOption"))
+   }
+}
 ?>

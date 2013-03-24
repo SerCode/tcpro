@@ -25,7 +25,7 @@ require_once( $CONF['app_root']."models/group_model.php" );
 require_once( $CONF['app_root']."models/region_model.php" );
 require_once( $CONF['app_root']."models/user_announcement_model.php" );
 require_once ($CONF['app_root']."models/user_group_model.php");
-require_once ($CONF['app_root']."includes/tcuseroption.class.php");
+require_once ($CONF['app_root']."models/user_option_model.php");
 
 $G = new Group_model;
 $L = new Login_model;
@@ -33,7 +33,7 @@ $R = new Region_model;
 $UA = new User_announcement_model;
 $UG = new User_group_model;
 $UL = new User_model;
-$UO = new tcUserOption;
+$UO = new User_option_model;
 
 $user=$L->checkLogin();
 $UL->findByName($user);

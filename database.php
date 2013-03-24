@@ -47,7 +47,7 @@ require_once( "models/template_model.php" );
 require_once( "models/user_model.php" );
 require_once( "models/user_announcement_model.php" );
 require_once( "models/user_group_model.php" );
-require_once( "includes/tcuseroption.class.php" );
+require_once( "models/user_option_model.php" );
 
 $A  = new Absence_model;
 $AG = new Absence_group_model;
@@ -68,7 +68,7 @@ $T  = new Template_model;
 $U  = new User_model;
 $UA = new User_announcement_model;
 $UG = new User_group_model;
-$UO = new tcUserOption;
+$UO = new User_option_model;
 
 $error=FALSE;
 

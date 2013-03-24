@@ -51,7 +51,7 @@ require_once ("models/login_model.php");
 require_once ("models/log_model.php");
 require_once ("models/user_model.php");
 require_once ("models/user_announcement_model.php" );
-require_once ("includes/tcuseroption.class.php");
+require_once ("models/user_option_model.php");
 
 $AN = new Announcement_model;
 $C = new Config_model;
@@ -60,7 +60,7 @@ $LOG = new Log_model;
 $U = new User_model;
 $U2 = new User_model;
 $UA = new User_announcement_model;
-$UO = new tcUserOption;
+$UO = new User_option_model;
 
 if ($L->checkLogin()) $logged_out=FALSE; else $logged_out=TRUE;
 $display = $C->readConfig("homepage");

@@ -41,7 +41,7 @@ require_once( "models/region_model.php" );
 require_once( "models/template_model.php" );
 require_once( "models/user_model.php" );
 require_once( "models/user_group_model.php" );
-require_once( "includes/tcuseroption.class.php" );
+require_once( "models/user_option_model.php" );
 
 $A   = new Absence_model;
 $AV  = new Avatar_model;
@@ -56,7 +56,7 @@ $T   = new Template_model;
 $U   = new User_model;
 $UG  = new User_group_model;
 $UL  = new User_model;
-$UO  = new tcUserOption;
+$UO  = new User_option_model;
 
 $error=false;
 $grouprights=false;

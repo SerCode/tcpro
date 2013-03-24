@@ -237,12 +237,12 @@ if (!class_exists("CsvImport")) {
 	      require_once( $CONF['app_root']."models/login_model.php" );
 	      require_once( $CONF['app_root']."models/user_model.php" );
 	      require_once( $CONF['app_root']."models/user_group_model.php" );
-	      require_once( $CONF['app_root']."includes/tcuseroption.class.php" );
+	      require_once( $CONF['app_root']."models/user_option_model.php" );
 	      $L = new Login_model;
 	      $LOG = new Log_model;
 	      $U = new User_model;
 	      $UG = new User_group_model;
-	      $UO = new tcUserOption;
+	      $UO = new User_option_model;
 	      
 	      $result=true;
 	      $fpointer = fopen($this->file_name, "r");
