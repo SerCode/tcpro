@@ -29,7 +29,7 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/".$CONF['options']
 else require ("includes/lang/english.tcpro.php");
 
 require_once( "models/allowance_model.php" );
-require_once( "includes/tcavatar.class.php" );
+require_once( "models/avatar_model.php" );
 require_once( "includes/tcconfig.class.php" );
 require_once( "includes/tcdaynote.class.php" );
 require_once( "includes/tclog.class.php" );
@@ -40,7 +40,7 @@ require_once( "models/user_announcement_model.php" );
 require_once( "includes/tcusergroup.class.php" );
 require_once( "includes/tcuseroption.class.php" );
 
-$AV = new tcAvatar;
+$AV = new Avatar_model;
 $B = new Allowance_model;
 $C = new tcConfig;
 $G = new tcGroup;

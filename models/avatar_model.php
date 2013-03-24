@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcavatar.class.php
+ * avatar_model.php
  * 
  * Contains the Avatar class
  *
@@ -15,12 +15,12 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcAvatar")) {
+if (!class_exists("Avatar_model")) {
    /**
     * Provides objects and methods to deal with avatars
     * @package TeamCalPro
     */
-   class tcAvatar {
+   class Avatar_model {
       var $filename = '';
       var $tmpfilename = '';
       var $fileextension = '';
@@ -30,14 +30,15 @@ if (!class_exists("tcAvatar")) {
       var $result ='';
       var $width = '';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcAvatar() {
+      function Avatar_model() {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
-         require_once( $CONF['app_root'] . "includes/tcconfig.class.php" );
+         require_once( $CONF['app_root']."includes/tcconfig.class.php" );
          $C = new tcConfig;
          $this->maxHeight = $C->readConfig("avatarHeight");
          $this->maxWidth = $C->readConfig("avatarWidth");
@@ -50,6 +51,7 @@ if (!class_exists("tcAvatar")) {
          );
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Find avatar for a given user (username=avatar file name)
        * 
@@ -58,7 +60,7 @@ if (!class_exists("tcAvatar")) {
        */
       function find($uname) {
          foreach ($this->allowedtypes as $extension) {
-            if (file_exists($this->path . $uname . "." . $extension)) {
+            if (file_exists($this->path.$uname.".".$extension)) {
                $this->filename = $uname;
                $this->fileextension = $extension;
                return true;
@@ -67,6 +69,7 @@ if (!class_exists("tcAvatar")) {
          return false;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes avatar for a given user (username=avatar file name)
        * 
@@ -74,12 +77,13 @@ if (!class_exists("tcAvatar")) {
        */
       function delete($uname) {
          foreach ($this->allowedtypes as $extension) {
-            if (file_exists($this->path . $uname . "." . $extension)) {
-               unlink($this->path . $uname . "." . $extension);
+            if (file_exists($this->path.$uname.".".$extension)) {
+               unlink($this->path.$uname.".".$extension);
             }
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Saves avatar for a given user (username=avatar file name)
        * 
@@ -203,6 +207,7 @@ if (!class_exists("tcAvatar")) {
          }
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Extract file extension of a given file name
        * 
@@ -219,7 +224,6 @@ if (!class_exists("tcAvatar")) {
          return $ext;
       }
       
-   } // End Class tcAvatar
-
-} // if ( !class_exists( "tcAvatar" ) ) {
+   }
+}
 ?>
