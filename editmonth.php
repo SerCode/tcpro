@@ -30,17 +30,17 @@ else                                  require ("includes/lang/english.tcpro.php"
 
 require_once ("models/config_model.php");
 require_once ("models/daynote_model.php");
-require_once ("includes/tcholiday.class.php");
+require_once ("models/holiday_model.php");
 require_once ("includes/tclogin.class.php");
-require_once ("includes/tclog.class.php");
+require_once ("models/log_model.php");
 require_once ("includes/tcmonth.class.php");
 require_once ("includes/tcuser.class.php");
 
 $C = new Config_model;
-$H = new tcHoliday;
-$H2 = new tcHoliday;
+$H = new Holiday_model;
+$H2 = new Holiday_model;
 $L = new tcLogin;
-$LOG = new tcLog;
+$LOG = new Log_model;
 $M = new tcMonth;
 $N = new Daynote_model;
 $UL = new tcUser;

@@ -32,7 +32,7 @@ require_once("models/absence_model.php");
 require_once("models/absence_group_model.php");
 require_once("models/config_model.php");
 require_once("models/group_model.php");
-require_once("includes/tclog.class.php");
+require_once("models/log_model.php");
 require_once("includes/tclogin.class.php");
 require_once("includes/tcuser.class.php");
 
@@ -41,7 +41,7 @@ $AG = new Absence_group_model;
 $C = new Config_model;
 $G = new Group_model;
 $L = new tcLogin;
-$LOG = new tcLog;
+$LOG = new Log_model;
 $U = new tcUser;
 
 /**

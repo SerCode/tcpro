@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcholiday.class.php
+ * holiday_model.php
  * 
  * Contains the class dealing with the holiday table
  *
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcHoliday")) {
+if (!class_exists("Holiday_model")) {
    /**
     * Requires the database class
     */
@@ -25,7 +25,7 @@ if (!class_exists("tcHoliday")) {
     * Provides objects and methods to interface with the holiday table
     * @package TeamCalPro
     */
-   class tcHoliday {
+   class Holiday_model {
       var $db = '';
       var $table = '';
       var $log = '';
@@ -40,10 +40,11 @@ if (!class_exists("tcHoliday")) {
       var $dspbgcolor = '';
       var $options = '0';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcHoliday() {
+      function Holiday_model() {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -52,6 +53,7 @@ if (!class_exists("tcHoliday")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Creates a new holiday record from local class variables
        */
@@ -70,6 +72,7 @@ if (!class_exists("tcHoliday")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a holiday record for a given symbol
        * 
@@ -80,6 +83,7 @@ if (!class_exists("tcHoliday")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a holiday record for a given symbol
        * 
@@ -105,6 +109,7 @@ if (!class_exists("tcHoliday")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a holiday record for a given name
        * 
@@ -130,6 +135,7 @@ if (!class_exists("tcHoliday")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all records into an array
        * 
@@ -145,6 +151,7 @@ if (!class_exists("tcHoliday")) {
          return $harray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates a holiday record from local class variables
        */
@@ -161,6 +168,7 @@ if (!class_exists("tcHoliday")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Clears flags in the option bitmask. See config.tcpro.php for predefined bitmasks.
        * 
@@ -170,6 +178,7 @@ if (!class_exists("tcHoliday")) {
          $this->options = $this->options & (~$bitmask);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a bitmask ist set or not in the option field. See config.tcpro.php for predefined bitmasks.
        * 
@@ -182,6 +191,7 @@ if (!class_exists("tcHoliday")) {
             return 0;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Sets a bitmask in the option field. See config.tcpro.php for predefined bitmasks.
        * 
@@ -191,6 +201,7 @@ if (!class_exists("tcHoliday")) {
          $this->options = $this->options | $bitmask;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -201,7 +212,6 @@ if (!class_exists("tcHoliday")) {
          return $result;
       }
             
-   } // End Class tcHoliday
-
-} // if ( !class_exists( "tcHoliday" ) ) {
+   }
+}
 ?>

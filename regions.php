@@ -30,8 +30,8 @@ else                                  require ("includes/lang/english.tcpro.php"
 
 require_once("models/absence_model.php");
 require_once("models/config_model.php");
-require_once("includes/tcholiday.class.php" );
-require_once("includes/tclog.class.php" );
+require_once("models/holiday_model.php" );
+require_once("models/log_model.php" );
 require_once("includes/tclogin.class.php" );
 require_once("includes/tcmonth.class.php" );
 require_once("includes/tcregion.class.php" );
@@ -40,9 +40,9 @@ require_once("includes/tcuseroption.class.php" );
 
 $A = new Absence_model;
 $C = new Config_model;
-$H = new tcHoliday;
+$H = new Holiday_model;
 $L = new tcLogin;
-$LOG = new tcLog;
+$LOG = new Log_model;
 $M = new tcMonth;
 $M2 = new tcMonth;
 $R  = new tcRegion;

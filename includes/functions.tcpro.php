@@ -393,11 +393,11 @@ function countAbsence($user='%', $absid, $from, $to) {
  */
 function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
    global $CONF;
-   require_once ($CONF['app_root'] . "includes/tcholiday.class.php");
+   require_once ($CONF['app_root'] . "models/holiday_model.php");
    require_once ($CONF['app_root'] . "includes/tcmonth.class.php");
    require_once ($CONF['app_root'] . "includes/tcuser.class.php");
 
-   $H = new tcHoliday;
+   $H = new Holiday_model;
    $M = new tcMonth;
    $U = new tcUser;
 
@@ -484,11 +484,11 @@ function createCSS($theme) {
    require_once ($CONF['app_root']."includes/csshandler.class.php");
    require_once ($CONF['app_root']."models/absence_model.php");
    require_once ($CONF['app_root']."models/config_model.php");
-   require_once ($CONF['app_root']."includes/tcholiday.class.php");
+   require_once ($CONF['app_root']."models/holiday_model.php");
    require_once ($CONF['app_root']."includes/tcstyles.class.php");
 
    $A   = new Absence_model;
-   $H   = new tcHoliday;
+   $H   = new Holiday_model;
    $CSS = new cssHandler;
    $C   = new Config_model;
    $S   = new tcStyles;
@@ -661,10 +661,10 @@ function createMonthTemplate($yr, $mt) {
    global $CONF;
    global $LANG;
 
-   require_once ($CONF['app_root'] . "includes/tcholiday.class.php");
+   require_once ($CONF['app_root'] . "models/holiday_model.php");
 
    $C = new Config_model;
-   $H = new tcHoliday;
+   $H = new Holiday_model;
    $H->findByName('busi');
    $busisym = $H->cfgsym;
    $H->findByName('wend');

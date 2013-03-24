@@ -233,13 +233,13 @@ if (!class_exists("CsvImport")) {
 	       */
 	      global $CONF;
 	      global $LANG;
-	      require_once( $CONF['app_root']."includes/tclog.class.php" );
+	      require_once( $CONF['app_root']."models/log_model.php" );
 	      require_once( $CONF['app_root']."includes/tclogin.class.php" );
 	      require_once( $CONF['app_root']."includes/tcuser.class.php" );
 	      require_once( $CONF['app_root']."includes/tcusergroup.class.php" );
 	      require_once( $CONF['app_root']."includes/tcuseroption.class.php" );
 	      $L = new tcLogin;
-	      $LOG = new tcLog;
+	      $LOG = new Log_model;
 	      $U = new tcUser;
 	      $UG = new tcUserGroup;
 	      $UO = new tcUserOption;

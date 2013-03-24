@@ -34,7 +34,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    require_once( "models/config_model.php" );
    require_once( "models/daynote_model.php" );
    require_once( "models/group_model.php" );
-   require_once( "includes/tcholiday.class.php" );
+   require_once( "models/holiday_model.php" );
    require_once( "includes/tclogin.class.php" );
    require_once( "includes/tcmonth.class.php" );
    require_once( "includes/tctemplate.class.php" );
@@ -47,7 +47,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    $AL = new Allowance_model; // for Absence Count Array
    $C  = new Config_model;
    $G  = new Group_model;
-   $H  = new tcHoliday;
+   $H  = new Holiday_model;
    $L  = new tcLogin;
    $M  = new tcMonth;
    $N  = new Daynote_model;

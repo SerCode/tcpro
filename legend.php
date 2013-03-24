@@ -30,11 +30,11 @@ else                                  require ("includes/lang/english.tcpro.php"
 
 require_once("models/absence_model.php" );
 require_once("models/config_model.php" );
-require_once("includes/tcholiday.class.php" );
+require_once("models/holiday_model.php" );
 
 $A = new Absence_model;
 $C = new Config_model;
-$H = new tcHoliday;
+$H = new Holiday_model;
 
 require("includes/header.html.inc.php" );
 ?>

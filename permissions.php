@@ -29,13 +29,13 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options
 else require ("includes/lang/english.tcpro.php");
 
 require_once("includes/tcpermission.class.php");
-require_once("includes/tclog.class.php");
+require_once("models/log_model.php");
 require_once("includes/tclogin.class.php");
 require_once("includes/tcuser.class.php");
 
 $C = new Config_model;
 $L = new tcLogin;
-$LOG = new tcLog;
+$LOG = new Log_model;
 $P = new tcPermission;
 $U = new tcUser;
 
