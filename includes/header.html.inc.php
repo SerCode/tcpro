@@ -38,11 +38,11 @@ ___________________________________________________________________________
  */
 require_once( $CONF['app_root']."models/config_model.php" );
 require_once( $CONF['app_root']."models/login_model.php" );
-require_once( $CONF['app_root']."includes/tcstyles.class.php" );
+require_once( $CONF['app_root']."models/styles_model.php" );
 require_once( $CONF['app_root']."includes/tcuseroption.class.php" );
 $C = new Config_model;
 $L = new Login_model;
-$S = new tcStyles;
+$S = new Styles_model;
 $UO = new tcUserOption;
 
 /**

@@ -485,13 +485,13 @@ function createCSS($theme) {
    require_once ($CONF['app_root']."models/absence_model.php");
    require_once ($CONF['app_root']."models/config_model.php");
    require_once ($CONF['app_root']."models/holiday_model.php");
-   require_once ($CONF['app_root']."includes/tcstyles.class.php");
+   require_once ($CONF['app_root']."models/styles_model.php");
 
    $A   = new Absence_model;
    $H   = new Holiday_model;
    $CSS = new cssHandler;
    $C   = new Config_model;
-   $S   = new tcStyles;
+   $S   = new Styles_model;
 
    /**
     * Read the theme css file into the CSS array
