@@ -34,7 +34,7 @@ require_once ("models/holiday_model.php");
 require_once ("models/login_model.php");
 require_once ("models/log_model.php");
 require_once ("models/month_model.php");
-require_once ("includes/tcuser.class.php");
+require_once ("models/user_model.php");
 
 $C = new Config_model;
 $H = new Holiday_model;
@@ -43,7 +43,7 @@ $L = new Login_model;
 $LOG = new Log_model;
 $M = new Month_model;
 $N = new Daynote_model;
-$UL = new tcUser;
+$UL = new User_model;
 $error=FALSE;
 
 /**

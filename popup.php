@@ -31,15 +31,15 @@ else                                  require ("includes/lang/english.tcpro.php"
 require_once("models/announcement_model.php" );
 require_once("models/log_model.php" );
 require_once("models/login_model.php" );
-require_once("includes/tcuser.class.php" );
+require_once("models/user_model.php" );
 require_once("models/user_announcement_model.php" );
 
 $AN  = new Announcement_model;
 $L   = new Login_model;
 $LOG = new Log_model;
-$U   = new tcUser;
+$U   = new User_model;
 $UA  = new User_announcement_model;
-$UL  = new tcUser;
+$UL  = new User_model;
 
 /**
  * Check authorization

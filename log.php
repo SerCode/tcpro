@@ -31,7 +31,7 @@ else                                  require ("includes/lang/english.tcpro.php"
 require_once("models/config_model.php" );
 require_once("models/log_model.php" );
 require_once("models/login_model.php" );
-require_once("includes/tcuser.class.php" );
+require_once("models/user_model.php" );
 
 if ( !isset($_REQUEST['sort']) ) $sort="DESC";
 else $sort = $_REQUEST['sort'];
@@ -39,7 +39,7 @@ else $sort = $_REQUEST['sort'];
 $C   = new Config_model;
 $LOG = new Log_model;
 $L   = new Login_model;
-$U   = new tcUser;
+$U   = new User_model;
 
 /**
  * Check if allowed

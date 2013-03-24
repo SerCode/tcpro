@@ -38,7 +38,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    require_once( "models/login_model.php" );
    require_once( "models/month_model.php" );
    require_once( "models/template_model.php" );
-   require_once( "includes/tcuser.class.php" );
+   require_once( "models/user_model.php" );
    require_once( "includes/tcusergroup.class.php" );
    require_once( "includes/tcuseroption.class.php" );
 
@@ -53,9 +53,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    $N  = new Daynote_model;
    $N2 = new Daynote_model;
    $T  = new Template_model;
-   $U  = new tcUser;
+   $U  = new User_model;
    $UG = new tcUserGroup;
-   $UL = new tcUser; // user logged in
+   $UL = new User_model; // user logged in
    $UO = new tcUserOption;
 
    $pscheme = $C->readConfig("permissionScheme");

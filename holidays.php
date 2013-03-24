@@ -36,7 +36,7 @@ require_once( "models/log_model.php" );
 require_once( "models/login_model.php" );
 require_once( "models/month_model.php" );
 require_once( "models/template_model.php" );
-require_once( "includes/tcuser.class.php" );
+require_once( "models/user_model.php" );
 require_once( "includes/tcusergroup.class.php" );
 require_once( "includes/tcuseroption.class.php" );
 
@@ -48,7 +48,7 @@ $L = new Login_model;
 $LOG = new Log_model;
 $M = new Month_model;
 $T  = new Template_model;
-$U  = new tcUser;
+$U  = new User_model;
 $UG = new tcUserGroup;
 $UO = new tcUserOption;
 

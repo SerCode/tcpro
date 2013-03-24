@@ -33,7 +33,7 @@ require_once("models/log_model.php");
 require_once("models/login_model.php");
 require_once("models/permission_model.php");
 require_once("models/region_model.php");
-require_once("includes/tcuser.class.php");
+require_once("models/user_model.php");
 require_once("includes/timezones.inc.php");
 
 $C = new Config_model;
@@ -41,7 +41,7 @@ $L = new Login_model;
 $LOG = new Log_model;
 $P = new Permission_model;
 $R = new Region_model;
-$U  = new tcUser;
+$U  = new User_model;
 
 $error = false;
 

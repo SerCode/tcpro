@@ -51,7 +51,7 @@ if (!class_exists("Login_model")) {
 
          $this->C = new Config_model;
          $this->db = new myDB;
-         $this->U = new tcUser;
+         $this->U = new User_model;
          $this->UO = new tcUserOption;
          $this->salt = $CONF['salt'];
          $this->bad_logins = intval($this->C->readConfig("badLogins"));

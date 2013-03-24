@@ -30,12 +30,12 @@ function isAllowed($permission='') {
    require_once ($CONF['app_root'] . "models/config_model.php");
    require_once ($CONF['app_root'] . "models/login_model.php");
    require_once ($CONF['app_root'] . "models/permission_model.php");
-   require_once ($CONF['app_root'] . "includes/tcuser.class.php");
+   require_once ($CONF['app_root'] . "models/user_model.php");
 
    $C = new Config_model;
    $L = new Login_model;
    $P = new Permission_model;
-   $UL = new tcUser;
+   $UL = new User_model;
 
    $pscheme = $C->readConfig("permissionScheme");
 
@@ -81,14 +81,14 @@ function buildMenu() {
 
    require_once ($CONF['app_root'] . "models/config_model.php");
    require_once ($CONF['app_root'] . "models/login_model.php");
-   require_once ($CONF['app_root'] . "includes/tcuser.class.php");
+   require_once ($CONF['app_root'] . "models/user_model.php");
    require_once ($CONF['app_root'] . "includes/tcusergroup.class.php");
    require_once ($CONF['app_root'] . "includes/tcuseroption.class.php");
 
    $C = new Config_model;
    $L = new Login_model;
-   $U = new tcUser; // represents the user the operation is for
-   $UL = new tcUser; // represents the logged in user who wants to perform the operation
+   $U = new User_model; // represents the user the operation is for
+   $UL = new User_model; // represents the logged in user who wants to perform the operation
    $UG = new tcUserGroup;
    $UO = new tcUserOption;
 
@@ -395,11 +395,11 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
    global $CONF;
    require_once ($CONF['app_root'] . "models/holiday_model.php");
    require_once ($CONF['app_root'] . "models/month_model.php");
-   require_once ($CONF['app_root'] . "includes/tcuser.class.php");
+   require_once ($CONF['app_root'] . "models/user_model.php");
 
    $H = new Holiday_model;
    $M = new Month_model;
-   $U = new tcUser;
+   $U = new User_model;
 
    // Figure out starting month and ending month
    $startyearmonth = intval(substr($cntfrom, 0, 6));
@@ -738,13 +738,13 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
    require_once ($CONF['app_root'] . "models/config_model.php");
    require_once ($CONF['app_root'] . "models/group_model.php");
    require_once ($CONF['app_root'] . "models/template_model.php");
-   require_once ($CONF['app_root'] . "includes/tcuser.class.php");
+   require_once ($CONF['app_root'] . "models/user_model.php");
    require_once ($CONF['app_root'] . "includes/tcusergroup.class.php");
 
    $C = new Config_model;
    $G = new Group_model;
    $T = new Template_model;
-   $U = new tcUser;
+   $U = new User_model;
    $UG = new tcUserGroup;
 
    if ($base=="group") {
@@ -938,7 +938,7 @@ function getOptions() {
    require_once ($CONF['app_root']."models/group_model.php");
    require_once ($CONF['app_root']."models/login_model.php");
    require_once ($CONF['app_root']."models/region_model.php");
-   require_once ($CONF['app_root']."includes/tcuser.class.php");
+   require_once ($CONF['app_root']."models/user_model.php");
    require_once ($CONF['app_root']."includes/tcuseroption.class.php");
 
    $A = new Absence_model;
@@ -946,7 +946,7 @@ function getOptions() {
    $G = new Group_model;
    $L = new Login_model;
    $R = new Region_model;
-   $UL = new tcUser;
+   $UL = new User_model;
    $UO = new tcUserOption;
    $user = $L->checkLogin();
 
@@ -1312,11 +1312,11 @@ function sendAccountCreatedMail($uname, $pwd) {
    global $CONF;
    global $LANG;
 
-   require_once ($CONF['app_root'] . "includes/tcuser.class.php");
+   require_once ($CONF['app_root'] . "models/user_model.php");
    require_once ($CONF['app_root'] . "models/config_model.php");
 
    $C = new Config_model;
-   $U = new tcUser;
+   $U = new User_model;
 
    if ($U->findByName($uname)) {
       $to = $U->email;
@@ -1343,10 +1343,10 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
    global $LANG;
 
    require_once ($CONF['app_root'] . "models/config_model.php");
-   require_once ($CONF['app_root'] . "includes/tcuser.class.php");
+   require_once ($CONF['app_root'] . "models/user_model.php");
 
    $C = new Config_model;
-   $U = new tcUser;
+   $U = new User_model;
 
    /*
     * Now we're gonna send a mail to every user who wants to be notified

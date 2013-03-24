@@ -39,7 +39,7 @@ require_once( "models/log_model.php" );
 require_once( "models/month_model.php" );
 require_once( "models/template_model.php" );
 require_once( "models/template_model.php" );
-require_once( "includes/tcuser.class.php" );
+require_once( "models/user_model.php" );
 require_once( "includes/tcusergroup.class.php" );
 
 $A   = new Absence_model;
@@ -53,9 +53,9 @@ $M   = new Month_model;
 $N   = new Daynote_model;
 $T   = new Template_model;
 $TT  = new Template_model; // used for template user loop
-$U   = new tcUser;
-$UL  = new tcUser; // User logged in
-$UT  = new tcUser; // used for template user loop
+$U   = new User_model;
+$UL  = new User_model; // User logged in
+$UT  = new User_model; // used for template user loop
 $UG  = new tcUserGroup;
 
 $error=FALSE;

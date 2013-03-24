@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcuser.class.php
+ * user_model.php
  * 
  * Contains the class dealing with the user table
  * 
@@ -15,7 +15,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcUser")) {
+if (!class_exists("User_model")) {
    /**
     * Requires the database class
     */
@@ -25,7 +25,7 @@ if (!class_exists("tcUser")) {
     * Provides objects and methods to manage the user table
     * @package TeamCalPro
     */
-   class tcUser {
+   class User_model {
       var $db = '';
       var $table = '';
       var $log = '';
@@ -63,10 +63,11 @@ if (!class_exists("tcUser")) {
       var $customFree = '';
       var $customPopup = '';
 
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcUser() {
+      function User_model() {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -76,6 +77,7 @@ if (!class_exists("tcUser")) {
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Creates a new user record from local variables
        */
@@ -116,6 +118,7 @@ if (!class_exists("tcUser")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Deletes a user record by name
        * 
@@ -126,6 +129,7 @@ if (!class_exists("tcUser")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Finds a user record by name and fills values into local variables
        * 
@@ -187,6 +191,7 @@ if (!class_exists("tcUser")) {
          return $rc;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all records into an array
        * 
@@ -202,6 +207,7 @@ if (!class_exists("tcUser")) {
          return $uarray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all records into an array, except admin
        * 
@@ -217,6 +223,7 @@ if (!class_exists("tcUser")) {
          return $uarray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Reads all usernames into an array
        * 
@@ -232,6 +239,7 @@ if (!class_exists("tcUser")) {
          return $unamearray;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Clears one or more privilege flags
        * 
@@ -241,6 +249,7 @@ if (!class_exists("tcUser")) {
          $this->privileges = $this->privileges & (~$bitmask);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks and returns a privilege bitmask
        * 
@@ -254,6 +263,7 @@ if (!class_exists("tcUser")) {
             return 0;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Sets one or more privilege flags
        * 
@@ -263,6 +273,7 @@ if (!class_exists("tcUser")) {
          $this->privileges = $this->privileges | $bitmask;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks a notify bitmask
        * 
@@ -276,6 +287,7 @@ if (!class_exists("tcUser")) {
             return 0;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Sets one or more notify flags
        * 
@@ -285,6 +297,7 @@ if (!class_exists("tcUser")) {
          $this->notify = $this->notify | $bitmask;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Clears one or more notify flags
        * 
@@ -294,6 +307,7 @@ if (!class_exists("tcUser")) {
          $this->notify = $this->notify & (~$bitmask);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Clears one or more status flags
        * 
@@ -303,6 +317,7 @@ if (!class_exists("tcUser")) {
          $this->status = $this->status & (~$bitmask);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks a status bitmask
        * 
@@ -316,6 +331,7 @@ if (!class_exists("tcUser")) {
             return 0;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Sets one or more status flags
        * 
@@ -325,6 +341,7 @@ if (!class_exists("tcUser")) {
          $this->status = $this->status | $bitmask;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Clears one or more user type flags
        * 
@@ -334,6 +351,7 @@ if (!class_exists("tcUser")) {
          $this->usertype = $this->usertype & (~intval($bitmask));
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Checks a user type bitmask
        * 
@@ -347,6 +365,7 @@ if (!class_exists("tcUser")) {
             return 0;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Sets one or more status flags
        * 
@@ -356,6 +375,7 @@ if (!class_exists("tcUser")) {
          $this->usertype = $this->usertype | $bitmask;
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Updates an existing user record from local class variables
        * 
@@ -396,6 +416,7 @@ if (!class_exists("tcUser")) {
          $result = $this->db->db_query($query);
       }
 
+      // ---------------------------------------------------------------------
       /**
        * Optimize table
        * 
@@ -406,7 +427,6 @@ if (!class_exists("tcUser")) {
          return $result;
       }
             
-   } // End Class tcUser
-
-} // if ( !class_exists( "tcUser" ) ) {
+   }
+}
 ?>

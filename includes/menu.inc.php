@@ -32,7 +32,7 @@ $L = new Login_model;
 $R = new Region_model;
 $UA = new User_announcement_model;
 $UG = new tcUserGroup;
-$UL = new tcUser;
+$UL = new User_model;
 $UO = new tcUserOption;
 
 $user=$L->checkLogin();

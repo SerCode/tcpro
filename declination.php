@@ -31,14 +31,14 @@ else                                  require ("includes/lang/english.tcpro.php"
 require_once( "models/config_model.php" );
 require_once( "models/log_model.php" );
 require_once( "models/login_model.php" );
-require_once( "includes/tcuser.class.php" );
+require_once( "models/user_model.php" );
 require_once( "includes/tcusergroup.class.php" );
 require_once( "includes/tcuseroption.class.php" );
 
 $C = new Config_model;
 $L = new Login_model;
 $LOG = new Log_model;
-$U  = new tcUser;
+$U  = new User_model;
 $UG = new tcUserGroup;
 $UO = new tcUserOption;
 

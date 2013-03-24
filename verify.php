@@ -30,13 +30,13 @@ else                                  require ("includes/lang/english.tcpro.php"
 
 require_once ("models/config_model.php");
 require_once ("models/log_model.php");
-require_once ("includes/tcuser.class.php");
+require_once ("models/user_model.php");
 require_once ("includes/tcuseroption.class.php");
 
 $C = new Config_model;
 $LOG = new Log_model;
-$U = new tcUser;
-$UA = new tcUser;
+$U = new User_model;
+$UA = new User_model;
 $UO = new tcUserOption;
 
 $error = FALSE;
