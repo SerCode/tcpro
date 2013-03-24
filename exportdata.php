@@ -29,7 +29,7 @@ if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options
 else                                  require ("includes/lang/english.tcpro.php");
 
 require_once( "models/csv_model.php" );
-require_once( "includes/xmlhandler.class.php" );
+require_once( "models/xml_model.php" );
 require_once( "models/config_model.php" );
 require_once( "models/user_model.php" );
 $C = new Config_model;
@@ -157,7 +157,7 @@ function PrintOut($output,$tbl,$stats,$format='sql') {
       $s2x=new sql2xml($CONF['db_server'],"3306",$CONF['db_name'],$CONF['db_user'],$CONF['db_pass']);
       $result=mysql_query("SELECT * FROM ".$tbl);
       $meta=mysql_fetch_field($result);
-      $xmldoc=new xmlHandler($meta->table);
+      $xmldoc=new Xml_model($meta->table);
       while ($row=mysql_fetch_array($result,MYSQL_NUM)) $xmldoc->addElement($row,$result);
       $output = $xmldoc->getXMLDocument();
       break;

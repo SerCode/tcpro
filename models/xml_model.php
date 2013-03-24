@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * xmlhandler.class.php
+ * xml_model.php
  * 
  * Provides classes to deal with XML parsing
  *
@@ -15,28 +15,30 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("xmlHandler")) {
+if (!class_exists("Xml_model")) {
    /** 
     * Provides objects and methods to parse MySQL into XML
     * @package TeamCalPro
     */
-   class xmlHandler {
+   class Xml_model {
       var $header;
       var $startTag;
       var $endTag;
       var $body;
    
+      // ---------------------------------------------------------------------
       /** 
        * Constructor. Creates the start and end tag.
        * 
        * @param string $tablename Name of MySQL table to parse
        */
-      function xmlHandler($tablename) {
+      function Xml_model($tablename) {
          /* $this->header="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"; */
          $this->startTag = "<Table Name=\"" . $tablename . "\">";
          $this->endTag = "</Table>\n";
       }
    
+      // ---------------------------------------------------------------------
       /** 
        * Adds an element to the XML ouput based on a given MySQL query result handle
        * 
@@ -58,6 +60,7 @@ if (!class_exists("xmlHandler")) {
          $this->body = $this->body . $out;
       }
    
+      // ---------------------------------------------------------------------
       /** 
        * Returns the XML text
        * 
@@ -81,6 +84,7 @@ if (!class_exists("sql2xml")) {
    
       var $connection;
    
+      // ---------------------------------------------------------------------
       /** 
        * Constructor
        * 
@@ -95,6 +99,7 @@ if (!class_exists("sql2xml")) {
          mysql_select_db($dbname, $this->connection);
       }
    
+      // ---------------------------------------------------------------------
       /** 
        * Launches the export of a table
        * 
@@ -108,6 +113,7 @@ if (!class_exists("sql2xml")) {
          $this->export($result, $filename);
       }
    
+      // ---------------------------------------------------------------------
       /** 
        * Launches the export of a custom query
        * 
@@ -119,6 +125,7 @@ if (!class_exists("sql2xml")) {
          $this->export($rows, $filename);
       }
    
+      // ---------------------------------------------------------------------
       /** 
        * Exports the query result into XML
        * 
@@ -144,6 +151,7 @@ if (!class_exists("sql2xml")) {
          echo $xmldoc->getXMLDocument();
       }
    
+      // ---------------------------------------------------------------------
       /** 
        * Returns an XML document from a database table
        * 
