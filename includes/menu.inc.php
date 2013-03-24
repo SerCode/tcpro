@@ -52,7 +52,7 @@ $m = buildMenu();
    [
       [null,'<?=$LANG['mnu_teamcal']?>',null,null,null,
          <?php if ($m['mnu_teamcal_login']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_login.png" />','<?=$LANG['mnu_teamcal_login']?>','javascript:openPopup(\'login.php?lang=<?=$CONF['options']['lang']?>\',\'login\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=420,height=300\');',null,null],
+         ['<img src="themes/<?=$theme?>/img/menu/ico_login.png" />','<?=$LANG['mnu_teamcal_login']?>','login.php?lang=<?=$CONF['options']['lang']?>',null,null],
          <?php }
          if ($m['mnu_teamcal_register']) { ?>
             ['<img src="themes/<?=$theme?>/img/menu/ico_register.png" />','<?=$LANG['mnu_teamcal_register']?>','javascript:openPopup(\'register.php?lang=<?=$CONF['options']['lang']?>\',\'login\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=420,height=550\');',null,null],
@@ -223,7 +223,14 @@ if ( $C->readConfig("showLanguage") OR
          $optionitems++;
       } ?>
 
-   	<?php if ( substr_count($_SERVER['PHP_SELF'],"index.php") ) {
+   	<?php 
+      /**
+       * Group, Region, Absence, Start-year, Start-month, Number of months
+       * Only shown in calendar view.
+       */
+   	if (substr_count($_SERVER['PHP_SELF'],"index.php") AND 
+          (isset($_REQUEST['action']) AND $_REQUEST['action']=="calendar") AND 
+          isAllowed("viewCalendar")) {
          /**
           * The group drop down is only shown on the month view page and userlist page
           */

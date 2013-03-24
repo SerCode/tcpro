@@ -111,15 +111,15 @@ require("includes/header.html.inc.php" );
                   <?php
                   $uas=$UA->getAllForUser($_REQUEST['uname']);
                   foreach($uas as $ua) {
-                     $AN->read($row['ats']);
+                     $AN->read($ua['ats']);
                      if ($AN->popup) { ?>
-                        <form class="form" name="form-ann-<?=$row['ats']?>" method="POST" action="<?=$_SERVER['PHP_SELF']."?uname=".$_REQUEST['uname']?>">
+                        <form class="form" name="form-ann-<?=$ua['ats']?>" method="POST" action="<?=$_SERVER['PHP_SELF']."?uname=".$_REQUEST['uname']?>">
                         <table style="border-collapse: collapse; border: 0px; width: 100%;">
                            <tr>
-                              <td width="90%"><?=$LANG['ann_id'].": ".$row['ats']."<br><br>".$AN->read($row['ats'])?></td>
+                              <td width="90%"><?=$LANG['ann_id'].": ".$ua['ats']."<br><br>".$AN->read($ua['ats'])?></td>
                               <td style="text-align: right;" width="10%">
-                                 <input class="text" type="hidden" name="ats" value="<?=$row['ats']?>">
-                                 <input name="btn_confirm" type="submit" class="button" value="<?=$LANG['btn_confirm']?>" onclick="return confirmSubmit('<?=$LANG['ann_delete_confirm_1'].$row['ats'].$LANG['ann_delete_confirm_2']?>')">
+                                 <input class="text" type="hidden" name="ats" value="<?=$ua['ats']?>">
+                                 <input name="btn_confirm" type="submit" class="button" value="<?=$LANG['btn_confirm']?>" onclick="return confirmSubmit('<?=$LANG['ann_delete_confirm_1'].$ua['ats'].$LANG['ann_delete_confirm_2']?>')">
                               </td>
                            </tr>
                         </table>
@@ -133,7 +133,7 @@ require("includes/header.html.inc.php" );
             <tr>
                <td class="dlg-menu">
                   <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?announcement_popup.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=740,height=500');" value="<?=$LANG['btn_help']?>">
-                  <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
+                  <input name="btn_close" type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_close']?>">
                </td>
             </tr>
          </table>

@@ -118,7 +118,7 @@ require("includes/menu.inc.php");
 /**
  * Let's check what we can show this user
  */
-if ( $display == "calendar" AND isAllowed("viewCalendar")) {
+if ( $display=="calendar" AND isAllowed("viewCalendar")) {
    /**
     * Show calendar
     */

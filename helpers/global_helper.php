@@ -1218,24 +1218,6 @@ function jsCloseAndReload($page = 'index.php') {
 
 // ---------------------------------------------------------------------------
 /**
- * Uses Javascript to reload a page without the previous POST parameters
- *
- * @param string $page URL to redirect to
- */
-function jsReload($page = "index.php") {
-   global $CONF;
-   echo "<html>" .
-   "<head></head>" .
-   "<body>" .
-   "   <script type=\"text/javascript\" type=\"javascript\">" .
-   "      location.href=\"" . $page . "\";" .
-   "   </script>" .
-   "</body>" .
-   "</html>";
-}
-
-// ---------------------------------------------------------------------------
-/**
  * Sends a HTTP redirect instruction to the browser via http-equiv
  *
  * @param string $url URL to redirect to
@@ -1243,7 +1225,7 @@ function jsReload($page = "index.php") {
 function jsReloadPage($url = '') {
    echo "<html>" .
    "   <head>" .
-   "      <meta http-equiv=\"refresh\" content=\"0;URL=" . $url . "\">" .
+   "      <meta http-equiv=\"refresh\" content=\"0;URL=".$url."\">" .
    "   </head>" .
    "   <body></body>" .
    "</html>";

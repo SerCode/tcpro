@@ -44,6 +44,11 @@ IMPROVEMENTS
    Changed the file structure to more clearly distinguish between models and
    helpers.
    
+07 Login page
+   The login page is not a popup window anymore. This saves the load time for
+   a new browser window and the mimic of reloading the referrer. It is a more
+   common way after all.
+   
 ------------------------------------------------------------------------------
 [3.5.002]
 
