@@ -268,7 +268,7 @@ require("includes/header.html.inc.php");
                            <tr>
                               <td class="dlg-body">&nbsp;</td>
                               <td style="vertical-align: top;">
-                                 <img src="includes/randomimage.php" alt="" align="bottom">
+                                 <img src="helpers/randomimage_helper.php" alt="" align="bottom">
                               </td>
                            </tr>
                            <tr>

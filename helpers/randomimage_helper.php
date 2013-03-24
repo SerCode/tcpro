@@ -1,6 +1,6 @@
 <?php
 /**
- * randomimage.php
+ * randomimage_helper.php
  * 
  * Displays a security image on the registration dialog
  *

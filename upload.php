@@ -28,9 +28,9 @@ getOptions();
 if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
 else                                  require ("includes/lang/english.tcpro.php");
 
-require_once ("includes/upload.class.php");
+require_once ("models/upload_model.php");
 
-$UPL = new tcUpload;
+$UPL = new Upload_model;
 $error=FALSE;
 $upload=FALSE;
 

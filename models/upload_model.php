@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * tcupload.class.php
+ * upload_model.php
  * 
  * Contains the class dealing with uploads table
  * Based on "Easy PHP Upload 2.31" by Olaf Lederer
@@ -16,12 +16,12 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("tcUpload")) {
+if (!class_exists("Upload_model")) {
    /**
     * Provides objects and methods to upload files
     * @package TeamCalPro
     */
-   class tcUpload {
+   class Upload_model {
       var $the_file;
       var $the_temp_file;
       var $the_new_file;
@@ -39,10 +39,11 @@ if (!class_exists("tcUpload")) {
       var $create_directory = true;
       var $error;
    
+      // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function tcUpload() {
+      function Upload_model() {
          $this->language = "en";
          $this->rename_file = false;
          $this->ext_string = "";
@@ -62,6 +63,7 @@ if (!class_exists("tcUpload")) {
          $error[17] = "The file %s does not exist.";
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Creates and returns an HTML error message from local message array
        * 
@@ -75,6 +77,7 @@ if (!class_exists("tcUpload")) {
          return $msg_string;
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Creates and returns a unique new filename
        * 
@@ -97,6 +100,7 @@ if (!class_exists("tcUpload")) {
          return $name;
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Uploads the file using a new filename
        * 
@@ -133,6 +137,7 @@ if (!class_exists("tcUpload")) {
          }
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Checks filename format. 
        * 
@@ -167,6 +172,7 @@ if (!class_exists("tcUpload")) {
          }
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Gets the extension of a given filenam 
        * 
@@ -178,6 +184,7 @@ if (!class_exists("tcUpload")) {
          return $ext;
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Validates the file extension of the file to upload against an array of 
        * allowed extensions. Allowed extension reside in local variable 
@@ -197,6 +204,7 @@ if (!class_exists("tcUpload")) {
          }
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Used to display the allowed extensions in error message 
        */
@@ -204,6 +212,7 @@ if (!class_exists("tcUpload")) {
          $this->ext_string = implode(" ", $this->extensions);
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Moves the uploaded temporary file to its final location/name
        * 
@@ -236,6 +245,7 @@ if (!class_exists("tcUpload")) {
          }
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a given directory exists. If not, creates it.
        * 
@@ -258,6 +268,7 @@ if (!class_exists("tcUpload")) {
          }
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Checks whether a given file exists.
        * 
@@ -278,6 +289,7 @@ if (!class_exists("tcUpload")) {
          }
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Retrieves the uploaded file info
        * 
@@ -297,6 +309,7 @@ if (!class_exists("tcUpload")) {
          return $str;
       }
    
+      // ---------------------------------------------------------------------
       /**
        * Deletes the temporary file
        * 
