@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Collection of global functions for TeamCal Pro
  *
  * @package TeamCalPro
-* @version 3.6.000
+ * @version 3.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -1536,7 +1536,7 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
 function sendEmail($to, $subject, $body, $from='') {
    global $CONF;
    require_once "Mail.php";
-   require_once ($CONF['app_root'] . "models/config_model.php");
+   require_once ($CONF['app_root']."models/config_model.php");
    $C = new Config_model;
     
    if ($C->readConfig("mailSMTP")) {
