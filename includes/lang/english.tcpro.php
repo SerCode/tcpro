@@ -336,14 +336,14 @@ $LANG['login_error_4c'] = ' bad attempts your account will be locked for ';
 $LANG['login_error_4d'] = ' seconds.';
 $LANG['login_error_6a'] = 'This account is on hold due to too many bad login attempts. The grace period ends in ';
 $LANG['login_error_6b'] = ' seconds.';
-$LANG['login_error_7'] = 'Password incorrect.';
+$LANG['login_error_7'] = 'Password incorrect';
 $LANG['login_error_8'] = 'Account not verified. You should have received an e-Mail with a verification link.';
 $LANG['login_error_91'] = 'LDAP error: Password missing';
-$LANG['login_error_92'] = 'LDAP error: LDAP authentication failed';
-$LANG['login_error_93'] = 'LDAP error: Unable to connect to LDAP server.';
-$LANG['login_error_94'] = 'LDAP error: LDAP start TLS failed.';
-$LANG['login_error_95'] = 'LDAP error: LDAP username not found.';
-$LANG['login_error_96'] = 'LDAP error: LDAP search bind failed.';
+$LANG['login_error_92'] = 'LDAP error: Authentication failed';
+$LANG['login_error_93'] = 'LDAP error: Unable to connect to LDAP server';
+$LANG['login_error_94'] = 'LDAP error: Start TLS failed';
+$LANG['login_error_95'] = 'LDAP error: Username not found';
+$LANG['login_error_96'] = 'LDAP error: Search bind failed';
 
 /**
  * Status Bar

@@ -330,32 +330,42 @@ if (!class_exists("Login_model")) {
        * Login. Checks the login credentials and sets cookie 'teamcal' if accepted
        *
        * Return Codes
-       * retcode =  0 : successful login
-       * retcode =  1 : username and/or password missing
-       * retcode =  2 : can't find username in database
-       * retcode =  3 : account is locked
+       * retcode =   0 : Success
+       * retcode =   1 : Username and/or password missing
+       * retcode =   2 : User not found
+       * retcode =   3 : Account locked
+       * retcode =   4 : Password incorrect 1st time
+       * retcode =   5 : Password incorrect 2nd time or more
+       * retcode =   6 : Login disabled and still in grace period
+       * retcode =   7 : Password incorrect (no bad login count)
+       * retcode =   8 : Account not verified
+       * retcode =  91 : LDAP error: password missing
+       * retcode =  92 : LDAP error: bind failed
+       * retcode =  93 : LDAP error: unable to connect
+       * retcode =  94 : LDAP error: Start of TLS encryption failed
+       * retcode =  95 : LDAP error: Username not found
+       * retcode =  96 : LDAP error: Search bind failed
        * 
+       * @param string $loginname Username
+       * @param string $loginpwd Password
        * @return integer Login return code
        */
-      function login() {
+      function login($loginname='', $loginpwd='') {
          global $CONF;
-         global $_POST;
 
          $logged_in = 0;
          $showForm = 0;
          $retcode = 0;
          $bad_logins_now = 0;
 
-         if (empty ($_POST['uname']) || empty ($_POST['pword'])) return 1; // No uname or pword in POST
+         if (empty($loginname) OR empty($loginpwd)) return 1;
          
-         $loginname = trim($_POST['uname']);
-         $loginpwd = trim($_POST['pword']);
          $now = date("U");
          
          if (!$this->U->findByName($loginname)) return 2; // User not found. If found U->username is now set.
          if ( $this->U->checkStatus($CONF['USLOCKED']) ) return 3; // Account is locked or not approved
          if ( $this->UO->find($loginname,"verifycode") ) return 8; // Account not verified.
-         if ( $this->U->checkStatus($CONF['USLOGLOC']) && ($now - $this->U->bad_logins_start <= $this->grace_period) ) return 6; // Login is locked for this account and grace period is not over yet.
+         if ( $this->U->checkStatus($CONF['USLOGLOC']) AND ($now - $this->U->bad_logins_start <= $this->grace_period) ) return 6; // Login is locked for this account and grace period is not over yet.
 
          /**
           * At this point we know that USLOGLOC is not set anyways

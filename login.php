@@ -23,10 +23,8 @@ define( '_VALID_TCPRO', 1 );
  * Includes
  */
 require_once ("config.tcpro.php");
+
 require_once ("helpers/global_helper.php");
-getOptions();
-if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
-else                                  require ("includes/lang/english.tcpro.php");
 
 require_once ("models/announcement_model.php");
 require_once ("models/config_model.php");
@@ -41,16 +39,21 @@ $C = new Config_model;
 $L = new Login_model;
 $LOG = new Log_model;
 $U = new User_model;
-$U2 = new User_model;
 $UA = new User_announcement_model;
 $UO = new User_option_model;
+
+getOptions();
+if (strlen($CONF['options']['lang'])) require ("includes/lang/".$CONF['options']['lang'].".tcpro.php");
+else require ("includes/lang/english.tcpro.php");
+
 $errors = '';
 $uname = '';
+$pword = '';
 
-//if ( isset($_POST['btn_login']) AND in_array($_POST['uname'],$U->getUsernames()) ) {
 if (isset($_POST['btn_login'])) {
-   $uname = $_POST['uname'];
-   switch ($L->login()) {
+   if (isset($_POST['uname'])) $uname = $_POST['uname'];
+   if (isset($_POST['pword'])) $pword = $_POST['pword'];
+   switch ($L->login($uname,$pword)) {
       case 0 :
       /**
        * Successful login
@@ -145,7 +148,7 @@ if (isset($_POST['btn_login'])) {
 
       case 6 :
       /**
-       * Login is locked due to too many bad login attempts
+       * Login disabled due to too many bad login attempts
        */
       $now = date("U");
       $U->findByName($uname);

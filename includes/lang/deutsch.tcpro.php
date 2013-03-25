@@ -336,14 +336,14 @@ $LANG['login_error_4c'] = ' Fehlversuchen wird der Account gesperrt f&uuml;r ';
 $LANG['login_error_4d'] = ' Sekunden.';
 $LANG['login_error_6a'] = 'Dieser Account ist wegen zu vieler falscher Loginversuche vor&uuml;bergehend gesperrt. Die Grace Periode endet in ';
 $LANG['login_error_6b'] = ' Sekunden.';
-$LANG['login_error_7'] = 'Passwort inkorrekt.';
+$LANG['login_error_7'] = 'Passwort inkorrekt';
 $LANG['login_error_8'] = 'Konto nicht verifiziert. Du solltest eine e-Mail mit einem Verfizierungslink erhalten haben.';
 $LANG['login_error_91'] = 'LDAP Fehler: Passwort fehlt';
-$LANG['login_error_92'] = 'LDAP Fehler: LDAP Authentifizierung fehlgeschlagen';
+$LANG['login_error_92'] = 'LDAP Fehler: Authentifizierung fehlgeschlagen';
 $LANG['login_error_93'] = 'LDAP Fehler: Verbindung zum LDAP Server fehlgeschlagen';
-$LANG['login_error_94'] = 'LDAP error: Start von TLS fehlgeschlagen.';
-$LANG['login_error_95'] = 'LDAP error: Username nicht gefunden.';
-$LANG['login_error_96'] = 'LDAP error: Suche fehlgeschlagen.';
+$LANG['login_error_94'] = 'LDAP Fehler: Start von TLS fehlgeschlagen';
+$LANG['login_error_95'] = 'LDAP Fehler: Username nicht gefunden';
+$LANG['login_error_96'] = 'LDAP Fehler: "Search bind" fehlgeschlagen';
 
 /**
  * Status Bar
