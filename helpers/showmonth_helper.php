@@ -827,7 +827,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          
                if ($editCalendar) {
                   if (!$thisregion = $UO->find($U->username,"defregion")) $thisregion = $CONF['options']['region'];
-                  $monthBody .= "<a href=\"javascript:openPopup('editcalendar.php?lang=".$CONF['options']['lang']."&amp;Year=".$year."&amp;Month=".$month."&amp;region=".$thisregion."&amp;Member=".addslashes($U->username)."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=980,height=640');\"><img class=\"noprint\" src=\"themes/".$theme."/img/btn_edit.gif\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_cal']."\" alt=\"".$LANG['cal_img_alt_edit_cal']."\"></a>\n\r";
+                  $monthBody .= "<a href=\"javascript:openPopup('editcalendar.php?lang=".$CONF['options']['lang']."&amp;Year=".$year."&amp;Month=".$month."&amp;region=".$thisregion."&amp;Member=".addslashes($U->username)."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=1024,height=640');\"><img class=\"noprint\" src=\"themes/".$theme."/img/btn_edit.gif\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_cal']."\" alt=\"".$LANG['cal_img_alt_edit_cal']."\"></a>\n\r";
                }
                $monthBody .= "</td>\n\r";
          
