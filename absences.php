@@ -254,7 +254,7 @@ require("includes/menu.inc.php");
                      <?php
                      $absences = $A->getAll();
                      foreach ($absences as $abs) { ?>
-                           <option style="background-image: url(<?=$CONF['app_icon_dir'].$abs['icon']?>); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="<?=$abs['id']?>" <?=(($abs['id']==$A->id)?"SELECTED":"")?>><?=$abs['name']?></option>
+                        <option style="background-image: url(<?=$CONF['app_icon_dir'].$abs['icon']?>); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="<?=$abs['id']?>" <?=(($abs['id']==$A->id)?"SELECTED":"")?>><?=$abs['name']?></option>
                      <?php } ?>
                   </select>
                </form>

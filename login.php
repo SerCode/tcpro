@@ -237,8 +237,8 @@ require("includes/menu.inc.php" );
                   </td>
                </tr>
                <tr>
-                  <td class="dlg-body" style="padding: 0px 33% 0px 33%;">
-                     <table style="padding-top: 20px; width: 33%;">
+                  <td class="dlg-body" style="padding: 20px 33% 20px 33%;">
+                     <table>
                         <tr>
                            <td><strong><?=$LANG['login_username']?></strong></td>
                            <td><input name="uname" id="uname" size="30" type="text" class="text" value="<?=(strlen($uname))?$uname:"";?>"></td>
@@ -251,14 +251,12 @@ require("includes/menu.inc.php" );
                            <td>&nbsp;</td>
                            <td><input name="btn_login" type="submit" class="button" value="<?=$LANG['btn_login']?>"></td>
                         </tr>
+                        <?php if (strlen($errors)) { ?>
                         <tr>
                            <td>&nbsp;</td>
-                           <td>
-                              <?php if (strlen($errors)) { ?>
-                                 <div class="erraction"><?=$errors?></div>
-                              <?php } ?>
-                           </td>
+                           <td><div class="erraction"><?=$errors?></div><td>
                         </tr>
+                        <?php } ?>
                      </table>
                   </td>
                </tr>
