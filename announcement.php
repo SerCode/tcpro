@@ -75,7 +75,7 @@ if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
  */
 else if ( isset($_POST['btn_confirm_all'])) {
    
-   $AN->clearUserAnnouncements($UL->username);
+   $UA->deleteAllForUser($UL->username);
    
    /**
     * Log this event
