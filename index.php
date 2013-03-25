@@ -23,23 +23,6 @@ define( '_VALID_TCPRO', 1 );
 require_once ("config.tcpro.php");
 
 /**
- * Let's make sure we have the trailing slashes
- */
-$CONF['app_root'] = rtrim($CONF['app_root'], '/').'/';
-$CONF['app_avatar_dir'] = rtrim($CONF['app_avatar_dir'], '/').'/';
-$CONF['app_icon_dir'] = rtrim($CONF['app_icon_dir'], '/').'/';
-$CONF['app_homepage_dir'] = rtrim($CONF['app_homepage_dir'], '/').'/';
-
-/**
- * Define global paths
- */
-define('APPPATH', $CONF['app_root']);
-define('APPURL', $CONF['app_url']);
-define('AVATARPATH', APPPATH.$CONF['app_avatar_dir']);
-define('ICONPATH', APPPATH.$CONF['app_icon_dir']);
-define('HOMEPATH', APPPATH.$CONF['app_homepage_dir']);
-
-/**
  * Load models that we need here
  */
 require_once ("models/announcement_model.php" );
@@ -66,6 +49,15 @@ $LOG = new Log_model;
 $U = new User_model;
 $UA = new User_announcement_model;
 $UO = new User_option_model;
+
+/**
+ * Get other options
+ */
+getOptions();
+if (strlen($CONF['options']['lang'])) 
+   require ("includes/lang/".$CONF['options']['lang'].".tcpro.php");
+else
+   require ("includes/lang/english.tcpro.php");
 
 /**
  * Get the URL action request
@@ -95,15 +87,6 @@ if (isset ($_REQUEST['action'])) {
 else {
    $display = $C->readConfig("homepage");
 }
-
-/**
- * Get other options from URL and config
- */
-getOptions();
-if (strlen($CONF['options']['lang'])) 
-   require ("includes/lang/".$CONF['options']['lang'].".tcpro.php");
-else
-   require ("includes/lang/english.tcpro.php");
 
 /**
  * If someone is logged in and there is a popup announcement for him then

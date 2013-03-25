@@ -20,12 +20,13 @@
 define( '_VALID_TCPRO', 1 );
 
 /**
- * Includes
+ * Load user configuration file
  */
 require_once ("config.tcpro.php");
 
-require_once ("helpers/global_helper.php");
-
+/**
+ * Load models
+ */
 require_once ("models/announcement_model.php");
 require_once ("models/config_model.php");
 require_once ("models/login_model.php");
@@ -34,6 +35,14 @@ require_once ("models/user_model.php");
 require_once ("models/user_announcement_model.php");
 require_once ("models/user_option_model.php");
 
+/**
+ * Load helpers
+ */
+require_once ("helpers/global_helper.php");
+
+/**
+ * Create model instances
+ */
 $AN = new Announcement_model;
 $C = new Config_model;
 $L = new Login_model;
@@ -42,15 +51,26 @@ $U = new User_model;
 $UA = new User_announcement_model;
 $UO = new User_option_model;
 
+/**
+ * Get other options
+ */
 getOptions();
-if (strlen($CONF['options']['lang'])) require ("includes/lang/".$CONF['options']['lang'].".tcpro.php");
-else require ("includes/lang/english.tcpro.php");
+if (strlen($CONF['options']['lang'])) 
+   require ("includes/lang/".$CONF['options']['lang'].".tcpro.php");
+else
+   require ("includes/lang/english.tcpro.php");
 
+/**
+ * Initiate view variables
+ */
 $errors = '';
 $uname = '';
-$pword = '';
 
+/**
+ * Process form
+ */
 if (isset($_POST['btn_login'])) {
+   $pword = '';
    if (isset($_POST['uname'])) $uname = $_POST['uname'];
    if (isset($_POST['pword'])) $pword = $_POST['pword'];
    switch ($L->login($uname,$pword)) {
@@ -229,47 +249,46 @@ echo "<body>\r\n";
 require("includes/header.application.inc.php" );
 require("includes/menu.inc.php" );
 ?>
-<body>
-   <div id="content">
-      <div id="content-content">
-         <form name="login" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
-            <table class="dlg">
-               <tr>
-                  <td class="dlg-header" colspan="3">
-                     <?php printDialogTop($LANG['login_login'],"login.html","ico_login.png"); ?>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-body" style="padding: 20px 33% 20px 33%;">
-                     <table>
-                        <tr>
-                           <td><strong><?=$LANG['login_username']?></strong></td>
-                           <td><input name="uname" id="uname" size="30" type="text" class="text" value="<?=(strlen($uname))?$uname:"";?>"></td>
-                        </tr>
-                        <tr>
-                           <td><strong><?=$LANG['login_password']?></strong></td>
-                           <td><input name="pword" id="pword" size="30" type="password" class="text" value=""></td>
-                        </tr>
-                        <tr>
-                           <td>&nbsp;</td>
-                           <td><input name="btn_login" type="submit" class="button" value="<?=$LANG['btn_login']?>"></td>
-                        </tr>
-                        <?php if (strlen($errors)) { ?>
-                        <tr>
-                           <td>&nbsp;</td>
-                           <td><div class="erraction"><?=$errors?></div><td>
-                        </tr>
-                        <?php } ?>
-                     </table>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-menu">
-                      <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?login.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
-                  </td>
-               </tr>
-            </table>
-         </form>
-      </div>
+<div id="content">
+   <div id="content-content">
+      <form name="login" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+         <table class="dlg">
+            <tr>
+               <td class="dlg-header" colspan="3">
+                  <?php printDialogTop($LANG['login_login'],"login.html","ico_login.png"); ?>
+               </td>
+            </tr>
+            <tr>
+               <td class="dlg-body" style="padding: 20px 33% 20px 33%;">
+                  <table>
+                     <tr>
+                        <td><strong><?=$LANG['login_username']?></strong></td>
+                        <td><input name="uname" id="uname" size="30" type="text" class="text" value="<?=(strlen($uname))?$uname:"";?>"></td>
+                     </tr>
+                     <tr>
+                        <td><strong><?=$LANG['login_password']?></strong></td>
+                        <td><input name="pword" id="pword" size="30" type="password" class="text" value=""></td>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td><input name="btn_login" type="submit" class="button" value="<?=$LANG['btn_login']?>"></td>
+                     </tr>
+                     <?php if (strlen($errors)) { ?>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td><div class="erraction"><?=$errors?></div><td>
+                     </tr>
+                     <?php } ?>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td class="dlg-menu">
+                   <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?login.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+               </td>
+            </tr>
+         </table>
+      </form>
    </div>
+</div>
 <?php require("includes/footer.html.inc.php"); ?>
