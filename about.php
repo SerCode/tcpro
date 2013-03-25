@@ -50,7 +50,7 @@ else                                  require ("includes/lang/english.tcpro.php"
                <p>
                <strong>Version:</strong>&nbsp;&nbsp;<?=$CONF['app_version']?><br />
                <strong>Copyright:</strong>&nbsp;&nbsp;&copy;2004-<?=$CONF['app_curr_year']?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=$CONF['app_author']?></a><br />
-               <strong>License:</strong>&nbsp;&nbsp;GNU General Public License (GPL)<br />
+               <strong>License:</strong>&nbsp;&nbsp;GNU General Public License v3 (<a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPLv3</a>)<br />
                <br />
                <strong>Credits:</strong><br />
                &#8226;&nbsp;jQuery UI Team for <a href="http://www.jqueryui.com/" target="_blank">jQuery UI</a><br />
