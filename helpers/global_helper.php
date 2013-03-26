@@ -1155,11 +1155,12 @@ function getOptions() {
    /**
     * Time Zone
     */
-   if (($myTimeZone=$C->readConfig("timeZone"))!="default")
-      putenv("TZ=".$myTimeZone);
-   else
-      putenv("TZ=");
-}
+   if (($myTimeZone=$C->readConfig("timeZone"))!="UTC") {
+      ini_set("date.timezone", $myTimeZone);
+   }
+   else {
+      ini_set("date.timezone", "UTC");
+   }
 
 // ---------------------------------------------------------------------------
 /**

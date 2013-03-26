@@ -173,7 +173,7 @@ if ( isset($_POST['btn_apply']) ) {
    }
    if ( isset($_POST['chk_jQueryCDN']) && $_POST['chk_jQueryCDN'] ) $C->saveConfig("jQueryCDN","1"); else $C->saveConfig("jQueryCDN","0");
    if ( isset($_POST['chk_debugHide']) && $_POST['chk_debugHide'] ) $C->saveConfig("debugHide","1"); else $C->saveConfig("debugHide","0");
-   if ($_POST['sel_timeZone']) $C->saveConfig("timeZone",$_POST['sel_timeZone']); else $C->saveConfig("timeZone","default");
+   if ($_POST['sel_timeZone']) $C->saveConfig("timeZone",$_POST['sel_timeZone']); else $C->saveConfig("timeZone","UTC");
 
    /**
     * Email options
