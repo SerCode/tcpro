@@ -1541,12 +1541,14 @@ function sendEmail($to, $subject, $body, $from='') {
    require_once ($CONF['app_root']."models/config_model.php");
    $C = new Config_model;
     
+   if (!strlen($from)) $from = $C->readConfig("mailFrom");
+   
    if ($C->readConfig("mailSMTP")) {
-      if (!strlen($from)) $from = $C->readConfig("mailFrom");
       $host     = $C->readConfig("mailSMTPHost");
       $port     = $C->readConfig("mailSMTPPort");
       $username = $C->readConfig("mailSMTPUser");
-      $password = $C->readConfig("mailSMTPPassword");;
+      $password = $C->readConfig("mailSMTPPassword");
+      if ($C->readConfig("mailSMTPSSL")) $ssl="ssl://"; else $ssl="";
    
       $headers = array (
          'From' => $from,
@@ -1557,7 +1559,7 @@ function sendEmail($to, $subject, $body, $from='') {
       $smtp = Mail::factory(
          'smtp',
          array (
-            'host' => $host,
+            'host' => $ssl.$host,
             'port' => $port,
             'auth' => true,
             'username' => $username,
@@ -1576,13 +1578,8 @@ function sendEmail($to, $subject, $body, $from='') {
       }
    }
    else {
-      if (!strlen($from)) {
-         $from = $C->readConfig("mailFrom");
-         $replyto = $C->readConfig("mailReply");
-      }
-      else {
-         $replyto = $from;
-      }
+      $replyto = $C->readConfig("mailReply");
+      if (!strlen($replyto)) $replyto = $from;
       $headers = "From: ".$from."\r\n"."Reply-To: ".$replyto."\r\n";
       $result = mail($to, $subject, $body, $headers);
       return $result;

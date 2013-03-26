@@ -1266,7 +1266,11 @@ $LANG['admin_config_usersperpage_comment'] = 'If you maintain a large amount of 
       'at the bottom of each page.';
 $LANG['admin_config_mail_options'] = 'Email Options';
 $LANG['admin_config_mail_smtp'] = 'Use external SMTP server';
-$LANG['admin_config_mail_smtp_comment'] = 'Use an external SMTP server instead of the PHP mail() function to send out eMails. This feature requires the PEAR Mail package to be installed on your server. Many hosters install this package by default.';
+$LANG['admin_config_mail_smtp_comment'] = 'Use an external SMTP server instead of the PHP mail() function to send out eMails. '.
+'This feature requires the PEAR Mail package to be installed on your server. Many hosters install this package by default. '.
+'It is also necessary for SMTP to work, that your Tcpro server can connect to the selected SMTP server via the usual SMTP ports 25, 465 or 587, '.
+'using plain SMTP or TLS/SSL protocol, depending on your settings. Many shared hosters have this communication closed down by firewall rules. '.
+'You will get a connection error then.';
 $LANG['admin_config_mail_smtp_host'] = 'SMTP Host';
 $LANG['admin_config_mail_smtp_host_comment'] = 'Specify the SMTP host name.';
 $LANG['admin_config_mail_smtp_port'] = 'SMTP Port';
@@ -1746,5 +1750,11 @@ $LANG['month_current_absence'] = 'Current absence';
 /**
  * Database maintenance
  */
-$LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Optimize tables'
+$LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Optimize tables';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_mail_smtp_ssl'] = 'SMTP TLS/SSL protocol';
+$LANG['admin_config_mail_smtp_ssl_comment'] = 'Use the TLS/SSL protocol for the SMTP connection';
 ?>

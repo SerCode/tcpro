@@ -1266,7 +1266,11 @@ $LANG['admin_config_usersperpage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an
       'eine Seitenaufteilung w&auml;hlst, werden am Ende der Seite Schaltfl&auml;chen fuer das Bl&auml;ttern angezeigt.';
 $LANG['admin_config_mail_options'] = 'eMmail Optionen';
 $LANG['admin_config_mail_smtp'] = 'Externen SMTP Server benutzen';
-$LANG['admin_config_mail_smtp_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von eMails benutzt anstatt der PHP mail() Funktion. Diese Feature erfordert das PEAR Mail Paket auf dem Tcpro Server. Viele Hoster installieren dieses Paket als Standard.';
+$LANG['admin_config_mail_smtp_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von eMails benutzt anstatt der PHP mail() '.
+'Funktion. Diese Feature erfordert das PEAR Mail Paket auf dem Tcpro Server. Viele Hoster installieren dieses Paket als Standard. '.
+'Ausserdem ist es erforderlich, dass sich der Tcro Server per SMTP oder TLS/SSL protocol mit den gebr&auuml;chlichen SMTP port 25, 465 und 587 mit dem '.
+'SMTP Server verbinden kann. Bei vielen Shared Hostern ist dies durch Firewalleinstellungen nicht m&ouml;glich. '.
+'Es erscheint dann eie Fehlermeldung.';
 $LANG['admin_config_mail_smtp_host'] = 'SMTP Host';
 $LANG['admin_config_mail_smtp_host_comment'] = 'Gib den SMTP Host Namen an.';
 $LANG['admin_config_mail_smtp_port'] = 'SMTP Port';
@@ -1746,5 +1750,11 @@ $LANG['month_current_absence'] = 'Aktuelle Abwesenheit';
 /**
  * Database maintenance
  */
-$LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Tabellen optimieren'
+$LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Tabellen optimieren';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_mail_smtp_ssl'] = 'SMTP TLS/SSL Protokoll';
+$LANG['admin_config_mail_smtp_ssl_comment'] = 'TLS/SSL Protokoll f&uuml;r die SMTP Verbindung benutzen.';
 ?>
