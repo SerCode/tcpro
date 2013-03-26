@@ -180,7 +180,7 @@ if ( isset($_POST['btn_apply']) ) {
     */
    if ( isset($_POST['chk_emailNotifications']) && $_POST['chk_emailNotifications'] ) $C->saveConfig("emailNotifications","1"); else $C->saveConfig("emailNotifications","0");
    $C->saveConfig("mailFrom",strip_tags(stripslashes($_POST['txt_mailFrom'])));
-   if (checkEmail($_POST['txt_mailReply'])) $C->saveConfig("mailReply",$_POST['txt_mailReply']);
+   if (validEmail($_POST['txt_mailReply'])) $C->saveConfig("mailReply",$_POST['txt_mailReply']); else $C->saveConfig("mailReply","noreply@teamcalpro.com"); 
    if ( isset($_POST['chk_mailSMTP']) && $_POST['chk_mailSMTP'] ) $C->saveConfig("mailSMTP","1"); else $C->saveConfig("mailSMTP","0");
    $C->saveConfig("mailSMTPhost",strip_tags(stripslashes($_POST['txt_mailSMTPhost'])));
    $C->saveConfig("mailSMTPport",intval($_POST['txt_mailSMTPport']));

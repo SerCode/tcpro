@@ -595,7 +595,8 @@ $LANG['admin_config_mailfrom_comment'] =
 'Gibt den Absender Namen von Benachrichtigungs e-Mails an.';
 $LANG['admin_config_mailreply'] = 'Mail Antwort';
 $LANG['admin_config_mailreply_comment'] =
-'Gibt die R&uuml;ckantwort Adresse von Benachrichtigungs e-Mails an.';
+'Gibt die R&uuml;ckantwort Adresse von Benachrichtigungs e-Mails an. Dieses Feld muss eine g&uuml;ltige Email Adresse enthalten. Wenn das nicht der '.
+'Fall ist, wird die Dummy Adresse "noreply@teamcalpro.com" gespeichert.';
 $LANG['admin_config_registration'] = 'User Registrierung';
 $LANG['admin_config_allow_registration'] = 'User Selbst-Registration erlauben';
 $LANG['admin_config_allow_registration_comment'] =

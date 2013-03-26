@@ -260,61 +260,6 @@ function buildMenu() {
 /**
  * Unsets a bit combination in a given bitmask
  *
- * @param   string $email     eMail address to validate
- * @return  boolean           True if correct, false if not
- */
-function checkEmail($email)
-{
-   /**
-    * First, we check that there's one @ symbol, and that the lengths are right
-    */
-   if (!preg_match("/^[^@]{1,64}@[^@]{1,255}$/", $email)) {
-      /**
-       * Email invalid because wrong number of characters in one section, or wrong number of @ symbols.
-       */
-      return false;
-   }
-
-   /**
-    * Split it into sections to make life easier
-    */
-   $email_array = explode("@", $email);
-   $local_array = explode(".", $email_array[0]);
-   for ($i = 0; $i < sizeof($local_array); $i++)
-   {
-      if (!preg_match("/^(([A-Za-z0-9!#$%&'*+=?^_`{|}~-][A-Za-z0-9!#$%&'*+=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i]))
-      {
-         return false;
-      }
-   }
-   if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1]))
-   {
-      /**
-       * Check if domain is IP. If not, it should be valid domain name
-       */
-      $domain_array = explode(".", $email_array[1]);
-      if (sizeof($domain_array) < 2)
-      {
-         /**
-          * Not enough parts to domain
-          */
-         return false;
-      }
-      for ($i = 0; $i < sizeof($domain_array); $i++)
-      {
-         if (!preg_match("/^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i]))
-         {
-            return false;
-         }
-      }
-   }
-   return true;
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Unsets a bit combination in a given bitmask
- *
  * @param   integer $flagset     Target to change
  * @param   integer $bitmask     Bitmask to unset (0's in this bitmask will
  *                               become 0's in the target)
@@ -1535,20 +1480,33 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
  * @param  string $body        eMail body
  * @return bool                Email success
  */
-function sendEmail($to, $subject, $body, $from='') {
+function sendEmail($to, $subject, $body, $from='') 
+{
    global $CONF;
    require_once "Mail.php";
    require_once ($CONF['app_root']."models/config_model.php");
    $C = new Config_model;
-    
+       
    if (!strlen($from)) $from = $C->readConfig("mailFrom");
    
-   if ($C->readConfig("mailSMTP")) {
+   /*
+    * "To" has to be a valid email. It might be empty if a user
+    * to be notified has not setup his email address
+    */
+   if (!validEmail($to)) $to=$C->readConfig("mailReply");
+    
+   if ($C->readConfig("mailSMTP")) 
+   {
       $host     = $C->readConfig("mailSMTPHost");
       $port     = $C->readConfig("mailSMTPPort");
-      $username = $C->readConfig("mailSMTPUser");
+      $username = $C->readConfig("mailSMTPusername");
       $password = $C->readConfig("mailSMTPPassword");
       if ($C->readConfig("mailSMTPSSL")) $ssl="ssl://"; else $ssl="";
+      
+      /*
+       * SMTP requires a valid email address in the From field
+       */
+      if (!validEmail($from)) $to=$C->readConfig("mailReply");
    
       $headers = array (
          'From' => $from,
@@ -1569,17 +1527,26 @@ function sendEmail($to, $subject, $body, $from='') {
    
       $mail = $smtp->send($to, $headers, $body);
    
-      if (PEAR::isError($mail)) {
-         echo("<p>" . $mail->getMessage() . "</p>");
+      if (PEAR::isError($mail)) 
+      {
+         /*
+          * Display SMTP error in a Javascript popup
+          */
+         echo "<script type=\"text/javascript\">".
+                 "alert(\"SMTP error:\\n".$mail->getMessage()."\\n\\n".
+                         "From: ".$headers['From']."\\n".
+                         "To: ".$headers['To']."\\n".
+                         "Subject: ".$headers['Subject']."\");".
+              "</script>";
          return FALSE;
       }
-      else {
+      else 
+      {
          return TRUE;
       }
    }
    else {
       $replyto = $C->readConfig("mailReply");
-      if (!strlen($replyto)) $replyto = $from;
       $headers = "From: ".$from."\r\n"."Reply-To: ".$replyto."\r\n";
       $result = mail($to, $subject, $body, $headers);
       return $result;

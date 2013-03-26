@@ -595,7 +595,8 @@ $LANG['admin_config_mailfrom_comment'] =
 'Specify a name to be shown as sender of notification e-Mails.';
 $LANG['admin_config_mailreply'] = 'Mail Reply-To';
 $LANG['admin_config_mailreply_comment'] =
-'Specify an e-Mail address to reply to for notification e-Mails.';
+'Specify an e-Mail address to reply to for notification e-Mails. This field must contain a valid email address. If that is not the case '.
+'a dummy email address "noreply@teamcalpro.com" will be saved.';
 $LANG['admin_config_registration'] = 'User Registration';
 $LANG['admin_config_allow_registration'] = 'Allow User Self-Registration';
 $LANG['admin_config_allow_registration_comment'] =
