@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * menu.inc.php
+ * menu_inc.php
  *
  * Displays the TeamCal Pro menu on every main page
  *

@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * timezones.inc.php
+ * timezones_inc.php
  * 
  * Declaration of timezones
  * 

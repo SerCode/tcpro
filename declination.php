@@ -168,11 +168,11 @@ if ( isset($_POST['btn_apply']) ) {
    }
 }
 
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 echo "<body>\r\n";
 echo "<div id=\"overDiv\" style=\"position:absolute; visibility:hidden; z-index:1000;\"></div>\r\n";
-require("includes/header.application.inc.php");
-require("includes/menu.inc.php");
+require("includes/header_app_inc.php");
+require("includes/menu_inc.php");
 ?>
 <table style="width: 100%;">
    <tr>
@@ -285,4 +285,4 @@ require("includes/menu.inc.php");
    </td>
 </tr>
 </table>
-<?php require("includes/footer.html.inc.php"); ?>
+<?php require("includes/footer_inc.php"); ?>

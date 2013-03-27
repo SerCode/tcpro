@@ -34,7 +34,7 @@ require_once("models/login_model.php");
 require_once("models/permission_model.php");
 require_once("models/region_model.php");
 require_once("models/user_model.php");
-require_once("includes/timezones.inc.php");
+require_once("includes/timezones_inc.php");
 
 $C = new Config_model;
 $L = new Login_model;
@@ -231,11 +231,11 @@ if ( isset($_POST['btn_styles']) ) {
    header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
 }
 
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 echo "<body>\r\n";
 echo "<div id=\"overDiv\" style=\"position:absolute; visibility:hidden; z-index:1000;\"></div>\r\n";
-require("includes/header.application.inc.php");
-require("includes/menu.inc.php");
+require("includes/header_app_inc.php");
+require("includes/menu_inc.php");
 
 if (ini_get('register_globals')) {
    echo ("<script type=\"text/javascript\">alert(\"" . $LANG['admin_config_register_globals']. "\")</script>");
@@ -1267,4 +1267,4 @@ if (ini_get('register_globals')) {
    </div>
 </div>
 <script type="text/javascript">$(function() { $( "#txt_todayBorderColor, #txt_pastDayColor" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind('keyup', function(){ $(this).ColorPickerSetColor(this.value); }); });</script>
-<?php require("includes/footer.html.inc.php"); ?>
+<?php require("includes/footer_inc.php"); ?>

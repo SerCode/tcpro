@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * header.application.inc.php
+ * header_app_inc.php
  *
  * Included on the main pages to display the application header. This file can
  * be used to display an individual logo.

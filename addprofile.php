@@ -282,7 +282,7 @@ elseif (isset ($_POST['btn_done'])) {
    jsCloseAndReload("userlist.php");
 }
 
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 ?>
 <body>
    <div id="content">
@@ -708,5 +708,5 @@ require("includes/header.html.inc.php");
    </div>
 <?php
 if ($msg) echo ("<script type=\"text/javascript\">alert(\"" . $message . "\")</script>");
-require("includes/footer.html.inc.php");
+require("includes/footer_inc.php");
 ?>

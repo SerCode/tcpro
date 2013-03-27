@@ -138,10 +138,10 @@ if (!$allowed) {
    $err_long=$LANG['err_not_authorized_long'];
    $err_module=$_SERVER['SCRIPT_NAME'];
    $err_btn_close=FALSE;
-   require( "includes/header.html.inc.php" );
+   require( "includes/header_html_inc.php" );
    echo "<body>\r\n";
-   require( "includes/header.application.inc.php" );
-   require( "includes/menu.inc.php" );
+   require( "includes/header_app_inc.php" );
+   require( "includes/menu_inc.php" );
    include ("error.php");
    die();
 }
@@ -218,11 +218,11 @@ for ($i=1; $i<=12; $i++) {
    }
    $yarray[$i]['tpl'] = $M->template;
 }
-require( "includes/header.html.inc.php" );
+require( "includes/header_html_inc.php" );
 echo "<body>\r\n";
 echo "<div id=\"overDiv\" style=\"position:absolute; visibility:hidden; z-index:1000;\"></div>";
-require( "includes/header.application.inc.php" );
-require( "includes/menu.inc.php" );
+require( "includes/header_app_inc.php" );
+require( "includes/menu_inc.php" );
 ?>
 <div id="content">
    <div id="content-content">
@@ -613,4 +613,4 @@ require( "includes/menu.inc.php" );
       </table>
    </div>
 </div>
-<?php require( "includes/footer.html.inc.php" ); ?>
+<?php require( "includes/footer_inc.php" ); ?>

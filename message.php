@@ -153,7 +153,7 @@ if (isset($_POST['btn_send'])) {
       }
    }
 }
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 ?>
 <body>
    <div id="content">
@@ -303,5 +303,5 @@ require("includes/header.html.inc.php");
    </div>
 <?php
 if ($msgsent) echo ("<script type=\"text/javascript\">alert(\"" . $LANG['message_msgsent'] . "\")</script>");
-require("includes/footer.html.inc.php");
+require("includes/footer_inc.php");
 ?>

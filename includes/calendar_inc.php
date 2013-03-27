@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * calendar.html.inc.php
+ * calendar_inc.php
  *
  * Shows the month calendar(s)
  *

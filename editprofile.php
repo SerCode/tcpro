@@ -410,7 +410,7 @@ elseif (isset($_POST['btn_done'])) {
       jsCloseAndReload("userlist.php");
 }
 
-require( "includes/header.html.inc.php" );
+require( "includes/header_html_inc.php" );
 ?>
 <body>
    <script type="text/javascript">$(function() { $( "#tabs" ).tabs(); });</script>
@@ -728,19 +728,88 @@ require( "includes/header.html.inc.php" );
 
                         <!-- ABSENCES -->
                         <div id="tabs-3">
-                           <?php include( "includes/absencecount.inc.php" ); ?>
+                           <?php include( "includes/absencecount_inc.php" ); ?>
                         </div>
 
                         <!-- AVATAR -->
                         <?php if($C->readConfig("showAvatars")) { ?>
                         <div id="tabs-4">
-                           <?php include( "includes/avatar.inc.php" ); ?>
+                           <fieldset><legend><?=$LANG['ava_title']?></legend>
+                              <table style="width: 99%;">
+                                 <tr>
+                                    <td class="dlg-body" style="width: 120px;">
+                                       <?php
+                                       if ($AV->find($U->username)) { ?>
+                                          <img  style="padding-right: 10px;" src="<?=$AV->path.$AV->filename.".".$AV->fileextension?>" align="top" border="0" alt="<?=$U->username?>" title="<?=$U->username?>">
+                                       <?php }
+                                       else { ?>
+                                          <img src="<?=$AV->path?>noavatar.gif" align="top" border="0" alt="No avatar" title="No avatar">
+                                       <?php } ?>
+                                    </td>
+                                    <td class="dlg-body">
+                                       <?php
+                                       echo $LANG['ava_upload']."<br /><br />";
+                                       ?>
+                                       <input class="text" type="hidden" name="MAX_FILE_SIZE" value="<?php echo $AV->maxSize; ?>">
+                                       <input class="text" type="file" name="imgfile" size="40"><br /><br />
+                                       <input name="btn_avatar_upload" type="submit" class="button" value="<?php echo $LANG['btn_upload']; ?>">
+                                       <br />
+                                       <br />
+                                    </td>
+                                 </tr>
+                              </table>
+                           </fieldset>
                         </div>
                         <?php } ?>
 
                         <!-- OTHER -->
                         <div id="tabs-5">
-                           <?php include( "includes/other.inc.php" ); ?>
+                           <fieldset><legend><?=$LANG['other_title']?></legend>
+                              <table class="dlg-frame">
+                                 <tr>
+                                    <td class="dlg-body"><?=$C->readConfig("userCustom1")?></td>
+                                    <td class="dlg-body">
+                                       <input name="custom1" id="custom1" size="50" maxlength="80" type="text" class="text" value="<?=$U->custom1?>">
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="dlg-body"><?=$C->readConfig("userCustom2")?></td>
+                                    <td class="dlg-body">
+                                       <input name="custom2" id="custom2" size="50" maxlength="80" type="text" class="text" value="<?=$U->custom2?>">
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="dlg-body"><?=$C->readConfig("userCustom3")?></td>
+                                    <td class="dlg-body">
+                                       <input name="custom3" id="custom3" size="50" maxlength="80" type="text" class="text" value="<?=$U->custom3?>">
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="dlg-body"><?=$C->readConfig("userCustom4")?></td>
+                                    <td class="dlg-body">
+                                       <input name="custom4" id="custom4" size="50" maxlength="80" type="text" class="text" value="<?=$U->custom4?>">
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="dlg-body"><?=$C->readConfig("userCustom5")?></td>
+                                    <td class="dlg-body">
+                                       <input name="custom5" id="custom5" size="50" maxlength="80" type="text" class="text" value="<?=$U->custom5?>">
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="dlg-body"><?=$LANG['other_customFree']?></td>
+                                    <td class="dlg-body">
+                                       <textarea name="customFree" id="customFree" class="text" cols="47" rows="6"><?php if (strlen(trim($U->customFree))) echo stripslashes(str_replace("<br>","\r\n",trim($U->customFree))); else echo "";?></textarea>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="dlg-body"><?=$LANG['other_customPopup']?></td>
+                                    <td class="dlg-body">
+                                       <textarea name="customPopup" id="customPopup" class="text" cols="47" rows="6"><?php if (strlen(trim($U->customPopup))) echo stripslashes(str_replace("<br>","\r\n",trim($U->customPopup))); else echo "";?></textarea>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </fieldset>
                         </div>
 
                         <!-- MEMBERSHIP -->
@@ -902,5 +971,5 @@ require( "includes/header.html.inc.php" );
    </div>
 <?php
 if ($msg) echo ("<script type=\"text/javascript\">alert(\"".$message."\")</script>");
-require( "includes/footer.html.inc.php");
+require( "includes/footer_inc.php");
 ?>

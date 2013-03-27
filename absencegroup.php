@@ -111,7 +111,7 @@ elseif (isset($_POST['btn_done'])) {
    jsCloseAndReload("absences.php");
 
 }
-include ($CONF['app_root'] . "includes/header.html.inc.php");
+include ($CONF['app_root'] . "includes/header_html_inc.php");
 ?>
 <body>
    <div id="content">
@@ -174,4 +174,4 @@ include ($CONF['app_root'] . "includes/header.html.inc.php");
          </form>
       </div>
    </div>
-<?php include_once ("includes/footer.html.inc.php"); ?>
+<?php include_once ("includes/footer_inc.php"); ?>

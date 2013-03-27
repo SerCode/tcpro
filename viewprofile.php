@@ -87,7 +87,7 @@ else if ( isset($_POST['btn_refresh']) ) {
    $countfrom = stripslashes($_POST['cntfrom']);
    $countto = stripslashes($_POST['cntto']);
 }
-require( "includes/header.html.inc.php" );
+require( "includes/header_html_inc.php" );
 ?>
 <body>
    <div id="content">
@@ -160,7 +160,7 @@ require( "includes/header.html.inc.php" );
                <tr>
                   <td class="dlg-bodyffc">
                      <div align="center">
-                     <?php include( "includes/absencecount.inc.php" ); ?>
+                     <?php include( "includes/absencecount_inc.php" ); ?>
                      </div>
                   </td>
                </tr>
@@ -178,5 +178,5 @@ require( "includes/header.html.inc.php" );
    </div>
 <?php
 if ($msg) echo ("<script type=\"text/javascript\">alert(\"".$message."\")</script>");
-require( "includes/footer.html.inc.php" );
+require( "includes/footer_inc.php" );
 ?>

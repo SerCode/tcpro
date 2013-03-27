@@ -1613,14 +1613,14 @@ function showError($error="notallowed",$message="",$closeButton=FALSE) {
          $err_btn_close=$closeButton;
          break;
    }
-   require("includes/header.html.inc.php");
+   require("includes/header_html_inc.php");
    echo "<body>\r\n";
    if (!$closeButton) {
-      require("includes/header.application.inc.php");
-      require("includes/menu.inc.php");
+      require("includes/header_app_inc.php");
+      require("includes/menu_inc.php");
    }
    require("error.php");
-   require("includes/footer.html.inc.php");
+   require("includes/footer_inc.php");
    die();
 }
 

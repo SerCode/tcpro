@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * homepage.html.inc.php
+ * homepage_inc.php
  *
  * Conditionally included by index.php
  *
@@ -25,9 +25,12 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
             <td class="dlg-body" style="padding: 8px;">
                <?php
                $image=$C->readConfig("welcomeIcon");
-               if ($image!="No") { ?>
+               
+               if ($image!="No") 
+               { ?>
                   <img src="img/homepage/<?=$image?>" alt="" align="left" style="padding: 0px 10px 10px 0px;">
                <?php } ?>
+               
                <div style="font-weight: bold; font-size: 110%; padding-bottom: 8px;"><?=stripslashes($C->readConfig("welcomeTitle"))?></div>
                <?=html_entity_decode(stripslashes($C->readConfig("welcomeText")))?>
             </td>

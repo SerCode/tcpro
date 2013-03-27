@@ -237,10 +237,10 @@ else if ( isset($_POST['btn_delete']) ) {
    header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
 }
 
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 echo "<body>\r\n";
-require("includes/header.application.inc.php");
-require("includes/menu.inc.php");
+require("includes/header_app_inc.php");
+require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
@@ -535,4 +535,4 @@ require("includes/menu.inc.php");
    $(function() { $( "#txt_color" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); document.getElementById('color_sample').style.backgroundColor='#'+el.value; document.getElementById('sample').style.color='#'+el.value; }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind('keyup', function(){ $(this).ColorPickerSetColor(this.value); }); });
    $(function() { $( "#txt_bgcolor" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); document.getElementById('bgcolor_sample').style.backgroundColor='#'+el.value; document.getElementById('sample').style.backgroundColor='#'+el.value; }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind('keyup', function(){ $(this).ColorPickerSetColor(this.value); }); });
 </script>
-<?php require("includes/footer.html.inc.php"); ?>
+<?php require("includes/footer_inc.php"); ?>

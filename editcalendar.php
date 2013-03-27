@@ -866,7 +866,7 @@ else if (isset($_POST['btn_clear'])) {
 }
 
 $currlang = $CONF['options']['lang'];
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 $CONF['options']['lang']=$currlang;
 ?>
 <body>
@@ -1217,5 +1217,5 @@ $CONF['options']['lang']=$currlang;
 // Show javascript error message to user if there is one
 //
 if ($error_decl) echo "<script type=\"text/javascript\">alert(\"".$errormessage."\");</script>";
-require( "includes/footer.html.inc.php" );
+require( "includes/footer_inc.php" );
 ?>

@@ -161,7 +161,7 @@ else if (isset($_POST['btn_delete'])) {
    }
 }
 
-require( "includes/header.html.inc.php" );
+require( "includes/header_html_inc.php" );
 ?>
 <body>
    <div id="content">
@@ -219,5 +219,5 @@ switch ($event) {
    case "warning": echo ("<script type=\"text/javascript\">alert(\"" . $warnmsg . "\")</script>"); break;
    default: break;
 }
-require( "includes/footer.html.inc.php" );
+require( "includes/footer_inc.php" );
 ?>

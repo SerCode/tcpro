@@ -83,7 +83,7 @@ elseif (isset ($_POST['btn_done'])) {
  * Show HTML header
  * Use this file to adjust your meta tags and such
  */
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 ?>
 <body>
    <div id="content">
@@ -153,4 +153,4 @@ require("includes/header.html.inc.php");
          <br>
       </div>
    </div>
-<?php require("includes/footer.html.inc.php"); ?>
+<?php require("includes/footer_inc.php"); ?>

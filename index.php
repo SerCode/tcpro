@@ -54,17 +54,23 @@ $UO = new User_option_model;
  * Get other options
  */
 getOptions();
-if (strlen($CONF['options']['lang'])) 
-   require ("includes/lang/".$CONF['options']['lang'].".tcpro.php");
-else
-   require ("includes/lang/english.tcpro.php");
 
+if (strlen($CONF['options']['lang']))
+{ 
+   require ("includes/lang/".$CONF['options']['lang'].".tcpro.php");
+}
+else
+{
+   require ("includes/lang/english.tcpro.php");
+}
+   
 /**
  * Get the URL action request
  */
-if (isset ($_REQUEST['action'])) {
-   switch ($_REQUEST['action']) {
-
+if (isset ($_REQUEST['action'])) 
+{
+   switch ($_REQUEST['action']) 
+   {
       case 'welcome' :
          $display = "welcome";
          break;
@@ -84,7 +90,8 @@ if (isset ($_REQUEST['action'])) {
          break;
    }
 }
-else {
+else 
+{
    $display = $C->readConfig("homepage");
 }
 
@@ -92,17 +99,23 @@ else {
  * If someone is logged in and there is a popup announcement for him then
  * this overrules the content request.
  */
-if ($user=$L->checkLogin()) {
+if ($user=$L->checkLogin()) 
+{
    $uas=$UA->getAllForUser($user);
    $foundpopup=false;
-   foreach($uas as $ua) {
+   
+   foreach($uas as $ua) 
+   {
       $AN->read($ua['ats']);
-      if ($AN->popup) {
+      if ($AN->popup) 
+      {
          $foundpopup=true;
          break;
       }
    }
-   if ($foundpopup) {
+   
+   if ($foundpopup) 
+   {
       /**
        * Found popup announcements. Show announcement page if not more than 20
        * seconds have passed since login. Otherwise, if the user does not 
@@ -115,7 +128,9 @@ if ($user=$L->checkLogin()) {
       $userstamp=str_replace("-",'',$userstamp);
       $userstamp=str_replace(" ",'',$userstamp);
       $userstamp=str_replace(":",'',$userstamp);
-      if ( (floatval($nowstamp)-20) < floatval($userstamp) AND isAllowed("viewAnnouncements") ) {
+      
+      if ( (floatval($nowstamp)-20) < floatval($userstamp) AND isAllowed("viewAnnouncements") ) 
+      {
          header("Location: announcement.php?uaname=".$user);
       }
    }
@@ -124,23 +139,25 @@ if ($user=$L->checkLogin()) {
 /**
  * Show HTML top section
  */
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 echo "<body>\r\n";
-require("includes/header.application.inc.php");
-require("includes/menu.inc.php");
+require("includes/header_app_inc.php");
+require("includes/menu_inc.php");
 
 /**
  * Show content
  */
-if ( $display=="calendar" AND isAllowed("viewCalendar")) {
-   include("includes/calendar.html.inc.php");
+if ( $display=="calendar" AND isAllowed("viewCalendar")) 
+{
+   include("includes/calendar_inc.php");
 }
-else {
-   include("includes/homepage.html.inc.php");
+else 
+{
+   include("includes/homepage_inc.php");
 }
 
 /**
  * Show HTML footer
  */
-require("includes/footer.html.inc.php");
+require("includes/footer_inc.php");
 ?>

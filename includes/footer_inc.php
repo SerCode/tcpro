@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * footer.html.inc.php
+ * footer_inc.php
  *
  * Included by every page to displays the HTML footer
  *

@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * absencecount.inc.php
+ * absencecount_inc.php
  *
  * Fieldset showing absence counts. Used in editprofile and viewprofile.
  *

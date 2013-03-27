@@ -58,7 +58,7 @@ if ( isset($_POST['btn_import']) ) {
 elseif ( isset($_POST['btn_done']) ) {
    jsCloseAndReload("userlist.php");
 }
-require("includes/header.html.inc.php" );
+require("includes/header_html_inc.php" );
 ?>
 <body>
    <div id="content">
@@ -173,4 +173,4 @@ require("includes/header.html.inc.php" );
          </form>
       </div>
    </div>
-<?php require("includes/footer.html.inc.php"); ?>
+<?php require("includes/footer_inc.php"); ?>

@@ -36,7 +36,7 @@ $A = new Absence_model;
 $C = new Config_model;
 $H = new Holiday_model;
 
-require("includes/header.html.inc.php" );
+require("includes/header_html_inc.php" );
 ?>
 <body>
    <div id="content">
@@ -158,5 +158,5 @@ require("includes/header.html.inc.php" );
       </div>
    </div>
 <?php
-require("includes/footer.html.inc.php");
+require("includes/footer_inc.php");
 ?>

@@ -96,10 +96,10 @@ else if ( isset($_POST['btn_clear']) ) {
    $LOG->log("logLogLevel",$L->checkLogin(),"Log page: Log records cleared");
 }
 
-require("includes/header.html.inc.php" );
+require("includes/header_html_inc.php" );
 echo "<body>\r\n";
-require("includes/header.application.inc.php" );
-require("includes/menu.inc.php" );
+require("includes/header_app_inc.php" );
+require("includes/menu_inc.php" );
 ?>
 <script type="text/javascript">$(function() { $( "#tabs" ).tabs(); });</script>
 <div id="content">
@@ -211,4 +211,4 @@ require("includes/menu.inc.php" );
       </table>
    </div>
 </div>
-<?php require("includes/footer.html.inc.php" ); ?>
+<?php require("includes/footer_inc.php" ); ?>

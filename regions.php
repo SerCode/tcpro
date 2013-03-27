@@ -386,11 +386,11 @@ else if ( isset($_POST['btn_reg_merge']) ) {
       $LOG->log("logRegion",$L->checkLogin(),"Regions merged: ".$_POST['sRegion']." => ".$_POST['tRegion']);
    }
 }
-require("includes/header.html.inc.php");
+require("includes/header_html_inc.php");
 echo "<body>\r\n";
 echo "<div id=\"overDiv\" style=\"position:absolute; visibility:hidden; z-index:1000;\"></div>\r\n";
-require("includes/header.application.inc.php");
-require("includes/menu.inc.php");
+require("includes/header_app_inc.php");
+require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
@@ -578,4 +578,4 @@ require("includes/menu.inc.php");
       </table>
    </div>
 </div>
-<?php require("includes/footer.html.inc.php"); ?>
+<?php require("includes/footer_inc.php"); ?>

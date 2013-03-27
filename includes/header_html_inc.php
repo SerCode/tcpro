@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * header.html.inc.php
+ * header_html_inc.php
  *
  * Included on each page holding the HTML header information.
  * You may not to alter or remove these header information nor their
@@ -128,9 +128,7 @@ if (!$S->getStyle($theme)) createCSS($theme);
       <script type="text/javascript" src="includes/js/jQuery/jquery-ui-1.10.1.custom.js"></script>
       <link rel="stylesheet" href="includes/js/jQuery/themes/base/jquery-ui.css">
    <?php } ?>
-   <link rel="stylesheet" media="screen" type="text/css" href="includes/js/colorpicker/css/colorpicker.css">
-      <script type="text/javascript" src="includes/js/colorpicker/js/colorpicker.js"></script>
-      <link rel="shortcut icon" href="themes/<?=$theme?>/img/favicon.ico">
+   <link rel="shortcut icon" href="themes/<?=$theme?>/img/favicon.ico">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/menu.css">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/calendar.css" media="All" title="Summer">
 
@@ -158,7 +156,7 @@ will always rebuild the stylesheet in the database based on the core file.
 <?php print $S->getStyle($theme."_print");?>
 </style>
 
-   <!-- jQuery Tooltip -->
-   <script type="text/javascript">$(function() { $( document ).tooltip({ position: { my: "center bottom-20", at: "center top", using: function( position, feedback ) { $( this ).css( position ); $( "<div>" ) .addClass( "arrow" ) .addClass( feedback.vertical ) .addClass( feedback.horizontal ) .appendTo( this ); } } }); });</script>
+      <!-- jQuery Tooltip -->
+      <script type="text/javascript">$(function() { $( document ).tooltip({ position: { my: "center bottom-20", at: "center top", using: function( position, feedback ) { $( this ).css( position ); $( "<div>" ) .addClass( "arrow" ) .addClass( feedback.vertical ) .addClass( feedback.horizontal ) .appendTo( this ); } } }); });</script>
 
    </head>
