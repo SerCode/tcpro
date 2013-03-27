@@ -505,7 +505,7 @@ $LANG['admin_config_appsubtitle'] = 'Application Sub Title';
 $LANG['admin_config_appsubtitle_comment'] = 'Will be displayed right above the TeamCal menu.';
 $LANG['admin_config_appfootercpy'] = 'Application Footer Copyright';
 $LANG['admin_config_appfootercpy_comment'] = 'Will be displayed in the footer right above the "Powered by..." statement.';
-$LANG['admin_config_display'] = 'Calendar Display Options';
+$LANG['admin_config_display'] = 'Calendar Display';
 $LANG['admin_config_showmonths'] = 'Amount of Months';
 $LANG['admin_config_showmonths_comment'] = 'Specify here how many months you want to display in the calendar view by default.';
 $LANG['admin_config_showmonths_1'] = '1 month';
@@ -965,10 +965,9 @@ $LANG['template_user'] = '[Template User]';
 /**
  * Configuration Page
  */
-$LANG['admin_config_usergroup'] = 'User Group Assigment Page';
-$LANG['admin_config_repeatheadersafter'] = 'Repeat Headers After';
+$LANG['admin_config_repeatheadersafter'] = 'Group Assignment Page: Repeat Headers After';
 $LANG['admin_config_repeatheadersafter_comment'] = 'Sets the amount of user rows after which the header row is repeated for better readability.';
-$LANG['admin_config_repeatusernamesafter'] = 'Repeat Usernames After';
+$LANG['admin_config_repeatusernamesafter'] = 'Group Assignment Page: Repeat Usernames After';
 $LANG['admin_config_repeatusernamesafter_comment'] = 'Sets the amount of group columns after which the usernames column is repeated for better readability.';
 $LANG['admin_config_optionsbar'] = 'Options Bar';
 $LANG['admin_config_optionsbar_language'] = 'Show Language Selection';
@@ -1270,7 +1269,7 @@ $LANG['admin_config_mail_smtp'] = 'Use external SMTP server';
 $LANG['admin_config_mail_smtp_comment'] = 'Use an external SMTP server instead of the PHP mail() function to send out eMails. '.
 'This feature requires the PEAR Mail package to be installed on your server. Many hosters install this package by default. '.
 'It is also necessary for SMTP to work, that your Tcpro server can connect to the selected SMTP server via the usual SMTP ports 25, 465 or 587, '.
-'using plain SMTP or TLS/SSL protocol, depending on your settings. Many shared hosters have this communication closed down by firewall rules. '.
+'using plain SMTP or TLS/SSL protocol, depending on your settings. Some hosters have this communication closed down by firewall rules. '.
 'You will get a connection error then.';
 $LANG['admin_config_mail_smtp_host'] = 'SMTP Host';
 $LANG['admin_config_mail_smtp_host_comment'] = 'Specify the SMTP host name.';

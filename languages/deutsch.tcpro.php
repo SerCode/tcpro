@@ -505,7 +505,7 @@ $LANG['admin_config_appsubtitle'] = 'Applikations Untertitel';
 $LANG['admin_config_appsubtitle_comment'] = 'Wird direkt &uuml;ber dem TeamCal Menu angezeigt.';
 $LANG['admin_config_appfootercpy'] = 'Applikation Fu&szlig;zeilen Copyright';
 $LANG['admin_config_appfootercpy_comment'] = 'Wird in der Fu&szlig;zeile direkt &uuml;ber der "Powered by..." Zeile angezeigt.';
-$LANG['admin_config_display'] = 'Kalender Optionen';
+$LANG['admin_config_display'] = 'Kalenderanzeige';
 $LANG['admin_config_showmonths'] = 'Anzahl Monate';
 $LANG['admin_config_showmonths_comment'] = 'Mit dieser Option wird die Anzahl der Monate angegeben, die standardm&auml;&szlig;ig in der Kalenderansicht dargestellt werden.';
 $LANG['admin_config_showmonths_1'] = '1 Monat';
@@ -965,10 +965,9 @@ $LANG['template_user'] = '[Template User]';
 /**
  * Configuration Page
  */
-$LANG['admin_config_usergroup'] = 'Gruppenzuordnung Anzeige';
-$LANG['admin_config_repeatheadersafter'] = 'Kopfzeile wiederholen nach';
+$LANG['admin_config_repeatheadersafter'] = 'Gruppenzuordnung Anzeige: Kopfzeile wiederholen nach';
 $LANG['admin_config_repeatheadersafter_comment'] = 'Bestimmt die Anzahl der Reihen, nach denen die Kopfzeile wiederholt wird, um eine bessere Lesbarkeit zu erreichen.';
-$LANG['admin_config_repeatusernamesafter'] = 'Usernamen wiederholen nach';
+$LANG['admin_config_repeatusernamesafter'] = 'Gruppenzuordnung Anzeige: Usernamen wiederholen nach';
 $LANG['admin_config_repeatusernamesafter_comment'] = 'Bestimmt die Anzahl der Gruppenspalten, nach denen die Usernamen wiederholt werden, um eine bessere Lesbarkeit zu erreichen.';
 $LANG['admin_config_optionsbar'] = 'Optionsleiste';
 $LANG['admin_config_optionsbar_language'] = 'Sprachauswahl anzeigen';
@@ -1270,7 +1269,7 @@ $LANG['admin_config_mail_smtp'] = 'Externen SMTP Server benutzen';
 $LANG['admin_config_mail_smtp_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von eMails benutzt anstatt der PHP mail() '.
 'Funktion. Diese Feature erfordert das PEAR Mail Paket auf dem Tcpro Server. Viele Hoster installieren dieses Paket als Standard. '.
 'Ausserdem ist es erforderlich, dass sich der Tcro Server per SMTP oder TLS/SSL protocol mit den gebr&auuml;chlichen SMTP port 25, 465 und 587 mit dem '.
-'SMTP Server verbinden kann. Bei vielen Shared Hostern ist dies durch Firewalleinstellungen nicht m&ouml;glich. '.
+'SMTP Server verbinden kann. Bei einigen Hostern ist dies durch Firewalleinstellungen nicht m&ouml;glich. '.
 'Es erscheint dann eie Fehlermeldung.';
 $LANG['admin_config_mail_smtp_host'] = 'SMTP Host';
 $LANG['admin_config_mail_smtp_host_comment'] = 'Gib den SMTP Host Namen an.';
