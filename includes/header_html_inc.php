@@ -125,10 +125,12 @@ if (!$S->getStyle($theme)) createCSS($theme);
       <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
    <?php } else { ?>
    <script type="text/javascript" src="javascript/jQuery/jquery-1.9.1.js"></script>
-      <script type="text/javascript" src="javascript/jQuery/jquery-ui-1.10.1.custom.js"></script>
+      <script type="text/javascript" src="javascript/jQuery/jquery-ui-1.10.1.custom.min.js"></script>
       <link rel="stylesheet" href="javascript/jQuery/themes/base/jquery-ui.css">
    <?php } ?>
-   <link rel="shortcut icon" href="themes/<?=$theme?>/img/favicon.ico">
+   <link rel="stylesheet" media="screen" type="text/css" href="javascript/colorpicker/css/colorpicker.css">
+      <script type="text/javascript" src="javascript/colorpicker/js/colorpicker.js"></script>
+      <link rel="shortcut icon" href="themes/<?=$theme?>/img/favicon.ico">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/menu.css">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/calendar.css" media="All" title="Summer">
 
