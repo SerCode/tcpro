@@ -211,8 +211,8 @@ if ( isset($_POST['btn_install']) ) {
    <title>Lewe TeamCal Pro Installation</title>
    <meta http-equiv="Content-type" content="text/html;charset=iso-8859-1">
    <meta http-equiv="Content-Style-Type" content="text/css">
-   <script type="text/javascript" src="includes/js/tcpro.js"></script>
-   <script type="text/javascript" src="includes/js/ajax.js"></script>
+   <script type="text/javascript" src="javascript/tcpro.js"></script>
+   <script type="text/javascript" src="javascript/ajax.js"></script>
    <link type="text/css" rel="stylesheet" href="themes/tcpro/css/default.css">
 </head>
 <body>

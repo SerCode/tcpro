@@ -25,8 +25,8 @@ define( '_VALID_TCPRO', 1 );
 require_once ("config.tcpro.php");
 require_once ("helpers/global_helper.php");
 getOptions();
-if (strlen($CONF['options']['lang'])) require ("includes/lang/" . $CONF['options']['lang'] . ".tcpro.php");
-else                                  require ("includes/lang/english.tcpro.php");
+if (strlen($CONF['options']['lang'])) require ("languages/" . $CONF['options']['lang'] . ".tcpro.php");
+else                                  require ("languages/english.tcpro.php");
 
 require_once( "models/config_model.php" );
 require_once( "models/user_model.php" );
@@ -77,7 +77,7 @@ require("includes/menu_inc.php");
                      if ($class == "1") $class = "2";
                      else $class = "1";
                   }
-                  echo "<tr><td class=\"list" . $class . "\">Language file</td><td class=\"list" . $class . "\">" . $CONF['app_root'] . "includes/lang/" . $CONF['options']['lang'] . ".tcpro.php</td></tr>\n";
+                  echo "<tr><td class=\"list" . $class . "\">Language file</td><td class=\"list" . $class . "\">" . $CONF['app_root'] . "languages/" . $CONF['options']['lang'] . ".tcpro.php</td></tr>\n";
                   ?>
                </table>
                <br>&nbsp;

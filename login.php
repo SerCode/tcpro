@@ -56,9 +56,9 @@ $UO = new User_option_model;
  */
 getOptions();
 if (strlen($CONF['options']['lang'])) 
-   require ("includes/lang/".$CONF['options']['lang'].".tcpro.php");
+   require ("languages/".$CONF['options']['lang'].".tcpro.php");
 else
-   require ("includes/lang/english.tcpro.php");
+   require ("languages/english.tcpro.php");
 
 /**
  * Initiate view variables

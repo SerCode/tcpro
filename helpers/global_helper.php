@@ -857,7 +857,7 @@ function getMonthInfo($yr, $mt) {
  * @return array Array containing the names
  */
 function getLanguages() {
-   $mydir = "includes/lang/";
+   $mydir = "languages/";
    $handle = opendir($mydir); // open directory
    $fileidx = 0;
    while (false !== ($file = readdir($handle))) {

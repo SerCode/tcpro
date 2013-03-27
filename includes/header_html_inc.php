@@ -114,19 +114,19 @@ if (!$S->getStyle($theme)) createCSS($theme);
       <meta name="copyright" content="<?=$CONF['app_copyright_html']?>">
       <meta name="keywords" content="Lewe TeamCal Pro">
       <meta name="description" content="Lewe TeamCal Pro calendar">
-      <script type="text/javascript" src="includes/js/tcpro.js"></script>
-      <script type="text/javascript" src="includes/js/ajax.js"></script>
-      <script type="text/javascript" src="includes/js/overlib.js"></script>
-      <script type="text/javascript" src="includes/js/JSCookMenu.js"></script>
-      <script type="text/javascript" src="includes/js/JSCookMenu/ThemeOffice/theme.js"></script>
+      <script type="text/javascript" src="javascript/tcpro.js"></script>
+      <script type="text/javascript" src="javascript/ajax.js"></script>
+      <script type="text/javascript" src="javascript/overlib.js"></script>
+      <script type="text/javascript" src="javascript/JSCookMenu.js"></script>
+      <script type="text/javascript" src="javascript/JSCookMenu/ThemeOffice/theme.js"></script>
    <?php if ($C->readConfig("jQueryCDN")) { ?>
    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
       <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
       <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
    <?php } else { ?>
-   <script type="text/javascript" src="includes/js/jQuery/jquery-1.9.1.js"></script>
-      <script type="text/javascript" src="includes/js/jQuery/jquery-ui-1.10.1.custom.js"></script>
-      <link rel="stylesheet" href="includes/js/jQuery/themes/base/jquery-ui.css">
+   <script type="text/javascript" src="javascript/jQuery/jquery-1.9.1.js"></script>
+      <script type="text/javascript" src="javascript/jQuery/jquery-ui-1.10.1.custom.js"></script>
+      <link rel="stylesheet" href="javascript/jQuery/themes/base/jquery-ui.css">
    <?php } ?>
    <link rel="shortcut icon" href="themes/<?=$theme?>/img/favicon.ico">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/menu.css">
