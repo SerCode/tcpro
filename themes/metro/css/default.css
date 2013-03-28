@@ -14,11 +14,11 @@
 #header             { background-color: #083E7C; width: 100%; height: 60px; }
 #subheader          { background-color: #FF7200; width: 100%; height: 24px; }
 #subheader-content  { background-color: #FF7200; color: #FFFFFF; font-family: "Segoe UI", Arial, Helvetica, sans-serif; font-size: 10pt; font-weight: normal; position: relative; top: 2px; left: 14px; width: 80%; }
-#menubar            { background-color: #E4E1DC; color: #000000; border-top: 0px solid #F7F7F7; border-bottom: 1px solid #CCCCCC; width: 100%; height: 26px; }
-#optionsbar         { background-color: #E4E1DC; color: #000000; border-top: 0px solid #F7F7F7; border-bottom: 1px solid #CCCCCC; width: 100%; height: 30px; }
+#menubar            { background-color: #E4E1DC; color: #000000; border-top: 0px solid #F7F7F7; border-bottom: 1px solid #CCCCCC; width: 100%; min-height: 26px; }
+#optionsbar         { background-color: #E4E1DC; color: #000000; border-top: 0px solid #F7F7F7; border-bottom: 1px solid #CCCCCC; width: 100%; min-height: 30px; }
 #optionsbar-content { font-size: 11px; position: relative; left: 12px; top: 2px; }
 #optionsbar-buttons { position: relative; left: 18px; top: 4px; }
-#statusbar          { background-color: #FFFFFF; border-top: 0px solid #F7F7F7; border-bottom: 1px solid #999999; width: 100%; height: 28px; }
+#statusbar          { background-color: #FFFFFF; border-top: 0px solid #F7F7F7; border-bottom: 1px solid #999999; width: 100%; min-height: 28px; }
 #statusbar-content  { font-size: 11px; position: relative; top: 4px; left: 12px; }
 #content            { background-color: #F7F7F7; width: 100%; }
 #content-content    { padding: 12px; }

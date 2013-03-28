@@ -14,11 +14,11 @@
 #header             { background-color: #e4e1dc; background-image: url(../img/logo_bg.gif); width: 100%; height: 55px; }
 #subheader          { background-image: url(../img/bg_bluebar.gif); width: 100%; height: 24px; }
 #subheader-content  { color: #add8e6; font-size: 11px; font-weight: bold; position: relative; top: 4px; left: 12px; }
-#menubar            { background-color: #e4e1dc; border-top: 1px solid #F7F7F7; border-bottom: 1px solid #666666; width: 100%; height: 24px; }
-#optionsbar         { background-color: #e4e1dc; border-top: 1px solid #F7F7F7; border-bottom: 1px solid #666666; width: 100%; height: 26px; }
+#menubar            { background-color: #e4e1dc; border-top: 1px solid #F7F7F7; border-bottom: 1px solid #666666; width: 100%; min-height: 24px; }
+#optionsbar         { background-color: #e4e1dc; border-top: 1px solid #F7F7F7; border-bottom: 1px solid #666666; width: 100%; min-height: 26px; }
 #optionsbar-content { font-size: 11px; position: relative; left: 12px; top: 0px; }
 #optionsbar-buttons { position: relative; left: 18px; top: 2px; }
-#statusbar          { background-color: #FFFFFF; border-top: 1px solid #F7F7F7; border-bottom: 1px solid #666666; width: 100%; height: 24px; }
+#statusbar          { background-color: #FFFFFF; border-top: 1px solid #F7F7F7; border-bottom: 1px solid #666666; width: 100%; min-height: 24px; }
 #statusbar-content  { font-size: 11px; position: relative; top: 4px; left: 12px; }
 #content            { background-color: #F7F7F7; width: 100%; }
 #content-content    { padding: 12px; }
