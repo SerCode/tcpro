@@ -36,18 +36,25 @@ IMPROVEMENTS
    The charsets were not consistent, leading to unexpected results when special
    characters were submitted on the config page. Charset now set to UTF-8.
    
-05 Consistent use of SMTP mail
-   Using SMTP mail send was possible but not use all along TCP. I changed that
-   now so all mail sending activities are either PHP mail or SMTP.
+05 SMTP mail
+   Using SMTP mail send was possible but not used all along TCP. I changed that
+   now so all mail sending activities are either PHP mail or SMTP. The SMTP
+   settings now allow to chose TLS/SSL protocol.
 
 06 File structure
    Changed the file structure to more clearly distinguish between models and
    helpers.
    
-07 Login page
-   The login page is not a popup window anymore. This saves the load time for
-   a new browser window and the mimic of reloading the referrer. It is a more
-   common way after all.
+07 Popup window => Full page
+   The following pages are not a popup windows anymore. This saves the load time
+   for a new browser window and the mimic of reloading the referrer. It is a 
+   more common way after all.
+   - Login page
+   - Message center
+   
+08 Tabbed dialog on Configuration page
+   The configuration age now has a tabbed dialog for better organization.
+   
    
 ------------------------------------------------------------------------------
 [3.5.002]

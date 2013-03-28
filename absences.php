@@ -1,6 +1,6 @@
 <?php
 /**
- * aps.php
+ * abesences.php
  *
  * Displays the absence types configuration page
  *

@@ -91,7 +91,10 @@ if (isset($_POST['btn_send'])) {
             }
             $to = substr($to,0,strlen($to)-2); // remove the last ", "
          }
-         else
+         else {
+            showError("input",$LANG['message_sendto_err']);
+            die;
+         }
          break;
       }
 
@@ -105,7 +108,7 @@ if (isset($_POST['btn_send'])) {
       }
 
    }
-   elseif ($_POST['opt_msgtype']=="announcement") {
+   elseif ($_POST['opt_msgtype']=="silent" OR $_POST['opt_msgtype']=="popup") {
       /**
        * Send as Announcement
        */
@@ -114,9 +117,9 @@ if (isset($_POST['btn_send'])) {
          $user=$L->checkLogin();
          $UL->findByName($user);
          $mmsg = str_replace("\r\n", "<br>", $_POST['msg']);
-         $message = $_POST['subject']."<br><br>".$mmsg."<br><br>[".$UL->firstname." ".$UL->lastname."]";
-         if ($_POST['chk_silent']) $silent=1; else $silent=0;
-         if ($_POST['chk_popup']) $popup=1; else $popup=0;
+         $message = $_POST['subject']."<br><br>".$mmsg."<br><br>[".ltrim($UL->firstname." ".$UL->lastname)."]";
+         if ($_POST['opt_msgtype']=="silent") $silent=1; else $silent=0;
+         if ($_POST['opt_msgtype']=="popup") $popup=1; else $popup=0;
          if (!$popup && !$silent) $silent=1;
          $AN->save($tstamp,$message,$popup,$silent);
          switch ($_POST['sendto']) {
@@ -153,155 +156,146 @@ if (isset($_POST['btn_send'])) {
       }
    }
 }
+
 require("includes/header_html_inc.php");
+echo "<body>\r\n";
+require("includes/header_app_inc.php");
+require("includes/menu_inc.php");
 ?>
-<body>
-   <div id="content">
-      <div id="content-content">
-         <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
-            <table class="dlg">
-               <tr>
-                  <td class="dlg-header" colspan="3">
-                     <?php printDialogTop($LANG['teamcal_message'],"message_center.html","ico_message.png"); ?>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-body" style="padding-left: 10px;">
-                     <fieldset><legend><?=$LANG['message_frame_type']?></legend>
-                        <table style="width: 100%;">
-                           <tr>
-                              <td class="dlg-frame-body" width="50%" style="vertical-align: top;">
-                                 <input style="vertical-align: bottom;" name="opt_msgtype" type="radio" value="email" onclick="javascript: disableAnnouncement();" checked><?=$LANG['message_type_email']?><br>
-                                 <br>
-                                 <input style="vertical-align: bottom;" name="opt_msgtype" type="radio" value="announcement" onclick="javascript: enableAnnouncement();"><?=$LANG['message_type_announcement']?><br>
-                                 <input style="margin-left: 20px; vertical-align: middle;" name="chk_silent" id="chk_silent" type="checkbox" value="chk_silent" checked><span id="thisid1"><?=$LANG['message_type_announcement_silent']?></span><br>
-                                 <input style="margin-left: 20px; vertical-align: middle;" name="chk_popup" id="chk_popup" type="checkbox" value="chk_popup"><span id="thisid2"><?=$LANG['message_type_announcement_popup']?></span>
-                                 <script type="text/javascript">
-                                    <!--
-                                    var obj1 = document.getElementById('thisid1');
-                                    var obj2 = document.getElementById('thisid2');
-                                    if (document.forms[0].opt_msgtype.value=="announcement") {
-                                       document.forms[0].chk_silent.disabled=false;
-                                       document.forms[0].chk_popup.disabled=false;
-                                       obj1.style.color = '#333333';
-                                       obj2.style.color = '#333333';
-                                    } else {
-                                       document.forms[0].chk_silent.disabled=true;
-                                       document.forms[0].chk_popup.disabled=true;
-                                       obj1.style.color = '#BBBBBB';
-                                       obj2.style.color = '#BBBBBB';
-                                    }
+<div id="content">
+   <div id="content-content">
+      <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+      <table class="dlg">
+         <tr>
+            <td class="dlg-header" colspan="3">
+               <?php printDialogTop($LANG['message_title'],"message_center.html","ico_message.png"); ?>
+            </td>
+         </tr>
+            
+         <tr>
+            <td class="dlg-menu-top" colspan="2" style="text-align: left;">
+               <input name="btn_send" type="submit" class="button" value="<?=$LANG['btn_send']?>">
+               <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?message_center.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+            </td>
+         </tr>
+         
+         <?php $style="2"; ?> 
 
-                                    function enableAnnouncement()
-                                    {
-                                       var obj1 = document.getElementById('thisid1');
-                                       var obj2 = document.getElementById('thisid2');
-                                       document.forms[0].chk_silent.disabled=false;
-                                       document.forms[0].chk_popup.disabled=false;
-                                       obj1.style.color = '#333333';
-                                       obj2.style.color = '#333333';
-                                    }
+         <!-- Message type -->
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
+         <tr>
+            <td class="config-row<?=$style?>" style="width: 60%;">
+               <span class="config-key"><?=$LANG['message_type']?></span><br>
+               <span class="config-comment"><?=$LANG['message_type_desc']?></span>
+            </td>
+            <td class="config-row<?=$style?>">
+               <input style="vertical-align: bottom; margin-right: 8px;" name="opt_msgtype" type="radio" value="email" checked><?=$LANG['message_type_email']?><br>
+               <input style="vertical-align: bottom; margin-right: 8px;" name="opt_msgtype" type="radio" value="silent"><?=$LANG['message_type_announcement_silent']?><br>
+               <input style="vertical-align: bottom; margin-right: 8px;" name="opt_msgtype" type="radio" value="popup"><?=$LANG['message_type_announcement_popup']?><br>
+            </td>
+         </tr>
+         
+         <!-- Recipient -->
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
+         <tr>
+            <td class="config-row<?=$style?>" style="width: 60%;">
+               <span class="config-key"><?=$LANG['message_sendto']?></span><br>
+               <span class="config-comment"><?=$LANG['message_sendto_desc']?></span>
+            </td>
+            <td class="config-row<?=$style?>">
 
-                                    function disableAnnouncement()
-                                    {
-                                       var obj1 = document.getElementById('thisid1');
-                                       var obj2 = document.getElementById('thisid2');
-                                       document.forms[0].chk_silent.disabled=true;
-                                       document.forms[0].chk_popup.disabled=true;
-                                       obj1.style.color = '#BBBBBB';
-                                       obj2.style.color = '#BBBBBB';
-                                    }
-                                    -->
-                                 </script>
-                              </td>
-                              <td class="dlg-frame-body" width="50%">
-                                 <table class="dlg-frame">
-                                    <tr>
-                                       <td class="dlg-body">
-                                          <?php if (isAllowed("viewAllGroups")) { ?>
-                                             <input style="vertical-align: bottom;" name="sendto" id="sendtoall" type="radio" class="input" value="all"><?=$LANG['message_sendto_all']?>&nbsp;
-                                          <?php } ?>
-                                       </td>
-                                       <td class="dlg-body">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                       <td class="dlg-body">
-                                          <input style="vertical-align: bottom;" name="sendto" id="sendtogroup" type="radio" class="input" value="group"><?=$LANG['message_sendto_group']?>&nbsp;
-                                       </td>
-                                       <td class="dlg-body">
-                                          <select name="groupto" id="groupto" class="select">
-                                          <?php
-                                          $groups=$G->getAll(TRUE); // TRUE = exclude hidden
-                                          foreach( $groups as $group ) {
-                                             if (isAllowed("viewAllGroups")) {
-                                                if ($UO->true($user, "owngroupsonly")) {
-                                                   if ( $UG->isMemberOfGroup($user, $group['groupname']) OR $UG->isGroupManagerOfGroup($user, $group['groupname'])) { ?>
-                                                      <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
-                                                   <?php }
-                                                } ?>
-                                                <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
-                                             <?php }
-                                          }
-                                          ?>
-                                          </select>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="dlg-body">
-                                          <input style="vertical-align: bottom;" name="sendto" id="sendtouser" type="radio" class="input" value="user" CHECKED><?=$LANG['message_sendto_user']?>&nbsp;
-                                       </td>
-                                       <td class="dlg-body">
-                                          <select name="userto[]" id="userto" class="select" multiple="multiple" size="5">
-                                          <?php
-                                          $users = $U->getAll();
-                                          foreach ($users as $row) {
-                                             if ( isset($user) && $user!=$row['username'] ) {
-                                                if ( $row['firstname']!="" ) $showname = $row['lastname'].", ".$row['firstname'];
-                                                else $showname = $row['lastname']; ?>
-                                                <option class="option" value="<?=$row['username']?>"><?=$showname?></option>
-                                             <?php }
-                                          }
-                                          ?>
-                                          </select>
-                                       </td>
-                                    </tr>
-                                 </table>
-                              </td>
-                           </tr>
-                        </table>
-                     </fieldset>
-
-                     <fieldset><legend><?=$LANG['message_frame_message']?></legend>
-                        <table class="dlg-frame">
-                           <tr>
-                              <td class="dlg-body" width="80"><strong><?=$LANG['message_subject_caption']?></strong></td>
-                              <td class="dlg-body">
-                                 <input name="subject" id="subject" size="53" type="text" class="text" value="<?=$LANG['message_subject']?>"><br>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['message_msg_caption']?></strong></td>
-                              <td class="dlg-body">
-                                 <textarea name="msg" id="msg" class="text" ROWS="10" COLS="50"><?=$LANG['message_msg'] . "\r\n"?></textarea>
-                                 <br>
-                              </td>
-                           </tr>
-                        </table>
-                     </fieldset>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-menu">
-                     <input name="btn_send" type="submit" class="button" value="<?=$LANG['btn_send']?>">
-                     <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?message_center.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
-                     <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
-                  </td>
-               </tr>
-            </table>
-         </form>
-      </div>
+               <table>
+                  <tr>
+                     <td style="vertical-align: top; padding-bottom: 8px;">
+                        <?php if (isAllowed("viewAllGroups")) { ?>
+                           <input style="vertical-align: bottom;" name="sendto" id="sendtoall" type="radio" class="input" value="all"><?=$LANG['message_sendto_all']?>&nbsp;
+                        <?php } ?>
+                     </td>
+                     <td style="vertical-align: top; padding-bottom: 8px;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td style="vertical-align: top; padding-bottom: 8px;">
+                        <input style="vertical-align: bottom;" name="sendto" id="sendtogroup" type="radio" class="input" value="group"><?=$LANG['message_sendto_group']?>&nbsp;
+                     </td>
+                     <td style="vertical-align: top; padding-bottom: 8px;">
+                        <select name="groupto" id="groupto" class="select">
+                        <?php
+                        $groups=$G->getAll(TRUE); // TRUE = exclude hidden
+                        foreach( $groups as $group ) {
+                           if (isAllowed("viewAllGroups")) {
+                              if ($UO->true($user, "owngroupsonly")) {
+                                 if ( $UG->isMemberOfGroup($user, $group['groupname']) OR $UG->isGroupManagerOfGroup($user, $group['groupname'])) { ?>
+                                    <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
+                                 <?php }
+                              } ?>
+                              <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
+                           <?php }
+                        }
+                        ?>
+                        </select>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td style="vertical-align: top; padding-bottom: 8px;">
+                        <input style="vertical-align: bottom;" name="sendto" id="sendtouser" type="radio" class="input" value="user" CHECKED><?=$LANG['message_sendto_user']?>&nbsp;
+                     </td>
+                     <td style="vertical-align: top; padding-bottom: 8px;">
+                        <select name="userto[]" id="userto" class="select" multiple="multiple" size="5">
+                        <?php
+                        $users = $U->getAll();
+                        foreach ($users as $row) {
+                           if ( isset($user) && $user!=$row['username'] ) {
+                              if ( $row['firstname']!="" ) $showname = $row['lastname'].", ".$row['firstname'];
+                              else $showname = $row['lastname']; ?>
+                              <option class="option" value="<?=$row['username']?>"><?=$showname?></option>
+                           <?php }
+                        }
+                        ?>
+                        </select>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         
+         <!-- Message -->
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
+         <tr>
+            <td class="config-row<?=$style?>" style="width: 60%;">
+               <span class="config-key"><?=$LANG['message_msg']?></span><br>
+               <span class="config-comment"><?=$LANG['message_msg_desc']?></span>
+            </td>
+            <td class="config-row<?=$style?>">
+               <table>
+                  <tr>
+                     <td style="vertical-align: middle;"><strong><?=$LANG['message_msg_subject']?></strong></td>
+                     <td>
+                        <input name="subject" id="subject" size="53" type="text" class="text" value="<?=$LANG['message_msg_subject_sample']?>"><br>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td style="vertical-align: top;"><strong><?=$LANG['message_msg_body']?></strong></td>
+                     <td>
+                        <textarea name="msg" id="msg" class="text" ROWS="10" COLS="50"><?=$LANG['message_msg_body_sample'] . "\r\n"?></textarea>
+                        <br>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         
+         <tr>
+            <td class="dlg-menu" colspan="2" style="text-align: left;">
+               <input name="btn_send" type="submit" class="button" value="<?=$LANG['btn_send']?>">
+               <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?message_center.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+            </td>
+         </tr>
+         
+      </table>
+      </form>
    </div>
-<?php
+</div>
+<?php 
 if ($msgsent) echo ("<script type=\"text/javascript\">alert(\"" . $LANG['message_msgsent'] . "\")</script>");
-require("includes/footer_inc.php");
+require("includes/footer_inc.php"); 
 ?>

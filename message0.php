@@ -1,0 +1,307 @@
+<?php
+/**
+ * message.php
+ *
+ * Displays and runs the message dialog
+ *
+ * @package TeamCalPro
+ * @version 3.6.000
+ * @author George Lewe
+ * @copyright Copyright (c) 2004-2013 by George Lewe
+ * @link http://www.lewe.com
+ * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
+ */
+
+//echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+
+/**
+ * Set parent flag to control access to child scripts
+ */
+define( '_VALID_TCPRO', 1 );
+
+/**
+ * Includes
+ */
+require_once ("config.tcpro.php");
+require_once ("helpers/global_helper.php");
+getOptions();
+if (strlen($CONF['options']['lang'])) require ("languages/" . $CONF['options']['lang'] . ".tcpro.php");
+else                                  require ("languages/english.tcpro.php");
+
+require_once( "models/announcement_model.php" );
+require_once( "models/config_model.php" );
+require_once( "models/group_model.php" );
+require_once( "models/log_model.php" );
+require_once( "models/login_model.php" );
+require_once( "models/user_model.php" );
+require_once( "models/user_announcement_model.php" );
+require_once( "models/user_group_model.php" );
+
+$AN  = new Announcement_model;
+$C   = new Config_model;
+$G   = new Group_model;
+$LOG = new Log_model;
+$L   = new Login_model;
+$U   = new User_model;
+$UA  = new User_announcement_model;
+$UL  = new User_model;
+$UG  = new User_group_model;
+
+/**
+ * Check if allowed
+ */
+if (!isAllowed("useMessageCenter")) showError("notallowed", TRUE);
+
+$msgsent = false;
+$user=$L->checkLogin();
+/**
+ * =========================================================================
+ * SEND
+ */
+if (isset($_POST['btn_send'])) {
+
+   if ($_POST['opt_msgtype']=="email") {
+      /**
+       * Send as e-Mail
+       */
+      $to="";
+      switch ($_POST['sendto']) {
+      case "all":
+         $query  = "SELECT * FROM `".$U->table."`;";
+         $result = $U->db->db_query($query);
+         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
+            if (strlen($row['email'])) $to.=$row['email'].',';
+         }
+         break;
+
+      case "group":
+         $query = "SELECT ".$U->table.".* FROM ".$U->table.",".$UG->table .
+                  " WHERE ".$UG->table.".groupname='".$_POST['groupto']."'" .
+                  " AND ".$U->table.".username=".$UG->table.".username";
+         $result = $U->db->db_query($query);
+         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
+            if (strlen($row['email'])) $to.=$row['email'].",";
+         }
+         break;
+
+      case "user":
+         if (isset($_POST['userto'])) {
+            foreach ($_POST['userto'] as $uto) {
+               if ($U->findByName($uto) && strlen($U->email) ) $to.=$U->email.", ";
+            }
+            $to = substr($to,0,strlen($to)-2); // remove the last ", "
+         }
+         else
+         break;
+      }
+
+      $user=$L->checkLogin();
+      $UL->findByName($user);
+      if (strlen($UL->email)) $from=$UL->email; else $from='';
+
+      if ( sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), $from) ) {
+         $msgsent = true;
+         $LOG->log("logAnnouncement",$L->checkLogin(),"e-Mail message sent by ".$UL->username." to ".$to);
+      }
+
+   }
+   elseif ($_POST['opt_msgtype']=="announcement") {
+      /**
+       * Send as Announcement
+       */
+      if ( strlen($_POST['msg']) ) {
+         $tstamp = date("YmdHis");
+         $user=$L->checkLogin();
+         $UL->findByName($user);
+         $mmsg = str_replace("\r\n", "<br>", $_POST['msg']);
+         $message = $_POST['subject']."<br><br>".$mmsg."<br><br>[".$UL->firstname." ".$UL->lastname."]";
+         if ($_POST['chk_silent']) $silent=1; else $silent=0;
+         if ($_POST['chk_popup']) $popup=1; else $popup=0;
+         if (!$popup && !$silent) $silent=1;
+         $AN->save($tstamp,$message,$popup,$silent);
+         switch ($_POST['sendto']) {
+         case "all":
+            $to = "all";
+            $query  = "SELECT username FROM `".$U->table."`;";
+            $result = $U->db->db_query($query);
+            while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
+               $UA->assign($tstamp,$row['username']);
+            }
+            break;
+         case "group":
+            $to = "group '".$_POST['groupto']."'";
+            $query = "SELECT ".$U->table.".* FROM ".$U->table.",".$UG->table .
+                     " WHERE ".$UG->table.".groupname='".$_POST['groupto']."'" .
+                     " AND ".$U->table.".username=".$UG->table.".username";
+            $result = $U->db->db_query($query);
+            while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
+               $UA->assign($tstamp,$row['username']);
+            }
+            break;
+         case "user":
+            if (isset($_POST['userto'])) {
+               $to = "user(s) ";
+               foreach ($_POST['userto'] as $uto) {
+                  $to .= "'".$uto."', ";
+                  if ( $U->findByName($uto) ) $UA->assign($tstamp,$U->username);
+               }
+            }
+            break;
+         }
+         $msgsent = true;
+         $LOG->log("logAnnouncement",$L->checkLogin(),"Announcement ".$tstamp." sent by ".$UL->username." to ".$to);
+      }
+   }
+}
+require("includes/header_html_inc.php");
+?>
+<body>
+   <div id="content">
+      <div id="content-content">
+         <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+            <table class="dlg">
+               <tr>
+                  <td class="dlg-header" colspan="3">
+                     <?php printDialogTop($LANG['teamcal_message'],"message_center.html","ico_message.png"); ?>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="dlg-body" style="padding-left: 10px;">
+                     <fieldset><legend><?=$LANG['message_frame_type']?></legend>
+                        <table style="width: 100%;">
+                           <tr>
+                              <td class="dlg-frame-body" width="50%" style="vertical-align: top;">
+                                 <input style="vertical-align: bottom;" name="opt_msgtype" type="radio" value="email" onclick="javascript: disableAnnouncement();" checked><?=$LANG['message_type_email']?><br>
+                                 <br>
+                                 <input style="vertical-align: bottom;" name="opt_msgtype" type="radio" value="announcement" onclick="javascript: enableAnnouncement();"><?=$LANG['message_type_announcement']?><br>
+                                 <input style="margin-left: 20px; vertical-align: middle;" name="chk_silent" id="chk_silent" type="checkbox" value="chk_silent" checked><span id="thisid1"><?=$LANG['message_type_announcement_silent']?></span><br>
+                                 <input style="margin-left: 20px; vertical-align: middle;" name="chk_popup" id="chk_popup" type="checkbox" value="chk_popup"><span id="thisid2"><?=$LANG['message_type_announcement_popup']?></span>
+                                 <script type="text/javascript">
+                                    <!--
+                                    var obj1 = document.getElementById('thisid1');
+                                    var obj2 = document.getElementById('thisid2');
+                                    if (document.forms[0].opt_msgtype.value=="announcement") {
+                                       document.forms[0].chk_silent.disabled=false;
+                                       document.forms[0].chk_popup.disabled=false;
+                                       obj1.style.color = '#333333';
+                                       obj2.style.color = '#333333';
+                                    } else {
+                                       document.forms[0].chk_silent.disabled=true;
+                                       document.forms[0].chk_popup.disabled=true;
+                                       obj1.style.color = '#BBBBBB';
+                                       obj2.style.color = '#BBBBBB';
+                                    }
+
+                                    function enableAnnouncement()
+                                    {
+                                       var obj1 = document.getElementById('thisid1');
+                                       var obj2 = document.getElementById('thisid2');
+                                       document.forms[0].chk_silent.disabled=false;
+                                       document.forms[0].chk_popup.disabled=false;
+                                       obj1.style.color = '#333333';
+                                       obj2.style.color = '#333333';
+                                    }
+
+                                    function disableAnnouncement()
+                                    {
+                                       var obj1 = document.getElementById('thisid1');
+                                       var obj2 = document.getElementById('thisid2');
+                                       document.forms[0].chk_silent.disabled=true;
+                                       document.forms[0].chk_popup.disabled=true;
+                                       obj1.style.color = '#BBBBBB';
+                                       obj2.style.color = '#BBBBBB';
+                                    }
+                                    -->
+                                 </script>
+                              </td>
+                              <td class="dlg-frame-body" width="50%">
+                                 <table class="dlg-frame">
+                                    <tr>
+                                       <td class="dlg-body">
+                                          <?php if (isAllowed("viewAllGroups")) { ?>
+                                             <input style="vertical-align: bottom;" name="sendto" id="sendtoall" type="radio" class="input" value="all"><?=$LANG['message_sendto_all']?>&nbsp;
+                                          <?php } ?>
+                                       </td>
+                                       <td class="dlg-body">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                       <td class="dlg-body">
+                                          <input style="vertical-align: bottom;" name="sendto" id="sendtogroup" type="radio" class="input" value="group"><?=$LANG['message_sendto_group']?>&nbsp;
+                                       </td>
+                                       <td class="dlg-body">
+                                          <select name="groupto" id="groupto" class="select">
+                                          <?php
+                                          $groups=$G->getAll(TRUE); // TRUE = exclude hidden
+                                          foreach( $groups as $group ) {
+                                             if (isAllowed("viewAllGroups")) {
+                                                if ($UO->true($user, "owngroupsonly")) {
+                                                   if ( $UG->isMemberOfGroup($user, $group['groupname']) OR $UG->isGroupManagerOfGroup($user, $group['groupname'])) { ?>
+                                                      <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
+                                                   <?php }
+                                                } ?>
+                                                <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
+                                             <?php }
+                                          }
+                                          ?>
+                                          </select>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="dlg-body">
+                                          <input style="vertical-align: bottom;" name="sendto" id="sendtouser" type="radio" class="input" value="user" CHECKED><?=$LANG['message_sendto_user']?>&nbsp;
+                                       </td>
+                                       <td class="dlg-body">
+                                          <select name="userto[]" id="userto" class="select" multiple="multiple" size="5">
+                                          <?php
+                                          $users = $U->getAll();
+                                          foreach ($users as $row) {
+                                             if ( isset($user) && $user!=$row['username'] ) {
+                                                if ( $row['firstname']!="" ) $showname = $row['lastname'].", ".$row['firstname'];
+                                                else $showname = $row['lastname']; ?>
+                                                <option class="option" value="<?=$row['username']?>"><?=$showname?></option>
+                                             <?php }
+                                          }
+                                          ?>
+                                          </select>
+                                       </td>
+                                    </tr>
+                                 </table>
+                              </td>
+                           </tr>
+                        </table>
+                     </fieldset>
+
+                     <fieldset><legend><?=$LANG['message_frame_message']?></legend>
+                        <table class="dlg-frame">
+                           <tr>
+                              <td class="dlg-body" width="80"><strong><?=$LANG['message_subject_caption']?></strong></td>
+                              <td class="dlg-body">
+                                 <input name="subject" id="subject" size="53" type="text" class="text" value="<?=$LANG['message_subject']?>"><br>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="dlg-body"><strong><?=$LANG['message_msg_caption']?></strong></td>
+                              <td class="dlg-body">
+                                 <textarea name="msg" id="msg" class="text" ROWS="10" COLS="50"><?=$LANG['message_msg'] . "\r\n"?></textarea>
+                                 <br>
+                              </td>
+                           </tr>
+                        </table>
+                     </fieldset>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="dlg-menu">
+                     <input name="btn_send" type="submit" class="button" value="<?=$LANG['btn_send']?>">
+                     <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?message_center.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+                     <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
+                  </td>
+               </tr>
+            </table>
+         </form>
+      </div>
+   </div>
+<?php
+if ($msgsent) echo ("<script type=\"text/javascript\">alert(\"" . $LANG['message_msgsent'] . "\")</script>");
+require("includes/footer_inc.php");
+?>

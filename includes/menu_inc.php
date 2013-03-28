@@ -87,7 +87,7 @@ $m = buildMenu();
          ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_profile']?>','javascript:openPopup(\'editprofile.php?referrer=index&username=<?=addslashes($UL->username)?>&lang=<?=$CONF['options']['lang']?>\',\'profile\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=700\');',null,null],
          <?php }
          if ($m['mnu_tools_message']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_message.png" />','<?=$LANG['mnu_tools_message']?>','javascript:openPopup(\'message.php?lang=<?=$CONF['options']['lang']?>\',\'message\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=500,height=600\');',null,null],
+         ['<img src="themes/<?=$theme?>/img/menu/ico_message.png" />','<?=$LANG['mnu_tools_message']?>','message.php?lang=<?=$CONF['options']['lang']?>',null,null],
          <?php }
          if ($m['mnu_tools_webmeasure']) { ?>
          ['<img src="themes/<?=$theme?>/img/menu/ico_calc.png" />','<?=$LANG['mnu_tools_webmeasure']?>','javascript:openPopup(\'http://measure.lewe.com\',\'message\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=820,height=480\');',null,null],

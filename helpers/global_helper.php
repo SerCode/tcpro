@@ -1486,6 +1486,7 @@ function sendEmail($to, $subject, $body, $from='')
    require_once "Mail.php";
    require_once ($CONF['app_root']."models/config_model.php");
    $C = new Config_model;
+   error_reporting(E_ALL ^ E_STRICT);
        
    if (!strlen($from)) $from = $C->readConfig("mailFrom");
    
@@ -1514,7 +1515,7 @@ function sendEmail($to, $subject, $body, $from='')
          'Subject' => $subject
       );
    
-      $smtp = Mail::factory(
+      $smtp =& Mail::factory(
          'smtp',
          array (
             'host' => $ssl.$host,
@@ -1527,17 +1528,19 @@ function sendEmail($to, $subject, $body, $from='')
    
       $mail = $smtp->send($to, $headers, $body);
    
-      if (PEAR::isError($mail)) 
+      if ($error =& PEAR::isError($mail)) 
       {
          /*
           * Display SMTP error in a Javascript popup
           */
-         echo "<script type=\"text/javascript\">".
-                 "alert(\"SMTP error:\\n".$mail->getMessage()."\\n\\n".
-                         "From: ".$headers['From']."\\n".
-                         "To: ".$headers['To']."\\n".
-                         "Subject: ".$headers['Subject']."\");".
-              "</script>";
+         $err=$mail->getMessage();
+         $err.="<table style=\"border-collapse: collapse;\">
+                  <tr><td style=\"border: 1px solid #BBBBBB;\">From:</td><td style=\"border: 1px solid #BBBBBB;\">".$headers['From']."</td></tr>
+                  <tr><td style=\"border: 1px solid #BBBBBB;\">To:</td><td style=\"border: 1px solid #BBBBBB;\">".$headers['To']."</td></tr>
+                  <tr><td style=\"border: 1px solid #BBBBBB;\">Subject:</td><td style=\"border: 1px solid #BBBBBB;\">".$headers['Subject']."</td></tr>
+                  <tr><td style=\"border: 1px solid #BBBBBB;\">Body:</td><td style=\"border: 1px solid #BBBBBB;\">".$body."</td></tr>
+               </table>";
+         showError("smtp",$err);
          return FALSE;
       }
       else 
@@ -1588,6 +1591,12 @@ function setRequests() {
 function showError($error="notallowed",$message="",$closeButton=FALSE) {
    global $CONF, $LANG, $U;
    switch($error) {
+      case "smtp":
+         $err_short="SMTP Error";
+         $err_long=$message;
+         $err_module=$_SERVER['SCRIPT_NAME'];
+         $err_btn_close=$closeButton;
+         break;
       case "notarget":
          $err_short=$LANG['err_notarget_short'];
          $err_long=$LANG['err_notarget_long'];

@@ -302,25 +302,6 @@ $LANG['notification_decl_sign'].= "Wenn du der Manager der betroffenen Gruppe bi
 $LANG['notification_decl_sign'].= "Deine TeamCal Pro Administration.\n";
 
 /**
- * Message Dialog
- */
-$LANG['teamcal_message'] = 'TeamCal Pro Message Center';
-$LANG['message_frame_type'] = 'Nachrichtentyp und Empf&auml;nger';
-$LANG['message_type_email'] = 'Als e-Mail senden';
-$LANG['message_type_announcement'] = 'Als Ank&uuml;ndigung senden';
-$LANG['message_type_announcement_silent'] = 'Stille Ank&uuml;ndigung';
-$LANG['message_type_announcement_popup'] = 'Popup Ank&uuml;ndigung';
-$LANG['message_frame_message'] = 'Nachricht';
-$LANG['message_sendto_all'] = 'Alle';
-$LANG['message_sendto_group'] = 'Gruppe:';
-$LANG['message_sendto_user'] = 'User:';
-$LANG['message_subject_caption'] = 'Betreff:';
-$LANG['message_subject'] = 'TeamCal Pro Nachricht';
-$LANG['message_msg_caption'] = 'Nachricht:';
-$LANG['message_msg'] = '...deine Nachricht hier...';
-$LANG['message_msgsent'] = 'Die e-Mail wurde gesendet.';
-
-/**
  * Login Dialog
  */
 $LANG['login_login'] = 'TeamCal Pro Login';
@@ -1757,4 +1738,28 @@ $LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Tabellen optimieren';
  */
 $LANG['admin_config_mail_smtp_ssl'] = 'SMTP TLS/SSL Protokoll';
 $LANG['admin_config_mail_smtp_ssl_comment'] = 'TLS/SSL Protokoll f&uuml;r die SMTP Verbindung benutzen.';
+
+/**
+ * Message Dialog
+ */
+$LANG['message_title'] = 'TeamCal Pro Nachrichtencenter';
+$LANG['message_type'] = 'Nachrichtstyp';
+$LANG['message_type_desc'] = 'Hier kann der Nachrichtentyp ausgew&auml;hlt werden. Eine stille Nachricht wird nur auf die Nachrichtenseite gesetzt. '.
+'Eine Popup Nachricht wird auch auf die Nachrichtenseite gesetzt, letztere wird aber beim Login jedes Empf&auml;ngers gleich angezeigt.';
+$LANG['message_type_email'] = 'e-Mail';
+$LANG['message_type_announcement_silent'] = 'Stille Nachricht';
+$LANG['message_type_announcement_popup'] = 'Popup Nachricht';
+$LANG['message_sendto'] = 'Empf&auml;nger';
+$LANG['message_sendto_desc'] = 'W&auml;hle hier den oder die Empf&auml;nger der Nachricht aus.';
+$LANG['message_sendto_all'] = 'Alle';
+$LANG['message_sendto_group'] = 'Gruppe:';
+$LANG['message_sendto_user'] = 'Nutzer:';
+$LANG['message_msg'] = 'Nachricht';
+$LANG['message_msg_desc'] = 'Gebe Betreff und Nachricht hier ein.';
+$LANG['message_msg_subject'] = 'Betreff';
+$LANG['message_msg_subject_sample'] = 'TeamCal Pro Message';
+$LANG['message_msg_body'] = 'Text';
+$LANG['message_msg_body_sample'] = '...dein Text hier...';
+$LANG['message_msgsent'] = 'Die Nachricht wurde gesendet.';
+$LANG['message_sendto_err'] = 'Es muss mindestens ein Nutzer ausgew&auml;hlt werden.';
 ?>
