@@ -1092,7 +1092,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_mail_smtp_password_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <input class="text" name="txt_mailSMTPpassword" id="txt_mailSMTPpassword" type="text" size="50" value="<?=$C->readConfig("mailSMTPpassword")?>">
+                              <input class="text" name="txt_mailSMTPpassword" type="password" size="50" value="<?=$C->readConfig("mailSMTPpassword")?>">
                            </td>
                         </tr>
                

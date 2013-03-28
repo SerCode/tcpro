@@ -1507,7 +1507,7 @@ function sendEmail($to, $subject, $body, $from='')
       /*
        * SMTP requires a valid email address in the From field
        */
-      if (!validEmail($from)) $to=$C->readConfig("mailReply");
+      if (!validEmail($from)) $from=$C->readConfig("mailReply");
    
       $headers = array (
          'From' => $from,

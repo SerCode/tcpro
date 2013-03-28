@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id$
+ * $Id:$
  * about.php
  *
  * This file displays the About window.
@@ -16,7 +16,7 @@
  */
 
 /**
- * Set parent flag to control access to child scriptss
+ * Set parent flag to control access to child scripts
  */
 define( '_VALID_TCPRO', 1 );
 

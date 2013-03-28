@@ -165,7 +165,7 @@ $m = buildMenu();
       _cmSplit,
       [null,'<?=$LANG['mnu_help']?>',null,null,null,
          <?php if ($m['mnu_help_legend']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_legend.png" />','<?=$LANG['mnu_help_legend']?>','javascript:openPopup(\'legend.php?lang=<?=$CONF['options']['lang']?>\',\'legend\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=500,height=500\');',null,null],
+         ['<img src="themes/<?=$theme?>/img/menu/ico_legend.png" />','<?=$LANG['mnu_help_legend']?>','javascript:openPopup(\'legend.php?lang=<?=$CONF['options']['lang']?>\',\'legend\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=500,height=540\');',null,null],
          <?php } ?>
          ['<img src="themes/<?=$theme?>/img/menu/ico_help.png" />','<?=$LANG['mnu_help_help']?>',null,null,null,
             ['<img src="themes/<?=$theme?>/img/menu/ico_help.png" />','<?=$LANG['mnu_help_help_manualbrowser']?>','javascript:openPopup(\'help/<?=$CONF['options']['helplang']?>/html/index.html\',\'help\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=800,height=500\');',null,null],
