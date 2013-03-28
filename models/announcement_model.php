@@ -127,9 +127,8 @@ if (!class_exists("Announcement_model")) {
        * @return boolean Optimize result
        */ 
       function optimize() {
-         $result1 = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
-         $result2 = $this->db->db_query('OPTIMIZE TABLE '.$this->uatable);
-         return $result1+$result2;
+         $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
+         return $result;
       }
             
    }

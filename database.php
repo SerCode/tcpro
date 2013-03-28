@@ -268,7 +268,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
       if ( isset($_POST['chkDBDeleteOrphAnnouncements']) ) {
          $announcements = $AN->getAll();
          foreach ($announcements as $row) {
-            if (!count($UA->getAllForTimestamp($row['timestamp'])) $AN->delete($row['timestamp']);
+            if (!count($UA->getAllForTimestamp($row['timestamp']))) $AN->delete($row['timestamp']);
          }
          /**
           * Log this event
