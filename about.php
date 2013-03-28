@@ -1,5 +1,6 @@
 <?php
 /**
+ * $Id$
  * about.php
  *
  * This file displays the About window.
