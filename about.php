@@ -15,7 +15,7 @@
  */
 
 /**
- * Set parent flag to control access to child scripts
+ * Set parent flag to control access to child scriptss
  */
 define( '_VALID_TCPRO', 1 );
 
