@@ -17,62 +17,6 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 
 // ---------------------------------------------------------------------------
 /**
- * Checks whether a user is authorized in the active permission scheme
- *
- * @param string $scheme Permission scheme to check
- * @param string $permission Permission to check
- * @param string $targetuser Some features reference data of other users. This is the target
- * @return boolean True if allowed, false if not.
- */
-function isAllowed($permission='') {
-
-   global $CONF;
-
-   require_once ($CONF['app_root'] . "models/config_model.php");
-   require_once ($CONF['app_root'] . "models/login_model.php");
-   require_once ($CONF['app_root'] . "models/permission_model.php");
-   require_once ($CONF['app_root'] . "models/user_model.php");
-
-   $C = new Config_model;
-   $L = new Login_model;
-   $P = new Permission_model;
-   $UL = new User_model;
-
-   $pscheme = $C->readConfig("permissionScheme");
-
-   if ($currentuser = $L->checkLogin()) {
-      /**
-       * Someone is logged in. Check permission by role.
-       */
-      $UL->findByName($currentuser);
-      if ($UL->checkUserType($CONF['UTADMIN'])) {
-         //echo "<script type=\"text/javascript\">alert(\"Admin: ".$permission."=".$P->isAllowed($pscheme, $permission, "admin")."\");</script>";
-         return $P->isAllowed($pscheme, $permission, "admin");
-      }
-      else if ($UL->checkUserType($CONF['UTDIRECTOR'])) {
-         //echo "<script type=\"text/javascript\">alert(\"Director: ".$permission."=".$P->isAllowed($pscheme, $permission, "director")."\");</script>";
-         return $P->isAllowed($pscheme, $permission, "director");
-      }
-      else if ($UL->checkUserType($CONF['UTMANAGER'])) {
-         //echo "<script type=\"text/javascript\">alert(\"Manager: ".$permission."=".$P->isAllowed($pscheme, $permission, "manager")."\");</script>";
-         return $P->isAllowed($pscheme, $permission, "manager");
-      }
-      else {
-         //echo "<script type=\"text/javascript\">alert(\"User: ".$permission."=".$P->isAllowed($pscheme, $permission, "user")."\");</script>";
-         return $P->isAllowed($pscheme, $permission, "user");
-      }
-   }
-   else {
-      /**
-       * It's a public viewer
-       */
-      //echo "<script type=\"text/javascript\">alert(\"Public: ".$permission."=".$P->isAllowed($pscheme, $permission, "public")."\");</script>";
-      return $P->isAllowed($pscheme, $permission, "public");
-   }
-}
-
-// ---------------------------------------------------------------------------
-/**
  * Builds the menu based on permissions
  *
  * @return array menu
@@ -678,6 +622,52 @@ function createMonthTemplate($yr, $mt) {
 
 // ---------------------------------------------------------------------------
 /**
+ * Creates <div> tag with the user popup message for jQuery.tipsy
+ *
+ * @param array $Usr Instance of user_model
+ *
+ * @return string Div with popup HTML
+ */
+function createPopup($id, $text, $theme) {
+   global $LANG;
+   $div  = '<div id="popup-'.$id.'" style="display: none;">';
+   $div .= '
+      <table class="tt">
+         <tr>
+            <td class="tt-caption"><img src="themes/'.$theme.'/img/ico_daynote.png" style="padding-right: 6px; vertical-align: middle;" alt="ico_daynote">'.$LANG['tt_user_title'].'</td>
+         </tr>
+         <tr>
+            <td class="tt-text">'.$text.'</td>
+         </tr>
+      </table>
+   ';
+   
+   $div .= "
+      <script type='text/javascript'>
+      $(function() {
+         $('#td-".$id."').tipsy({
+            delayIn: 0,      // delay before showing tooltip (ms)
+            delayOut: 0,     // delay before hiding tooltip (ms)
+            fade: true,     // fade tooltips in/out?
+            fallback: '',    // fallback text to use when no tooltip text
+            gravity: 'nw',    // gravity
+            html: true,      // is tooltip content HTML?
+            live: false,     // use live event support?
+            offset: 20,      // pixel offset of tooltip from element
+            opacity: 1.0,    // opacity of tooltip
+            title:function(){return $('#popup-".$id."').html();},  // attribute/callback containing tooltip text
+            trigger: 'hover' // how tooltip is triggered - hover | focus | manual
+         });
+      });
+      </script>
+   ";
+   
+   $div .= '</div>';
+   return $div;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Checks wether the maximum absences threshold is reached
  *
  * @param   string $year   Year of the day to count for
@@ -1126,6 +1116,62 @@ function getThemes() {
    }
    closedir($handle);
    return $dirarray;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Checks whether a user is authorized in the active permission scheme
+ *
+ * @param string $scheme Permission scheme to check
+ * @param string $permission Permission to check
+ * @param string $targetuser Some features reference data of other users. This is the target
+ * @return boolean True if allowed, false if not.
+ */
+function isAllowed($permission='') {
+
+   global $CONF;
+
+   require_once ($CONF['app_root'] . "models/config_model.php");
+   require_once ($CONF['app_root'] . "models/login_model.php");
+   require_once ($CONF['app_root'] . "models/permission_model.php");
+   require_once ($CONF['app_root'] . "models/user_model.php");
+
+   $C = new Config_model;
+   $L = new Login_model;
+   $P = new Permission_model;
+   $UL = new User_model;
+
+   $pscheme = $C->readConfig("permissionScheme");
+
+   if ($currentuser = $L->checkLogin()) {
+      /**
+       * Someone is logged in. Check permission by role.
+       */
+      $UL->findByName($currentuser);
+      if ($UL->checkUserType($CONF['UTADMIN'])) {
+         //echo "<script type=\"text/javascript\">alert(\"Admin: ".$permission."=".$P->isAllowed($pscheme, $permission, "admin")."\");</script>";
+         return $P->isAllowed($pscheme, $permission, "admin");
+      }
+      else if ($UL->checkUserType($CONF['UTDIRECTOR'])) {
+         //echo "<script type=\"text/javascript\">alert(\"Director: ".$permission."=".$P->isAllowed($pscheme, $permission, "director")."\");</script>";
+         return $P->isAllowed($pscheme, $permission, "director");
+      }
+      else if ($UL->checkUserType($CONF['UTMANAGER'])) {
+         //echo "<script type=\"text/javascript\">alert(\"Manager: ".$permission."=".$P->isAllowed($pscheme, $permission, "manager")."\");</script>";
+         return $P->isAllowed($pscheme, $permission, "manager");
+      }
+      else {
+         //echo "<script type=\"text/javascript\">alert(\"User: ".$permission."=".$P->isAllowed($pscheme, $permission, "user")."\");</script>";
+         return $P->isAllowed($pscheme, $permission, "user");
+      }
+   }
+   else {
+      /**
+       * It's a public viewer
+       */
+      //echo "<script type=\"text/javascript\">alert(\"Public: ".$permission."=".$P->isAllowed($pscheme, $permission, "public")."\");</script>";
+      return $P->isAllowed($pscheme, $permission, "public");
+   }
 }
 
 // ---------------------------------------------------------------------------

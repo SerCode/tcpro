@@ -413,14 +413,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                if ( $H->cfgname=='busi' ) {
                   if ( $todaysmonth && $i==intval($today['mday']) ) {
                      if (strlen($title)) {
-                        $monthHeader.="<td class=\"toweekday".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                        //$monthHeader.="<td class=\"toweekday".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                        $monthHeader.="<td class=\"toweekday".$style."\" id=\"td-".$i."\">".createPopup($i, $title, $theme).$weekdays[$x]."</td>\n\r";
                      }
                      else {
                         $monthHeader.="<td class=\"toweekday\">".$weekdays[$x]."</td>\n\r";
                      }
                   } else {
                      if (strlen($title)) {
-                        $monthHeader.="<td class=\"weekday".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                        //$monthHeader.="<td class=\"weekday".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                        $monthHeader.="<td class=\"weekday".$style."\" id=\"td-".$i."\">".createPopup($i, $title, $theme).$weekdays[$x]."</td>\n\r";
                      }
                      else {
                         $monthHeader.="<td class=\"weekday\">".$weekdays[$x]."</td>\n\r";
@@ -429,14 +431,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                } else {
                   if ( $todaysmonth && $i==intval($today['mday']) ) {
                      if (strlen($title)) {
-                        $monthHeader.="<td class=\"toweekday-".$H->cfgname."".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                        //$monthHeader.="<td class=\"toweekday-".$H->cfgname."".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                        $monthHeader.="<td class=\"toweekday-".$H->cfgname."".$style."\" id=\"td-".$i."\">".createPopup($i, $title, $theme).$weekdays[$x]."</td>\n\r";
                      }
                      else {
                         $monthHeader.="<td class=\"toweekday-".$H->cfgname."\">".$weekdays[$x]."</td>\n\r";
                      }
                   } else {
                      if (strlen($title)) {
-                        $monthHeader.="<td class=\"weekday-".$H->cfgname."".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                        //$monthHeader.="<td class=\"weekday-".$H->cfgname."".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                        $monthHeader.="<td class=\"weekday-".$H->cfgname."".$style."\" id=\"td-".$i."\">".createPopup($i, $title, $theme).$weekdays[$x]."</td>\n\r";
                      }
                      else {
                         $monthHeader.="<td class=\"weekday-".$H->cfgname."\">".$weekdays[$x]."</td>\n\r";
@@ -446,14 +450,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
             } else {
                if ( $todaysmonth && $i==intval($today['mday']) ) {
                   if (strlen($title)) {
-                     $monthHeader.="<td class=\"toweekday".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                     //$monthHeader.="<td class=\"toweekday".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                     $monthHeader.="<td class=\"toweekday".$style."\" id=\"td-".$i."\">".createPopup($i, $title, $theme).$weekdays[$x]."</td>\n\r";
                   }
                   else {
                      $monthHeader.="<td class=\"toweekday\">".$weekdays[$x]."</td>\n\r";
                   }
                } else {
                   if (strlen($title)) {
-                     $monthHeader.="<td class=\"weekday".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                     //$monthHeader.="<td class=\"weekday".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$weekdays[$x]."</td>\n\r";
+                     $monthHeader.="<td class=\"weekday".$style."\" id=\"td-".$i."\">".createPopup($i, $title, $theme).$weekdays[$x]."</td>\n\r";
                   }
                   else {
                      $monthHeader.="<td class=\"weekday\">".$weekdays[$x]."</td>\n\r";
@@ -809,8 +815,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                if (!strlen($U->customPopup) OR !$viewProfile)
                   $monthBody .= "<td class=\"name-button\">\n\r";
                else
-                  $monthBody .= "<td class=\"name-button-note\" onmouseover=\"return overlib('".htmlentities($U->customPopup, ENT_QUOTES)."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">\n\r";
-         
+                  ///$monthBody .= "<td class=\"name-button-note\" onmouseover=\"return overlib('".htmlentities($U->customPopup, ENT_QUOTES)."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">\n\r";
+                  $monthBody .= '<td class="name-button-note" id="td-'.$U->username.'">'.createPopup($U->username, $U->customPopup, $theme);
+                
                /**
                 * Check permission to edit or view the calendar
                 */
@@ -1010,7 +1017,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                             */
                            if (strlen($C->readConfig("pastDayColor"))) $pdcolor="style=\"background: #".$C->readConfig("pastDayColor").";\""; else $pdcolor="";
                            if (strlen($title) && isAllowed("viewUserProfiles")) {
-                              $monthBody .= "<td class=\"day-".$H->cfgname.$style."\" ".$pdcolor." onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              //$monthBody .= "<td class=\"day-".$H->cfgname.$style."\" ".$pdcolor." onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              $monthBody .= "<td class=\"day-".$H->cfgname.$style."\" ".$pdcolor."\" id=\"td-".$U->username.$i."\">".createPopup($U->username.$i, $title, $theme).$inner."</td>\n\r";
                            }
                            else {
                               $monthBody .= "<td class=\"day-".$H->cfgname."\" ".$pdcolor.">".$inner."</td>\n\r";
@@ -1021,7 +1029,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                             * Today's month and day is today
                             */
                            if (strlen($title) && isAllowed("viewUserProfiles")) {
-                              $monthBody .= "<td class=\"today-".$H->cfgname.$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              //$monthBody .= "<td class=\"today-".$H->cfgname.$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              $monthBody .= "<td class=\"today-".$H->cfgname.$style."\" id=\"td-".$U->username.$i."\">".createPopup($U->username.$i, $title, $theme).$inner."</td>\n\r";
                            }
                            else {
                               $monthBody .= "<td class=\"today-".$H->cfgname."\">".$inner."</td>\n\r";
@@ -1032,7 +1041,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                             * All other days
                             */
                            if (strlen($title) && isAllowed("viewUserProfiles")) {
-                              $monthBody .= "<td class=\"day-".$H->cfgname.$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              //$monthBody .= "<td class=\"day-".$H->cfgname.$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              $monthBody .= "<td class=\"day-".$H->cfgname.$style."\" id=\"td-".$U->username.$i."\">".createPopup($U->username.$i, $title, $theme).$inner."</td>\n\r";
                            }
                            else {
                               $monthBody .= "<td class=\"day-".$H->cfgname."\">".$inner."</td>\n\r";
@@ -1046,7 +1056,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                             */
                            if (strlen($C->readConfig("pastDayColor"))) $pdcolor="style=\"background: #".$C->readConfig("pastDayColor").";\""; else $pdcolor="";
                            if (strlen($title) && isAllowed("viewUserProfiles")) {
-                              $monthBody .= "<td class=\"day".$style."\" ".$pdcolor." onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              //$monthBody .= "<td class=\"day".$style."\" ".$pdcolor." onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              $monthBody .= "<td class=\"day".$style."\" ".$pdcolor."\" id=\"td-".$U->username.$i."\">".createPopup($U->username.$i, $title, $theme).$inner."</td>\n\r";
                            }
                            else {
                               $monthBody .= "<td class=\"day\" ".$pdcolor.">".$inner."</td>\n\r";
@@ -1057,7 +1068,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                             * Today's month and day is today
                             */
                            if (strlen($title) && isAllowed("viewUserProfiles")) {
-                              $monthBody .= "<td class=\"today".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              //$monthBody .= "<td class=\"today".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              $monthBody .= "<td class=\"today".$style."\" id=\"td-".$U->username.$i."\">".createPopup($U->username.$i, $title, $theme).$inner."</td>\n\r";
                            }
                            else {
                               $monthBody .= "<td class=\"today\">".$inner."</td>\n\r";
@@ -1067,7 +1079,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                             * All other days
                             */
                            if (strlen($title) && isAllowed("viewUserProfiles")) {
-                              $monthBody .= "<td class=\"day".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              //$monthBody .= "<td class=\"day".$style."\" onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\">".$inner."</td>\n\r";
+                              $monthBody .= "<td class=\"day".$style."\" id=\"td-".$U->username.$i."\">".createPopup($U->username.$i, $title, $theme).$inner."</td>\n\r";
                            }
                            else {
                               $monthBody .= "<td class=\"day\">".$inner."</td>\n\r";
@@ -1101,12 +1114,19 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                      else
                         $cssclass='day'.$style.'-a'.$A->id;
          
+                     /*
                      if ( strlen($title) && isAllowed("viewUserProfiles") )
                         $overlay = " onmouseover=\"return overlib('".$title."', ".$CONF['ovl_tt_settings'].");\" onmouseout=\"return nd();\"";
                      else
                         $overlay = "";
+                     $monthBody .= "<td class=\"".$cssclass."\" title=\"".$A->name."\"".$overlay."\">";
+                     */
+                     
+                     $monthBody .= "<td class=\"".$cssclass."\" title=\"".$A->name."\" id=\"td-".$U->username.$i."\">";
+
+                     if ( strlen($title) && isAllowed("viewUserProfiles") )
+                        $monthBody .= createPopup($U->username.$i, $title, $theme);
                       
-                     $monthBody .= "<td class=\"".$cssclass."\" title=\"".$A->name."\"".$overlay.">";
                      if ($A->icon!='No')
                         $monthBody .= "<img align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
                      else

@@ -130,10 +130,12 @@ if (!$S->getStyle($theme)) createCSS($theme);
    <?php } ?>
    <link rel="stylesheet" media="screen" type="text/css" href="javascript/colorpicker/css/colorpicker.css">
       <script type="text/javascript" src="javascript/colorpicker/js/colorpicker.js"></script>
+      <script type="text/javascript" src="javascript/tipsy/jquery.tipsy.js"></script>
+      <link rel="stylesheet" media="screen" type="text/css" href="javascript/tipsy/tipsy.css">
       <link rel="shortcut icon" href="themes/<?=$theme?>/img/favicon.ico">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/menu.css">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/calendar.css" media="All" title="Summer">
-
+      
 <!--
 ===============================================================================
 This following stylesheet was created automatically and saved to/read from the database.

@@ -1762,4 +1762,9 @@ $LANG['message_msg_body'] = 'Text';
 $LANG['message_msg_body_sample'] = '...dein Text hier...';
 $LANG['message_msgsent'] = 'Die Nachricht wurde gesendet.';
 $LANG['message_sendto_err'] = 'Es muss mindestens ein Nutzer ausgew&auml;hlt werden.';
+
+/**
+ * Tipsy Tooltip
+ */
+$LANG['tt_user_title'] = 'Information';
 ?>

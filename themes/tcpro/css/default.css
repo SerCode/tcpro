@@ -121,6 +121,11 @@ tr.row0            { background-color: #FFFFFF; height: 20px;}
 tr.row1            { background-color: #EEEEEE; height: 20px; }
 hr.grey            { height: 1px; color: #990000; }
 
+/* Tooltip styles */
+table.tt           { background-color: #FFFFFF; border: 1px #333333 solid; border-collapse: collapse; padding: 0px; width: 100%; }
+td.tt-caption      { background-image: url(../img/bg_graybar.gif); color: #FFFFFF; font-size: 8pt; font-weight: bold; padding: 4px; text-align: left; }
+td.tt-text         { background-color: #FFFFFF; color: #000099; font-size: 8pt; padding: 4px; text-align: left; }
+
 /* Log Display */
 table.log          { background-color: #FFFFFF; border: 1px #333333 solid; border-collapse: collapse; width: 100%; }
 .logheader         { background-color: #E4E1DC; border-bottom: 1px #999999 solid; color: #000000; font-size: 8pt; font-weight: bold; height: 22px; padding: 4px; text-align: left; }
