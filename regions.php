@@ -392,6 +392,7 @@ echo "<div id=\"overDiv\" style=\"position:absolute; visibility:hidden; z-index:
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
 ?>
+<script type="text/javascript">$(function() { $( "#tabs" ).tabs(); });</script>
 <div id="content">
    <div id="content-content">
       <!--  REGIONS =========================================================== -->
@@ -402,177 +403,194 @@ require("includes/menu_inc.php");
             </td>
          </tr>
          <tr>
-            <td>
-               <!-- Add region -->
-               <form class="form" name="form-region-add" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
-                  <table style="border-collapse: collapse; border: 0px; width: 100%;">
-                     <tr>
-                        <td class="dlg-caption" colspan="5"><strong><?=$LANG['region_caption_add']?></strong></td>
-                     </tr>
-                     <tr>
-                        <td class="dlg-caption-gray" colspan="5">
-                           <table style="border-collapse: collapse; border: 0px; width: 100%;">
-                              <tr>
-                                 <td width="5%" style="text-align: left;">&nbsp;</td>
-                                 <td width="20%" style="text-align: left;"><?=$LANG['column_shortname']?></td>
-                                 <td width="30%" style="text-align: left;"><?=$LANG['column_description']?></td>
-                                 <td width="10%" style="text-align: left;"><?=$LANG['column_hide']?></td>
-                                 <td width="35%" style="text-align: left;"><?=$LANG['column_action']?></td>
-                              </tr>
-                           </table>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="dlg-row1" width="5%"><img src="themes/<?=$theme?>/img/ico_add.png" alt="Region" title="<?=$LANG['tt_add_region']?>" align="middle" style="padding-right: 2px;"></td>
-                        <td class="dlg-row1" width="20%"><input name="reg_nameadd" size="16" type="text" class="text" id="reg_nameadd" value=""></td>
-                        <td class="dlg-row1" width="30%"><input name="reg_descadd" size="34" type="text" class="text" id="reg_descadd" value=""></td>
-                        <td class="dlg-row1" width="10%"><input name="chkHide" type="checkbox" value="chkHide"></td>
-                        <td class="dlg-row1" width="35%"><input name="btn_reg_add" type="submit" class="button" value="<?=$LANG['btn_add']?>"></td>
-                     </tr>
-                  </table>
-               </form>
+            <td class="dlg-body">
+            
+               <div id="tabs">
+                  <ul>
+                     <li><a href="#tabs-1"><?=$LANG['region_caption_add']?></a></li>
+                     <li><a href="#tabs-2"><?=$LANG['region_caption_existing']?></a></li>
+                     <li><a href="#tabs-3"><?=$LANG['region_caption_merge']?></a></li>
+                  </ul>
 
-               <!-- Add iCal as new region -->
-               <form class="form" name="form-ical-add" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>" enctype="multipart/form-data">
-                  <table style="border-collapse: collapse; border: 0px; width: 100%;">
-                     <tr>
-                        <td class="dlg-row2" width="5%"><img src="themes/<?=$theme?>/img/ico_calendar.png" alt="Region" title="<?=$LANG['tt_add_ical']?>" align="middle" style="padding-right: 2px;"></td>
-                        <td class="dlg-row2" width="20%"><input name="icalreg_nameadd" size="16" type="text" class="text" id="icalreg_nameadd" value=""></td>
-                        <td class="dlg-row2" width="30%"><input name="icalreg_descadd" size="34" type="text" class="text" id="icalreg_descadd" value=""></td>
-                        <td class="dlg-row2" width="10%"><input name="icalchkHide" type="checkbox" value="icalchkHide"></td>
-                        <td class="dlg-row2" width="35%">
-                           <input type="file" class="button" accept="text/calendar" name="ical_file">
-                           <select name="icalHol" id="icalHol" class="select">
-                           <?php
-                           $result = $H->db->db_query("SELECT * FROM `".$H->table."` ORDER BY `dspname`;");
-                           while ( $row = $H->db->db_fetch_array($result,MYSQL_ASSOC) ){
-                              $H->findBySymbol($row['cfgsym']);
-                              if ( $row['cfgname']!="wend" AND $row['cfgname']!="busi" ) {
-                                 echo "                                 <option class=\"option\" value=\"".$row['cfgsym']."\">".$row['dspname']."</option>\n";
-                              }
-                           }
-                           ?>
-                           </select>
-                           <input type="submit" class="button" value="<?=$LANG['btn_import_ical']?>" name="btn_import_ical">
-                           <p><?=$LANG['region_ical_description']?></p>
-                         </td>
-                     </tr>
-                  </table>
-               </form>
-
-               <?php
-               $query  = "SELECT `regionname` FROM `".$R->table."` ORDER BY `regionname`;";
-               $result = $R->db->db_query($query);
-               $i=1;
-               $printrow=1;
-               echo "
-               <!-- default -->
-               <form class=\"form\" name=\"form-grp-".$i."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."\">
-                  <table style=\"border-collapse: collapse; border: 0px; width: 100%;\">
-                     <tr>
-                        <td class=\"dlg-caption\" colspan=\"5\"><strong>".$LANG['region_caption_existing']."</strong></td>
-                     </tr>
-                     <tr>
-                        <td class=\"dlg-caption-gray\" colspan=\"5\">
-                           <table style=\"border-collapse: collapse; border: 0px; width: 100%;\">
-                              <tr>
-                                 <td width=\"5%\" style=\"text-align: left;\">&nbsp;</td>
-                                 <td width=\"20%\" style=\"text-align: left;\">".$LANG['column_shortname']."</td>
-                                 <td width=\"30%\" style=\"text-align: left;\">".$LANG['column_description']."</td>
-                                 <td width=\"10%\" style=\"text-align: left;\">".$LANG['column_hide']."</td>
-                                 <td width=\"35%\" style=\"text-align: left;\">".$LANG['column_action']."</td>
-                              </tr>
-                           </table>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class=\"dlg-row".$printrow."\" width=\"5%\"><img src=\"themes/".$theme."/img/ico_region.png\" alt=\"Region\" title=\"".$LANG['tt_region']."\" align=\"middle\" style=\"padding-right: 2px;\"></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"20%\"><input name=\"reg_namehidden\" type=\"hidden\" class=\"text\" value=\"default\"><input name=\"reg_name\" size=\"16\" type=\"text\" class=\"text\" value=\"default\" DISABLED></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"30%\"><input name=\"reg_desc\" size=\"34\" type=\"text\" class=\"text\" value=\"Default Region\" DISABLED></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"10%\">&nbsp;</td>
-                        <td class=\"dlg-row".$printrow."\" width=\"35%\">
-                           <input name=\"btn_reg_edit\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_edit']."\" onclick=\"javascript:openPopup('editmonth.php?lang=".$CONF['options']['lang']."&amp;region=default&amp;Year=".$yeartoday."&amp;Month=".$monthtoday."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');\" >
-                        </td>
-                     </tr>
-                  </table>
-               </form>
-               ";
-
-               while ( $row = $R->db->db_fetch_array($result,MYSQL_ASSOC) ){
-                  $R->findByName(stripslashes($row['regionname']));
-                  if ($R->regionname!="default") {
-                     if ($printrow==1) $printrow=2; else $printrow=1;
-                     echo "
-                     <!-- ".$R->regionname." -->
-                     <form class=\"form\" name=\"form-grp-".$i."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."\">
-                        <table style=\"border-collapse: collapse; border: 0px; width: 100%;\">
+                        
+                  <!-- =======================================================
+                       ADD REGION
+                  -->
+                  <div id="tabs-1">
+                     <table class="dlg">
+                        <tr>
+                           <td class="dlg-caption-gray" colspan="5">
+                              <table style="border-collapse: collapse; border: 0px; width: 100%;">
+                                 <tr>
+                                    <td width="5%" style="text-align: left;">&nbsp;</td>
+                                    <td width="20%" style="text-align: left;"><?=$LANG['column_shortname']?></td>
+                                    <td width="30%" style="text-align: left;"><?=$LANG['column_description']?></td>
+                                    <td width="10%" style="text-align: left;"><?=$LANG['column_hide']?></td>
+                                    <td width="35%" style="text-align: left;"><?=$LANG['column_action']?></td>
+                                 </tr>
+                              </table>
+                           </td>
+                        </tr>
+                        <tr>
+                           <form class="form" name="form-region-add" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+                              <td class="dlg-row1" width="5%"><img src="themes/<?=$theme?>/img/ico_add.png" alt="Region" title="<?=$LANG['tt_add_region']?>" align="middle" style="padding-right: 2px;"></td>
+                              <td class="dlg-row1" width="20%"><input name="reg_nameadd" size="16" type="text" class="text" id="reg_nameadd" value=""></td>
+                              <td class="dlg-row1" width="30%"><input name="reg_descadd" size="34" type="text" class="text" id="reg_descadd" value=""></td>
+                              <td class="dlg-row1" width="10%"><input name="chkHide" type="checkbox" value="chkHide"></td>
+                              <td class="dlg-row1" width="35%"><input name="btn_reg_add" type="submit" class="button" value="<?=$LANG['btn_add']?>"></td>
+                           </form>
+                        </tr>
+                     </table>
+                     <form class="form" name="form-ical-add" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>" enctype="multipart/form-data">
+                        <table class="dlg" style="border-top: 0px;">
                            <tr>
-                              <td class=\"dlg-row".$printrow."\" width=\"5%\"><img src=\"themes/".$theme."/img/ico_region.png\" alt=\"Region\" title=\"".$LANG['tt_region']."\" align=\"middle\" style=\"padding-right: 2px;\"></td>
-                              <td class=\"dlg-row".$printrow."\" width=\"20%\"><input name=\"reg_namehidden\" type=\"hidden\" class=\"text\" value=\"".$R->regionname."\"><input name=\"reg_name\" size=\"16\" type=\"text\" class=\"text\" value=\"".$R->regionname."\"></td>
-                              <td class=\"dlg-row".$printrow."\" width=\"30%\"><input name=\"reg_desc\" size=\"34\" type=\"text\" class=\"text\" value=\"".$R->description."\"></td>
-                              <td class=\"dlg-row".$printrow."\" width=\"10%\"><input name=\"chkHide\" type=\"checkbox\" value=\"chkHide\" ".($R->checkOptions($CONF['R_HIDE'])?'CHECKED':'')."></td>
-                              <td class=\"dlg-row".$printrow."\" width=\"35%\">
-                                 <input name=\"btn_reg_update\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_update']."\">&nbsp;
-                                 <input name=\"btn_reg_delete\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_delete']."\" onclick=\"return confirmSubmit('".$LANG['reg_delete_confirm'].": ".$R->regionname."')\" >&nbsp;
-                                 <input name=\"btn_reg_edit\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_edit']."\" onclick=\"javascript:openPopup('editmonth.php?lang=".$CONF['options']['lang']."&amp;region=".$R->regionname."&amp;Year=".$yeartoday."&amp;Month=".$monthtoday."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');\" >
+                              <td class="dlg-row2" width="5%"><img src="themes/<?=$theme?>/img/ico_calendar.png" alt="Region" title="<?=$LANG['tt_add_ical']?>" align="middle" style="padding-right: 2px;"></td>
+                              <td class="dlg-row2" width="20%"><input name="icalreg_nameadd" size="16" type="text" class="text" id="icalreg_nameadd" value=""></td>
+                              <td class="dlg-row2" width="30%"><input name="icalreg_descadd" size="34" type="text" class="text" id="icalreg_descadd" value=""></td>
+                              <td class="dlg-row2" width="10%"><input name="icalchkHide" type="checkbox" value="icalchkHide"></td>
+                              <td class="dlg-row2" width="35%">
+                                 <input type="file" class="button" accept="text/calendar" name="ical_file">
+                                 <select name="icalHol" id="icalHol" class="select">
+                                 <?php
+                                 $hols=$H->getAll();
+                                 foreach($hols as $hol) {
+                                    if ( $hol['cfgname']!="wend" AND $hol['cfgname']!="busi" ) { ?>
+                                       <option class="option" value="<?=$hol['cfgsym']?>"><?=$hol['dspname']?></option>
+                                    <?php }
+                                 }
+                                 ?>
+                                 </select>
+                                 <input type="submit" class="button" value="<?=$LANG['btn_import_ical']?>" name="btn_import_ical">
+                                 <p><?=$LANG['region_ical_description']?></p>
                               </td>
                            </tr>
                         </table>
                      </form>
-                     ";
-                     $i+=1;
-                  }
-               }
-               ?>
+                  </div>
 
-               <!-- Merge regions -->
-               <form class="form" name="form-region-merge" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
-                  <table style="border-collapse: collapse; border: 0px; width: 100%;">
-                     <tr>
-                        <td class="dlg-caption" colspan="5">
-                           <strong><?=$LANG['region_caption_merge']?></strong>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="dlg-caption-gray" colspan="5">
-                           <table style="border-collapse: collapse; border: 0px; width: 100%;">
-                              <tr>
-                                 <td width="5%" style="text-align: left;">&nbsp;</td>
-                                 <td width="25%" style="text-align: left;"><?=$LANG['column_source_region']?></td>
-                                 <td width="25%" style="text-align: left;"><?=$LANG['column_target_region']?></td>
-                                 <td width="10%" style="text-align: left;"><?=$LANG['column_overwrite']?></td>
-                                 <td width="35%" style="text-align: left;"><?=$LANG['column_action']?></td>
-                              </tr>
-                           </table>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="dlg-row2" width="5%"><img src="themes/<?=$theme?>/img/ico_region.png" alt="Region" title="<?=$LANG['tt_add_region']?>" align="middle"><img src="themes/<?=$theme?>/img/ico_region.png" alt="Region" title="<?=$LANG['tt_add_region']?>" align="middle" style="padding-right: 2px;"></td>
-                        <td class="dlg-row2" width="25%">
-                           <select name="sRegion" id="sRegion" class="select">
-                           <?php
-                           $result = $R->db->db_query("SELECT * FROM `".$R->table."` ORDER BY `regionname`;");
-                           while ( $row = $R->db->db_fetch_array($result,MYSQL_ASSOC) ) {
-                              echo "<option class=\"option\" value=\"".$row['regionname']."\">".$row['regionname']."</option>\n";
-                           }
-                           ?>
-                           </select>
-                        </td>
-                        <td class="dlg-row2" width="25%">
-                           <select name="tRegion" id="tRegion" class="select">
-                           <?php
-                           $result = $R2->db->db_query("SELECT * FROM `".$R2->table."` ORDER BY `regionname`;");
-                           while ( $row = $R2->db->db_fetch_array($result,MYSQL_ASSOC) ) {
-                              echo "<option class=\"option\" value=\"".$row['regionname']."\">".$row['regionname']."</option>\n";
-                           }
-                           ?>
-                           </select>
-                        </td>
-                        <td class="dlg-row2" width="10%"><input name="chkOverwrite" type="checkbox" value="chkOverwrite"></td>
-                        <td class="dlg-row2" width="35%"><input name="btn_reg_merge" type="submit" class="button" value="<?=$LANG['btn_merge']?>"></td>
-                     </tr>
-                  </table>
-               </form>
+                  <!-- =======================================================
+                       EDIT REGION
+                  -->
+                  <div id="tabs-2">
+                     <?php
+                     $printrow=1;
+                     $R->findByName('default'); ?>
+                     <form class="form" name="form-reg-<?=$R->regionname?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>?lang=<?=$CONF['options']['lang']?>">
+                        <table style="border-collapse: collapse; border: 1px solid #000000; width: 100%;">
+                           <tr>
+                              <td class="dlg-caption-gray" colspan="5">
+                                 <table style="border-collapse: collapse; border: 0px; width: 100%;">
+                                    <tr>
+                                       <td width="5%" style="text-align: left;">&nbsp;</td>
+                                       <td width="20%" style="text-align: left;"><?=$LANG['column_shortname']?></td>
+                                       <td width="30%" style="text-align: left;"><?=$LANG['column_description']?></td>
+                                       <td width="10%" style="text-align: left;"><?=$LANG['column_hide']?></td>
+                                       <td width="35%" style="text-align: left;"><?=$LANG['column_action']?></td>
+                                    </tr>
+                                 </table>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="dlg-row<?=$printrow?>" width="5%">
+                              <img src="themes/<?=$theme?>/img/ico_region.png" alt="Region" title="<?=$LANG['tt_region']?>" align="middle" style="padding-right: 2px;">
+                              </td>
+                              <td class="dlg-row<?=$printrow?>" width="20%">
+                                 <?=$R->regionname?>   
+                              </td>
+                              <td class="dlg-row<?=$printrow?>" width="30%">
+                                 <?=$R->description?>   
+                              </td>
+                              <td class="dlg-row<?=$printrow?>" width="10%">&nbsp;
+                              </td>
+                              <td class="dlg-row<?=$printrow?>" width="35%">
+                                 <input name="btn_reg_edit" type="submit" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:openPopup('editmonth.php?lang=<?=$CONF['options']['lang']?>&amp;region=<?=$R->regionname?>&amp;Year=<?=$yeartoday?>&amp;Month=<?=$monthtoday?>','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');">
+                              </td>
+                           </tr>
+                        </table>
+                     </form>
+                     <?php 
+                     $regs=$R->getAll();
+                     foreach($regs as $reg) {
+                        if ($printrow==1) $printrow=2; else $printrow=1; 
+                        if ($reg['regionname']!='default') { ?>
+                           <!-- <?=$reg['regionname']?> -->
+                           <form class="form" name="form-reg-<?=$reg['regionname']?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>?lang=<?=$CONF['options']['lang']?>">
+                              <table style="border-collapse: collapse; border-left: 1px solid #000000; border-right: 1px solid #000000; width: 100%;">
+                                 <tr>
+                                    <td class="dlg-row<?=$printrow?>" width="5%">
+                                       <img src="themes/<?=$theme?>/img/ico_region.png" alt="Region" title="<?=$LANG['tt_region']?>" align="middle" style="padding-right: 2px;">
+                                    </td>
+                                    <td class="dlg-row<?=$printrow?>" width="20%">
+                                       <input name="reg_namehidden" type="hidden" class="text" value="<?=$reg['regionname']?>">
+                                       <input name="reg_name" size="16" type="text" class="text" value="<?=$reg['regionname']?>">
+                                    </td>
+                                    <td class="dlg-row<?=$printrow?>" width="30%">
+                                       <input name="reg_desc" size="34" type="text" class="text" value="<?=$reg['description']?>">
+                                    </td>
+                                    <td class="dlg-row<?=$printrow?>" width="10%">
+                                       <input name="chkHide" type="checkbox" value="chkHide" <?=($R->checkOptions($CONF['R_HIDE'])?'CHECKED':'')?>>
+                                    </td>
+                                    <td class="dlg-row<?=$printrow?>" width="35%">
+                                       <input name="btn_reg_update" type="submit" class="button" value="<?=$LANG['btn_update']?>">&nbsp;
+                                       <input name="btn_reg_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="return confirmSubmit('<?=$LANG['reg_delete_confirm']?>: <?=$reg['regionname']?>')">&nbsp;
+                                       <input name="btn_reg_edit" type="submit" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:openPopup('editmonth.php?lang=<?=$CONF['options']['lang']?>&amp;region=<?=$reg['regionname']?>&amp;Year=<?=$yeartoday?>&amp;Month=<?=$monthtoday?>','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');">
+                                    </td>
+                                 </tr>
+                              </table>
+                           </form>
+                        <?php }
+                     }
+                     ?>
+                  </div>
+
+                  <!-- =======================================================
+                       MERGE REGION
+                  -->
+                  <div id="tabs-3">
+                     <form class="form" name="form-region-merge" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+                        <table class="dlg">
+                           <tr>
+                              <td class="dlg-caption-gray" colspan="5">
+                                 <table style="border-collapse: collapse; border: 0px; width: 100%;">
+                                    <tr>
+                                       <td width="5%" style="text-align: left;">&nbsp;</td>
+                                       <td width="25%" style="text-align: left;"><?=$LANG['column_source_region']?></td>
+                                       <td width="25%" style="text-align: left;"><?=$LANG['column_target_region']?></td>
+                                       <td width="10%" style="text-align: left;"><?=$LANG['column_overwrite']?></td>
+                                       <td width="35%" style="text-align: left;"><?=$LANG['column_action']?></td>
+                                    </tr>
+                                 </table>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="dlg-row2" width="5%"><img src="themes/<?=$theme?>/img/ico_region.png" alt="Region" title="<?=$LANG['tt_add_region']?>" align="middle"><img src="themes/<?=$theme?>/img/ico_region.png" alt="Region" title="<?=$LANG['tt_add_region']?>" align="middle" style="padding-right: 2px;"></td>
+                              <td class="dlg-row2" width="25%">
+                                 <select name="sRegion" id="sRegion" class="select">
+                                 <?php
+                                 $result = $R->db->db_query("SELECT * FROM `".$R->table."` ORDER BY `regionname`;");
+                                 while ( $row = $R->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+                                    echo "<option class=\"option\" value=\"".$row['regionname']."\">".$row['regionname']."</option>\n";
+                                 }
+                                 ?>
+                                 </select>
+                              </td>
+                              <td class="dlg-row2" width="25%">
+                                 <select name="tRegion" id="tRegion" class="select">
+                                 <?php
+                                 $result = $R2->db->db_query("SELECT * FROM `".$R2->table."` ORDER BY `regionname`;");
+                                 while ( $row = $R2->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+                                    echo "<option class=\"option\" value=\"".$row['regionname']."\">".$row['regionname']."</option>\n";
+                                 }
+                                 ?>
+                                 </select>
+                              </td>
+                              <td class="dlg-row2" width="10%"><input name="chkOverwrite" type="checkbox" value="chkOverwrite"></td>
+                              <td class="dlg-row2" width="35%"><input name="btn_reg_merge" type="submit" class="button" value="<?=$LANG['btn_merge']?>"></td>
+                           </tr>
+                        </table>
+                     </form>
+                  </div>
+               </div>
             </td>
          </tr>
       </table>
