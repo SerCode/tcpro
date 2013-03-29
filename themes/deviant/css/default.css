@@ -122,11 +122,6 @@ tr.row0            { background-color: #FAFAFA; height: 20px;}
 tr.row1            { background-color: #EAF2EE; height: 20px; }
 hr.grey            { height: 1px; color: #990000; }
 
-/* Tooltip styles */
-table.tt           { background-color: #FFFFFF; border: 1px #333333 solid; border-collapse: collapse; padding: 0px; width: 100%; }
-td.tt-caption      { background-image: url(../img/bg_graybar.gif); color: #FFFFFF; font-size: 8pt; font-weight: bold; padding: 4px; text-align: left; }
-td.tt-text         { background-color: #FFFFFF; color: #000099; font-size: 8pt; padding: 4px; text-align: left; }
-
 /* Log Display */
 table.log          { background-color: #FAFAFA; border: 1px #333333 solid; border-collapse: collapse; width: 100%; }
 .logheader         { background-color: #EAF2EE; border-bottom: 1px #999999 solid; color: #000000; font-size: 8pt; font-weight: bold; height: 22px; padding: 4px; text-align: left; }
@@ -217,3 +212,28 @@ td.yndaybot        { background-color: #AAAAAA; border-top: 0px solid #000000; b
 .arrow.left { left: 20%; }
 .arrow:after { content: ""; position: absolute; left: 20px; top: -20px; width: 25px; height: 25px; box-shadow: 6px 5px 9px -9px black; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); tranform: rotate(45deg); }
 .arrow.top:after { bottom: -20px; top: auto; }
+
+/* jQuery Tipsy Tooltip */
+.tipsy { font-size: 10px; position: absolute; padding: 5px; z-index: 100000; }
+.tipsy-inner { background-color: #F7F7F7; color: #000000; padding: 2px; text-align: left; max-width: 300px; }
+/* Rounded corners */
+.tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border: 1px solid #666666; }
+/* Uncomment for shadow */
+.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }
+/* Rules to colour arrows */
+.tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0; border: 5px dashed #000; }
+.tipsy-arrow-n { border-bottom-color: #FF0000; }
+.tipsy-arrow-s { border-top-color: #FF0000; }
+.tipsy-arrow-e { border-left-color: #FF0000; }
+.tipsy-arrow-w { border-right-color: #FF0000; }
+.tipsy-n .tipsy-arrow { top: 0px; left: 50%; margin-left: -5px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent; }
+.tipsy-nw .tipsy-arrow { top: 0; left: 10px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent;}
+.tipsy-ne .tipsy-arrow { top: 0; right: 10px; border-bottom-style: solid; border-top: none;  border-left-color: transparent; border-right-color: transparent;}
+.tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -5px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+.tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+.tipsy-se .tipsy-arrow { bottom: 0; right: 10px; border-top-style: solid; border-bottom: none; border-left-color: transparent; border-right-color: transparent; }
+.tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
+.tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }
+/* Tooltip styles */
+div.tt-caption { background-image: url(../img/bg_graybar.gif); color: #FFFFFF; font-size: 8pt; font-weight: bold; padding: 4px; text-align: left; }
+div.tt-body { background-color: #FFFFFF; color: #000099; font-size: 8pt; padding: 4px; text-align: left; }

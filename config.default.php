@@ -177,20 +177,6 @@ $CONF['monthnames'] = array(1=>"January","February","March","April","May","June"
 $CONF['weekdays']   = array(1=>"Mo","Tu","We","Th","Fr","Sa","Su");
 
 /**
- * Overlib Default Settings
- */
-$CONF['ovl_tt_snap'] = 'SNAPX, 12, SNAPY, 12, ';
-$CONF['ovl_tt_cellpad'] = 'CELLPAD, 4, 4, 4, 4, ';
-$CONF['ovl_tt_bgbackground'] = 'BGBACKGROUND, \''.$CONF['app_url'].'/themes/tcpro/img/bg_tooltip.gif\', ';
-$CONF['ovl_tt_capicon'] = 'CAPICON, \''.$CONF['app_url'].'/themes/tcpro/img/ico_tt.png\', ';
-$CONF['ovl_tt_capcolor'] = 'CAPCOLOR, \'#FFFFFF\', ';
-$CONF['ovl_tt_caption'] = 'CAPTION, \'Information\', ';
-$CONF['ovl_tt_captionfont'] = 'CAPTIONFONT, \'Tahoma,Helvetica,sans-serif\', ';
-$CONF['ovl_tt_captionsize'] = 'CAPTIONSIZE, \'8pt\', ';
-$CONF['ovl_tt_fgcolor'] = 'FGCOLOR, \'#FFFF99\'';
-$CONF['ovl_tt_settings'] = $CONF['ovl_tt_snap'].$CONF['ovl_tt_cellpad'].$CONF['ovl_tt_bgbackground'].$CONF['ovl_tt_capicon'].$CONF['ovl_tt_capcolor'].$CONF['ovl_tt_caption'].$CONF['ovl_tt_captionfont'].$CONF['ovl_tt_captionsize'].$CONF['ovl_tt_fgcolor'];
-
-/**
  * REGION OPTIONS
  */
 $CONF['R_HIDE'] = 0x000001;                // Flag: Hide region

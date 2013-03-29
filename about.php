@@ -55,7 +55,6 @@ else                                  require ("languages/english.tcpro.php");
                <strong>Credits:</strong><br />
                &#8226;&nbsp;jQuery UI Team for <a href="http://www.jqueryui.com/" target="_blank">jQuery UI</a><br />
                &#8226;&nbsp;Stefan Petre for <a href="http://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a><br />
-               &#8226;&nbsp;Erik Bosrup for <a href="http://www.bosrup.com/web/overlib/" target="_blank">OverLIB</a><br />
                &#8226;&nbsp;Heng Yuan for <a href="http://www.cs.ucla.edu/~heng/JSCookMenu/" target="_blank">JSCookMenu</a><br />
                &#8226;&nbsp;David Vignoni for <a href="http://www.icon-king.com" target="_blank">Nuvola Icons</a><br />
                &#8226;&nbsp;dAKirby309 for <a href="http://www.iconarchive.com/show/windows-8-metro-icons-by-dakirby309.html" target="_blank">Windows 8 Metro Icons</a><br />

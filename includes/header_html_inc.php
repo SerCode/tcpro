@@ -116,7 +116,6 @@ if (!$S->getStyle($theme)) createCSS($theme);
       <meta name="description" content="Lewe TeamCal Pro calendar">
       <script type="text/javascript" src="javascript/tcpro.js"></script>
       <script type="text/javascript" src="javascript/ajax.js"></script>
-      <script type="text/javascript" src="javascript/overlib.js"></script>
       <script type="text/javascript" src="javascript/JSCookMenu.js"></script>
       <script type="text/javascript" src="javascript/JSCookMenu/ThemeOffice/theme.js"></script>
    <?php if ($C->readConfig("jQueryCDN")) { ?>
@@ -131,7 +130,6 @@ if (!$S->getStyle($theme)) createCSS($theme);
    <link rel="stylesheet" media="screen" type="text/css" href="javascript/colorpicker/css/colorpicker.css">
       <script type="text/javascript" src="javascript/colorpicker/js/colorpicker.js"></script>
       <script type="text/javascript" src="javascript/tipsy/jquery.tipsy.js"></script>
-      <link rel="stylesheet" media="screen" type="text/css" href="javascript/tipsy/tipsy.css">
       <link rel="shortcut icon" href="themes/<?=$theme?>/img/favicon.ico">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/menu.css">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/calendar.css" media="All" title="Summer">

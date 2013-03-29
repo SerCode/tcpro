@@ -300,7 +300,7 @@ if ( $C->readConfig("showLanguage") OR
                   if ($CONF['options']['absencefilter']==$abs['id']) { ?>
                      <option value="<?=$abs['id']?>" selected><?=$abs['name']?></option>
                   <?php } else { ?>
-                     <option value="<?=$abs['id']?>"><?=$row['name']?></option>
+                     <option value="<?=$abs['id']?>"><?=$abs['name']?></option>
                   <?php }
                } ?>
             </select>

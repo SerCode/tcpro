@@ -1766,5 +1766,9 @@ $LANG['message_sendto_err'] = 'You have to select at least one user to send the 
 /**
  * Tipsy Tooltip
  */
-$LANG['tt_user_title'] = 'Information';
+$LANG['tt_title_userinfo'] = 'User Information';
+$LANG['tt_title_userdayinfo'] = 'User Day Information';
+$LANG['tt_title_dayinfo'] = 'Day Information';
+$LANG['tt_edit_profile'] = 'Edit user profile...';
+$LANG['tt_view_profile'] = 'View user profile...';
 ?>

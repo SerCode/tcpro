@@ -370,6 +370,7 @@ require( "includes/menu_inc.php" );
                            for ($n=1;$n<=$yarray[$m]['nofdays'];$n++) {
                               $class=" class=\"ydaytop\"";
                               $title="";
+                              $ttbody="";
                               $addstyle="";
                               $onmouseover="";
                               $onmouseout="";
@@ -392,17 +393,26 @@ require( "includes/menu_inc.php" );
                                */
                               $dd = sprintf("%02d",$n);
                               if ( $D->findByDay($showyear.$monthno.$dd,"all") ) {
-                                 $tt_settings=str_replace("Information",$LANG['showyear_tt_day'],$CONF['ovl_tt_settings']);
-                                 $onmouseover=" onmouseover=\"return overlib('".htmlentities($D->daynote, ENT_QUOTES)."',".$tt_settings.");\"";
-                                 $onmouseout=" onmouseout=\"return nd();\"";
+                                 /*
+                                  * Prepare tooltip
+                                 */
+                                 $ttid = 'span-'.$n;
+                                 $ttbody=$D->daynote;
+                                 $ttcaption = $LANG['tt_title_dayinfo'];
+                                 $ttcapicon = 'themes/'.$theme.'/img/ico_daynote.png';
+                                  
                                  $addstyle.=" background-image: url(themes/".$theme."/img/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;";
-                                 $title="";
                               }
                               if ( $showyear==$curryear && $m==$currmonth && $n==$currday ) {
                                  $addstyle.=" border-left: 2px solid #".$C->readConfig("todayBorderColor")."; border-right: 2px solid #".$C->readConfig("todayBorderColor")."; border-top: 2px solid #".$C->readConfig("todayBorderColor").";";
                               }
                               if (strlen($addstyle)) $addstyle = " style=\"".$addstyle."\"";
-                              echo "<td".$class.$addstyle.$title.$onmouseover.$onmouseout.">".$n."</td>\n";
+                              if (strlen($ttbody)) {
+                                 echo "<td".$class.$addstyle.$title."><span id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$n."</span></td>\n";
+                              }
+                              else {
+                                 echo "<td".$class.$addstyle.$title.">".$n."</td>\n";
+                              }
                               $i++;
                            }
                            $i--;
@@ -432,13 +442,20 @@ require( "includes/menu_inc.php" );
                         else if ($i==$yarray[$m]['fwday']) {
                            for ($n=1;$n<=$yarray[$m]['nofdays'];$n++) {
                               /**
+                               * Prepare tootlip
+                               */
+                              $ttid = 'td-'.$U->username.$i;
+                              $ttbody = '';
+                              $ttcaption = $LANG['tt_title_userdayinfo'];
+                              $ttcapicon = 'themes/'.$theme.'/img/ico_daynote.png';
+                              /**
                                * Set style and color background bases on holiday
                                */
                               $class=" class=\"ydaymid\"";
                               $title="";
                               $addstyle="";
-                              $onmouseover="";
-                              $onmouseout="";
+                              //$onmouseover="";
+                              //$onmouseout="";
                               $content="";
                               if ( $H->findBySymbol($M->template[$n-1]) ) {
                                  if ( $H->cfgname!='busi' ) {
@@ -456,22 +473,22 @@ require( "includes/menu_inc.php" );
                               /**
                                * Set birthday note if applicable
                                */
-                              $popup="";
+                              //$popup="";
                               $birthday=false;
                               $daynote=false;
                               if ( substr($showuserbday,4)==(sprintf("%02d",$m).sprintf("%02d",$n)) && ($UO->true($showuser,"showbirthday")) ) {
                                  /**
                                   * Birthday
                                   */
+                                 $ttbody='<img src="img/icons/cake.png" alt="cake" style="vertical-align: bottom; padding-right: 4px;">';
                                  if($UO->true($showuser,"ignoreage")) {
                                     $birthdate=date("d M",strtotime($showuserbday));
-                                    $popup  = "* ".$LANG['cal_birthday'].": ".$birthdate." * <br><br>";
+                                    $ttbody .= "* ".$LANG['cal_birthday'].": ".$birthdate.". * <br><br>";
                                  } else {
                                     $birthdate=date("d M Y",strtotime($showuserbday));
                                     $dayofbirth=date("d M",strtotime($showuserbday));
                                     $age=intval($showyear)-intval(substr($showuserbday,0,4));
-                                    $popup  = "* ".$LANG['cal_birthday'].": ".$birthdate;
-                                    $popup .= " (".$LANG['cal_age'].": ".$age.") * <br><br>";
+                                    $ttbody .= "* ".$LANG['cal_birthday'].": ".$birthdate.". (".$LANG['cal_age'].": ".$age.") * <br><br>";
                                  }
                                  $birthday=true;
                               }
@@ -480,17 +497,14 @@ require( "includes/menu_inc.php" );
                                * Set personal daynote if applicable
                                */
                               if ( $D->findByDay($showyear.$monthno.sprintf("%02d",$n),$showuser) ) {
-                                 $popup.=$D->daynote;
+                                 $ttbody.=$D->daynote;
                                  $daynote=true;
                               }
 
                               /**
                                * Build the popup message from above findings
                                */
-                              if ( strlen($popup) ) {
-                                 $tt_settings=str_replace("Information",$LANG['showyear_tt_user'],$CONF['ovl_tt_settings']);
-                                 $onmouseover=" onmouseover=\"return overlib('".$popup."',".$tt_settings.");\"";
-                                 $onmouseout=" onmouseout=\"return nd();\"";
+                              if (strlen($ttbody)) {
                                  if ($birthday && !$daynote) $marker="ovl_birthday.gif";
                                  if (!$birthday && $daynote) $marker="ovl_daynote.gif";
                                  if ($birthday && $daynote) $marker="ovl_bdaynote.gif";
@@ -503,7 +517,6 @@ require( "includes/menu_inc.php" );
                                */
                               $prop='abs'.$n;
                               if ($A->get($T->$prop)) {
-                                 $title=" title=\"".$A->name."\"";
                                  if ($pos=strpos($addstyle,"background-color: #")) {
                                     $replace="background-color: #".$A->bgcolor.";";
                                     $addstyle=substr_replace($addstyle,$replace,$pos,26);
@@ -511,12 +524,12 @@ require( "includes/menu_inc.php" );
                                  else
                                     $addstyle.=" background-color: #".$A->bgcolor.";";
 
-                                 $addstyle.=" color: #" . $A->color.";";
+                                 $addstyle.=" color: #".$A->color.";";
                                  if ($A->icon!='No') {
-                                    $content="<img align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
+                                    $content="<img title=\"".$A->name."\" align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
                                  }
                                  else {
-                                    $content=$A->symbol;
+                                    $content="<span title=\"".$A->name."\">".$A->symbol."</span>";
                                  }
                               }
                               else {
@@ -530,8 +543,12 @@ require( "includes/menu_inc.php" );
                                  $addstyle.=" border-left: 2px solid #".$C->readConfig("todayBorderColor")."; border-right: 2px solid #".$C->readConfig("todayBorderColor").";";
                               }
                               if (strlen($addstyle)) $addstyle = " style=\"".$addstyle."\"";
-                              if ( strlen($popup) ) $title="";
-                              echo "<td".$class.$addstyle.$title.$onmouseover.$onmouseout.">".$content."</td>\n";
+                              if (strlen($ttbody)) {
+                                 echo "<td".$class.$addstyle." id=\"td-".$U->username.$i."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$content."</td>\n";
+                              }
+                              else {
+                                 echo "<td".$class.$addstyle."\">".$content."</td>\n";
+                              }
                               $i++;
                            }
                            $i--;

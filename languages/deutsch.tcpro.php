@@ -1766,5 +1766,9 @@ $LANG['message_sendto_err'] = 'Es muss mindestens ein Nutzer ausgew&auml;hlt wer
 /**
  * Tipsy Tooltip
  */
-$LANG['tt_user_title'] = 'Information';
+$LANG['tt_title_userinfo'] = 'Nutzerinfon';
+$LANG['tt_title_userdayinfo'] = 'Nutzer Tagseinfo';
+$LANG['tt_title_dayinfo'] = 'Tagesinfo';
+$LANG['tt_edit_profile'] = 'Nutzerprofil bearbeiten...';
+$LANG['tt_view_profile'] = 'Nutzerprofil ansehen...';
 ?>

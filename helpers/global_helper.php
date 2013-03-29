@@ -628,24 +628,24 @@ function createMonthTemplate($yr, $mt) {
  *
  * @return string Div with popup HTML
  */
-function createPopup($id, $text, $theme) {
+function createPopup($id, $body, $caption='', $capicon='') {
    global $LANG;
+   
    $div  = '<div id="popup-'.$id.'" style="display: none;">';
-   $div .= '
-      <table class="tt">
-         <tr>
-            <td class="tt-caption"><img src="themes/'.$theme.'/img/ico_daynote.png" style="padding-right: 6px; vertical-align: middle;" alt="ico_daynote">'.$LANG['tt_user_title'].'</td>
-         </tr>
-         <tr>
-            <td class="tt-text">'.$text.'</td>
-         </tr>
-      </table>
-   ';
+   
+   if (strlen($caption)) {
+      $div .= '<div class="tt-caption">';
+      if (strlen($capicon)) {
+         $div .= '<img src="'.$capicon.'" style="padding-right: 6px; vertical-align: middle;" alt="icon">';
+      }
+      $div .= $caption.'</div>';
+   }
+   $div .= '<div class="tt-body">'.$body.'</div>';
    
    $div .= "
       <script type='text/javascript'>
       $(function() {
-         $('#td-".$id."').tipsy({
+         $('#".$id."').tipsy({
             delayIn: 0,      // delay before showing tooltip (ms)
             delayOut: 0,     // delay before hiding tooltip (ms)
             fade: true,     // fade tooltips in/out?
@@ -1041,7 +1041,7 @@ function getOptions() {
    if (isset ($_POST['regionfilter']) && strlen($_POST['regionfilter']) AND in_array($_POST['regionfilter'],$R->getRegions()))
       $CONF['options']['region'] = trim($_POST['regionfilter']);
 
-   if (isset ($_POST['absencefilter']) && strlen($_POST['absencefilter']) AND in_array($_POST['absencefilter'],$A->getAbsences()))
+   if (isset ($_POST['absencefilter']) && strlen($_POST['absencefilter']) AND $A->get($_POST['absencefilter']))
       $CONF['options']['absencefilter'] = trim($_POST['absencefilter']);
 
    if (isset ($_POST['month_id']) && strlen($_POST['month_id']) AND in_array($_POST['month_id'],$mo))
@@ -1079,13 +1079,6 @@ function getOptions() {
    else {
       $CONF['options']['helplang'] = "english";
    }
-
-   /**
-    * Overlib Settings based on theme
-    */
-   $CONF['ovl_tt_bgbackground'] = 'BGBACKGROUND, \''.$CONF['app_url'].'/themes/'.$C->readConfig("theme").'/img/bg_tooltip.gif\', ';
-   $CONF['ovl_tt_capicon'] = 'CAPICON, \''.$CONF['app_url'].'/themes/'.$C->readConfig("theme").'/img/ico_tt.png\', ';
-   $CONF['ovl_tt_settings'] = $CONF['ovl_tt_snap'].$CONF['ovl_tt_cellpad'].$CONF['ovl_tt_bgbackground'].$CONF['ovl_tt_capicon'].$CONF['ovl_tt_capcolor'].$CONF['ovl_tt_caption'].$CONF['ovl_tt_captionfont'].$CONF['ovl_tt_captionsize'].$CONF['ovl_tt_fgcolor'];
 
    /**
     * Time Zone
