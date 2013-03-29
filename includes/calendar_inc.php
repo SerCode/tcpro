@@ -28,7 +28,6 @@ $year_id = intval($CONF['options']['year_id']);
 $show_id = intval($CONF['options']['show_id']);
 $region = $CONF['options']['region'];
 ?>
-<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
 <div id="content">
    <div id="content-content">
       <?php

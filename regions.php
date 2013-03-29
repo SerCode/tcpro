@@ -388,7 +388,6 @@ else if ( isset($_POST['btn_reg_merge']) ) {
 }
 require("includes/header_html_inc.php");
 echo "<body>\r\n";
-echo "<div id=\"overDiv\" style=\"position:absolute; visibility:hidden; z-index:1000;\"></div>\r\n";
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
 ?>
