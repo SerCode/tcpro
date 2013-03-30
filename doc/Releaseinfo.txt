@@ -53,11 +53,24 @@ IMPROVEMENTS
    - Message center
    
 08 Tabbed dialog on Configuration page
-   The configuration age now has a tabbed dialog for better organization.
+   The configuration page now has a tabbed dialog
    
 09 Selectable jQuery theme
    jQuery offers themes as well. You can select a global theme for the jQuery
    objects.
+   
+10 HTML titles
+   Each page now shows an appropriate HTML title in the browser tab.
+   
+11 New Absence Page
+   The absence management page has been completely redone and contains more
+   details for setting them up.
+   
+12 Tabbed dialog on Regions page
+   The regions page now has a tabbed dialog
+   
+13 Declination Page
+   The declination page has been redesigned
    
    
 ------------------------------------------------------------------------------
