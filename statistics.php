@@ -45,6 +45,7 @@ $C = new Config_model;
 $G = new Group_model;
 $L = new Login_model;
 $M = new Month_model;
+$M2 = new Month_model;
 $ST = new Statistic_model;
 $T = new Template_model;
 $U = new User_model;
@@ -176,7 +177,6 @@ else if (isset($_POST['btn_apply_custom'])) {
 /**
  * Make sure we have month templates for all years in the desired period.
  */
-$M2=new tcMonth;
 for ($y=intval(substr($periodFrom,0,4)); $y<=intval(substr($periodTo,0,4)); $y++) {
    for ($m=1; $m<=12; $m++) {
       $find=strval($y).sprintf("%02d",$m);

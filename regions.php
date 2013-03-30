@@ -406,8 +406,8 @@ require("includes/menu_inc.php");
             
                <div id="tabs">
                   <ul>
-                     <li><a href="#tabs-1"><?=$LANG['region_caption_add']?></a></li>
                      <li><a href="#tabs-2"><?=$LANG['region_caption_existing']?></a></li>
+                     <li><a href="#tabs-1"><?=$LANG['region_caption_add']?></a></li>
                      <li><a href="#tabs-3"><?=$LANG['region_caption_merge']?></a></li>
                   </ul>
 
