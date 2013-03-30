@@ -55,6 +55,10 @@ IMPROVEMENTS
 08 Tabbed dialog on Configuration page
    The configuration age now has a tabbed dialog for better organization.
    
+09 Selectable jQuery theme
+   jQuery offers themes as well. You can select a global theme for the jQuery
+   objects.
+   
    
 ------------------------------------------------------------------------------
 [3.5.002]

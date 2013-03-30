@@ -11,7 +11,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
- * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
+ * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
 //echo "<script type=\"text/javascript\">alert(\"Debug: "\");</script>";
@@ -64,23 +64,20 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
 
    $showmonthBody='';
    $loggedIn = false;
+   
    /**
     * Create a timestamp for the given year and month (using day 1 of the
     * month) and use it to get some relevant information using date() and
     * getdate()
     */
-   $mytime = $month . " 1," . $year;
+   $mytime = $month." 1,".$year;
    $myts = strtotime($mytime);
-   // Get number of days in current month
-   $nofdays = date("t",$myts);
-   // Get first weekday of the current month
-   $mydate = getdate($myts);
+   $nofdays = date("t",$myts); // Get number of days in current month
+   $mydate = getdate($myts); // Get first weekday of the current month
    $weekday1 = $mydate['wday'];
    if ($weekday1=="0") $weekday1="7";
    $monthno = sprintf("%02d",intval($mydate['mon']));
-   // Set the friendly name of the month
-   // $monthname = $month . " " . $year;
-   $monthname = $LANG['monthnames'][intval($monthno)] . " " . $year;
+   $monthname = $LANG['monthnames'][intval($monthno)]." ".$year; // Set the friendly name of the month
 
    /**
     * Now find out what today is and if it lies in the month we are about
@@ -229,7 +226,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          if ( $H->findBySymbol($M->template[$i-1]) ) {
             if ($H->checkOptions($CONF['H_BUSINESSDAY'])) $businessDayCount++;
             if ( $H->cfgname=='busi' ) {
-               // Regular business day
+               /**
+                * It's a regular business day
+                */
                if ( $todaysmonth && $i==intval($today['mday']) ) {
                   $monthHeader.="<td class=\"todaynum\" title=\"".$H->dspname."\">".$i."</td>\n\r";
                }
@@ -238,7 +237,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                }
             }
             else {
-               // Holiday or any other non-busi day
+               /**
+                * It's a holiday or any other non-business day
+                */
                if ( $todaysmonth && $i==intval($today['mday']) ) {
                   $monthHeader.="<td class=\"todaynum-".$H->cfgname."\" title=\"".$H->dspname."\">".$i."</td>\n\r";
                }
@@ -268,6 +269,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          $colspan=0;
          $monthHeader.="<tr>\n\r";
          $monthHeader.="<td class=\"title\">".$LANG['cal_caption_weeknumber']."</td>\n\r";
+         
          if ( $CONF['options']['remainder']=="show" && $cntRemainders ) {
             $monthHeader.="<td class=\"title-button\" colspan=\"".($cntRemainders+$cntTotals+1)."\">&nbsp;</td>\n\r";
          }
@@ -279,6 +281,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          if ($firstDayOfWeeknumber<1 || $firstDayOfWeeknumber>7) $firstDayOfWeeknumber = 1;
          $lastDayOfWeeknumber = $firstDayOfWeeknumber-1;
          if ($lastDayOfWeeknumber==0) $lastDayOfWeeknumber = 7;
+         
          for ($i=1; $i<=$nofdays; $i=$i+1) {
             if ($wd != $lastDayOfWeeknumber) {
                $colspan++;
@@ -305,6 +308,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       $x = intval($weekday1);
       $monthHeader.="<tr>\n\r";
       $monthHeader.="<td class=\"title\">";
+      
       if ($sortorder=="ASC") {
          $request = setRequests();
          $request .= "sort=DESC";
@@ -317,6 +321,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?".$request."\">";
          $monthHeader.="<img class=\"noprint\" alt=\"".$LANG['log_sort_asc']."\" title=\"".$LANG['log_sort_asc']."\" src=\"themes/".$theme."/img/asc.png\" align=\"middle\" border=\"0\"></a>";
       }
+      
       $monthHeader.="&nbsp;".$LANG['cal_caption_name'];
       $monthHeader.="</td>\n\r";
       $monthHeader.="<td class=\"title-button\">";
@@ -325,6 +330,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
        * Print the weekday row: Remainder section
        */
       if (intval($C->readConfig("includeRemainder")) && $cntRemainders) {
+         
          if ( $CONF['options']['remainder']=="show" ) {
             /**
              * The remainder section is expanded. Display the collapse button.
@@ -334,6 +340,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
             $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?".$request."\">";
             $monthHeader.="<img class=\"noprint\" alt=\"".$LANG['col_remainder']."\" title=\"".$LANG['col_remainder']."\" src=\"themes/".$theme."/img/hide_section.gif\" align=\"top\" border=\"0\"></a>";
             $monthHeader.="</td>\n\r";
+            
             /**
              * Go through each absence type, see wether its option is set
              * to be shown in the remainders. Then display the remainder
@@ -372,7 +379,6 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                      $monthHeader.="</td>\r\n";
                   }
                }
-      
             }
          }
          else {
@@ -395,6 +401,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
              * Get general Daynote into $ttbody if one exists
              */
             if ($i<10) $dd="0".strval($i); else $dd=strval($i);
+            
             if ( $N->findAllByMonthUser($year,$monthno,$nofdays,"all",$CONF['options']['region']) ) {
                if (!empty($N->daynotes['all'][$year.$monthno.$dd])) {
                   $style="-note";
@@ -483,11 +490,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          
          if ($groupfilter=="All") {
             $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
-                  " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
-                  " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                  " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                  " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                  " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
+                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
             $result = $U->db->db_query($query);
             $i=0;
             while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
@@ -499,20 +506,20 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          else if ($groupfilter=="Allbygroup") {
             if (intval($C->readConfig("hideManagers"))) {
                $query = "SELECT DISTINCT ".$CONF['db_table_user_group'].".groupname, ".$CONF['db_table_user_group'].".username " .
-                     " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " AND ".$CONF['db_table_user_group'].".username=".$CONF['db_table_users'].".username" .
-                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
-                     " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+                        " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
+                        " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                        " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+                        " AND ".$CONF['db_table_user_group'].".username=".$CONF['db_table_users'].".username" .
+                        " AND ".$CONF['db_table_user_group'].".type!='manager'" .
+                        " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
             }
             else {
                $query = "SELECT DISTINCT ".$CONF['db_table_user_group'].".groupname, ".$CONF['db_table_user_group'].".username " .
-                     " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " AND ".$CONF['db_table_user_group'].".username=".$CONF['db_table_users'].".username" .
-                     " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+                        " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
+                        " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                        " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+                        " AND ".$CONF['db_table_user_group'].".username=".$CONF['db_table_users'].".username" .
+                        " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
             }
             $result = $UG->db->db_query($query);
             $i=0;
@@ -528,22 +535,22 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
             */
             if (intval($C->readConfig("hideManagers"))) {
                $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
-                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                     " AND ".$CONF['db_table_groups'].".groupname='".$groupfilter."'" .
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
-                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+                        " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
+                        " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                        " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+                        " AND ".$CONF['db_table_groups'].".groupname='".$groupfilter."'" .
+                        " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+                        " AND ".$CONF['db_table_user_group'].".type!='manager'" .
+                        " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
             }
             else {
                $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
-                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                     " AND ".$CONF['db_table_groups'].".groupname='".$groupfilter."'" .
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+                        " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
+                        " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                        " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+                        " AND ".$CONF['db_table_groups'].".groupname='".$groupfilter."'" .
+                        " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+                        " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
             }
             $result = $U->db->db_query($query);
             $i=0;
@@ -558,24 +565,24 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
             */
             if (intval($C->readConfig("hideManagers"))) {
                $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
-                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                     " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
-                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
-                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+                        " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
+                        " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                        " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+                        " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
+                        "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
+                        " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+                        " AND ".$CONF['db_table_user_group'].".type!='manager'" .
+                        " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
             }
             else {
                $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
-                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                     " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
-                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+                        " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
+                        " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                        " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+                        " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
+                        "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
+                        " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+                        " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
             }
             $result = $U->db->db_query($query);
             while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {

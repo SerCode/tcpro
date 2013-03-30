@@ -1,4 +1,5 @@
 <?php
+if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * config.default.php
  *
@@ -10,13 +11,13 @@
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
- * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
+ * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
 global $CONF;
 unset($CONF);
 
-/**
+/**===========================================================================
  * PERSONALIZATION
  * You can alter these entries to personalize your TeamCal Pro installation.
  * You might also want to look at the indludes/header.application.inc.php
@@ -32,19 +33,16 @@ $CONF['app_avatar_dir'] = 'img/avatar/';
 $CONF['app_icon_dir'] = 'img/icons/';
 $CONF['app_homepage_dir'] = 'img/homepage/';
 
-
-/**
+/**===========================================================================
  * DATABASE
  * Currently only db_type=1 (MySQL) is supported.
  */
 $CONF['db_type']   = 1;
 $CONF['db_persistent'] = false;
-
 $CONF['db_server'] ="localhost";
 $CONF['db_name']   ="test";
 $CONF['db_user']   ="root";
 $CONF['db_pass']   ="";
-
 /**
  * Table names
  */
@@ -70,37 +68,19 @@ $CONF['db_table_user_announcement'] = $CONF['db_table_prefix'].'tc_user_announce
 $CONF['db_table_user_group']        = $CONF['db_table_prefix'].'tc_user_group';
 $CONF['db_table_user_options']      = $CONF['db_table_prefix'].'tc_user_options';
 
-/**
- * USER
- */
-$CONF['UTVIEWER']   = 0x00;                // 0000 0000 User Type: None (just Viewer)
-$CONF['UTUSER']     = 0x01;                // 0000 0001 User Type: User
-$CONF['UTMANAGER']  = 0x02;                // 0000 0010 User Type: Group Manager
-$CONF['UTADMIN']    = 0x04;                // 0000 0100 User Type: Administrator
-$CONF['UTMALE']     = 0x08;                // 0000 1000 User Type: Male (if not set=female)
-$CONF['UTDIRECTOR'] = 0x10;                // 0001 0000 User Type: Director
-$CONF['UTTEMPLATE'] = 0x20;                // 0001 0000 User Type: Template (absences copied to all other users of the same group)
-
-$CONF['USLOCKED']   = 0x01;                // 0000 0001 User Status: Account locked
-$CONF['USCHGPWD']   = 0x02;                // 0000 0010 User Status: Must change password (not used)
-$CONF['USLOGLOC']   = 0x04;                // 0000 0100 User Status: Login locked for grace period
-$CONF['USHIDDEN']   = 0x08;                // 0000 1000 User Status: User will not be displayed in the calendar
-
-/**
+/**===========================================================================
  * LDAP AUTHENTICATION
- *
- * Note: !!! The LDAP feature is in beta mode and not confirmed to work. Try at own risk. !!!
- *
- * PHP Requirements
- * You will need to get and compile LDAP client libraries from either
- * http://www.openldap.org/ or http://Bind9.net in order to compile PHP with LDAP support.
- *
- * PHP Installation
- * LDAP support in PHP is not enabled by default. You will need to use the --with-ldap[=DIR]
- * configuration option when compiling PHP to enable LDAP support. DIR is the LDAP base
- * install directory. To enable SASL support, be sure --with-ldap-sasl[=DIR] is used, and
- * that sasl.h exists on the system.
- */
+*
+* PHP Requirements
+* You will need to get and compile LDAP client libraries from either
+* OpenLDAP or Bind9.net in order to compile PHP with LDAP support.
+*
+* PHP Installation
+* LDAP support in PHP is not enabled by default. You will need to use the
+* --with-ldap[=DIR] configuration option when compiling PHP to enable LDAP
+* support. DIR is the LDAP base install directory. To enable SASL support,
+* be sure --with-ldap-sasl[=DIR] is used, and that sasl.h exists on the system.
+*/
 $CONF['LDAP_YES']   = 0;                   // Use LDAP authentication
 $CONF['LDAP_HOST']  = "ldap.mydomain.com"; // LDAP host name
 $CONF['LDAP_PORT']  = "389";               // LDAP port
@@ -109,51 +89,67 @@ $CONF['LDAP_DIT']   = "cn=<service account>,ou=fantastic_four,ou=superheroes,dc=
 $CONF['LDAP_SBASE'] = "ou=superheroes,ou=characters,dc=marvel,dc=comics"; // Search base, location in the LDAP dirctory to search
 $CONF['LDAP_TLS']   = 0; // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
 
-/**
- * ABSENCE TYPE OPTIONS
+
+/**===========================================================================
+ * ATTENTION!
+ * Don't change anything below this line unless you know what you're doing!
  */
-$CONF['A_SHOWREMAIN']      = 0x000001;     // Flag: Include absence type in remainder
-$CONF['A_APPROVAL']        = 0x000002;     // Flag: Approval needed
-$CONF['A_SHOWTOTAL']       = 0x000004;     // Flag: Include absence total in remainder section
-$CONF['A_PRESENCE']        = 0x000008;     // Flag: This absence type counts as 'present'
-$CONF['A_MGR_ONLY']        = 0x000010;     // Flag: This absence type is for managers only
-$CONF['A_HIDE_IN_PROFILE'] = 0x000020;     // Flag: Hide this absence type in regular user profiles (Absences tab)
-$CONF['A_CONFIDENTIAL']    = 0x000040;     // Flag: Cannot be used or seen by regular users
+
+/**
+ * USER
+ */
+$CONF['UTVIEWER']          = 0x00;     // Flag: User Type: None (just Viewer)
+$CONF['UTUSER']            = 0x01;     // Flag: User Type: User
+$CONF['UTMANAGER']         = 0x02;     // Flag: User Type: Group Manager
+$CONF['UTADMIN']           = 0x04;     // Flag: User Type: Administrator
+$CONF['UTMALE']            = 0x08;     // Flag: User Type: Male (if not set=female)
+$CONF['UTDIRECTOR']        = 0x10;     // Flag: User Type: Director
+$CONF['UTTEMPLATE']        = 0x20;     // Flag: User Type: Template (absences copied to all other users of the same group)
+
+$CONF['USLOCKED']          = 0x01;     // Flag: User Status: Account locked
+$CONF['USCHGPWD']          = 0x02;     // Flag: User Status: Must change password (not used)
+$CONF['USLOGLOC']          = 0x04;     // Flag: User Status: Login locked for grace period
+$CONF['USHIDDEN']          = 0x08;     // Flag: User Status: User will not be displayed in the calendar
 
 /**
  * HOLIDAY OPTIONS
  */
-$CONF['H_BUSINESSDAY'] = 0x000001;         // Flag: Holiday counts as business day
+$CONF['H_BUSINESSDAY']     = 0x000001; // Flag: Holiday counts as business day
 
 /**
  * GROUP OPTIONS
  */
-$CONF['G_HIDE']        = 0x000001;         // Flag: Hide group from calendar
-$CONF['G_MIN_PRESENT'] = 0x000002;         // Flag: Check for minimum members present
-$CONF['G_MAX_ABSENT']  = 0x000004;         // Flag: Check for maximum members absent
+$CONF['G_HIDE']            = 0x000001; // Flag: Hide group from calendar
+$CONF['G_MIN_PRESENT']     = 0x000002; // Flag: Check for minimum members present
+$CONF['G_MAX_ABSENT']      = 0x000004; // Flag: Check for maximum members absent
+
+/**
+ * REGION OPTIONS
+ */
+$CONF['R_HIDE']            = 0x000001; // Flag: Hide region
 
 /**
  * DECLINATION
  */
-$CONF['DECL_OFF']          = 0x000000;     // Decline off
-$CONF['DECL_ON']           = 0x000001;     // Decline on
-$CONF['DECL_BASE_ALL']     = 0x000002;     // Threshold base 'All'
-$CONF['DECL_BASE_GROUP']   = 0x000004;     // Threshold base 'Group'
-$CONF['DECL_NOTIFY_USER']  = 0x000008;     // Notify User
-$CONF['DECL_NOTIFY_MANGR'] = 0x000010;     // Notify Group Manager
-$CONF['DECL_NOTIFY_DIREC'] = 0x000020;     // Notify Director(s)
-$CONF['DECL_NOTIFY_ADMIN'] = 0x000040;     // Notify Administrator
-$CONF['DECL_BEFORE_ON']    = 0x000080;     // Block before date flag
+$CONF['DECL_OFF']          = 0x000000; // Flag: Decline off
+$CONF['DECL_ON']           = 0x000001; // Flag: Decline on
+$CONF['DECL_BASE_ALL']     = 0x000002; // Flag: Threshold base 'All'
+$CONF['DECL_BASE_GROUP']   = 0x000004; // Flag: Threshold base 'Group'
+$CONF['DECL_NOTIFY_USER']  = 0x000008; // Flag: Notify User
+$CONF['DECL_NOTIFY_MANGR'] = 0x000010; // Flag: Notify Group Manager
+$CONF['DECL_NOTIFY_DIREC'] = 0x000020; // Flag: Notify Director(s)
+$CONF['DECL_NOTIFY_ADMIN'] = 0x000040; // Flag: Notify Administrator
+$CONF['DECL_BEFORE_ON']    = 0x000080; // Flag: Block before date flag
 
 /**
  * NOTIFICATION E-MAIL
  */
-$CONF['userchg']    = 0x01;                // Notification mail on user changes
-$CONF['groupchg']   = 0x02;                // Notification mail on group changes
-$CONF['monthchg']   = 0x04;                // Notification mail on month changes
-$CONF['usercalchg'] = 0x08;                // Notification mail on user calendar changes
-$CONF['absencechg'] = 0x10;                // Notification mail on absence changes
-$CONF['holidaychg'] = 0x20;                // Notification mail on holiday changes
+$CONF['userchg']           = 0x01;     // Flag: Notification mail on user changes
+$CONF['groupchg']          = 0x02;     // Flag: Notification mail on group changes
+$CONF['monthchg']          = 0x04;     // Flag: Notification mail on month changes
+$CONF['usercalchg']        = 0x08;     // Flag: Notification mail on user calendar changes
+$CONF['absencechg']        = 0x10;     // Flag: Notification mail on absence changes
+$CONF['holidaychg']        = 0x20;     // Flag: Notification mail on holiday changes
 
 /**
  * ENCRYPTION
@@ -163,23 +159,11 @@ $CONF['holidaychg'] = 0x20;                // Notification mail on holiday chang
 $CONF['salt'] ='s7*9fgJ#R';
 
 /**
- * CALENDAR
- *
- * The '.' is the default character to represent presency. Only change this when
- * you know what you're doing.
- */
-$CONF['present'] = ".";
-/**
  * These english monthnames are used regardless of chosen language to compute
  * dates and times.
  */
 $CONF['monthnames'] = array(1=>"January","February","March","April","May","June","July","August","September","October","November","December");
 $CONF['weekdays']   = array(1=>"Mo","Tu","We","Th","Fr","Sa","Su");
-
-/**
- * REGION OPTIONS
- */
-$CONF['R_HIDE'] = 0x000001;                // Flag: Hide region
 
 require ("config.version.php");
 ?>

@@ -1,4 +1,5 @@
 <?php
+if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * config.version.php
  *
@@ -9,10 +10,10 @@
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
- * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
+ * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
-/**
+/**===========================================================================
  * PRODUCT, AUTHOR, COPYRIGHT, LICENSE INFORMATION
  * Do not change this information. It is protected by the license agreement.
  * To personalize your installation open the TeamCal Pro Configuration in the
@@ -20,7 +21,7 @@
  */
 $CONF['app_name'] = "TeamCal Pro";
 $CONF['app_version'] = "3.6.000";
-$CONF['app_date'] = "2013-03-20";
+$CONF['app_version_date'] = "2013-03-20";
 $CONF['app_year'] = "2004";
 $CONF['app_curr_year'] = date('Y');
 $CONF['app_author'] = "George Lewe";
@@ -32,10 +33,10 @@ $CONF['app_footer_pwd'] = "Powered by ".$CONF['app_name']." ".$CONF['app_version
 $CONF['app_license_html'] =
 "This program is open source software; it may be used, redistributed
 and/or modified under the terms of the TeamCal Pro license which is
-based on the GNU General Public License as published by the Free
+based on the GNU General Public License v3 as published by the Free
 Software Foundation (but not identical).
-TeamCal Pro license: http://www.lewe.com/tcpro/license.txt
-GPL license:         http://www.lewe.com/tcpro/gpl.txt
+TeamCal Pro license: http://tcpro.lewe.com/doc/license.txt
+GPL license:         http://tcpro.lewe.com/doc/gpl.txt
 
 This program is distributed in the hope that it will be useful, but
 WITHOUT ANY WARRANTY; without even the implied warranty of

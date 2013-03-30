@@ -13,7 +13,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
- * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
+ * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!--
@@ -22,7 +22,7 @@ TEAMCAL PRO
 ___________________________________________________________________________
 
 Application: <?=$CONF['app_name']." ".$CONF['app_version']."\n"?>
-Date:        <?=$CONF['app_date']."\n"?>
+Date:        <?=$CONF['app_version_date']."\n"?>
 Author:      <?=$CONF['app_author']."\n"?>
 Copyright:   <?=$CONF['app_copyright_html']."\n"?>
              All rights reserved.

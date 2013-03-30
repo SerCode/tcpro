@@ -1,18 +1,18 @@
 <?php
 /**
  * ajax_checkdb_helper.php
- * 
+ *
  * Launched via Ajax, this routine checks the accessibility of a MySQL database.
  * Used by the installation page.
- * 
+ *
  * @package TeamCalPro
- * @version 3.6.000 
+ * @version 3.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
- * @license http://www.lewe.com/tcpro/doc/license.txt Extended GNU Public License
+ * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
- 
+
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 $db_handle = @ mysql_connect($_REQUEST['server'], $_REQUEST['user'], $_REQUEST['pass']);
@@ -31,5 +31,6 @@ else {
       }
    }
 }
+
 echo $msg;
 ?>
