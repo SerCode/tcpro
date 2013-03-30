@@ -22,9 +22,12 @@ This helper will upgrade your database to the new tables necessary to
 support the unlimited absence types. The script will display some messages on
 the screen showing the changes done to your database.
 
-Load your new TeamCal Pro in your browser. It should now show your old data 
-in the new version. Perform a few tests and if you're happy make it your 
-production instance.
+Load your new TeamCal Pro in your browser. The display might not look perfect
+yet. Log in as admin, go to the configuration page and apply it. There are
+new values in 3.6.000 that will then be saved.
+
+Refresh. It should now look all good. Perform a few tests and if you're happy
+make it your production instance.
 
 ------------------------------------------------------------------------------
 [3.5.001] -> [3.5.002]
