@@ -48,6 +48,11 @@ $UL  = new User_model;
 $UG  = new User_group_model;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_message'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("useMessageCenter")) showError("notallowed", TRUE);

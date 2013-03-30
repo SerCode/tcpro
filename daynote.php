@@ -42,6 +42,11 @@ $N = new Daynote_model;
 $U = new User_model;
 $UG= new User_group_model;
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_daynote'];
+
 $allowed=FALSE;
 $event=NULL;
 

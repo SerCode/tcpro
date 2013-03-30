@@ -35,6 +35,11 @@ $U = new User_model;
 $error=FALSE;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_environment'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("viewEnvironment")) showError("notallowed");

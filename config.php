@@ -46,6 +46,11 @@ $U  = new User_model;
 $error = false;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_config'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("editConfig")) showError("notallowed");

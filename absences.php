@@ -45,6 +45,11 @@ $LOG = new Log_model;
 $U = new User_model;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_absences'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("editAbsenceTypes")) showError("notallowed");

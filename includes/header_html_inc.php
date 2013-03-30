@@ -105,7 +105,7 @@ if (!$S->getStyle($theme)) createCSS($theme);
 ?>
 <html>
    <head>
-      <title>Lewe TeamCal Pro</title>
+      <title><?=$CONF['app_name'].' '.$CONF['html_title']?></title>
       <meta http-equiv="Pragma" content="no-cache">
       <meta http-equiv="Cache-Control" content="no-cache, must-revalidate, max_age=0">
       <meta http-equiv="Expires" content="0">

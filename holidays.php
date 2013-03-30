@@ -55,6 +55,11 @@ $UO = new User_option_model;
 $error = false;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_holidays'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("editHolidays")) showError("notallowed");

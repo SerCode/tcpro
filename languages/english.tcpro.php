@@ -1775,4 +1775,41 @@ $LANG['tt_title_userdayinfo'] = 'User Day Information';
 $LANG['tt_title_dayinfo'] = 'Day Information';
 $LANG['tt_edit_profile'] = 'Edit user profile...';
 $LANG['tt_view_profile'] = 'View user profile...';
+
+/**
+ * HTML titles
+ */
+$LANG['html_title_absences'] = 'Absences';
+$LANG['html_title_addprofile'] = 'Add Profile';
+$LANG['html_title_announcement'] = 'Announcements';
+$LANG['html_title_calendar'] = 'Calendar';
+$LANG['html_title_config'] = 'Configuration';
+$LANG['html_title_database'] = 'Database';
+$LANG['html_title_daynote'] = 'Daynote';
+$LANG['html_title_declination'] = 'Declination';
+$LANG['html_title_editcalendar'] = 'Edit Calendar';
+$LANG['html_title_editmonth'] = 'Edit Month';
+$LANG['html_title_editprofile'] = 'Edit Profile';
+$LANG['html_title_environment'] = 'Environment';
+$LANG['html_title_error'] = 'Error';
+$LANG['html_title_eportdata'] = 'Export Data';
+$LANG['html_title_groupassign'] = 'Group Assignments';
+$LANG['html_title_groups'] = 'Groups';
+$LANG['html_title_holidays'] = 'Holidays';
+$LANG['html_title_homepage'] = 'Home';
+$LANG['html_title_legend'] = 'Legend';
+$LANG['html_title_log'] = 'Log';
+$LANG['html_title_login'] = 'Login';
+$LANG['html_title_message'] = 'Message Center';
+$LANG['html_title_permissions'] = 'Permissions';
+$LANG['html_title_phpinfo'] = 'PHP Info';
+$LANG['html_title_regions'] = 'Login';
+$LANG['html_title_register'] = 'Register';
+$LANG['html_title_showyear'] = 'Year Calendar';
+$LANG['html_title_statistics'] = 'Statistics';
+$LANG['html_title_upload'] = 'Upload';
+$LANG['html_title_userimport'] = 'User Import';
+$LANG['html_title_userlist'] = 'User List';
+$LANG['html_title_verify'] = 'User Verification';
+$LANG['html_title_viewprofile'] = 'View Profile';
 ?>

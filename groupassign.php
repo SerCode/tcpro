@@ -47,6 +47,11 @@ $UO = new User_option_model;
 $error=FALSE;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_groupassign'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("manageGroupMemberships")) showError("notallowed");

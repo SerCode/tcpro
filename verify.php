@@ -43,6 +43,11 @@ $error = FALSE;
 $info = FALSE;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_verify'];
+
+/**
  * Check URL request parameter
  */
 if (!isset ($_REQUEST['verify']) || !isset ($_REQUEST['username']) || strlen($_REQUEST['verify'])<>32 || !in_array($_REQUEST['username'],$U->getUsernames()) ) {

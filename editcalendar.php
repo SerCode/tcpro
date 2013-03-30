@@ -63,6 +63,11 @@ $error_decl=FALSE;
 $warning=FALSE;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_editcalendar'];
+
+/**
  * Get the user that is logged in
  */
 $user=$L->checkLogin();

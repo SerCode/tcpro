@@ -36,6 +36,11 @@ $C = new Config_model;
 $U  = new User_model;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_exportdata'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("manageDatabase")) showError("notallowed", TRUE);

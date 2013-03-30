@@ -1661,6 +1661,11 @@ function showError($error="notallowed",$message="",$closeButton=FALSE) {
          $err_btn_close=$closeButton;
          break;
    }
+   /**
+    * HTML title. Will be shown in browser tab.
+    */
+   $CONF['html_title'] = $LANG['html_title_error'];
+
    require("includes/header_html_inc.php");
    echo "<body>\r\n";
    if (!$closeButton) {

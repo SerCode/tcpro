@@ -42,6 +42,11 @@ $L   = new Login_model;
 $U   = new User_model;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_log'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("viewSystemLog")) showError("notallowed");

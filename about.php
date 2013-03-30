@@ -31,7 +31,7 @@ else                                  require ("languages/english.tcpro.php");
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
    <head>
-      <title>Lewe Team Calendar Pro</title>
+      <title>Lewe TeamCal Pro</title>
       <meta http-equiv="Content-type" content="text/html;charset=iso-8859-1">
       <meta http-equiv="Content-Style-Type" content="text/css">
       <style type="text/css" media="screen">

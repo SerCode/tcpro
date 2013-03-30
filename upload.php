@@ -35,6 +35,11 @@ $error=FALSE;
 $upload=FALSE;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_upload'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("editAbsenceTypes")) showError("notallowed", TRUE);

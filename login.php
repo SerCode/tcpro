@@ -61,6 +61,11 @@ else
    require ("languages/english.tcpro.php");
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_login'];
+
+/**
  * Initiate view variables
  */
 $errors = '';
@@ -87,12 +92,12 @@ if (isset($_POST['btn_login'])) {
          foreach($users as $usr) {
             if ( $UO->true($usr['username'],"showbirthday") ) {
                if($UO->true($usr['username'],"ignoreage")) {
-                  $birthdate=date("d M",strtotime($usr['birthday']));
-                  if ($birthdate==date("d M")) {
+                  $birthdate=date("Y-m-d",strtotime($usr['birthday']));
+                  if ($birthdate==date("Y-m-d")) {
                      $bdayalarm.= $usr['firstname']." ".$usr['lastname'].": ".$birthdate ."<br>";
                   }
                } else {
-                  $birthdate=date("d M Y",strtotime($usr['birthday']));
+                  $birthdate=date("Y-m-d",strtotime($usr['birthday']));
                   $dayofbirth=date("d M",strtotime($usr['birthday']));
                   $age=intval(date("Y"))-intval(substr($usr['birthday'],0,4));
                   if ($dayofbirth==date("d M")) {
@@ -102,7 +107,7 @@ if (isset($_POST['btn_login'])) {
             }
          }
          if (strlen($bdayalarm)) {
-            $bdayalarm = "<strong>".$LANG['ann_bday_title'].date("d. F")."</strong><br><br>".$bdayalarm."<br>&nbsp;";
+            $bdayalarm = "<strong>".$LANG['ann_bday_title'].date("Y-m-d")."</strong><br><br>".$bdayalarm."<br>&nbsp;";
             $tstamp = date("Ymd")."000000";
             if ($AN->read($tstamp)) {
                $UA->unassign($tstamp,$uname);

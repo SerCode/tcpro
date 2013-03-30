@@ -49,6 +49,11 @@ $UG  = new User_group_model;
 $error = false;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_groups'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("manageGroups")) showError("notallowed");

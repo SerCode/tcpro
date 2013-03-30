@@ -54,6 +54,11 @@ $UG = new User_group_model;
 $error=FALSE;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_statistics'];
+
+/**
  * Check if allowed
  */
 if (!isAllowed("viewStatistics")) showError("notallowed");

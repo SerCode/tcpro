@@ -55,6 +55,11 @@ $UG = new User_group_model;
 $UO = new User_option_model;
 
 /**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_addprofile'];
+
+/**
  * Check authorization
  */
 if (!isAllowed("manageUsers")) showError("notallowed", TRUE);

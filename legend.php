@@ -36,6 +36,11 @@ $A = new Absence_model;
 $C = new Config_model;
 $H = new Holiday_model;
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_legend'];
+
 require("includes/header_html_inc.php" );
 ?>
 <body>
