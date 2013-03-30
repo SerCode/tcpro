@@ -10,7 +10,7 @@ Backup your current files and database!
 For this upgrade create a copy of your database. Install a fresh 3.6.000 at
 a new location.
 
-Copy config.default.php => config.tcpro.php.
+In your new installation folder, copy config.default.php => config.tcpro.php.
 
 Edit config.tcpro.php, enter your URLs and point to the copy of your data-
 base. Make sure the table prefix is correct in case you used a different

@@ -32,7 +32,7 @@ $CONF['app_avatar_dir'] = 'img/avatar/';
 $CONF['app_icon_dir'] = 'img/icons/';
 $CONF['app_homepage_dir'] = 'img/homepage/';
 
-$CONF['html_title'] = 'Lewe TeamCal Pro'; // Default HTML title
+$CONF['html_title'] = 'Lewe TeamCal Pro'; // Default HTML title. Change if u like.
 
 /**===========================================================================
  * DATABASE
