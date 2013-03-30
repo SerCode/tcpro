@@ -808,6 +808,45 @@ function generatePassword($length=9)
 
 // ---------------------------------------------------------------------------
 /**
+ * Scans a given directory for files. Optionally you can specify an array of
+ * extension to look for.
+ *
+ * @param string $myDir Directory name to scan
+ * @param string $myExt Array of extensions to scan for
+ * @return array Array containing the names of the files (optionally matching one of the extension in myExt)
+ */
+function getFiles($myDir, $myExt = NULL) {
+
+   $myDir = rtrim($myDir, "/");
+   $dir = opendir($myDir);
+   while (false !== ($filename = readdir($dir)))
+      $files[] = strtolower($filename);
+
+   foreach ($files as $pos => $file) {
+      if (is_dir($file)) {
+         $dirs[] = $file;
+         unset ($files[$pos]);
+      }
+   }
+
+   if (count($myExt)) {
+      if (count($files)) {
+         foreach ($files as $pos => $file) {
+            $thisExt = explode(".", $file);
+            if (in_array($thisExt[1], $myExt)) {
+               $filearray[] = $file;
+            }
+         }
+      }
+      return $filearray;
+   }
+   else {
+      return $files;
+   }
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Extracts the file extension from a given file name
  *
  * @param string str String containing the path or filename
@@ -819,6 +858,26 @@ function getFileExtension($str) {
    $l = strlen($str) - $i;
    $ext = substr($str,$i+1,$l);
    return $ext;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Gets all folders in a given directory
+ *
+ * @return array Array containing the folder names
+ */
+function getFolders($myDir) {
+	$myDir = rtrim($myDir, '/').'/'; // Ensure trailing slash
+   $handle = opendir($myDir);
+   $diridx = 0;
+   while (false !== ($dir = readdir($handle))) {
+      if (is_dir($myDir . "/$dir") && $dir != "." && $dir != "..") {
+         $dirarray[$diridx]["name"] = $dir;
+         $diridx++;
+      }
+   }
+   closedir($handle);
+   return $dirarray;
 }
 
 // ---------------------------------------------------------------------------
@@ -1093,26 +1152,6 @@ function getOptions() {
 
 // ---------------------------------------------------------------------------
 /**
- * Gets all theme directory names from the TeamCal Pro theme directory
- *
- * @return array Array containing the names
- */
-function getThemes() {
-   $themedir = "themes/";
-   $handle = opendir($themedir); // open directory
-   $diridx = 0;
-   while (false !== ($dir = readdir($handle))) {
-      if (is_dir($themedir . "/$dir") && $dir != "." && $dir != "..") {
-         $dirarray[$diridx]["name"] = $dir;
-         $diridx++;
-      }
-   }
-   closedir($handle);
-   return $dirarray;
-}
-
-// ---------------------------------------------------------------------------
-/**
  * Checks whether a user is authorized in the active permission scheme
  *
  * @param string $scheme Permission scheme to check
@@ -1248,45 +1287,6 @@ function printDialogTop($title = '', $helpfile = '', $icon = '') {
             </tr>
          </table>
          ';
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Scans a given directory for files. Optionally you can specify an array of
- * extension to look for.
- *
- * @param   string $myDir     Directory name to scan
- * @param   string $myExt     Array of extensions to scan for
- * @return  array Array containing the names of the files (optionally matching one of the extension in myExt)
- */
-function scanDirectory($myDir, $myExt = NULL) {
-
-   $myDir = rtrim($myDir, "/");
-   $dir = opendir($myDir);
-   while (false !== ($filename = readdir($dir)))
-      $files[] = strtolower($filename);
-
-   foreach ($files as $pos => $file) {
-      if (is_dir($file)) {
-         $dirs[] = $file;
-         unset ($files[$pos]);
-      }
-   }
-
-   if (count($myExt)) {
-      if (count($files)) {
-         foreach ($files as $pos => $file) {
-            $thisExt = explode(".", $file);
-            if (in_array($thisExt[1], $myExt)) {
-               $filearray[] = $file;
-            }
-         }
-      }
-      return $filearray;
-   }
-   else {
-      return $files;
-   }
 }
 
 // ---------------------------------------------------------------------------

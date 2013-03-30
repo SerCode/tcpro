@@ -835,7 +835,7 @@ $LANG['admin_config_theme_comment'] = 'Select a theme to change the looks of Tea
 'skin by making a copy of the \'tcpro\' directory in the \'themes\' folder and adjust the style sheet and images to your liking. Your new '.
 'directory will automatically be listed here.';
 $LANG['admin_config_usertheme'] = 'User Theme';
-$LANG['admin_config_usertheme_comment'] = 'Check whether you want each user to be able to select his individual theme.';
+$LANG['admin_config_usertheme_comment'] = 'Check whether you want each user to be able to select his individual TeamCal Pro theme.';
 
 /**
  * Database Maintenance Page
@@ -1738,6 +1738,10 @@ $LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Optimize tables';
  */
 $LANG['admin_config_mail_smtp_ssl'] = 'SMTP TLS/SSL protocol';
 $LANG['admin_config_mail_smtp_ssl_comment'] = 'Use the TLS/SSL protocol for the SMTP connection';
+$LANG['admin_config_jqtheme'] = 'jQuery Theme';
+$LANG['admin_config_jqtheme_comment'] = 'TeamCal Pro uses jQuery, a popular collection of Javascript utilities. jQuery offers themes as well '.
+'used for the display of the tabbed dialogs and other features. The default theme is "base" which is a neutral gray shaded theme. '.
+'Try more from the list, some of them are quite colorful. This is a global setting, users cannot chose an indiviual jQuery theme.';
 
 /**
  * Message Dialog

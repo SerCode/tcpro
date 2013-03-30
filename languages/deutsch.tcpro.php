@@ -835,7 +835,7 @@ $LANG['admin_config_theme_comment'] = 'W&auml;hle ein Design (auch \'Theme\' ode
 'von TeamCal Pro zu &auml;ndern. Du kannst ein eigenes Theme erstellen, indem du eine Kopie von dem \'tcpro\' Verzeichnis im \'themes\' '.
 'Ordner anlegst und das Style Sheet und die Bilder entsprechend anpasst. Dein neues Verzeichnis wir dann automatisch in dieser Liste hier angezeigt.';
 $LANG['admin_config_usertheme'] = 'User Design (Theme)';
-$LANG['admin_config_usertheme_comment'] = 'W&auml;hle aus, ob jeder User sein eigenes Theme w&auml;hlen kann.';
+$LANG['admin_config_usertheme_comment'] = 'W&auml;hle aus, ob jeder User sein eigenes TeamCal Pro Theme w&auml;hlen kann.';
 
 /**
  * Database Maintenance Page
@@ -1738,6 +1738,10 @@ $LANG['admin_dbmaint_cleanup_chkOptimize'] = 'Tabellen optimieren';
  */
 $LANG['admin_config_mail_smtp_ssl'] = 'SMTP TLS/SSL Protokoll';
 $LANG['admin_config_mail_smtp_ssl_comment'] = 'TLS/SSL Protokoll f&uuml;r die SMTP Verbindung benutzen.';
+$LANG['admin_config_jqtheme'] = 'jQuery Design (Theme)';
+$LANG['admin_config_jqtheme_comment'] = 'TeamCal Pro nutzt jQuery, eine popul&auml;re Sammlung von Javascript Tools. jQuery bietet auch verschiedene Themes, '.
+'die die Anzeige der Reiterdialoge u.a. Objekten bestimmen. Das Standard Theme ist "base", ein neutrales Schema mit Graut&ouml;nen. '.
+'Versuche andere aus der Liste, manche sind recht fabenfroh. Diese Einstellung wirkt global. Nutzer k&ouml;nnen kein eigenes jQuery Theme w&auml;hlen.';
 
 /**
  * Message Dialog

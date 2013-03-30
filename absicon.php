@@ -105,7 +105,7 @@ require("includes/header_html_inc.php");
                "jpg",
                "png"
             );
-            $scanarray = scanDirectory($CONF['app_icon_dir'], $scanFor);
+            $scanarray = getFiles($CONF['app_icon_dir'], $scanFor);
             if (!strlen($A->iconfile)) $iconcheck="CHECKED"; else $iconcheck="";
             echo "<td class=\"dlg-row".$printrow."\">\n";
             echo "\t<input name=\"icon\" id=\"noicon\" type=\"radio\" value=\"noicon\" ".$iconcheck.">";

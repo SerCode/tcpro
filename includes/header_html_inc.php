@@ -125,7 +125,7 @@ if (!$S->getStyle($theme)) createCSS($theme);
    <?php } else { ?>
    <script type="text/javascript" src="javascript/jQuery/jquery-1.9.1.js"></script>
       <script type="text/javascript" src="javascript/jQuery/jquery-ui-1.10.1.custom.min.js"></script>
-      <link rel="stylesheet" href="javascript/jQuery/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="javascript/jQuery/themes/<?=$C->readConfig("jqtheme")?>/jquery-ui.css">
    <?php } ?>
    <link rel="stylesheet" media="screen" type="text/css" href="javascript/colorpicker/css/colorpicker.css">
       <script type="text/javascript" src="javascript/colorpicker/js/colorpicker.js"></script>

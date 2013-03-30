@@ -104,7 +104,7 @@ if ( isset($_POST['btn_create']) ) {
          /**
           * Create the theme css files so they include it's colors
           */
-         $themearray = getThemes();
+         $themearray = getFolders('themes');
          foreach ($themearray as $theme) {
             createCSS($theme["name"]);
          }
@@ -210,7 +210,7 @@ else if ( isset($_POST['btn_apply']) ) {
    /**
     * Create the theme css files so it includes this absence type
     */
-   $themearray = getThemes();
+   $themearray = getFolders('themes');
    foreach ($themearray as $theme) {
       createCSS($theme["name"]);
    }
@@ -354,7 +354,7 @@ require("includes/menu_inc.php");
                   <option value="No" <?=(($A->icon=="No")?"SELECTED":"")?>><?=$LANG['no']?></option>
                   <?php
                   $fileTypes = array ("gif", "jpg", "png");
-                  $imgFiles = scanDirectory($CONF['app_icon_dir']);
+                  $imgFiles = getFiles($CONF['app_icon_dir']);
                   foreach ($imgFiles as $file) { ?>
                      <option style="background-image: url(<?=$CONF['app_icon_dir'].$file?>); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="<?=$file?>" <?=(($A->icon==$file)?"SELECTED":"")?>><?=$file?></option>
                   <?php } ?>

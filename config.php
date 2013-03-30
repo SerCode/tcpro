@@ -156,6 +156,12 @@ if ( isset($_POST['btn_apply']) ) {
       createCSS("tcpro");
    }
    if ( isset($_POST['chk_allowUserTheme']) && $_POST['chk_allowUserTheme'] ) $C->saveConfig("allowUserTheme","1"); else $C->saveConfig("allowUserTheme","0");
+   if (trim($_POST['sel_jqtheme'])) {
+      $C->saveConfig("jqtheme",trim($_POST['sel_jqtheme']));
+   }
+   else {
+      $C->saveConfig("jqtheme","base");
+   }
    if ( isset($_POST['chk_webMeasure']) && $_POST['chk_webMeasure'] ) $C->saveConfig("webMeasure","1"); else $C->saveConfig("webMeasure","0");
 
    /**
@@ -816,7 +822,7 @@ if (ini_get('register_globals')) {
                                  <option value="No" <?=(($C->readConfig("welcomeIcon")=="No")?"SELECTED":"")?>><?=$LANG['no']?></option>
                                  <?php
                                  $fileTypes = array ("gif", "jpg", "png");
-                                 $imgFiles = scanDirectory($CONF['app_homepage_dir']);
+                                 $imgFiles = getFiles($CONF['app_homepage_dir']);
                                  foreach ($imgFiles as $file) { ?>
                                     <option style="background-image: url(<?=$CONF['app_homepage_dir'].$file?>); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="<?=$file?>" <?=(($C->readConfig("welcomeIcon")==$file)?"SELECTED":"")?>><?=$file?></option>
                                  <?php } ?>
@@ -868,7 +874,7 @@ if (ini_get('register_globals')) {
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                               <select id="sel_theme" name="sel_theme" class="select" onchange="javascript:">
                                  <?php
-                                 $themearray = getThemes();
+                                 $themearray = getFolders('themes');
                                  foreach ($themearray as $theme) { ?>
                                     <option value="<?=$theme['name']?>" <?=(($C->readConfig("theme")==$theme['name'])?"SELECTED":"")?>><?=$theme['name']?></option>
                                  <?php } ?>
@@ -885,6 +891,24 @@ if (ini_get('register_globals')) {
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                               <input name="chk_allowUserTheme" id="chk_allowUserTheme" value="chk_allowUserTheme" type="checkbox" <?=(intval($C->readConfig("allowUserTheme"))?"CHECKED":"")?>>
+                           </td>
+                        </tr>
+               
+                        <!-- jQuery Theme -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_jqtheme']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_jqtheme_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <select name="sel_jqtheme" class="select" onchange="javascript:">
+                                 <?php
+                                 $themearray = getFolders('javascript/jQuery/themes');
+                                 foreach ($themearray as $theme) { ?>
+                                    <option value="<?=$theme['name']?>" <?=(($C->readConfig("jqtheme")==$theme['name'])?"SELECTED":"")?>><?=$theme['name']?></option>
+                                 <?php } ?>
+                              </select>
                            </td>
                         </tr>
                

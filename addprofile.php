@@ -511,7 +511,7 @@ require("includes/header_html_inc.php");
                                                 <select name="uo_deftheme" id="uo_deftheme" class="select">
                                                    <option class="option" value="default" style="padding-right: 10px;" selected>default</option>
                                                    <?php
-                                                   $themearray = getThemes();
+                                                   $themearray = getFolders('themes');
                                                    sort($themearray);
                                                    foreach( $themearray as $mytheme ) { ?>
                                                       <option value="<?=$mytheme['name']?>" style="padding-right: 10px;"><?=$mytheme['name']?></option>

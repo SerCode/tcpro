@@ -620,7 +620,7 @@ require( "includes/header_html_inc.php" );
                                                 <?php if ($C->readConfig("allowUserTheme")) { ?>
                                                 <select name="uo_deftheme" id="uo_deftheme" class="select">
                                                 <?php
-                                                $themearray = getThemes();
+                                                $themearray = getFolders('themes');
                                                 $themearray[]['name']="default";
                                                 sort($themearray);
                                                 if ($thisdeftheme=$UO->find($U->username,"deftheme")) $deftheme=$thisdeftheme;
