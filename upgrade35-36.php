@@ -67,6 +67,16 @@ if ($DB->db_numrows($result)) {
    die();
 }
 
+/**
+ * ABSENCE TYPE OPTIONS
+ */
+$CONF['A_SHOWREMAIN']      = 0x000001;     // Flag: Include absence type in remainder
+$CONF['A_APPROVAL']        = 0x000002;     // Flag: Approval needed
+$CONF['A_SHOWTOTAL']       = 0x000004;     // Flag: Include absence total in remainder section
+$CONF['A_PRESENCE']        = 0x000008;     // Flag: This absence type counts as 'present'
+$CONF['A_MGR_ONLY']        = 0x000010;     // Flag: This absence type is for managers only
+$CONF['A_HIDE_IN_PROFILE'] = 0x000020;     // Flag: Hide this absence type in regular user profiles (Absences tab)
+$CONF['A_CONFIDENTIAL']    = 0x000040;     // Flag: Cannot be used or seen by regular users
 
 //
 // ABSENCE TABLE
