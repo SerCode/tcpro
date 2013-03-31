@@ -58,7 +58,7 @@ else                                  require ("languages/english.tcpro.php");
                &#8226;&nbsp;Heng Yuan for <a href="http://www.cs.ucla.edu/~heng/JSCookMenu/" target="_blank">JSCookMenu</a><br />
                &#8226;&nbsp;David Vignoni for <a href="http://www.icon-king.com" target="_blank">Nuvola Icons</a><br />
                &#8226;&nbsp;dAKirby309 for <a href="http://www.iconarchive.com/show/windows-8-metro-icons-by-dakirby309.html" target="_blank">Windows 8 Metro Icons</a><br />
-               &#8226;&nbsp;Custom Icon Design for <a href="http://www.customicondesign.com/free-icons/pretty-office-icon-set/pretty-office-icon-set-part-7/" target="_blank">the nice icon on the left</a><br />
+               &#8226;&nbsp;Everaldo Coelho for <a href="http://www.iconfinder.com/icondetails/3755/16/agenda_calendar_date_event_icon" target="_blank">the nice icon on the left</a><br />
                &#8226;&nbsp;many users for testing and suggesting...<br />
                &nbsp;
                </p>
