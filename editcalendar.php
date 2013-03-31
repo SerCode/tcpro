@@ -1062,6 +1062,27 @@ $CONF['options']['lang']=$currlang;
                      <?php }
                   }
                   ?>
+                  
+                  <?php 
+                  /**
+                   * Clear Absence row
+                   */
+                  ?>
+                  <tr>
+                     <td class="title"><?=$LANG['cal_clear_absence']?></td>
+                     <td class="title-button">&nbsp;</td>
+                  <?php
+                  /**
+                   * Show a line for this absence type covering each day of the month
+                   */
+                  for($idx=1; $idx<=strlen($M->template); $idx++) {
+                     if ( $H->findBySymbol($M->template[$idx-1]) ) $class="day-".$H->cfgname;
+                     else $class="day";
+                     ?>
+                     <td class="title-button"><input name="opt_abs_<?=$idx?>" type="radio" value="0"></td>
+                  <?php } ?>
+                  </tr>
+                  
                </table>
                
                <!-- RANGE INPUTS -->

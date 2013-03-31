@@ -1812,4 +1812,9 @@ $LANG['html_title_userimport'] = 'User Import';
 $LANG['html_title_userlist'] = 'User List';
 $LANG['html_title_verify'] = 'User Verification';
 $LANG['html_title_viewprofile'] = 'View Profile';
+
+/**
+ * Calendar Edit Dialog
+ */
+$LANG['cal_clear_absence'] = 'Clear absence';
 ?>
