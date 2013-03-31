@@ -103,7 +103,7 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (13, 'badLogins', '0'),
 (14, 'gracePeriod', '30'),
 (15, 'mailFrom', 'TeamCal Pro'),
-(16, 'mailReply', 'george.lewe@gmail.com'),
+(16, 'mailReply', 'tcpro@yourserver.com'),
 (17, 'userCustom1', 'Custom 1'),
 (18, 'userCustom2', 'Custom 2'),
 (19, 'userCustom3', 'Custom 3'),

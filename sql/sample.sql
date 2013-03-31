@@ -158,7 +158,7 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (13, 'badLogins', '0'),
 (14, 'gracePeriod', '30'),
 (15, 'mailFrom', 'TeamCal Pro'),
-(16, 'mailReply', 'george.lewe@gmail.com'),
+(16, 'mailReply', 'tcpro@yourserver.com'),
 (17, 'userCustom1', 'Custom 1'),
 (18, 'userCustom2', 'Custom 2'),
 (19, 'userCustom3', 'Custom 3'),
@@ -681,7 +681,7 @@ INSERT INTO `my_tc_users` (`username`, `password`, `firstname`, `lastname`, `tit
 ('mmouse', 's7MuuIoROZfb2', 'Mickey', 'Mouse', 'Mr.', 'Mouses', '', '+01/555 111 1111', '', 'mmouse@yourserver.com', 0, 'All', 0, 15, 'Disney', 0, 0, '', '2004-08-14 18:01:32', '2006-10-17', '', '2013-01-26 13:24:09', '', '', '', '', '', '', ''),
 ('admin', 's77dWZwOIYXss', '', 'Admin', '', 'Administrator', '', '', '', 'webmaster@yourserver.com', 63, 'All', 0, 12, '', 0, 0, '', '2006-10-06 20:01:18', '0000-00-00', '123', '2013-03-30 18:28:07', '', '', '', '', '', '', ''),
 ('phead', 's7MuuIoROZfb2', 'Potatoe', 'Head', 'Mr.', 'Potatoe', '', '', '', 'phead@yourserver.com', 0, '', 0, 25, '', 0, 0, '', '2006-09-03 21:01:44', '2001-10-10', '', '2012-08-22 17:52:53', '', '', '', '', '', '', 'I love potatoes. Cooked, baked, mashed, any way they come. Hmm, yummy!'),
-('ccarl', 's7MuuIoROZfb2', 'Coyote', 'Carl', 'Mr.', 'Coyote', '', '', '', 'george@lewe.cc', 0, '', 0, 9, '', 0, 0, '', '2006-09-04 01:01:50', '2007-04-06', '123456', '2013-03-28 16:59:53', '', '', '', '', '', '', ''),
+('ccarl', 's7MuuIoROZfb2', 'Coyote', 'Carl', 'Mr.', 'Coyote', '', '', '', 'ccarl@yourserver.com', 0, '', 0, 9, '', 0, 0, '', '2006-09-04 01:01:50', '2007-04-06', '123456', '2013-03-28 16:59:53', '', '', '', '', '', '', ''),
 ('dduck', 's7MuuIoROZfb2', 'Donald', 'Duck', 'Mr.', 'Duck', '', '', '', 'dduck@yourserver.com', 0, '', 0, 27, '', 0, 0, '', '2006-09-04 01:01:57', '0000-00-00', '', '2010-04-14 13:42:50', '', '', '', '', '', '', ''),
 ('sgonzales', 's7MuuIoROZfb2', 'Speedy', 'Gonzales', 'Mr.', 'Mouse', '', '', '', 'sgonzales@yourserver.com', 0, '', 0, 9, '', 0, 0, '', '2006-09-04 21:01:14', '2000-02-01', '12345', '2012-12-07 22:16:43', '', '', '', '', '', '', '');
 
