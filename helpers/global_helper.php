@@ -1554,7 +1554,7 @@ function sendEmail($to, $subject, $body, $from='')
          'Subject' => $subject
       );
    
-      $smtp =& Mail::factory(
+      $smtp = @Mail::factory(
          'smtp',
          array (
             'host' => $ssl.$host,
@@ -1565,9 +1565,9 @@ function sendEmail($to, $subject, $body, $from='')
          )
       );
    
-      $mail = $smtp->send($to, $headers, $body);
+      $mail = @$smtp->send($to, $headers, $body);
    
-      if ($error =& PEAR::isError($mail)) 
+      if ($error = @PEAR::isError($mail)) 
       {
          /*
           * Display SMTP error in a Javascript popup
