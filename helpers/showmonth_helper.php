@@ -342,7 +342,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
              */
             $request = setRequests();
             $request=str_replace("remainder=show","remainder=hide",$request);
-            $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?".$request."\">";
+            $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
             $monthHeader.="<img class=\"noprint\" alt=\"".$LANG['col_remainder']."\" title=\"".$LANG['col_remainder']."\" src=\"themes/".$theme."/img/hide_section.gif\" align=\"top\" border=\"0\"></a>";
             $monthHeader.="</td>\n\r";
             
@@ -392,7 +392,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
              */
             $request = setRequests();
             $request=str_replace("remainder=hide","remainder=show",$request);
-            $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?".$request."\">";
+            $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
             $monthHeader.="<img class=\"noprint\" alt=\"".$LANG['exp_remainder']."\" title=\"".$LANG['exp_remainder']."\" src=\"themes/".$theme."/img/show_section.gif\" align=\"top\" border=\"0\"></a>";
             $monthHeader.="</td>\n\r";
          }
@@ -1169,7 +1169,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          // end if ( !($U->status&$CONF['USHIDDEN']) )
       }
       // end foreach ($users as $usr)
-           
+
       /**
        * Now print a summary row for this month
        * Summary Header
@@ -1183,12 +1183,12 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          $request = setRequests();
          if ($CONF['options']['summary']=="show") {
             $request=str_replace("summary=show","summary=hide",$request);
-            $summaryBody .= "<a href=\"".$_SERVER['PHP_SELF']."?".$request."\">";
+            $summaryBody .= "<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
             $summaryBody .= "<img alt=\"".$LANG['col_summary']."\" title=\"".$LANG['col_summary']."\" src=\"themes/".$theme."/img/hide_section.gif\" align=\"top\" border=\"0\"></a>";
          }
          else {
             $request=str_replace("summary=hide","summary=show",$request);
-            $summaryBody .= "<a href=\"".$_SERVER['PHP_SELF']."?".$request."\">";
+            $summaryBody .= "<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
             $summaryBody .= "<img alt=\"".$LANG['exp_summary']."\" title=\"".$LANG['exp_summary']."\" src=\"themes/".$theme."/img/show_section.gif\" align=\"top\" border=\"0\"></a>";
          }
       
