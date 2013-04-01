@@ -47,6 +47,26 @@ function infoPopup(text)
    alert(text);
 }
 
+//--------------------------------------------------------------------------
+// Show Fast Edit
+//
+//
+function toggleFastEdit(day, users) {
+
+   for (var i=0; i<users.length; i++) {
+      var viewDiv = document.getElementById("view-"+users[i]+day);
+      var editDiv = document.getElementById("edit-"+users[i]+day);
+      if (viewDiv.style.display=='block') {
+         viewDiv.style.display = 'none';
+         editDiv.style.display = 'block';
+      }
+      else {
+         viewDiv.style.display = 'block';
+         editDiv.style.display = 'none';
+      }
+   }   
+}
+
 //  --------------------------------------------------------------------------
 //  Show / Hide a div section
 //
@@ -102,7 +122,7 @@ function toggletr(trID,rows) {
       button.src='themes/tcpro/img/hide_section.gif';
       button.title='Hide section...';
    }
-   for (i=1;i<=rows;i++) {
+   for (var i=1;i<=rows;i++) {
       var row = document.getElementById(trID+"-"+i.toString());
       if (row.style.display == '') row.style.display = 'none';
       else row.style.display = '';

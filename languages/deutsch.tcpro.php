@@ -1817,4 +1817,11 @@ $LANG['html_title_viewprofile'] = 'Profil';
  * Calendar Edit Dialog
  */
 $LANG['cal_clear_absence'] = 'Abwesenheit l&ouml;schen';
+
+/**
+ * Calendar View
+ */
+$LANG['cal_fastedit'] = 'Schnellbearbeitung';
+$LANG['cal_fastedit_tt'] = 'Schnelles Bearbeiten dieses Tages..';
+$LANG['cal_abs_present'] = 'Anwesend';
 ?>

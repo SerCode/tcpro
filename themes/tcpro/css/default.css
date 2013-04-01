@@ -235,5 +235,5 @@ td.yndaybot        { background-color: #AAAAAA; border-top: 0px solid #000000; b
 .tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
 .tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }
 /* Tooltip styles */
-div.tt-caption { background-image: url(../img/bg_graybar.gif); color: #FFFFFF; font-size: 8pt; font-weight: bold; padding: 4px; text-align: left; }
-div.tt-body { background-color: #FFFFFF; color: #000099; font-size: 8pt; padding: 4px; text-align: left; }
+.tt-caption { background-image: url(../img/bg_graybar.gif); color: #FFFFFF; font-size: 8pt; font-weight: bold; padding: 4px; text-align: left; }
+.tt-body { background-color: #FFFFFF; color: #000099; font-size: 8pt; padding: 4px; text-align: left; }

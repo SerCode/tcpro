@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * showmonth_helper.phpp
+ * showmonth_helper.php
  *
  * Displays a month with all users and abesences. Big enough to reside in a
  * seperate file.
@@ -161,8 +161,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
 
    if ($monthname && $nofdays && $M->template && $weekday1) {
       $cols=0;
-      echo "<table class=\"month\">\n\r";
-   
+      ?>
+      <script type="text/javascript">
+         var jsusers = new Array();
+         var viewMode = true;
+      </script>
+      
+      <form name="form-fastedit" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']?>?action=calendar&amp;lang=<?=$CONF['options']['lang']?>">
+      <table class="month">
+
+      <?php 
       /**=====================================================================
        * Row 1: Month Name
        */
@@ -741,7 +749,12 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       
             $monthBody .= "<tr>\n\r";
             $monthBody .= "<td class=\"name\">\n\r";
-      
+            
+            /**
+             * Add user to Javascript array for Fast Edit toggle
+             */
+            $monthBody .= '<script type="text/javascript">jsusers['.$intCurrentUserCount.'] = "'.$U->username.'";</script>';
+            
             /**
              * Get user icon if configured
              */
@@ -781,26 +794,26 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                if ($C->readConfig("showAvatars")) {
                   $avatar='';
                   $avatar_fullname=$U->title." ".$U->firstname." ".$U->lastname;
-                  if( file_exists("img/avatar/".$U->username.".gif")) $avatar="<img src=img/avatar/".$U->username.".gif>";
-                  else if( file_exists("img/avatar/".$U->username.".jpg")) $avatar="<img src=img/avatar/".$U->username.".jpg>";
-                  else if( file_exists("img/avatar/".$U->username.".jpeg")) $avatar="<img src=img/avatar/".$U->username.".jpeg>";
-                  else if( file_exists("img/avatar/".$U->username.".png")) $avatar="<img src=img/avatar/".$U->username.".png>";
+                  if( file_exists("img/avatar/".$U->username.".gif")) $avatar="<img src=\"img/avatar/".$U->username.".gif\" alt=\"\">";
+                  else if( file_exists("img/avatar/".$U->username.".jpg")) $avatar="<img src=\"img/avatar/".$U->username.".jpg\" alt=\"\">";
+                  else if( file_exists("img/avatar/".$U->username.".jpeg")) $avatar="<img src=\"img/avatar/".$U->username.".jpeg\" alt=\"\">";
+                  else if( file_exists("img/avatar/".$U->username.".png")) $avatar="<img src=\"img/avatar/".$U->username.".png\" alt=\"\">";
                   if( strlen($avatar) ) {
                      /**
                       * Prepare tootlip
                       */
-                     $ttid = 'span-'.$U->username.'-ava';
+                     $ttid = $U->username.'-ava';
                      $ttbody = $avatar;
                      $ttcaption = $avatar_fullname;
                      $ttcapicon = '';
-                     $monthBody .= '<span id="span-'.$U->username.'-ava">'.createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
+                     $monthBody .= '<div style="float: left;" id="'.$U->username.'-ava">'.createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
                   }
                   else {
-                     $monthBody .= '<span>';
+                     $monthBody .= '<div style="float: left;">';
                   }
                }
             
-               $monthBody .= "<img src=\"themes/".$theme."/img/".$icon."\" title=\"".$icon_tooltip."\" alt=\"img\" style=\"border: 0px; padding-right: 2px; vertical-align: top;\"></span>";
+               $monthBody .= "<img src=\"themes/".$theme."/img/".$icon."\" title=\"".$icon_tooltip."\" alt=\"img\" style=\"border: 0px; padding-right: 2px; vertical-align: top;\"></div>";
             }
       
             /**
@@ -980,7 +993,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                /**
                 * Prepare tootlip
                 */
-               $ttid = 'td-'.$U->username.$i;
+               $ttid = 'td-'.$U->username.($i+1);
                $ttbody = '';
                $ttcaption = $LANG['tt_title_userdayinfo'];
                $ttcapicon = 'themes/'.$theme.'/img/ico_daynote.png';
@@ -1034,6 +1047,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                }
                if ( $U->username == $UL->username ) $isSameUser = TRUE; else $isSameUser = FALSE;
       
+               /**
+                * Start tag for the current user and current day
+                */
+               $monthBody .= "<td id=\"td-".$U->username.($i+1)."\" ";
+               
                if ( !$isAbsence OR ($isAbsence AND $isConfidential AND $regularUser AND !$isSameUser) ) {
                   /**
                    * This person is present or the viewer may not see this absence. Lets color the day as present.
@@ -1044,7 +1062,20 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                      $intSumPresentDay[$i]++;
                   }
       
-                  $inner = "&nbsp;";
+                  $inner = "<div id=\"view-".$U->username.($i+1)."\" style=\"display: block;\">&nbsp;</div>";
+                  
+                  /**
+                   * Fast edit div
+                   */
+                  $form  = '<select name="sel_abs_'.$U->username.($i+1).'" class="select" style="background-image: url(img/pixel.gif); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;">'."\r\n";
+                  $form .= '<option style="background-image: url(img/pixel.gif); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="0" SELECTED>'.$LANG['cal_abs_present'].'</option>'."\r\n";
+                  $absences = $A->getAll();
+                  foreach ($absences as $abs) { 
+                     $form .= '<option style="background-image: url('.$CONF['app_icon_dir'].$abs['icon'].'); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="'.$abs['id'].'">'.$abs['name'].'</option>'."\r\n";
+                  }
+                  $form .= '</select>';
+                  $inner .= "<div id=\"edit-".$U->username.($i+1)."\" style=\"display: none;\">".$form."</div>";
+                   
                   if ( $isAbsence AND $isConfidential AND $regularUser AND !$isSameUser AND $C->readConfig("markConfidential") ) $inner = "X";
       
                   if ( $H->findBySymbol($M->template[$i]) ) {
@@ -1054,10 +1085,10 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                          */
                         if (strlen($C->readConfig("pastDayColor"))) $pdcolor="style=\"background: #".$C->readConfig("pastDayColor").";\""; else $pdcolor="";
                         if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
-                           $monthBody .= "<td class=\"day-".$H->cfgname.$style."\" ".$pdcolor."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner."</td>\n\r";
+                           $monthBody .= "class=\"day-".$H->cfgname.$style."\" ".$pdcolor."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
                         else {
-                           $monthBody .= "<td class=\"day-".$H->cfgname."\" ".$pdcolor.">".$inner."</td>\n\r";
+                           $monthBody .= "class=\"day-".$H->cfgname."\" ".$pdcolor.">".$inner;
                         }
                      }
                      else if ( $todaysmonth && $i+1==intval($today['mday']) ) {
@@ -1065,10 +1096,10 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                          * Today's month and day is today
                          */
                         if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
-                           $monthBody .= "<td class=\"today-".$H->cfgname.$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner."</td>\n\r";
+                           $monthBody .= "class=\"today-".$H->cfgname.$style."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
                         else {
-                           $monthBody .= "<td class=\"today-".$H->cfgname."\">".$inner."</td>\n\r";
+                           $monthBody .= "class=\"today-".$H->cfgname."\">".$inner;
                         }
                      }
                      else {
@@ -1076,10 +1107,10 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                          * All other days
                          */
                         if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
-                           $monthBody .= "<td class=\"day-".$H->cfgname.$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner."</td>\n\r";
+                           $monthBody .= "class=\"day-".$H->cfgname.$style."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
                         else {
-                           $monthBody .= "<td class=\"day-".$H->cfgname."\">".$inner."</td>\n\r";
+                           $monthBody .= "class=\"day-".$H->cfgname."\">".$inner;
                         }
                      }
                   }
@@ -1090,10 +1121,10 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                          */
                         if (strlen($C->readConfig("pastDayColor"))) $pdcolor="style=\"background: #".$C->readConfig("pastDayColor").";\""; else $pdcolor="";
                         if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
-                           $monthBody .= "<td class=\"day".$style."\" ".$pdcolor."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner."</td>\n\r";
+                           $monthBody .= "class=\"day".$style."\" ".$pdcolor."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
                         else {
-                           $monthBody .= "<td class=\"day\" ".$pdcolor.">".$inner."</td>\n\r";
+                           $monthBody .= "class=\"day\" ".$pdcolor.">".$inner;
                         }
                      }
                      else if ( $todaysmonth && $i+1==intval($today['mday']) ) {
@@ -1101,20 +1132,20 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                          * Today's month and day is today
                          */
                         if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
-                           $monthBody .= "<td class=\"today".$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner."</td>\n\r";
+                           $monthBody .= "class=\"today".$style."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
                         else {
-                           $monthBody .= "<td class=\"today\">".$inner."</td>\n\r";
+                           $monthBody .= "class=\"today\">".$inner;
                         }
                      } else {
                         /**
                          * All other days
                          */
                         if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
-                           $monthBody .= "<td class=\"day".$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner."</td>\n\r";
+                           $monthBody .= "class=\"day".$style."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
                         else {
-                           $monthBody .= "<td class=\"day\">".$inner."</td>\n\r";
+                           $monthBody .= "class=\"day\">".$inner;
                         }
                      }
                   }
@@ -1145,19 +1176,35 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                   else
                      $cssclass='day'.$style.'-a'.$A->id;
       
-                  $monthBody .= "<td class=\"".$cssclass."\" id=\"td-".$U->username.$i."\">";
+                  $monthBody .= "class=\"".$cssclass."\" >";
 
                   if ( strlen($ttbody) && isAllowed("viewUserProfiles") )
                      $monthBody .= createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
                    
                   if ($A->icon!='No')
-                     $monthBody .= "<img title=\"".$A->name."\" align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
+                     $inner = "<div id=\"view-".$U->username.($i+1)."\" style=\"display: block;\"><img title=\"".$A->name."\" align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\"></div>";
                   else
-                     $monthBody .= "<span title=\"".$A->name."\">".$A->symbol."</span>";
-      
-                  $monthBody .= "</td>";
+                     $inner = "<div id=\"view-".$U->username.($i+1)."\" style=\"display: block;\">".$A->symbol."</div>";
+                  
+                  /**
+                   * Fast edit div
+                   */
+                  $form = '<select name="sel_abs_'.$U->username.($i+1).'" class="select" style="background-image: url('.$CONF['app_icon_dir'].$A->icon.'); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;">'."\r\n";
+                  $form .= '<option style="background-image: url(img/pixel.gif); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="0">'.$LANG['cal_abs_present'].'</option>'."\r\n";
+                  $absences = $A->getAll();
+                  foreach ($absences as $abs) { 
+                     $form .= '<option style="background-image: url('.$CONF['app_icon_dir'].$abs['icon'].'); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="'.$abs['id'].'" '.(($abs['id']==$A->id)?"SELECTED":"").'>'.$abs['name'].'</option>'."\r\n";
+                  }
+                  $form .= '</select>'."\r\n";
+                  $inner .= "<div id=\"edit-".$U->username.($i+1)."\" style=\"display: none;\">".$form."</div>\r\n";
+                   
+                  $monthBody .= $inner;
                }
-      
+               /**
+                * End tag for the current user and current day
+                */
+               $monthBody .= "</td>\n\r";
+               
             }
             $monthBody .= "</tr>\n\r";
       
@@ -1170,6 +1217,29 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       }
       // end foreach ($users as $usr)
 
+      
+      /**=====================================================================
+       * Row: Fast Edit
+       */
+      $cspan = '';
+      if ( $CONF['options']['remainder']=="show" && $cntRemainders ) {
+         /**
+          * Remainder section on: Add colspan
+          */
+         $cspan = ' colspan="'.($cntRemainders+$cntTotals+1).'"';
+      }
+      $showmonthBody.="<tr>\n\r";
+      $showmonthBody.="<td class=\"title\"".$cspan.">";
+      $showmonthBody.="&nbsp;".$LANG['cal_fastedit'];
+      $showmonthBody.='&nbsp;<input name="btn_cal_apply" type="submit" class="button" value="'.$LANG['btn_apply'].'">';
+      $showmonthBody.="</td>\n\r";
+      $showmonthBody.="<td class=\"title-button\">";
+      for ($i=1; $i<=$nofdays; $i=$i+1) {
+         $showmonthBody.="<td class=\"weekday\"><a href=\"javascript:toggleFastEdit(".$i.", jsusers);\"><img class=\"noprint\" src=\"themes/".$theme."/img/ico_edit.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_fastedit_tt']."\" alt=\"ico_edit.png\"></a></td>\n\r";
+      }
+      $showmonthBody.="</tr>\n\r";
+      
+      
       /**
        * Now print a summary row for this month
        * Summary Header
@@ -1342,6 +1412,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          }
       }
       $summaryBody .= "</table>\n\r";
+      $summaryBody .= "</form>\n\r";
       $summaryBody .= "<br>\n\r";
       
       /**
