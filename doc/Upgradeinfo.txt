@@ -24,7 +24,9 @@ the screen showing the changes done to your database.
 
 Load your new TeamCal Pro in your browser. The display might not look perfect
 yet. Log in as admin, go to the configuration page and apply it. There are
-new values in 3.6.000 that will then be saved.
+new values in 3.6.000 that will then be saved. Make sure the jQuery Style on
+the General settings page is set to 'base' for starters. Play with other themes
+later.
 
 Refresh. It should now look all good. Perform a few tests and if you're happy
 make it your production instance.

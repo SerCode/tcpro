@@ -372,6 +372,7 @@ if ($update_templates) {
    print "</ul>";
    print "...done.<hr>";
 }
+print "<strong>ALL DONE</strong><hr>";
 ?>
    </body>
 </html>
