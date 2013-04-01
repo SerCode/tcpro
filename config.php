@@ -518,7 +518,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_defregion_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <select id="sel_defregion" name="sel_defregion" class="select" onchange="javascript:">
+                              <select id="sel_defregion" name="sel_defregion" class="select">
                                  <option value="default" <?=(($C->readConfig("defregion")=="default")?"SELECTED":"")?>>default</option>
                                  <?php
                                  $regions = $R->getAll();
@@ -541,7 +541,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_defgroupfilter_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <select id="sel_defgroupfilter" name="sel_defgroupfilter" class="select" onchange="javascript:">
+                              <select id="sel_defgroupfilter" name="sel_defgroupfilter" class="select">
                                  <option value="All" <?=(($C->readConfig("defgroupfilter")=="All")?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
                                  <option value="Allbygroup" <?=(($C->readConfig("defgroupfilter")=="Allbygroup")?"SELECTED":"")?>><?=$LANG['drop_group_allbygroup']?></option>
                               </select>
@@ -733,7 +733,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_pscheme_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <select id="sel_pscheme" name="sel_pscheme" class="select" onchange="javascript:">
+                              <select id="sel_pscheme" name="sel_pscheme" class="select">
                                  <?php
                                     $currscheme = $C->readConfig("permissionScheme");
                                     $schemes = $P->getSchemes();
@@ -877,7 +877,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_theme_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <select id="sel_theme" name="sel_theme" class="select" onchange="javascript:">
+                              <select id="sel_theme" name="sel_theme" class="select">
                                  <?php
                                  $themearray = getFolders('themes');
                                  foreach ($themearray as $theme) { ?>
@@ -907,7 +907,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_jqtheme_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <select name="sel_jqtheme" class="select" onchange="javascript:">
+                              <select name="sel_jqtheme" class="select">
                                  <?php
                                  $themearray = getFolders('javascript/jQuery/themes');
                                  foreach ($themearray as $theme) { ?>
@@ -1009,7 +1009,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_timezone_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <select id="sel_timeZone" name="sel_timeZone" class="select" onchange="javascript:">
+                              <select id="sel_timeZone" name="sel_timeZone" class="select">
                                  <option value="default" <?=(($C->readConfig("timeZone")=="default")?"SELECTED":"")?>>default</option>
                                  <?php foreach ($timezone as $tz) { ?>
                                  <option value="<?=$tz["name"]?>" <?=(($C->readConfig("timeZone")==$tz["name"])?"SELECTED":"")?>><?=$tz["name"]?></option>
