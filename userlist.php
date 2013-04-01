@@ -175,7 +175,7 @@ require("includes/menu_inc.php");
                   <input name="searchuser" id="searchuser" size="30" type="text" class="text" value="<?=$searchuser?>">
                   <!-- Group filter drop down -->
                   &nbsp;&nbsp;<?=$LANG['nav_groupfilter']?>&nbsp;
-                  <select id="searchgroup" name="searchgroup" class="select" onchange="javascript:">
+                  <select id="searchgroup" name="searchgroup" class="select">
                      <option value="All" <?=($searchgroup=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
                      <?php
                         $groups = $G->getAll();

@@ -208,7 +208,7 @@ if ( $C->readConfig("showLanguage") OR
       if ($C->readConfig("showLanguage")) { ?>
          <!-- Language Drop Down -->
          <?=$LANG['nav_language']?>&nbsp;
-         <select id="user_lang" name="user_lang" class="select" onchange="javascript:">
+         <select id="user_lang" name="user_lang" class="select">
          <?php
          $array = getLanguages(); // Collects language name of all installed language files
          foreach( $array as $langfile ) {
@@ -237,7 +237,7 @@ if ( $C->readConfig("showLanguage") OR
          if ($C->readConfig("showGroup") && isAllowed("viewAllGroups")) { ?>
             <!-- Group filter drop down -->
             &nbsp;&nbsp;<?=$LANG['nav_groupfilter']?>&nbsp;
-            <select id="groupfilter" name="groupfilter" class="select" onchange="javascript:">
+            <select id="groupfilter" name="groupfilter" class="select">
                <option value="All" <?=($CONF['options']['groupfilter']=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
                <option value="Allbygroup" <?=($CONF['options']['groupfilter']=="Allbygroup"?"SELECTED":"")?>><?=$LANG['drop_group_allbygroup']?></option>
                <?php
@@ -269,7 +269,7 @@ if ( $C->readConfig("showLanguage") OR
          <?php if ($C->readConfig("showRegion")) { ?>
             <!-- Region drop down -->
             &nbsp;&nbsp;<?=$LANG['nav_regionfilter']?>&nbsp;
-            <select name="regionfilter" id="regionfilter" class="select" onchange="javascript:">
+            <select name="regionfilter" id="regionfilter" class="select">
                <option class="option" value="default" <?=($CONF['options']['region']=="default"?"SELECTED":"")?>>default</option>
                <?php
                $query  = "SELECT `regionname` FROM `".$R->table."` ORDER BY `regionname`;";
@@ -290,7 +290,7 @@ if ( $C->readConfig("showLanguage") OR
          <?php if ($C->readConfig("showToday")) { ?>
             <!-- Absence filter drop down -->
             &nbsp;&nbsp;<?=$LANG['nav_absencefilter']?>&nbsp;
-            <select id="absencefilter" name="absencefilter" class="select" onchange="javascript:">
+            <select id="absencefilter" name="absencefilter" class="select">
                <option value="All" <?=($CONF['options']['absencefilter']=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
                <?php
                require_once( $CONF['app_root']."models/absence_model.php" );
@@ -312,7 +312,7 @@ if ( $C->readConfig("showLanguage") OR
 
             <!-- Start month drop down -->
             &nbsp;&nbsp;<?=$LANG['nav_start_with']?>&nbsp;
-            <select id="month_id" name="month_id" class="select" onchange="javascript:">
+            <select id="month_id" name="month_id" class="select">
                <option value="1" <?=$CONF['options']['month_id']== "1"?' SELECTED':''?> ><?=$LANG['monthnames'][1]?></option>
                <option value="2" <?=$CONF['options']['month_id']== "2"?' SELECTED':''?> ><?=$LANG['monthnames'][2]?></option>
                <option value="3" <?=$CONF['options']['month_id']== "3"?' SELECTED':''?> ><?=$LANG['monthnames'][3]?></option>
@@ -328,7 +328,7 @@ if ( $C->readConfig("showLanguage") OR
             </select>
 
             <!-- Year drop down -->
-            <select id="year_id" name="year_id" class="select" onchange="javascript:">
+            <select id="year_id" name="year_id" class="select">
                <?php
                $today = getdate();
                $curryear = $today['year'];
@@ -340,7 +340,7 @@ if ( $C->readConfig("showLanguage") OR
             </select>
 
             <!-- Months to show drop down -->
-            <select id="show_id" name="show_id" class="select" onchange="javascript:">
+            <select id="show_id" name="show_id" class="select">
                <option value="1" <?=$CONF['options']['show_id']=="1"?' SELECTED':''?>><?=$LANG['drop_show_1_months']?></option>
                <option value="2" <?=$CONF['options']['show_id']=="2"?' SELECTED':''?>><?=$LANG['drop_show_2_months']?></option>
                <option value="3" <?=$CONF['options']['show_id']=="3"?' SELECTED':''?>><?=$LANG['drop_show_3_months']?></option>
