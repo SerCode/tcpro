@@ -1233,7 +1233,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       $showmonthBody.="&nbsp;".$LANG['cal_fastedit'];
       $showmonthBody.='&nbsp;<input name="btn_cal_apply" type="submit" class="button" value="'.$LANG['btn_apply'].'">';
       $showmonthBody.="</td>\n\r";
-      $showmonthBody.="<td class=\"title-button\">";
+      $showmonthBody.="<td class=\"title-button\">&nbsp;</td>";
       for ($i=1; $i<=$nofdays; $i=$i+1) {
          $showmonthBody.="<td class=\"weekday\"><a href=\"javascript:toggleFastEdit(".$i.", jsusers);\"><img class=\"noprint\" src=\"themes/".$theme."/img/ico_edit.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_fastedit_tt']."\" alt=\"ico_edit.png\"></a></td>\n\r";
       }
