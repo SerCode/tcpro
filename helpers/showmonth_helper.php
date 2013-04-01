@@ -1,7 +1,7 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * showmonth_helper.php
+ * showmonth_helper.phpp
  *
  * Displays a month with all users and abesences. Big enough to reside in a
  * seperate file.
