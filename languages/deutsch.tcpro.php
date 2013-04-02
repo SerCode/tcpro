@@ -1814,6 +1814,11 @@ $LANG['html_title_verify'] = 'Konto Verfizieren';
 $LANG['html_title_viewprofile'] = 'Profil';
 
 /**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.001
+ */
+
+/**
  * Calendar Edit Dialog
  */
 $LANG['cal_clear_absence'] = 'Abwesenheit l&ouml;schen';
@@ -1824,4 +1829,19 @@ $LANG['cal_clear_absence'] = 'Abwesenheit l&ouml;schen';
 $LANG['cal_fastedit'] = 'Schnellbearbeitung';
 $LANG['cal_fastedit_tt'] = 'Schnelles Bearbeiten dieses Tages..';
 $LANG['cal_abs_present'] = 'Anwesend';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_fastedit'] = 'Schnellbearbeitung';
+$LANG['admin_config_fastedit_comment'] = 'Mit dieser Option wir eine zus&auml;tzliche Zeile unten im Kalender angezeigt mit einem klickbaren Icon pro Tag. '.
+'Dadurch wird eine Abwesenheits-Drop-Down-Liste f&uuml;r jeden Nutzer an diesem Tag sichtbar. Eine Abwesenheit kann darin direkt gew&auml;hlt und mit dem '.
+'[Anwenden] Knopf gespeichert werden. Hinweis: Bei der Schnellbearbeitung wird kein Ablehnungscheck durchlaufen. Dieses Feature hier ist eher f&uuml;r '.
+'Manager gedacht. Nat&uuml;rlich kann es aber auch &uuml;ber die Berechtigungen normalen Nutzern verf&uuml;gbar gemachet werden.';
+
+/**
+ * Permissions page
+ */
+$LANG['perm_perm_viewFastEdit_title'] = "Schnellbearbeitung erlauben";
+$LANG['perm_perm_viewFastEdit_desc'] = "Erlaubt den Zugriff auf die Schnellbearbeitung im Kalender, wenn diese Funktion in der TeamCal Pro Konfiguration eingeschaltet ist.";
 ?>

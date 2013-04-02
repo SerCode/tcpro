@@ -258,6 +258,26 @@ if (!class_exists("Absence_model")) {
       
       //----------------------------------------------------------------------
       /**
+       * Gets the icon of an absence type
+       *
+       * @param string $absid Record ID
+       * @return string Absence type icon
+       */
+      function getIcon($absid = '') {
+         $rc='.';
+         if (isset($absid)) {
+            $query = "SELECT icon FROM `".$this->table."` WHERE id='".$absid."';";
+            $result = $this->db->db_query($query);
+            if ($this->db->db_numrows($result) == 1) {
+               $row = $this->db->db_fetch_array($result);
+               $rc = $row['icon'];
+            }
+         }
+         return $rc;
+      }
+      
+      //----------------------------------------------------------------------
+      /**
        * Gets the last auto-increment ID
        * 
        * @return string Last auto-increment ID

@@ -1814,6 +1814,11 @@ $LANG['html_title_verify'] = 'User Verification';
 $LANG['html_title_viewprofile'] = 'View Profile';
 
 /**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.001
+ */
+
+/**
  * Calendar Edit Dialog
  */
 $LANG['cal_clear_absence'] = 'Clear absence';
@@ -1824,4 +1829,19 @@ $LANG['cal_clear_absence'] = 'Clear absence';
 $LANG['cal_fastedit'] = 'Fast Edit';
 $LANG['cal_fastedit_tt'] = 'Fast edit absences for this day...';
 $LANG['cal_abs_present'] = 'Present';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_fastedit'] = 'Fast Edit';
+$LANG['admin_config_fastedit_comment'] = 'With this option enabled, an additional row will be displayed at the bottom of the calendar with an icon '.
+'button for each day. Clicking it will show an absence drop down list for each user for that day. An absence type can be selected and the [Apply] '.
+'button will save the selected absences right away. Note, that no declination check will be performed with Fast Edit. This feature here is rather meant '.
+'for managers. However, you can of course enable the corresponding permission for regular users as well.';
+
+/**
+ * Permissions page
+ */
+$LANG['perm_perm_viewFastEdit_title'] = "Allow Fast Edit";
+$LANG['perm_perm_viewFastEdit_desc'] = "Allows to access the Fast Edit feature in the calendar view if it is enabled in the TeamCal Pro configuration.";
 ?>

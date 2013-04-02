@@ -87,6 +87,7 @@ $perms = array (
             array ("p"=>"useMessageCenter",        "type"=>"view",  "admin"=>1, "director"=>1, "manager"=>1, "user"=>1, "public"=>0),
             array ("p"=>"viewStatistics",          "type"=>"view",  "admin"=>1, "director"=>1, "manager"=>1, "user"=>0, "public"=>0),
             array ("p"=>"viewAllGroups",           "type"=>"view",  "admin"=>1, "director"=>1, "manager"=>0, "user"=>0, "public"=>0),
+            array ("p"=>"viewFastEdit",            "type"=>"view",  "admin"=>1, "director"=>1, "manager"=>1, "user"=>0, "public"=>0),
          );
 
 $types = array (

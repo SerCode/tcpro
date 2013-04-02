@@ -245,6 +245,23 @@ if (!class_exists("Template_model")) {
 
       // ---------------------------------------------------------------------
       /**
+       * Set an absence for a given username, year, month and day
+       * 
+       * @param string $uname Username for update
+       * @param string $year Year for update (YYYY)
+       * @param string $month Month for update (MM)
+       * @param string $day Day for update
+       * @param string $abs Absence to set
+       */
+      function setAbsence($uname, $year, $month, $day, $abs) {
+         $prop='abs'.$day;
+         $query  = "UPDATE `".$this->table."` SET `".$prop."`='".$abs."'";
+         $query .= " WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."';";
+         $result = $this->db->db_query($query);
+      }
+
+      // ---------------------------------------------------------------------
+      /**
        * Updates a template for a given username, year and month
        * 
        * @param string $uname Username for update

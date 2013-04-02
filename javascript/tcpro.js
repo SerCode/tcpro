@@ -51,11 +51,11 @@ function infoPopup(text)
 // Show Fast Edit
 //
 //
-function toggleFastEdit(day, users) {
+function toggleFastEdit(year, month, day, users) {
 
    for (var i=0; i<users.length; i++) {
-      var viewDiv = document.getElementById("view-"+users[i]+day);
-      var editDiv = document.getElementById("edit-"+users[i]+day);
+      var viewDiv = document.getElementById("view-"+users[i]+"_"+year+"_"+month+"_"+day);
+      var editDiv = document.getElementById("edit-"+users[i]+"_"+year+"_"+month+"_"+day);
       if (viewDiv.style.display=='block') {
          viewDiv.style.display = 'none';
          editDiv.style.display = 'block';
