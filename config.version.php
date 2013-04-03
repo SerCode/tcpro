@@ -21,7 +21,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  */
 $CONF['app_name'] = "TeamCal Pro";
 $CONF['app_version'] = "3.6.000";
-$CONF['app_version_date'] = "2013-03-20";
+$CONF['app_version_date'] = "2013-04-03";
 $CONF['app_year'] = "2004";
 $CONF['app_curr_year'] = date('Y');
 $CONF['app_author'] = "George Lewe";

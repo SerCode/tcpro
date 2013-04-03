@@ -73,13 +73,13 @@ IMPROVEMENTS
    The declination page has been redesigned
    
 14 Fast Edit
-   Fast Edit is great new feature. It can be switched on in the configuration.
-   It will display an additional row at the bottom of the calendar view with
-   buttons that enable listboxes for each user on the day. It is then quickly
-   possible to change an absence right in the calendar view. You can do that
-   for that several absences before you apply those changes. Fast Edit will
-   not perform any declination checks tho. It is meant for managers so they can
-   quickly edit single absences.
+   Fast Edit is great new feature based on an idea by TeamCal Pro user Heart1010.
+   It can be switched on in the configuration. It will display an additional 
+   row at the bottom of the calendar view with buttons that enable listboxes 
+   for each user on the day. It is then quickly possible to change an absence 
+   right in the calendar view. You can do that for that several absences before 
+   you apply those changes. Fast Edit will not perform any declination checks
+   tho. It is meant for managers so they can quickly edit single absences.
    
    
 ------------------------------------------------------------------------------
