@@ -322,13 +322,13 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       if ($sortorder=="ASC") {
          $request = setRequests();
          $request .= "sort=DESC";
-         $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?".$request."\">";
+         $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
          $monthHeader.="<img class=\"noprint\" alt=\"".$LANG['log_sort_desc']."\" title=\"".$LANG['log_sort_desc']."\" src=\"themes/".$theme."/img/desc.png\" align=\"middle\" border=\"0\"></a>";
       }
       else {
          $request = setRequests();
          $request .= "sort=ASC";
-         $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?".$request."\">";
+         $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
          $monthHeader.="<img class=\"noprint\" alt=\"".$LANG['log_sort_asc']."\" title=\"".$LANG['log_sort_asc']."\" src=\"themes/".$theme."/img/asc.png\" align=\"middle\" border=\"0\"></a>";
       }
       
