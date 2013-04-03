@@ -174,7 +174,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       $cols++;
    
       if (isAllowed("editGlobalCalendar")) {
-         $monthHeader.="<td class=\"month-button\"><a href=\"javascript:openPopup('editmonth.php?lang=".$CONF['options']['lang']."&amp;region=".$CONF['options']['region']."&amp;Year=".$year."&amp;Month=".$month."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');\"><img class=\"noprint\" src=\"themes/".$theme."/img/date.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_month']."\" alt=\"".$LANG['cal_img_alt_edit_month']."\"></a></td>\n\r";
+         $monthHeader.="<td class=\"month-button\"><a href=\"javascript:openPopup('editmonth.php?lang=".$CONF['options']['lang']."&amp;region=".$CONF['options']['region']."&amp;Year=".$year."&amp;Month=".$month."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=1024,height=400');\"><img class=\"noprint\" src=\"themes/".$theme."/img/date.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_month']."\" alt=\"".$LANG['cal_img_alt_edit_month']."\"></a></td>\n\r";
       }
       else {
          $monthHeader.="<td class=\"month-button\">&nbsp;</td>\n\r";
