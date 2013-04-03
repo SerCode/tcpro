@@ -35,24 +35,32 @@ $region = $CONF['options']['region'];
  * Process Fast Edit form if submitted
  */
 if ( isset($_POST['btn_fastedit_apply']) ) {
-
    /**
     * Loop thru each listbox
     */
    foreach($_POST as $key=>$value) {
       if (substr($key,0,8)== "sel_abs_" ) {
-         //echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+         /*
+          * Explode the key
+          */
          $pieces = explode('_', $key);
          $feuser = $pieces[2];
          $feyear = $pieces[3];
          $femonth = $pieces[4];
          $feday = $pieces[5];
-         if ($T->getAbsence($feuser, $feyear, $femonth, $feday)!=$value) {
+         
+         /*
+          * Check whether the listbox was changed by comapring its value to the
+          * hidden field that holds the original value. Its name has the same
+          * suffix as the listbox's name
+          */
+         $hidkey='hid_abs_'.$feuser.'_'.$feyear.'_'.$femonth.'_'.$feday;
+         if ($_POST[$hidkey]!=$value) {
             $T->setAbsence($feuser, $feyear, $femonth, $feday, $value);
             /**
              * Log this event
              */
-            //$LOG->log("logUser",$L->checkLogin(),"Calendar Fast Edit for '".$feuser."': ".$feyear."-".$femonth."-".$feday.": ".$value);
+            $LOG->log("logUser",$L->checkLogin(),"Calendar Fast Edit for '".$feuser."': ".$feyear."-".$femonth."-".$feday.": ".$A->getName($value));
          }
       }
    }
@@ -61,17 +69,36 @@ if ( isset($_POST['btn_fastedit_apply']) ) {
 <div id="content">
    <div id="content-content">
       <?php
+      /*
+       * The Javascript and Form is only needed when Fast Edit is on
+       */
       if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit")) { ?>
          <script type="text/javascript">
+            //
+            // This script prepares Fast Edit and the background images
+            // of the absence list boxes so they show the abs icon.
+            // The global variables are used to store the usernames
+            // and all absence icons. The listbox background image is
+            // switches then by index passed by the value of the selected
+            // entry.
+            //
             var jsusers = new Array(); 
             var viewMode = true;
+            //
+            // Now load all absence icons in the rest of the array
+            // 
             var absicon = new Array();
-            <?php 
+            <?php
             $absences = $A->getAll();
             foreach ($absences as $abs) {
                echo "absicon[".$abs['id']."]='".$CONF['app_icon_dir'].$abs['icon']."';\r\n"; 
             }
             ?>
+            //
+            // This function switches the listbox background image based on
+            // it selected value. It represents the abs id which is the index
+            // for this icon array here.
+            //
             function switchAbsIcon(ele, image) { 
                document.getElementById(ele).style.backgroundImage="url('"+image+"')";
             }

@@ -1061,6 +1061,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                    * This person is present or the viewer may not see this absence. Lets color the day as present.
                    * Also, add this to the presence count for the summary.
                    */
+                  $abs_original='0';
+                  
                   if (!$isAbsence) {
                      $intSumPresentMonth++;
                      $intSumPresentDay[$i]++;
@@ -1152,6 +1154,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                    * Also, add this to the absence count for the summary if it does not count as 'present'.
                    * Otherwise we have to add this to the presence count.
                    */
+                  $abs_original=$A->id;
+                  
                   if ( $countsAsPresent ) {
                      $intSumPresentMonth++;
                      $intSumPresentDay[$i]++;
@@ -1188,10 +1192,12 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                 * $inner then contains two <div>, one for view mode, one for edit mode.
                 * Upon click on the fast edit icon Javascript will hide 'view' and show 'edit'. 
                 * It contains a drop down list of all absence types with 'Present' selected.
+                * Right before it we put a hidden field containing the original absence. Will
+                * be used when submitting the form to only set the changed values.
                 */
                if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit")) {
-                  $form = '<select name="sel_abs_'.$cellid.'" id="sel_abs_'.$cellid.'" class="select" style="background-image: url('.(($isAbsence)?$CONF['app_icon_dir'].$A->icon:"img/pixel.gif").'); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;" onchange="javascript: switchAbsIcon(this.id,absicon[this.value]);">'."\r\n";
-                  //$form = '<select name="sel_abs_'.$cellid.'" class="select" onchange="javascript: alert(absicon[this.value]); this.style.backgroundImage=url(absicon[this.value]);">'."\r\n";
+                  $form = '<input name="hid_abs_'.$cellid.'" type="hidden" class="text" value="'.$abs_original.'">'."\r\n";
+                  $form .= '<select name="sel_abs_'.$cellid.'" id="sel_abs_'.$cellid.'" class="select" style="background-image: url('.(($isAbsence)?$CONF['app_icon_dir'].$A->icon:"img/pixel.gif").'); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;" onchange="javascript: switchAbsIcon(this.id,absicon[this.value]);">'."\r\n";
                   $form .= '<option style="background-image: url(img/pixel.gif); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="0" '.((!$isAbsence)?"SELECTED":"").'>'.$LANG['cal_abs_present'].'</option>'."\r\n";
                   $absences = $A->getAll();
                   foreach ($absences as $abs) { 
@@ -1224,16 +1230,15 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
        * Row: Fast Edit
        */
       if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit")) {
-         $cspan = '';
+         $cspan = ' colspan="2"';
          if ( $CONF['options']['remainder']=="show" && $cntRemainders ) {
-            $cspan = ' colspan="'.($cntRemainders+$cntTotals+1).'"';
+            $cspan = ' colspan="'.($cntRemainders+$cntTotals+1+1).'"';
          }
          $showmonthBody.="<tr>\n\r";
          $showmonthBody.="<td class=\"title\"".$cspan.">";
          $showmonthBody.="&nbsp;".$LANG['cal_fastedit'];
-         $showmonthBody.='&nbsp;<input name="btn_fastedit_apply" type="submit" class="button" value="'.$LANG['btn_apply'].'">';
+         $showmonthBody.='<input name="btn_fastedit_apply" type="submit" class="button" style="margin-left: 10px;" value="'.$LANG['btn_apply'].'">';
          $showmonthBody.="</td>\n\r";
-         $showmonthBody.="<td class=\"title-button\">&nbsp;</td>";
          for ($i=1; $i<=$nofdays; $i=$i+1) {
             $showmonthBody.="<td class=\"weekday\"><a href=\"javascript:toggleFastEdit('".$year."', '".$monthno."', '".$i."', jsusers);\"><img class=\"noprint\" src=\"themes/".$theme."/img/ico_edit.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_fastedit_tt']."\" alt=\"ico_edit.png\"></a></td>\n\r";
          }
