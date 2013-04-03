@@ -1815,7 +1815,7 @@ $LANG['html_title_viewprofile'] = 'View Profile';
 
 /**
  * ============================================================================
- * Added in TeamCal Pro 3.6.001
+ * Added in TeamCal Pro 3.6.000
  */
 
 /**
@@ -1844,4 +1844,14 @@ $LANG['admin_config_fastedit_comment'] = 'With this option enabled, an additiona
  */
 $LANG['perm_perm_viewFastEdit_title'] = "Allow Fast Edit";
 $LANG['perm_perm_viewFastEdit_desc'] = "Allows to access the Fast Edit feature in the calendar view if it is enabled in the TeamCal Pro configuration.";
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.001
+ */
+
+/**
+ * Month Edit Dialog
+ */
+$LANG['month_clear_holiday'] = 'Clear Holiday';
 ?>

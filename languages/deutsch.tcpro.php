@@ -1844,4 +1844,14 @@ $LANG['admin_config_fastedit_comment'] = 'Mit dieser Option wir eine zus&auml;tz
  */
 $LANG['perm_perm_viewFastEdit_title'] = "Schnellbearbeitung erlauben";
 $LANG['perm_perm_viewFastEdit_desc'] = "Erlaubt den Zugriff auf die Schnellbearbeitung im Kalender, wenn diese Funktion in der TeamCal Pro Konfiguration eingeschaltet ist.";
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.001
+ */
+
+/**
+ * Month Edit Dialog
+ */
+$LANG['month_clear_holiday'] = 'Feiertag l&ouml;schen';
 ?>
