@@ -439,7 +439,6 @@ if (!class_exists("Login_model")) {
                //}
             }
          }
-         jsReloadPage("index.php?action=".$this->C->readConfig("homepage"));
       }
 
       // ---------------------------------------------------------------------
