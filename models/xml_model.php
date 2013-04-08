@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Provides classes to deal with XML parsing
  *
  * @package TeamCalPro
- * @version 3.6.001 
+ * @version 3.6.001 Dev 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com

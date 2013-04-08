@@ -3,6 +3,23 @@ TEAMCAL PRO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.000] -> [3.6.001]
+
+Backup your current files and database!
+
+Download the new release and overwrite all files.
+Overwrite config.tcpro.php from your backup.
+
+Note:
+One change in 3.6.001 might need your special attention. In previous TCP 
+releases,  an inconsistent username format check in the registration dialog 
+and the CSV import feature might have lead to usernames in your installation 
+that contain other than alphanumeric characters. These usernames can cause
+problems with the Fast Edit feature. If that is the case in your installation
+I recommend to update those usernames in your database and inform the users
+about that accordingly. If you don't use Fast Edit, all is good.
+
+------------------------------------------------------------------------------
 [3.5.002] -> [3.6.000]
 
 Backup your current files and database!
