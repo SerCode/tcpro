@@ -230,10 +230,10 @@ require("includes/menu_inc.php");
                            if (isAllowed("viewAllGroups")) {
                               if ($UO->true($user, "owngroupsonly")) {
                                  if ( $UG->isMemberOfGroup($user, $group['groupname']) OR $UG->isGroupManagerOfGroup($user, $group['groupname'])) { ?>
-                                    <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
+                                    <option class="option" value="<?=$group['groupname']?>"><?=$group['description']?></option>
                                  <?php }
                               } ?>
-                              <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
+                              <option class="option" value="<?=$group['groupname']?>"><?=$group['description']?></option>
                            <?php }
                         }
                         ?>
