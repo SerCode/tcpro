@@ -727,6 +727,7 @@ $LANG['register_error_code'] = 'Du hast einen falschen Sicherheitscode eingegebe
 $LANG['register_error_incomplete'] = 'Folgende Felder m&uuml;ssen ausgef&uuml;llt sein: '.$LANG['register_lastname'].
 ', '.$LANG['register_username'].', '.$LANG['register_email'].', '.$LANG['register_password'].' und '.$LANG['register_code'].'.';
 $LANG['register_error_username'] = 'Dieser Username ist bereits vergeben. Bitte w&auml;hle einen anderen.';
+$LANG['register_error_username_format'] = 'Only alphanumeric characters are allowed in usernames.';
 $LANG['register_success'] = 'Die Registrierung war erfolgreich. ';
 $LANG['register_success_ok'] = 'Du kannst diesen Dialog nun schlie&szlig;en und dich einloggen.';
 $LANG['register_success_verify'] = 'Eine e-Mail mit einem Best&auml;tigungslink wurde an dich gesendet, den du zur Verifizierung deines Kontos ausf&uuml;hren musst. ';

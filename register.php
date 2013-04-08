@@ -59,6 +59,9 @@ if ( isset($_POST['btn_submit']) AND in_array($_POST['lst_group'],$G->getGroups(
    if (!strlen($_POST['txt_lastname']) || !strlen($_POST['txt_username']) || !strlen($_POST['txt_email']) || !strlen($_POST['txt_password']) || !strlen($_POST['txt_code'])) {
       $error = $LANG['register_error_incomplete'];
    }
+   else if (!preg_match('/^[a-zA-Z0-9]*$/', $_POST['txt_username'])) {
+      $error = $LANG['register_error_username_format'];
+   }
    else if (!validEmail(trim($_POST['txt_email']))) {
       $error = $LANG['register_error_email'];
    }

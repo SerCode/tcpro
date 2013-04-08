@@ -74,7 +74,7 @@ $pwdmismatch = false;
 if (isset ($_POST['btn_add'])) {
 
    $username = trim($_POST['username']);
-   if (ereg('[^A-Za-z0-9]', $username)) {
+   if (!preg_match('/^[a-zA-Z0-9]*$/', $username)) {
       $msg = true;
       $message = $LANG['error_user_nospecialchars'];
    }

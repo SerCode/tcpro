@@ -260,7 +260,7 @@ if (!class_exists("CsvImport")) {
 	                  return;
 	               }
 	               else {
-	                  if ( !$U->findByName(trim($arr[0])) && $arr[0]!="admin" ) { 
+	                  if ( !$U->findByName(trim($arr[0])) AND $arr[0]!="admin" AND preg_match('/^[a-zA-Z0-9]*$/',$arr[0]) ) { 
 	                     $U->username = trim($arr[0]);              
 	                     $U->password = crypt("password", $CONF['salt']);
 	                     $U->firstname = $arr[1];              

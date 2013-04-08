@@ -21,6 +21,10 @@ IMPROVEMENTS
    Only <i> and <b> HTML tags are now allowed in the welcome title and message.
    All other tags will be stripped. Line breaks are automatically translated
    into <br> tags.
+   
+03 Consistent username format check
+   Usernames can only contain alphanumeric characters. This was not checked
+   consistently in addprofile, register and CSV import.
 
 
 ------------------------------------------------------------------------------
