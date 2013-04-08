@@ -380,7 +380,7 @@ require("includes/header_html_inc.php");
                          * Show a line for this absence type covering each day of the month
                          */
                         for ($count=0; $count<strlen($M->template); $count++) { ?>
-                           <td class="title-button"><input name="opt_hol_<?=$count+1?>" type="radio" value="0"></td>
+                           <td class="weekday"><input name="opt_hol_<?=$count+1?>" type="radio" value="0"></td>
                         <?php } ?>
                         </tr>
                   
