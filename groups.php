@@ -135,10 +135,10 @@ else if ( isset($_POST['btn_grp_update']) ) {
     * Also, the absence type assigments for that group have to be updated.
     */
    if ($_POST['grp_name'] != $_POST['grp_namehidden']) {
-      $query= "UPDATE `".$UG->table."` SET `groupname` = '".$_POST['grp_name']."' WHERE `groupname` = '".$_POST['grp_namehidden']."';";
+      $query= "UPDATE `".$UG->table."` SET `groupname` = '".$G->groupname."' WHERE `groupname` = '".$_POST['grp_namehidden']."';";
       $result = $UG->db->db_query($query);
 
-      $query= "UPDATE `".$AG->table."` SET `group` = '".$_POST['grp_name']."' WHERE `group` = '".$_POST['grp_namehidden']."';";
+      $query= "UPDATE `".$AG->table."` SET `group` = '".$G->groupname."' WHERE `group` = '".$_POST['grp_namehidden']."';";
       $result = $AG->db->db_query($query);
    }
 

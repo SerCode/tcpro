@@ -12,6 +12,11 @@ BUGFIXES
 01 Allowance deletion when user is deleted
    Fixed a bug that allowance were not deleted when the user was removed.
    
+02 Groupname changes
+   Group name changes in the admin group page were not saved correctly in
+   the database. Non-alphanumeric characters were stripped but the orginal
+   value from the form was saved. Fixed.
+   
 IMPROVEMENTS
 01 "Clear Holiday" row in monthedit
    Holidays could only be cleared for a whole month. I added a new row in
