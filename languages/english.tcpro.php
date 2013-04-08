@@ -5,7 +5,7 @@
  * English language file
  *
  * @package TeamCalPro
- * @version 3.6.000
+ * @version 3.6.001 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -727,6 +727,7 @@ $LANG['register_error_code'] = 'You typed in an incorrect security code.';
 $LANG['register_error_incomplete'] = 'You need to at least provide '.$LANG['register_lastname'].
 ', '.$LANG['register_username'].', '.$LANG['register_email'].', '.$LANG['register_password'].' and '.$LANG['register_code'].'.';
 $LANG['register_error_username'] = 'That username is already taken. Please choose another.';
+$LANG['register_error_username_format'] = 'Only alphanumeric characters are allowed in usernames.';
 $LANG['register_success'] = 'Your registration was successful. ';
 $LANG['register_success_ok'] = 'You can now close this dialog and login with the usernamen and password you provided.';
 $LANG['register_success_verify'] = ' An e-Mail has been sent to you with a confirmation link that you need to follow to verify your account. ';
@@ -1193,7 +1194,8 @@ $LANG['admin_config_homepage_comment'] = 'Select the initial display after login
 $LANG['admin_config_homepage_welcome'] = 'Welcome Page';
 $LANG['admin_config_homepage_calendar'] = 'Calendar';
 $LANG['admin_config_welcome'] = 'Welcome Page Text';
-$LANG['admin_config_welcome_comment'] = 'Enter a title and a text for the welcome message on the welcome page.';
+$LANG['admin_config_welcome_comment'] = 'Enter a title and a text for the welcome message on the welcome page. These fields allow the usage of the '.
+'HTML tags < i > and < b >. Line breaks will be translated into < br > tags automatically. All other HTML tags will be stripped.';
 
 /**
  * Userlist Page
@@ -1815,7 +1817,7 @@ $LANG['html_title_viewprofile'] = 'View Profile';
 
 /**
  * ============================================================================
- * Added in TeamCal Pro 3.6.001
+ * Added in TeamCal Pro 3.6.000
  */
 
 /**
@@ -1844,4 +1846,14 @@ $LANG['admin_config_fastedit_comment'] = 'With this option enabled, an additiona
  */
 $LANG['perm_perm_viewFastEdit_title'] = "Allow Fast Edit";
 $LANG['perm_perm_viewFastEdit_desc'] = "Allows to access the Fast Edit feature in the calendar view if it is enabled in the TeamCal Pro configuration.";
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.001
+ */
+
+/**
+ * Month Edit Dialog
+ */
+$LANG['month_clear_holiday'] = 'Clear Holiday';
 ?>

@@ -5,7 +5,7 @@
  * Displays and runs the user administration page
  *
  * @package TeamCalPro
- * @version 3.6.000
+ * @version 3.6.001 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -41,7 +41,7 @@ require_once( "models/user_group_model.php" );
 require_once( "models/user_option_model.php" );
 
 $AV = new Avatar_model;
-$B = new Allowance_model;
+$A = new Allowance_model;
 $C = new Config_model;
 $G = new Group_model;
 $L = new Login_model;
@@ -111,8 +111,8 @@ if ( isset($_POST['btn_usr_del']) AND ($_POST['usr_hidden']!="admin") ) {
    $N->deleteByUser($deluser);
 
    // Drop his allowance records
-   $B->deleteUser($deluser);
-
+   $A->deleteUser($deluser);
+   
    // Drop his announcement list
    $UA->deleteAllForUser($deluser);
 

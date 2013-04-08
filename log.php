@@ -5,7 +5,7 @@
  * Displays the system log dialog
  *
  * @package TeamCalPro
- * @version 3.6.000
+ * @version 3.6.001 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com

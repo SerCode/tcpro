@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Provides classes to deal with CSV parsing
  *
  * @package TeamCalPro
- * @version 3.6.000 
+ * @version 3.6.001 Dev 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -260,7 +260,7 @@ if (!class_exists("CsvImport")) {
 	                  return;
 	               }
 	               else {
-	                  if ( !$U->findByName(trim($arr[0])) && $arr[0]!="admin" ) { 
+	                  if ( !$U->findByName(trim($arr[0])) AND $arr[0]!="admin" AND preg_match('/^[a-zA-Z0-9]*$/',$arr[0]) ) { 
 	                     $U->username = trim($arr[0]);              
 	                     $U->password = crypt("password", $CONF['salt']);
 	                     $U->firstname = $arr[1];              

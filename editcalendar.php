@@ -5,7 +5,7 @@
  * Displays the edit calendar dialog
  *
  * @package TeamCalPro
- * @version 3.6.000
+ * @version 3.6.001 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -1075,11 +1075,8 @@ $CONF['options']['lang']=$currlang;
                   /**
                    * Show a line for this absence type covering each day of the month
                    */
-                  for($idx=1; $idx<=strlen($M->template); $idx++) {
-                     if ( $H->findBySymbol($M->template[$idx-1]) ) $class="day-".$H->cfgname;
-                     else $class="day";
-                     ?>
-                     <td class="title-button"><input name="opt_abs_<?=$idx?>" type="radio" value="0"></td>
+                  for($idx=1; $idx<=strlen($M->template); $idx++) { ?>
+                     <td class="weekday"><input name="opt_abs_<?=$idx?>" type="radio" value="0"></td>
                   <?php } ?>
                   </tr>
                   

@@ -5,7 +5,7 @@
  * Displays the edit month dialog
  *
  * @package TeamCalPro
- * @version 3.6.000
+ * @version 3.6.001 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -367,7 +367,24 @@ require("includes/header_html_inc.php");
                               echo "</tr>";
                            }
                         }
+                     
+                        /**
+                         * Clear Holiday row
+                         */
                         ?>
+                        <tr>
+                           <td class="title"><?=$LANG['month_clear_holiday']?></td>
+                           <td class="title-button">&nbsp;</td>
+                        <?php
+                        /**
+                         * Show a line for this absence type covering each day of the month
+                         */
+                        for ($count=0; $count<strlen($M->template); $count++) { ?>
+                           <td class="weekday"><input name="opt_hol_<?=$count+1?>" type="radio" value="0"></td>
+                        <?php } ?>
+                        </tr>
+                  
+                        
                      </table>
                      <br>
                   </td>
