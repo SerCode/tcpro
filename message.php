@@ -105,7 +105,7 @@ if (isset($_POST['btn_send'])) {
 
       $user=$L->checkLogin();
       $UL->findByName($user);
-      if (strlen($UL->email)) $from=$UL->email; else $from='';
+      if (strlen($UL->email)) $from=ltrim(mb_encode_mimeheader($UL->firstname." ".$UL->lastname))." <".$UL->email.">"; else $from='';
 
       if ( sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), $from) ) {
          $msgsent = true;
