@@ -1076,7 +1076,7 @@ $CONF['options']['lang']=$currlang;
                    * Show a line for this absence type covering each day of the month
                    */
                   for($idx=1; $idx<=strlen($M->template); $idx++) { ?>
-                     <td class="title-button"><input name="opt_abs_<?=$idx?>" type="radio" value="0"></td>
+                     <td class="weekday"><input name="opt_abs_<?=$idx?>" type="radio" value="0"></td>
                   <?php } ?>
                   </tr>
                   
