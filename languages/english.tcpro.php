@@ -1193,7 +1193,8 @@ $LANG['admin_config_homepage_comment'] = 'Select the initial display after login
 $LANG['admin_config_homepage_welcome'] = 'Welcome Page';
 $LANG['admin_config_homepage_calendar'] = 'Calendar';
 $LANG['admin_config_welcome'] = 'Welcome Page Text';
-$LANG['admin_config_welcome_comment'] = 'Enter a title and a text for the welcome message on the welcome page.';
+$LANG['admin_config_welcome_comment'] = 'Enter a title and a text for the welcome message on the welcome page. These fields allow the usage of the '.
+'HTML tags < i > and < b >. Line breaks will be translated into < br > tags automatically. All other HTML tags will be stripped.';
 
 /**
  * Userlist Page

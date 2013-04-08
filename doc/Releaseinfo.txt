@@ -3,6 +3,27 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.001 Dev]
+
+DATE
+2013-xx-xx
+
+BUGFIXES
+01 Allowance deletion when user is deleted
+   Fixed a bug that allowance were not deleted when the user was removed.
+   
+IMPROVEMENTS
+01 "Clear Holiday" row in monthedit
+   Holidays could only be cleared for a whole month. I added a new row in
+   the editmonth dialog with a radiobox to clear each single holiday.
+   
+02 Welcome Text HTML tags
+   Only <i> and <b> HTML tags are now allowed in the welcome title and message.
+   All other tags will be stripped. Line breaks are automatically translated
+   into <br> tags.
+
+
+------------------------------------------------------------------------------
 [3.6.000]
 
 DATE

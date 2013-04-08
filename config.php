@@ -144,8 +144,8 @@ if ( isset($_POST['btn_apply']) ) {
    
    $C->saveConfig("appSubTitle",htmlspecialchars($_POST['txt_appSubTitle']));
    if ($_POST['opt_homepage']) $C->saveConfig("homepage",$_POST['opt_homepage']);
-   $C->saveConfig("welcomeTitle",htmlspecialchars(addslashes($_POST['txt_welcomeTitle'])));
-   $C->saveConfig("welcomeText",htmlspecialchars(addslashes($_POST['txt_welcomeText'])));
+   $C->saveConfig("welcomeTitle",htmlspecialchars(addslashes(strip_tags($_POST['txt_welcomeTitle'],"<i><b>"))));
+   $C->saveConfig("welcomeText",htmlspecialchars(addslashes(strip_tags($_POST['txt_welcomeText'],"<i><b>"))));
    if ($_POST['sel_welcomeIcon']) $C->saveConfig("welcomeIcon",$_POST['sel_welcomeIcon']); else $C->saveConfig("welcomeIcon","No");
    if ( isset($_POST['chk_showLanguage']) && $_POST['chk_showLanguage'] ) $C->saveConfig("showLanguage","1"); else $C->saveConfig("showLanguage","0");
    if ( isset($_POST['chk_showGroup']) && $_POST['chk_showGroup'] ) $C->saveConfig("showGroup","1"); else $C->saveConfig("showGroup","0");

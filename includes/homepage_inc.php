@@ -32,7 +32,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                <?php } ?>
                
                <div style="font-weight: bold; font-size: 110%; padding-bottom: 8px;"><?=stripslashes($C->readConfig("welcomeTitle"))?></div>
-               <?=html_entity_decode(stripslashes($C->readConfig("welcomeText")))?>
+               <?=nl2br(html_entity_decode(stripslashes($C->readConfig("welcomeText"))))?>
             </td>
          </tr>
       </table>

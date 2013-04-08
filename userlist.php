@@ -41,7 +41,7 @@ require_once( "models/user_group_model.php" );
 require_once( "models/user_option_model.php" );
 
 $AV = new Avatar_model;
-$B = new Allowance_model;
+$A = new Allowance_model;
 $C = new Config_model;
 $G = new Group_model;
 $L = new Login_model;
@@ -111,7 +111,7 @@ if ( isset($_POST['btn_usr_del']) AND ($_POST['usr_hidden']!="admin") ) {
    $N->deleteByUser($deluser);
 
    // Drop his allowance records
-   $B->deleteByUser($deluser);
+   $A->deleteUser($deluser);
 
    // Drop his announcement list
    $UA->deleteAllForUser($deluser);

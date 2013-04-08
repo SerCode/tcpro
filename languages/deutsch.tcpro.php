@@ -1193,7 +1193,8 @@ $LANG['admin_config_homepage_comment'] = 'Hier kann die Startseite nach dem Logi
 $LANG['admin_config_homepage_welcome'] = 'Willkommen Seite';
 $LANG['admin_config_homepage_calendar'] = 'Kalender';
 $LANG['admin_config_welcome'] = 'Willkommen Seite Text';
-$LANG['admin_config_welcome_comment'] = 'Hier kann ein Titel und ein Text f&uuml;r die Willkommen Seite eingegeben werden.';
+$LANG['admin_config_welcome_comment'] = 'Hier kann ein Titel und ein Text f&uuml;r die Willkommen Seite eingegeben werden. Die Felder erlauben die '.
+'Verwendung von den HTML Tags < i > und < b >. Zeilenumbr&uuml;che werden automatisch in < br > Tags &uuml;bersetzt. Alle anderen HTML Tags werden entfernt.';
 
 /**
  * Userlist Page
