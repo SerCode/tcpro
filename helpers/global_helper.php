@@ -1524,9 +1524,8 @@ function sendEmail($to, $subject, $body, $from='')
    global $CONF;
    require_once "Mail.php";
    require_once ($CONF['app_root']."models/config_model.php");
-   require_once ($CONF['app_root'] . "models/login_model.php");
-   require_once ($CONF['app_root'] . "models/user_model.php");
-   require_once ($CONF['app_root'] . "models/user_model.php");
+   require_once ($CONF['app_root']."models/login_model.php");
+   require_once ($CONF['app_root']."models/user_model.php");
    $C = new Config_model;
    $L = new Login_model;
    $UL= new User_model;
@@ -1538,11 +1537,9 @@ function sendEmail($to, $subject, $body, $from='')
       $from = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
       $from_mailonly = $C->readConfig("mailReply");
    }
-   else {
-      $regexp_from = preg_match('/<(.*?)>/', $from, $fetch);
+   else if (preg_match('/<(.*?)>/', $from, $fetch)) {
       $from_mailonly = $fetch[1];
    }
-
    /*
     * "To" has to be a valid email. It might be empty if a user
     * to be notified has not setup his email address
@@ -1602,9 +1599,10 @@ function sendEmail($to, $subject, $body, $from='')
       }
    }
    else {
-      $replyto = $C->readConfig("mailReply");
-      $headers = "From: ".$from."\r\n"."Reply-To: ".$replyto."\r\n";
+      $replyto = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
+      $headers = "From: ".$from."\r\nReply-To: ".$replyto;
       $result = mail($to, $subject, $body, $headers);
+
       return $result;
    }
 }
