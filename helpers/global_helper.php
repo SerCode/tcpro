@@ -1530,11 +1530,12 @@ function sendEmail($to, $subject, $body, $from='')
    $from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
 
    if ((!strlen($from)) OR ($from_regexp AND ($fetch[1] == $C->readConfig("mailReply")))) {
-      $from = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
+      $from = $replyto = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
       $from_mailonly = $C->readConfig("mailReply");
    }
    else if ($from_regexp) {
       $from_mailonly = $fetch[1];
+      $replyto = mb_encode_mimeheader($from);
    }
    /*
     * "To" has to be a valid email. It might be empty if a user
@@ -1553,10 +1554,13 @@ function sendEmail($to, $subject, $body, $from='')
       /*
        * SMTP requires a valid email address in the From field
        */
-      if (!validEmail($from_mailonly)) $from=mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
+      if (!validEmail($from_mailonly)) {
+         $from = $replyto = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
+      }
    
       $headers = array (
          'From' => $from,
+         'Reply-To' => $replyto,
          'To' => $to,
          'Subject' => $subject
       );
@@ -1595,7 +1599,6 @@ function sendEmail($to, $subject, $body, $from='')
       }
    }
    else {
-      $replyto = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
       $headers = "From: ".$from."\r\nReply-To: ".$replyto;
       $result = mail($to, $subject, $body, $headers);
       return $result;
