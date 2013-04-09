@@ -1527,7 +1527,7 @@ function sendEmail($to, $subject, $body, $from='')
    $C = new Config_model;
    error_reporting(E_ALL ^ E_STRICT);
 
-	$from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
+   $from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
 
    if ((!strlen($from)) OR ($from_regexp AND ($fetch[1] == $C->readConfig("mailReply")))) {
       $from = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
