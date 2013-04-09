@@ -34,7 +34,6 @@ IMPROVEMENTS
 04 Mail from info
    The mail feature now adds the full name to the from address
 
-
 ------------------------------------------------------------------------------
 [3.6.000]
 
