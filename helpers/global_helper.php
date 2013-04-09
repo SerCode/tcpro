@@ -1526,9 +1526,16 @@ function sendEmail($to, $subject, $body, $from='')
    require_once ($CONF['app_root']."models/config_model.php");
    $C = new Config_model;
    error_reporting(E_ALL ^ E_STRICT);
-       
-   if (!strlen($from)) $from = $C->readConfig("mailFrom");
-   
+
+	$from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
+
+   if ((!strlen($from)) OR ($from_regexp AND ($fetch[1] == $C->readConfig("mailReply")))) {
+      $from = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
+      $from_mailonly = $C->readConfig("mailReply");
+   }
+   else if ($from_regexp) {
+      $from_mailonly = $fetch[1];
+   }
    /*
     * "To" has to be a valid email. It might be empty if a user
     * to be notified has not setup his email address
@@ -1546,7 +1553,7 @@ function sendEmail($to, $subject, $body, $from='')
       /*
        * SMTP requires a valid email address in the From field
        */
-      if (!validEmail($from)) $from=$C->readConfig("mailReply");
+      if (!validEmail($from_mailonly)) $from=mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
    
       $headers = array (
          'From' => $from,
@@ -1588,8 +1595,8 @@ function sendEmail($to, $subject, $body, $from='')
       }
    }
    else {
-      $replyto = $C->readConfig("mailReply");
-      $headers = "From: ".$from."\r\n"."Reply-To: ".$replyto."\r\n";
+      $replyto = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
+      $headers = "From: ".$from."\r\nReply-To: ".$replyto;
       $result = mail($to, $subject, $body, $headers);
       return $result;
    }
