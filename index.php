@@ -84,7 +84,7 @@ if (isset ($_REQUEST['action']))
       case 'logout' :
          $L->logout();
          $LOG->log("logLogin", $L->checkLogin(), "Logout");
-         header("Location: ".$_SERVER['PHP_SELF']);
+         header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
          break;
 
       default:
