@@ -1524,20 +1524,16 @@ function sendEmail($to, $subject, $body, $from='')
    global $CONF;
    require_once "Mail.php";
    require_once ($CONF['app_root']."models/config_model.php");
-   require_once ($CONF['app_root']."models/login_model.php");
-   require_once ($CONF['app_root']."models/user_model.php");
    $C = new Config_model;
-   $L = new Login_model;
-   $UL= new User_model;
    error_reporting(E_ALL ^ E_STRICT);
 
-   $user=$L->checkLogin();
-   $UL->findByName($user);
-   if ((!strlen($from)) || $UL->username == "admin") {
+	$from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
+
+   if ((!strlen($from)) OR ($from_regexp AND ($fetch[1] == $C->readConfig("mailReply")))) {
       $from = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
       $from_mailonly = $C->readConfig("mailReply");
    }
-   else if (preg_match('/<(.*?)>/', $from, $fetch)) {
+   else if ($from_regexp) {
       $from_mailonly = $fetch[1];
    }
    /*
@@ -1602,7 +1598,6 @@ function sendEmail($to, $subject, $body, $from='')
       $replyto = mb_encode_mimeheader($C->readConfig("mailFrom"))." <".$C->readConfig("mailReply").">";
       $headers = "From: ".$from."\r\nReply-To: ".$replyto;
       $result = mail($to, $subject, $body, $headers);
-
       return $result;
    }
 }
@@ -1699,9 +1694,6 @@ function showError($error="notallowed",$message="",$closeButton=FALSE) {
 function validEmail($email) {
    $isValid = true;
    $atIndex = strrpos($email, "@");
-   //$regexp_email = preg_match('/<(.*?)>/', $email, $fetch);
-   //$email = $fetch[1];
-
    if (is_bool($atIndex) && !$atIndex) {
       $isValid = false;
    }

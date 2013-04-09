@@ -112,7 +112,7 @@ if ( isset($_POST['btn_usr_del']) AND ($_POST['usr_hidden']!="admin") ) {
 
    // Drop his allowance records
    $A->deleteUser($deluser);
-   
+
    // Drop his announcement list
    $UA->deleteAllForUser($deluser);
 
