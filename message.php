@@ -105,7 +105,7 @@ if (isset($_POST['btn_send'])) {
 
       $user=$L->checkLogin();
       $UL->findByName($user);
-      if (strlen($UL->email)) $from=ltrim(mb_encode_mimeheader($UL->firstname." ".$UL->lastname))." <".$UL->email.">"; else $from='';
+      if (strlen($UL->email)) $from=$UL->email; else $from='';
 
       if ( sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), $from) ) {
          $msgsent = true;
@@ -230,10 +230,10 @@ require("includes/menu_inc.php");
                            if (isAllowed("viewAllGroups")) {
                               if ($UO->true($user, "owngroupsonly")) {
                                  if ( $UG->isMemberOfGroup($user, $group['groupname']) OR $UG->isGroupManagerOfGroup($user, $group['groupname'])) { ?>
-                                    <option class="option" value="<?=$group['groupname']?>"><?=$group['description']?></option>
+                                    <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
                                  <?php }
                               } ?>
-                              <option class="option" value="<?=$group['groupname']?>"><?=$group['description']?></option>
+                              <option class="option" value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
                            <?php }
                         }
                         ?>
