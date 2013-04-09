@@ -35,6 +35,10 @@ IMPROVEMENTS
    The mail feature now adds the full name to the from address and identifies
    the true sender in the reply to address.
 
+05 Logout language
+   The logout now reads the last set language and displays the appropriate
+   calendar or home page.
+
 
 ------------------------------------------------------------------------------
 [3.6.000]
