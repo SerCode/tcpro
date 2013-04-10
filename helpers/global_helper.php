@@ -1522,7 +1522,6 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
 function sendEmail($to, $subject, $body, $from='') 
 {
    global $CONF;
-   require_once "Mail.php";
    require_once ($CONF['app_root']."models/config_model.php");
    $C = new Config_model;
    error_reporting(E_ALL ^ E_STRICT);
@@ -1545,6 +1544,8 @@ function sendEmail($to, $subject, $body, $from='')
     
    if ($C->readConfig("mailSMTP")) 
    {
+      require_once "Mail.php";
+      
       $host     = $C->readConfig("mailSMTPHost");
       $port     = $C->readConfig("mailSMTPPort");
       $username = $C->readConfig("mailSMTPusername");
