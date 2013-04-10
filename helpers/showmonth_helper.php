@@ -1079,7 +1079,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                          */
                         if (strlen($C->readConfig("pastDayColor"))) $pdcolor="style=\"background: #".$C->readConfig("pastDayColor").";\""; else $pdcolor="";
                         if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
-                           $monthBody .= "class=\"day-".$H->cfgname.$style."\" ".$pdcolor."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
+                           $monthBody .= "class=\"day-".$H->cfgname.$style."\" ".$pdcolor.">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
                         else {
                            $monthBody .= "class=\"day-".$H->cfgname."\" ".$pdcolor.">".$inner;
