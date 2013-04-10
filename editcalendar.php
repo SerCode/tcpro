@@ -569,10 +569,12 @@ if (isset($_POST['btn_apply'])) {
 
    } // if ($difference AND !$isAdmin) {
 
+   
    /*
-    * Todo: Do something with the $unapproved array
+    * TODO: Do something with the $unapproved array
     */
      
+   
    /*
     * After this check we now have $T and the $accepted array
     * Let's see if there are differences
