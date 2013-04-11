@@ -318,7 +318,7 @@ $LANG['login_error_4d'] = ' seconds.';
 $LANG['login_error_6a'] = 'This account is on hold due to too many bad login attempts. The grace period ends in ';
 $LANG['login_error_6b'] = ' seconds.';
 $LANG['login_error_7'] = 'Password incorrect';
-$LANG['login_error_8'] = 'Account not verified. You should have received an e-Mail with a verification link.';
+$LANG['login_error_8'] = 'Account not verified. You should have received an e-mail with a verification link.';
 $LANG['login_error_91'] = 'LDAP error: Password missing';
 $LANG['login_error_92'] = 'LDAP error: Authentication failed';
 $LANG['login_error_93'] = 'LDAP error: Unable to connect to LDAP server';
@@ -359,7 +359,7 @@ $LANG['show_profile_fname'] = 'First Name:';
 $LANG['show_profile_usertitle'] = 'Title:';
 $LANG['show_profile_position'] = 'Position:';
 $LANG['show_profile_idnumber'] = 'ID-Number:';
-$LANG['show_profile_email'] = 'e-Mail:';
+$LANG['show_profile_email'] = 'e-mail:';
 $LANG['show_profile_birthday'] = "Birthday:";
 $LANG['show_profile_birthday_format'] = "(Format: YYYY-MM-DD)";
 $LANG['show_profile_gender'] = "Gender:";
@@ -368,7 +368,7 @@ $LANG['show_profile_female'] = "Female";
 $LANG['show_profile_phone'] = 'Phone:';
 $LANG['show_profile_mobile'] = 'Mobile:';
 $LANG['show_profile_group'] = 'Group:';
-$LANG['show_profile_sendmail'] = 'Send an e-Mail to this user:';
+$LANG['show_profile_sendmail'] = 'Send an e-mail to this user:';
 $LANG['show_profile_subject'] = 'Subject:';
 $LANG['show_profile_message'] = 'Message:';
 $LANG['show_profile_from'] = 'TeamCal Pro - Show Profile Message';
@@ -386,7 +386,7 @@ $LANG['us_caption'] = "Set user status";
 $LANG['us_locked'] = "Account locked";
 $LANG['us_logloc'] = "Login On Hold";
 $LANG['us_hidden'] = "Hide user in calendar";
-$LANG['frame_mail_notification'] = "e-Mail&nbsp;Notification";
+$LANG['frame_mail_notification'] = "e-mail&nbsp;Notification";
 $LANG['show_absence'] = "Absence&nbsp;Counts";
 $LANG['show_absence_from'] = "Show absence counts from";
 $LANG['show_absence_to'] = "to";
@@ -433,7 +433,7 @@ $LANG['ava_upload_error_2a']    = "The file is too big. The upload file size is 
 $LANG['ava_upload_error_2b']    = " bytes.";
 $LANG['ava_upload_error_3']    = "The uploaded file was only partially uploaded.";
 $LANG['ava_upload_error_4']    = "No file was uploaded.";
-$LANG['notify_caption'] = 'I want to be notified by e-Mail when:';
+$LANG['notify_caption'] = 'I want to be notified by e-mail when:';
 $LANG['notify_team'] = 'A user is added or changed';
 $LANG['notify_groups'] = 'A group is added or changed';
 $LANG['notify_month'] = 'A month template is changed';
@@ -573,22 +573,22 @@ $LANG['admin_config_grace_period_comment'] =
 'The amount of time in seconds that a user has to wait after too many bad logins before he can try again.';
 $LANG['admin_config_mailfrom'] = 'Mail From';
 $LANG['admin_config_mailfrom_comment'] =
-'Specify a name to be shown as sender of notification e-Mails.';
+'Specify a name to be shown as sender of notification e-mails.';
 $LANG['admin_config_mailreply'] = 'Mail Reply-To';
 $LANG['admin_config_mailreply_comment'] =
-'Specify an e-Mail address to reply to for notification e-Mails. This field must contain a valid email address. If that is not the case '.
-'a dummy email address "noreply@teamcalpro.com" will be saved.';
+'Specify an e-mail address to reply to for notification e-mails. This field must contain a valid e-mail address. If that is not the case '.
+'a dummy e-mail address "noreply@teamcalpro.com" will be saved.';
 $LANG['admin_config_registration'] = 'User Registration';
 $LANG['admin_config_allow_registration'] = 'Allow User Self-Registration';
 $LANG['admin_config_allow_registration_comment'] =
 'Allow users to self-register their account. A menu entry will be available in the TeamCal menu.';
-$LANG['admin_config_email_confirmation'] = 'Require e-Mail Confirmation';
+$LANG['admin_config_email_confirmation'] = 'Require e-mail Confirmation';
 $LANG['admin_config_email_confirmation_comment'] =
-'Upon registration the user will receive an e-Mail to the address he specified containing a confirmation link.'.
+'Upon registration the user will receive an e-mail to the address he specified containing a confirmation link.'.
 ' He needs to follow that link to validate his information.';
 $LANG['admin_config_admin_approval'] = 'Require Admin Approval';
 $LANG['admin_config_admin_approval_comment'] =
-'The administrator will receive an e-Mail about each user self-registration. He manually needs to confirm the account.';
+'The administrator will receive an e-mail about each user self-registration. He manually needs to confirm the account.';
 
 /**
  * Database Maintenance Page
@@ -703,7 +703,7 @@ $LANG['uimp_err_col_1'] =
 $LANG['uimp_err_col_2'] = '" and contains ';
 $LANG['uimp_err_col_3'] =
 ' columns.<br>The CSV file needs to carry the following columns:<br>'.
-'"username";"firstname";"lastname";"title";"position";"phone";"mobile";"email";"idnumber";"birthday";"showbirthday"<br><br>'.
+'"username";"firstname";"lastname";"title";"position";"phone";"mobile";"e-mail";"idnumber";"birthday";"showbirthday"<br><br>'.
 'Please correct this error and try again.<br>Note: Make sure there is no trailing empty line at the end of the file.<br>&nbsp;';
 $LANG['uimp_success'] = '<span style="color: #009900;">Success</span>';
 $LANG['uimp_success_1'] = ' lines imported.';
@@ -717,7 +717,7 @@ $LANG['register_frame'] = 'Registration Details';
 $LANG['register_lastname'] = 'Lastname';
 $LANG['register_firstname'] = 'Firstname';
 $LANG['register_username'] = 'Username';
-$LANG['register_email'] = 'e-Mail Address';
+$LANG['register_email'] = 'e-mail Address';
 $LANG['register_password'] = 'Password';
 $LANG['register_password2'] = 'Repeat Password';
 $LANG['register_group'] = 'User Group';
@@ -730,7 +730,7 @@ $LANG['register_error_username'] = 'That username is already taken. Please choos
 $LANG['register_error_username_format'] = 'Only alphanumeric characters are allowed in usernames.';
 $LANG['register_success'] = 'Your registration was successful. ';
 $LANG['register_success_ok'] = 'You can now close this dialog and login with the usernamen and password you provided.';
-$LANG['register_success_verify'] = ' An e-Mail has been sent to you with a confirmation link that you need to follow to verify your account. ';
+$LANG['register_success_verify'] = ' An e-mail has been sent to you with a confirmation link that you need to follow to verify your account. ';
 $LANG['register_success_approval'] = ' Also, the administrator needs to approve your registration.';
 
 $LANG['register_mail_subject']   = $CONF['app_name']." ".$CONF['app_version']." - Your Registration";
@@ -763,13 +763,13 @@ $LANG['register_admin_mail_message_3'] = "\n\nYour TeamCal Pro Administration\n"
 
 $LANG['verify_title'] = 'User Verification';
 $LANG['verify_result'] = 'User Verification Result';
-$LANG['verify_err_link'] = 'The link you have used is incorrect or incomplete. Make sure you are using the complete link in your e-Mail. Sometimes the link is seperated by a line break in the Mail. Copy and paste the complete string into your browsers\' URL box and try again.';
+$LANG['verify_err_link'] = 'The link you have used is incorrect or incomplete. Make sure you are using the complete link in your e-mail. Sometimes the link is seperated by a line break in the Mail. Copy and paste the complete string into your browsers\' URL box and try again.';
 $LANG['verify_err_user'] = 'The username does not exist.';
 $LANG['verify_err_code'] = 'The verification code does not exist.';
 $LANG['verify_err_match'] = 'The verification code does not match.';
 $LANG['verify_info_success'] = 'Your user account has been verified. ';
 $LANG['verify_info_login'] = 'You can now login with the credentials you provided during registration.';
-$LANG['verify_info_approval'] = 'However, the administrator needs to approve your account and unlock it before you can login with the credentials you provided during registration. He was notified by e-Mail.';
+$LANG['verify_info_approval'] = 'However, the administrator needs to approve your account and unlock it before you can login with the credentials you provided during registration. He was notified by e-mail.';
 
 $LANG['verify_mail_subject']   = $CONF['app_name']." ".$CONF['app_version']." - Your Approval Needed";
 $LANG['verify_mail_greeting']  = "------------------------------------------------------------\n";
@@ -1233,7 +1233,7 @@ $LANG['message_type_announcement_welcome'] = 'Welcome Page';
 /**
  * User Registration Dialog
  */
- $LANG['register_error_email'] = 'You have to provide a valid email address to complete the registration.';
+ $LANG['register_error_email'] = 'You have to provide a valid e-mail address to complete the registration.';
 
 /**
  * ============================================================================
@@ -1550,8 +1550,8 @@ $LANG['upload_type_homepage'] = 'Welcome Page Image';
 /**
  * Declination Management Page
  */
-$LANG['admin_decl_notify_options'] = 'Select who shall be notified by e-Mail in case a request is declined.';
-$LANG['admin_decl_notify_options_ff'] = '(These settings have no affect if the adminstrator has disabled e-Mail notifications globally.)';
+$LANG['admin_decl_notify_options'] = 'Select who shall be notified by e-mail in case a request is declined.';
+$LANG['admin_decl_notify_options_ff'] = '(These settings have no affect if the adminstrator has disabled e-mail notifications globally.)';
 
 /**
  * Announcement Page
@@ -1663,7 +1663,7 @@ $LANG['abs_name'] = 'Name';
 $LANG['abs_name_desc'] = 'The absence type name is used in lists and descriptions and should tell what this absence type is about, e.g. "Duty trip". It can be 80 characters long.';
 $LANG['abs_symbol'] = 'Symbol';
 $LANG['abs_symbol_desc'] = 'The absence type symbol is used in the calendar display if no icon is set for this absence type. It is also used in '.
-'notification emails. Chose a single character. A symbol is mandatory for each absence type, however, you are not restricted and can use the same '.
+'notification e-mails. Chose a single character. A symbol is mandatory for each absence type, however, you are not restricted and can use the same '.
 'character for mutliple absence types. The default is "A".';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_desc'] = 'The absence type icon is used in the calendar display. If no icon is set for this absence type, the symbol will be used instead.';
@@ -1694,7 +1694,7 @@ $LANG['abs_show_totals_desc'] = 'The remainder section can be configured to also
 $LANG['abs_approval_required'] = 'Approval required';
 $LANG['abs_approval_required_desc'] = 'Checking this box defines that this absence type requires approval by the group manager, director or '.
 'administrator. A regular user choosing this absence type in his calendar will receive an error message telling him so. The group manager of '.
-'this user will receive an e-Mail informing him that his approval is required for this request. He can then enter this absence for the user '.
+'this user will receive an e-mail informing him that his approval is required for this request. He can then enter this absence for the user '.
 'if he approves it.';
 $LANG['abs_counts_as_present'] = 'Counts as present';
 $LANG['abs_counts_as_present_desc'] = 'Checking this box defines that this absence type counts as "present". Let\'s say you maintain an absence '.
@@ -1752,7 +1752,7 @@ $LANG['message_title'] = 'TeamCal Pro Message Center';
 $LANG['message_type'] = 'Message Type';
 $LANG['message_type_desc'] = 'Chose the type of message you want to send. A silent announcement will be put on the announcement page only. '.
 'A popup announcement will be put on the announcement page and the announcement page will be shown for every recipient upon login.';
-$LANG['message_type_email'] = 'e-Mail';
+$LANG['message_type_email'] = 'e-mail';
 $LANG['message_type_announcement_silent'] = 'Silent announcement';
 $LANG['message_type_announcement_popup'] = 'Popup announcement';
 $LANG['message_sendto'] = 'Recipient';
@@ -1839,7 +1839,10 @@ $LANG['admin_config_fastedit'] = 'Fast Edit';
 $LANG['admin_config_fastedit_comment'] = 'With this option enabled, an additional row will be displayed at the bottom of the calendar with an icon '.
 'button for each day. Clicking it will show an absence drop down list for each user for that day. An absence type can be selected and the [Apply] '.
 'button will save the selected absences right away. Note, that no declination check will be performed with Fast Edit. This feature here is rather meant '.
-'for managers. However, you can of course enable the corresponding permission for regular users as well.';
+'for managers. However, you can of course enable the corresponding permission for regular users as well.<br>'.
+'<br><b>Attention</b>: Fast Edit may create a large amount of $_POST input variables, depending on the number of users. Ceck the <i>max_input_vars</i> '.
+'value in your php.ini. It i commonly set to 1000, i.e. you will reach that amount if you maintain around 20 users. Fast Edit will not work anymore '.
+'if that value is exceeded.s';
 
 /**
  * Permissions page
