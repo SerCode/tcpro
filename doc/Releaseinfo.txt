@@ -38,6 +38,9 @@ IMPROVEMENTS
 05 Logout language
    The logout now reads the last set language and displays the appropriate
    calendar or home page.
+   
+06 Userlist sort by last login
+   Added a request by user heart1010 to provide a userlist sort by last login.
 
 
 ------------------------------------------------------------------------------

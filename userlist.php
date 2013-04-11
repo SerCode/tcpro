@@ -65,7 +65,7 @@ $CONF['html_title'] = $LANG['html_title_userlist'];
  */
 if (!isAllowed("manageUsers")) showError("notallowed");
 
-if ( !isset($_REQUEST['sort']) ) $sort="asc";
+if ( !isset($_REQUEST['sort']) ) $sort="ascu";
 else $sort = $_REQUEST['sort'];
 
 if ( !isset($_REQUEST['searchuser']) ) $searchuser="";
@@ -208,15 +208,22 @@ require("includes/menu_inc.php");
          </tr>
          <tr>
             <td class="dlg-caption" style="text-align: left; padding-left: 8px;">
-               <?php if ( $sort=="desc" ) { ?>
-                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=asc"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
+               <?php if ( $sort=="descu" ) { ?>
+                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=ascu"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
                <?php }else { ?>
-                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=desc"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
+                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=descu"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
                 <?php } ?>
                 &nbsp;<?=$LANG['admin_user_user']?>
             </td>
             <td class="dlg-caption" style="text-align: center;"><?=$LANG['admin_user_attributes']?></td>
-            <td class="dlg-caption" style="text-align: left;"><?=$LANG['admin_user_lastlogin']?></td>
+            <td class="dlg-caption" style="text-align: left;">
+               <?php if ( $sort=="descl" ) { ?>
+                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=ascl"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
+               <?php }else { ?>
+                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=descl"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
+                <?php } ?>
+                <?=$LANG['admin_user_lastlogin']?>
+            </td>
             <td class="dlg-caption" style="text-align: right; padding-right: 8px;"><?=$LANG['admin_user_action']?></td>
          </tr>
          <tr>
@@ -232,17 +239,33 @@ require("includes/menu_inc.php");
             </td>
          </tr>
             <?php
-               if ($sort=="desc") $sortorder="DESC"; else $sortorder="ASC";
+               switch ($sort) {
+                  case "ascu":
+                     $order="ORDER BY `lastname` ASC, `firstname`;";
+                     break;
+                  case "descu":
+                     $order="ORDER BY `lastname` DESC, `firstname`;";
+                     break;
+                  case "ascl":
+                     $order="ORDER BY `last_login` ASC;";
+                     break;
+                  case "descl":
+                     $order="ORDER BY `last_login` DESC;";
+                     break;
+                  default: 
+                     $order="ORDER BY `lastname` ASC, `firstname`;";
+                     break;
+               }
                if (strlen($searchuser)) {
-                  $query  = "SELECT `username` FROM `".$U->table."` ".
+                  $query  = "SELECT * FROM `".$U->table."` ".
                             "WHERE `firstname` LIKE '%".$searchuser."%' ".
                             "OR `lastname` LIKE '%".$searchuser."%' ".
-                            "OR `username` LIKE '%".$searchuser."%' ".
-                            "ORDER BY `lastname` ".$sortorder.", `firstname`;";
+                            "OR `username` LIKE '%".$searchuser."%' ";
                }
                else {
-                  $query  = "SELECT `username` FROM `".$U->table."` ORDER BY `lastname` ".$sortorder.",`firstname`;";
+                  $query  = "SELECT * FROM `".$U->table."` ";
                }
+               $query .= $order;
                $result = $U->db->db_query($query);
                $numusers = $U->db->db_numrows($result);
                $ui=1;
