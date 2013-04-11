@@ -318,7 +318,7 @@ $LANG['login_error_4d'] = ' Sekunden.';
 $LANG['login_error_6a'] = 'Dieser Account ist wegen zu vieler falscher Loginversuche vor&uuml;bergehend gesperrt. Die Grace Periode endet in ';
 $LANG['login_error_6b'] = ' Sekunden.';
 $LANG['login_error_7'] = 'Passwort inkorrekt';
-$LANG['login_error_8'] = 'Konto nicht verifiziert. Du solltest eine e-Mail mit einem Verfizierungslink erhalten haben.';
+$LANG['login_error_8'] = 'Konto nicht verifiziert. Du solltest eine E-Mail mit einem Verfizierungslink erhalten haben.';
 $LANG['login_error_91'] = 'LDAP Fehler: Passwort fehlt';
 $LANG['login_error_92'] = 'LDAP Fehler: Authentifizierung fehlgeschlagen';
 $LANG['login_error_93'] = 'LDAP Fehler: Verbindung zum LDAP Server fehlgeschlagen';
@@ -359,7 +359,7 @@ $LANG['show_profile_fname'] = 'Vorname:';
 $LANG['show_profile_usertitle'] = 'Titel:';
 $LANG['show_profile_position'] = 'Position:';
 $LANG['show_profile_idnumber'] = 'ID-Nummer:';
-$LANG['show_profile_email'] = 'e-Mail:';
+$LANG['show_profile_email'] = 'E-Mail:';
 $LANG['show_profile_birthday'] = "Geburtstag:";
 $LANG['show_profile_birthday_format'] = "(Format: JJJJ-MM-TT)";
 $LANG['show_profile_gender'] = "Geschlecht:";
@@ -368,7 +368,7 @@ $LANG['show_profile_female'] = "Weiblich";
 $LANG['show_profile_phone'] = 'Telefon:';
 $LANG['show_profile_mobile'] = 'Handy:';
 $LANG['show_profile_group'] = 'Gruppe:';
-$LANG['show_profile_sendmail'] = 'Sende eine e-Mail and diesen Nutzer:';
+$LANG['show_profile_sendmail'] = 'Sende eine E-Mail and diesen Nutzer:';
 $LANG['show_profile_subject'] = 'Thema:';
 $LANG['show_profile_message'] = 'Nachricht:';
 $LANG['show_profile_from'] = 'TeamCal Pro - Nutzerprofil Anzeige Message';
@@ -386,7 +386,7 @@ $LANG['us_caption'] = "User Status setzen";
 $LANG['us_locked'] = "User gesperrt";
 $LANG['us_logloc'] = "Login gesperrt";
 $LANG['us_hidden'] = "Nicht im Kalender zeigen";
-$LANG['frame_mail_notification'] = "e-Mail&nbsp;Benachrichtigung";
+$LANG['frame_mail_notification'] = "E-Mail&nbsp;Benachrichtigung";
 $LANG['show_absence'] = "Abwesenheiten";
 $LANG['show_absence_from'] = "Abwesenheitstage von";
 $LANG['show_absence_to'] = "bis";
@@ -433,7 +433,7 @@ $LANG['ava_upload_error_2a']    = "Die Datei ist zu gro&szlig;. Die Upload Gr&ou
 $LANG['ava_upload_error_2b']    = " Bytes.";
 $LANG['ava_upload_error_3']    = "Die Datei wurde nur zum Teil hochgeladen.";
 $LANG['ava_upload_error_4']    = "Es wurde keine Datei hochgeladen.";
-$LANG['notify_caption'] = 'Ich m&ouml;chte per e-Mail benachrichtigt werden, wenn...';
+$LANG['notify_caption'] = 'Ich m&ouml;chte per E-Mail benachrichtigt werden, wenn...';
 $LANG['notify_team'] = 'ein User hinzugef&uuml;gt oder ein Profil ge&auml;ndert wurde.';
 $LANG['notify_groups'] = 'eine Gruppe hinzugef&uuml;gt oder ge&auml;ndert wurde.';
 $LANG['notify_month'] = 'eine Monats-Schablone ge&auml;ndert wurde.';
@@ -573,22 +573,22 @@ $LANG['admin_config_grace_period_comment'] =
 'Zeit in Sekunden, die ein User warten muss, bevor er sich nach zu vielen fehlgeschlagenen Versuchen wieder einloggen kann.';
 $LANG['admin_config_mailfrom'] = 'Mail Von';
 $LANG['admin_config_mailfrom_comment'] =
-'Gibt den Absender Namen von Benachrichtigungs e-Mails an.';
+'Gibt den Absender Namen von Benachrichtigungs E-Mails an.';
 $LANG['admin_config_mailreply'] = 'Mail Antwort';
 $LANG['admin_config_mailreply_comment'] =
-'Gibt die R&uuml;ckantwort Adresse von Benachrichtigungs e-Mails an. Dieses Feld muss eine g&uuml;ltige Email Adresse enthalten. Wenn das nicht der '.
+'Gibt die R&uuml;ckantwort Adresse von Benachrichtigungs E-Mails an. Dieses Feld muss eine g&uuml;ltige E-Mail Adresse enthalten. Wenn das nicht der '.
 'Fall ist, wird die Dummy Adresse "noreply@teamcalpro.com" gespeichert.';
 $LANG['admin_config_registration'] = 'User Registrierung';
 $LANG['admin_config_allow_registration'] = 'User Selbst-Registration erlauben';
 $LANG['admin_config_allow_registration_comment'] =
 'Erlaubt die Registrierung durch den User. Ein zus&auml;tzlicher Menueintrag erscheint im TeamCal Menu.';
-$LANG['admin_config_email_confirmation'] = 'e-Mail Best&auml;tigung erforderlich';
+$LANG['admin_config_email_confirmation'] = 'E-Mail Best&auml;tigung erforderlich';
 $LANG['admin_config_email_confirmation_comment'] =
-'Durch die Registrierung erh&auml;lt der User eine e-Mail an die von ihm angegebene Adresse. Sie enth&auml;lt '.
+'Durch die Registrierung erh&auml;lt der User eine E-Mail an die von ihm angegebene Adresse. Sie enth&auml;lt '.
 'einen Aktivierungslink, dem er folgen muss, um seine Angaben zu bets&auml;tigen.';
 $LANG['admin_config_admin_approval'] = 'Administrator Freischaltung erforderlich';
 $LANG['admin_config_admin_approval_comment'] =
-'Der Administrator erh&auml;lt eine e-Mail bei einer Neuregistrierung. Er muss den Account manuell freischalten.';
+'Der Administrator erh&auml;lt eine E-Mail bei einer Neuregistrierung. Er muss den Account manuell freischalten.';
 
 /**
  * Database Maintenance Page
@@ -717,7 +717,7 @@ $LANG['register_frame'] = 'Registrierung Details';
 $LANG['register_lastname'] = 'Nachname';
 $LANG['register_firstname'] = 'Vorname';
 $LANG['register_username'] = 'Username';
-$LANG['register_email'] = 'e-Mail Adresse';
+$LANG['register_email'] = 'E-Mail Adresse';
 $LANG['register_password'] = 'Passwort';
 $LANG['register_password2'] = 'Passwort wiederholen';
 $LANG['register_group'] = 'User Gruppe';
@@ -730,7 +730,7 @@ $LANG['register_error_username'] = 'Dieser Username ist bereits vergeben. Bitte 
 $LANG['register_error_username_format'] = 'Only alphanumeric characters are allowed in usernames.';
 $LANG['register_success'] = 'Die Registrierung war erfolgreich. ';
 $LANG['register_success_ok'] = 'Du kannst diesen Dialog nun schlie&szlig;en und dich einloggen.';
-$LANG['register_success_verify'] = 'Eine e-Mail mit einem Best&auml;tigungslink wurde an dich gesendet, den du zur Verifizierung deines Kontos ausf&uuml;hren musst. ';
+$LANG['register_success_verify'] = 'Eine E-Mail mit einem Best&auml;tigungslink wurde an dich gesendet, den du zur Verifizierung deines Kontos ausf&uuml;hren musst. ';
 $LANG['register_success_approval'] = 'Ausserdem muss der Administrator deinen Antrag best&auml;tigen.';
 
 $LANG['register_mail_subject']   = $CONF['app_name']." ".$CONF['app_version']." - Dein Account";
@@ -763,13 +763,13 @@ $LANG['register_admin_mail_message_3'] = "\n\nDie TeamCal Pro Administration\n";
 
 $LANG['verify_title'] = 'Nutzer Verifizierung';
 $LANG['verify_result'] = 'Verifizierungsergebnis';
-$LANG['verify_err_link'] = 'Der Link ist falsch oder unvollst&auml;ndig. Stell sicher, dass du den ganzen Link aus der e-Mail benutzt. Manchmal ist dieser durch einen Zeilenumbruch getrennt. Kopiere und einf&uuml;ge den kompletten link in deinen Browser und versuche es erneut.';
+$LANG['verify_err_link'] = 'Der Link ist falsch oder unvollst&auml;ndig. Stell sicher, dass du den ganzen Link aus der E-Mail benutzt. Manchmal ist dieser durch einen Zeilenumbruch getrennt. Kopiere und einf&uuml;ge den kompletten link in deinen Browser und versuche es erneut.';
 $LANG['verify_err_user'] = 'Der Username existiert nicht.';
 $LANG['verify_err_code'] = 'Der Verifizierungscode existiert nicht.';
 $LANG['verify_err_match'] = 'Der Verifizierungscode stimmt nicht &uuml;berein.';
 $LANG['verify_info_success'] = 'Das Nutzerkonto wurde erfolgreich verifiziert. ';
 $LANG['verify_info_login'] = 'Du kannst dich nun einloggen mit den bei Registrierung angegebenen Daten.';
-$LANG['verify_info_approval'] = 'Der Administrator muss das Nutzerkonto jedoch noch freischalten, bis ein Login mit den bei der Registrierung angegebnen Daten m&ouml;glich ist. Er wurde per e-Mail benachrichtigt.';
+$LANG['verify_info_approval'] = 'Der Administrator muss das Nutzerkonto jedoch noch freischalten, bis ein Login mit den bei der Registrierung angegebnen Daten m&ouml;glich ist. Er wurde per E-Mail benachrichtigt.';
 
 $LANG['verify_mail_subject']   = $CONF['app_name']." ".$CONF['app_version']." - Kontobestaetigung erforderlich";
 $LANG['verify_mail_greeting']  = "------------------------------------------------------------\n";
@@ -1233,7 +1233,7 @@ $LANG['message_type_announcement_welcome'] = 'Willkommen Seite';
 /**
  * User Registration Dialog
  */
- $LANG['register_error_email'] = 'Du musst eine g&uuml;ltige Email Adresse f&uuml;r die Registrierung angeben.';
+ $LANG['register_error_email'] = 'Du musst eine g&uuml;ltige E-Mail Adresse f&uuml;r die Registrierung angeben.';
 
 /**
  * ============================================================================
@@ -1249,7 +1249,7 @@ $LANG['admin_config_usersperpage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an
       'eine Seitenaufteilung w&auml;hlst, werden am Ende der Seite Schaltfl&auml;chen fuer das Bl&auml;ttern angezeigt.';
 $LANG['admin_config_mail_options'] = 'eMmail Optionen';
 $LANG['admin_config_mail_smtp'] = 'Externen SMTP Server benutzen';
-$LANG['admin_config_mail_smtp_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von eMails benutzt anstatt der PHP mail() '.
+$LANG['admin_config_mail_smtp_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von E-Mails benutzt anstatt der PHP mail() '.
 'Funktion. Diese Feature erfordert das PEAR Mail Paket auf dem Tcpro Server. Viele Hoster installieren dieses Paket als Standard. '.
 'Ausserdem ist es erforderlich, dass sich der Tcro Server per SMTP oder TLS/SSL protocol mit den gebr&auuml;chlichen SMTP port 25, 465 und 587 mit dem '.
 'SMTP Server verbinden kann. Bei einigen Hostern ist dies durch Firewalleinstellungen nicht m&ouml;glich. '.
@@ -1550,8 +1550,8 @@ $LANG['upload_type_homepage'] = 'Willkommen Bild';
 /**
  * Declination Management Page
  */
-$LANG['admin_decl_notify_options'] = 'W&auml;hle aus, wer im Fall eine Ablehnung einer Anfrage per e-Mail benachrichtige werden soll.';
-$LANG['admin_decl_notify_options_ff'] = '(Diese Einstellungen haben keinen Effekt, wenn der Administrator e-Mail Benachrichtigungen global ausgeschaltet hat.)';
+$LANG['admin_decl_notify_options'] = 'W&auml;hle aus, wer im Fall eine Ablehnung einer Anfrage per E-Mail benachrichtige werden soll.';
+$LANG['admin_decl_notify_options_ff'] = '(Diese Einstellungen haben keinen Effekt, wenn der Administrator E-Mail Benachrichtigungen global ausgeschaltet hat.)';
 
 /**
  * Announcement Page
@@ -1625,7 +1625,7 @@ $LANG['decl_period_comment'] = 'Hier kann eine Periode definiert werden, innerha
 $LANG['decl_period_start'] = 'Start Datum (eingeschlossen)';
 $LANG['decl_period_end'] = 'Ende Datum (eingeschlossen)';
 $LANG['decl_notify'] = 'Ablehnungs-Benachrichtigungen';
-$LANG['decl_notify_comment'] = 'W&auml;hle hier aus, wer im Falle einer Ablehnung per eMail informiert werden soll.';
+$LANG['decl_notify_comment'] = 'W&auml;hle hier aus, wer im Falle einer Ablehnung per E-Mail informiert werden soll.';
 $LANG['decl_notify_user'] = 'Anfragender Nutzer';
 $LANG['decl_notify_manager'] = 'Gruppenmanager';
 $LANG['decl_notify_director'] = 'Direktor(en)';
@@ -1662,7 +1662,7 @@ $LANG['abs_sample_desc'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angez
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_desc'] = 'Der Name wird in Listen und Beschreibungen benutzt. Er sollte aussagekr&auml;ftig sein, z.B. "Dienstreise". Maximal 80 Zeichen.';
 $LANG['abs_symbol'] = 'Symbol';
-$LANG['abs_symbol_desc'] = 'Das Symbol wird im Kalender engezeigt, wenn kein Icon gesetzt wurde. Es wird ausserdem in Emails benutzt. '.
+$LANG['abs_symbol_desc'] = 'Das Symbol wird im Kalender engezeigt, wenn kein Icon gesetzt wurde. Es wird ausserdem in E-Mails benutzt. '.
 'Das Symbol ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Symbol f&uuml;r mehrere Abwesenheitstypen benutzt werden. '.
 'Als Standard wird "A" eingesetzt.';
 $LANG['abs_icon'] = 'Icon';
@@ -1693,7 +1693,7 @@ $LANG['abs_show_totals_desc'] = 'Die Verbleibend-Anzeige kann konfiguriert werde
 'Wenn kein Abwesenheitstyp dafuer aktiviert ist, wird der Summenteil nicht angezeigt.';
 $LANG['abs_approval_required'] = 'Genehmigung erforderlich';
 $LANG['abs_approval_required_desc'] = 'Dieser Schalter macht den Typen genehmigungspflichtig durch einen Manager, Direktor oder Administrator. '.
-'Ein normaler Nutzer wird dann eine Fehlermeldung erhalten, wenn er diesen Typen eintr&auml;gt. Der Manager der Gruppe erh&auml;lt aber eine Email, '.
+'Ein normaler Nutzer wird dann eine Fehlermeldung erhalten, wenn er diesen Typen eintr&auml;gt. Der Manager der Gruppe erh&auml;lt aber eine E-Mail, '.
 'dass eine Genehmigung seinerseits erforderlich ist. Er kann dann den Kalender dieses Nutzers bearbeiten und die entsprechende Abwesenheit '.
 'eintragen.';
 $LANG['abs_counts_as_present'] = 'Z&auml;hlt als anwesend';
@@ -1752,7 +1752,7 @@ $LANG['message_title'] = 'TeamCal Pro Nachrichtencenter';
 $LANG['message_type'] = 'Nachrichtstyp';
 $LANG['message_type_desc'] = 'Hier kann der Nachrichtentyp ausgew&auml;hlt werden. Eine stille Nachricht wird nur auf die Nachrichtenseite gesetzt. '.
 'Eine Popup Nachricht wird auch auf die Nachrichtenseite gesetzt, letztere wird aber beim Login jedes Empf&auml;ngers gleich angezeigt.';
-$LANG['message_type_email'] = 'e-Mail';
+$LANG['message_type_email'] = 'E-Mail';
 $LANG['message_type_announcement_silent'] = 'Stille Nachricht';
 $LANG['message_type_announcement_popup'] = 'Popup Nachricht';
 $LANG['message_sendto'] = 'Empf&auml;nger';
