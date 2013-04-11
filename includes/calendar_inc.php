@@ -24,7 +24,7 @@ else $page=intval($_REQUEST['page']);
 
 $monthnames = $CONF['monthnames'];
 getOptions();
-$groupfilter = intval($CONF['options']['groupfilter']);
+$groupfilter = $CONF['options']['groupfilter'];
 $month_id = intval($CONF['options']['month_id']);
 $year_id = intval($CONF['options']['year_id']);
 $show_id = intval($CONF['options']['show_id']);
@@ -103,7 +103,7 @@ if ( isset($_POST['btn_fastedit_apply']) ) {
                document.getElementById(ele).style.backgroundImage="url('"+image+"')";
             }
          </script>
-         <form name="form-fastedit" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']?>?action=calendar&amp;lang=<?=$CONF['options']['lang']?>">
+         <form name="form-fastedit" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?action=calendar&amp;".setRequests()?>">
       <?php }
        
       for ($i = 1; $i<= $show_id; $i++) {
