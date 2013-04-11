@@ -69,7 +69,7 @@ if ( !isset($_REQUEST['sort']) ) $sort="asc";
 else $sort = $_REQUEST['sort'];
 
 if ( !isset($_REQUEST['searchuser']) ) $searchuser="";
-else $searchuser = trim($_REQUEST['searchuser']);
+else $searchuser = mysql_real_escape_string(trim($_REQUEST['searchuser']));
 
 if ( !isset($_REQUEST['searchgroup']) ) $searchgroup="All";
 else $searchgroup = trim($_REQUEST['searchgroup']);
@@ -235,9 +235,10 @@ require("includes/menu_inc.php");
                if ($sort=="desc") $sortorder="DESC"; else $sortorder="ASC";
                if (strlen($searchuser)) {
                   $query  = "SELECT `username` FROM `".$U->table."` ".
-                            "WHERE firstname LIKE '".$searchuser."' ".
-                            "OR lastname LIKE '".$searchuser."' ".
-                            "ORDER BY `lastname` ".$sortorder.",`firstname`;";
+                            "WHERE `firstname` LIKE '%".$searchuser."%' ".
+                            "OR `lastname` LIKE '%".$searchuser."%' ".
+                            "OR `username` LIKE '%".$searchuser."%' ".
+                            "ORDER BY `lastname` ".$sortorder.", `firstname`;";
                }
                else {
                   $query  = "SELECT `username` FROM `".$U->table."` ORDER BY `lastname` ".$sortorder.",`firstname`;";

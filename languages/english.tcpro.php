@@ -810,7 +810,7 @@ $LANG['uo_deftheme']    = "Default Theme";
 /**
  * Admin Pages
  */
-$LANG['user_search'] = 'Search first- and lastnames:&nbsp;';
+$LANG['user_search'] = 'Search firstname, lastname or username:&nbsp;';
 
 /**
  * Configuration Page

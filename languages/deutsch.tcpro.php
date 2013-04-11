@@ -810,7 +810,7 @@ $LANG['uo_deftheme']    = "Standard Design";
 /**
  * Admin Pages
  */
-$LANG['user_search'] = 'Suche Vor- und Nachnamen:&nbsp;';
+$LANG['user_search'] = 'Suche Usernamen, Vor- und Nachnamen:&nbsp;';
 
 /**
  * Configuration Page
