@@ -823,7 +823,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_welcome_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <input class="text" name="txt_welcomeTitle" id="txt_welcomeTitle" type="text" size="50" value="<?=stripslashes($C->readConfig("welcomeTitle"))?>"><br />
+                              <input class="text" name="txt_welcomeTitle" id="txt_welcomeTitle" type="text" size="50" value="<?=stripslashes($C->readConfig("welcomeTitle"))?>"><br>
                               <textarea name="txt_welcomeText" id="txt_welcomeText" class="text" rows="10" cols="50"><?=stripslashes($C->readConfig("welcomeText"))?></textarea>
                            </td>
                         </tr>

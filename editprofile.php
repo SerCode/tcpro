@@ -753,13 +753,13 @@ require( "includes/header_html_inc.php" );
                                     </td>
                                     <td class="dlg-body">
                                        <?php
-                                       echo $LANG['ava_upload']."<br /><br />";
+                                       echo $LANG['ava_upload']."<br><br>";
                                        ?>
                                        <input class="text" type="hidden" name="MAX_FILE_SIZE" value="<?php echo $AV->maxSize; ?>">
-                                       <input class="text" type="file" name="imgfile" size="40"><br /><br />
+                                       <input class="text" type="file" name="imgfile" size="40"><br><br>
                                        <input name="btn_avatar_upload" type="submit" class="button" value="<?php echo $LANG['btn_upload']; ?>">
-                                       <br />
-                                       <br />
+                                       <br>
+                                       <br>
                                     </td>
                                  </tr>
                               </table>

@@ -147,7 +147,7 @@ require("includes/header_html_inc.php");
                            <img src="<?=$imgdir.$UPL->the_new_file?>" alt="">
                         </td>
                         <td>
-                           <?=$UPL->show_error_string()?><br />
+                           <?=$UPL->show_error_string()?><br>
                            <?php if (isset($info)) echo nl2br($info); ?>
                         </td>
                      </tr>

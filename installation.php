@@ -114,7 +114,7 @@ $LANG = array (
    'inst_data'                => 'Sample Data',
    'inst_db_data'             => 'Sample data',
    'inst_db_data_comment'     => 'Check whether you want a set of sample data loaded or not. Select "Use existing data" if your database '.
-                                 'already exists and you want to use the existing data. <br />Attention! "Use existing data" only works if your existing '.
+                                 'already exists and you want to use the existing data. <br>Attention! "Use existing data" only works if your existing '.
                                  'data set is compatible with the version you are installing. Find details in Upgradeinfo.txt.',
    'inst_db_data_sample'      => 'Sample data',
    'inst_db_data_empty'       => 'Basic data only',
@@ -219,7 +219,7 @@ if ( isset($_POST['btn_install']) ) {
 
    <table class="header">
        <tr>
-           <td class="header-left"><img src="themes/tcpro/img/logo.gif" width="264" height="55" alt="" /></td>
+           <td class="header-left"><img src="themes/tcpro/img/logo.gif" width="264" height="55" alt=""></td>
            <td class="header-right"></td>
        </tr>
        <tr>

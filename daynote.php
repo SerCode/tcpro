@@ -192,7 +192,7 @@ require( "includes/header_html_inc.php" );
                      <tr>
                         <td class="dlg-body">
                            <textarea name="daynote" id="daynote" class="text" cols="50" rows="6"><?php if ( $daynote_exists ) echo str_replace("<br>","\r\n",stripslashes(trim($N->daynote))); else echo str_replace("<br>","\r\n",$LANG['daynote_edit_msg']); ?></textarea>
-                           <br />
+                           <br>
                         </td>
                      </tr>
                   </table>

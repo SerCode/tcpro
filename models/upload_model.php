@@ -72,7 +72,7 @@ if (!class_exists("Upload_model")) {
       function show_error_string() {
          $msg_string = "";
          foreach ($this->message as $value) {
-            $msg_string .= $value . "<br />\n";
+            $msg_string .= $value . "<br>\n";
          }
          return $msg_string;
       }

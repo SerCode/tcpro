@@ -81,7 +81,7 @@ require("includes/header_html_inc.php" );
                         <table style="width: 100%;">
                            <tr>
                               <td class="dlg-body">
-                                 <?=$LANG['uimp_import']."<br /><br />"?>
+                                 <?=$LANG['uimp_import']."<br><br>"?>
                                  <table style="border: 0px; text-align: center">
                                     <tr>
                                        <td><?=$LANG['uimp_source']?></td>

@@ -76,7 +76,7 @@ require("includes/header_html_inc.php" );
                                  ?>
                                  <tr>
                                     <td colspan="2">
-                                       <hr size="1" />
+                                       <hr size="1">
                                     </td>
                                  </tr>
                                  <?php
@@ -98,15 +98,15 @@ require("includes/header_html_inc.php" );
                                  ?>
                                  <tr>
                                     <td colspan="2">
-                                       <hr size="1" />
+                                       <hr size="1">
                                     </td>
                                  </tr>
                                  <tr>
-                                    <td class="month-button"><img src="themes/<?=$theme?>/img/date.png" width="16" height="16" border="0" alt="" /></td>
+                                    <td class="month-button"><img src="themes/<?=$theme?>/img/date.png" width="16" height="16" border="0" alt=""></td>
                                     <td class="legend"><?=$LANG['btn_edit_month']?></td>
                                  </tr>
                                  <tr>
-                                    <td class="name-button"><img src="themes/<?=$theme?>/img/btn_edit.gif" width="16" height="16" border="0" alt="" /></td>
+                                    <td class="name-button"><img src="themes/<?=$theme?>/img/btn_edit.gif" width="16" height="16" border="0" alt=""></td>
                                     <td class="legend"><?=$LANG['btn_edit_member']?></td>
                                  </tr>
                               </table>
