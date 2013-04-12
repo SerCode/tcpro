@@ -1204,7 +1204,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                 * Right before it we put a hidden field containing the original absence. Will
                 * be used when submitting the form to only set the changed values.
                 */
-               if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit")) {
+               if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit") AND $CONF['options']['absencefilter']=="All") {
                   $form = '<input name="hid_abs_'.$cellid.'" type="hidden" class="text" value="'.$abs_original.'">'."\r\n";
                   $form .= '<select name="sel_abs_'.$cellid.'" id="sel_abs_'.$cellid.'" class="select" style="background-image: url('.(($isAbsence)?$CONF['app_icon_dir'].$A->icon:"img/pixel.gif").'); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;" onchange="javascript: switchAbsIcon(this.id,absicon[this.value]);">'."\r\n";
                   $form .= '<option style="background-image: url(img/pixel.gif); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="0" '.((!$isAbsence)?"SELECTED":"").'>'.$LANG['cal_abs_present'].'</option>'."\r\n";
@@ -1238,7 +1238,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       /**=====================================================================
        * Row: Fast Edit
        */
-      if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit")) {
+      if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit") AND $CONF['options']['absencefilter']=="All") {
          $cspan = ' colspan="2"';
          if ( $CONF['options']['remainder']=="show" && $cntRemainders ) {
             $cspan = ' colspan="'.($cntRemainders+$cntTotals+1+1).'"';
