@@ -610,16 +610,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       /**
        * Check whether an absence filter was requested
        */
-      if ($CONF['options']['absencefilter']!="All" && $todaysmonth) {
+      if ($CONF['options']['absencefilter']!="All" AND $todaysmonth) {
          $j=0;
+         $subusers = array();
          for ($su=0; $su<count($users); $su++) {
-            $found = $T->getTemplate(addslashes($users[$su]['user']),$year,$monthno);
+            $found = $T->getTemplate($users[$su]['user'],$year,$monthno);
             if (!$found) {
                /**
-                * No template found for this user and month.
-                * Create a default one.
+                * No template found for this user and month. Create one.
                 */
-               $T->username = addslashes($users[$su]['user']);
+               $T->username = $users[$su]['user'];
                $T->year = $year;
                $T->month = $monthno;
                for ($i=1; $i<=intval($nofdays); $i++ ) {
@@ -629,13 +629,22 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                $T->create();
             }
       
-            $prop='abs'.(intval($today['mday'])-1);
+            /**
+             * Check if this user has the requested absence for today.
+             * If so, add him to the subusers array.
+             */
+            $prop='abs'.(intval($today['mday']));
             if ( $T->$prop==$CONF['options']['absencefilter'] ) {
                $subusers[$j]['group']=$users[$su]['group'];
                $subusers[$j]['user']=$users[$su]['user'];
                $j++;
             }
          }
+         
+         /**
+          * Reinitiate the $users array and write all $subusers into it.
+          * If there are no $subusers, $users will be empty too.
+          */
          $users = array();
          for ($su=0; $su<count($subusers); $su++) {
             $users[$su]['group']=$subusers[$su]['group'];
