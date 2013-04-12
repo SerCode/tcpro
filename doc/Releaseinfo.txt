@@ -44,6 +44,10 @@ IMPROVEMENTS
    
 06 Userlist sort by last login
    Added a request by user heart1010 to provide a userlist sort by last login.
+   
+07 Horizontal scrollbar
+   There was a horizontal scrollbar at the bottom of the browser window caused
+   by incorrect div metrics. Now gone.
 
 
 ------------------------------------------------------------------------------
