@@ -613,7 +613,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       if ($CONF['options']['absencefilter']!="All" && $todaysmonth) {
          $j=0;
          for ($su=0; $su<count($users); $su++) {
-            $found = $T->findTemplate(addslashes($users[$su]['user']),$year,$monthno);
+            $found = $T->getTemplate(addslashes($users[$su]['user']),$year,$monthno);
             if (!$found) {
                /**
                 * No template found for this user and month.
@@ -629,7 +629,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                $T->create();
             }
       
-            $prop='abs'.intval($today['mday'])-1;
+            $prop='abs'.(intval($today['mday'])-1);
             if ( $T->$prop==$CONF['options']['absencefilter'] ) {
                $subusers[$j]['group']=$users[$su]['group'];
                $subusers[$j]['user']=$users[$su]['user'];
