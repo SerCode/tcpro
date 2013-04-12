@@ -1841,8 +1841,8 @@ $LANG['admin_config_fastedit_comment'] = 'With this option enabled, an additiona
 'button will save the selected absences right away. Note, that no declination check will be performed with Fast Edit. This feature here is rather meant '.
 'for managers. However, you can of course enable the corresponding permission for regular users as well.<br>'.
 '<br><b>Attention</b>: Fast Edit may create a large amount of $_POST input variables, depending on the number of users. Ceck the <i>max_input_vars</i> '.
-'value in your php.ini. It i commonly set to 1000, i.e. you will reach that amount if you maintain around 20 users. Fast Edit will not work anymore '.
-'if that value is exceeded.s';
+'value in your php.ini. It is commonly set to 1000, i.e. you will reach that amount if you maintain around 20 users. Fast Edit will not work anymore '.
+'if that value is exceeded.';
 
 /**
  * Permissions page

@@ -1247,7 +1247,7 @@ $LANG['admin_config_usersperpage'] = 'Anzahl User pro Seite';
 $LANG['admin_config_usersperpage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an Usern in TeamCal Pro pflegst, bietet es sich an, die Kalenderanzeige in ' .
       'Seiten aufzuteilen. Gebe hier an, wieviel User pro Seite angezeigt werden sollen. Ein Wert von 0 zeigt alle User auf einer Seite an. Wenn du ' .
       'eine Seitenaufteilung w&auml;hlst, werden am Ende der Seite Schaltfl&auml;chen fuer das Bl&auml;ttern angezeigt.';
-$LANG['admin_config_mail_options'] = 'eMmail Optionen';
+$LANG['admin_config_mail_options'] = 'E-Mail Optionen';
 $LANG['admin_config_mail_smtp'] = 'Externen SMTP Server benutzen';
 $LANG['admin_config_mail_smtp_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von E-Mails benutzt anstatt der PHP mail() '.
 'Funktion. Diese Feature erfordert das PEAR Mail Paket auf dem Tcpro Server. Viele Hoster installieren dieses Paket als Standard. '.
