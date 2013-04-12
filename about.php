@@ -13,7 +13,6 @@
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  * 
- * $Id$
  */
 
 /**
