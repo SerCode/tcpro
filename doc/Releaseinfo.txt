@@ -17,6 +17,9 @@ BUGFIXES
    the database. Non-alphanumeric characters were stripped but the orginal
    value from the form was saved. Fixed.
    
+03 Hidden users in year calendar
+   Fixed a bug that hidden users were shown in the year calendar
+   
 IMPROVEMENTS
 01 "Clear Holiday" row in monthedit
    Holidays could only be cleared for a whole month. I added a new row in

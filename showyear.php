@@ -90,16 +90,17 @@ else {
     * Logged in user
     */
    if (strlen($showuser)) {
+      $U->findByName($showuser);
       /**
        * May he see the requested calendar of showuser?
        */
       if ($luser==$showuser) {
          $allowed=TRUE;
       }
-      else if ( $UG->shareGroups($luser, $showuser) ) {
+      else if ( !$U->checkStatus($CONF['USHIDDEN']) AND $UG->shareGroups($luser, $showuser) ) {
          if (isAllowed("viewGroupUserCalendars")) $allowed=TRUE;
       }
-      else {
+      else if (!$U->checkStatus($CONF['USHIDDEN'])) {
          if (isAllowed("viewAllUserCalendars")) $allowed=TRUE;
       }
    }
@@ -116,14 +117,14 @@ else {
             $showuser=$yu['username'];
             break;
          }
-         else if ( $UG->shareGroups($yu['username'], $luser) ) {
+         else if ( !($yu['status']&$CONF['USHIDDEN']) AND $UG->shareGroups($yu['username'], $luser) ) {
             if (isAllowed("viewGroupUserCalendars")) {
                $allowed=TRUE;
                $showuser=$yu['username'];
                break;
             }
          }
-         else {
+         else if ( !($yu['status']&$CONF['USHIDDEN']) ) {
             if (isAllowed("viewAllUserCalendars")) {
                $allowed=TRUE;
                $showuser=$yu['username'];
@@ -164,7 +165,12 @@ $currday   = $today['mday'];  // Numeric representation of todays' day of the mo
  * Get the year to display
  */
 $showyear = $curryear;
-if (isset($_REQUEST['showyear']) && strlen($_REQUEST['showyear'])==4 && is_numeric($_REQUEST['showyear']) ) $showyear = $_REQUEST['showyear'];
+if ( isset($_REQUEST['showyear']) 
+     AND strlen($_REQUEST['showyear'])==4
+     AND is_numeric($_REQUEST['showyear']) ) 
+{
+   $showyear = $_REQUEST['showyear'];
+}
 
 $U->findByName($showuser);
 $showuserfullname = $U->firstname." ".$U->lastname;
@@ -258,13 +264,13 @@ require( "includes/menu_inc.php" );
                            //echo "<script type=\"text/javascript\">alert(\"Own: ".$yu['username']."|".$luser."\");</script>";
                            $allowed=TRUE;
                         }
-                        else if ( $UG->shareGroups($yu['username'], $luser) ) {
+                        else if ( !($yu['status']&$CONF['USHIDDEN']) AND $UG->shareGroups($yu['username'], $luser) ) {
                            if (isAllowed("viewGroupUserCalendars")) {
                               //echo "<script type=\"text/javascript\">alert(\"Group: ".$yu['username']."|".$luser."\");</script>";
                               $allowed=TRUE;
                            }
                         }
-                        else {
+                        else if (!($yu['status']&$CONF['USHIDDEN'])) {
                            if (isAllowed("viewAllUserCalendars")) {
                               //echo "<script type=\"text/javascript\">alert(\"All: ".$yu['username']."|".$luser."\");</script>";
                               $allowed=TRUE;
