@@ -44,145 +44,147 @@ $UL->findByName($user);
 $m = buildMenu();
 ?>
 <div id="menubar">
-   <!-- MENU START ======================================================== -->
-   <div id="myMenuID" style="position: relative; left: 7px;"></div>
-   <script type="text/javascript">
-   <!--
-   var myMenu =
-   [
-      [null,'<?=$LANG['mnu_teamcal']?>',null,null,null,
-         <?php if ($m['mnu_teamcal_login']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_login.png" />','<?=$LANG['mnu_teamcal_login']?>','login.php?lang=<?=$CONF['options']['lang']?>',null,null],
-         <?php }
-         if ($m['mnu_teamcal_register']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_register.png" />','<?=$LANG['mnu_teamcal_register']?>','javascript:openPopup(\'register.php?lang=<?=$CONF['options']['lang']?>\',\'login\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=420,height=550\');',null,null],
-         <?php }
-         if ($m['mnu_teamcal_logout']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_logout.png" />','<?=$LANG['mnu_teamcal_logout']?>','index.php?lang=<?=$CONF['options']['lang']?>&action=logout',null,null],
-         <?php } ?>
-      ],
-      _cmSplit,
-      [null,'<?=$LANG['mnu_view']?>',null,null,null,
-         ['<img src="themes/<?=$theme?>/img/menu/ico_home.png" />','<?=$LANG['mnu_view_homepage']?>','index.php?action=welcome&lang=<?=$CONF['options']['lang']?>',null,null],
-         <?php if ($m['mnu_view_calendar']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_view_calendar']?>','index.php?action=calendar&lang=<?=$CONF['options']['lang']?>',null,null],
-         <?php }
-         if ($m['mnu_view_yearcalendar']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_view_yearcalendar']?>','showyear.php?lang=<?=$CONF['options']['lang']?>',null,null],
-         <?php }
-         if ($m['mnu_view_announcement']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_announcement.png" />','<?=$LANG['mnu_view_announcement']?>','announcement.php?lang=<?=$CONF['options']['lang']?>',null,null],
-         <?php }
-         if ($m['mnu_view_statistics']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_statistics.png" />','<?=$LANG['mnu_view_statistics']?>...',null,null,null,
-            ['<img src="themes/<?=$theme?>/img/menu/ico_statistics.png" />','<?=$LANG['mnu_view_statistics_g']?>','statistics.php?lang=<?=$CONF['options']['lang']?>',null,null],
-            ['<img src="themes/<?=$theme?>/img/menu/ico_statistics.png" />','<?=$LANG['mnu_view_statistics_r']?>','statisticsu.php?lang=<?=$CONF['options']['lang']?>',null,null],
-         ]
-         <?php } ?>
-      ],
-      _cmSplit,
-      <?php if ($m['mnu_tools'] ) { ?>
-      [null,'<?=$LANG['mnu_tools']?>',null,null,null,
-         <?php if ($m['mnu_tools_profile'] ) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_profile']?>','javascript:openPopup(\'editprofile.php?referrer=index&username=<?=addslashes($UL->username)?>&lang=<?=$CONF['options']['lang']?>\',\'profile\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=700\');',null,null],
-         <?php }
-         if ($m['mnu_tools_message']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_message.png" />','<?=$LANG['mnu_tools_message']?>','message.php?lang=<?=$CONF['options']['lang']?>',null,null],
-         <?php }
-         if ($m['mnu_tools_webmeasure']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_calc.png" />','<?=$LANG['mnu_tools_webmeasure']?>','javascript:openPopup(\'http://measure.lewe.com\',\'message\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=820,height=480\');',null,null],
-         <?php }
-         if ($m['mnu_tools_admin']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_configure.png" />','<?=$LANG['mnu_tools_admin']?>...',null,null,null,
-            <?php if ($m['mnu_tools_admin_config']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_configure.png" />','<?=$LANG['mnu_tools_admin_config']?>','config.php?lang=<?=$CONF['options']['lang']?>',null,null],
+   <div id="menubar-content">
+      <!-- MENU START ======================================================== -->
+      <div id="myMenuID" style="position: relative; left: 7px;"></div>
+      <script type="text/javascript">
+      <!--
+      var myMenu =
+      [
+         [null,'<?=$LANG['mnu_teamcal']?>',null,null,null,
+            <?php if ($m['mnu_teamcal_login']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_login.png" />','<?=$LANG['mnu_teamcal_login']?>','login.php?lang=<?=$CONF['options']['lang']?>',null,null],
             <?php }
-            if ($m['mnu_tools_admin_perm']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_permissions.png" />','<?=$LANG['mnu_tools_admin_perm']?>','permissions.php?lang=<?=$CONF['options']['lang']?>',null,null],
+            if ($m['mnu_teamcal_register']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_register.png" />','<?=$LANG['mnu_teamcal_register']?>','javascript:openPopup(\'register.php?lang=<?=$CONF['options']['lang']?>\',\'login\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=420,height=550\');',null,null],
             <?php }
-            if ( ($m['mnu_tools_admin_config'] OR $m['mnu_tools_admin_perm'])
-                  AND
-                 ($m['mnu_tools_admin_users'] OR
-                  $m['mnu_tools_admin_groups'] OR
-                  $m['mnu_tools_admin_usergroups'] OR
-                  $m['mnu_tools_admin_absences'] OR
-                  $m['mnu_tools_admin_regions'] OR
-                  $m['mnu_tools_admin_holidays'] OR
-                  $m['mnu_tools_admin_declination'] OR
-                  $m['mnu_tools_admin_database'])
-               ) { ?>
-            _cmSplit,
+            if ($m['mnu_teamcal_logout']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_logout.png" />','<?=$LANG['mnu_teamcal_logout']?>','index.php?lang=<?=$CONF['options']['lang']?>&action=logout',null,null],
+            <?php } ?>
+         ],
+         _cmSplit,
+         [null,'<?=$LANG['mnu_view']?>',null,null,null,
+            ['<img src="themes/<?=$theme?>/img/menu/ico_home.png" />','<?=$LANG['mnu_view_homepage']?>','index.php?action=welcome&lang=<?=$CONF['options']['lang']?>',null,null],
+            <?php if ($m['mnu_view_calendar']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_view_calendar']?>','index.php?action=calendar&lang=<?=$CONF['options']['lang']?>',null,null],
             <?php }
-            if ($m['mnu_tools_admin_users']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_admin_users']?>','userlist.php?lang=<?=$CONF['options']['lang']?>',null,null],
+            if ($m['mnu_view_yearcalendar']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_view_yearcalendar']?>','showyear.php?lang=<?=$CONF['options']['lang']?>',null,null],
             <?php }
-            if ($m['mnu_tools_admin_groups']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_usr_member.png" />','<?=$LANG['mnu_tools_admin_groups']?>','groups.php?lang=<?=$CONF['options']['lang']?>',null,null],
+            if ($m['mnu_view_announcement']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_announcement.png" />','<?=$LANG['mnu_view_announcement']?>','announcement.php?lang=<?=$CONF['options']['lang']?>',null,null],
             <?php }
-            if ($m['mnu_tools_admin_usergroups']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_usr_member.png" />','<?=$LANG['mnu_tools_admin_usergroups']?>','groupassign.php?lang=<?=$CONF['options']['lang']?>',null,null],
+            if ($m['mnu_view_statistics']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_statistics.png" />','<?=$LANG['mnu_view_statistics']?>...',null,null,null,
+               ['<img src="themes/<?=$theme?>/img/menu/ico_statistics.png" />','<?=$LANG['mnu_view_statistics_g']?>','statistics.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               ['<img src="themes/<?=$theme?>/img/menu/ico_statistics.png" />','<?=$LANG['mnu_view_statistics_r']?>','statisticsu.php?lang=<?=$CONF['options']['lang']?>',null,null],
+            ]
+            <?php } ?>
+         ],
+         _cmSplit,
+         <?php if ($m['mnu_tools'] ) { ?>
+         [null,'<?=$LANG['mnu_tools']?>',null,null,null,
+            <?php if ($m['mnu_tools_profile'] ) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_profile']?>','javascript:openPopup(\'editprofile.php?referrer=index&username=<?=addslashes($UL->username)?>&lang=<?=$CONF['options']['lang']?>\',\'profile\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=700\');',null,null],
             <?php }
-            if ($m['mnu_tools_admin_absences']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_absences.png" />','<?=$LANG['mnu_tools_admin_absences']?>','absences.php?lang=<?=$CONF['options']['lang']?>',null,null],
+            if ($m['mnu_tools_message']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_message.png" />','<?=$LANG['mnu_tools_message']?>','message.php?lang=<?=$CONF['options']['lang']?>',null,null],
             <?php }
-            if ($m['mnu_tools_admin_regions']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_region.png" />','<?=$LANG['mnu_tools_admin_regions']?>','regions.php?lang=<?=$CONF['options']['lang']?>',null,null],
+            if ($m['mnu_tools_webmeasure']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_calc.png" />','<?=$LANG['mnu_tools_webmeasure']?>','javascript:openPopup(\'http://measure.lewe.com\',\'message\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=820,height=480\');',null,null],
             <?php }
-            if ($m['mnu_tools_admin_holidays']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_tools_admin_holidays']?>','holidays.php?lang=<?=$CONF['options']['lang']?>',null,null],
-            <?php }
-            if ($m['mnu_tools_admin_declination']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_declination.png" />','<?=$LANG['mnu_tools_admin_declination']?>','declination.php?lang=<?=$CONF['options']['lang']?>',null,null],
-            <?php }
-            if ($m['mnu_tools_admin_database']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_database.png" />','<?=$LANG['mnu_tools_admin_database']?>','database.php?lang=<?=$CONF['options']['lang']?>',null,null],
-            <?php }
-            if ( ($m['mnu_tools_admin_users'] OR
-                  $m['mnu_tools_admin_groups'] OR
-                  $m['mnu_tools_admin_usergroups'] OR
-                  $m['mnu_tools_admin_absences'] OR
-                  $m['mnu_tools_admin_regions'] OR
-                  $m['mnu_tools_admin_holidays'] OR
-                  $m['mnu_tools_admin_declination'] OR
-                  $m['mnu_tools_admin_database'])
-                  AND
-                  ($m['mnu_tools_admin_systemlog'] OR
-                   $m['mnu_tools_admin_env'])
-               ) { ?>
-            _cmSplit,
-            <?php }
-            if ($m['mnu_tools_admin_systemlog']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_log.png" />','<?=$LANG['mnu_tools_admin_systemlog']?>','log.php?lang=<?=$CONF['options']['lang']?>',null,null],
-            <?php }
-            if ($m['mnu_tools_admin_env']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_env.png" />','<?=$LANG['mnu_tools_admin_env']?>','environment.php?lang=<?=$CONF['options']['lang']?>',null,null],
-            ['<img src="themes/<?=$theme?>/img/menu/ico_php.png" />','<?=$LANG['mnu_tools_admin_phpinfo']?>','phpinfo.php?lang=<?=$CONF['options']['lang']?>',null,null],
+            if ($m['mnu_tools_admin']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_configure.png" />','<?=$LANG['mnu_tools_admin']?>...',null,null,null,
+               <?php if ($m['mnu_tools_admin_config']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_configure.png" />','<?=$LANG['mnu_tools_admin_config']?>','config.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_perm']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_permissions.png" />','<?=$LANG['mnu_tools_admin_perm']?>','permissions.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ( ($m['mnu_tools_admin_config'] OR $m['mnu_tools_admin_perm'])
+                     AND
+                    ($m['mnu_tools_admin_users'] OR
+                     $m['mnu_tools_admin_groups'] OR
+                     $m['mnu_tools_admin_usergroups'] OR
+                     $m['mnu_tools_admin_absences'] OR
+                     $m['mnu_tools_admin_regions'] OR
+                     $m['mnu_tools_admin_holidays'] OR
+                     $m['mnu_tools_admin_declination'] OR
+                     $m['mnu_tools_admin_database'])
+                  ) { ?>
+               _cmSplit,
+               <?php }
+               if ($m['mnu_tools_admin_users']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_admin_users']?>','userlist.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_groups']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_usr_member.png" />','<?=$LANG['mnu_tools_admin_groups']?>','groups.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_usergroups']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_usr_member.png" />','<?=$LANG['mnu_tools_admin_usergroups']?>','groupassign.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_absences']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_absences.png" />','<?=$LANG['mnu_tools_admin_absences']?>','absences.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_regions']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_region.png" />','<?=$LANG['mnu_tools_admin_regions']?>','regions.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_holidays']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_tools_admin_holidays']?>','holidays.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_declination']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_declination.png" />','<?=$LANG['mnu_tools_admin_declination']?>','declination.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_database']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_database.png" />','<?=$LANG['mnu_tools_admin_database']?>','database.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ( ($m['mnu_tools_admin_users'] OR
+                     $m['mnu_tools_admin_groups'] OR
+                     $m['mnu_tools_admin_usergroups'] OR
+                     $m['mnu_tools_admin_absences'] OR
+                     $m['mnu_tools_admin_regions'] OR
+                     $m['mnu_tools_admin_holidays'] OR
+                     $m['mnu_tools_admin_declination'] OR
+                     $m['mnu_tools_admin_database'])
+                     AND
+                     ($m['mnu_tools_admin_systemlog'] OR
+                      $m['mnu_tools_admin_env'])
+                  ) { ?>
+               _cmSplit,
+               <?php }
+               if ($m['mnu_tools_admin_systemlog']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_log.png" />','<?=$LANG['mnu_tools_admin_systemlog']?>','log.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php }
+               if ($m['mnu_tools_admin_env']) { ?>
+               ['<img src="themes/<?=$theme?>/img/menu/ico_env.png" />','<?=$LANG['mnu_tools_admin_env']?>','environment.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               ['<img src="themes/<?=$theme?>/img/menu/ico_php.png" />','<?=$LANG['mnu_tools_admin_phpinfo']?>','phpinfo.php?lang=<?=$CONF['options']['lang']?>',null,null],
+               <?php } ?>
+            ],
             <?php } ?>
          ],
          <?php } ?>
-      ],
-      <?php } ?>
-      _cmSplit,
-      [null,'<?=$LANG['mnu_help']?>',null,null,null,
-         <?php if ($m['mnu_help_legend']) { ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_legend.png" />','<?=$LANG['mnu_help_legend']?>','javascript:openPopup(\'legend.php?lang=<?=$CONF['options']['lang']?>\',\'legend\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=500,height=540\');',null,null],
-         <?php } ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_help.png" />','<?=$LANG['mnu_help_help']?>',null,null,null,
-            ['<img src="themes/<?=$theme?>/img/menu/ico_help.png" />','<?=$LANG['mnu_help_help_manualbrowser']?>','javascript:openPopup(\'help/<?=$CONF['options']['helplang']?>/html/index.html\',\'help\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=800,height=500\');',null,null],
-            ['<img src="themes/<?=$theme?>/img/menu/ico_help.png" />','<?=$LANG['mnu_help_help_manualpdf']?>','help/<?=$CONF['options']['helplang']?>/Pdf/tcpro.pdf',null,null],
+         _cmSplit,
+         [null,'<?=$LANG['mnu_help']?>',null,null,null,
+            <?php if ($m['mnu_help_legend']) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_legend.png" />','<?=$LANG['mnu_help_legend']?>','javascript:openPopup(\'legend.php?lang=<?=$CONF['options']['lang']?>\',\'legend\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=500,height=540\');',null,null],
+            <?php } ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_help.png" />','<?=$LANG['mnu_help_help']?>',null,null,null,
+               ['<img src="themes/<?=$theme?>/img/menu/ico_help.png" />','<?=$LANG['mnu_help_help_manualbrowser']?>','javascript:openPopup(\'help/<?=$CONF['options']['helplang']?>/html/index.html\',\'help\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=800,height=500\');',null,null],
+               ['<img src="themes/<?=$theme?>/img/menu/ico_help.png" />','<?=$LANG['mnu_help_help_manualpdf']?>','help/<?=$CONF['options']['helplang']?>/Pdf/tcpro.pdf',null,null],
+            ],
+            <?php
+            /**
+             * You may not disable or alter the About dialog nor its menu item here.
+             */
+            ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_help_about']?>','javascript:openPopup(\'about.php\',\'about\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,titlebar=0,resizable=0,dependent=1,width=580,height=370\');',null,null],
          ],
-         <?php
-         /**
-          * You may not disable or alter the About dialog nor its menu item here.
-          */
-         ?>
-         ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_help_about']?>','javascript:openPopup(\'about.php\',\'about\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,titlebar=0,resizable=0,dependent=1,width=580,height=370\');',null,null],
-      ],
-   ];
-   cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
-   -->
-   </script>
-   <!-- MENU END ======================================================== -->
+      ];
+      cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
+      -->
+      </script>
+      <!-- MENU END ======================================================== -->
+   </div>
 </div>
 
 <?php
