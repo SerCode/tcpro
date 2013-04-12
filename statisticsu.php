@@ -106,7 +106,6 @@ else if (isset($_POST['btn_apply_user'])) {
    else $statuser = $_POST['sel_user'];
 }
 require( "includes/header_html_inc.php" );
-echo "<body>\r\n";
 require( "includes/header_app_inc.php" );
 require( "includes/menu_inc.php" );
 ?>

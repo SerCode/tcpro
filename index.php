@@ -150,7 +150,6 @@ if ( $display=="calendar" AND isAllowed("viewCalendar"))
 {
    $CONF['html_title'] = $LANG['html_title_calendar'];
    require("includes/header_html_inc.php");
-   echo "<body>\r\n";
    require("includes/header_app_inc.php");
    require("includes/menu_inc.php");
    include("includes/calendar_inc.php");
@@ -159,7 +158,6 @@ else
 {
    $CONF['html_title'] = $LANG['html_title_homepage'];
    require("includes/header_html_inc.php");
-   echo "<body>\r\n";
    require("includes/header_app_inc.php");
    require("includes/menu_inc.php");
    include("includes/homepage_inc.php");

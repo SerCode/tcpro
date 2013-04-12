@@ -1678,7 +1678,6 @@ function showError($error="notallowed",$message="",$closeButton=FALSE) {
    $CONF['html_title'] = $LANG['html_title_error'];
 
    require("includes/header_html_inc.php");
-   echo "<body>\r\n";
    if (!$closeButton) {
       require("includes/header_app_inc.php");
       require("includes/menu_inc.php");

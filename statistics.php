@@ -195,7 +195,6 @@ for ($y=intval(substr($periodFrom,0,4)); $y<=intval(substr($periodTo,0,4)); $y++
    }
 }
 require( "includes/header_html_inc.php" );
-echo "<body>\r\n";
 require( "includes/header_app_inc.php" );
 require( "includes/menu_inc.php" );
 ?>

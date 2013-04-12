@@ -46,7 +46,6 @@ $CONF['html_title'] = $LANG['html_title_phpinfo'];
 if (!isAllowed("viewEnvironment")) showError("notallowed");
 
 require("includes/header_html_inc.php" );
-echo "<body>\r\n";
 require("includes/header_app_inc.php" );
 require("includes/menu_inc.php");
 ?>

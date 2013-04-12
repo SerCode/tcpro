@@ -190,12 +190,12 @@ else if ( isset($_POST['btn_apply']) ) {
     
    $A->icon = $_POST['sel_icon'];
    if ( isset($_POST['chk_show_in_remainder']) && $_POST['chk_show_in_remainder'] ) $A->show_in_remainder=1; else $A->show_in_remainder=0;
-   if ( isset($_POST['chk_show_totals']) && $_POST['chk_show_totals'] ) $A->show_totals=1; else $A->show_totals=0;
+   if ( isset($_POST['chk_show_totals']) && $_POST['chk_show_totals'] )             $A->show_totals=1;       else $A->show_totals=0;
    if ( isset($_POST['chk_approval_required']) && $_POST['chk_approval_required'] ) $A->approval_required=1; else $A->approval_required=0;
    if ( isset($_POST['chk_counts_as_present']) && $_POST['chk_counts_as_present'] ) $A->counts_as_present=1; else $A->counts_as_present=0;
-   if ( isset($_POST['chk_manager_only']) && $_POST['chk_manager_only'] ) $A->manager_only=1; else $A->manager_only=0;
-   if ( isset($_POST['chk_hide_in_profile']) && $_POST['chk_hide_in_profile'] ) $A->hide_in_profile=1; else $A->hide_in_profile=0;
-   if ( isset($_POST['chk_confidential']) && $_POST['chk_confidential'] ) $A->confidential=1; else $A->confidential=0;
+   if ( isset($_POST['chk_manager_only']) && $_POST['chk_manager_only'] )           $A->manager_only=1;      else $A->manager_only=0;
+   if ( isset($_POST['chk_hide_in_profile']) && $_POST['chk_hide_in_profile'] )     $A->hide_in_profile=1;   else $A->hide_in_profile=0;
+   if ( isset($_POST['chk_confidential']) && $_POST['chk_confidential'] )           $A->confidential=1;      else $A->confidential=0;
 
    $A->update($_POST['txt_absid']);
    
@@ -207,6 +207,7 @@ else if ( isset($_POST['btn_apply']) ) {
     */
    if (isset($_POST['abs_groups'])) {
       $AG->unassignAbs($_POST['txt_absid']);
+      
       foreach ($_POST['abs_groups'] as $group) {
          $AG->assign($_POST['txt_absid'],$group);
       }
@@ -216,6 +217,7 @@ else if ( isset($_POST['btn_apply']) ) {
     * Create the theme css files so it includes this absence type
     */
    $themearray = getFolders('themes');
+   
    foreach ($themearray as $theme) {
       createCSS($theme["name"]);
    }
@@ -243,7 +245,6 @@ else if ( isset($_POST['btn_delete']) ) {
 }
 
 require("includes/header_html_inc.php");
-echo "<body>\r\n";
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
 ?>

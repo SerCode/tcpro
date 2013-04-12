@@ -161,7 +161,6 @@ else if ( isset($_POST['btn_usr_pwd_reset']) AND ($_POST['usr_hidden']!="admin")
    echo ("<script type=\"text/javascript\">alert(\"".$LANG['user_pwd_reset_complete']."\");</script>");
 }
 require("includes/header_html_inc.php");
-echo "<body>\r\n";
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
 ?>

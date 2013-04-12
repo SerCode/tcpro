@@ -144,7 +144,6 @@ if (!$allowed) {
    $err_module=$_SERVER['SCRIPT_NAME'];
    $err_btn_close=FALSE;
    require( "includes/header_html_inc.php" );
-   echo "<body>\r\n";
    require( "includes/header_app_inc.php" );
    require( "includes/menu_inc.php" );
    include ("error.php");
@@ -224,7 +223,6 @@ for ($i=1; $i<=12; $i++) {
    $yarray[$i]['tpl'] = $M->template;
 }
 require( "includes/header_html_inc.php" );
-echo "<body>\r\n";
 require( "includes/header_app_inc.php" );
 require( "includes/menu_inc.php" );
 ?>
