@@ -6,7 +6,7 @@
  * Used by the installation page.
  *
  * @package TeamCalPro
- * @version 3.6.001 Dev
+ * @version 3.6.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com

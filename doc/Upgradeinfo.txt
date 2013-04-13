@@ -11,7 +11,7 @@ Download the new release and overwrite all files.
 Overwrite config.tcpro.php from your backup.
 
 Note:
-One change in 3.6.001 might need your special attention. In previous TCP 
+One change in 3.6.001 might need your special attention. In previous 
 releases,  an inconsistent username format check in the registration dialog 
 and the CSV import feature might have lead to usernames in your installation 
 that contain other than alphanumeric characters. These usernames can cause
