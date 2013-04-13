@@ -43,9 +43,10 @@ $UL->findByName($user);
  */
 $m = buildMenu();
 ?>
+
+<!-- MENU BAR ============================================================= -->
 <div id="menubar">
    <div id="menubar-content">
-      <!-- MENU START ======================================================== -->
       <div id="myMenuID" style="position: relative; left: 7px;"></div>
       <script type="text/javascript">
       <!--
@@ -183,7 +184,6 @@ $m = buildMenu();
       cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
       -->
       </script>
-      <!-- MENU END ======================================================== -->
    </div>
 </div>
 
@@ -200,6 +200,7 @@ if ( $C->readConfig("showLanguage") OR
      substr_count($_SERVER['PHP_SELF'],"showyear.php")
    ) {
 ?>
+<!-- OPTIONS BAR ========================================================== -->
 <div id="optionsbar">
    <form class="form" method="POST" name="form_teamcal" action="<?=$_SERVER['PHP_SELF']."?action=calendar&amp;".setRequests()?>">
       <span id="optionsbar-content">
@@ -382,6 +383,7 @@ if ( $C->readConfig("showLanguage") OR
  * STATUS BAR
  */
 ?>
+<!-- STATUS BAR =========================================================== -->
 <div id="statusbar">
    <div id="statusbar-content">
       <?php
@@ -435,3 +437,5 @@ if ( $C->readConfig("showLanguage") OR
       <?php } ?>
    </div>
 </div>
+
+<!-- CONTENT ============================================================== -->
