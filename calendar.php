@@ -12,6 +12,8 @@
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
+//echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+
 /**
  * Set parent flag to control access to child scripts
  */
@@ -25,6 +27,7 @@ require_once ("config.tcpro.php");
 /**
  * Load models that we need here
  */
+require_once ("models/absence_model.php" );
 require_once ("models/announcement_model.php" );
 require_once ("models/config_model.php");
 require_once ("models/login_model.php");
@@ -43,6 +46,7 @@ require_once ("helpers/showmonth_helper.php");
 /**
  * Create model instances
  */
+$A = new Absence_model;
 $AN = new Announcement_model;
 $C = new Config_model;
 $L = new Login_model;
@@ -91,7 +95,6 @@ if ( isset($_REQUEST['page']) AND is_numeric($_REQUEST['page'])) {
  * Collect date info
  */
 $monthnames = $CONF['monthnames'];
-getOptions();
 $groupfilter = $CONF['options']['groupfilter'];
 $month_id = intval($CONF['options']['month_id']);
 $year_id = intval($CONF['options']['year_id']);

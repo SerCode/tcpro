@@ -135,12 +135,9 @@ require( "includes/menu_inc.php" );
                                           $groups = $G->getAll();
                                           foreach ($groups as $row) {
                                              $G->findByName(stripslashes($row['groupname']));
-                                             if (!$G->checkOptions($CONF['G_HIDE']) ) {
-                                                if ($statgroup==$G->groupname)
-                                                   echo ("<option value=\"" . $statgroup . "\" SELECTED=\"selected\">" . $statgroup . "</option>");
-                                                else
-                                                   echo ("<option value=\"" . $G->groupname . "\" >" . $G->groupname . "</option>");
-                                             }
+                                             if (!$G->checkOptions($CONF['G_HIDE']) ) { ?>
+                                                <option class="option" value="<?=$G->groupname?>" <?=(($statgroup==$G->groupname)?"SELECTED":"")?>><?=$G->groupname?></option>
+                                             <?php }
                                           }
                                           ?>
                                        </select>
@@ -154,17 +151,10 @@ require( "includes/menu_inc.php" );
                                        <select name="sel_user" class="select">
                                           <option class="option" value="All" <?=($statuser=="%"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
                                           <?php
-                                          $users = $U->getAll();
-                                          foreach ($users as $row) {
-                                             if ( $row['username']!="admin" )
-                                             {
-                                                if ($statuser==$row['username'])
-                                                   echo ("<option value=\"" . $row['username'] . "\" selected>" . $row['lastname'].", ".$row['firstname']."</option>\n");
-                                                else
-                                                   echo ("<option value=\"" . $row['username'] . "\">" . $row['lastname'].", ".$row['firstname']."</option>\n");
-                                             }
-                                          }
-                                          ?>
+                                          $users = $U->getAllButAdmin();
+                                          foreach ($users as $row) { ?>
+                                             <option value="<?=$row['username']?>" <?=(($statuser==$row['username'])?'SELECTED':'')?>><?=$row['lastname']?>, <?=$row['firstname']?></option>
+                                          <?php } ?>
                                        </select>
                                     </td>
                                     <td style="vertical-align: middle;">

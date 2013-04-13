@@ -29,10 +29,8 @@ require_once ("models/announcement_model.php" );
 require_once ("models/config_model.php");
 require_once ("models/login_model.php");
 require_once ("models/log_model.php");
-require_once ("models/template_model.php");
 require_once ("models/user_model.php");
 require_once ("models/user_announcement_model.php" );
-require_once ("models/user_option_model.php");
 
 /**
  * Load helpers that we need here
@@ -43,14 +41,12 @@ require_once ("helpers/showmonth_helper.php");
 /**
  * Create model instances
  */
-$AN = new Announcement_model;
-$C = new Config_model;
-$L = new Login_model;
+$AN  = new Announcement_model;
+$C   = new Config_model;
+$L   = new Login_model;
 $LOG = new Log_model;
-$T = new Template_model;
-$U = new User_model;
-$UA = new User_announcement_model;
-$UO = new User_option_model;
+$U   = new User_model;
+$UA  = new User_announcement_model;
 
 /**
  * Get other options
@@ -65,10 +61,11 @@ else
 {
    require ("languages/english.tcpro.php");
 }
-   
+
 /**
  * Get the URL action request
  */
+$display = $C->readConfig("homepage");
 if (isset ($_REQUEST['action'])) 
 {
    switch ($_REQUEST['action']) 
@@ -92,18 +89,14 @@ if (isset ($_REQUEST['action']))
          break;
    }
 }
-else 
-{
-   $display = $C->readConfig("homepage");
-}
 
 /**
  * If someone is logged in and there is a popup announcement for him then
  * this overrules the content request.
  */
-if ($user=$L->checkLogin()) 
+if ($luser=$L->checkLogin()) 
 {
-   $uas=$UA->getAllForUser($user);
+   $uas=$UA->getAllForUser($luser);
    $foundpopup=false;
    
    foreach($uas as $ua) 
@@ -115,7 +108,7 @@ if ($user=$L->checkLogin())
          break;
       }
    }
-   
+    
    if ($foundpopup) 
    {
       /**
@@ -124,7 +117,7 @@ if ($user=$L->checkLogin())
        * remove his announcement, the popup would be shown everytime the 
        * calendar or homepage is displayed.
        */
-      $U->findByName($user);
+      $U->findByName($luser);
       $nowstamp = date("YmdHis");
       $userstamp=$U->last_login;
       $userstamp=str_replace("-",'',$userstamp);
@@ -133,26 +126,19 @@ if ($user=$L->checkLogin())
       
       if ( (floatval($nowstamp)-20) < floatval($userstamp) AND isAllowed("viewAnnouncements") ) 
       {
-         header("Location: announcement.php?uaname=".$user);
+         header("Location: announcement.php?uaname=".$user."&amp;lang=".$CONF['options']['lang']);
+         die();
       }
    }
 }
-
-/**
- * Show HTML top section
- */
-
 
 /**
  * Show content
  */
 if ( $display=="calendar" AND isAllowed("viewCalendar")) 
 {
-   $CONF['html_title'] = $LANG['html_title_calendar'];
-   require("includes/header_html_inc.php");
-   require("includes/header_app_inc.php");
-   require("includes/menu_inc.php");
-   include("includes/calendar_inc.php");
+   header("Location: calendar.php?lang=".$CONF['options']['lang']);
+   die();
 }
 else 
 {
@@ -161,10 +147,6 @@ else
    require("includes/header_app_inc.php");
    require("includes/menu_inc.php");
    include("includes/homepage_inc.php");
+   require("includes/footer_inc.php");
 }
-
-/**
- * Show HTML footer
- */
-require("includes/footer_inc.php");
 ?>

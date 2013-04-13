@@ -67,8 +67,8 @@ if (!isAllowed("viewYearCalendar")) showError("notallowed");
 /**
  * A new user was selected
  */
-if ( isset($_POST['sel_user']) OR isset($_POST['sel_year']) ) {
-   header("Location: ".$_SERVER['PHP_SELF']."?showuser=".$_POST['sel_user']."&showyear=".$_POST['sel_year']."&lang=".$CONF['options']['lang']);
+if ( isset($_POST['obar_user']) OR isset($_POST['obar_year']) ) {
+   header("Location: ".$_SERVER['PHP_SELF']."?showuser=".$_POST['obar_user']."&showyear=".$_POST['obar_year']."&lang=".$CONF['options']['lang']);
 }
 
 /**
@@ -234,63 +234,6 @@ require( "includes/menu_inc.php" );
 ?>
 <div id="content">
    <div id="content-content">
-      <table class="dlg">
-         <tr>
-            <td style="padding: 8px 14px 8px 14px; border-right: 1px solid #333333;">
-               <form name="form-yearcalendar" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-                  <?=$LANG['year_select_year']?>&nbsp;
-                  <select id="sel_year" name="sel_year" class="select" onchange="this.form.submit()">
-                     <?php
-                     $today = getdate();
-                     $curryear = $today['year'];
-                     ?>
-                     <option value="<?=$curryear-1?>" <?=$showyear==$curryear-1?' SELECTED':''?> ><?=$curryear-1?></option>
-                     <option value="<?=$curryear?>" <?=$showyear==$curryear?' SELECTED':''?> ><?=$curryear?></option>
-                     <option value="<?=$curryear+1?>" <?=$showyear==$curryear+1?' SELECTED':''?> ><?=$curryear+1?></option>
-                     <option value="<?=$curryear+2?>" <?=$showyear==$curryear+2?' SELECTED':''?> ><?=$curryear+2?></option>
-                  </select>
-                  &nbsp;&nbsp;
-                  <?=$LANG['year_select_user']?>&nbsp;
-                  <select id="sel_user" name="sel_user" class="select" onchange="this.form.submit()">
-                     <?php
-                     /**
-                      * Fill the selection list based on what the logged in user may view
-                      */
-                     $luser = $L->checkLogin();
-                     $yusers = $U->getAllButAdmin();
-                     foreach ($yusers as $yu) {
-                        $allowed=FALSE;
-                        if ($yu['username']==$luser) {
-                           //echo "<script type=\"text/javascript\">alert(\"Own: ".$yu['username']."|".$luser."\");</script>";
-                           $allowed=TRUE;
-                        }
-                        else if ( !($yu['status']&$CONF['USHIDDEN']) AND $UG->shareGroups($yu['username'], $luser) ) {
-                           if (isAllowed("viewGroupUserCalendars")) {
-                              //echo "<script type=\"text/javascript\">alert(\"Group: ".$yu['username']."|".$luser."\");</script>";
-                              $allowed=TRUE;
-                           }
-                        }
-                        else if (!($yu['status']&$CONF['USHIDDEN'])) {
-                           if (isAllowed("viewAllUserCalendars")) {
-                              //echo "<script type=\"text/javascript\">alert(\"All: ".$yu['username']."|".$luser."\");</script>";
-                              $allowed=TRUE;
-                           }
-                        }
-                        if ($allowed) {
-                           if ( $yu['firstname']!="" ) $showname = $yu['lastname'].", ".$yu['firstname'];
-                           else $showname = $yu['lastname'];
-                           if ( $showuser==$yu['username'] ) $selected="SELECTED"; else $selected="";
-                           echo "<option class=\"option\" value=\"".$yu['username']."\" ".$selected.">".$showname."</option>";
-                        }
-                     }
-                     ?>
-                  </select>
-               </form>
-            </td>
-         </tr>
-      </table>
-      <br>
-
       <table class="dlg">
          <tr>
             <td class="dlg-header">
