@@ -5,7 +5,7 @@
  * Displays the absence types configuration page
  *
  * @package TeamCalPro
- * @version 3.6.001
+ * @version 3.6.002 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -45,11 +45,6 @@ $LOG = new Log_model;
 $U = new User_model;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_absences'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("editAbsenceTypes")) showError("notallowed");
@@ -59,23 +54,16 @@ if (!isAllowed("editAbsenceTypes")) showError("notallowed");
  */
 $absences = $A->getAll();
 $absid = $absences[0]['id'];
-
-/**
- * Check whether a different scheme was selected
- */
 if ( isset($_REQUEST['absid']) ) $absid = $_REQUEST['absid'];
 $A->get($absid);
-
-if ( isset($_POST['sel_abs']) ) {
-   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['sel_abs']."&lang=".$CONF['options']['lang']);
-}
 
 /**
  * ========================================================================
  * CREATE
  */
-if ( isset($_POST['btn_create']) ) {
+if ( isset($_POST['btn_absCreate']) ) {
 
+   echo "<script type=\"text/javascript\">alert(\"Debug: ".$_POST['optPeriod']."\");</script>";
    if (isset($_POST['txt_create_name']) AND !empty($_POST['txt_create_name'])) {
       if (!preg_match('/^[a-zA-Z0-9-_\x20]*$/', $_POST['txt_create_name'])) {
         showError("input",$LANG['err_input_abs_name']);
@@ -121,18 +109,19 @@ if ( isset($_POST['btn_create']) ) {
           * Log this event
           */
          $LOG->log("logAbsence",$L->checkLogin(),"Absence type created: ".$A->name." (".$absid.")");
+         header("Location: ".$_SERVER['PHP_SELF']."?absid=".$absid."&amp;lang=".$CONF['options']['lang']);
+         die();
       }
    }
    else {
       showError("input",$LANG['err_input_abs_no_name']);
    }
 }
-
 /**
  * ========================================================================
  * APPLY
  */
-else if ( isset($_POST['btn_apply']) ) {
+else if ( isset($_POST['btn_absApply']) ) {
 
    if (!empty($_POST['txt_name'])) {
       if (!preg_match('/^[a-zA-Z0-9-_\x20]*$/', $_POST['txt_name'])) {
@@ -226,13 +215,14 @@ else if ( isset($_POST['btn_apply']) ) {
     * Log this event
     */
    $LOG->log("logAbsence",$L->checkLogin(),"Absence type updated: ".$A->name." (".$_POST['txt_absid'].")");
+   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['txt_absid']."&amp;lang=".$CONF['options']['lang']);
+   die();
 }
-
 /**
  * ========================================================================
  * DELETE
  */
-else if ( isset($_POST['btn_delete']) ) {
+else if (isset($_POST['btn_absDelete'])) {
    
    $A->delete($_POST['txt_absid']);
    $absences = $A->getAll();
@@ -242,40 +232,24 @@ else if ( isset($_POST['btn_delete']) ) {
     */
    $LOG->log("logAbsence",$L->checkLogin(),"Absence type deleted: ".$A->name." (".$_POST['txt_absid'].")");
    header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
+   die();
 }
 
+/**
+ * Check whether a different scheme was selected
+ */
+if (isset($_POST['sel_abs'])) {
+   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['sel_abs']."&lang=".$CONF['options']['lang']);
+   die();
+}
+
+$CONF['html_title'] = $LANG['html_title_absences'];
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
-      <table class="dlg">
-         <tr>
-            <td style="padding: 8px 14px 8px 14px; border-right: 1px solid #333333;">
-               <form name="form-sel-abs" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?absid=".$absid."&amp;lang=".$CONF['options']['lang']?>">
-                  <?=$LANG['abs_sel_abs']?>&nbsp;
-                  <script type="text/javascript">var sel_absid_cache;</script>
-                  <select id="sel_abs" name="sel_abs" class="select" onclick="sel_absid_cache=this.value" onchange="if (confirm('<?=$LANG['abs_sel_confirm']?>')) this.form.submit(); else this.value=sel_absid_cache;" style="background-image: url(<?=$CONF['app_icon_dir'].$A->icon?>); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;">
-                     <?php
-                     $absences = $A->getAll();
-                     foreach ($absences as $abs) { ?>
-                        <option style="background-image: url(<?=$CONF['app_icon_dir'].$abs['icon']?>); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="<?=$abs['id']?>" <?=(($abs['id']==$A->id)?"SELECTED":"")?>><?=$abs['name']?></option>
-                     <?php } ?>
-                  </select>
-               </form>
-            </td>
-            <td style="padding: 8px 14px 8px 14px;">
-               <form name="form-create-abs" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?absid=".$absid."&amp;lang=".$CONF['options']['lang']?>">
-                  &nbsp;&nbsp;<?=$LANG['abs_create_abs']?>&nbsp;
-                  <input name="txt_create_name" id="txt_create_name" maxlength="80" size="40" type="text" class="text" value="">
-                  &nbsp;&nbsp;<input name="btn_create" type="submit" class="button" value="<?=$LANG['btn_create']?>">
-               </form>
-            </td>
-            </tr>
-      </table>
-      <br>
-
       <form class="form" name="form-abs" method="POST" action="<?=$_SERVER['PHP_SELF']."?absid=".$A->id."&amp;lang=".$CONF['options']['lang']?>">
       <input name="txt_absid" type="hidden" class="text" value="<?=$A->id?>">
       <table class="dlg">
@@ -287,8 +261,8 @@ require("includes/menu_inc.php");
          
          <tr>
             <td class="dlg-menu" colspan="2" style="text-align: left;">
-               <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
-               <input name="btn_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
+               <input name="btn_absApply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
+               <input name="btn_absDelete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
                <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?permissions.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
             </td>
          </tr>
@@ -303,7 +277,7 @@ require("includes/menu_inc.php");
                <span class="config-comment"><?=$LANG['abs_sample_desc']?></span>
             </td>
             <td class="config-row<?=$style?>">
-               <div id="sample" style="color: #<?=$A->color?>; background-color: #<?=$A->bgcolor?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
+            <div id="sample" style="color: #<?=$A->color?>; background-color: #<?=$A->bgcolor?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
                <?php if ($A->icon=="No") {?>
                   <?=$A->symbol?>
                <?php } else { ?>

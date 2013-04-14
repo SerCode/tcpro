@@ -5,7 +5,7 @@
  * German language file
  *
  * @package TeamCalPro
- * @version 3.6.001
+ * @version 3.6.002 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -810,7 +810,7 @@ $LANG['uo_deftheme']    = "Standard Design";
 /**
  * Admin Pages
  */
-$LANG['user_search'] = 'Suche Usernamen, Vor- und Nachnamen:&nbsp;';
+$LANG['user_search'] = 'Suche:';
 
 /**
  * Configuration Page
@@ -1128,8 +1128,8 @@ $LANG['stat_results_total_absence_user'] = 'Summe der Abwesenheiten pro Mitglied
 $LANG['stat_results_total_presence_user'] = 'Summe der Anwesenheiten pro Mitglied im Zeitraum:&nbsp;&nbsp;';
 $LANG['stat_results_total_absence_group'] = 'Summe der Abwesenheiten pro Gruppe im Zeitraum:&nbsp;&nbsp;';
 $LANG['stat_results_total_presence_group'] = 'Summe der Anwesenheiten pro Gruppe im Zeitraum:&nbsp;&nbsp;';
-$LANG['stat_choose_period'] = 'Standard-Zeitraum Auswahl';
-$LANG['stat_choose_custom_period'] = 'Individual-Zeitraum Auswahl';
+$LANG['stat_choose_period'] = 'Standard Zeitraum';
+$LANG['stat_choose_custom_period'] = 'Individual Zeitraum';
 
 /**
  * ============================================================================
@@ -1351,8 +1351,8 @@ $LANG['perm_activate_confirm'] = "Soll dieses Berechtigungsschema aktiviert werd
 $LANG['perm_reset_confirm'] = "Soll dieses Berechtigungsschema auf den Standard zurückgesetzt werden?";
 $LANG['perm_delete_confirm'] = "Soll dieses Berechtigungsschema gelöscht werden?\\nDadurch wird das Standard Scheme geladen und aktiviert.";
 $LANG['perm_title'] = "Berechtigungsschema: ";
-$LANG['perm_sel_scheme'] = "Berechtigungsschema ausw&auml;hlen";
-$LANG['perm_create_scheme'] = "Berechtigungsschema anlegen";
+$LANG['perm_sel_scheme'] = "Schema ausw&auml;hlen";
+$LANG['perm_create_scheme'] = "Schema anlegen";
 $LANG['perm_col_perm_admin'] = "Administrative Berechtigungen";
 $LANG['perm_col_perm_cal'] = "Globale Kalender Berechtigungen";
 $LANG['perm_col_perm_user'] = "Nutzerbezogene Berechtigungen";
@@ -1651,10 +1651,10 @@ $LANG['log_clear_confirm'] = 'Bist du sicher, dass du das System log l&ouml;sche
 /*
  * Absence type page
  */
-$LANG['abs_sel_abs'] = 'Abwesenheitstyp ausw&auml;hlen';
+$LANG['abs_sel_abs'] = 'Typ ausw&auml;hlen';
 $LANG['abs_sel_confirm'] = "Soll dieser Abwesenheitstyp ausgew&auml;hlt werden?\\nAlle noch nicht gespeicherten &Auml;nderungen gehen verloren.";
 $LANG['abs_del_confirm'] = "Soll dieser Abwesenheitstyp ausgew&auml;hlt werden?: ";
-$LANG['abs_create_abs'] = 'Neuer Abwesenheitstyp (Name)';
+$LANG['abs_create_abs'] = 'Typ anlegen';
 $LANG['abs_title'] = 'Abwesenheitstyp Einstellungen f&uuml;r "';
 $LANG['abs_help_title'] = 'Abwesenheitstyp Einstellungen';
 $LANG['abs_sample'] = 'Beispielanzeige';
@@ -1859,4 +1859,15 @@ $LANG['perm_perm_viewFastEdit_desc'] = "Erlaubt den Zugriff auf die Schnellbearb
  * Month Edit Dialog
  */
 $LANG['month_clear_holiday'] = 'Feiertag l&ouml;schen';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.002
+ */
+
+/**
+ * Statistics page
+ */
+$LANG['stat_choose_group'] = 'Gruppe';
+$LANG['stat_choose_absence'] = 'Abwesenheit';
 ?>

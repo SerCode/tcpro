@@ -5,7 +5,7 @@
  * Displays the permissions configuration page
  *
  * @package TeamCalPro
- * @version 3.6.001
+ * @version 3.6.002 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -106,55 +106,50 @@ $roles = array (
          );
 
 /**
- * Check whether a different scheme was selected
+ * Set the scheme to load
  */
-if ( !isset($_REQUEST['scheme']) ) $scheme="Default";
-else $scheme = $_REQUEST['scheme'];
+$scheme="Default";
+if (isset($_REQUEST['scheme'])) $scheme = $_REQUEST['scheme'];
 
-if ( isset($_POST['sel_scheme']) ) {
+/**
+ * ========================================================================
+ * ACTIVATE
+ */
+if ( isset($_POST['btn_permActivate']) ) {
 
+   $C->saveConfig("permissionScheme",$_POST['sel_scheme']);
    /**
-    * ========================================================================
-    * ACTIVATE
+    * Log this event
     */
-   if ( isset($_POST['btn_activate']) ) {
+   $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$_POST['sel_scheme']."' activated");
+   header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
+   die();
+}
+/**
+ * ========================================================================
+ * DELETE
+ */
+else if ( isset($_POST['btn_permDelete']) ) {
 
-      $C->saveConfig("permissionScheme",$_POST['sel_scheme']);
+   if ($_POST['sel_scheme']!="Default") {
+      $P->deleteScheme($_POST['sel_scheme']);
+      $C->saveConfig("permissionScheme","Default");
       /**
        * Log this event
        */
-      $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$_POST['sel_scheme']."' activated");
-      header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
-   }
-   /**
-    * ========================================================================
-    * DELETE
-    */
-   else if ( isset($_POST['btn_delete']) ) {
-
-      if ($_POST['sel_scheme']!="Default") {
-         $P->deleteScheme($_POST['sel_scheme']);
-         $C->saveConfig("permissionScheme","Default");
-         /**
-          * Log this event
-          */
-         $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$_POST['sel_scheme']."' deleted");
-         header("Location: ".$_SERVER['PHP_SELF']."?scheme=Default&lang=".$CONF['options']['lang']);
-      }
-   }
-   else {
-      header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
+      $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$_POST['sel_scheme']."' deleted");
+      header("Location: ".$_SERVER['PHP_SELF']."?scheme=Default&lang=".$CONF['options']['lang']);
+      die();
    }
 }
-
 /**
  * ========================================================================
  * RESET, CREATE
  * Reset Default permission scheme or create a new with standard settings
  */
-else if ( isset($_POST['btn_reset']) OR isset($_POST['btn_create']) ) {
-
-   if ( isset($_POST['btn_create']) ) {
+else if ( isset($_POST['btn_permReset']) OR isset($_POST['btn_permCreate']) ) {
+   $error=FALSE;
+   if ( isset($_POST['btn_permCreate']) ) {
       if (!preg_match('/^[a-zA-Z0-9-]*$/', $_POST['txt_newScheme'])) {
          $error=TRUE;
          $err_short=$LANG['err_input_caption'];
@@ -198,14 +193,14 @@ else if ( isset($_POST['btn_reset']) OR isset($_POST['btn_create']) ) {
        */
       $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$scheme."' was created or reset");
       header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme."&lang=".$CONF['options']['lang']);
+      die();
    }
 }
-
 /**
  * ========================================================================
  * APPLY
  */
-else if ( isset($_POST['btn_apply']) ) {
+else if ( isset($_POST['btn_permApply']) ) {
 
    foreach($perms as $perm) {
       foreach($roles as $role) {
@@ -224,47 +219,17 @@ else if ( isset($_POST['btn_apply']) ) {
     */
    $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$scheme."' changed");
    header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme."&lang=".$CONF['options']['lang']);
+   die();
 }
+
+if (isset($_POST['sel_scheme'])) header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
+
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
-      <table class="dlg">
-         <tr>
-            <td style="padding: 8px 14px 8px 14px; border-right: 1px solid #333333;">
-               <form name="form-sel-scheme" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?scheme=".$scheme."&amp;lang=".$CONF['options']['lang']?>">
-                  <?=$LANG['perm_sel_scheme']?>&nbsp;
-                  <script type="text/javascript">var sel_scheme_cache;</script>
-                  <select id="sel_scheme" name="sel_scheme" class="select" onclick="sel_scheme_cache=this.value" onchange="if (confirm('<?=$LANG['perm_select_confirm']?>')) this.form.submit(); else this.value=sel_scheme_cache;">
-                     <?php
-                        $schemes = $P->getSchemes();
-                        foreach ($schemes as $sch) {
-                           if ($sch==$scheme)
-                              echo ("<option value=\"".$sch."\" SELECTED=\"selected\">".$sch."</option>");
-                           else
-                              echo ("<option value=\"".$sch."\" >".$sch."</option>");
-                        }
-                     ?>
-                  </select>
-                  &nbsp;&nbsp;<input name="btn_activate" type="submit" class="button" value="<?=$LANG['btn_activate']?>" onclick="return confirmSubmit('<?=$LANG['perm_activate_confirm']?>')">
-                  <?php if ($scheme != "Default") { ?>
-                  &nbsp;&nbsp;<input name="btn_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="return confirmSubmit('<?=$LANG['perm_delete_confirm']?>')">
-                  <?php } ?>
-               </form>
-            </td>
-            <td style="padding: 8px 14px 8px 14px;">
-               <form name="form-create-scheme" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?scheme=".$scheme."&amp;lang=".$CONF['options']['lang']?>">
-                  &nbsp;&nbsp;<?=$LANG['perm_create_scheme']?>&nbsp;
-                  <input name="txt_newScheme" id="txt_newScheme" maxlength="80" size="40" type="text" class="text" value="">
-                  &nbsp;&nbsp;<input name="btn_create" type="submit" class="button" value="<?=$LANG['btn_create']?>">
-               </form>
-            </td>
-         </tr>
-      </table>
-      <br>
-
       <form class="form" name="form-permissions" method="POST" action="<?=$_SERVER['PHP_SELF']."?scheme=".$scheme."&amp;lang=".$CONF['options']['lang']?>">
       <table class="dlg">
          <tr>
@@ -274,8 +239,8 @@ require("includes/menu_inc.php");
          </tr>
          <tr>
             <td class="dlg-menu" colspan="<?=count($roles)+1?>" style="text-align: left;">
-               <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
-               <input name="btn_reset" type="submit" class="button" value="<?=$LANG['btn_reset']?>" onclick="return confirmSubmit('<?=$LANG['perm_reset_confirm']?>')">&nbsp;
+               <input name="btn_permApply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
+               <input name="btn_permReset" type="submit" class="button" value="<?=$LANG['btn_reset']?>" onclick="return confirmSubmit('<?=$LANG['perm_reset_confirm']?>')">&nbsp;
                <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?permissions.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
             </td>
          </tr>

@@ -6,37 +6,18 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Displays the TeamCal Pro menu on every main page
  *
  * @package TeamCalPro
- * @version 3.6.001
+ * @version 3.6.002 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
-/**
- * Includes
- */
-require_once ("config.tcpro.php");
-require_once( $CONF['app_root']."helpers/global_helper.php" );
-getOptions();
-require( $CONF['app_root']."languages/".$CONF['options']['lang'].".tcpro.php");
+require_once("models/user_announcement_model.php");
 
-require_once( $CONF['app_root']."models/group_model.php" );
-require_once( $CONF['app_root']."models/region_model.php" );
-require_once( $CONF['app_root']."models/user_announcement_model.php" );
-require_once ($CONF['app_root']."models/user_group_model.php");
-require_once ($CONF['app_root']."models/user_option_model.php");
-
-$G = new Group_model;
-$L = new Login_model;
-$R = new Region_model;
+$L  = new Login_model;
 $UA = new User_announcement_model;
-$UG = new User_group_model;
 $UL = new User_model;
-$UO = new User_option_model;
-
-$user=$L->checkLogin();
-$UL->findByName($user);
 
 /**
  * Build menu flags based on permissions
@@ -60,14 +41,14 @@ $m = buildMenu();
                ['<img src="themes/<?=$theme?>/img/menu/ico_register.png" />','<?=$LANG['mnu_teamcal_register']?>','javascript:openPopup(\'register.php?lang=<?=$CONF['options']['lang']?>\',\'login\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=420,height=550\');',null,null],
             <?php }
             if ($m['mnu_teamcal_logout']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_logout.png" />','<?=$LANG['mnu_teamcal_logout']?>','index.php?lang=<?=$CONF['options']['lang']?>&action=logout',null,null],
+            ['<img src="themes/<?=$theme?>/img/menu/ico_logout.png" />','<?=$LANG['mnu_teamcal_logout']?>','index.php?action=logout&lang=<?=$CONF['options']['lang']?>',null,null],
             <?php } ?>
          ],
          _cmSplit,
          [null,'<?=$LANG['mnu_view']?>',null,null,null,
             ['<img src="themes/<?=$theme?>/img/menu/ico_home.png" />','<?=$LANG['mnu_view_homepage']?>','index.php?action=welcome&lang=<?=$CONF['options']['lang']?>',null,null],
             <?php if ($m['mnu_view_calendar']) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_view_calendar']?>','index.php?action=calendar&lang=<?=$CONF['options']['lang']?>',null,null],
+            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_view_calendar']?>','calendar.php?lang=<?=$CONF['options']['lang']?>',null,null],
             <?php }
             if ($m['mnu_view_yearcalendar']) { ?>
             ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_view_yearcalendar']?>','showyear.php?lang=<?=$CONF['options']['lang']?>',null,null],
@@ -192,190 +173,130 @@ $m = buildMenu();
  * ============================================================================
  * OPTIONS BAR
  */
-$optionitems=0;
-if ( $C->readConfig("showLanguage") OR
-     $C->readConfig("showGroup") OR
-     $C->readConfig("showToday") OR
-     $C->readConfig("showStart") OR
-     substr_count($_SERVER['PHP_SELF'],"showyear.php")
-   ) {
+$optionitems=FALSE;
+if (substr_count($_SERVER['PHP_SELF'],"calendar.php")) {
+   $action=$_SERVER['PHP_SELF']."?".setRequests();
+}
+else if (substr_count($_SERVER['PHP_SELF'],"permissions.php")) {
+   $action=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."&amp;scheme=".$scheme;
+}
+else if (substr_count($_SERVER['PHP_SELF'],"userlist.php")) {
+   $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;searchgroup=".$searchgroup."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang'];
+}
+else if (substr_count($_SERVER['PHP_SELF'],"groupassign.php")) {
+   $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang'];
+}
+else if (substr_count($_SERVER['PHP_SELF'],"absences.php")) {
+   $action=$_SERVER['PHP_SELF']."?absid=".$absid."&amp;lang=".$CONF['options']['lang'];
+}
+else {
+   $action=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang'];
+}
 ?>
 <!-- OPTIONS BAR ========================================================== -->
 <div id="optionsbar">
-   <form class="form" method="POST" name="form_teamcal" action="<?=$_SERVER['PHP_SELF']."?action=calendar&amp;".setRequests()?>">
+   <form class="form" method="POST" name="form_options" action="<?=$action?>">
       <span id="optionsbar-content">
       <?php
       /**
-       * The language drop down is on all pages
+       * ALL PAGES
+       * Language
        */
-      if ($C->readConfig("showLanguage")) { ?>
-         <!-- Language Drop Down -->
-         <?=$LANG['nav_language']?>&nbsp;
-         <select id="user_lang" name="user_lang" class="select">
-         <?php
-         $array = getLanguages(); // Collects language name of all installed language files
-         foreach( $array as $langfile ) {
-            if ($langfile==$CONF['options']['lang']) { ?>
-               <option value="<?=$CONF['options']['lang']?>" selected><?=$CONF['options']['lang']?></option>
-            <?php } else { ?>
-               <option value="<?=$langfile?>"><?=$langfile?></option>
-            <?php }
-         } ?>
-         </select>
-      <?php
-         $optionitems++;
-      } ?>
-
-   	<?php 
+      if ($C->readConfig("showLanguage")) { 
+         include ($CONF['app_root']."includes/options_language_inc.php");
+         $optionitems=TRUE;
+      }
+        
       /**
+       * CALENDAR
        * Group, Region, Absence, Start-year, Start-month, Number of months
-       * Only shown in calendar view.
        */
-   	if (substr_count($_SERVER['PHP_SELF'],"index.php") AND 
-          (isset($_REQUEST['action']) AND $_REQUEST['action']=="calendar") AND 
-          isAllowed("viewCalendar")) {
-         /**
-          * The group drop down is only shown on the month view page and userlist page
-          */
-         if ($C->readConfig("showGroup") && isAllowed("viewAllGroups")) { ?>
-            <!-- Group filter drop down -->
-            &nbsp;&nbsp;<?=$LANG['nav_groupfilter']?>&nbsp;
-            <select id="groupfilter" name="groupfilter" class="select">
-               <option value="All" <?=($CONF['options']['groupfilter']=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
-               <option value="Allbygroup" <?=($CONF['options']['groupfilter']=="Allbygroup"?"SELECTED":"")?>><?=$LANG['drop_group_allbygroup']?></option>
-               <?php
-               $groups=$G->getAll(TRUE); // TRUE = exclude hidden
-               foreach( $groups as $group ) {
-                  if (!isAllowed("viewAllGroups")) {
-                     if ($UO->true($user, "owngroupsonly") OR $UG->isMemberOfGroup($user, $group['groupname']) OR $UG->isGroupManagerOfGroup($user, $group['groupname'])) {
-                        if ($CONF['options']['groupfilter']==$group['groupname']) { ?>
-                           <option value="<?=$group['groupname']?>" selected><?=$group['groupname']?></option>
-                        <?php } else { ?>
-                           <option value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
-                        <?php }
-                     }
-                  }
-                  else {
-                     if ($CONF['options']['groupfilter']==$group['groupname']) { ?>
-                        <option value="<?=$group['groupname']?>" selected><?=$group['groupname']?></option>
-                     <?php } else { ?>
-                        <option value="<?=$group['groupname']?>"><?=$group['groupname']?></option>
-                     <?php }
-                  }
-               }
-               ?>
-            </select>
-         <?php
-            $optionitems++;
-         } ?>
+   	if (substr_count($_SERVER['PHP_SELF'],"calendar.php") AND isAllowed("viewCalendar")) {
+         include ($CONF['app_root']."includes/options_calendar_inc.php");
+         $optionitems=TRUE;
+      } 
 
-         <?php if ($C->readConfig("showRegion")) { ?>
-            <!-- Region drop down -->
-            &nbsp;&nbsp;<?=$LANG['nav_regionfilter']?>&nbsp;
-            <select name="regionfilter" id="regionfilter" class="select">
-               <option class="option" value="default" <?=($CONF['options']['region']=="default"?"SELECTED":"")?>>default</option>
-               <?php
-               $query  = "SELECT `regionname` FROM `".$R->table."` ORDER BY `regionname`;";
-               $result = $R->db->db_query($query);
-               while ( $row = $R->db->db_fetch_array($result,MYSQL_ASSOC) ){
-                  $R->findByName(stripslashes($row['regionname']));
-                  if ($R->regionname!="default") {
-                     if ($R->regionname==$CONF['options']['region']) { ?>
-                        <option value="<?=$R->regionname?>" selected><?=$R->regionname?></option>
-                     <?php } else { ?>
-                        <option value="<?=$R->regionname?>"><?=$R->regionname?></option>
-                     <?php }
-                  }
-               } ?>
-            </select>
-         <?php $optionitems++; } ?>
+      /**
+       * YEAR CALENDAR
+       * Year, User
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"showyear.php") AND isAllowed("viewYearCalendar")) {
+         include ($CONF['app_root']."includes/options_showyear_inc.php");
+         $optionitems=TRUE;
+      }
+      
+      /**
+       * GLOBAL STATISTICS
+       * Standard Period, Custom Period, Group, Absence
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"statistics.php")AND isAllowed("viewStatistics")) {
+         include ($CONF['app_root']."includes/options_statistics_inc.php");
+         $optionitems=TRUE;
+      }
 
-         <?php if ($C->readConfig("showToday")) { ?>
-            <!-- Absence filter drop down -->
-            &nbsp;&nbsp;<?=$LANG['nav_absencefilter']?>&nbsp;
-            <select id="absencefilter" name="absencefilter" class="select">
-               <option value="All" <?=($CONF['options']['absencefilter']=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
-               <?php
-               require_once( $CONF['app_root']."models/absence_model.php" );
-               $A = new Absence_model;
-               $absences = $A->getAll();
-               foreach ($absences as $abs){
-                  if ($CONF['options']['absencefilter']==$abs['id']) { ?>
-                     <option value="<?=$abs['id']?>" selected><?=$abs['name']?></option>
-                  <?php } else { ?>
-                     <option value="<?=$abs['id']?>"><?=$abs['name']?></option>
-                  <?php }
-               } ?>
-            </select>
-         <?php
-            $optionitems++;
-         } ?>
+      /**
+       * REMAINDER STATISTICS
+       * Group, User
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"statisticsu.php")AND isAllowed("viewStatistics")) {
+         include ($CONF['app_root']."includes/options_statisticsu_inc.php");
+         $optionitems=TRUE;
+      }
 
-         <?php if ($C->readConfig("showStart")) { ?>
+      /**
+       * OPTION BUTTONS
+       * Select scheme, Create scheme
+       */
+      if ( $optionitems ) { ?>
+         <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
+         <input name="btn_reset" type="button" class="button" onclick="javascript:document.location.href='<?=$_SERVER['PHP_SELF']?>'" value="<?=$LANG['btn_reset']?>">
+      <?php }
 
-            <!-- Start month drop down -->
-            &nbsp;&nbsp;<?=$LANG['nav_start_with']?>&nbsp;
-            <select id="month_id" name="month_id" class="select">
-               <option value="1" <?=$CONF['options']['month_id']== "1"?' SELECTED':''?> ><?=$LANG['monthnames'][1]?></option>
-               <option value="2" <?=$CONF['options']['month_id']== "2"?' SELECTED':''?> ><?=$LANG['monthnames'][2]?></option>
-               <option value="3" <?=$CONF['options']['month_id']== "3"?' SELECTED':''?> ><?=$LANG['monthnames'][3]?></option>
-               <option value="4" <?=$CONF['options']['month_id']== "4"?' SELECTED':''?> ><?=$LANG['monthnames'][4]?></option>
-               <option value="5" <?=$CONF['options']['month_id']== "5"?' SELECTED':''?> ><?=$LANG['monthnames'][5]?></option>
-               <option value="6" <?=$CONF['options']['month_id']== "6"?' SELECTED':''?> ><?=$LANG['monthnames'][6]?></option>
-               <option value="7" <?=$CONF['options']['month_id']== "7"?' SELECTED':''?> ><?=$LANG['monthnames'][7]?></option>
-               <option value="8" <?=$CONF['options']['month_id']== "8"?' SELECTED':''?> ><?=$LANG['monthnames'][8]?></option>
-               <option value="9" <?=$CONF['options']['month_id']== "9"?' SELECTED':''?> ><?=$LANG['monthnames'][9]?></option>
-               <option value="10" <?=$CONF['options']['month_id']== "10"?' SELECTED':''?> ><?=$LANG['monthnames'][10]?></option>
-               <option value="11" <?=$CONF['options']['month_id']== "11"?' SELECTED':''?> ><?=$LANG['monthnames'][11]?></option>
-               <option value="12" <?=$CONF['options']['month_id']== "12"?' SELECTED':''?> ><?=$LANG['monthnames'][12]?></option>
-            </select>
+      /**
+       * PERMISSIONS
+       * Select scheme, Create scheme
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"permissions.php")AND isAllowed("editPermissionScheme")) {
+         include ($CONF['app_root']."includes/options_permissions_inc.php");
+      }
 
-            <!-- Year drop down -->
-            <select id="year_id" name="year_id" class="select">
-               <?php
-               $today = getdate();
-               $curryear = $today['year'];
-               ?>
-               <option value="<?=$curryear-1?>" <?=$CONF['options']['year_id']==$curryear-1?' SELECTED':''?> ><?=$curryear-1?></option>
-               <option value="<?=$curryear?>" <?=$CONF['options']['year_id']==$curryear?' SELECTED':''?> ><?=$curryear?></option>
-               <option value="<?=$curryear+1?>" <?=$CONF['options']['year_id']==$curryear+1?' SELECTED':''?> ><?=$curryear+1?></option>
-               <option value="<?=$curryear+2?>" <?=$CONF['options']['year_id']==$curryear+2?' SELECTED':''?> ><?=$curryear+2?></option>
-            </select>
+      /**
+       * USERLIST
+       * Search, Group
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"userlist.php")AND isAllowed("manageUsers")) {
+         include ($CONF['app_root']."includes/options_userlist_inc.php");
+      }
 
-            <!-- Months to show drop down -->
-            <select id="show_id" name="show_id" class="select">
-               <option value="1" <?=$CONF['options']['show_id']=="1"?' SELECTED':''?>><?=$LANG['drop_show_1_months']?></option>
-               <option value="2" <?=$CONF['options']['show_id']=="2"?' SELECTED':''?>><?=$LANG['drop_show_2_months']?></option>
-               <option value="3" <?=$CONF['options']['show_id']=="3"?' SELECTED':''?>><?=$LANG['drop_show_3_months']?></option>
-               <option value="6" <?=$CONF['options']['show_id']=="6"?' SELECTED':''?>><?=$LANG['drop_show_6_months']?></option>
-               <option value="12" <?=$CONF['options']['show_id']=="12"?' SELECTED':''?>><?=$LANG['drop_show_12_months']?></option>
-            </select>
-            &nbsp;
-         <?php
-            $optionitems++;
-         }
-      } ?>
-      </span>
+      /**
+       * GROUP ASSIGN
+       * Search
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"groupassign.php")AND isAllowed("manageGroupMemberships")) {
+         include ($CONF['app_root']."includes/options_groupassign_inc.php");
+      }
 
-      <span id="optionsbar-buttons">
-         <?php if ( $optionitems ) { ?>
-            <input name="btn_apply" type="button" class="button" onclick="document.forms.form_teamcal.submit();" value="<?=$LANG['btn_apply']?>">
-            <input name="btn_reset" type="button" class="button" onclick="javascript:document.location.href='<?=$_SERVER['PHP_SELF']?>'" value="<?=$LANG['btn_reset']?>">
-         <?php }
-         /**
-          * Display announcement icon for this user
-          */
-         if (isAllowed("viewAnnouncements")) {
-            $uas=$UA->getAllForUser($UL->username);
-            if (count($uas)) { ?>
-          	   <a href="announcement.php?uaname=<?=$UL->username?>"><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" title="You got Announcements..." style="padding-left: 18px; vertical-align: middle;"></a> (<?=count($uas)?>)
-        	   <?php }
-         }
-         ?>
+      /**
+       * ABSENCES
+       * Select, Create
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"absences.php")AND isAllowed("editAbsenceTypes")) {
+         include ($CONF['app_root']."includes/options_absences_inc.php");
+      }
+
+      /**
+       * ANNOUNCEMENT ICON
+       */
+      if (isAllowed("viewAnnouncements")) {
+         $uas=$UA->getAllForUser($UL->username);
+         if (count($uas)) { ?>
+       	   <a href="announcement.php?uaname=<?=$UL->username?>"><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" title="You got Announcements..." style="padding-left: 18px; vertical-align: middle;"></a> (<?=count($uas)?>)
+     	   <?php }
+      }
+      ?>
       </span>
    </form>
 </div>
-<?php } ?>
 
 <?php
 /**
@@ -387,7 +308,7 @@ if ( $C->readConfig("showLanguage") OR
 <div id="statusbar">
    <div id="statusbar-content">
       <?php
-      if ($user = $L->checkLogin()) {
+      if ($user=$L->checkLogin()) {
          $UL->findByName($user);
 
          if( $UL->checkUserType($CONF['UTUSER']) ) {

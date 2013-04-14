@@ -5,7 +5,7 @@
  * Displays and runs the statistics page
  *
  * @package TeamCalPro
- * @version 3.6.001
+ * @version 3.6.002 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -88,6 +88,7 @@ $nofdays    = sprintf("%02d",date("t",time()));
 /**
  * Defaults
  */
+$periodType = "standard";
 $periodFrom = $yeartoday.$monthtoday."01";
 $periodTo = $yeartoday.$monthtoday.$nofdays;
 $statgroup = "%";
@@ -99,84 +100,93 @@ $periodAbsenceName = "All";
  * APPLY
  */
 if (isset($_POST['btn_apply'])) {
-   switch ( $_POST['period'] ) {
-      case "curr_month":
-         $periodFrom = $yeartoday.$monthtoday."01";
-         $periodTo = $yeartoday.$monthtoday.$nofdays;
-         break;
-      case "curr_quarter":
-         switch ($monthtoday) {
-            case 1:
-            case 2:
-            case 3:
-               $periodFrom = $yeartoday."0101";
-               $periodTo = $yeartoday."0331";
-               break;
-            case 4:
-            case 5:
-            case 6:
-               $periodFrom = $yeartoday."0401";
-               $periodTo = $yeartoday."0630";
-               break;
-            case 7:
-            case 8:
-            case 9:
-               $periodFrom = $yeartoday."0701";
-               $periodTo = $yeartoday."0930";
-               break;
-            case 10:
-            case 11:
-            case 12:
-               $periodFrom = $yeartoday."1001";
-               $periodTo = $yeartoday."1231";
-               break;
-         }
-         break;
-      case "curr_half":
-         switch ($monthtoday) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-               $periodFrom = $yeartoday."0101";
-               $periodTo = $yeartoday."0630";
-               break;
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-               $periodFrom = $yeartoday."0701";
-               $periodTo = $yeartoday."1231";
-               break;
-         }
-         break;
-      case "curr_year":
-         $periodFrom = $yeartoday."0101";
-         $periodTo = $yeartoday."1231";
-         break;
-      case "curr_period":
-         $periodFrom = str_replace("-","",$C->readConfig("defperiodfrom"));
-         $periodTo = str_replace("-","",$C->readConfig("defperiodto"));
-         break;
+   if (isset($_POST['optPeriod']) AND $_POST['optPeriod']=="standard") {
+      /*
+       * Standard period was selected
+       */
+      $periodType = "standard";
+      switch ( $_POST['period'] ) {
+         case "curr_month":
+            $periodFrom = $yeartoday.$monthtoday."01";
+            $periodTo = $yeartoday.$monthtoday.$nofdays;
+            break;
+         case "curr_quarter":
+            switch ($monthtoday) {
+               case 1:
+               case 2:
+               case 3:
+                  $periodFrom = $yeartoday."0101";
+                  $periodTo = $yeartoday."0331";
+                  break;
+               case 4:
+               case 5:
+               case 6:
+                  $periodFrom = $yeartoday."0401";
+                  $periodTo = $yeartoday."0630";
+                  break;
+               case 7:
+               case 8:
+               case 9:
+                  $periodFrom = $yeartoday."0701";
+                  $periodTo = $yeartoday."0930";
+                  break;
+               case 10:
+               case 11:
+               case 12:
+                  $periodFrom = $yeartoday."1001";
+                  $periodTo = $yeartoday."1231";
+                  break;
+            }
+            break;
+         case "curr_half":
+            switch ($monthtoday) {
+               case 1:
+               case 2:
+               case 3:
+               case 4:
+               case 5:
+               case 6:
+                  $periodFrom = $yeartoday."0101";
+                  $periodTo = $yeartoday."0630";
+                  break;
+               case 7:
+               case 8:
+               case 9:
+               case 10:
+               case 11:
+               case 12:
+                  $periodFrom = $yeartoday."0701";
+                  $periodTo = $yeartoday."1231";
+                  break;
+            }
+            break;
+         case "curr_year":
+            $periodFrom = $yeartoday."0101";
+            $periodTo = $yeartoday."1231";
+            break;
+         case "curr_period":
+            $periodFrom = str_replace("-","",$C->readConfig("defperiodfrom"));
+            $periodTo = str_replace("-","",$C->readConfig("defperiodto"));
+            break;
+      }
    }
-   $periodAbsence = $_POST['periodabsence'];
-   $A->findBySymbol($periodAbsence);
-   $periodAbsenceName = $A->dspname;
+   else {
+      /*
+       * Custom period was selected
+       */
+      $periodType = "custom";
+      $periodFrom = str_replace("-","",$_POST['rangefrom']);
+      $periodTo = str_replace("-","",$_POST['rangeto']);
+   }
+
+   /*
+    * Get group and absence
+    */
    if ($_POST['periodgroup']=="All") $statgroup="%";
    else $statgroup = $_POST['periodgroup'];
-}
-else if (isset($_POST['btn_apply_custom'])) {
-   $periodFrom = str_replace("-","",$_POST['rangefrom']);
-   $periodTo = str_replace("-","",$_POST['rangeto']);
-   $periodAbsence = $_POST['customabsence'];
-   $A->findBySymbol($periodAbsence);
-   $periodAbsenceName = $A->dspname;
-   if ($_POST['customgroup']=="All") $statgroup="%";
-   else $statgroup = $_POST['customgroup'];
+   $periodAbsence = $_POST['periodabsence'];
+   $A->get($periodAbsence);
+   $periodAbsenceName = $A->name;
 }
 
 /**
@@ -208,119 +218,8 @@ require( "includes/menu_inc.php" );
          </tr>
          <tr>
             <td class="dlg-body">
-            <div align="center">
-                  <table style="width: 98%">
-                     <tr>
-                        <td style="vertical-align: top; width: 50%;">
-                           <fieldset><legend><?=$LANG['stat_choose_period']?></legend>
-                           <form  name="period" method="POST" action="<?=($_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang'])?>">
-                              <table>
-                                 <tr>
-                                    <td style="padding-right: 6px; vertical-align: top;">
-                                       <select name="period" id="period" class="select">
-                                          <option class="option" value="curr_month" <?=((isset($_POST['period']) AND $_POST['period']=="curr_month")?'selected':'')?>><?=$LANG['stat_period_month']?></option>
-                                          <option class="option" value="curr_quarter" <?=((isset($_POST['period']) AND $_POST['period']=="curr_quarter")?'selected':'')?>><?=$LANG['stat_period_quarter']?></option>
-                                          <option class="option" value="curr_half" <?=((isset($_POST['period']) AND $_POST['period']=="curr_half")?'selected':'')?>><?=$LANG['stat_period_half']?></option>
-                                          <option class="option" value="curr_year" <?=((isset($_POST['period']) AND $_POST['period']=="curr_year")?'selected':'')?>><?=$LANG['stat_period_year']?></option>
-                                          <option class="option" value="curr_period" <?=((isset($_POST['period']) AND $_POST['period']=="curr_period")?'selected':'')?>><?=$LANG['stat_period_period']?></option>
-                                       </select>
-                                       <select name="periodgroup" id="periodgroup" class="select">
-                                          <option class="option" value="All" <?=($statgroup=="All"?"selected":"")?>><?=$LANG['drop_group_all']?></option>
-                                          <?php
-                                          $groups = $G->getAll();
-                                          foreach ($groups as $row) {
-                                             $G->findByName(stripslashes($row['groupname']));
-                                             if (!$G->checkOptions($CONF['G_HIDE']) ) {
-                                                if ($statgroup==$G->groupname)
-                                                   echo ("<option value=\"".$statgroup."\" selected>".$statgroup."</option>");
-                                                else
-                                                   echo ("<option value=\"".$G->groupname."\">".$G->groupname."</option>");
-                                             }
-                                          }
-                                          ?>
-                                       </select>
-                                       <select name="periodabsence" id="periodabsence" class="select">
-                                          <option class="option" value="All" <?=($periodAbsence=="All"?"selected":"")?>><?=$LANG['drop_group_all']?></option>
-                                          <?php
-                                          $absences = $A->getAll();
-                                          foreach ($absences as $abs) {
-                                             if ($periodAbsence == $abs['id'])
-                                                echo ("<option value=\"".$abs['symbol']."\" selected>".$abs['name']."</option>");
-                                             else
-                                                echo ("<option value=\"".$abs['symbol']."\" >".$abs['name']."</option>");
-                                          }
-                                          ?>
-                                       </select>
-                                    </td>
-                                    <td style="vertical-align: middle;">
-                                       <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-                                    </td>
-                                 </tr>
-                              </table>
-                           </form>
-                           </fieldset>
-                        </td>
-                        <td style="vertical-align: top; width: 50%;">
-                           <fieldset><legend><?=$LANG['stat_choose_custom_period']?></legend>
-                           <form  name="period_custom" method="POST" action="<?=($_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang'])?>">
-                              <table>
-                                 <tr>
-                                    <td style="padding-right: 6px;">
-                                       <script type="text/javascript">
-                                          $(function() { $( "#rangefrom" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
-                                          $(function() { $( "#rangeto" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
-                                       </script>
-                                       <?php
-                                       if (isset($_POST['rangefrom'])) $rangefromdate = $_POST['rangefrom']; else $rangefromdate = $yeartoday."-01-01"
-                                       ?>
-                                       <input name="rangefrom" id="rangefrom" size="10" maxlength="10" type="text" class="text" value="<?php echo $rangefromdate; ?>">
-                                    </td>
-                                    <td style="padding-right: 6px;">
-                                       <?php
-                                       if (isset($_POST['rangeto'])) $rangetodate = $_POST['rangeto']; else $rangetodate = $yeartoday."-12-31"
-                                       ?>
-                                       <input name="rangeto" id="rangeto" size="10" maxlength="10" type="text" class="text" value="<?php echo $rangetodate; ?>">
-                                    </td>
-                                    <td style="padding-right: 6px;">
-                                       <select name="customgroup" id="customgroup" class="select">
-                                          <option class="option" value="All" <?=($statgroup=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
-                                          <?php
-                                          $groups = $G->getAll();
-                                          foreach ($groups as $row) {
-                                             $G->findByName(stripslashes($row['groupname']));
-                                             if (!$G->checkOptions($CONF['G_HIDE']) ) {
-                                                if ($statgroup==$G->groupname)
-                                                   echo ("<option value=\"" . $statgroup . "\" SELECTED=\"selected\">" . $statgroup . "</option>");
-                                                else
-                                                   echo ("<option value=\"" . $G->groupname . "\" >" . $G->groupname . "</option>");
-                                             }
-                                          }
-                                          ?>
-                                       </select>
-                                       <select name="customabsence" id="customabsence" class="select">
-                                          <option class="option" value="All" <?=($periodAbsence=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
-                                          <?php
-                                          $absences = $A->getAll();
-                                          foreach ($absences as $abs) {
-                                             if ($periodAbsence == $abs['id'])
-                                                echo ("<option value=\"" . $abs['symbol'] . "\" SELECTED=\"selected\">" . $abs['name'] . "</option>");
-                                             else
-                                                echo ("<option value=\"" . $abs['symbol'] . "\" >" . $abs['name'] . "</option>");
-                                          }
-                                          ?>
-                                       </select>
-                                    </td>
-                                    <td style="vertical-align: middle;">
-                                       <input name="btn_apply_custom" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-                                    </td>
-                                 </tr>
-                              </table>
-                           </form>
-                           </fieldset>
-		                  </td>
-                     </tr>
-                  </table>
-
+               <div align="center">
+   
                   <!-- TOTAL ABSENCE USER-->
                   <?php
                   $legend=array();
@@ -381,7 +280,7 @@ require( "includes/menu_inc.php" );
                   echo "</td></tr></table>\n\r";
                   echo "</fieldset><br>\n\r";
                   ?>
-
+   
                   <!-- TOTAL PRESENCE USER-->
                   <?php
                   $legend=array();
@@ -440,7 +339,7 @@ require( "includes/menu_inc.php" );
                   echo "</td></tr></table>\n\r";
                   echo "</fieldset><br>\n\r";
                   ?>
-
+   
                   <!-- TOTAL ABSENCE GROUP -->
                   <?php
                   $legend=array();
@@ -484,7 +383,7 @@ require( "includes/menu_inc.php" );
                         echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$group['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
                      }
                   }
-
+   
                   /**
                    * Get totals of all team members
                    */
@@ -495,7 +394,7 @@ require( "includes/menu_inc.php" );
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." days</b></td></tr>\n\r";
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." days</b></td></tr>\n\r";
-
+   
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
                   $header = $LANG['stat_results_total_absence_group'].$periodFrom."-".$periodTo;
@@ -504,7 +403,7 @@ require( "includes/menu_inc.php" );
                   echo "</td></tr></table>\n\r";
                   echo "</fieldset><br>\n\r";
                   ?>
-
+   
                   <!-- TOTAL PRESENCE GROUP -->
                   <?php
                   if ($statgroup=="%") $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;All)";
@@ -547,7 +446,7 @@ require( "includes/menu_inc.php" );
                         echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$group['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
                      }
                   }
-
+   
                   /**
                    * Get totals of all team members
                    */
@@ -559,7 +458,7 @@ require( "includes/menu_inc.php" );
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." days</b></td></tr>\n\r";
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." days</b></td></tr>\n\r";
-
+   
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
                   $header = $LANG['stat_results_total_presence_group'].$periodFrom."-".$periodTo;
@@ -568,7 +467,7 @@ require( "includes/menu_inc.php" );
                   echo "</td></tr></table>\n\r";
                   echo "</fieldset><br>\n\r";
                   ?>
-
+   
                   <!-- TOTAL ABSENCE BY TYPE -->
                   <?php
                   if ($statgroup=="%") $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;All)";
@@ -611,7 +510,7 @@ require( "includes/menu_inc.php" );
                   echo "</td></tr></table>\n\r";
                   echo "</fieldset><br>\n\r";
                   ?>
-
+   
                   <!-- TOTAL REMAINDER BY TYPE -->
                   <?php
                   if ($statgroup=="%") $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;All)";
@@ -629,7 +528,7 @@ require( "includes/menu_inc.php" );
                   foreach ($absences as $abs) {
                      if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) {
                         $total=0;
-
+   
                         $groups = $G->getAllByGroup($statgroup);
                         foreach ($groups as $group) {
                            $G->findByName($group['groupname']);
@@ -670,7 +569,7 @@ require( "includes/menu_inc.php" );
                   echo "</td></tr></table>\n\r";
                   echo "</fieldset><br>\n\r";
                   ?>
-
+   
                </div>
             </td>
          </tr>

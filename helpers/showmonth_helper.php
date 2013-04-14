@@ -7,7 +7,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * seperate file.
  *
  * @package TeamCalPro
- * @version 3.6.001
+ * @version 3.6.002 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -46,7 +46,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
 
    $A  = new Absence_model;
    $AC = new Absence_model; // for Absence Count Array
-   $AL = new Allowance_model; // for Absence Count Array
+   $AL = new Allowance_model;
    $C  = new Config_model;
    $G  = new Group_model;
    $H  = new Holiday_model;
@@ -74,7 +74,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    $mytime = $month." 1,".$year;
    $myts = strtotime($mytime);
    $nofdays = date("t",$myts); // Get number of days in current month
-   $mydate = getdate($myts); // Get first weekday of the current month
+   $mydate = getdate($myts);   // Get first weekday of the current month
    $weekday1 = $mydate['wday'];
    if ($weekday1=="0") $weekday1="7";
    $monthno = sprintf("%02d",intval($mydate['mon']));
