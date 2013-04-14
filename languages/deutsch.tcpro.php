@@ -1128,8 +1128,8 @@ $LANG['stat_results_total_absence_user'] = 'Summe der Abwesenheiten pro Mitglied
 $LANG['stat_results_total_presence_user'] = 'Summe der Anwesenheiten pro Mitglied im Zeitraum:&nbsp;&nbsp;';
 $LANG['stat_results_total_absence_group'] = 'Summe der Abwesenheiten pro Gruppe im Zeitraum:&nbsp;&nbsp;';
 $LANG['stat_results_total_presence_group'] = 'Summe der Anwesenheiten pro Gruppe im Zeitraum:&nbsp;&nbsp;';
-$LANG['stat_choose_period'] = 'Standard-Zeitraum Auswahl';
-$LANG['stat_choose_custom_period'] = 'Individual-Zeitraum Auswahl';
+$LANG['stat_choose_period'] = 'Standard Zeitraum';
+$LANG['stat_choose_custom_period'] = 'Individual Zeitraum';
 
 /**
  * ============================================================================
@@ -1859,4 +1859,15 @@ $LANG['perm_perm_viewFastEdit_desc'] = "Erlaubt den Zugriff auf die Schnellbearb
  * Month Edit Dialog
  */
 $LANG['month_clear_holiday'] = 'Feiertag l&ouml;schen';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.002
+ */
+
+/**
+ * Statistics page
+ */
+$LANG['stat_choose_group'] = 'Gruppe';
+$LANG['stat_choose_absence'] = 'Abwesenheit';
 ?>

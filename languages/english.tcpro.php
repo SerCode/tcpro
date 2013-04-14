@@ -1128,8 +1128,8 @@ $LANG['stat_results_total_absence_user'] = 'Total absence per user in period:&nb
 $LANG['stat_results_total_absence_group'] = 'Total absence per group in period:&nbsp;&nbsp;';
 $LANG['stat_results_total_presence_user'] = 'Total presence per user in period:&nbsp;&nbsp;';
 $LANG['stat_results_total_presence_group'] = 'Total presence per group in period:&nbsp;&nbsp;';
-$LANG['stat_choose_period'] = 'Standard Period Selection';
-$LANG['stat_choose_custom_period'] = 'Custom Period Selection';
+$LANG['stat_choose_period'] = 'Standard Period';
+$LANG['stat_choose_custom_period'] = 'Custom Period';
 
 /**
  * ============================================================================
@@ -1859,4 +1859,15 @@ $LANG['perm_perm_viewFastEdit_desc'] = "Allows to access the Fast Edit feature i
  * Month Edit Dialog
  */
 $LANG['month_clear_holiday'] = 'Clear Holiday';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.002
+ */
+
+/**
+ * Statistics page
+ */
+$LANG['stat_choose_group'] = 'Group';
+$LANG['stat_choose_absence'] = 'Absence';
 ?>

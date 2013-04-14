@@ -1,9 +1,9 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * options_absences_inc.php
+ * options_showyear_inc.php
  *
- * Displays the absence selection in the options bar
+ * Displays the options bar for the showyear page
  *
  * @package TeamCalPro
  * @version 3.6.001 Dev

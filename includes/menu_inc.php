@@ -209,14 +209,13 @@ if ( $C->readConfig("showLanguage") OR
       <?php
       /**
        * ALL PAGES
-       * The language drop down is on all pages
+       * Language
        */
       if ($C->readConfig("showLanguage")) { 
          include ($CONF['app_root']."includes/options_language_inc.php");
          $optionitems=TRUE;
-      } ?>
-
-   	<?php 
+      }
+        
       /**
        * CALENDAR
        * Group, Region, Absence, Start-year, Start-month, Number of months
@@ -231,16 +230,24 @@ if ( $C->readConfig("showLanguage") OR
        * Year, User
        */
       if (substr_count($_SERVER['PHP_SELF'],"showyear.php") AND isAllowed("viewYearCalendar")) {
-         include ($CONF['app_root']."includes/options_yearcalendar_inc.php");
+         include ($CONF['app_root']."includes/options_showyear_inc.php");
          $optionitems=TRUE;
       }
       
+      /**
+       * GLOBAL STATISTICS
+       * Standard Period, Custom Period, Group, Absence
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"statistics.php")AND isAllowed("viewStatistics")) {
+         include ($CONF['app_root']."includes/options_statistics_inc.php");
+         $optionitems=TRUE;
+      }
       ?>
       </span>
 
       <?php
       /**
-       * Buttons and announcement icon is on all pages
+       * Buttons and announcement icon on all pages
        */
       ?>
       <span id="optionsbar-buttons">&nbsp;
