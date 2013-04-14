@@ -200,6 +200,9 @@ if (substr_count($_SERVER['PHP_SELF'],"calendar.php")) {
 else if (substr_count($_SERVER['PHP_SELF'],"permissions.php")) {
    $action=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."&amp;scheme=".$scheme;
 }
+else if (substr_count($_SERVER['PHP_SELF'],"userlist.php")) {
+   $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;searchgroup=".$searchgroup."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang'];
+}
 else {
    $action=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang'];
 }
@@ -269,6 +272,14 @@ else {
        */
       if (substr_count($_SERVER['PHP_SELF'],"permissions.php")AND isAllowed("editPermissionScheme")) {
          include ($CONF['app_root']."includes/options_permissions_inc.php");
+      }
+
+      /**
+       * USERLIST
+       * Search, Group
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"userlist.php")AND isAllowed("manageUsers")) {
+         include ($CONF['app_root']."includes/options_userlist_inc.php");
       }
 
       /**

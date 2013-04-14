@@ -1,9 +1,9 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * options_statisticsu_inc.php
+ * options_permissions_inc.php
  *
- * Displays the options bar for the remainder statistics page
+ * Displays the options bar for the permissions page
  *
  * @package TeamCalPro
  * @version 3.6.001 Dev

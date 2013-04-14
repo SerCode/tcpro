@@ -65,24 +65,22 @@ $CONF['html_title'] = $LANG['html_title_userlist'];
  */
 if (!isAllowed("manageUsers")) showError("notallowed");
 
-if ( !isset($_REQUEST['sort']) ) $sort="ascu";
-else $sort = $_REQUEST['sort'];
+/**
+ * Initiate the search parameters
+ */
+$sort="ascu";
+if ( isset($_REQUEST['sort']) ) $sort = $_REQUEST['sort'];
 
-if ( !isset($_REQUEST['searchuser']) ) $searchuser="";
-else $searchuser = mysql_real_escape_string(trim($_REQUEST['searchuser']));
+$searchuser="";
+if ( isset($_REQUEST['searchuser']) ) $searchuser = mysql_real_escape_string(trim($_REQUEST['searchuser']));
 
-if ( !isset($_REQUEST['searchgroup']) ) $searchgroup="All";
-else $searchgroup = trim($_REQUEST['searchgroup']);
+$searchgroup="All";
+if ( isset($_REQUEST['searchgroup']) ) $searchgroup = trim($_REQUEST['searchgroup']);
 
-if ( isset($_POST['btn_reset'])) {
+if ( isset($_POST['btn_usrReset'])) {
    $searchuser="";
    $searchgroup="All";
 }
-
-$monthnames = $CONF['monthnames'];
-$today = getdate();
-$curryear = $today['year']; // numeric value, 4 digits
-$currmonth = $today['mon']; // numeric value
 
 /**
  * =========================================================================
@@ -166,37 +164,6 @@ require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
-      <table class="dlg">
-         <tr>
-            <td style="padding: 8px 14px 8px 14px;">
-               <form name="search" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;searchgroup=".$searchgroup."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang']?>">
-                  <?=$LANG['user_search']?>
-                  <input name="searchuser" id="searchuser" size="30" type="text" class="text" value="<?=$searchuser?>">
-                  <!-- Group filter drop down -->
-                  &nbsp;&nbsp;<?=$LANG['nav_groupfilter']?>&nbsp;
-                  <select id="searchgroup" name="searchgroup" class="select">
-                     <option value="All" <?=($searchgroup=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
-                     <?php
-                        $groups = $G->getAll();
-                        foreach ($groups as $row) {
-                           $G->findByName(stripslashes($row['groupname']));
-                           if (!$G->checkOptions($CONF['G_HIDE']) ) {
-                              if ($searchgroup==$G->groupname)
-                                 echo ("<option value=\"" . $searchgroup . "\" SELECTED=\"selected\">" . $searchgroup . "</option>");
-                              else
-                                 echo ("<option value=\"" . $G->groupname . "\" >" . $G->groupname . "</option>");
-                           }
-                        }
-                     ?>
-                  </select>&nbsp;&nbsp;
-                  <input name="btn_search" type="submit" class="button" value="<?=$LANG['btn_search']?>">
-                  <input name="btn_reset" type="submit" class="button" value="<?=$LANG['btn_reset']?>">
-               </form>
-            </td>
-         </tr>
-      </table>
-      <br>
-
       <!--  USERS =========================================================== -->
       <?php $colspan="4"; ?>
       <table class="dlg">
