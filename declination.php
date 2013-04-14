@@ -5,7 +5,7 @@
  * Displays a declination management page
  *
  * @package TeamCalPro
- * @version 3.6.001 Dev
+ * @version 3.6.002 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
