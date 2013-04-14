@@ -1,9 +1,9 @@
 <?php
 if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
- * options_users_inc.php
+ * options_absences_inc.php
  *
- * Displays the user selection in the options bar
+ * Displays the absence selection in the options bar
  *
  * @package TeamCalPro
  * @version 3.6.001 Dev
@@ -12,7 +12,33 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
+
+$today     = getdate();
+$curryear  = $today['year'];  // A full numeric representation of todays' year, 4 digits
+$showyear = $curryear;
+if ( isset($_REQUEST['showyear'])
+      AND strlen($_REQUEST['showyear'])==4
+      AND is_numeric($_REQUEST['showyear']) )
+{
+   $showyear = $_REQUEST['showyear'];
+}
+$selectedYear=$showyear;
+
+$showuser='All';
+if (isset($_REQUEST['showuser'])) $showuser = trim($_REQUEST['showuser']);
+$selectedUser=$showuser;
 ?>
+<!-- Year drop down -->
+&nbsp;&nbsp;<?=$LANG['nav_year']?>&nbsp;
+<select name="obar_year" class="select">
+   <option value="<?=$curryear-1?>" <?=$selectedYear==$curryear-1?' SELECTED':''?> ><?=$curryear-1?></option>
+   <option value="<?=$curryear?>" <?=$selectedYear==$curryear?' SELECTED':''?> ><?=$curryear?></option>
+   <option value="<?=$curryear+1?>" <?=$selectedYear==$curryear+1?' SELECTED':''?> ><?=$curryear+1?></option>
+   <option value="<?=$curryear+2?>" <?=$selectedYear==$curryear+2?' SELECTED':''?> ><?=$curryear+2?></option>
+</select>
+
+<!-- User drop down -->
+&nbsp;&nbsp;<?=$LANG['nav_user']?>&nbsp;
 <select name="obar_user" class="select">
    <?php
    /**

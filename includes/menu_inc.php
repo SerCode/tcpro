@@ -208,11 +208,10 @@ if ( $C->readConfig("showLanguage") OR
       <span id="optionsbar-content">
       <?php
       /**
+       * ALL PAGES
        * The language drop down is on all pages
        */
       if ($C->readConfig("showLanguage")) { 
-         echo $LANG['nav_language']."&nbsp;";
-         $selectedLang=$CONF['options']['lang'];
          include ($CONF['app_root']."includes/options_language_inc.php");
          $optionitems=TRUE;
       } ?>
@@ -223,39 +222,8 @@ if ( $C->readConfig("showLanguage") OR
        * Group, Region, Absence, Start-year, Start-month, Number of months
        */
    	if (substr_count($_SERVER['PHP_SELF'],"calendar.php") AND isAllowed("viewCalendar")) {
-         if ($C->readConfig("showGroup")) {
-            echo "&nbsp;&nbsp;".$LANG['nav_groupfilter']."&nbsp;";
-            $selectedGroup=$CONF['options']['groupfilter'];
-            include ($CONF['app_root']."includes/options_groups_inc.php");
-            $optionitems=TRUE;
-         }
-
-         if ($C->readConfig("showRegion")) {
-            echo "&nbsp;&nbsp;".$LANG['nav_regionfilter']."&nbsp;";
-            $selectedRegion=$CONF['options']['region'];
-            include ($CONF['app_root']."includes/options_regions_inc.php");
-            $optionitems=TRUE;
-         }
-                        
-         if ($C->readConfig("showToday")) {
-            echo "&nbsp;&nbsp;".$LANG['nav_absencefilter']."&nbsp;";
-            $selectedAbsence=$CONF['options']['absencefilter'];
-            include ($CONF['app_root']."includes/options_absences_inc.php");
-            $optionitems=TRUE;
-         }
-
-         if ($C->readConfig("showStart")) {
-            echo "&nbsp;&nbsp;".$LANG['nav_start_with']."&nbsp;";
-            $selectedMonth=$CONF['options']['month_id'];
-            include ($CONF['app_root']."includes/options_months_inc.php");
-            
-            $selectedYear=$CONF['options']['year_id'];
-            include ($CONF['app_root']."includes/options_years_inc.php");
-
-            $selectedAmount=$CONF['options']['show_id'];
-            include ($CONF['app_root']."includes/options_monthamount_inc.php");
-            $optionitems=TRUE;
-         }
+         include ($CONF['app_root']."includes/options_calendar_inc.php");
+         $optionitems=TRUE;
       } 
 
       /**
@@ -263,24 +231,8 @@ if ( $C->readConfig("showLanguage") OR
        * Year, User
        */
       if (substr_count($_SERVER['PHP_SELF'],"showyear.php") AND isAllowed("viewYearCalendar")) {
-         echo "&nbsp;&nbsp;".$LANG['nav_year']."&nbsp;";
-         $today     = getdate();
-         $curryear  = $today['year'];  // A full numeric representation of todays' year, 4 digits
-         $showyear = $curryear;
-         if ( isset($_REQUEST['showyear']) 
-              AND strlen($_REQUEST['showyear'])==4
-              AND is_numeric($_REQUEST['showyear']) ) 
-         {
-            $showyear = $_REQUEST['showyear'];
-         }
-         $selectedYear=$showyear;
-         include ($CONF['app_root']."includes/options_years_inc.php");
-
-         echo "&nbsp;&nbsp;".$LANG['nav_user']."&nbsp;";
-         $showuser='All';
-         if (isset($_REQUEST['showuser'])) $showuser = trim($_REQUEST['showuser']);
-         $selectedUser=$showuser;
-         include ($CONF['app_root']."includes/options_userspermitted_inc.php");
+         include ($CONF['app_root']."includes/options_yearcalendar_inc.php");
+         $optionitems=TRUE;
       }
       
       ?>

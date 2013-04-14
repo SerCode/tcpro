@@ -14,8 +14,10 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  */
 ?>
 <!-- Language Drop Down -->
+<?=$LANG['nav_language']?>&nbsp;
 <select id="user_lang" name="user_lang" class="select">
 <?php
+$selectedLang=$CONF['options']['lang'];
 $array = getLanguages();
 foreach( $array as $langfile ) { ?>
    <option value="<?=$langfile?>" <?=($langfile==$selectedLang)?' SELECTED':''?>><?=$langfile?></option>
