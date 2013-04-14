@@ -56,13 +56,15 @@ $CONF['html_title'] = $LANG['html_title_groupassign'];
  */
 if (!isAllowed("manageGroupMemberships")) showError("notallowed");
 
-if ( !isset($_REQUEST['sort']) ) $sort="asc";
-else $sort = $_REQUEST['sort'];
+/**
+ * Initiate search parameters
+ */
+$sort="asc";
+if (isset($_REQUEST['sort'])) $sort = $_REQUEST['sort'];
 
-if ( !isset($_REQUEST['searchuser']) ) $searchuser="";
-else $searchuser = trim($_REQUEST['searchuser']);
-
-if (isset($_POST['btn_reset'])) $searchuser="";
+$searchuser="";
+if (isset($_REQUEST['searchuser'])) $searchuser = trim($_REQUEST['searchuser']);
+if (isset($_POST['btn_usrReset'])) $searchuser="";
 
 /**
  * =========================================================================
@@ -153,20 +155,6 @@ require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
-      <table class="dlg">
-         <tr>
-            <td style="padding: 8px 14px 8px 14px;">
-               <form name="search" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang']?>">
-                  <?=$LANG['user_search']?>
-                  <input name="searchuser" id="searchuser" size="30" type="text" class="text" value="<?=$searchuser?>">
-                  <input name="btn_search" type="submit" class="button" value="<?=$LANG['btn_search']?>">
-                  <input name="btn_reset" type="submit" class="button" value="<?=$LANG['btn_reset']?>">
-               </form>
-            </td>
-         </tr>
-      </table>
-      <br>
-
       <?php
       /**
        *  See how many groups we have and put each groupname in an array

@@ -203,6 +203,9 @@ else if (substr_count($_SERVER['PHP_SELF'],"permissions.php")) {
 else if (substr_count($_SERVER['PHP_SELF'],"userlist.php")) {
    $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;searchgroup=".$searchgroup."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang'];
 }
+else if (substr_count($_SERVER['PHP_SELF'],"groupassign.php")) {
+   $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang'];
+}
 else {
    $action=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang'];
 }
@@ -280,6 +283,14 @@ else {
        */
       if (substr_count($_SERVER['PHP_SELF'],"userlist.php")AND isAllowed("manageUsers")) {
          include ($CONF['app_root']."includes/options_userlist_inc.php");
+      }
+
+      /**
+       * GROUP ASSIGN
+       * Search
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"groupassign.php")AND isAllowed("manageGroupMemberships")) {
+         include ($CONF['app_root']."includes/options_groupassign_inc.php");
       }
 
       /**
