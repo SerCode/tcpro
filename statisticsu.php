@@ -95,16 +95,23 @@ $periodTo = $yeartoday."1231";
 /**
  * Process form
  */
-if (isset($_POST['btn_apply_group'])) {
-   $statuser="%";
-   if ($_POST['sel_group']=="All") $statgroup="%";
-   else $statgroup = $_POST['sel_group'];
+if (isset($_POST['btn_apply'])) {
+   
+   if ($_POST['sel_group']=="All") {
+      $statgroup="%";
+   }
+   else {
+      $statgroup = $_POST['sel_group'];
+   }
+   
+   if ($_POST['sel_user']=="All") {
+      $statuser="%";
+   }
+   else {
+      $statuser = $_POST['sel_user'];
+   }
 }
-else if (isset($_POST['btn_apply_user'])) {
-   $statgroup="%";
-   if ($_POST['sel_user']=="All") $statuser="%";
-   else $statuser = $_POST['sel_user'];
-}
+
 require( "includes/header_html_inc.php" );
 require( "includes/header_app_inc.php" );
 require( "includes/menu_inc.php" );
@@ -120,139 +127,92 @@ require( "includes/menu_inc.php" );
          <tr>
             <td class="dlg-body">
                <div align="center">
-                  <table style="width: 98%">
-                     <tr>
-                        <td style="vertical-align: top;">
-                           <fieldset><legend><?=$LANG['stat_u_sel_group_user']?></legend>
-                           <form  name="period" method="POST" action="<?=($_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang'])?>">
-                              <table>
-                                 <tr>
-
-                                    <td style="padding-right: 6px; vertical-align: top;"><strong><?=$LANG['stat_u_sel_group']?></strong>
-                                       <select name="sel_group" class="select">
-                                          <option class="option" value="All" <?=($statgroup=="%"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
-                                          <?php
-                                          $groups = $G->getAll();
-                                          foreach ($groups as $row) {
-                                             $G->findByName(stripslashes($row['groupname']));
-                                             if (!$G->checkOptions($CONF['G_HIDE']) ) { ?>
-                                                <option class="option" value="<?=$G->groupname?>" <?=(($statgroup==$G->groupname)?"SELECTED":"")?>><?=$G->groupname?></option>
-                                             <?php }
-                                          }
-                                          ?>
-                                       </select>
-                                    </td>
-                                    <td style="vertical-align: middle;">
-                                       <input name="btn_apply_group" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-                                       &nbsp;&nbsp;&nbsp;
-                                    </td>
-
-                                    <td style="padding-right: 6px; vertical-align: top;"><strong><?=$LANG['stat_u_sel_user']?></strong>
-                                       <select name="sel_user" class="select">
-                                          <option class="option" value="All" <?=($statuser=="%"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
-                                          <?php
-                                          $users = $U->getAllButAdmin();
-                                          foreach ($users as $row) { ?>
-                                             <option value="<?=$row['username']?>" <?=(($statuser==$row['username'])?'SELECTED':'')?>><?=$row['lastname']?>, <?=$row['firstname']?></option>
-                                          <?php } ?>
-                                       </select>
-                                    </td>
-                                    <td style="vertical-align: middle;">
-                                       <input name="btn_apply_user" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-                                    </td>
-                                 </tr>
-                              </table>
-                           </form>
-                           </fieldset>
-                        </td>
-                     </tr>
-                  </table>
 
                   <!-- TOTAL REMAINDER PER USER AND ABSENCE -->
                   <?php
-                     unset($legend);
-                     unset($value);
-                     if ($statgroup=="%") $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;All)";
-                     else $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;".$statgroup.")";
-                     /**
-                      * Loop through all groups
-                      */
-                     $groups = $G->getAllByGroup($statgroup);
-                     foreach ($groups as $group) {
-                        $G->findByName($group['groupname']);
-                        if (!$G->checkOptions($CONF['G_HIDE']) ) {
-                           $total=0;
-                           /**
-                            * Now loop through all users in this group
-                            */
-                           $gusers = $UG->getAllforGroup($group['groupname']);
-                           foreach ($gusers as $guser) {
-                              $U1->findByName($guser);
-                              if ( !$U1->checkUserType($CONF['UTTEMPLATE']) ) {
-                                 if ( strlen($U1->firstname)) $displayname = $U1->lastname.", ".$U1->firstname;
-                                 else                         $displayname = $U1->lastname;
-                                 echo "<fieldset style=\"text-align: left; width: 96%;\"><legend>".$LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname."</legend>";
-                                 echo "<table><tr><td style=\"vertical-align: top;\">\n\r";
-                                 echo "<table>\n\r";
-                                 echo "<tr>" .
-                                       "   <td class=\"stat-header\" style=\"border-bottom: 1px solid #999999;\">".$LANG['stat_u_type']."</td>" .
-                                       "   <td class=\"stat-header-r\" style=\"width: auto;\">".($yeartoday-1)."</td>" .
-                                       "   <td class=\"stat-header-r\" style=\"width: auto;\">".$yeartoday."</td>" .
-                                       "   <td class=\"stat-header-r\" style=\"width: auto;\">".$LANG['stat_u_taken']."</td>" .
-                                       "   <td class=\"stat-header-r\">".$LANG['stat_u_total_remainder']."</td>" .
-                                       "</tr>\n\r";
+                  unset($legend);
+                  unset($value);
+                  if ($statgroup=="%") $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;All)";
+                  else $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;".$statgroup.")";
+                  /**
+                   * Loop through all groups
+                   */
+                  $groups = $G->getAllByGroup($statgroup);
+                  foreach ($groups as $group) {
+                     $G->findByName($group['groupname']);
+                     if (!$G->checkOptions($CONF['G_HIDE']) ) {
+                        $total=0;
+                        /**
+                         * Now loop through all users in this group
+                         */
+                        $gusers = $UG->getAllforGroup($group['groupname']);
+                        foreach ($gusers as $guser) {
+                           if ($statuser!="%" AND $statuser!=$guser) continue;
+                           $U1->findByName($guser);
+                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) ) {
+                              if ( strlen($U1->firstname)) $displayname = $U1->lastname.", ".$U1->firstname;
+                              else                         $displayname = $U1->lastname;
+                              echo "<fieldset style=\"text-align: left; width: 96%;\"><legend>".$LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname."</legend>";
+                              echo "<table><tr><td style=\"vertical-align: top;\">\n\r";
+                              echo "<table>\n\r";
+                              echo "<tr>" .
+                                    "   <td class=\"stat-header\" style=\"border-bottom: 1px solid #999999;\">".$LANG['stat_u_type']."</td>" .
+                                    "   <td class=\"stat-header-r\" style=\"width: auto;\">".($yeartoday-1)."</td>" .
+                                    "   <td class=\"stat-header-r\" style=\"width: auto;\">".$yeartoday."</td>" .
+                                    "   <td class=\"stat-header-r\" style=\"width: auto;\">".$LANG['stat_u_taken']."</td>" .
+                                    "   <td class=\"stat-header-r\">".$LANG['stat_u_total_remainder']."</td>" .
+                                    "</tr>\n\r";
 
-                                 /**
-                                  * Get total remainders per absence type for current year for this user
-                                  */
-                                 unset($legend);
-                                 unset($value);
-                                 $sum=0;
-                                 $absences = $A->getAll();
-                                 foreach ($absences as $abs) {
-                                    if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) {
-                                       $total=0;
-                                       if ( $B->find($guser,$A->id) ) {
-                                          $lstyr = $B->lastyear;
-                                          $allow = $B->curryear;
-                                       }else{
-                                          $lstyr = 0;
-                                          $allow = $A->allowance;
-                                       }
-                                       $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo);
-                                       $total += ($lstyr+$allow)-($taken);
-                                       $sum += $total;
-                                       $legend[] = $A->name;
-                                       $value[] = $total;
-                                       echo "<tr>" .
-                                             "   <td class=\"stat-caption\" style=\"white-space:nowrap;\">".$A->name."</td>" .
-                                             "   <td class=\"stat-value\" style=\"width: auto;\">".$lstyr."</td>" .
-                                             "   <td class=\"stat-value\" style=\"width: auto;\">".$allow."</td>" .
-                                             "   <td class=\"stat-value\" style=\"width: auto; color: #AA0000;\">".$taken."</td>" .
-                                             "   <td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td>" .
-                                             "</tr>\n\r";
+                              /**
+                               * Get total remainders per absence type for current year for this user
+                               */
+                              unset($legend);
+                              unset($value);
+                              $sum=0;
+                              $absences = $A->getAll();
+                              foreach ($absences as $abs) {
+                                 if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) {
+                                    $total=0;
+                                    if ( $B->find($guser,$A->id) ) {
+                                       $lstyr = $B->lastyear;
+                                       $allow = $B->curryear;
+                                    }else{
+                                       $lstyr = 0;
+                                       $allow = $A->allowance;
                                     }
+                                    $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $total += ($lstyr+$allow)-($taken);
+                                    $sum += $total;
+                                    $legend[] = $A->name;
+                                    $value[] = $total;
+                                    echo "<tr>" .
+                                          "   <td class=\"stat-caption\" style=\"white-space:nowrap;\">".$A->name."</td>" .
+                                          "   <td class=\"stat-value\" style=\"width: auto;\">".$lstyr."</td>" .
+                                          "   <td class=\"stat-value\" style=\"width: auto;\">".$allow."</td>" .
+                                          "   <td class=\"stat-value\" style=\"width: auto; color: #AA0000;\">".$taken."</td>" .
+                                          "   <td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td>" .
+                                          "</tr>\n\r";
                                  }
                               }
-                              echo "<tr>" .
-                                   "   <td class=\"stat-sum-caption\">".$LANG['stat_u_total']."</td>" .
-                                   "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
-                                   "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
-                                   "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
-                                   "   <td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." days</b></td>" .
-                                   "</tr>\n\r";
-                              echo "</table>\n\r";
-                              echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
-                              $header = $LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname;
-                              $footer = "";
-                              echo $ST->barGraphH($legend,$value,$diagramwidth,$barareawidth,"green",$header,$footer);
-                              echo "</td></tr></table>\n\r";
-                              echo "</fieldset><br>\n\r";
                            }
+                           echo "<tr>" .
+                                "   <td class=\"stat-sum-caption\">".$LANG['stat_u_total']."</td>" .
+                                "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
+                                "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
+                                "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
+                                "   <td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." days</b></td>" .
+                                "</tr>\n\r";
+                           echo "</table>\n\r";
+                           echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
+                           $header = $LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname;
+                           $footer = "";
+                           echo $ST->barGraphH($legend,$value,$diagramwidth,$barareawidth,"green",$header,$footer);
+                           echo "</td></tr></table>\n\r";
+                           echo "</fieldset><br>\n\r";
                         }
                      }
+                  }
                   ?>
-
                </div>
             </td>
          </tr>

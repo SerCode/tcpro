@@ -242,6 +242,16 @@ if ( $C->readConfig("showLanguage") OR
          include ($CONF['app_root']."includes/options_statistics_inc.php");
          $optionitems=TRUE;
       }
+
+      /**
+       * REMAINDER STATISTICS
+       * Group, User
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"statisticsu.php")AND isAllowed("viewStatistics")) {
+         include ($CONF['app_root']."includes/options_statisticsu_inc.php");
+         $optionitems=TRUE;
+      }
+
       ?>
       </span>
 
