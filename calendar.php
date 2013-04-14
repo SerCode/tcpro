@@ -96,7 +96,7 @@ if ( isset($_REQUEST['page']) AND is_numeric($_REQUEST['page'])) {
 }
 
 /**
- * Collect date info
+ * Date info
  */
 $monthnames = $CONF['monthnames'];
 $groupfilter = $CONF['options']['groupfilter'];
