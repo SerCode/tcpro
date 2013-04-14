@@ -30,8 +30,10 @@ require_once ("config.tcpro.php");
 require_once ("models/absence_model.php" );
 require_once ("models/announcement_model.php" );
 require_once ("models/config_model.php");
+require_once ("models/group_model.php");
 require_once ("models/login_model.php");
 require_once ("models/log_model.php");
+require_once ("models/region_model.php");
 require_once ("models/template_model.php");
 require_once ("models/user_model.php");
 require_once ("models/user_announcement_model.php" );
@@ -46,15 +48,17 @@ require_once ("helpers/showmonth_helper.php");
 /**
  * Create model instances
  */
-$A = new Absence_model;
-$AN = new Announcement_model;
-$C = new Config_model;
-$L = new Login_model;
+$A   = new Absence_model;
+$AN  = new Announcement_model;
+$C   = new Config_model;
+$G   = new Group_model;
+$L   = new Login_model;
 $LOG = new Log_model;
-$T = new Template_model;
-$U = new User_model;
-$UA = new User_announcement_model;
-$UO = new User_option_model;
+$R   = new Region_model;
+$T   = new Template_model;
+$U   = new User_model;
+$UA  = new User_announcement_model;
+$UO  = new User_option_model;
 
 /**
  * Get other options

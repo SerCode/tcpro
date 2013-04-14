@@ -1651,10 +1651,10 @@ $LANG['log_clear_confirm'] = 'Are you sure you want to clear the system log? All
 /*
  * Absence type page
  */
-$LANG['abs_sel_abs'] = 'Select existing absence type';
+$LANG['abs_sel_abs'] = 'Select absence';
 $LANG['abs_sel_confirm'] = "Are you sure you want to select this absence type?\\nAll changes to the current one that have not been applied will be lost.";
 $LANG['abs_del_confirm'] = "Are you sure you want to delete this absence type: ";
-$LANG['abs_create_abs'] = 'New absence type (name)';
+$LANG['abs_create_abs'] = 'Create absence';
 $LANG['abs_title'] = 'Absence type seetings for \'';
 $LANG['abs_help_title'] = 'Absence type settings';
 $LANG['abs_sample'] = 'Sample display';

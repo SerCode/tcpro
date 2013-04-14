@@ -1651,10 +1651,10 @@ $LANG['log_clear_confirm'] = 'Bist du sicher, dass du das System log l&ouml;sche
 /*
  * Absence type page
  */
-$LANG['abs_sel_abs'] = 'Abwesenheitstyp ausw&auml;hlen';
+$LANG['abs_sel_abs'] = 'Typ ausw&auml;hlen';
 $LANG['abs_sel_confirm'] = "Soll dieser Abwesenheitstyp ausgew&auml;hlt werden?\\nAlle noch nicht gespeicherten &Auml;nderungen gehen verloren.";
 $LANG['abs_del_confirm'] = "Soll dieser Abwesenheitstyp ausgew&auml;hlt werden?: ";
-$LANG['abs_create_abs'] = 'Neuer Abwesenheitstyp (Name)';
+$LANG['abs_create_abs'] = 'Typ anlegen';
 $LANG['abs_title'] = 'Abwesenheitstyp Einstellungen f&uuml;r "';
 $LANG['abs_help_title'] = 'Abwesenheitstyp Einstellungen';
 $LANG['abs_sample'] = 'Beispielanzeige';

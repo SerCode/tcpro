@@ -27,6 +27,7 @@ if (!class_exists("Absence_model")) {
       var $table = '';
       var $log = '';
       var $logtype = '';
+      var $id = 0;
       var $name = '';
       var $symbol = '';
       var $icon = '';

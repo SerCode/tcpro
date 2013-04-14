@@ -109,8 +109,7 @@ $roles = array (
  * Set the scheme to load
  */
 $scheme="Default";
-if ( isset($_REQUEST['scheme']) ) $scheme = $_REQUEST['scheme'];
-if (isset($_POST['sel_scheme'])) header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
+if (isset($_REQUEST['scheme'])) $scheme = $_REQUEST['scheme'];
 
 /**
  * ========================================================================
@@ -222,6 +221,9 @@ else if ( isset($_POST['btn_permApply']) ) {
    header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme."&lang=".$CONF['options']['lang']);
    die();
 }
+
+if (isset($_POST['sel_scheme'])) header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
+
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");

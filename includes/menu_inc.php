@@ -13,31 +13,11 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
-/**
- * Includes
- */
-require_once ("config.tcpro.php");
-require_once ($CONF['app_root']."helpers/global_helper.php");
-require_once ($CONF['app_root']."languages/".$CONF['options']['lang'].".tcpro.php");
+require_once("models/user_announcement_model.php");
 
-require_once ($CONF['app_root']."models/absence_model.php");
-require_once ($CONF['app_root']."models/group_model.php");
-require_once ($CONF['app_root']."models/region_model.php");
-require_once ($CONF['app_root']."models/user_announcement_model.php");
-require_once ($CONF['app_root']."models/user_group_model.php");
-require_once ($CONF['app_root']."models/user_option_model.php");
-
-$A = new Absence_model;
-$G = new Group_model;
-$L = new Login_model;
-$R = new Region_model;
+$L  = new Login_model;
 $UA = new User_announcement_model;
-$UG = new User_group_model;
 $UL = new User_model;
-$UO = new User_option_model;
-
-$user=$L->checkLogin();
-$UL->findByName($user);
 
 /**
  * Build menu flags based on permissions
@@ -206,6 +186,9 @@ else if (substr_count($_SERVER['PHP_SELF'],"userlist.php")) {
 else if (substr_count($_SERVER['PHP_SELF'],"groupassign.php")) {
    $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang'];
 }
+else if (substr_count($_SERVER['PHP_SELF'],"absences.php")) {
+   $action=$_SERVER['PHP_SELF']."?absid=".$absid."&amp;lang=".$CONF['options']['lang'];
+}
 else {
    $action=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang'];
 }
@@ -294,6 +277,14 @@ else {
       }
 
       /**
+       * ABSENCES
+       * Select, Create
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"absences.php")AND isAllowed("editAbsenceTypes")) {
+         include ($CONF['app_root']."includes/options_absences_inc.php");
+      }
+
+      /**
        * ANNOUNCEMENT ICON
        */
       if (isAllowed("viewAnnouncements")) {
@@ -317,7 +308,7 @@ else {
 <div id="statusbar">
    <div id="statusbar-content">
       <?php
-      if ($user = $L->checkLogin()) {
+      if ($user=$L->checkLogin()) {
          $UL->findByName($user);
 
          if( $UL->checkUserType($CONF['UTUSER']) ) {
