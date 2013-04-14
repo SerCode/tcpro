@@ -194,17 +194,19 @@ $m = buildMenu();
  * OPTIONS BAR
  */
 $optionitems=FALSE;
-if ( $C->readConfig("showLanguage") OR
-     $C->readConfig("showGroup") OR
-     $C->readConfig("showToday") OR
-     $C->readConfig("showStart") OR
-     substr_count($_SERVER['PHP_SELF'],"calendar.php") OR
-     substr_count($_SERVER['PHP_SELF'],"showyear.php")
-   ) {
+if (substr_count($_SERVER['PHP_SELF'],"calendar.php")) {
+   $action=$_SERVER['PHP_SELF']."?".setRequests();
+}
+else if (substr_count($_SERVER['PHP_SELF'],"permissions.php")) {
+   $action=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."&amp;scheme=".$scheme;
+}
+else {
+   $action=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang'];
+}
 ?>
 <!-- OPTIONS BAR ========================================================== -->
 <div id="optionsbar">
-   <form class="form" method="POST" name="form_options" action="<?=$_SERVER['PHP_SELF']."?".setRequests()?>">
+   <form class="form" method="POST" name="form_options" action="<?=$action?>">
       <span id="optionsbar-content">
       <?php
       /**
@@ -252,33 +254,36 @@ if ( $C->readConfig("showLanguage") OR
          $optionitems=TRUE;
       }
 
-      ?>
-      </span>
-
-      <?php
       /**
-       * Buttons and announcement icon on all pages
+       * OPTION BUTTONS
+       * Select scheme, Create scheme
        */
+      if ( $optionitems ) { ?>
+         <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
+         <input name="btn_reset" type="button" class="button" onclick="javascript:document.location.href='<?=$_SERVER['PHP_SELF']?>'" value="<?=$LANG['btn_reset']?>">
+      <?php }
+
+      /**
+       * PERMISSIONS
+       * Select scheme, Create scheme
+       */
+      if (substr_count($_SERVER['PHP_SELF'],"permissions.php")AND isAllowed("editPermissionScheme")) {
+         include ($CONF['app_root']."includes/options_permissions_inc.php");
+      }
+
+      /**
+       * ANNOUNCEMENT ICON
+       */
+      if (isAllowed("viewAnnouncements")) {
+         $uas=$UA->getAllForUser($UL->username);
+         if (count($uas)) { ?>
+       	   <a href="announcement.php?uaname=<?=$UL->username?>"><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" title="You got Announcements..." style="padding-left: 18px; vertical-align: middle;"></a> (<?=count($uas)?>)
+     	   <?php }
+      }
       ?>
-      <span id="optionsbar-buttons">&nbsp;
-         <?php if ( $optionitems ) { ?>
-            <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-            <input name="btn_reset" type="button" class="button" onclick="javascript:document.location.href='<?=$_SERVER['PHP_SELF']?>'" value="<?=$LANG['btn_reset']?>">
-         <?php }
-         /**
-          * Display announcement icon for this user
-          */
-         if (isAllowed("viewAnnouncements")) {
-            $uas=$UA->getAllForUser($UL->username);
-            if (count($uas)) { ?>
-          	   <a href="announcement.php?uaname=<?=$UL->username?>"><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" title="You got Announcements..." style="padding-left: 18px; vertical-align: middle;"></a> (<?=count($uas)?>)
-        	   <?php }
-         }
-         ?>
       </span>
    </form>
 </div>
-<?php } ?>
 
 <?php
 /**

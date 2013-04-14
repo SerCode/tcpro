@@ -183,7 +183,7 @@ require("includes/menu_inc.php");
                document.getElementById(ele).style.backgroundImage="url('"+image+"')";
             }
          </script>
-         <form name="form-fastedit" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?action=calendar&amp;".setRequests()?>">
+         <form name="form-fastedit" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?".setRequests()?>">
       <?php }
        
       for ($i = 1; $i<= $show_id; $i++) {
