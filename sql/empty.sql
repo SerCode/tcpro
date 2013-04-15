@@ -4,6 +4,7 @@
 -- Table structure for table `my_tc_absences`
 --
 
+DROP TABLE IF EXISTS `my_tc_absences`;
 CREATE TABLE IF NOT EXISTS `my_tc_absences` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) NOT NULL,
@@ -30,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_absences` (
 -- Table structure for table `my_tc_absence_group`
 --
 
+DROP TABLE IF EXISTS `my_tc_absence_group`;
 CREATE TABLE IF NOT EXISTS `my_tc_absence_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `absid` int(11) DEFAULT NULL,
@@ -43,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_absence_group` (
 -- Table structure for table `my_tc_allowances`
 --
 
+DROP TABLE IF EXISTS `my_tc_allowances`;
 CREATE TABLE IF NOT EXISTS `my_tc_allowances` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) NOT NULL,
@@ -59,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_allowances` (
 -- Table structure for table `my_tc_announcements`
 --
 
+DROP TABLE IF EXISTS `my_tc_announcements`;
 CREATE TABLE IF NOT EXISTS `my_tc_announcements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -75,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_announcements` (
 -- Table structure for table `my_tc_config`
 --
 
+DROP TABLE IF EXISTS `my_tc_config`;
 CREATE TABLE IF NOT EXISTS `my_tc_config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL DEFAULT '',
@@ -205,7 +210,8 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (116, 'encoding', 'UTF-8'),
 (117, 'mailSMTPSSL', '0'),
 (118, 'jqtheme', 'base'),
-(119, 'fastEdit', '0');
+(119, 'fastEdit', '0'),
+(120, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCP036%2F');
 
 -- --------------------------------------------------------
 
@@ -213,6 +219,7 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 -- Table structure for table `my_tc_daynotes`
 --
 
+DROP TABLE IF EXISTS `my_tc_daynotes`;
 CREATE TABLE IF NOT EXISTS `my_tc_daynotes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `yyyymmdd` varchar(8) DEFAULT NULL,
@@ -229,6 +236,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_daynotes` (
 -- Table structure for table `my_tc_groups`
 --
 
+DROP TABLE IF EXISTS `my_tc_groups`;
 CREATE TABLE IF NOT EXISTS `my_tc_groups` (
   `groupname` varchar(40) NOT NULL DEFAULT '',
   `description` varchar(100) DEFAULT NULL,
@@ -245,6 +253,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_groups` (
 -- Table structure for table `my_tc_holidays`
 --
 
+DROP TABLE IF EXISTS `my_tc_holidays`;
 CREATE TABLE IF NOT EXISTS `my_tc_holidays` (
   `cfgsym` char(1) NOT NULL DEFAULT '',
   `cfgname` varchar(40) DEFAULT NULL,
@@ -270,6 +279,7 @@ INSERT INTO `my_tc_holidays` (`cfgsym`, `cfgname`, `dspsym`, `dspname`, `dspcolo
 -- Table structure for table `my_tc_log`
 --
 
+DROP TABLE IF EXISTS `my_tc_log`;
 CREATE TABLE IF NOT EXISTS `my_tc_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(40) DEFAULT NULL,
@@ -287,6 +297,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_log` (
 -- Table structure for table `my_tc_months`
 --
 
+DROP TABLE IF EXISTS `my_tc_months`;
 CREATE TABLE IF NOT EXISTS `my_tc_months` (
   `yearmonth` varchar(6) NOT NULL DEFAULT '',
   `template` varchar(31) DEFAULT NULL,
@@ -301,6 +312,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_months` (
 -- Table structure for table `my_tc_permissions`
 --
 
+DROP TABLE IF EXISTS `my_tc_permissions`;
 CREATE TABLE IF NOT EXISTS `my_tc_permissions` (
   `scheme` varchar(80) NOT NULL,
   `permission` varchar(40) NOT NULL,
@@ -359,6 +371,7 @@ INSERT INTO `my_tc_permissions` (`scheme`, `permission`, `admin`, `director`, `m
 -- Table structure for table `my_tc_regions`
 --
 
+DROP TABLE IF EXISTS `my_tc_regions`;
 CREATE TABLE IF NOT EXISTS `my_tc_regions` (
   `regionname` varchar(40) NOT NULL DEFAULT '',
   `description` varchar(100) DEFAULT NULL,
@@ -379,6 +392,7 @@ INSERT INTO `my_tc_regions` (`regionname`, `description`, `options`) VALUES
 -- Table structure for table `my_tc_styles`
 --
 
+DROP TABLE IF EXISTS `my_tc_styles`;
 CREATE TABLE IF NOT EXISTS `my_tc_styles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
@@ -410,6 +424,7 @@ INSERT INTO `my_tc_styles` (`id`, `name`, `value`) VALUES
 -- Table structure for table `my_tc_templates`
 --
 
+DROP TABLE IF EXISTS `my_tc_templates`;
 CREATE TABLE IF NOT EXISTS `my_tc_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) DEFAULT NULL,
@@ -457,6 +472,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_templates` (
 -- Table structure for table `my_tc_users`
 --
 
+DROP TABLE IF EXISTS `my_tc_users`;
 CREATE TABLE IF NOT EXISTS `my_tc_users` (
   `username` varchar(40) NOT NULL DEFAULT '',
   `password` varchar(40) DEFAULT NULL,
@@ -503,6 +519,7 @@ INSERT INTO `my_tc_users` (`username`, `password`, `firstname`, `lastname`, `tit
 -- Table structure for table `my_tc_user_announcement`
 --
 
+DROP TABLE IF EXISTS `my_tc_announcement`;
 CREATE TABLE IF NOT EXISTS `my_tc_user_announcement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) DEFAULT NULL,
@@ -516,6 +533,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_user_announcement` (
 -- Table structure for table `my_tc_user_group`
 --
 
+DROP TABLE IF EXISTS `my_tc_user_group`;
 CREATE TABLE IF NOT EXISTS `my_tc_user_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) DEFAULT NULL,
@@ -530,6 +548,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_user_group` (
 -- Table structure for table `my_tc_user_options`
 --
 
+DROP TABLE IF EXISTS `my_tc_user_options`;
 CREATE TABLE IF NOT EXISTS `my_tc_user_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) DEFAULT NULL,

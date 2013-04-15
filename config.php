@@ -67,7 +67,7 @@ $yeartoday  = $today['year'];                 // A full numeric representation o
  * =========================================================================
  * APPLY
  */
-if ( isset($_POST['btn_apply']) ) {
+if ( isset($_POST['btn_confApply']) ) {
    /**
     * Calendar display options
     */
@@ -169,7 +169,13 @@ if ( isset($_POST['btn_apply']) ) {
       $C->saveConfig("jqtheme","base");
    }
    if ( isset($_POST['chk_webMeasure']) && $_POST['chk_webMeasure'] ) $C->saveConfig("webMeasure","1"); else $C->saveConfig("webMeasure","0");
-
+   if (strlen($_POST['txt_userManual'])) {
+      $C->saveConfig("userManual",urlencode($_POST['txt_userManual']));
+   }
+   else {
+      $C->saveConfig("userManual",urlencode($CONF['app_help_root']));
+   }
+    
    /**
     * System options
     */
@@ -246,8 +252,9 @@ if ( isset($_POST['btn_styles']) ) {
 $buttonrow='
 <tr>
 <td class="dlg-menu" colspan="2" style="text-align: left;">
-<input name="btn_apply" type="submit" class="button" style="font-size: 8pt;" value="'.$LANG['btn_apply'].'">
+<input name="btn_confApply" type="submit" class="button" style="font-size: 8pt;" value="'.$LANG['btn_apply'].'">
 <input name="btn_help" type="button" class="button" style="font-size: 8pt;" onclick="javascript:this.blur(); openPopup(\'help/'.$CONF['options']['helplang'].'/html/index.html?configuration.html\',\'help\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500\');" value="'.$LANG['btn_help'].'">
+<input name="btn_styles" type="submit" class="button" style="font-size: 8pt;" value="'.$LANG['btn_styles'].'">
 </td>
 </tr>';
 
@@ -280,13 +287,7 @@ if (ini_get('register_globals')) {
                <?php printDialogTop($LANG['admin_config_title'],"configuration.html","ico_configure.png"); ?>
             </td>
          </tr>
-         <tr>
-            <td class="dlg-menu" colspan="2" style="text-align: left;">
-               <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-               <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?configuration.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
-               <input name="btn_styles" type="submit" class="button" value="<?=$LANG['btn_styles']?>">
-            </td>
-         </tr>
+         <?=$buttonrow?>
          <tr>
             <td class="dlg-body">
             
@@ -962,6 +963,18 @@ if (ini_get('register_globals')) {
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                               <input class="text" name="txt_repeatUsernamesAfter" id="txt_repeatUsernamesAfter" type="text" size="5" maxlength="3" value="<?=intval($C->readConfig("repeatUsernamesAfter"))?>">
+                           </td>
+                        </tr>
+               
+                        <!-- User manual -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_usermanual']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_usermanual_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input class="text" name="txt_userManual" type="text" size="80" maxlength="80" value="<?=urldecode($C->readConfig("userManual"))?>">
                            </td>
                         </tr>
                

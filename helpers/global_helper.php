@@ -959,6 +959,13 @@ function getOptions() {
    $user = $L->checkLogin();
 
    /**
+    * Set time zone
+    */
+   $tz="UTC";
+   if (strlen($C->readConfig("timeZone"))) $tz=$C->readConfig("timeZone");
+   date_default_timezone_set($tz);
+   
+   /**
     * Set defaults
     */
    $today = getdate();

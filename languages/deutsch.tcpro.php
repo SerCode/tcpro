@@ -1870,4 +1870,14 @@ $LANG['month_clear_holiday'] = 'Feiertag l&ouml;schen';
  */
 $LANG['stat_choose_group'] = 'Gruppe';
 $LANG['stat_choose_absence'] = 'Abwesenheit';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_usermanual'] = 'Nutzerhandbuch';
+$LANG['admin_config_usermanual_comment'] = 'TeamCal Pro\'s Nutzerhandbuch ist in Englisch verf&uuml;gbar auf der TeamCal Pro Community site. '.
+'Eventuell sind aber &Uuml;bersetzungen von anderen Nutzern verf&uuml;gbar sein. Wenn das so ist, kann der Link dazu hier eingegeben werden.<br>'.
+'Wenn du selbst an der Mitarbeit oder and einer neuen &Uuml;bersetzung interssiert bist, registriere dich einfach bei der <a href="https://georgelewe.atlassian.net" target="_blank">'.
+'TeamCal Pro Community Site (https://georgelewe.atlassian.net)</a> und &ouml;ffne eine Task im Issue Tracker dazu.<br>'.
+'Wenn hier kein Eintrag gemacht wird, setzt TeamCal Pro den Standard Link ein.';
 ?>

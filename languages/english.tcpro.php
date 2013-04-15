@@ -1870,4 +1870,14 @@ $LANG['month_clear_holiday'] = 'Clear Holiday';
  */
 $LANG['stat_choose_group'] = 'Group';
 $LANG['stat_choose_absence'] = 'Absence';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_usermanual'] = 'User Manual';
+$LANG['admin_config_usermanual_comment'] = 'TeamCal Pro\'s user manual is maintained in English and is available at the TeamCal Pro community site. '.
+'However, translations might be available authored by the community. If your language is available, change the link to it here.<br>'.
+'If you are interested in participating or creating a translation, register at the <a href="https://georgelewe.atlassian.net" target="_blank">'.
+'TeamCal Pro community site (https://georgelewe.atlassian.net)</a> and create a task in the issue tracker for it.<br>'.
+'If you leave this field empty, TeamCal Pro will insert the default link.';
 ?>
