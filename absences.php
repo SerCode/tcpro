@@ -243,7 +243,18 @@ if (isset($_POST['sel_abs'])) {
    die();
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
 $CONF['html_title'] = $LANG['html_title_absences'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Absence+Types';
+}
+
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -255,7 +266,7 @@ require("includes/menu_inc.php");
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="2">
-               <?php printDialogTop($LANG['abs_title'].$A->name."' (ID=".$A->id.")","manage_absence_types.html","ico_absences.png"); ?>
+               <?php printDialogTop($LANG['abs_title'].$A->name."' (ID=".$A->id.")", $help, "ico_absences.png"); ?>
             </td>
          </tr>
          

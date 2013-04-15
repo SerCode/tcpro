@@ -54,11 +54,6 @@ $UG = new User_group_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_statistics'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("viewStatistics")) showError("notallowed");
@@ -112,6 +107,17 @@ if (isset($_POST['btn_apply'])) {
    }
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_statistics'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Remainder+Statistics';
+}
 require( "includes/header_html_inc.php" );
 require( "includes/header_app_inc.php" );
 require( "includes/menu_inc.php" );
@@ -121,7 +127,7 @@ require( "includes/menu_inc.php" );
       <table class="dlg">
          <tr>
             <td class="dlg-header">
-               <?php printDialogTop($LANG['stat_u_title']." ".$yeartoday,"statistics_display_2.html","ico_statistics.png"); ?>
+               <?php printDialogTop($LANG['stat_u_title']." ".$yeartoday, $help, "ico_statistics.png"); ?>
             </td>
          </tr>
          <tr>

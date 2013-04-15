@@ -55,11 +55,6 @@ $UO = new User_option_model;
 $error = false;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_holidays'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("editHolidays")) showError("notallowed");
@@ -193,6 +188,17 @@ else if ( isset($_POST['btn_hol_delete']) ) {
    $LOG->log("logHoliday",$L->checkLogin(),"Holiday deleted: ".$delname);
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_holidays'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Holiday+Types';
+}
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -203,7 +209,7 @@ require("includes/menu_inc.php");
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="4">
-               <?php printDialogTop($LANG['admin_holiday_title'],"manage_holiday_types.html","ico_holidays.png"); ?>
+               <?php printDialogTop($LANG['admin_holiday_title'], $help, "ico_holidays.png"); ?>
             </td>
          </tr>
          <tr>

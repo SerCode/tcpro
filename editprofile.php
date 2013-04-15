@@ -58,11 +58,6 @@ $UG  = new User_group_model;
 $UL  = new User_model;
 $UO  = new User_option_model;
 
-/**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_editprofile'];
-
 $error=false;
 $grouprights=false;
 $msg = false;
@@ -415,6 +410,17 @@ elseif (isset($_POST['btn_done'])) {
       jsCloseAndReload("userlist.php");
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_editprofile'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'User+Profile';
+}
 require( "includes/header_html_inc.php" );
 ?>
 <body>
@@ -425,7 +431,7 @@ require( "includes/header_html_inc.php" );
             <table class="dlg">
                <tr>
                   <td class="dlg-header">
-                     <?php printDialogTop($LANG['edit_profile_title'].": ".$U->title." ".$U->firstname." ".$U->lastname,"edit_profile.html","ico_users.png"); ?>
+                     <?php printDialogTop($LANG['edit_profile_title'].": ".$U->title." ".$U->firstname." ".$U->lastname, $help, "ico_users.png"); ?>
                   </td>
                </tr>
 

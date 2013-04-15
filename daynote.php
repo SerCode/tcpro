@@ -42,11 +42,6 @@ $N = new Daynote_model;
 $U = new User_model;
 $UG= new User_group_model;
 
-/**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_daynote'];
-
 $allowed=FALSE;
 $event=NULL;
 
@@ -166,6 +161,17 @@ else if (isset($_POST['btn_delete'])) {
    }
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_daynote'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Daynote';
+}
 require( "includes/header_html_inc.php" );
 ?>
 <body>
@@ -178,7 +184,7 @@ require( "includes/header_html_inc.php" );
                   <?php
                   $title=$LANG['daynote_edit_title'].$_REQUEST['datestring']." (".$LANG['month_region'].": ".$region.")";
                   if ( $_REQUEST['daynotefor']!="all" ) $title .= " ".$LANG['daynote_edit_title_for']." ".$daynote_user;
-                  printDialogTop($title,"daynote_dialog.html","ico_daynote.png");
+                  printDialogTop($title, $help, "ico_daynote.png");
                   ?>
                </td>
             </tr>

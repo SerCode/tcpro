@@ -67,9 +67,7 @@ $LANG['mnu_tools_admin_env'] = 'Umgebung';
 $LANG['mnu_tools_admin_phpinfo'] = 'PHP Info';
 $LANG['mnu_help'] = 'Hilfe';
 $LANG['mnu_help_legend'] = 'Legende';
-$LANG['mnu_help_help'] = 'Hilfe...';
-$LANG['mnu_help_help_manualbrowser'] = 'Dokumentation (Browser)';
-$LANG['mnu_help_help_manualpdf'] = 'Dokumentation (PDF)';
+$LANG['mnu_help_help'] = 'Nutzerhandbuch';
 $LANG['mnu_help_about'] = '&Uuml;ber TeamCal';
 
 /**

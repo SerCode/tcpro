@@ -50,11 +50,8 @@ $UL = new User_model;
 $UG = new User_group_model;
 
 /**
- * HTML title. Will be shown in browser tab.
+ * Find logged in user
  */
-$CONF['html_title'] = $LANG['html_title_viewprofile'];
-
-// If a user is logged in, read his record
 if ($user = $L->checkLogin()) $UL->findByName($user);
 
 if ( isset($_REQUEST['username']) ) $req_username = $_REQUEST['username'];
@@ -91,6 +88,17 @@ else if ( isset($_POST['btn_refresh']) ) {
     */
    $countfrom = stripslashes($_POST['cntfrom']);
    $countto = stripslashes($_POST['cntto']);
+}
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_viewprofile'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'View+Profile';
 }
 require( "includes/header_html_inc.php" );
 ?>

@@ -245,7 +245,7 @@ if ( isset($_POST['btn_install']) ) {
                   </td>
                   <td class="dlg-header" style="text-align: right;">
                      <div align="right">
-                        <a href="javascript:this.blur();openPopup('help/english/html/index.html?installation.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');">
+                        <a href="javascript:window.open('<?=readConfig('app_help_root','config.version.php')?>Installation').void();">
                         <img title="Installation Help..." align="middle" alt="" src="themes/tcpro/img/ico_help.png" width="16" height="16" border="0"></a>
                      </div>
                   </td>
@@ -484,7 +484,7 @@ if ( isset($_POST['btn_install']) ) {
                      }
                      </script>
                      <input name="btn_install" id="btn_install" type="submit" class="button" style="width: 100px;" value="<?=$LANG['btn_install']?>" onmouseover="checkLicense();">&nbsp;
-                     <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/english/html/index.html?installation.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=740,height=500');" value="<?=$LANG['btn_help']?>">
+                     <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=readConfig('app_help_root','config.version.php')?>Installation').void();" value="<?=$LANG['btn_help']?>">
                   </td>
                </tr>
 

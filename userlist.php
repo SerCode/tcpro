@@ -56,11 +56,6 @@ $UO = new User_option_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_userlist'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("manageUsers")) showError("notallowed");
@@ -158,6 +153,17 @@ else if ( isset($_POST['btn_usr_pwd_reset']) AND ($_POST['usr_hidden']!="admin")
    $LOG->log("logUser",$L->checkLogin(),"User password reset: ".$U->username);
    echo ("<script type=\"text/javascript\">alert(\"".$LANG['user_pwd_reset_complete']."\");</script>");
 }
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_userlist'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Users';
+}
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -169,7 +175,7 @@ require("includes/menu_inc.php");
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="<?=$colspan?>">
-               <?php printDialogTop($LANG['admin_user_title'],"manage_users.html","ico_users.png"); ?>
+               <?php printDialogTop($LANG['admin_user_title'], $help, "ico_users.png"); ?>
             </td>
          </tr>
          <tr>

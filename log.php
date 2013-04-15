@@ -42,11 +42,6 @@ $L   = new Login_model;
 $U   = new User_model;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_log'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("viewSystemLog")) showError("notallowed");
@@ -101,6 +96,17 @@ else if ( isset($_POST['btn_clear']) ) {
    $LOG->log("logLogLevel",$L->checkLogin(),"Log page: Log records cleared");
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_log'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'System+Log';
+}
 require("includes/header_html_inc.php" );
 require("includes/header_app_inc.php" );
 require("includes/menu_inc.php" );
@@ -112,7 +118,7 @@ require("includes/menu_inc.php" );
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="4">
-               <?php printDialogTop($LANG['log_title'],"system_log_page.html","ico_log.png"); ?>
+               <?php printDialogTop($LANG['log_title'], $help, "ico_log.png"); ?>
             </td>
          </tr>
          <tr>

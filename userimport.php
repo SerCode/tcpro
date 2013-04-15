@@ -43,11 +43,6 @@ $U = new User_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_userimport'];
-
-/**
  * Check authorization
  */
 if (!isAllowed("manageUsers")) showError("notallowed", TRUE);
@@ -63,6 +58,17 @@ if ( isset($_POST['btn_import']) ) {
 elseif ( isset($_POST['btn_done']) ) {
    jsCloseAndReload("userlist.php");
 }
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_userimport'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'User+Import';
+}
 require("includes/header_html_inc.php" );
 ?>
 <body>
@@ -72,7 +78,7 @@ require("includes/header_html_inc.php" );
             <table class="dlg">
                <tr>
                   <td class="dlg-header">
-                     <?php printDialogTop($LANG['uimp_title'],"user_import.html","ico_import.png"); ?>
+                     <?php printDialogTop($LANG['uimp_title'], $help, "ico_import.png"); ?>
                   </td>
                </tr>
                <tr>

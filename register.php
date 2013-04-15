@@ -47,11 +47,6 @@ $UA = new User_model;
 $UG = new User_group_model;
 $UO = new User_option_model;
 
-/**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_register'];
-
 $error = "";
 $information = "";
 
@@ -184,6 +179,15 @@ if ( isset($_POST['btn_submit']) AND in_array($_POST['lst_group'],$G->getGroups(
    }
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_register'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual")).'User+Registration';
+
 require("includes/header_html_inc.php");
 ?>
 <body>
@@ -193,7 +197,7 @@ require("includes/header_html_inc.php");
             <table class="dlg">
                <tr>
                   <td class="dlg-header">
-                     <?php printDialogTop($LANG['register_title'],"register.html","ico_register.png"); ?>
+                     <?php printDialogTop($LANG['register_title'], $help, "ico_register.png"); ?>
                   </td>
                </tr>
                <tr>

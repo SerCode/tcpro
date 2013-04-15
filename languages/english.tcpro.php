@@ -67,9 +67,7 @@ $LANG['mnu_tools_admin_env'] = 'Environment';
 $LANG['mnu_tools_admin_phpinfo'] = 'PHP Info';
 $LANG['mnu_help'] = 'Help';
 $LANG['mnu_help_legend'] = 'Legend';
-$LANG['mnu_help_help'] = 'Help...';
-$LANG['mnu_help_help_manualbrowser'] = 'User Manual (Browser)';
-$LANG['mnu_help_help_manualpdf'] = 'User Manual (PDF)';
+$LANG['mnu_help_help'] = 'User Manual';
 $LANG['mnu_help_about'] = 'About TeamCal';
 
 /**
@@ -1655,7 +1653,7 @@ $LANG['abs_sel_abs'] = 'Select absence';
 $LANG['abs_sel_confirm'] = "Are you sure you want to select this absence type?\\nAll changes to the current one that have not been applied will be lost.";
 $LANG['abs_del_confirm'] = "Are you sure you want to delete this absence type: ";
 $LANG['abs_create_abs'] = 'Create absence';
-$LANG['abs_title'] = 'Absence type seetings for \'';
+$LANG['abs_title'] = 'Absence type settings for \'';
 $LANG['abs_help_title'] = 'Absence type settings';
 $LANG['abs_sample'] = 'Sample display';
 $LANG['abs_sample_desc'] = 'This is how your absence type will look in your calendar based on your current settings after they have been saved. This sample always uses the default symbol "A".';

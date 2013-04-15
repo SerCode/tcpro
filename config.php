@@ -25,7 +25,7 @@ define( '_VALID_TCPRO', 1 );
 require_once ("config.tcpro.php");
 require_once ("helpers/global_helper.php");
 getOptions();
-if (strlen($CONF['options']['lang'])) require ("languages/" . $CONF['options']['lang'] . ".tcpro.php");
+if (strlen($CONF['options']['lang'])) require ("languages/".$CONF['options']['lang'].".tcpro.php");
 else require ("languages/english.tcpro.php");
 
 require_once("models/config_model.php");
@@ -44,11 +44,6 @@ $R = new Region_model;
 $U  = new User_model;
 
 $error = false;
-
-/**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_config'];
 
 /**
  * Check if allowed
@@ -169,8 +164,10 @@ if ( isset($_POST['btn_confApply']) ) {
       $C->saveConfig("jqtheme","base");
    }
    if ( isset($_POST['chk_webMeasure']) && $_POST['chk_webMeasure'] ) $C->saveConfig("webMeasure","1"); else $C->saveConfig("webMeasure","0");
+   
    if (strlen($_POST['txt_userManual'])) {
-      $C->saveConfig("userManual",urlencode($_POST['txt_userManual']));
+      $myUrl = rtrim($_POST['txt_userManual'], '/').'/'; // Ensure trailing slash
+      $C->saveConfig("userManual",urlencode($myUrl));
    }
    else {
       $C->saveConfig("userManual",urlencode($CONF['app_help_root']));
@@ -258,6 +255,19 @@ $buttonrow='
 </td>
 </tr>';
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_config'];
+
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Configuration';
+}
+
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -284,7 +294,7 @@ if (ini_get('register_globals')) {
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="2">
-               <?php printDialogTop($LANG['admin_config_title'],"configuration.html","ico_configure.png"); ?>
+               <?php printDialogTop($LANG['admin_config_title'], $help, "ico_configure.png"); ?>
             </td>
          </tr>
          <?=$buttonrow?>

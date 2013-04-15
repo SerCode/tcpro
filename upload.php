@@ -35,11 +35,6 @@ $error=FALSE;
 $upload=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_upload'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("editAbsenceTypes")) showError("notallowed", TRUE);
@@ -106,6 +101,17 @@ if (isset ($_POST['btn_upload'])) {
       $upload=TRUE;
    }
 }
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_upload'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Icon+Upload';
+}
 require("includes/header_html_inc.php");
 ?>
 <body>
@@ -114,7 +120,7 @@ require("includes/header_html_inc.php");
          <table class="dlg">
             <tr>
                <td class="dlg-header">
-                  <?php printDialogTop($LANG['upload_title'].":&nbsp;".$LANG['upload_type_'.$_REQUEST['target']],"upload_dialog.html","ico_upload.png"); ?>
+                  <?php printDialogTop($LANG['upload_title'].":&nbsp;".$LANG['upload_type_'.$_REQUEST['target']], $help, "ico_upload.png"); ?>
                </td>
             </tr>
             <tr>

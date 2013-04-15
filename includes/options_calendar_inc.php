@@ -109,4 +109,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
       <option value="6" <?=$selectedAmount=="6"?' SELECTED':''?>><?=$LANG['drop_show_6_months']?></option>
       <option value="12" <?=$selectedAmount=="12"?' SELECTED':''?>><?=$LANG['drop_show_12_months']?></option>
    </select>
+   
+   <!-- Help -->
+   <input name="btn_calHelp" type="button" class="button" onclick="javascript:window.open('<?=$help?>')" value="<?=$LANG['btn_help']?>">
+   
 <?php } ?>

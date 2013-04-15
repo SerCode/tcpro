@@ -48,11 +48,6 @@ $UL  = new User_model;
 $UG  = new User_group_model;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_message'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("useMessageCenter")) showError("notallowed", TRUE);
@@ -162,6 +157,17 @@ if (isset($_POST['btn_send'])) {
    }
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_message'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Message+Center';
+}
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -172,7 +178,7 @@ require("includes/menu_inc.php");
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="3">
-               <?php printDialogTop($LANG['message_title'],"message_center.html","ico_message.png"); ?>
+               <?php printDialogTop($LANG['message_title'], $help, "ico_message.png"); ?>
             </td>
          </tr>
             

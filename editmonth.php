@@ -47,11 +47,6 @@ $UL = new User_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_editmonth'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("editGlobalCalendar")) showError("notallowed");
@@ -216,6 +211,17 @@ else if (isset ($_POST['btn_clear'])) {
    sendNotification("monthchange", $subject, "");
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_editmonth'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Month+Template';
+}
 require("includes/header_html_inc.php");
 ?>
 <body>
@@ -225,7 +231,7 @@ require("includes/header_html_inc.php");
             <table class="dlg">
                <tr>
                   <td class="dlg-header">
-                     <?php printDialogTop($LANG['month_edit']." ".$LANG['monthnames'][intval($monthno)]." ".$Year." (".$LANG['month_region'].": ".$region.")","month_template.html","ico_holidays.png"); ?>
+                     <?php printDialogTop($LANG['month_edit']." ".$LANG['monthnames'][intval($monthno)]." ".$Year." (".$LANG['month_region'].": ".$region.")", $help, "ico_holidays.png"); ?>
                   </td>
                </tr>
                <tr>

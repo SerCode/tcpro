@@ -55,11 +55,6 @@ $UO = new User_option_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_showyear'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("viewYearCalendar")) showError("notallowed");
@@ -228,6 +223,17 @@ for ($i=1; $i<=12; $i++) {
    }
    $yarray[$i]['tpl'] = $M->template;
 }
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_showyear'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Year+Calendar';
+}
 require( "includes/header_html_inc.php" );
 require( "includes/header_app_inc.php" );
 require( "includes/menu_inc.php" );
@@ -237,7 +243,7 @@ require( "includes/menu_inc.php" );
       <table class="dlg">
          <tr>
             <td class="dlg-header">
-               <?php printDialogTop($LANG['showyear_title_1']."&nbsp;".$showyear."&nbsp;".$LANG['showyear_title_2']."&nbsp;&nbsp;".$showuserfullname,"year_calendar_display.html","ico_calendar.png"); ?>
+               <?php printDialogTop($LANG['showyear_title_1']."&nbsp;".$showyear."&nbsp;".$LANG['showyear_title_2']."&nbsp;&nbsp;".$showuserfullname, $help, "ico_calendar.png"); ?>
             </td>
          </tr>
          <tr>

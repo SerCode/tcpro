@@ -45,11 +45,6 @@ $UO = new User_option_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_declination'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("editDeclination")) showError("notallowed");
@@ -173,6 +168,17 @@ if ( isset($_POST['btn_apply']) ) {
    }
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_declination'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Declination';
+}
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -186,7 +192,7 @@ require("includes/menu_inc.php");
             <table class="dlg">
                <tr>
                   <td class="dlg-header" colspan="2">
-                     <?php printDialogTop($LANG['decl_title'],"manage_declination.html","ico_declination.png"); ?>
+                     <?php printDialogTop($LANG['decl_title'], $help, "ico_declination.png"); ?>
                   </td>
                </tr>
 

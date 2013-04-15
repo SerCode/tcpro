@@ -55,11 +55,6 @@ $UG = new User_group_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_statistics'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("viewStatistics")) showError("notallowed");
@@ -204,6 +199,17 @@ for ($y=intval(substr($periodFrom,0,4)); $y<=intval(substr($periodTo,0,4)); $y++
       }
    }
 }
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_statistics'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Global+Statistics';
+}
 require( "includes/header_html_inc.php" );
 require( "includes/header_app_inc.php" );
 require( "includes/menu_inc.php" );
@@ -213,7 +219,7 @@ require( "includes/menu_inc.php" );
       <table class="dlg">
          <tr>
             <td class="dlg-header">
-               <?php printDialogTop($LANG['stat_title'],"statistics_display.html","ico_statistics.png"); ?>
+               <?php printDialogTop($LANG['stat_title'], $help, "ico_statistics.png"); ?>
             </td>
          </tr>
          <tr>

@@ -46,11 +46,6 @@ $UO = new User_option_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_groupassign'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("manageGroupMemberships")) showError("notallowed");
@@ -148,6 +143,17 @@ if ( isset($_POST['btn_apply']) ) {
    $LOG->log("logUser",$L->checkLogin(),"User Type, Group assigments updated");
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_groupassign'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Group+Assignment';
+}
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -176,7 +182,7 @@ require("includes/menu_inc.php");
          <table class="dlg">
             <tr>
                <td class="dlg-header" colspan="<?=($gcols*3)+4+($groupblocks-4)?>">
-                  <?php printDialogTop($LANG['uassign_title'],"group_assignment.html","ico_users.png"); ?>
+                  <?php printDialogTop($LANG['uassign_title'], $help, "ico_users.png"); ?>
                </td>
             </tr>
             <!-- Captions -->

@@ -61,11 +61,6 @@ else
    require ("languages/english.tcpro.php");
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_login'];
-
-/**
  * Initiate view variables
  */
 $errors = '';
@@ -249,6 +244,17 @@ if (isset($_POST['btn_login'])) {
    }
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_login'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Login';
+}
 require("includes/header_html_inc.php" );
 require("includes/header_app_inc.php" );
 require("includes/menu_inc.php" );
@@ -259,7 +265,7 @@ require("includes/menu_inc.php" );
          <table class="dlg">
             <tr>
                <td class="dlg-header" colspan="3">
-                  <?php printDialogTop($LANG['login_login'],"login.html","ico_login.png"); ?>
+                  <?php printDialogTop($LANG['login_login'], $help, "ico_login.png"); ?>
                </td>
             </tr>
             <tr>

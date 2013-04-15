@@ -146,6 +146,13 @@ if ( isset($_POST['btn_fastedit_apply']) ) {
  * Show header
  */
 $CONF['html_title'] = $LANG['html_title_calendar'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Calendar';
+}
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");

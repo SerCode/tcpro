@@ -40,11 +40,6 @@ $P = new Permission_model;
 $U = new User_model;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_permissions'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("editPermissionScheme")) showError("notallowed");
@@ -224,6 +219,17 @@ else if ( isset($_POST['btn_permApply']) ) {
 
 if (isset($_POST['sel_scheme'])) header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_permissions'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Permissions';
+}
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -234,7 +240,7 @@ require("includes/menu_inc.php");
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="<?=count($roles)+1?>">
-               <?php printDialogTop($LANG['perm_title'].$scheme,"permissions.html","ico_locked.png"); ?>
+               <?php printDialogTop($LANG['perm_title'].$scheme, $help, "ico_locked.png"); ?>
             </td>
          </tr>
          <tr>

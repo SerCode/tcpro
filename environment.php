@@ -35,14 +35,18 @@ $U = new User_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_environment'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("viewEnvironment")) showError("notallowed");
+
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_environment'];
+/**
+ * User manual page
+ * This page has no manual entry for security reasons
+ */
 
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");

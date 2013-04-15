@@ -46,11 +46,6 @@ $UL  = new User_model;
 $error=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_announcement'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("viewAnnouncements")) showError("notallowed");
@@ -88,6 +83,18 @@ else if ( isset($_POST['btn_confirm_all'])) {
    $LOG->log("logAnnouncement",$user,"All announcements confirmed by ".$UL->username);
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_announcement'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Announcements';
+}
+
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
 require("includes/menu_inc.php");
@@ -97,7 +104,7 @@ require("includes/menu_inc.php");
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="2">
-               <?php printDialogTop($LANG['ann_title']." ".$UL->firstname." ".$UL->lastname,"announcement_display.html","ico_bell.png"); ?>
+               <?php printDialogTop($LANG['ann_title']." ".$UL->firstname." ".$UL->lastname, $help, "ico_bell.png"); ?>
             </td>
          </tr>
          <tr>

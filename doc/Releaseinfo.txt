@@ -3,6 +3,24 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.002 Dev]
+
+DATE
+2013-xx-xx
+
+NEW FEATURES
+01 Public user manual
+   The local help files are gone. With the launch of the TeamCal Pro community
+   site at https://georgelewe.atlassian.net the user manual is now publicly
+   available there in a Confluence Wiki. The context-sensitive help points to 
+   the corresponding pages of the public standard manual in English.
+   The community pages now allow to create translations of the manual. You
+   can be part of the editors. If a translation exists, you can point TeamCal
+   Pro to such a translation instead. Linking to a translation will not be
+   context-sensitive though since manual structure and page names my differ.
+
+
+------------------------------------------------------------------------------
 [3.6.001]
 
 DATE

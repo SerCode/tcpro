@@ -63,11 +63,6 @@ $error_decl=FALSE;
 $warning=FALSE;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_editcalendar'];
-
-/**
  * Get the user that is logged in
  */
 $user=$L->checkLogin();
@@ -872,6 +867,17 @@ else if (isset($_POST['btn_clear'])) {
    $LOG->log("logUser",$L->checkLogin(),"User template cleared: ".$U->username." ".$T->year.$T->month." ".$mailtemplate);
 }
 
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_editcalendar'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'User+Calendar';
+}
 $currlang = $CONF['options']['lang'];
 require("includes/header_html_inc.php");
 $CONF['options']['lang']=$currlang;
@@ -883,7 +889,7 @@ $CONF['options']['lang']=$currlang;
       <table class="dlg">
          <tr>
             <td class="dlg-header">
-               <?php printDialogTop($LANG['member_edit']." ".$U->firstname." ".$U->lastname." (".$LANG['month_region'].": ".$region.")","user_calendar.html","ico_calendar.png"); ?>
+               <?php printDialogTop($LANG['member_edit']." ".$U->firstname." ".$U->lastname." (".$LANG['month_region'].": ".$region.")", $help, "ico_calendar.png"); ?>
             </td>
          </tr>
          <tr>

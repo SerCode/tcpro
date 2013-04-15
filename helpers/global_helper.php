@@ -1271,29 +1271,28 @@ function jsReloadPage($url = '') {
  * @param  string $helpfile  The name of the help file to be linked to from the help icon
  * @param  string $icon      The icon to appear left of the dialog title
  */
-function printDialogTop($title = '', $helpfile = '', $icon = '') {
+function printDialogTop($title = '', $help = '', $icon = '') {
    global $CONF, $LANG, $theme;
-   getOptions();
-   echo '
-         <table style="border-collapse: collapse; border: 0px; width: 100%;">
-            <tr>
-               <td class="dlg-header">';
-   if (strlen($icon))
-      echo '
-                  <img src="themes/'.$theme.'/img/' . $icon . '" alt="" width="16" height="16" align="top">&nbsp;';
+   
+   echo '<table style="border-collapse: collapse; border: 0px; width: 100%;"><tr><td class="dlg-header">';
+
+   if (strlen($icon)) {
+      echo '<img src="themes/'.$theme.'/img/' . $icon . '" alt="" width="16" height="16" align="top">&nbsp;';
+   }
+   
    echo $title . "</td>";
-   if (strlen($helpfile))
-      echo '
-                  <td align="right" style="font-size: 9pt; background-color: inherit;">
-                     <div align="right">
-                        <a href="javascript:this.blur();openPopup(\'help/' . $CONF['options']['helplang'] . '/html/index.html?' . $helpfile . '\',\'help\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=1024,height=640\');">
-                        <img class="noprint" title="' . $title . ' ' . $LANG['mnu_help'] . '..." align="middle" alt="" src="themes/'.$theme.'/img/ico_help.png" width="16" height="16" border="0"></a>
-                     </div>
-                  </td>';
-   echo '
-            </tr>
-         </table>
-         ';
+   
+   if (strlen($help)) {
+      echo '<td align="right" style="font-size: 9pt; background-color: inherit;">
+               <div align="right">
+                  <a href="'.$help.'" target="_blank">
+                     <img class="noprint" title="'.$LANG['mnu_help'].'..." align="middle" alt="" src="themes/'.$theme.'/img/ico_help.png" width="16" height="16" border="0">
+                  </a>
+               </div>
+            </td>';
+   }
+   
+   echo '</tr></table>';
 }
 
 // ---------------------------------------------------------------------------

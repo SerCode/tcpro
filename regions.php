@@ -53,11 +53,6 @@ $UO  = new User_option_model;
 $error = false;
 
 /**
- * HTML title. Will be shown in browser tab.
- */
-$CONF['html_title'] = $LANG['html_title_regions'];
-
-/**
  * Check if allowed
  */
 if (!isAllowed("editRegions")) showError("notallowed");
@@ -390,6 +385,17 @@ else if ( isset($_POST['btn_reg_merge']) ) {
        */
       $LOG->log("logRegion",$L->checkLogin(),"Regions merged: ".$_POST['sRegion']." => ".$_POST['tRegion']);
    }
+}
+/**
+ * HTML title. Will be shown in browser tab.
+ */
+$CONF['html_title'] = $LANG['html_title_regions'];
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Regions';
 }
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");

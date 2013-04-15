@@ -40,7 +40,13 @@ $H = new Holiday_model;
  * HTML title. Will be shown in browser tab.
  */
 $CONF['html_title'] = $LANG['html_title_legend'];
-
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Legend';
+}
 require("includes/header_html_inc.php" );
 ?>
 <body>
@@ -49,7 +55,7 @@ require("includes/header_html_inc.php" );
          <table class="dlg">
             <tr>
                <td class="dlg-header" colspan="3">
-                  <?php printDialogTop($LANG['teamcal_legend'],"legend_dialog.html","ico_legend.png"); ?>
+                  <?php printDialogTop($LANG['teamcal_legend'], $help, "ico_legend.png"); ?>
                </td>
             </tr>
             <tr>
