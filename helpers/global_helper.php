@@ -646,17 +646,17 @@ function createPopup($id, $body, $caption='', $capicon='') {
       <script type='text/javascript'>
       $(function() {
          $('#".$id."').tipsy({
-            delayIn: 0,      // delay before showing tooltip (ms)
-            delayOut: 0,     // delay before hiding tooltip (ms)
-            fade: true,     // fade tooltips in/out?
-            fallback: '',    // fallback text to use when no tooltip text
-            gravity: 'nw',    // gravity
-            html: true,      // is tooltip content HTML?
-            live: false,     // use live event support?
-            offset: 10,      // pixel offset of tooltip from element
-            opacity: 1.0,    // opacity of tooltip
+            delayIn: 0,                                            // delay before showing tooltip (ms)
+            delayOut: 0,                                           // delay before hiding tooltip (ms)
+            fade: true,                                            // fade tooltips in/out?
+            fallback: '',                                          // fallback text to use when no tooltip text
+            gravity: 'nw',                                         // gravity
+            html: true,                                            // is tooltip content HTML?
+            live: false,                                           // use live event support?
+            offset: 10,                                            // pixel offset of tooltip from element
+            opacity: 1.0,                                          // opacity of tooltip
             title:function(){return $('#popup-".$id."').html();},  // attribute/callback containing tooltip text
-            trigger: 'hover' // how tooltip is triggered - hover | focus | manual
+            trigger: 'hover'                                       // how tooltip is triggered - hover|focus|manual
          });
       });
       </script>
