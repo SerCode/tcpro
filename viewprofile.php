@@ -108,7 +108,7 @@ require( "includes/header_html_inc.php" );
             <table class="dlg">
                <tr>
                   <td class="dlg-header">
-                     <?php printDialogTop($LANG['view_profile_title'],"view_profile.html","ico_users.png"); ?>
+                     <?php printDialogTop($LANG['view_profile_title'], $help, "ico_users.png"); ?>
                   </td>
                </tr>
                <tr>

@@ -407,7 +407,7 @@ require("includes/menu_inc.php");
       <table class="dlg">
             <tr>
             <td class="dlg-header" colspan="3">
-               <?php printDialogTop($LANG['admin_region_title'],"manage_regions.html","ico_region.png"); ?>
+               <?php printDialogTop($LANG['admin_region_title'], $help, "ico_region.png"); ?>
             </td>
          </tr>
          <tr>

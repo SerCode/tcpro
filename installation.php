@@ -455,11 +455,11 @@ if ( isset($_POST['btn_install']) ) {
                      <table>
                         <tr>
                            <td><input name="chkLicGpl" id="chkLicGpl" type="checkbox" value="chkLicGpl"></td>
-                           <td style="vertical-align: middle;"><?=$LANG['inst_lic_gnu']?>&nbsp;<input class="button" type="button" onclick="javascript:this.blur(); openPopup('help/english/html/index.html?teamcal_pro_license.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="View"></td>
+                           <td style="vertical-align: middle;"><?=$LANG['inst_lic_gnu']?>&nbsp;<input class="button" type="button" onclick="javascript:window.open('<?=readConfig('app_help_root','config.version.php')?>TeamCal+Pro+License').void();" value="View"></td>
                         </tr>
                         <tr>
                            <td><input name="chkLicTcpro" id="chkLicTcpro" type="checkbox" value="chkLicTcpro"></td>
-                           <td style="vertical-align: middle;"><?=$LANG['inst_lic_tcpro']?>&nbsp;<input class="button" type="button" onclick="javascript:this.blur(); openPopup('help/english/html/index.html?teamcal_pro_license.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="View"></td>
+                           <td style="vertical-align: middle;"><?=$LANG['inst_lic_tcpro']?>&nbsp;<input class="button" type="button" onclick="javascript:window.open('<?=readConfig('app_help_root','config.version.php')?>TeamCal+Pro+License').void();" value="View"></td>
                         </tr>
                      </table>
                   </td>

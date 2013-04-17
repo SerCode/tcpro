@@ -12,13 +12,21 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
+
+/**
+ * User manual page
+ */
+$help = urldecode($C->readConfig("userManual"));
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+   $help .= 'Home+Page';
+}
 ?>
 <div id="content">
    <div id="content-content">
       <table class="dlg">
          <tr>
             <td class="dlg-header">
-               <?php printDialogTop($LANG['welcome_title'],"homepage.html","ico_teamcal.png"); ?>
+               <?php printDialogTop($LANG['welcome_title'], $help, "ico_teamcal.png"); ?>
             </td>
          </tr>
          <tr>
