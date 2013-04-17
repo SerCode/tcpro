@@ -522,7 +522,7 @@ require("includes/menu_inc.php");
                         if ($printrow==1) $printrow=2; else $printrow=1; 
                         if ($reg['regionname']!='default') { ?>
                            <!-- <?=$reg['regionname']?> -->
-                           <form class="form" name="form-reg-<?=$reg['regionname']?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>?lang=<?=$CONF['options']['lang']?>">
+                           <form class="form" name="form-reg-<?=$reg['regionname']?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                               <table style="border-collapse: collapse; border-left: 1px solid #000000; border-right: 1px solid #000000; width: 100%;">
                                  <tr>
                                     <td class="dlg-row<?=$printrow?>" width="5%">
