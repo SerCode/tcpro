@@ -73,7 +73,7 @@ require("includes/header_html_inc.php" );
 <body>
    <div id="content">
       <div id="content-content">
-         <form method="post" enctype="multipart/form-data" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+         <form method="post" enctype="multipart/form-data" action="<?=$_SERVER['PHP_SELF']?>">
             <table class="dlg">
                <tr>
                   <td class="dlg-header">
@@ -174,7 +174,7 @@ require("includes/header_html_inc.php" );
                <tr>
                   <td class="dlg-menu">
                      <input name="btn_import" type="submit" class="button" value="Import" onclick="javascript:var s=document.getElementById('file_source'); if(s!=null && s.value=='') {alert('<?=$LANG['uimp_error_file']?>'); s.focus(); return false;}">
-                     <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?user_import.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=740,height=500');" value="<?=$LANG['btn_help']?>">
+                     <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                      <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
                      <input name="btn_done" type="submit" class="button" value="<?=$LANG['btn_done']?>">
                   </td>

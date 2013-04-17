@@ -116,7 +116,7 @@ if ( isset($_POST['btn_permActivate']) ) {
     * Log this event
     */
    $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$_POST['sel_scheme']."' activated");
-   header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']);
    die();
 }
 /**
@@ -132,7 +132,7 @@ else if ( isset($_POST['btn_permDelete']) ) {
        * Log this event
        */
       $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$_POST['sel_scheme']."' deleted");
-      header("Location: ".$_SERVER['PHP_SELF']."?scheme=Default&lang=".$CONF['options']['lang']);
+      header("Location: ".$_SERVER['PHP_SELF']."?scheme=Default");
       die();
    }
 }
@@ -186,7 +186,7 @@ else if ( isset($_POST['btn_permReset']) OR isset($_POST['btn_permCreate']) ) {
        * Log this event
        */
       $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$scheme."' was created or reset");
-      header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme."&lang=".$CONF['options']['lang']);
+      header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme);
       die();
    }
 }
@@ -212,11 +212,11 @@ else if ( isset($_POST['btn_permApply']) ) {
     * Log this event
     */
    $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$scheme."' changed");
-   header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme."&lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme);
    die();
 }
 
-if (isset($_POST['sel_scheme'])) header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']."&lang=".$CONF['options']['lang']);
+if (isset($_POST['sel_scheme'])) header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']);
 
 /**
  * HTML title. Will be shown in browser tab.
@@ -235,7 +235,7 @@ require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
-      <form class="form" name="form-permissions" method="POST" action="<?=$_SERVER['PHP_SELF']."?scheme=".$scheme."&amp;lang=".$CONF['options']['lang']?>">
+      <form class="form" name="form-permissions" method="POST" action="<?=$_SERVER['PHP_SELF']."?scheme=".$scheme?>">
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="<?=count($roles)+1?>">
@@ -246,7 +246,7 @@ require("includes/menu_inc.php");
             <td class="dlg-menu" colspan="<?=count($roles)+1?>" style="text-align: left;">
                <input name="btn_permApply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
                <input name="btn_permReset" type="submit" class="button" value="<?=$LANG['btn_reset']?>" onclick="return confirmSubmit('<?=$LANG['perm_reset_confirm']?>')">&nbsp;
-               <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?permissions.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+               <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
             </td>
          </tr>
 
@@ -288,7 +288,7 @@ require("includes/menu_inc.php");
                <td class="dlg-menu" colspan="<?=count($roles)+1?>" style="text-align: left;">
                   <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
                   <input name="btn_reset" type="submit" class="button" value="<?=$LANG['btn_reset']?>" onclick="return confirmSubmit('<?=$LANG['perm_reset_confirm']?>')">&nbsp;
-                  <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?permissions.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+                  <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                </td>
             </tr>
          <?php } ?>

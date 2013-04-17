@@ -250,7 +250,7 @@ require("includes/menu_inc.php" );
 ?>
 <div id="content">
    <div id="content-content">
-      <form name="login" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+      <form name="login" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
          <table class="dlg">
             <tr>
                <td class="dlg-header" colspan="3">
@@ -283,7 +283,7 @@ require("includes/menu_inc.php" );
             </tr>
             <tr>
                <td class="dlg-menu">
-                   <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?login.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+                   <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                </td>
             </tr>
          </table>

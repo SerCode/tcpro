@@ -180,18 +180,18 @@ require("includes/menu_inc.php");
          <tr>
             <td class="dlg-caption" style="text-align: left; padding-left: 8px;">
                <?php if ( $sort=="descu" ) { ?>
-                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=ascu"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
+                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=ascu"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
                <?php }else { ?>
-                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=descu"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
+                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=descu"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
                 <?php } ?>
                 &nbsp;<?=$LANG['admin_user_user']?>
             </td>
             <td class="dlg-caption" style="text-align: center;"><?=$LANG['admin_user_attributes']?></td>
             <td class="dlg-caption" style="text-align: left;">
                <?php if ( $sort=="descl" ) { ?>
-                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=ascl"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
+                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=ascl"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
                <?php }else { ?>
-                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=descl"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
+                  <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=descl"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="top" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
                 <?php } ?>
                 <?=$LANG['admin_user_lastlogin']?>
             </td>
@@ -199,13 +199,13 @@ require("includes/menu_inc.php");
          </tr>
          <tr>
             <td class="dlg-row1" colspan="<?=$colspan?>"><img src="themes/<?=$theme?>/img/ico_add.png" alt="Add" title="Add" align="middle" style="padding-right: 2px;">
-               <input name="btn_usr_create" type="button" class="button" value="<?=$LANG['btn_create']?>" onclick="javascript:this.blur();openPopup('addprofile.php?lang=<?=$CONF['options']['lang']?>','addprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=no,dependent=1,width=560,height=680');">&nbsp;&nbsp;
+               <input name="btn_usr_create" type="button" class="button" value="<?=$LANG['btn_create']?>" onclick="javascript:this.blur();openPopup('addprofile.php','addprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=no,dependent=1,width=560,height=680');">&nbsp;&nbsp;
                <i><?=$LANG['admin_create_new_user']?></i>
             </td>
          </tr>
          <tr>
             <td class="dlg-row1" colspan="<?=$colspan?>"><img src="themes/<?=$theme?>/img/ico_import.png" alt="Import" title="Import" align="middle" style="padding-right: 2px;">
-               <input name="btn_usr_import" type="button" class="button" value="<?=$LANG['btn_import']?>" onclick="javascript:this.blur();openPopup('userimport.php?lang=<?=$CONF['options']['lang']?>','addprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=no,dependent=1,width=510,height=400');">&nbsp;&nbsp;
+               <input name="btn_usr_import" type="button" class="button" value="<?=$LANG['btn_import']?>" onclick="javascript:this.blur();openPopup('userimport.php','addprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=no,dependent=1,width=510,height=400');">&nbsp;&nbsp;
                <i><?=$LANG['admin_import_user']?></i>
             </td>
          </tr>
@@ -312,9 +312,9 @@ require("includes/menu_inc.php");
                      </td>
                      <td class="dlg-row<?=$printrow?>" <?=$botstyle?>><?=$U->last_login?></td>
                      <td class="dlg-row<?=$printrow?>" style="text-align: right; <?=$botborder?>">
-                        <input name="btn_usr_edit" type="button" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:this.blur();openPopup('editprofile.php?referrer=userlist&amp;lang=<?=$CONF['options']['lang']?>&amp;username=<?=$U->username?>','editprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=no,dependent=1,width=600,height=680');">&nbsp;
+                        <input name="btn_usr_edit" type="button" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:this.blur();openPopup('editprofile.php?referrer=userlist&amp;username=<?=$U->username?>','editprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=no,dependent=1,width=600,height=680');">&nbsp;
                         <?php if ($U->username!="admin") { ?>
-                        <form class="form" name="form-<?=$U->username?>-del" method="POST" action="<?=$_SERVER['PHP_SELF']?>?lang=<?=$CONF['options']['lang']?>">
+                        <form class="form" name="form-<?=$U->username?>-del" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                            <input name="usr_hidden" type="hidden" class="text" value="<?=$U->username?>">&nbsp;
                            <input name="btn_usr_del" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="return confirmSubmit('<?=$LANG['user_delete_confirm'].$U->username?>')">&nbsp;
                            <input name="btn_usr_pwd_reset" type="submit" class="button" value="<?=$LANG['btn_reset_password']?>" onclick="return confirmSubmit('<?=$LANG['user_pwd_reset_confirm'].$U->username?>')">&nbsp;

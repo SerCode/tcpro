@@ -176,7 +176,7 @@ require( "includes/header_html_inc.php" );
 <body>
    <div id="content">
       <div id="content-content">
-         <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."&amp;date=".$_REQUEST['date']."&amp;daynotefor=".$_REQUEST['daynotefor']."&amp;region=".$region."&amp;datestring=".$_REQUEST['datestring']?>">
+         <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."&amp;date=".$_REQUEST['date']."&amp;daynotefor=".$_REQUEST['daynotefor']."&amp;region=".$region."&amp;datestring=".$_REQUEST['datestring']?>">
          <table class="dlg">
             <tr>
                <td class="dlg-header" colspan="3">
@@ -212,7 +212,7 @@ require( "includes/header_html_inc.php" );
                     <?php } else { ?>
                         <input name="btn_create" type="submit" class="button" value="<?=$LANG['btn_create']?>">
                     <?php } ?>
-                    <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?daynote_dialog.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=740,height=500');" value="<?=$LANG['btn_help']?>">
+                    <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                     <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
                     <input name="btn_done" type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_done']?>">
                  </td>

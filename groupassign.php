@@ -176,7 +176,7 @@ require("includes/menu_inc.php");
 
       <!--  USERS =========================================================== -->
 
-      <form name="assign" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort."&amp;lang=".$CONF['options']['lang']?>">
+      <form name="assign" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort?>">
 
          <table class="dlg">
             <tr>
@@ -188,9 +188,9 @@ require("includes/menu_inc.php");
             <tr>
                <td class="dlg-caption" style="text-align: left; padding-left: 8px;">
                   <?php if ( $sort=="desc" ) { ?>
-                     <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=asc"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
+                     <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=asc"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
                   <?php }else { ?>
-                     <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=desc"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
+                     <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=desc"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
                    <?php } ?>
                    &nbsp;<?=$LANG['admin_user_user']?>
                </td>
@@ -339,9 +339,9 @@ require("includes/menu_inc.php");
                <tr>
                   <td class="dlg-caption" style="text-align: left; padding-left: 8px;">
                      <?php if ( $sort=="desc" ) { ?>
-                        <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=asc"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
+                        <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=asc"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
                      <?php }else { ?>
-                        <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;lang=".$CONF['options']['lang']."&amp;sort=desc"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
+                        <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=desc"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
                       <?php } ?>
                       &nbsp;<?=$LANG['admin_user_user']?>
                   </td>
@@ -379,7 +379,7 @@ require("includes/menu_inc.php");
             <tr>
                <td class="dlg-menu" colspan="<?=($gcols*3)+4+($groupblocks-4)?>" style="text-align: left;">
                   <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-                  <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?group_assignment.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+                  <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                </td>
             </tr>
          </table>

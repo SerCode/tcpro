@@ -134,9 +134,9 @@ require("includes/menu_inc.php" );
                         <tr class="logheader">
                            <td class="logheader">
                               <?php if ( $sort=="DESC" ) { ?>
-                                 <a href="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."&amp;sort=ASC"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
+                                 <a href="<?=$_SERVER['PHP_SELF']."?sort=ASC"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
                               <?php }else { ?>
-                                 <a href="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."&amp;sort=DESC"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
+                                 <a href="<?=$_SERVER['PHP_SELF']."?sort=DESC"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
                               <?php } ?>
                               &nbsp;<?=$LANG['log_header_timestamp']?>
                            </td>
@@ -176,7 +176,7 @@ require("includes/menu_inc.php" );
                   <!-- LOG SETTINGS -->
                   <div id="tabs-2">
                      <fieldset><legend><?=$LANG['log_settings']?></legend>
-                     <form class="form" name="log-settings" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+                     <form class="form" name="log-settings" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                         <table class="dlg">
                            <tr>
                               <td class="dlg-caption" style="text-align: left; border-left: 1px solid #777777;"><?=$LANG['log_settings_event']?></td>

@@ -884,7 +884,7 @@ $CONF['options']['lang']=$currlang;
 <body>
 <div id="content">
    <div id="content-content">
-      <form  name="monthform" method="POST" action="<?=($_SERVER['PHP_SELF']."?Year=".$Year."&amp;Month=".$Month."&amp;Member=".$Member."&amp;lang=".$CONF['options']['lang'])."&amp;region=".$region?>">
+      <form  name="monthform" method="POST" action="<?=($_SERVER['PHP_SELF']."?Year=".$Year."&amp;Month=".$Month."&amp;Member=".$Member."&amp;region=".$region?>">
       <table class="dlg">
          <tr>
             <td class="dlg-header">
@@ -983,7 +983,7 @@ $CONF['options']['lang']=$currlang;
                            if ( $N->findByDay($Year.$monthno.$dd,$U->username) ) $style="weekday-note"; else $style="weekday";
                         } ?>
                         <td class="<?=$style?>">
-                          <a href="javascript:this.blur();openPopup('daynote.php?lang=<?=$CONF['options']['lang']?>&amp;date=<?=$Year.$monthno.$dd?>&amp;daynotefor=<?=$U->username?>&amp;region=default&amp;datestring=<?=$dd?>%20<?=$LANG['monthnames'][intval($monthno)]?>%20<?=$Year?>','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');">
+                          <a href="javascript:this.blur();openPopup('daynote.php?date=<?=$Year.$monthno.$dd?>&amp;daynotefor=<?=$U->username?>&amp;region=default&amp;datestring=<?=$dd?>%20<?=$LANG['monthnames'][intval($monthno)]?>%20<?=$Year?>','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');">
                              <img src="themes/<?=$theme?>/img/ico_daynote.png" alt="" title="<?=$LANG['month_daynote_tooltip']?>" border="0">
                           </a>
                         </td>
@@ -1233,7 +1233,7 @@ $CONF['options']['lang']=$currlang;
             <td class="dlg-menu">
                <input name="btn_clear" type="submit" class="button" value="<?=$LANG['btn_clear']?>" onclick="return confirmSubmit('<?=$LANG['cal_clear_confirm']?>')">
                <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-               <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?user_calendar.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+               <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
                <input name="btn_done"  type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_done']?>">
             </td>

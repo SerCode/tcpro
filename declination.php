@@ -163,7 +163,7 @@ if ( isset($_POST['btn_apply']) ) {
     */
    if ($declineupdate) {
       $LOG->log("logConfig",$L->checkLogin(),"Decline settings updated");
-      header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
+      header("Location: ".$_SERVER['PHP_SELF']);
    }
 }
 
@@ -185,7 +185,7 @@ require("includes/menu_inc.php");
 <table style="width: 100%;">
    <tr>
       <td valign="top">
-         <form class="form" name="form-decl" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+         <form class="form" name="form-decl" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
 
             <!--  DECLINATION MANAGEMENT ============================================== -->
             <table class="dlg">

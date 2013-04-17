@@ -196,15 +196,6 @@ else {
       <span id="optionsbar-content">
       <?php
       /**
-       * ALL PAGES
-       * Language
-       */
-      if ($C->readConfig("showLanguage")) { 
-         include ($CONF['app_root']."includes/options_language_inc.php");
-         $optionitems=TRUE;
-      }
-        
-      /**
        * CALENDAR
        * Group, Region, Absence, Start-year, Start-month, Number of months
        */

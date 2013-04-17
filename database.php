@@ -450,7 +450,7 @@ require("includes/menu_inc.php");
          </tr>
          <tr>
             <td class="dlg-help" colspan="4">
-               <form class="form" name="form-db-clean" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+               <form class="form" name="form-db-clean" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                <table>
                   <tr>
                      <td>
@@ -490,7 +490,7 @@ require("includes/menu_inc.php");
          </tr>
          <tr>
             <td class="dlg-help" colspan="4">
-               <form class="form" name="form-db-maint" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+               <form class="form" name="form-db-maint" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                <table>
                   <tr><td><input name="chkDBDeleteUsers" id="chkDBDeleteUsers" type="checkbox" value="chkDBDeleteUsers"></td><td><?=$LANG['admin_dbmaint_del_chkUsers']?></td></tr>
                   <tr><td><input name="chkDBDeleteGroups" id="chkDBDeleteGroups" type="checkbox" value="chkDBDeleteGroups"></td><td><?=$LANG['admin_dbmaint_del_chkGroups']?></td></tr>
@@ -518,7 +518,7 @@ require("includes/menu_inc.php");
          </tr>
          <tr>
             <td class="dlg-help" colspan="4">
-               <form enctype="multipart/form-data" class="form" name="form-db-rest" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+               <form enctype="multipart/form-data" class="form" name="form-db-rest" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                <table>
                   <tr>
                      <td>
@@ -565,7 +565,7 @@ require("includes/menu_inc.php");
          </tr>
          <tr>
             <td class="dlg-help" colspan="4">
-               <form enctype="multipart/form-data" class="form" name="form-db-rest" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+               <form enctype="multipart/form-data" class="form" name="form-db-rest" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                <table>
                   <tr>
                      <td>

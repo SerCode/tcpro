@@ -114,7 +114,13 @@ if ( isset($_POST['btn_confApply']) ) {
    /**
     * General options
     */
-   if (trim($_POST['sel_defLang'])) $C->saveConfig("defaultLanguage",trim($_POST['sel_defLang'])); else $C->saveConfig("defaultLanguage","english");
+   if (trim($_POST['sel_defLang'])) {
+      $C->saveConfig("defaultLanguage",trim($_POST['sel_defLang']));
+   } 
+   else {
+      $C->saveConfig("defaultLanguage","english");
+   }
+   
    if (trim($_POST['sel_pscheme'])) $C->saveConfig("permissionScheme",trim($_POST['sel_pscheme'])); else $C->saveConfig("permissionScheme","Default");
    
    if ( isset($_POST['periodfrom']) AND isset($_POST['periodto']) ) {
@@ -144,7 +150,6 @@ if ( isset($_POST['btn_confApply']) ) {
    $C->saveConfig("welcomeTitle",htmlspecialchars(addslashes(strip_tags($_POST['txt_welcomeTitle'],"<i><b>"))));
    $C->saveConfig("welcomeText",htmlspecialchars(addslashes(strip_tags($_POST['txt_welcomeText'],"<i><b>"))));
    if ($_POST['sel_welcomeIcon']) $C->saveConfig("welcomeIcon",$_POST['sel_welcomeIcon']); else $C->saveConfig("welcomeIcon","No");
-   if ( isset($_POST['chk_showLanguage']) && $_POST['chk_showLanguage'] ) $C->saveConfig("showLanguage","1"); else $C->saveConfig("showLanguage","0");
    if ( isset($_POST['chk_showGroup']) && $_POST['chk_showGroup'] ) $C->saveConfig("showGroup","1"); else $C->saveConfig("showGroup","0");
    if ( isset($_POST['chk_showRegion']) && $_POST['chk_showRegion'] ) $C->saveConfig("showRegion","1"); else $C->saveConfig("showRegion","0");
    if ( isset($_POST['chk_showToday']) && $_POST['chk_showToday'] ) $C->saveConfig("showToday","1"); else $C->saveConfig("showToday","0");
@@ -225,7 +230,7 @@ if ( isset($_POST['btn_confApply']) ) {
     * Log this event
     */
    $LOG->log("logConfig",$L->checkLogin(),"Configuration changed");
-   header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']);
 }
 /**
  * =========================================================================
@@ -245,17 +250,8 @@ if ( isset($_POST['btn_styles']) ) {
     * Log this event
     */
    $LOG->log("logConfig",$L->checkLogin(),"Style sheet rebuilt");
-   header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']);
 }
-
-$buttonrow='
-<tr>
-<td class="dlg-menu" colspan="2" style="text-align: left;">
-<input name="btn_confApply" type="submit" class="button" style="font-size: 8pt;" value="'.$LANG['btn_apply'].'">
-<input name="btn_help" type="button" class="button" style="font-size: 8pt;" onclick="javascript:this.blur(); openPopup(\'help/'.$CONF['options']['helplang'].'/html/index.html?configuration.html\',\'help\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500\');" value="'.$LANG['btn_help'].'">
-<input name="btn_styles" type="submit" class="button" style="font-size: 8pt;" value="'.$LANG['btn_styles'].'">
-</td>
-</tr>';
 
 /**
  * HTML title. Will be shown in browser tab.
@@ -269,6 +265,15 @@ $help = urldecode($C->readConfig("userManual"));
 if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
    $help .= 'Configuration';
 }
+
+$buttonrow='
+<tr>
+<td class="dlg-menu" colspan="2" style="text-align: left;">
+<input name="btn_confApply" type="submit" class="button" style="font-size: 8pt;" value="'.$LANG['btn_apply'].'">
+<input name="btn_help" type="button" class="button" style="font-size: 8pt;" onclick="javascript:window.open(\''.$help.'\').void();" value="'.$LANG['btn_help'].'">
+<input name="btn_styles" type="submit" class="button" style="font-size: 8pt;" value="'.$LANG['btn_styles'].'">
+</td>
+</tr>';
 
 require("includes/header_html_inc.php");
 require("includes/header_app_inc.php");
@@ -292,7 +297,7 @@ if (ini_get('register_globals')) {
 <script type="text/javascript">$(function() { $( "#tabs" ).tabs(); });</script>
 <div id="content">
    <div id="content-content">
-      <form class="form" name="form-config" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+      <form class="form" name="form-config" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
       <table class="dlg">
          <tr>
             <td class="dlg-header" colspan="2">
@@ -897,7 +902,6 @@ if (ini_get('register_globals')) {
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                               <table>
-                                 <tr><td><input name="chk_showLanguage" id="chk_showLanguage" value="chk_showLanguage" type="checkbox" <?=(intval($C->readConfig("showLanguage"))?"CHECKED":"")?>></td><td style="vertical-align: middle;"><?=$LANG['admin_config_optionsbar_language']?></td></tr>
                                  <tr><td><input name="chk_showGroup" id="chk_showGroup" value="chk_showGroup" type="checkbox" <?=(intval($C->readConfig("showGroup"))?"CHECKED":"")?>></td><td style="vertical-align: middle;"><?=$LANG['admin_config_optionsbar_group']?></td></tr>
                                  <tr><td><input name="chk_showRegion" id="chk_showRegion" value="chk_showRegion" type="checkbox" <?=(intval($C->readConfig("showRegion"))?"CHECKED":"")?>></td><td style="vertical-align: middle;"><?=$LANG['admin_config_optionsbar_region']?></td></tr>
                                  <tr><td><input name="chk_showToday" id="chk_showToday" value="chk_showToday" type="checkbox" <?=(intval($C->readConfig("showToday"))?"CHECKED":"")?>></td><td style="vertical-align: middle;"><?=$LANG['admin_config_optionsbar_today']?></td></tr>

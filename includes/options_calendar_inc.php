@@ -111,6 +111,6 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
    </select>
    
    <!-- Help -->
-   <input name="btn_calHelp" type="button" class="button" onclick="javascript:window.open('<?=$help?>')" value="<?=$LANG['btn_help']?>">
+   <input name="btn_calHelp" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
    
 <?php } ?>

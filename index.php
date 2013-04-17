@@ -113,7 +113,7 @@ if ($luser=$L->checkLogin())
       
       if ( (floatval($nowstamp)-20) < floatval($userstamp) AND isAllowed("viewAnnouncements") ) 
       {
-         header("Location: announcement.php?uaname=".$user."&amp;lang=".$CONF['options']['lang']);
+         header("Location: announcement.php?uaname=".$user);
          die();
       }
    }
@@ -124,7 +124,7 @@ if ($luser=$L->checkLogin())
  */
 if ( $display=="calendar" AND isAllowed("viewCalendar")) 
 {
-   header("Location: calendar.php?lang=".$CONF['options']['lang']);
+   header("Location: calendar.php);
    die();
 }
 else 

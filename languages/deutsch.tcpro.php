@@ -328,7 +328,7 @@ $LANG['login_error_96'] = 'LDAP Fehler: "Search bind" fehlgeschlagen';
  * Status Bar
  */
 $LANG['status_logged_in'] = "Du bist eingeloggt als ";
-$LANG['status_logged_out'] = "Du bist nicht eingeloggt. Anzeigen und Editieren kann eingeschr&auml;kt sein.";
+$LANG['status_logged_out'] = "Du bist nicht eingeloggt. Anzeigen und Editieren kann eingeschr&auml;nkt sein.";
 $LANG['status_ut_user'] = "Regul&auml;rer Nutzer";
 $LANG['status_ut_manager'] = "Manager der Gruppe: ";
 $LANG['status_ut_director'] = "Direktor";

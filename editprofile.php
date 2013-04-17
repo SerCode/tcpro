@@ -320,7 +320,8 @@ if (isset($_POST['btn_apply'])) {
        * Log this event
        */
       $LOG->log("logUser",$L->checkLogin(),"User profile updated: ".$U->username);
-      header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username."&lang=".$CONF['options']['lang']);
+      header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
+      die();
 
    } // endif !$pwdmismatch
 }
@@ -375,7 +376,8 @@ elseif ( isset($_POST['btn_abs_update']) ) {
     * Log this event
     */
    $LOG->log("logUser",$L->checkLogin(),"User allowance updated: ".$U->username);
-   //header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username."&lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
+   die();
 }
 /**
  * =========================================================================
@@ -395,7 +397,8 @@ elseif ( isset($_POST['btn_avatar_upload']) ) {
        * Log this event
        */
       $LOG->log("logUser",$L->checkLogin(),"User avatar uploaded: ".$U->username);
-      header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username."&lang=".$CONF['options']['lang']);
+      header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
+      die();
    }
 }
 /**
@@ -426,7 +429,7 @@ require( "includes/header_html_inc.php" );
    <script type="text/javascript">$(function() { $( "#tabs" ).tabs(); });</script>
    <div id="content">
       <div id="content-content">
-         <form enctype="multipart/form-data" name="userprofile" method="POST" action="<?=$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&amp;username=".$U->username."&amp;lang=".$CONF['options']['lang']?>">
+         <form enctype="multipart/form-data" name="userprofile" method="POST" action="<?=$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&amp;username=".$U->username?>">
             <table class="dlg">
                <tr>
                   <td class="dlg-header">
@@ -971,7 +974,7 @@ require( "includes/header_html_inc.php" );
                <tr>
                   <td class="dlg-menu">
                      <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-                     <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?edit_profile.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=740,height=500');" value="<?=$LANG['btn_help']?>">
+                     <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                      <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
                      <input name="btn_done" type="submit" class="button" value="<?=$LANG['btn_done']?>">
                   </td>

@@ -213,7 +213,7 @@ require("includes/menu_inc.php");
          </tr>
          <tr>
             <td>
-               <form class="form" name="form-hol-add" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+               <form class="form" name="form-hol-add" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                <table style="border-collapse: collapse; border: 0px; width: 100%;s">
                   <tr>
                      <td class="dlg-caption" width="5%">&nbsp;</td>
@@ -251,7 +251,7 @@ require("includes/menu_inc.php");
             <!-- ".$H->dspname." -->
             <tr>
                <td>
-                  <form class=\"form\" name=\"form-hol-".$i."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."\">
+                  <form class=\"form\" name=\"form-hol-".$i."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">
                   <table style=\"border-collapse: collapse; border: 0px; width: 100%;\">
                      <tr>
                         <td class=\"dlg-row".$printrow."\" width=\"5%\">

@@ -226,7 +226,7 @@ require("includes/header_html_inc.php");
 <body>
    <div id="content">
       <div id="content-content">
-         <form  name="monthform" method="POST" action="<?=($_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."&amp;region=".$region."&amp;Year=".$Year."&amp;Month=".$Month)?>">
+         <form  name="monthform" method="POST" action="<?=($_SERVER['PHP_SELF']."?region=".$region."&amp;Year=".$Year."&amp;Month=".$Month)?>">
             <table class="dlg">
                <tr>
                   <td class="dlg-header">
@@ -329,7 +329,7 @@ require("includes/header_html_inc.php");
                               }
                               echo "<td class=\"" . $style . "\">";
                               if (isAllowed("editGlobalDaynotes")) {
-                                 echo "<a href=\"javascript:this.blur(); openPopup('daynote.php?lang=" . $CONF['options']['lang'] . "&amp;date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20" . $LANG['monthnames'][intval($monthno)] . "%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\">
+                                 echo "<a href=\"javascript:this.blur(); openPopup('daynote.php?date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20" . $LANG['monthnames'][intval($monthno)] . "%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\">
                                           <img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"" . $LANG['month_daynote_tooltip'] . "\" border=\"0\">
                                        </a>
                                     </td>\n";
@@ -398,7 +398,7 @@ require("includes/header_html_inc.php");
                   <td class="dlg-menu">
                      <input name="btn_clear" type="submit" class="button" value="<?=$LANG['btn_clear']?>">
                      <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-                     <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?month_template.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+                     <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                      <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
                      <input name="btn_done" type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_done']?>">
                   </td>

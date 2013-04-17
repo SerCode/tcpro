@@ -108,7 +108,7 @@ if ( isset($_POST['btn_absCreate']) ) {
           * Log this event
           */
          $LOG->log("logAbsence",$L->checkLogin(),"Absence type created: ".$A->name." (".$absid.")");
-         header("Location: ".$_SERVER['PHP_SELF']."?absid=".$absid."&amp;lang=".$CONF['options']['lang']);
+         header("Location: ".$_SERVER['PHP_SELF']."?absid=".$absid);
          die();
       }
    }
@@ -214,7 +214,7 @@ else if ( isset($_POST['btn_absApply']) ) {
     * Log this event
     */
    $LOG->log("logAbsence",$L->checkLogin(),"Absence type updated: ".$A->name." (".$_POST['txt_absid'].")");
-   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['txt_absid']."&amp;lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['txt_absid']);
    die();
 }
 /**
@@ -230,7 +230,7 @@ else if (isset($_POST['btn_absDelete'])) {
     * Log this event
     */
    $LOG->log("logAbsence",$L->checkLogin(),"Absence type deleted: ".$A->name." (".$_POST['txt_absid'].")");
-   header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']);
    die();
 }
 
@@ -238,7 +238,7 @@ else if (isset($_POST['btn_absDelete'])) {
  * Check whether a different scheme was selected
  */
 if (isset($_POST['sel_abs'])) {
-   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['sel_abs']."&lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['sel_abs']);
    die();
 }
 
@@ -260,7 +260,7 @@ require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
-      <form class="form" name="form-abs" method="POST" action="<?=$_SERVER['PHP_SELF']."?absid=".$A->id."&amp;lang=".$CONF['options']['lang']?>">
+      <form class="form" name="form-abs" method="POST" action="<?=$_SERVER['PHP_SELF']."?absid=".$A->id?>">
       <input name="txt_absid" type="hidden" class="text" value="<?=$A->id?>">
       <table class="dlg">
          <tr>
@@ -273,7 +273,7 @@ require("includes/menu_inc.php");
             <td class="dlg-menu" colspan="2" style="text-align: left;">
                <input name="btn_absApply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
                <input name="btn_absDelete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
-               <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?permissions.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+               <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
             </td>
          </tr>
 
@@ -513,7 +513,7 @@ require("includes/menu_inc.php");
             <td class="dlg-menu" colspan="2" style="text-align: left;">
                <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
                <input name="btn_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
-               <input name="btn_help" type="button" class="button" onclick="javascript:this.blur(); openPopup('help/<?=$CONF['options']['helplang']?>/html/index.html?permissions.html','help','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=750,height=500');" value="<?=$LANG['btn_help']?>">
+               <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
             </td>
          </tr>
 

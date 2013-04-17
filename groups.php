@@ -201,7 +201,7 @@ require("includes/menu_inc.php");
          <tr>
             <td>
                <!-- Add new group -->
-               <form class="form" name="form-grp-add" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+               <form class="form" name="form-grp-add" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                <table style="border-collapse: collapse; border: 0px; width: 100%;">
                   <tr>
                      <td class="dlg-row1" width="30"><img src="themes/<?=$theme?>/img/ico_add.png" alt="Group" title="Group" align="middle" style="padding-right: 2px;"></td>
@@ -224,7 +224,7 @@ require("includes/menu_inc.php");
                   echo "
 
                   <!-- ".$G->groupname." -->
-                  <form class=\"form\" name=\"form-grp-".$i."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']."\">
+                  <form class=\"form\" name=\"form-grp-".$i."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">
                   <table style=\"border-collapse: collapse; border: 0px; width: 100%;\">
                      <tr>
                         <td class=\"dlg-row".$printrow."\" width=\"30\"><img src=\"themes/".$theme."/img/ico_group.png\" alt=\"Group\" title=\"Group\" align=\"middle\" style=\"padding-right: 2px;\"></td>

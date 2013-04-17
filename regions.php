@@ -440,7 +440,7 @@ require("includes/menu_inc.php");
                            </td>
                         </tr>
                         <tr>
-                           <form class="form" name="form-region-add" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+                           <form class="form" name="form-region-add" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                               <td class="dlg-row1" width="5%"><img src="themes/<?=$theme?>/img/ico_add.png" alt="Region" title="<?=$LANG['tt_add_region']?>" align="middle" style="padding-right: 2px;"></td>
                               <td class="dlg-row1" width="20%"><input name="reg_nameadd" size="16" type="text" class="text" id="reg_nameadd" value=""></td>
                               <td class="dlg-row1" width="30%"><input name="reg_descadd" size="34" type="text" class="text" id="reg_descadd" value=""></td>
@@ -449,7 +449,7 @@ require("includes/menu_inc.php");
                            </form>
                         </tr>
                      </table>
-                     <form class="form" name="form-ical-add" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>" enctype="multipart/form-data">
+                     <form class="form" name="form-ical-add" method="POST" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
                         <table class="dlg" style="border-top: 0px;">
                            <tr>
                               <td class="dlg-row2" width="5%"><img src="themes/<?=$theme?>/img/ico_calendar.png" alt="Region" title="<?=$LANG['tt_add_ical']?>" align="middle" style="padding-right: 2px;"></td>
@@ -483,7 +483,7 @@ require("includes/menu_inc.php");
                      <?php
                      $printrow=1;
                      $R->findByName('default'); ?>
-                     <form class="form" name="form-reg-<?=$R->regionname?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>?lang=<?=$CONF['options']['lang']?>">
+                     <form class="form" name="form-reg-<?=$R->regionname?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                         <table style="border-collapse: collapse; border: 1px solid #000000; width: 100%;">
                            <tr>
                               <td class="dlg-caption-gray" colspan="5">
@@ -511,7 +511,7 @@ require("includes/menu_inc.php");
                               <td class="dlg-row<?=$printrow?>" width="10%">&nbsp;
                               </td>
                               <td class="dlg-row<?=$printrow?>" width="35%">
-                                 <input name="btn_reg_edit" type="submit" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:openPopup('editmonth.php?lang=<?=$CONF['options']['lang']?>&amp;region=<?=$R->regionname?>&amp;Year=<?=$yeartoday?>&amp;Month=<?=$monthtoday?>','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');">
+                                 <input name="btn_reg_edit" type="submit" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:openPopup('editmonth.php?region=<?=$R->regionname?>&amp;Year=<?=$yeartoday?>&amp;Month=<?=$monthtoday?>','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');">
                               </td>
                            </tr>
                         </table>
@@ -541,7 +541,7 @@ require("includes/menu_inc.php");
                                     <td class="dlg-row<?=$printrow?>" width="35%">
                                        <input name="btn_reg_update" type="submit" class="button" value="<?=$LANG['btn_update']?>">&nbsp;
                                        <input name="btn_reg_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="return confirmSubmit('<?=$LANG['reg_delete_confirm']?>: <?=$reg['regionname']?>')">&nbsp;
-                                       <input name="btn_reg_edit" type="submit" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:openPopup('editmonth.php?lang=<?=$CONF['options']['lang']?>&amp;region=<?=$reg['regionname']?>&amp;Year=<?=$yeartoday?>&amp;Month=<?=$monthtoday?>','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');">
+                                       <input name="btn_reg_edit" type="submit" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:openPopup('editmonth.php?region=<?=$reg['regionname']?>&amp;Year=<?=$yeartoday?>&amp;Month=<?=$monthtoday?>','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=960,height=300');">
                                     </td>
                                  </tr>
                               </table>
@@ -555,7 +555,7 @@ require("includes/menu_inc.php");
                        MERGE REGION
                   -->
                   <div id="tabs-3">
-                     <form class="form" name="form-region-merge" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+                     <form class="form" name="form-region-merge" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                         <table class="dlg">
                            <tr>
                               <td class="dlg-caption-gray" colspan="5">

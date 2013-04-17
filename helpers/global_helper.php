@@ -959,13 +959,6 @@ function getOptions() {
    $user = $L->checkLogin();
 
    /**
-    * Set time zone
-    */
-   $tz="UTC";
-   if (strlen($C->readConfig("timeZone"))) $tz=$C->readConfig("timeZone");
-   date_default_timezone_set($tz);
-   
-   /**
     * Set defaults
     */
    $today = getdate();
@@ -1048,14 +1041,6 @@ function getOptions() {
    /**
     * Get $_REQUEST (overwriting user preferences)
     */
-   if (isset ($_REQUEST['lang']) 
-       AND strlen($_REQUEST['lang'])
-       AND in_array($_REQUEST['lang'],getLanguages())) 
-   {
-      $CONF['options']['lang'] = trim($_REQUEST['lang']);
-   }
-     
-
    if (isset ($_REQUEST['groupfilter']) AND strlen($_REQUEST['groupfilter'])
        AND (in_array($_REQUEST['groupfilter'],$G->getGroups())
             OR $_REQUEST['groupfilter']=="All"
@@ -1159,25 +1144,11 @@ function getOptions() {
    }
 
    /**
-    * Now we have the language. Check if an according help file exists. If not
-    * default to English
+    * Set time zone
     */
-   if (file_exists("includes/help/" . $CONF['options']['lang'] . "/html/index.html")) {
-      $CONF['options']['helplang'] = $CONF['options']['lang'];
-   }
-   else {
-      $CONF['options']['helplang'] = "english";
-   }
-
-   /**
-    * Time Zone
-    */
-   if (($myTimeZone=$C->readConfig("timeZone"))!="UTC") {
-      ini_set("date.timezone", $myTimeZone);
-   }
-   else {
-      ini_set("date.timezone", "UTC");
-   }
+   $tz="UTC";
+   if (strlen($C->readConfig("timeZone"))) $tz=$C->readConfig("timeZone");
+   date_default_timezone_set($tz);
 }
 
 // ---------------------------------------------------------------------------

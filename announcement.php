@@ -115,7 +115,7 @@ require("includes/menu_inc.php");
                if (count($uas)) { ?>
                   <td class="config-row1">&nbsp;</td>
                   <td class="config-row1" style="text-align: center; vertical-align: middle;">
-                     <form class="form" name="form-ann" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+                     <form class="form" name="form-ann" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                         <input name="btn_confirm_all" type="submit" class="button" value="<?=$LANG['btn_confirm_all']?>" onclick="return confirmSubmit('<?=$LANG['ann_confirm_all_confirm']?>')">
                      </form>
                   </td>
@@ -135,7 +135,7 @@ require("includes/menu_inc.php");
                   </fieldset>
                </td>
                <td class="config-row<?=$style?>" style="text-align: center; vertical-align: middle;">
-                  <form class="form" name="form-ann-<?=$ua['ats']?>" method="POST" action="<?=$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']?>">
+                  <form class="form" name="form-ann-<?=$ua['ats']?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                      <input name="ats" type="hidden" class="text" value="<?=$ua['ats']?>">&nbsp;
                      <input name="btn_confirm" type="submit" class="button" value="<?=$LANG['btn_confirm']?>" onclick="return confirmSubmit('<?=$LANG['ann_delete_confirm_1'].$ua['ats'].$LANG['ann_delete_confirm_2']?>');">
                   </form>

@@ -62,7 +62,8 @@ if (!isAllowed("viewYearCalendar")) showError("notallowed");
  * A new user was selected
  */
 if ( isset($_POST['obar_user']) OR isset($_POST['obar_year']) ) {
-   header("Location: ".$_SERVER['PHP_SELF']."?showuser=".$_POST['obar_user']."&showyear=".$_POST['obar_year']."&lang=".$CONF['options']['lang']);
+   header("Location: ".$_SERVER['PHP_SELF']."?showuser=".$_POST['obar_user']."&showyear=".$_POST['obar_year']);
+   die();
 }
 
 /**
@@ -304,13 +305,13 @@ require( "includes/menu_inc.php" );
                      echo "<td class=\"ymonth\" rowspan=\"3\">".$LANG['monthnames'][$m]."</td>\n";
                      $buttoncell="<td class=\"ymonthb\" rowspan=\"3\">";
                      if (isAllowed("editGlobalCalendar") ) {
-                        $buttoncell.="<a href=\"javascript:openPopup('editmonth.php?lang=".$CONF['options']['lang']."&amp;Year=".$showyear."&amp;Month=".$monthnames[$m]."&amp;region=".$CONF['options']['region']."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=1024,height=400');\"><img class=\"noprint\" src=\"themes/".$theme."/img/date.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_month']."\" alt=\"".$LANG['cal_img_alt_edit_month']."\"></a>&nbsp;\n\r";
+                        $buttoncell.="<a href=\"javascript:openPopup('editmonth.php?Year=".$showyear."&amp;Month=".$monthnames[$m]."&amp;region=".$CONF['options']['region']."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=1024,height=400');\"><img class=\"noprint\" src=\"themes/".$theme."/img/date.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_month']."\" alt=\"".$LANG['cal_img_alt_edit_month']."\"></a>&nbsp;\n\r";
                      }
                      if (isAllowed("editAllUserCalendars") OR
                          ($UG->shareGroups($luser, $showuser) AND isAllowed("editGroupUserCalendars")) OR
                          ($luser==$showuser AND isAllowed("editOwnUserCalendars"))
                         ) {
-                        $buttoncell.="<a href=\"javascript:openPopup('editcalendar.php?lang=".$CONF['options']['lang']."&amp;Year=".$showyear."&amp;Month=".$monthnames[$m]."&amp;Member=".$showuser."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=980,height=640');\"><img class=\"noprint\" src=\"themes/".$theme."/img/btn_edit.gif\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_cal']."\" alt=\"".$LANG['cal_img_alt_edit_cal']."\"></a>\n\r";
+                        $buttoncell.="<a href=\"javascript:openPopup('editcalendar.php?Year=".$showyear."&amp;Month=".$monthnames[$m]."&amp;Member=".$showuser."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=980,height=640');\"><img class=\"noprint\" src=\"themes/".$theme."/img/btn_edit.gif\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_cal']."\" alt=\"".$LANG['cal_img_alt_edit_cal']."\"></a>\n\r";
                      }
                      $buttoncell.="</td>\n\r";
                      echo $buttoncell;
