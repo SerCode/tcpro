@@ -124,7 +124,7 @@ if ($luser=$L->checkLogin())
  */
 if ( $display=="calendar" AND isAllowed("viewCalendar")) 
 {
-   header("Location: calendar.php);
+   header("Location: calendar.php");
    die();
 }
 else 
