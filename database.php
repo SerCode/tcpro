@@ -98,7 +98,7 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
     */
    if ( strlen($_POST['clean_year']) && strlen($_POST['clean_month']) ) {
       if ( $_POST['cleanup_confirm']=="CLEANUP" ) {
-         if ( $_POST['chkDBCleanupUsers'] ) {
+         if ( isset($_POST['chkDBCleanupUsers']) ) {
             /**
              * Delete Templates
              */
@@ -113,7 +113,7 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
             $query  = "DELETE FROM `".$N->table."` WHERE `yyyymmdd`<=".$keydate." AND `username`<>'all'";
             $result = $N->db->db_query($query);
          }
-         if ( $_POST['chkDBCleanupMonths'] ) {
+         if ( isset($_POST['chkDBCleanupMonths']) ) {
             /**
              * Delete Month Templates
              */
@@ -127,7 +127,7 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
             $query  = "DELETE FROM `".$N->table."` WHERE `yyyymmdd`<=".$keydate;
             $result = $N->db->db_query($query);
          }
-         if ( $_POST['chkDBOptimize'] ) {
+         if ( isset($_POST['chkDBOptimize']) ) {
             /**
              * Optimize tables
              */
@@ -175,7 +175,7 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
  */
 else if ( isset($_POST['btn_dbmaint_del']) ) {
 
-   if ( $_POST['del_confirm']=="DELETE" ) {
+   if ( isset($_POST['del_confirm']) AND $_POST['del_confirm']=="DELETE" ) {
 
       if ( isset($_POST['chkDBDeleteUsers']) ) {
          $query  = "DELETE FROM `".$U->table."` WHERE `username`<> 'admin'";

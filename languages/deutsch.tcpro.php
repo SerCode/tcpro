@@ -68,7 +68,7 @@ $LANG['mnu_tools_admin_phpinfo'] = 'PHP Info';
 $LANG['mnu_help'] = 'Hilfe';
 $LANG['mnu_help_legend'] = 'Legende';
 $LANG['mnu_help_help'] = 'Nutzerhandbuch';
-$LANG['mnu_help_about'] = '&Uuml;ber TeamCal';
+$LANG['mnu_help_about'] = '&Uuml;ber TeamCal Pro';
 
 /**
  * Filter
