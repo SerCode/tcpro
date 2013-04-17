@@ -66,8 +66,8 @@ $m = buildMenu();
          _cmSplit,
          <?php if ($m['mnu_tools'] ) { ?>
          [null,'<?=$LANG['mnu_tools']?>',null,null,null,
-            <?php if ($m['mnu_tools_profile'] ) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_profile']?>','javascript:openPopup(\'editprofile.php?referrer=index&username=<?=addslashes($UL->username)?>&lang=<?=$CONF['options']['lang']?>\',\'profile\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=700\');',null,null],
+            <?php if ($m['mnu_tools_profile'] AND $luser=$L->checkLogin()) { ?>
+            ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_profile']?>','javascript:openPopup(\'editprofile.php?referrer=index&username=<?=$luser?>&lang=<?=$CONF['options']['lang']?>\',\'profile\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=700\');',null,null],
             <?php }
             if ($m['mnu_tools_message']) { ?>
             ['<img src="themes/<?=$theme?>/img/menu/ico_message.png" />','<?=$LANG['mnu_tools_message']?>','message.php?lang=<?=$CONF['options']['lang']?>',null,null],
@@ -156,7 +156,7 @@ $m = buildMenu();
              * You may not disable or alter the About dialog nor its menu item here.
              */
             ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_help_about']?>','javascript:openPopup(\'about.php\',\'about\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,titlebar=0,resizable=0,dependent=1,width=580,height=370\');',null,null],
+            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_help_about']?>','javascript:openPopup(\'about.php?lang=<?=$CONF['options']['lang']?>\',\'about\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,titlebar=0,resizable=0,dependent=1,width=580,height=370\');',null,null],
          ],
       ];
       cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');

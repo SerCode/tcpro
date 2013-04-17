@@ -26,8 +26,7 @@ define( '_VALID_TCPRO', 1 );
 require_once ("config.tcpro.php");
 require_once ("helpers/global_helper.php");
 getOptions();
-if (strlen($CONF['options']['lang'])) require ("languages/" . $CONF['options']['lang'] . ".tcpro.php");
-else                                  require ("languages/english.tcpro.php");
+require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -49,18 +48,18 @@ else                                  require ("languages/english.tcpro.php");
             <td style="background-color: #F7F7F7;">
                <p style="font-weight: bold; font-size: 30px; margin: 10px 0px 10px 0px;">TeamCal Pro</p>
                <p>
-               <strong>Version:</strong>&nbsp;&nbsp;<?=$CONF['app_version']?><br>
-               <strong>Copyright:</strong>&nbsp;&nbsp;&copy;2004-<?=$CONF['app_curr_year']?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=$CONF['app_author']?></a><br>
-               <strong>License:</strong>&nbsp;&nbsp;GNU General Public License v3 (<a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPLv3</a>)<br>
+               <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=$CONF['app_version']?><br>
+               <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;2004-<?=$CONF['app_curr_year']?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=$CONF['app_author']?></a><br>
+               <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;GNU General Public License v3 (<a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPLv3</a>)<br>
                <br>
-               <strong>Credits:</strong><br>
-               &#8226;&nbsp;jQuery UI Team for <a href="http://www.jqueryui.com/" target="_blank">jQuery UI</a><br>
-               &#8226;&nbsp;Stefan Petre for <a href="http://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a><br>
-               &#8226;&nbsp;Heng Yuan for <a href="http://www.cs.ucla.edu/~heng/JSCookMenu/" target="_blank">JSCookMenu</a><br>
-               &#8226;&nbsp;David Vignoni for <a href="http://www.icon-king.com" target="_blank">Nuvola Icons</a><br>
-               &#8226;&nbsp;dAKirby309 for <a href="http://www.iconarchive.com/show/windows-8-metro-icons-by-dakirby309.html" target="_blank">Windows 8 Metro Icons</a><br>
-               &#8226;&nbsp;Everaldo Coelho for <a href="http://www.iconfinder.com/icondetails/3755/16/agenda_calendar_date_event_icon" target="_blank">the nice icon on the left</a><br>
-               &#8226;&nbsp;many users for testing and suggesting...<br>
+               <strong><?=$LANG['about_credits']?>:</strong><br>
+               &#8226;&nbsp;jQuery UI Team <?=$LANG['about_for']?> <a href="http://www.jqueryui.com/" target="_blank">jQuery UI</a><br>
+               &#8226;&nbsp;Stefan Petre <?=$LANG['about_for']?> <a href="http://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a><br>
+               &#8226;&nbsp;Heng Yuan <?=$LANG['about_for']?> <a href="http://www.cs.ucla.edu/~heng/JSCookMenu/" target="_blank">JSCookMenu</a><br>
+               &#8226;&nbsp;David Vignoni <?=$LANG['about_for']?> <a href="http://www.icon-king.com" target="_blank">Nuvola Icons</a><br>
+               &#8226;&nbsp;dAKirby309 <?=$LANG['about_for']?> <a href="http://www.iconarchive.com/show/windows-8-metro-icons-by-dakirby309.html" target="_blank">Windows 8 Metro Icons</a><br>
+               &#8226;&nbsp;Everaldo Coelho <?=$LANG['about_for']?> <a href="http://www.iconfinder.com/icondetails/3755/16/agenda_calendar_date_event_icon" target="_blank">the nice icon on the left</a><br>
+               &#8226;&nbsp;<?=$LANG['about_misc']?><br>
                &nbsp;
                </p>
             </td>

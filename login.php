@@ -23,6 +23,9 @@ define( '_VALID_TCPRO', 1 );
  * Load user configuration file
  */
 require_once ("config.tcpro.php");
+require_once ("helpers/global_helper.php");
+getOptions();
+require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 
 /**
  * Load models
@@ -36,11 +39,6 @@ require_once ("models/user_announcement_model.php");
 require_once ("models/user_option_model.php");
 
 /**
- * Load helpers
- */
-require_once ("helpers/global_helper.php");
-
-/**
  * Create model instances
  */
 $AN = new Announcement_model;
@@ -50,15 +48,6 @@ $LOG = new Log_model;
 $U = new User_model;
 $UA = new User_announcement_model;
 $UO = new User_option_model;
-
-/**
- * Get other options
- */
-getOptions();
-if (strlen($CONF['options']['lang'])) 
-   require ("languages/".$CONF['options']['lang'].".tcpro.php");
-else
-   require ("languages/english.tcpro.php");
 
 /**
  * Initiate view variables

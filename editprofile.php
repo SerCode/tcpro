@@ -25,8 +25,7 @@ define( '_VALID_TCPRO', 1 );
 require_once ("config.tcpro.php");
 require_once ("helpers/global_helper.php");
 getOptions();
-if (strlen($CONF['options']['lang'])) require ("languages/" . $CONF['options']['lang'] . ".tcpro.php");
-else                                  require ("languages/english.tcpro.php");
+require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 
 require_once( "models/absence_model.php" );
 require_once( "models/allowance_model.php" );
@@ -159,7 +158,7 @@ if (isset($_POST['btn_apply'])) {
       else $UO->save($U->username,"notifybirthday","no");
 
       if (isset($_POST['uo_language']) AND $_POST['uo_language'] ) $UO->save($U->username,"language",$_POST['uo_language']);
-      else $UO->save($U->username,"language",$CONF['options']['lang']);
+      else $UO->save($U->username,"language",$C->readConfig("defaultLanguage"));
 
       if (isset($_POST['uo_defgroup']) AND $_POST['uo_defgroup'] ) $UO->save($U->username,"defgroup",$_POST['uo_defgroup']);
       else $UO->save($U->username,"defgroup",$C->readConfig("defgroupfilter"));
@@ -576,14 +575,13 @@ require( "includes/header_html_inc.php" );
                                                 <select name="uo_language" id="uo_language" class="select">
                                                 <?php
                                                 $array = getLanguages();
-                                                if ($deflang=$UO->find($U->username,"language")) $CONF['options']['lang']=$deflang;
-                                                foreach( $array as $langfile ) {
-                                                   if ($langfile==$CONF['options']['lang'])
-                                                      echo "<option value=\"".$langfile."\" SELECTED=\"selected\">".$langfile."</option>";
-                                                   else
-                                                      echo "<option value=\"".$langfile."\">".$langfile."</option>";
-                                                }
-                                                 ?>
+                                                if ($thisdeflang=$UO->find($U->username,"language")) $deflang=$thisdeflang;
+                                                else $deflang=$C->readConfig("defaultLanguage"); ?> 
+                                                <option class="option" value="default" <?=($deflang=="default"?"SELECTED":"")?>>default</option>
+                                                <?php 
+                                                foreach( $array as $langfile ) { ?>
+                                                   <option class="option" value="<?=$langfile?>" <?=(($deflang==$langfile)?"SELECTED":"")?>><?=$langfile?></option>
+                                                <?php } ?>
                                                 </select>
                                              </td>
                                           </tr>
@@ -595,6 +593,7 @@ require( "includes/header_html_inc.php" );
                                                 <select name="uo_defgroup" id="uo_defgroup" class="select">
                                                 <?php
                                                 if ($thisdefgroup=$UO->find($U->username,"defgroup")) $defgroup=$thisdefgroup;
+                                                else $defgroup="default";
                                                 ?>
                                                 <option class="option" value="default" <?=($defgroup=="default"?"SELECTED":"")?>>default</option>
                                                 <option class="option" value="All" <?=($defgroup=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
@@ -637,7 +636,7 @@ require( "includes/header_html_inc.php" );
                                                 if ($thisdeftheme=$UO->find($U->username,"deftheme")) $deftheme=$thisdeftheme;
                                                 else $deftheme="default";
                                                 foreach( $themearray as $mytheme ) {
-                                                   if ($mytheme['name']==$thisdeftheme) {
+                                                   if ($mytheme['name']==$deftheme) {
                                                       echo "<option value=\"".$mytheme['name']."\" SELECTED=\"selected\">".$mytheme['name']."</option>";
                                                    }
                                                    else
@@ -655,7 +654,8 @@ require( "includes/header_html_inc.php" );
                                              <td>
                                                 <select name="uo_defregion" id="uo_defregion" class="select">
                                                 <?php
-                                                if ($thisdefregion=$UO->find($U->username,"defregion")) $defregion=$thisdefregion; else $defregion="default";
+                                                if ($thisdefregion=$UO->find($U->username,"defregion")) $defregion=$thisdefregion; 
+                                                else $defregion="default";
                                                 ?>
                                                 <option class="option" value="default" <?=($defregion=="default"?"SELECTED":"")?>>default</option>
                                                 <?php

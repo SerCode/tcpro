@@ -24,8 +24,7 @@ define( '_VALID_TCPRO', 1 );
 require_once ("config.tcpro.php");
 require_once ("helpers/global_helper.php");
 getOptions();
-if (strlen($CONF['options']['lang'])) require ("languages/" . $CONF['options']['lang'] . ".tcpro.php");
-else                                  require ("languages/english.tcpro.php");
+require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 
 require_once( "models/config_model.php" );
 require_once( "models/group_model.php" );

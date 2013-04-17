@@ -1878,4 +1878,17 @@ $LANG['admin_config_usermanual_comment'] = 'TeamCal Pro\'s user manual is mainta
 'If you are interested in participating or creating a translation, register at the <a href="https://georgelewe.atlassian.net" target="_blank">'.
 'TeamCal Pro community site (https://georgelewe.atlassian.net)</a> and create a task in the issue tracker for it.<br>'.
 'If you leave this field empty, TeamCal Pro will insert the default link.';
+$LANG['admin_config_lang'] = 'Default Language';
+$LANG['admin_config_lang_comment'] = 'TeamCal Pro is distributed in English and German. The adminstrator might have added more languages. '.
+'Chose the default language of your installation here.';
+
+/**
+ * About page
+ */
+$LANG['about_version'] = 'Version';
+$LANG['about_copyright'] = 'Copyright';
+$LANG['about_license'] = 'License';
+$LANG['about_credits'] = 'Credits';
+$LANG['about_for'] = 'for';
+$LANG['about_misc'] = 'many users for testing and suggesting...';
 ?>

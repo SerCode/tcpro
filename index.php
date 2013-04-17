@@ -18,9 +18,12 @@
 define( '_VALID_TCPRO', 1 );
 
 /**
- * Load the user configuration file
+ * Load the config and helpers
  */
 require_once ("config.tcpro.php");
+require_once ("helpers/global_helper.php");
+getOptions();
+require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 
 /**
  * Load models that we need here
@@ -31,12 +34,6 @@ require_once ("models/login_model.php");
 require_once ("models/log_model.php");
 require_once ("models/user_model.php");
 require_once ("models/user_announcement_model.php" );
-
-/**
- * Load helpers that we need here
- */
-require_once ("helpers/global_helper.php");
-require_once ("helpers/showmonth_helper.php");
 
 /**
  * Create model instances
@@ -51,16 +48,6 @@ $UA  = new User_announcement_model;
 /**
  * Get other options
  */
-getOptions();
-
-if (strlen($CONF['options']['lang']))
-{ 
-   require ("languages/".$CONF['options']['lang'].".tcpro.php");
-}
-else
-{
-   require ("languages/english.tcpro.php");
-}
 
 /**
  * Get the URL action request
@@ -81,7 +68,7 @@ if (isset ($_REQUEST['action']))
       case 'logout' :
          $L->logout();
          $LOG->log("logLogin", $L->checkLogin(), "Logout");
-         header("Location: ".$_SERVER['PHP_SELF']."?lang=".$CONF['options']['lang']);
+         header("Location: ".$_SERVER['PHP_SELF']);
          break;
 
       default:
@@ -147,6 +134,7 @@ else
    require("includes/header_app_inc.php");
    require("includes/menu_inc.php");
    include("includes/homepage_inc.php");
+   echo $CONF['options']['lang'];
    require("includes/footer_inc.php");
 }
 ?>

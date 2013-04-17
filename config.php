@@ -25,8 +25,7 @@ define( '_VALID_TCPRO', 1 );
 require_once ("config.tcpro.php");
 require_once ("helpers/global_helper.php");
 getOptions();
-if (strlen($CONF['options']['lang'])) require ("languages/".$CONF['options']['lang'].".tcpro.php");
-else require ("languages/english.tcpro.php");
+require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 
 require_once("models/config_model.php");
 require_once("models/log_model.php");
@@ -115,10 +114,13 @@ if ( isset($_POST['btn_confApply']) ) {
    /**
     * General options
     */
+   if (trim($_POST['sel_defLang'])) $C->saveConfig("defaultLanguage",trim($_POST['sel_defLang'])); else $C->saveConfig("defaultLanguage","english");
    if (trim($_POST['sel_pscheme'])) $C->saveConfig("permissionScheme",trim($_POST['sel_pscheme'])); else $C->saveConfig("permissionScheme","Default");
+   
    if ( isset($_POST['periodfrom']) AND isset($_POST['periodto']) ) {
       $fromstamp = strtotime($_POST['periodfrom']);
       $tostamp = strtotime($_POST['periodto']);
+      
       if ($tostamp > $fromstamp) {
          $C->saveConfig("defperiodfrom",trim($_POST['periodfrom']));
          $C->saveConfig("defperiodto",trim($_POST['periodto']));
@@ -748,6 +750,30 @@ if (ini_get('register_globals')) {
                   <?php $style="2"; ?>
                   <div id="tabs-4">
                      <table class="dlg">
+                        <!-- defaultLanguage -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_lang']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_lang_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <select name="sel_defLang" class="select">
+                                 <?php
+                                    if (strlen($C->readConfig("defaultLanguage"))) $currlang = $C->readConfig("defaultLanguage");
+                                    else $currlang="english";
+                                    $languages = getLanguages();
+                                    foreach ($languages as $lang) {
+                                       if ($lang==$currlang)
+                                          echo ("<option value=\"".$lang."\" SELECTED=\"selected\">".$lang."</option>");
+                                       else
+                                          echo ("<option value=\"".$lang."\" >".$lang."</option>");
+                                    }
+                                 ?>
+                              </select>
+                           </td>
+                        </tr>
+               
                         <!-- permissionScheme -->
                         <?php if ($style=="1") $style="2"; else $style="1"; ?>
                         <tr>

@@ -8,6 +8,11 @@ TEAMCAL PRO RELEASE INFO
 DATE
 2013-xx-xx
 
+IMPROVEMENTS
+01 Default Language
+   The admin can now set the default language so it defaults to his choice
+   instead of defaulting to English.
+
 NEW FEATURES
 01 Public user manual
    The local help files are gone. With the launch of the TeamCal Pro community

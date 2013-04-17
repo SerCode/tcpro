@@ -981,6 +981,9 @@ function getOptions() {
       "remainder"=>'',
    );
 
+   if (!$C->readConfig("defaultLanguage")) $C->saveConfig("defaultLanguage","english");
+   else $CONF['options']['lang'] = $C->readConfig("defaultLanguage");
+   
    if (!$C->readConfig("defgroupfilter")) $C->saveConfig("defgroupfilter","All");
    else $CONF['options']['groupfilter'] = $C->readConfig("defgroupfilter");
 
@@ -996,17 +999,34 @@ function getOptions() {
    else                                 $CONF['options']['summary'] = "hide";
 
    /**
-    * Get user preferences
+    * DEBUG: Set to TRUE for debug info
     */
-   if ($userlang = $UO->find($user, "language")) $CONF['options']['lang'] = $userlang;
-
-   if ($userprefgroup = $UO->find($user, "defgroup")) {
-      if ($userprefgroup=="default") $CONF['options']['groupfilter'] = $C->readConfig("defgroupfilter");
-      else                           $CONF['options']['groupfilter'] = $userprefgroup;
+   if (FALSE) {
+      $debug ="After Defaults\\r\\n";
+      $debug.="tc_config['options']['lang'] = ".$CONF['options']['lang']."\\r\\n";
+      $debug.="tc_config['options']['groupfilter'] = ".$CONF['options']['groupfilter']."\\r\\n";
+      $debug.="tc_config['options']['region'] = ".$CONF['options']['region']."\\r\\n";
+      $debug.="tc_config['options']['month_id'] = ".$CONF['options']['month_id']."\\r\\n";
+      $debug.="tc_config['options']['year_id'] = ".$CONF['options']['year_id']."\\r\\n";
+      $debug.="tc_config['options']['show_id'] = ".$CONF['options']['show_id']."\\r\\n";
+      $debug.="tc_config['options']['summary'] = ".$CONF['options']['summary']."\\r\\n";
+      $debug.="tc_config['options']['remainder'] = ".$CONF['options']['remainder']."\\r\\n";
+      echo "<script type=\"text/javascript\">alert(\"".$debug."\");</script>";
    }
 
-   if ($userregion = $UO->find($user, "defregion")) {
-      if ($userregion!="default") $CONF['options']['region'] = $userregion;
+   /**
+    * Get user preferences
+    */
+   if ($userlang=$UO->find($user,"language") AND $userlang!="default") {
+      $CONF['options']['lang'] = $userlang;
+   } 
+
+   if ($userprefgroup=$UO->find($user,"defgroup") AND $userprefgroup!="default") {
+      $CONF['options']['groupfilter'] = $userprefgroup;
+   }
+
+   if ($userregion=$UO->find($user,"defregion") AND $userregion!="default") {
+      $CONF['options']['region'] = $userregion;
    }
 
    /**
@@ -1028,10 +1048,13 @@ function getOptions() {
    /**
     * Get $_REQUEST (overwriting user preferences)
     */
-   if (isset ($_REQUEST['lang']) AND strlen($_REQUEST['lang'])
-       AND in_array($_REQUEST['lang'],getLanguages())
-      )
+   if (isset ($_REQUEST['lang']) 
+       AND strlen($_REQUEST['lang'])
+       AND in_array($_REQUEST['lang'],getLanguages())) 
+   {
       $CONF['options']['lang'] = trim($_REQUEST['lang']);
+   }
+     
 
    if (isset ($_REQUEST['groupfilter']) AND strlen($_REQUEST['groupfilter'])
        AND (in_array($_REQUEST['groupfilter'],$G->getGroups())

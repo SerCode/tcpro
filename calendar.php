@@ -20,9 +20,13 @@
 define( '_VALID_TCPRO', 1 );
 
 /**
- * Load the user configuration file
+ * Load config and helpers
  */
 require_once ("config.tcpro.php");
+require_once ("helpers/global_helper.php");
+require_once ("helpers/showmonth_helper.php");
+getOptions();
+require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 
 /**
  * Load models that we need here
@@ -41,12 +45,6 @@ require_once ("models/user_group_model.php" );
 require_once ("models/user_option_model.php");
 
 /**
- * Load helpers that we need here
- */
-require_once ("helpers/global_helper.php");
-require_once ("helpers/showmonth_helper.php");
-
-/**
  * Create model instances
  */
 $A   = new Absence_model;
@@ -62,20 +60,6 @@ $UA  = new User_announcement_model;
 $UG  = new User_group_model;
 $UO  = new User_option_model;
 
-/**
- * Get other options
- */
-getOptions();
-
-if (strlen($CONF['options']['lang']))
-{ 
-   require ("languages/".$CONF['options']['lang'].".tcpro.php");
-}
-else
-{
-   require ("languages/english.tcpro.php");
-}
-   
 /**
  * Show error if not allowed
  */
