@@ -10,15 +10,27 @@ DATE
 
 IMPROVEMENTS
 01 Default Language
-   The admin can now set the default language so it defaults to his choice
-   instead of defaulting to English.
+   The admin can now set the default language so it defaults to this choice
+   instead of defaulting to English. There is now language drop down list
+   in the options bar anymore. Every user can set his individual language 
+   in his profile.
    
-02 Status integration
+02 Status bar integration
    The status bar was removed. It only served the purpose to display login
    information. Too much wasted vertical real estate for just that info.
    This information is now displayed by a user icon left to the menu with 
    a tool tip. Also, the announcement icon willshow up there when there
    are some.
+   
+03 Own page for Calendar
+   The calendar is now a separate page. Before, it was included from the index
+   page. This offers better possibilities to react to the displayed page,
+   e.g. in the options bar.
+   
+04 Options bar
+   The options bar is now used for most of the page related buttons and
+   list boxes. Previsously, these object were on the page itself which made
+   the options bar's purpose kind of void.
 
 NEW FEATURES
 01 Public user manual
