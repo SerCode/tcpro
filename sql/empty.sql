@@ -211,7 +211,8 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (117, 'mailSMTPSSL', '0'),
 (118, 'jqtheme', 'base'),
 (119, 'fastEdit', '0'),
-(120, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCP036%2F');
+(120, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCP036%2F'),
+(121, 'defaultLanguage', 'english');
 
 -- --------------------------------------------------------
 
