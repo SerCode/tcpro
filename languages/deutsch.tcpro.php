@@ -1891,4 +1891,9 @@ $LANG['about_license'] = 'Lizenz';
 $LANG['about_credits'] = 'Dank an';
 $LANG['about_for'] = 'f&uuml;r';
 $LANG['about_misc'] = 'viele Nutzer f&uuml;r Tests und Vorschl&auml;ge...';
+
+/**
+ * Menu bar
+ */
+$LANG['mnu_announcements'] = 'Du hast Nachrichten. Klick hier, um sie zu lesen...';
 ?>

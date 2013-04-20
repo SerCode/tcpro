@@ -552,7 +552,7 @@ require( "includes/header_html_inc.php" );
                                  <tr>
                                     <td class="dlg-frame-body" style="width: 50%; vertical-align: top;">
                                        <input style="vertical-align: middle; margin-right: 8px;" name="uo_owngroups" id="uo_owngroups" type="checkbox" value="uo_owngroups" <?=$UO->true($U->username,"owngroupsonly")?"CHECKED":""?> ><?=$LANG['uo_owngroupsonly']?><br>
-                                       <input style="vertical-align: middle; margin-right: 8px;" name="uo_showbirthday" id="uo_showbirthday" type="checkbox" value="uo_showbirthday" onclick="javascript: var obj = document.getElementById('thisid'); if (document.forms[0].uo_showbirthday.checked==true) { document.forms[0].uo_ignoreage.disabled=false; obj.style.color = '#333333'; } else { document.forms[0].uo_ignoreage.disabled=true; document.forms[0].uo_ignoreage.checked=false; obj.style.color = '#BBBBBB'; }" <?=$UO->true($U->username,"showbirthday")?"CHECKED":""?> ><?=$LANG['uo_showbirthday']?><br>
+                                       <input style="vertical-align: middle; margin-right: 8px;" name="uo_showbirthday" id="uo_showbirthday" type="checkbox" value="uo_showbirthday" onclick="javascript: var obj=document.getElementById('thisid'); if (document.forms[0].uo_showbirthday.checked==true) { document.forms[0].uo_ignoreage.disabled=false; obj.style.color = '#333333'; } else { document.forms[0].uo_ignoreage.disabled=true; document.forms[0].uo_ignoreage.checked=false; obj.style.color = '#BBBBBB'; }" <?=$UO->true($U->username,"showbirthday")?"CHECKED":""?> ><?=$LANG['uo_showbirthday']?><br>
                                        <input style="vertical-align: middle; margin-left: 26px; margin-right: 8px;" name="uo_ignoreage" id="uo_ignoreage" type="checkbox" value="uo_ignoreage" <?=$UO->true($U->username,"ignoreage")?"CHECKED":""?>><span id="thisid"><?=$LANG['uo_ignoreage']?></span><br>
                                        <script type="text/javascript">
                                        var obj = document.getElementById('thisid');
@@ -582,7 +582,7 @@ require( "includes/header_html_inc.php" );
                                                 else $deflang=$C->readConfig("defaultLanguage"); ?> 
                                                 <option class="option" value="default" <?=($deflang=="default"?"SELECTED":"")?>>default</option>
                                                 <?php 
-                                                foreach( $array as $langfile ) { ?>
+                                                foreach ($array as $langfile) { ?>
                                                    <option class="option" value="<?=$langfile?>" <?=(($deflang==$langfile)?"SELECTED":"")?>><?=$langfile?></option>
                                                 <?php } ?>
                                                 </select>

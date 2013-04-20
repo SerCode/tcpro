@@ -28,7 +28,65 @@ $m = buildMenu();
 <!-- MENU BAR ============================================================= -->
 <div id="menubar">
    <div id="menubar-content">
-      <div id="myMenuID" style="position: relative; left: 7px;"></div>
+
+      <?php
+      /**
+       * User icon, Announcement icon
+       */
+      if ($user=$L->checkLogin()) { ?>
+         <?php $UL->findByName($user);
+
+         if( $UL->checkUserType($CONF['UTUSER']) ) {
+            $utype = $LANG['status_ut_user'];
+            $icon = "ico_usr";
+         }
+
+         if( $UL->checkUserType($CONF['UTMANAGER']) ) {
+            require_once( $CONF['app_root']."models/user_group_model.php" );
+            $UG = new User_group_model;
+            $groups='';
+            $queryUG  = "SELECT `groupname` FROM `".$CONF['db_table_user_group']."` WHERE `username`='".$UL->username."' AND `type`='manager' ORDER BY `groupname`;";
+            $resultUG = $UG->db->db_query($queryUG);
+            while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
+               $groups.=stripslashes($rowUG['groupname']).", ";
+               }
+            $groups=substr($groups,0,strlen($groups)-2);
+            $utype = $LANG['status_ut_manager']." ".$groups;
+            $icon = "ico_usr_manager";
+         }
+
+         if( $UL->checkUserType($CONF['UTDIRECTOR']) ) {
+            $utype = $LANG['status_ut_director'];
+            $icon = "ico_usr_director";
+         }
+
+         if( $UL->checkUserType($CONF['UTADMIN']) ) {
+            $utype = $LANG['status_ut_admin'];
+            $icon = "ico_usr_admin";
+         }
+         if ( !$UL->checkUserType($CONF['UTMALE']) ) $icon .= "_f.png";
+         else $icon .= ".png";
+         ?>
+         <div style="float: left; position: relative; top: 4px; left: 10px; margin-right: 6px;">
+            <img src="themes/<?=$theme?>/img/<?=$icon?>" alt="" title="<?=$LANG['status_logged_in']?> <?=$user?> (<?=$utype?>)">
+            <?php 
+            if (isAllowed("viewAnnouncements")) {
+               $uas=$UA->getAllForUser($UL->username);
+               if (count($uas)) { ?>
+             	   <a href="announcement.php?uaname=<?=$UL->username?>"><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" title="<?=$LANG['mnu_announcements']?>"></a>
+           	   <?php }
+            } ?>
+         </div>
+         <?php 
+      }
+      else { ?>
+         <div style="float: left; position: relative; top: 4px; left: 10px; margin-right: 6px;">
+            <img src="themes/<?=$theme?>/img/ico_usr_grey.png" alt="" title="<?=$LANG['status_logged_out']?>">
+         </div>
+      <?php } 
+      ?>
+   
+      <div id="myMenuID" style="float: left; position: relative; left: 7px;"></div>
       <script type="text/javascript">
       <!--
       var myMenu =
@@ -271,80 +329,9 @@ else {
       if (substr_count($_SERVER['PHP_SELF'],"absences.php")AND isAllowed("editAbsenceTypes")) {
          include ($CONF['app_root']."includes/options_absences_inc.php");
       }
-
-      /**
-       * ANNOUNCEMENT ICON
-       */
-      if (isAllowed("viewAnnouncements")) {
-         $uas=$UA->getAllForUser($UL->username);
-         if (count($uas)) { ?>
-       	   <a href="announcement.php?uaname=<?=$UL->username?>"><img src="themes/<?=$theme?>/img/ico_bell.png" alt="" title="You got Announcements..." style="padding-left: 18px; vertical-align: middle;"></a> (<?=count($uas)?>)
-     	   <?php }
-      }
       ?>
       </span>
    </form>
-</div>
-
-<?php
-/**
- * ============================================================================
- * STATUS BAR
- */
-?>
-<!-- STATUS BAR =========================================================== -->
-<div id="statusbar">
-   <div id="statusbar-content">
-      <?php
-      if ($user=$L->checkLogin()) {
-         $UL->findByName($user);
-
-         if( $UL->checkUserType($CONF['UTUSER']) ) {
-            $utype = $LANG['status_ut_user'];
-            $icon = "ico_usr";
-            $icon_tooltip = $LANG['icon_user'];
-         }
-
-         if( $UL->checkUserType($CONF['UTMANAGER']) ) {
-            require_once( $CONF['app_root']."models/user_group_model.php" );
-            $UG = new User_group_model;
-            $groups='';
-            $queryUG  = "SELECT `groupname` FROM `".$CONF['db_table_user_group']."` WHERE `username`='".$UL->username."' AND `type`='manager' ORDER BY `groupname`;";
-            $resultUG = $UG->db->db_query($queryUG);
-            while ( $rowUG = $UG->db->db_fetch_array($resultUG) ){
-               $groups.=stripslashes($rowUG['groupname']).", ";
-               }
-            $groups=substr($groups,0,strlen($groups)-2);
-            $utype = $LANG['status_ut_manager']." ".$groups;
-            $icon = "ico_usr_manager";
-            $icon_tooltip = $LANG['icon_manager'];
-         }
-
-         if( $UL->checkUserType($CONF['UTDIRECTOR']) ) {
-            $utype = $LANG['status_ut_director'];
-            $icon = "ico_usr_director";
-            $icon_tooltip = $LANG['icon_director'];
-         }
-
-         if( $UL->checkUserType($CONF['UTADMIN']) ) {
-            $utype = $LANG['status_ut_admin'];
-            $icon = "ico_usr_admin";
-            $icon_tooltip = $LANG['icon_admin'];
-         }
-         if ( !$UL->checkUserType($CONF['UTMALE']) ) $icon .= "_f.png";
-         else $icon .= ".png";
-         ?>
-         <span class="loggedin">
-            <img src="themes/<?=$theme?>/img/<?=$icon?>" alt="" title="<?=$icon_tooltip?>" align="top" style="padding-right: 2px;">
-            <?=$LANG['status_logged_in']?> <?=$user?> (<?=$utype?>)
-         </span>
-      <?php }
-      else { ?>
-         <span class="loggedout">
-            <?=$LANG['status_logged_out']?>
-         </span>
-      <?php } ?>
-   </div>
 </div>
 
 <!-- CONTENT ============================================================== -->

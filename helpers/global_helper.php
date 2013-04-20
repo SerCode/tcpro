@@ -1008,18 +1008,20 @@ function getOptions() {
    }
 
    /**
-    * Get user preferences
+    * Get user preferences if someone is logged in
     */
-   if ($userlang=$UO->find($user,"language") AND $userlang!="default") {
-      $CONF['options']['lang'] = $userlang;
-   } 
-
-   if ($userprefgroup=$UO->find($user,"defgroup") AND $userprefgroup!="default") {
-      $CONF['options']['groupfilter'] = $userprefgroup;
-   }
-
-   if ($userregion=$UO->find($user,"defregion") AND $userregion!="default") {
-      $CONF['options']['region'] = $userregion;
+   if ($user) {
+      if ($userlang=$UO->find($user,"language") AND $userlang!="default") {
+         $CONF['options']['lang'] = $userlang;
+      } 
+   
+      if ($userprefgroup=$UO->find($user,"defgroup") AND $userprefgroup!="default") {
+         $CONF['options']['groupfilter'] = $userprefgroup;
+      }
+   
+      if ($userregion=$UO->find($user,"defregion") AND $userregion!="default") {
+         $CONF['options']['region'] = $userregion;
+      }
    }
 
    /**

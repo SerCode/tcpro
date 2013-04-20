@@ -12,6 +12,13 @@ IMPROVEMENTS
 01 Default Language
    The admin can now set the default language so it defaults to his choice
    instead of defaulting to English.
+   
+02 Status integration
+   The status bar was removed. It only served the purpose to display login
+   information. Too much wasted vertical real estate for just that info.
+   This information is now displayed by a user icon left to the menu with 
+   a tool tip. Also, the announcement icon willshow up there when there
+   are some.
 
 NEW FEATURES
 01 Public user manual

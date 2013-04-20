@@ -69,6 +69,7 @@ if (isset ($_REQUEST['action']))
          $L->logout();
          $LOG->log("logLogin", $L->checkLogin(), "Logout");
          header("Location: ".$_SERVER['PHP_SELF']);
+         die();
          break;
 
       default:
@@ -134,7 +135,6 @@ else
    require("includes/header_app_inc.php");
    require("includes/menu_inc.php");
    include("includes/homepage_inc.php");
-   echo $CONF['options']['lang'];
    require("includes/footer_inc.php");
 }
 ?>
