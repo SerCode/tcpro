@@ -5,7 +5,7 @@
  * Displays and runs the statistics page for single users
  *
  * @package TeamCalPro
- * @version 3.6.002
+ * @version 3.6.003
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com

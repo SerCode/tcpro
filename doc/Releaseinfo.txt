@@ -3,6 +3,17 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.003]
+
+DATE
+2013-04-22
+
+BUGFIX
+01 TCP-21: Editcalendar.php error
+   An error in editcalendar.php prevented the script from functioning. This
+   critical bug required and instant bugfix release.
+
+------------------------------------------------------------------------------
 [3.6.002]
 
 DATE
