@@ -456,9 +456,8 @@ if (isset($_POST['btn_apply'])) {
             /**
              * DECLINE BEFORE
              */
-            $declineBefore = FALSE;
             if ( $C->readConfig("declBefore")!="0") {
-
+               $declineBefore = FALSE;
                $iDate = intval($Year.$monthno.sprintf("%02d",$i+1));
                $todayDate=date("Ymd", time());
                $yesterdayDate=date("Ymd", time()-86400);
@@ -467,15 +466,14 @@ if (isset($_POST['btn_apply'])) {
                else $blockBeforeDate = intval($C->readConfig("declBeforeDate"));
 
                if ( $iDate<$blockBeforeDate AND !$isDirector ) {
-                  //echo "<script type=\"text/javascript\">alert(\"Debug: ".$iDate."|".$blockBeforeDate."\");</script>";
-                  $declineBefore = TRUE;
                   if ( $isManager ) {
                      foreach ($usergroups as $row) {
-                        if ($UG->isGroupManagerOfGroup($UL->username,$row['groupname'])) {
-                           $declineBefore = FALSE;
-                        }
-                        else {
+                        /**
+                         * Only decline and add the affected group if user is no not the group manager
+                         */
+                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
                            $affectedgroups[] = $row['groupname'];
+                           $declineBefore = TRUE;
                         }
                      }
                   }
@@ -495,22 +493,21 @@ if (isset($_POST['btn_apply'])) {
             /**
              * DECLINATION PERIOD
              */
-            $declinationPeriod = FALSE;
             if ( $C->readConfig("declPeriod") ) {
+               $declinationPeriod = FALSE;
                $iDate = intval($Year.$monthno.sprintf("%02d",$i+1));
                $startDate = intval($C->readConfig("declPeriodStart"));
                $endDate = intval($C->readConfig("declPeriodEnd"));
 
                if ( $iDate >= $startDate AND $iDate <= $endDate ) {
-                  // echo "<script type=\"text/javascript\">alert(\"".$iDate."|".$startDate."|".$endDate."\");</script>";
-                  $declinationPeriod = TRUE;
                   if ( $isManager ) {
                      foreach ($usergroups as $row) {
-                        if ($UG->isGroupManagerOfGroup($UL->username,$row['groupname'])) {
-                           $declinationPeriod = FALSE;
-                        }
-                        else {
+                        /**
+                         * Only decline and add the affected group if user is no not the group manager
+                         */
+                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
                            $affectedgroups[] = $row['groupname'];
+                           $declinationPeriod = TRUE;
                         }
                      }
                   }
@@ -533,27 +530,52 @@ if (isset($_POST['btn_apply'])) {
              */
             $approvalRequired=FALSE;
             if ($T->$prop!='0') {
-               if ($A->getApprovalRequired($T->$prop) AND !$isDirector AND !$isManager) $approvalRequired=TRUE;
-               if ($approvalRequired) {
-                  /**
-                   * The old absence type requires approval and cannot be changed
-                   */
-                  $declined=TRUE;
-                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
-                  $unapproved[$i]=$requested[$i];
-                  $accepted[$i]=$T->$prop;
+               if ($A->getApprovalRequired($T->$prop)) {
+                  if ( $isManager ) {
+                     foreach ($usergroups as $row) {
+                        /**
+                         * Only decline and add the affected group if user is no not the group manager
+                         */
+                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
+                           $affectedgroups[] = $row['groupname'];
+                           $approvalRequired=TRUE;
+                        }
+                     }
+                  }
+                  if ($approvalRequired) {
+                     /**
+                      * The old absence type requires approval and cannot be changed
+                      */
+                     $declined=TRUE;
+                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
+                     $unapproved[$i]=$requested[$i];
+                     $accepted[$i]=$T->$prop;
+                  }
                }
             }
+            
             if ($requested[$i]!='0') {
-               if ($A->getApprovalRequired($requested[$i]) AND !$isDirector AND !$isManager) $approvalRequired=TRUE;
-               if ($approvalRequired) {
-                  /**
-                   * The new absence type requires approval and cannot be set
-                   */
-                  $declined=TRUE;
-                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
-                  $unapproved[$i]=$requested[$i];
-                  $accepted[$i]=$T->$prop;
+               if ($A->getApprovalRequired($requested[$i])) {
+                  if ( $isManager ) {
+                     foreach ($usergroups as $row) {
+                        /**
+                         * Only decline and add the affected group if user is no not the group manager
+                         */
+                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
+                           $affectedgroups[] = $row['groupname'];
+                           $approvalRequired=TRUE;
+                        }
+                     }
+                  }
+                  if ($approvalRequired) {
+                     /**
+                      * The new absence type requires approval and cannot be set
+                      */
+                     $declined=TRUE;
+                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
+                     $unapproved[$i]=$requested[$i];
+                     $accepted[$i]=$T->$prop;
+                  }
                }
             }
 

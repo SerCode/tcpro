@@ -232,16 +232,16 @@ $optionitems=FALSE;
 if (substr_count($_SERVER['PHP_SELF'],"calendar.php")) {
    $action=$_SERVER['PHP_SELF']."?".setRequests();
 }
-else if (substr_count($_SERVER['PHP_SELF'],"permissions.php")) {
+else if (substr_count($_SERVER['PHP_SELF'],"permissions.php") AND isset($scheme)) {
    $action=$_SERVER['PHP_SELF']."?scheme=".$scheme;
 }
-else if (substr_count($_SERVER['PHP_SELF'],"userlist.php")) {
+else if (substr_count($_SERVER['PHP_SELF'],"userlist.php") AND isset($searchuser) AND isset($searchgroup) AND isset($sort)) {
    $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;searchgroup=".$searchgroup."&amp;sort=".$sort;
 }
-else if (substr_count($_SERVER['PHP_SELF'],"groupassign.php")) {
+else if (substr_count($_SERVER['PHP_SELF'],"groupassign.php") AND isset($searchuser) AND isset($sort)) {
    $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort;
 }
-else if (substr_count($_SERVER['PHP_SELF'],"absences.php")) {
+else if (substr_count($_SERVER['PHP_SELF'],"absences.php") AND isset($absid)) {
    $action=$_SERVER['PHP_SELF']."?absid=".$absid;
 }
 else {
