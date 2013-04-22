@@ -884,7 +884,7 @@ $CONF['options']['lang']=$currlang;
 <body>
 <div id="content">
    <div id="content-content">
-      <form  name="monthform" method="POST" action="<?=($_SERVER['PHP_SELF']."?Year=".$Year."&amp;Month=".$Month."&amp;Member=".$Member."&amp;region=".$region?>">
+      <form  name="monthform" method="POST" action="<?=$_SERVER['PHP_SELF']."?Year=".$Year."&amp;Month=".$Month."&amp;Member=".$Member."&amp;region=".$region?>">
       <table class="dlg">
          <tr>
             <td class="dlg-header">
