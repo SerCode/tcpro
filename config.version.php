@@ -20,9 +20,9 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Tools->Administration menu.
  */
 $CONF['app_name'] = "TeamCal Pro";
-$CONF['app_version'] = "3.6.002";
+$CONF['app_version'] = "3.6.003";
 $CONF['app_help_root'] = "https://georgelewe.atlassian.net/wiki/display/TCP036/";
-$CONF['app_version_date'] = "2013-04-20";
+$CONF['app_version_date'] = "2013-04-22";
 $CONF['app_year'] = "2004";
 $CONF['app_curr_year'] = date('Y');
 $CONF['app_author'] = "George Lewe";
