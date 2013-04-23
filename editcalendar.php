@@ -529,53 +529,44 @@ if (isset($_POST['btn_apply'])) {
              * APPROVAL REQUIRED
              */
             $approvalRequired=FALSE;
-            if ($T->$prop!='0') {
-               if ($A->getApprovalRequired($T->$prop)) {
-                  if ( $isManager ) {
-                     foreach ($usergroups as $row) {
-                        /**
-                         * Only decline and add the affected group if user is no not the group manager
-                         */
-                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
-                           $affectedgroups[] = $row['groupname'];
-                           $approvalRequired=TRUE;
-                        }
-                     }
+            if ($T->$prop!='0' AND $A->getApprovalRequired($T->$prop)) {
+               
+               if (!$isManager OR !$UG->isGroupManagerOfUser($UL->username,$U->username)) {
+                  $approvalRequired = TRUE;
+               }
+               
+               if ($approvalRequired) {
+                  /**
+                   * The old absence type requires approval and cannot be changed
+                   */
+                  $declined=TRUE;
+                  foreach ($usergroups as $row) {
+                     $affectedgroups[] = $row['groupname'];
                   }
-                  if ($approvalRequired) {
-                     /**
-                      * The old absence type requires approval and cannot be changed
-                      */
-                     $declined=TRUE;
-                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
-                     $unapproved[$i]=$requested[$i];
-                     $accepted[$i]=$T->$prop;
-                  }
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_old_abs'].$A->getName($T->$prop).$LANG['err_decl_approval'];
+                  $unapproved[$i]=$requested[$i];
+                  $accepted[$i]=$T->$prop;
                }
             }
             
-            if ($requested[$i]!='0') {
-               if ($A->getApprovalRequired($requested[$i])) {
-                  if ( $isManager ) {
-                     foreach ($usergroups as $row) {
-                        /**
-                         * Only decline and add the affected group if user is no not the group manager
-                         */
-                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
-                           $affectedgroups[] = $row['groupname'];
-                           $approvalRequired=TRUE;
-                        }
-                     }
+            $approvalRequired=FALSE;
+            if ($requested[$i]!='0' AND $A->getApprovalRequired($requested[$i])) {
+
+               if (!$isManager OR !$UG->isGroupManagerOfUser($UL->username,$U->username)) {
+                  $approvalRequired = TRUE;
+               }
+
+               if ($approvalRequired) {
+                  /**
+                   * The new absence type requires approval and cannot be set
+                   */
+                  $declined=TRUE;
+                  foreach ($usergroups as $row) {
+                     $affectedgroups[] = $row['groupname'];
                   }
-                  if ($approvalRequired) {
-                     /**
-                      * The new absence type requires approval and cannot be set
-                      */
-                     $declined=TRUE;
-                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
-                     $unapproved[$i]=$requested[$i];
-                     $accepted[$i]=$T->$prop;
-                  }
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_new_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
+                  $unapproved[$i]=$requested[$i];
+                  $accepted[$i]=$T->$prop;
                }
             }
 
@@ -796,7 +787,8 @@ if (isset($_POST['btn_apply'])) {
           * Send email to group manager of requesting user if configured so in Declination Management
           */
          if ( $C->readConfig("declNotifyManager") ) {
-            foreach($affectedgroups as $grp) {
+            $affgroups = array_unique($affectedgroups); 
+            foreach($affgroups as $grp) {
                $query  = "SELECT DISTINCT ".$U->table.".email FROM ".$U->table.",".$UG->table." " .
                          "WHERE ".$U->table.".username=".$UG->table.".username " .
                          "AND ".$UG->table.".groupname='".trim($grp)."' " .
@@ -805,6 +797,14 @@ if (isset($_POST['btn_apply'])) {
                while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) {
                   $to = $row[0];
                   sendEmail($to, $subject, $notification);
+                  /*
+                   * Set to TRUE for debug
+                   */
+                  if (FALSE) {
+                     echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
+                          "Subject: ".stripslashes($subject)."\n\n".
+                          stripslashes($notification)."</textarea>";
+                  }
                }
             }
          }

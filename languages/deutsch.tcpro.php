@@ -1334,6 +1334,8 @@ $LANG['err_decl_before'] = ": Kalenderaenderungen sind nicht erlaubt an und vor 
 $LANG['err_decl_period'] = ": Kalenderaenderungen sind nicht erlaubt zwischen ";
 $LANG['err_decl_and'] = " und ";
 $LANG['err_decl_abs'] = ": Der Abwesenheitstyp '";
+$LANG['err_decl_old_abs'] = ": Der eingetragene Abwesenheitstyp '";
+$LANG['err_decl_new_abs'] = ": Der angefragte Abwesenheitstyp '";
 $LANG['err_decl_approval'] = "' erfordert Managerbestaetigung und kann nicht geaendert oder gesetzt werden.";
 
 /**

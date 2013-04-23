@@ -1334,6 +1334,8 @@ $LANG['err_decl_before'] = ": Absence changes are not allowed before ";
 $LANG['err_decl_period'] = ": Absence changes are not allowed between ";
 $LANG['err_decl_and'] = " and ";
 $LANG['err_decl_abs'] = ": The absence type '";
+$LANG['err_decl_old_abs'] = ": The existing absence type '";
+$LANG['err_decl_new_abs'] = ": The requested absence type '";
 $LANG['err_decl_approval'] = "' requires approval and cannot be changed or set.";
 
 /**
