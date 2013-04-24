@@ -53,6 +53,7 @@ $N   = new Daynote_model;
 $T   = new Template_model;
 $TT  = new Template_model; // used for template user loop
 $U   = new User_model;
+$UC  = new User_model; // User of this calendar
 $UL  = new User_model; // User logged in
 $UT  = new User_model; // used for template user loop
 $UG  = new User_group_model;
@@ -62,20 +63,33 @@ $error_decl=FALSE;
 $warning=FALSE;
 
 /**
- * Get the user that is logged in
+ * Get the user that is logged in. 
+ * $UL represents the logged in user, $luser his username.
  */
-$user=$L->checkLogin();
-$UL->findByName($user);
-if (isset($_REQUEST['Member'])) $Member=$_REQUEST['Member'];
+$luser=$L->checkLogin();
+$UL->findByName($luser);
+
+/**
+ * Get the target user, the one that we edit the calender off here
+ * $UC represents the user of the calendar, $caluser his username.
+ */
+if (isset($_REQUEST['Member'])) {
+   $caluser=$_REQUEST['Member'];
+   $UC->findByName($caluser);
+}
+else {
+   showError("notarget");
+}
 
 /**
  * Check authorization
  */
 $allowed=FALSE;
-if ( $user == $Member ) {
+
+if ( $luser == $caluser ) {
    if (isAllowed("editOwnUserCalendars")) $allowed=TRUE;
 }
-else if ( $UG->shareGroups($user, $Member) ) {
+else if ( $UG->shareGroups($luser, $caluser) ) {
    if (isAllowed("editGroupUserCalendars")) $allowed=TRUE;
 }
 else {
@@ -84,6 +98,9 @@ else {
 
 if (!$allowed) showError("notallowed");
 
+/**
+ * Get the rest of the URI parameters
+ */
 if (isset($_REQUEST['Year']))   $Year=$_REQUEST['Year'];
 if (isset($_REQUEST['Month']))  $Month=$_REQUEST['Month'];
 if (isset($_REQUEST['region'])) $region=$_REQUEST['region']; else $region = $CONF['options']['region'];
@@ -95,7 +112,7 @@ if (isset($_REQUEST['region'])) $region=$_REQUEST['region']; else $region = $CON
 if ( isset($_POST['btn_bwd']) ) {
    $Year=$_POST['hid_bwdYear'];
    $Month=$_POST['hid_bwdMonth'];
-   $Member=$_POST['hid_Member'];
+   $caluser=$_POST['hid_Member'];
 }
 
 /**
@@ -105,7 +122,7 @@ if ( isset($_POST['btn_bwd']) ) {
 if ( isset($_POST['btn_fwd']) ) {
    $Year=$_POST['hid_fwdYear'];
    $Month=$_POST['hid_fwdMonth'];
-   $Member=$_POST['hid_Member'];
+   $caluser=$_POST['hid_Member'];
 }
 
 /**
@@ -140,9 +157,9 @@ else {
    $bwdYear=$Year;
 }
 
-if ( $UL->checkUserType($CONF['UTADMIN']) ) $isAdmin = TRUE; else $isAdmin = FALSE;
+if ( $UL->checkUserType($CONF['UTADMIN']) )    $isAdmin    = TRUE; else $isAdmin    = FALSE;
 if ( $UL->checkUserType($CONF['UTDIRECTOR']) ) $isDirector = TRUE; else $isDirector = FALSE;
-if ( $UL->checkUserType($CONF['UTMANAGER']) ) $isManager = TRUE; else $isManager = FALSE;
+if ( $UL->checkUserType($CONF['UTMANAGER']) )  $isManager  = TRUE; else $isManager  = FALSE;
 
 /**
  * Read Month Template
@@ -170,20 +187,20 @@ else if ( empty($M->template) ) {
 /**
  * Get the user for this calendar
  */
-$U->findByName($Member);
-$notify = $U->notify;
-$notifygroup = $U->notify_group;
+$UC->findByName($caluser);
+$notify = $UC->notify;
+$notifygroup = $UC->notify_group;
 
 /**
  * Try to find this user's current template for this month
  */
-$found = $T->getTemplate($U->username,$Year,$monthno);
+$found = $T->getTemplate($caluser,$Year,$monthno);
 if (!$found) {
    /**
     * No template found for this user and month yet.
     * Create a default one.
     */
-   $T->username = $U->username;
+   $T->username = $caluser;
    $T->year = $Year;
    $T->month = $monthno;
    for ($i=1; $i<=intval($nofdays); $i++ ) {
@@ -194,7 +211,7 @@ if (!$found) {
    /**
     * Log this event
     */
-   $LOG->log("logUser",$L->checkLogin(),"User default template created: ".$T->year.$T->month);
+   $LOG->log("logUser",$luser, "User default template created: ".$T->year.$T->month);
 }
 
 /**
@@ -315,7 +332,7 @@ if (isset($_POST['btn_apply'])) {
     */
    $declined=FALSE;
    $errorarray = array();
-   $usergroups = $UG->getAllforUser($U->username);
+   $usergroups = $UG->getAllforUser($caluser);
 
    /**
     * Check whether $T and $requested differ in any way.
@@ -370,7 +387,7 @@ if (isset($_POST['btn_apply'])) {
                         /**
                          * Only add the affected group if user is not the group manager
                          */
-                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
+                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
                            $affectedgroups[] = $row['groupname'];
                            $groups .= $row['groupname'].", ";
                         }
@@ -413,7 +430,7 @@ if (isset($_POST['btn_apply'])) {
                         /**
                          * Only add the affected group if user is not the group manager
                          */
-                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
+                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
                            $affectedgroups[] = $row['groupname'];
                            $groups_min .= $row['groupname'].", ";
                         }
@@ -424,7 +441,7 @@ if (isset($_POST['btn_apply'])) {
                         /**
                          * Only add the affected group if user is no not the group manager
                          */
-                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
+                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
                            $affectedgroups[] = $row['groupname'];
                            $groups_max .= $row['groupname'].", ";
                         }
@@ -471,7 +488,7 @@ if (isset($_POST['btn_apply'])) {
                         /**
                          * Only decline and add the affected group if user is no not the group manager
                          */
-                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
+                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
                            $affectedgroups[] = $row['groupname'];
                            $declineBefore = TRUE;
                         }
@@ -505,7 +522,7 @@ if (isset($_POST['btn_apply'])) {
                         /**
                          * Only decline and add the affected group if user is no not the group manager
                          */
-                        if ( !$UG->isGroupManagerOfGroup($UL->username,$row['groupname']) ) {
+                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
                            $affectedgroups[] = $row['groupname'];
                            $declinationPeriod = TRUE;
                         }
@@ -531,7 +548,7 @@ if (isset($_POST['btn_apply'])) {
             $approvalRequired=FALSE;
             if ($T->$prop!='0' AND $A->getApprovalRequired($T->$prop)) {
                
-               if (!$isManager OR !$UG->isGroupManagerOfUser($UL->username,$U->username)) {
+               if (!$isManager OR !$UG->isGroupManagerOfUser($luser,$caluser)) {
                   $approvalRequired = TRUE;
                }
                
@@ -552,7 +569,7 @@ if (isset($_POST['btn_apply'])) {
             $approvalRequired=FALSE;
             if ($requested[$i]!='0' AND $A->getApprovalRequired($requested[$i])) {
 
-               if (!$isManager OR !$UG->isGroupManagerOfUser($UL->username,$U->username)) {
+               if (!$isManager OR !$UG->isGroupManagerOfUser($luser,$caluser)) {
                   $approvalRequired = TRUE;
                }
 
@@ -599,14 +616,14 @@ if (isset($_POST['btn_apply'])) {
       /**
        * One or more absence changes are accpeted. Update $T.
        */
-      if ( $U->checkUserType($CONF['UTTEMPLATE']) ) {
+      if ( $UC->checkUserType($CONF['UTTEMPLATE']) ) {
          /**
           * This is a template user. We must not overwrite his old template yet.
           * We have to go through the templates of all other users in the same
           * group first and adjust them accordingly.
           *
           */
-         $query  = "SELECT groupname FROM `".$UG->table."` WHERE username='".$U->username."'";
+         $query  = "SELECT groupname FROM `".$UG->table."` WHERE username='".$caluser."'";
          $result = $UG->db->db_query($query);
          while ($row=$UG->db->db_fetch_array($result,MYSQL_ASSOC) ) {
             /**
@@ -617,7 +634,7 @@ if (isset($_POST['btn_apply'])) {
                      " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
                      " WHERE (".$CONF['db_table_users'].".username!='admin'" .
                      " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username".
-                     " AND ".$CONF['db_table_users'].".username!='".$U->username."'".
+                     " AND ".$CONF['db_table_users'].".username!='".$caluser."'".
                      " AND ".$CONF['db_table_user_group'].".groupname = '".$groupfilter."'" .
                      " AND ".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname".
                      " AND (".$CONF['db_table_groups'].".options&1)=0 )";
@@ -642,7 +659,7 @@ if (isset($_POST['btn_apply'])) {
                   /**
                    * Log this event
                    */
-                  $LOG->log("logUser",$L->checkLogin(),"Template user default template created: ".$TT->username."|".$TT->year.$TT->month);
+                  $LOG->log("logUser",$luser,"Template user default template created: ".$TT->username."|".$TT->year.$TT->month);
                }
                /**
                 * Loop through each day and compare the templates. Set new value from template
@@ -697,7 +714,7 @@ if (isset($_POST['btn_apply'])) {
          $mailtemplate.=$symbol;
          $logtemplate.=$symbol."|";
       } 
-      $T->update($U->username,$Year,$monthno);
+      $T->update($caluser,$Year,$monthno);
 
       /**
        * Create an ASCII table for the template
@@ -724,8 +741,8 @@ if (isset($_POST['btn_apply'])) {
       /**
        * Send out the mails
        */
-      $nobject = $U->firstname." ".$U->lastname;
-      $ugroups = $UG->getAllforUser($U->username);
+      $nobject = $UC->firstname." ".$UC->lastname;
+      $ugroups = $UG->getAllforUser($caluser);
       foreach ($ugroups as $ugroup) {
          $ntype = "usercalchange";
          $naffectedgroup = $ugroup['groupname'];
@@ -735,7 +752,7 @@ if (isset($_POST['btn_apply'])) {
       /**
        * Log this event
        */
-      $LOG->log("logUser",$L->checkLogin(),"User template changed: ".$U->username." ".$T->year.$T->month." ".$logtemplate);
+      $LOG->log("logUser",$luser,"User template changed: ".$caluser." ".$T->year.$T->month." ".$logtemplate);
 
    }
 
@@ -759,7 +776,7 @@ if (isset($_POST['btn_apply'])) {
          $subject = $LANG['notification_subject'];
          $notification =$LANG['notification_greeting'];
          $notification.=$LANG['notification_decl_msg'];
-         $notification.=$LANG['notification_decl_user'].$U->firstname." ".$U->lastname."\n\n";
+         $notification.=$LANG['notification_decl_user'].$UC->firstname." ".$UC->lastname."\n\n";
          $notification.=$LANG['notification_decl_msg_2'];
          foreach($errorarray as $err) {
             $notificationerror .= $err."\n";
@@ -858,7 +875,7 @@ if (isset($_POST['btn_apply'])) {
       /*
        * Log this event
        */
-      $LOG->log("logUser",$L->checkLogin(),"Calendar change request declined: ".$U->username."\n".$notificationerror);
+      $LOG->log("logUser",$luser,"Calendar change request declined: ".$caluser."\n".$notificationerror);
    }
 }
 
@@ -876,8 +893,8 @@ else if (isset($_POST['btn_clear'])) {
       $T->$prop = 0;
       $mailtemplate.='0';
    }
-   $T->update($U->username,$Year,$monthno);
-   $query  = "SELECT groupname FROM `".$UG->table."` WHERE username='".$U->username."'";
+   $T->update($caluser,$Year,$monthno);
+   $query  = "SELECT groupname FROM `".$UG->table."` WHERE username='".$caluser."'";
    $result = $UG->db->db_query($query);
    while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) {
       sendNotification("usercalchange",$U->firstname." ".$U->lastname, $row[0],$T->year.$T->month." ".$mailtemplate);
@@ -885,7 +902,7 @@ else if (isset($_POST['btn_clear'])) {
    /**
     * Log this event
     */
-   $LOG->log("logUser",$L->checkLogin(),"User template cleared: ".$U->username." ".$T->year.$T->month." ".$mailtemplate);
+   $LOG->log("logUser",$luser,"User template cleared: ".$caluser." ".$T->year.$T->month." ".$mailtemplate);
 }
 
 /**
@@ -906,7 +923,7 @@ $CONF['options']['lang']=$currlang;
 <body>
 <div id="content">
    <div id="content-content">
-      <form  name="monthform" method="POST" action="<?=$_SERVER['PHP_SELF']."?Year=".$Year."&amp;Month=".$Month."&amp;Member=".$Member."&amp;region=".$region?>">
+      <form  name="monthform" method="POST" action="<?=$_SERVER['PHP_SELF']."?Year=".$Year."&amp;Month=".$Month."&amp;Member=".$caluser."&amp;region=".$region?>">
       <table class="dlg">
          <tr>
             <td class="dlg-header">
@@ -956,7 +973,7 @@ $CONF['options']['lang']=$currlang;
                         <input type="hidden" name="hid_fwdYear" value="<?=$fwdYear?>">
                         <input type="hidden" name="hid_bwdMonth" value="<?=$bwdMonth?>">
                         <input type="hidden" name="hid_bwdYear" value="<?=$bwdYear?>">
-                        <input type="hidden" name="hid_Member" value="<?=$Member?>">
+                        <input type="hidden" name="hid_Member" value="<?=$caluser?>">
                      </td>
                      <td class="title-button">&nbsp;</td>
                      <?php
@@ -985,10 +1002,13 @@ $CONF['options']['lang']=$currlang;
                   
                   <!-- Daynote row -->
                   <?php 
-                  if ($user = $L->checkLogin()) $UL->findByName($user);
-                  if ( !intval($C->readConfig("hideDaynotes")) ||
-                       ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR']) || $UL->checkUserType($CONF['UTMANAGER']) )
-                     ) {
+                  if ( !intval($C->readConfig("hideDaynotes")) 
+                        OR ( $UL->checkUserType($CONF['UTADMIN']) 
+                             OR $UL->checkUserType($CONF['UTDIRECTOR'])
+                             OR $UL->checkUserType($CONF['UTMANAGER'])
+                           )
+                     ) 
+                  {
                      $x = intval($weekday1); ?>
                      <tr>
                         <td class="title"><?=$LANG['month_daynote']?></td>
@@ -997,15 +1017,15 @@ $CONF['options']['lang']=$currlang;
                         if ($i<10) $dd="0".strval($i); else $dd=strval($i);
                         if ( $H->findBySymbol($M->template[$i-1]) ) {
                            if ( $H->cfgname=='busi' ) {
-                              if ( $N->findByDay($Year.$monthno.$dd,$U->username) ) $style="weekday-note"; else $style="weekday";
+                              if ( $N->findByDay($Year.$monthno.$dd,$caluser) ) $style="weekday-note"; else $style="weekday";
                            } else {
-                              if ( $N->findByDay($Year.$monthno.$dd,$U->username) ) $style="weekday-".$H->cfgname."-note"; else $style="weekday-".$H->cfgname;
+                              if ( $N->findByDay($Year.$monthno.$dd,$caluser) ) $style="weekday-".$H->cfgname."-note"; else $style="weekday-".$H->cfgname;
                            }
                         } else {
-                           if ( $N->findByDay($Year.$monthno.$dd,$U->username) ) $style="weekday-note"; else $style="weekday";
+                           if ( $N->findByDay($Year.$monthno.$dd,$caluser) ) $style="weekday-note"; else $style="weekday";
                         } ?>
                         <td class="<?=$style?>">
-                          <a href="javascript:this.blur();openPopup('daynote.php?date=<?=$Year.$monthno.$dd?>&amp;daynotefor=<?=$U->username?>&amp;region=default&amp;datestring=<?=$dd?>%20<?=$LANG['monthnames'][intval($monthno)]?>%20<?=$Year?>','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');">
+                          <a href="javascript:this.blur();openPopup('daynote.php?date=<?=$Year.$monthno.$dd?>&amp;daynotefor=<?=$caluser?>&amp;region=default&amp;datestring=<?=$dd?>%20<?=$LANG['monthnames'][intval($monthno)]?>%20<?=$Year?>','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');">
                              <img src="themes/<?=$theme?>/img/ico_daynote.png" alt="" title="<?=$LANG['month_daynote_tooltip']?>" border="0">
                           </a>
                         </td>
@@ -1047,7 +1067,7 @@ $CONF['options']['lang']=$currlang;
                      $showdisabled=false;
                      $groups = $G->getAll();
                      foreach ($groups as $Grow) {
-                        if ($UG->isMemberOfGroup($U->username,$Grow['groupname']) &&
+                        if ($UG->isMemberOfGroup($caluser,$Grow['groupname']) &&
                             $AG->isAssigned($abs['id'],$Grow['groupname'])
                            ) {
                            $showthisabsence=true;
@@ -1135,7 +1155,7 @@ $CONF['options']['lang']=$currlang;
                                        $showthisabsence=false;
                                        $groups = $G->getAll();
                                        foreach ($groups as $Grow) {
-                                          if ($UG->isMemberOfGroup($U->username,$Grow['groupname']) &&
+                                          if ($UG->isMemberOfGroup($caluser,$Grow['groupname']) &&
                                               $AG->isAssigned($abs['id'],$Grow['groupname'])
                                              ) {
                                              $showthisabsence=true;
@@ -1205,7 +1225,7 @@ $CONF['options']['lang']=$currlang;
                                     $showthisabsence=false;
                                     $groups = $G->getAll();
                                     foreach ($groups as $Grow) {
-                                       if ($UG->isMemberOfGroup($U->username,$Grow['groupname']) &&
+                                       if ($UG->isMemberOfGroup($caluser,$Grow['groupname']) &&
                                            $AG->isAssigned($abs['id'],$Grow['groupname'])
                                           ) {
                                           $showthisabsence=true;
