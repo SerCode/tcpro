@@ -286,8 +286,8 @@ require("includes/menu_inc.php");
 
             <tr>
                <td class="dlg-menu" colspan="<?=count($roles)+1?>" style="text-align: left;">
-                  <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
-                  <input name="btn_reset" type="submit" class="button" value="<?=$LANG['btn_reset']?>" onclick="return confirmSubmit('<?=$LANG['perm_reset_confirm']?>')">&nbsp;
+                  <input name="btn_permApply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
+                  <input name="btn_permReset" type="submit" class="button" value="<?=$LANG['btn_reset']?>" onclick="return confirmSubmit('<?=$LANG['perm_reset_confirm']?>')">&nbsp;
                   <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
                </td>
             </tr>
