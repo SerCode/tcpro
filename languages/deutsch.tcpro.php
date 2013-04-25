@@ -304,11 +304,11 @@ $LANG['notification_decl_sign'].= "Deine TeamCal Pro Administration.\n";
  * Login Dialog
  */
 $LANG['login_login'] = 'TeamCal Pro Login';
-$LANG['login_username'] = 'Username:';
+$LANG['login_username'] = 'Benutzername:';
 $LANG['login_password'] = 'Passwort:';
 $LANG['login_error_0'] = 'Login erfolgreich';
-$LANG['login_error_1'] = 'Username oder Passwort nicht angegeben';
-$LANG['login_error_2'] = 'Username unbekannt';
+$LANG['login_error_1'] = 'Benutzername oder Passwort nicht angegeben';
+$LANG['login_error_2'] = 'Benutzername unbekannt';
 $LANG['login_error_3'] = 'Dieser Account ist gesperrt bzw. noch nicht best&aum;tigt.';
 $LANG['login_error_4a'] = 'Password falsch. Dies war Fehlversuch Nummer ';
 $LANG['login_error_4b'] = ' . Nach ';
@@ -322,7 +322,7 @@ $LANG['login_error_91'] = 'LDAP Fehler: Passwort fehlt';
 $LANG['login_error_92'] = 'LDAP Fehler: Authentifizierung fehlgeschlagen';
 $LANG['login_error_93'] = 'LDAP Fehler: Verbindung zum LDAP Server fehlgeschlagen';
 $LANG['login_error_94'] = 'LDAP Fehler: Start von TLS fehlgeschlagen';
-$LANG['login_error_95'] = 'LDAP Fehler: Username nicht gefunden';
+$LANG['login_error_95'] = 'LDAP Fehler: Benutzername nicht gefunden';
 $LANG['login_error_96'] = 'LDAP Fehler: "Search bind" fehlgeschlagen';
 
 /**
@@ -349,7 +349,7 @@ $LANG['tab_membership_manager'] = 'Manager';
 $LANG['tab_options'] = 'Optionen';
 $LANG['tab_privileges'] = 'Privilegien';
 $LANG['tab_absences'] = 'Abwesenheiten';
-$LANG['show_profile_uname'] = 'Username:';
+$LANG['show_profile_uname'] = 'Benutzername:';
 $LANG['show_profile_password'] = 'Neues&nbsp;Passwort:';
 $LANG['show_profile_verify_password'] = 'Password&nbsp;best&auml;tigen:';
 $LANG['show_profile_name'] = 'Name:';
@@ -404,8 +404,8 @@ $LANG['uo_notifybirthday'] = "Melde mir andere Geburtstage";
 $LANG['uo_language'] = "Standard Sprache";
 $LANG['uo_defgroup'] = "Standard Gruppenfilter";
 $LANG['error_password_mismatch'] = "Dein Passw&ouml;rter stimmen nicht &uuml;berein.";
-$LANG['error_user_exists'] = "Der Username existiert bereits. Bitte w&auml;hle einen anderen.";
-$LANG['error_user_nospecialchars'] = "Es sind keine Sonderzeichen beim Usernamen erlaubt.\\nBitte w&auml;hle einen anderen.";
+$LANG['error_user_exists'] = "Der Benutzername existiert bereits. Bitte w&auml;hle einen anderen.";
+$LANG['error_user_nospecialchars'] = "Es sind keine Sonderzeichen beim Benutzernamen erlaubt.\\nBitte w&auml;hle einen anderen.";
 $LANG['profile_updated'] = "Das Profil wurde aktualisiert.";
 $LANG['user_add_subject']   = $CONF['app_name']." ".$CONF['app_version']." - Dein Account";
 $LANG['user_add_greeting']  = "------------------------------------------------------------\n";
@@ -417,7 +417,7 @@ $LANG['user_add_greeting'] .= "Herzlichen Gl&uuml;ckwunsch, du hast einen User A
 $LANG['user_add_info_1']    = "So geht es zu TeamCal Pro:\n";
 $LANG['user_add_info_1']   .= $CONF['app_url']."\n\n";
 $LANG['user_add_info_1']   .= "Klick den [Login] Button and nutze folgende Login Daten:\n";
-$LANG['user_add_info_1']   .= "Dein Username: ";
+$LANG['user_add_info_1']   .= "Dein Benutzername: ";
 $LANG['user_add_info_2']    = "\nDein Passwort: ";
 $LANG['user_add_info_3']    = "\n\nDeine TeamCal Pro Administration\n";
 $LANG['tab_avatar']    = "Avatar";
@@ -526,7 +526,7 @@ $LANG['admin_config_todaybordersize_comment'] =
 $LANG['admin_config_usericonsavatars'] = 'User Icons und Avatare';
 $LANG['admin_config_usericons'] = 'User Icons anzeigen';
 $LANG['admin_config_usericons_comment'] =
-'Mir dieser Option werden links vom Usernamen User Icons angezeigt, die die User Rolle und das Geschlecht anzeigen.';
+'Mir dieser Option werden links vom Benutzernamen User Icons angezeigt, die die User Rolle und das Geschlecht anzeigen.';
 $LANG['admin_config_avatars'] = 'Avatars anzeigen';
 $LANG['admin_config_avatars_comment'] =
 'Mit dieser Option wird ein User Avatar in einem Pop-Up Fenster angezeigt, wenn die Maus &uuml;ber das User Icon '.
@@ -554,7 +554,7 @@ $LANG['admin_config_pwd_strength_comment'] =
 '<li><span class="function">Minimum</span><br><span class="config-comment">Alles ist erlaubt, solange die Minimall&auml;nge eingehalten wird '.
 'und eine neues Passwort sich vom alten unterscheidet.</span></li>'.
 '<li><span class="function">Low</span><br><span class="config-comment">Das Passwort muss die Minimall&auml;nge einhalten '.
-'und darf nicht den Usernamen vorw&auml;rts oder r&uuml;ckw&auml;rts enthalten.</span></li>'.
+'und darf nicht den Benutzernamen vorw&auml;rts oder r&uuml;ckw&auml;rts enthalten.</span></li>'.
 '<li><span class="function">Medium</span><br><span class="config-comment">Wie "Low", muss aber zus&auml;tzlich Zahlen enthalten.</span></li>'.
 '<li><span class="function">High</span><br><span class="config-comment">Wie "Medium", muss aber zus&auml;tzlich Gro&szlig;- und Kleinschreibung und Punktuation enthalten.</span></li>'.
 '</ul><span class="config-comment">';
@@ -715,7 +715,7 @@ $LANG['register_title'] = 'User Registrierung';
 $LANG['register_frame'] = 'Registrierung Details';
 $LANG['register_lastname'] = 'Nachname';
 $LANG['register_firstname'] = 'Vorname';
-$LANG['register_username'] = 'Username';
+$LANG['register_username'] = 'Benutzername';
 $LANG['register_email'] = 'E-Mail Adresse';
 $LANG['register_password'] = 'Passwort';
 $LANG['register_password2'] = 'Passwort wiederholen';
@@ -725,7 +725,7 @@ $LANG['register_result'] = 'Ergebnis';
 $LANG['register_error_code'] = 'Du hast einen falschen Sicherheitscode eingegeben.';
 $LANG['register_error_incomplete'] = 'Folgende Felder m&uuml;ssen ausgef&uuml;llt sein: '.$LANG['register_lastname'].
 ', '.$LANG['register_username'].', '.$LANG['register_email'].', '.$LANG['register_password'].' und '.$LANG['register_code'].'.';
-$LANG['register_error_username'] = 'Dieser Username ist bereits vergeben. Bitte w&auml;hle einen anderen.';
+$LANG['register_error_username'] = 'Dieser Benutzername ist bereits vergeben. Bitte w&auml;hle einen anderen.';
 $LANG['register_error_username_format'] = 'Only alphanumeric characters are allowed in usernames.';
 $LANG['register_success'] = 'Die Registrierung war erfolgreich. ';
 $LANG['register_success_ok'] = 'Du kannst diesen Dialog nun schlie&szlig;en und dich einloggen.';
@@ -743,7 +743,7 @@ $LANG['register_mail_verify_1']  = "Du musst deinen Account mit folgendem Hyperl
 $LANG['register_mail_verify_2a'] = "Nach der Verifizierung kannst du dich in TeamCal Pro einloggen.\n\n";
 $LANG['register_mail_verify_2b'] = "Nach der Verifizierung und der Bestaetigung des Administrators kannst du dich in TeamCal Pro einloggen.\n\n";
 $LANG['register_mail_verify_3']  = "W&auml;hle [Login] aus dem TeamCal Menu und benutze folgende Login Daten:\n";
-$LANG['register_mail_verify_3'] .= "Dein Username: [USERNAME]\n";
+$LANG['register_mail_verify_3'] .= "Dein Benutzername: [USERNAME]\n";
 $LANG['register_mail_verify_3'] .= "Dein Passwort: [PASSWORD]\n\n";
 $LANG['register_mail_verify_3'] .= "\n\nDeine TeamCal Pro Administration\n";
 
@@ -755,7 +755,7 @@ $LANG['register_admin_mail_greeting'] .= "--------------------------------------
 $LANG['register_admin_mail_greeting'] .= "Hallo Administrator,\n\n";
 $LANG['register_admin_mail_message']   = "Ein neuer Nutzer hat sich registriert:\n";
 $LANG['register_admin_mail_message']  .= "Name: [FIRSTNAME] [LASTNAME]\n";
-$LANG['register_admin_mail_message']  .= "Username: [USERNAME]\n\n";
+$LANG['register_admin_mail_message']  .= "Benutzername: [USERNAME]\n\n";
 $LANG['register_admin_mail_message_1'] = "Der Nuzter muss sein Konto noch verifizieren.\n";
 $LANG['register_admin_mail_message_2'] = "Nach erfolgreicher Verifizierung musst du das Konto noch freischalten. Du wirst eine separate Mail dazu erhalten.";
 $LANG['register_admin_mail_message_3'] = "\n\nDie TeamCal Pro Administration\n";
@@ -763,7 +763,7 @@ $LANG['register_admin_mail_message_3'] = "\n\nDie TeamCal Pro Administration\n";
 $LANG['verify_title'] = 'Nutzer Verifizierung';
 $LANG['verify_result'] = 'Verifizierungsergebnis';
 $LANG['verify_err_link'] = 'Der Link ist falsch oder unvollst&auml;ndig. Stell sicher, dass du den ganzen Link aus der E-Mail benutzt. Manchmal ist dieser durch einen Zeilenumbruch getrennt. Kopiere und einf&uuml;ge den kompletten link in deinen Browser und versuche es erneut.';
-$LANG['verify_err_user'] = 'Der Username existiert nicht.';
+$LANG['verify_err_user'] = 'Der Benutzername existiert nicht.';
 $LANG['verify_err_code'] = 'Der Verifizierungscode existiert nicht.';
 $LANG['verify_err_match'] = 'Der Verifizierungscode stimmt nicht &uuml;berein.';
 $LANG['verify_info_success'] = 'Das Nutzerkonto wurde erfolgreich verifiziert. ';
@@ -948,8 +948,8 @@ $LANG['template_user'] = '[Template User]';
  */
 $LANG['admin_config_repeatheadersafter'] = 'Gruppenzuordnung Anzeige: Kopfzeile wiederholen nach';
 $LANG['admin_config_repeatheadersafter_comment'] = 'Bestimmt die Anzahl der Reihen, nach denen die Kopfzeile wiederholt wird, um eine bessere Lesbarkeit zu erreichen.';
-$LANG['admin_config_repeatusernamesafter'] = 'Gruppenzuordnung Anzeige: Usernamen wiederholen nach';
-$LANG['admin_config_repeatusernamesafter_comment'] = 'Bestimmt die Anzahl der Gruppenspalten, nach denen die Usernamen wiederholt werden, um eine bessere Lesbarkeit zu erreichen.';
+$LANG['admin_config_repeatusernamesafter'] = 'Gruppenzuordnung Anzeige: Benutzernamen wiederholen nach';
+$LANG['admin_config_repeatusernamesafter_comment'] = 'Bestimmt die Anzahl der Gruppenspalten, nach denen die Benutzernamen wiederholt werden, um eine bessere Lesbarkeit zu erreichen.';
 $LANG['admin_config_optionsbar'] = 'Optionsleiste';
 $LANG['admin_config_optionsbar_language'] = 'Sprachauswahl anzeigen';
 $LANG['admin_config_optionsbar_group'] = 'Gruppenauswahl anzeigen';
@@ -1257,8 +1257,8 @@ $LANG['admin_config_mail_smtp_host'] = 'SMTP Host';
 $LANG['admin_config_mail_smtp_host_comment'] = 'Gib den SMTP Host Namen an.';
 $LANG['admin_config_mail_smtp_port'] = 'SMTP Port';
 $LANG['admin_config_mail_smtp_port_comment'] = 'Gib den SMTP Host Port an.';
-$LANG['admin_config_mail_smtp_username'] = 'SMTP Username';
-$LANG['admin_config_mail_smtp_username_comment'] = 'Gib den SMTP Usernamen an.';
+$LANG['admin_config_mail_smtp_username'] = 'SMTP Benutzername';
+$LANG['admin_config_mail_smtp_username_comment'] = 'Gib den SMTP Benutzernamen an.';
 $LANG['admin_config_mail_smtp_password'] = 'SMTP Passwort';
 $LANG['admin_config_mail_smtp_password_comment'] = 'Gib das SMTP Passwort an.';
 $LANG['admin_config_satbusi'] = 'Samstag ist ein Arbeitstag';
@@ -1514,7 +1514,7 @@ $LANG['err_input_dbmaint_clean_confirm'] = 'Das Aufr&auml;umen der Datenbank mus
 $LANG['err_input_dbmaint_del'] = 'Die L&ouml;schung von Datenbankeintr&auml;gen muss mit der Eingabe\\nvon \'DELETE\' (in Grossbuchstaben) best&auml;tigt werden.\\n';
 $LANG['err_input_daynote_nouser'] = 'Der angegebene User existiert nicht.\\n';
 $LANG['err_input_daynote_date'] = 'Datum: ';
-$LANG['err_input_daynote_username'] = 'Username: ';
+$LANG['err_input_daynote_username'] = 'Benutzername: ';
 $LANG['err_input_daynote_save'] = 'Du kannst keine leere Notiz speichern.\\nBitte gebe einen Text im Notizfeld ein\\noder klicke [Delete], um die Notiz zu l&ouml;schen.';
 $LANG['err_input_daynote_create'] = 'Du kannst keine leere Notiz anlegen.\\nBitte gebe einen Text im Notizfeld ein.\\n';
 $LANG['err_input_declbefore'] = 'Du musst ein ablehnen-bevor Datum eingeben.';
