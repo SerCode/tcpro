@@ -832,14 +832,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
              * Check permission to edit or view the profile
              */
             $editProfile=FALSE;
-            if ( $UL->username == $U->username ) {
+            if ( ($UL->username==$U->username) 
+                  OR isAllowed("editAllUserProfiles") 
+                  OR (isAllowed("editGroupUserProfiles") AND $UG->shareGroups($UL->username, $U->username)) 
+               ) {
                $editProfile=TRUE;
-            }
-            else if ( $UG->shareGroups($UL->username, $U->username) ) {
-               if (isAllowed("editGroupUserProfiles")) $editProfile=TRUE;
-            }
-            else {
-               if (isAllowed("editAllUserProfiles")) $editProfile=TRUE;
             }
       
             $viewProfile=FALSE;

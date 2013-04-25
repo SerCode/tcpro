@@ -22,6 +22,10 @@ BUGFIX
 04 TCP-20: Request reason not in notification e-mails
    The request reason given by a user was not put into the notification emails.
    Fixed.
+   
+05 TCP-23: Editprofile link in calendar
+   The editprofile link of the names in the calendar was incorrectly checked
+   against the permissions of the logged in user. Fixed.
 
 ------------------------------------------------------------------------------
 [3.6.003]
