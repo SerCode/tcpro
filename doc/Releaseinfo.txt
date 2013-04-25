@@ -3,6 +3,21 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.004]
+
+DATE
+2013-xx-xx
+
+BUGFIX
+01 TCP-19: Editcalendar.php error
+   Under certain circumstance the log entry contained a wrong username for the
+   user of the calendar that was edited.
+
+02 TCP-22: Permissions page
+   The buttons at the bottom of the page were not working. 
+
+
+------------------------------------------------------------------------------
 [3.6.003]
 
 DATE

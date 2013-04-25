@@ -1738,10 +1738,12 @@ function validEmail($email) {
             $isValid = false;
          }
       }
-      if ($isValid && !(checkdnsrr($domain,"MX") || checkdnsrr($domain,"A"))) {
+      
+      // Under Windows, this only works in PHP 5.3.0 or higher. Causes problems at some users. 
+      //if ($isValid && !(checkdnsrr($domain,"MX") || checkdnsrr($domain,"A"))) {
          // domain not found in DNS
-         $isValid = false;
-      }
+         //$isValid = false;
+      //}
    }
    return $isValid;
 }
