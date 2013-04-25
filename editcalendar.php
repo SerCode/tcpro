@@ -824,7 +824,7 @@ if (isset($_POST['btn_apply'])) {
                   /*
                    * Set to TRUE for debug
                    */
-                  if (TRUE) {
+                  if (FALSE) {
                      echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
                           "Subject: ".stripslashes($subject)."\n\n".
                           stripslashes($notification)."</textarea>";
