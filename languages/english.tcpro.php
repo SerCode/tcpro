@@ -295,6 +295,7 @@ $LANG['notification_signature'] .= "Your TeamCal Pro Administration.\n";
 $LANG['notification_decl_msg'] = "a calendar change has been declined.\n\n";
 $LANG['notification_decl_msg_2'] = "The following problems were found in your request:\n\n";
 $LANG['notification_decl_user'] = "Requesting User: ";
+$LANG['notification_decl_reason'] = "Reason given: ";
 $LANG['notification_decl_sign'] = "\n\nIf you are the requesting user you may contact your group manager so he can confirm and enter the absence.\n";
 $LANG['notification_decl_sign'].= "If you are the group manager of the affected group you may contact the requesting user for clarification.\n\n";
 $LANG['notification_decl_sign'].= "Your TeamCal Pro Administration.\n";

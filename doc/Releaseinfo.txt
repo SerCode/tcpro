@@ -14,8 +14,14 @@ BUGFIX
    user of the calendar that was edited.
 
 02 TCP-22: Permissions page
-   The buttons at the bottom of the page were not working. 
+   The buttons at the bottom of the page were not working.
+   
+03 TCP-20: Wrong date in declination messages
+   Declination messages and e-mails had the wrong date in them (day+1). Fixed
 
+04 TCP-20: Request reason not in notification e-mails
+   The request reason given by a user was not put into the notification emails.
+   Fixed.
 
 ------------------------------------------------------------------------------
 [3.6.003]

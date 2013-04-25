@@ -399,7 +399,7 @@ if (isset($_POST['btn_apply'])) {
                       */
                      $declined=TRUE;
                      $groups = substr($groups,0,strlen($groups)-2);
-                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_group_threshold'].$groups;
+                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_group_threshold'].$groups;
                      $unapproved[$i]=$requested[$i];
                      $accepted[$i]=$T->$prop;
                   }
@@ -410,7 +410,7 @@ if (isset($_POST['btn_apply'])) {
                       * Absence threshold for all is reached. Absence cannot be set.
                       */
                      $declined=TRUE;
-                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_total_threshold'];
+                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_total_threshold'];
                      $unapproved[$i]=$requested[$i];
                      $accepted[$i]=$T->$prop;
                   }
@@ -426,7 +426,7 @@ if (isset($_POST['btn_apply'])) {
                foreach ($usergroups as $row) {
                   $G->findByName($row['groupname']);
                   if ($G->checkOptions($CONF['G_MIN_PRESENT'])) {
-                     if (declineThresholdReached($Year,$monthno,$i+1,"min_present",$row['groupname'])) {
+                     if (declineThresholdReached($Year,$monthno,$i,"min_present",$row['groupname'])) {
                         /**
                          * Only add the affected group if user is not the group manager
                          */
@@ -437,7 +437,7 @@ if (isset($_POST['btn_apply'])) {
                      }
                   }
                   if ($G->checkOptions($CONF['G_MAX_ABSENT'])) {
-                     if (declineThresholdReached($Year,$monthno,$i+1,"max_absent",$row['groupname'])) {
+                     if (declineThresholdReached($Year,$monthno,$i,"max_absent",$row['groupname'])) {
                         /**
                          * Only add the affected group if user is no not the group manager
                          */
@@ -454,7 +454,7 @@ if (isset($_POST['btn_apply'])) {
                    */
                   $declined=TRUE;
                   $groups_min = substr($groups_min,0,strlen($groups_min)-2);
-                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_min_present'].$groups_min;
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_min_present'].$groups_min;
                   $unapproved[$i]=$requested[$i];
                   $accepted[$i]=$T->$prop;
                }
@@ -464,7 +464,7 @@ if (isset($_POST['btn_apply'])) {
                    */
                   $declined=TRUE;
                   $groups_max = substr($groups_max,0,strlen($groups_max)-2);
-                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_max_absent'].$groups_max;
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_max_absent'].$groups_max;
                   $unapproved[$i]=$requested[$i];
                   $accepted[$i]=$T->$prop;
                }
@@ -475,7 +475,7 @@ if (isset($_POST['btn_apply'])) {
              */
             if ( $C->readConfig("declBefore")!="0") {
                $declineBefore = FALSE;
-               $iDate = intval($Year.$monthno.sprintf("%02d",$i+1));
+               $iDate = intval($Year.$monthno.sprintf("%02d",$i));
                $todayDate=date("Ymd", time());
                $yesterdayDate=date("Ymd", time()-86400);
 
@@ -500,7 +500,7 @@ if (isset($_POST['btn_apply'])) {
                       */
                      $declined=TRUE;
                      $dspDate = substr($blockBeforeDate,0,4)."-".substr($blockBeforeDate,4,2)."-".substr($blockBeforeDate,6,2);
-                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_before'].$dspDate.".";
+                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_before'].$dspDate.".";
                      $unapproved[$i]=$requested[$i];
                      $accepted[$i]=$T->$prop;
                   }
@@ -512,7 +512,7 @@ if (isset($_POST['btn_apply'])) {
              */
             if ( $C->readConfig("declPeriod") ) {
                $declinationPeriod = FALSE;
-               $iDate = intval($Year.$monthno.sprintf("%02d",$i+1));
+               $iDate = intval($Year.$monthno.sprintf("%02d",$i));
                $startDate = intval($C->readConfig("declPeriodStart"));
                $endDate = intval($C->readConfig("declPeriodEnd"));
 
@@ -535,7 +535,7 @@ if (isset($_POST['btn_apply'])) {
                      $declined=TRUE;
                      $dspStartDate = substr($startDate,0,4)."-".substr($startDate,4,2)."-".substr($startDate,6,2);
                      $dspEndDate = substr($endDate,0,4)."-".substr($endDate,4,2)."-".substr($endDate,6,2);
-                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_period'].$dspStartDate.$LANG['err_decl_and'].$dspEndDate.".";
+                     $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_period'].$dspStartDate.$LANG['err_decl_and'].$dspEndDate.".";
                      $unapproved[$i]=$requested[$i];
                      $accepted[$i]=$T->$prop;
                   }
@@ -560,7 +560,7 @@ if (isset($_POST['btn_apply'])) {
                   foreach ($usergroups as $row) {
                      $affectedgroups[] = $row['groupname'];
                   }
-                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_old_abs'].$A->getName($T->$prop).$LANG['err_decl_approval'];
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_old_abs'].$A->getName($T->$prop).$LANG['err_decl_approval'];
                   $unapproved[$i]=$requested[$i];
                   $accepted[$i]=$T->$prop;
                }
@@ -581,7 +581,7 @@ if (isset($_POST['btn_apply'])) {
                   foreach ($usergroups as $row) {
                      $affectedgroups[] = $row['groupname'];
                   }
-                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i+1)).$LANG['err_decl_new_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_new_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
                   $unapproved[$i]=$requested[$i];
                   $accepted[$i]=$T->$prop;
                }
@@ -776,11 +776,18 @@ if (isset($_POST['btn_apply'])) {
          $subject = $LANG['notification_subject'];
          $notification =$LANG['notification_greeting'];
          $notification.=$LANG['notification_decl_msg'];
-         $notification.=$LANG['notification_decl_user'].$UC->firstname." ".$UC->lastname."\n\n";
+         $notification.=$LANG['notification_decl_user'].$UC->firstname." ".$UC->lastname."\n";
+               
+         if (isset($_POST['txtReason']) AND $_POST['txtReason']!=$LANG['cal_reason_dummy']) {
+            $notification.=$LANG['notification_decl_reason'].strip_tags(trim($_POST['txtReason']))."\n\n";
+         }
+         
          $notification.=$LANG['notification_decl_msg_2'];
+
          foreach($errorarray as $err) {
             $notificationerror .= $err."\n";
          }
+         
          $notification.=$notificationerror;
          $notification.=$LANG['notification_decl_sign'];
 
@@ -817,7 +824,7 @@ if (isset($_POST['btn_apply'])) {
                   /*
                    * Set to TRUE for debug
                    */
-                  if (FALSE) {
+                  if (TRUE) {
                      echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
                           "Subject: ".stripslashes($subject)."\n\n".
                           stripslashes($notification)."</textarea>";

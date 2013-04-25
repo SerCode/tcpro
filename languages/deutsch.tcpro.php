@@ -295,6 +295,7 @@ $LANG['notification_signature'] .= "Deine TeamCal Pro Administration.\r\n";
 $LANG['notification_decl_msg'] = "eine Abwesenheitsanfrage wurde wegen zu hoher Gesamtabwesenheit abgelehnt.\n\n";
 $LANG['notification_decl_msg_2'] = "eine Abwesenheitsanfrage wurde abgelehnt, weil der Abwesenheitstyp einer Genehmigung bedarf.\n\n";
 $LANG['notification_decl_user'] = "Anfragender Nutzer: ";
+$LANG['notification_decl_reason'] = "Angegebener Grund: ";
 $LANG['notification_decl_sign'] = "\n\nWenn du der anfragende Nutzer bist, kannst du deinen Gruppenmanager kontaktieren, der deine Anfrage bestaetigen kann.\n";
 $LANG['notification_decl_sign'].= "Wenn du der Manager der betroffenen Gruppe bist, bitte nehme mit dem Nutzer Kontakt auf.\n\n";
 $LANG['notification_decl_sign'].= "Deine TeamCal Pro Administration.\n";
