@@ -176,7 +176,7 @@ require( "includes/header_html_inc.php" );
 <body>
    <div id="content">
       <div id="content-content">
-         <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."&amp;date=".$_REQUEST['date']."&amp;daynotefor=".$_REQUEST['daynotefor']."&amp;region=".$region."&amp;datestring=".$_REQUEST['datestring']?>">
+         <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."?date=".$_REQUEST['date']."&amp;daynotefor=".$_REQUEST['daynotefor']."&amp;region=".$region."&amp;datestring=".$_REQUEST['datestring']?>">
          <table class="dlg">
             <tr>
                <td class="dlg-header" colspan="3">
