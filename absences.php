@@ -511,8 +511,8 @@ require("includes/menu_inc.php");
 
          <tr>
             <td class="dlg-menu" colspan="2" style="text-align: left;">
-               <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
-               <input name="btn_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
+               <input name="btn_absApply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
+               <input name="btn_absDelete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
                <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
             </td>
          </tr>

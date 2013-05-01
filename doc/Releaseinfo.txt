@@ -13,7 +13,7 @@ BUGFIX
    Under certain circumstance the log entry contained a wrong username for the
    user of the calendar that was edited.
 
-02 TCP-22: Permissions page
+02 TCP-22: Permissions page, Absences page
    The buttons at the bottom of the page were not working.
    
 03 TCP-20: Wrong date in declination messages
