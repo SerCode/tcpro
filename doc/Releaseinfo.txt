@@ -27,6 +27,11 @@ BUGFIX
    The editprofile link of the names in the calendar was incorrectly checked
    against the permissions of the logged in user. Fixed.
 
+IMPROVEMENTS
+01 Statistics library
+   The code of the statistics library has been streamlined. The background of
+   the bars is not an image anymore but a gradient CSS style.
+
 ------------------------------------------------------------------------------
 [3.6.003]
 

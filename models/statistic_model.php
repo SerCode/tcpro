@@ -15,27 +15,14 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Statistic_model")) {
+if (!class_exists("Statistic_model")) 
+{
    /**
     * Object and methods to manage the statics display
     * @package TeamCalPro
     */
-   class Statistic_model {
-      var $style_table_main='';
-      var $style_td_main_header='';
-      var $style_td_main_footer='';
-      var $style_td_main_graph='';
-      var $style_td_main_bottom='';
-      var $style_table_graph='';
-      var $style_td_legend='';
-      var $style_td_legend_mark='';
-      var $style_td_bar_bg='';
-      var $style_table_bar='';
-      var $style_td_bar='';
-      var $style_td_x_axis = '';
-      var $style_table_x_axis = '';
-      var $style_td_x_legend = '';
-
+   class Statistic_model 
+   {
       // ---------------------------------------------------------------------
       /**
        * Constructor
@@ -59,12 +46,50 @@ if (!class_exists("Statistic_model")) {
        * @param string $footer Footer text
        * @return string HTML text of the graph
        */
-      function barGraphH($legend, $value, $width, $gwidth, $barcolor, $header='', $footer='') {
+      function barGraphH($legend, $value, $width, $gwidth, $barcolor, $header='', $footer='') 
+      {
          global $theme;
          $str = '';
          $str1 = '';
          $str2 = '';
          $str3 = '';
+
+         switch ($barcolor)
+         {
+            case 'red':
+               $top='ff0000'; $bottom='dd0000';
+               break;
+               
+            case 'green':
+               $top='00dd00'; $bottom='00aa00';
+               break;
+            
+            case 'blue':
+               $top='0000ff'; $bottom='0000cc';
+               break;
+            
+            case 'gray':
+               $top='dddddd'; $bottom='aaaaaa';
+               break;
+            
+            case 'orange':
+               $top='ffbb00'; $bottom='cc8800';
+               break;
+            
+            case 'cyan':
+               $top='00dddd'; $bottom='00aaaa';
+               break;
+            
+            default:
+               $top='dddddd'; $bottom='aaaaaa';
+               break;
+         }
+         
+         $bcolor = 'background-image: -ms-linear-gradient(top, #'.$top.' 0%, #'.$bottom.' 100%); 
+                    background-image: -moz-linear-gradient(top, #'.$top.' 0%, #'.$bottom.' 100%); 
+                    background-image: -o-linear-gradient(top, #'.$top.' 0%, #'.$bottom.' 100%); 
+                    background-image: -webkit-linear-gradient(top, #'.$top.' 0%, #'.$bottom.' 100%); 
+                    background-image: linear-gradient(top, #'.$top.' 0%, #'.$bottom.' 100%);';
 
          /**
           * Initialize the styles
@@ -79,24 +104,28 @@ if (!class_exists("Statistic_model")) {
          $style_td_legend_mark = "background-color:#E4E1DC; color: #000000; border-top: 1px solid #000000; width: 4px;";
          $style_td_bar_bg = "color: #000000; border-left: 1px solid #000000; padding-top:4px; padding-bottom:4px; text-align: left; vertical-align: middle; width: 100%";
          $style_table_bar = "border-collapse: collapse; margin: 0px; padding: 0px; ";
-         $style_td_bar = "background-image: url(themes/".$theme."/img/bg_".$barcolor."bar.gif); border: 1px solid #000000; border-left: 0px solid #000000; color: #000000; text-align: center; vertical-align: middle; width: 100%; ";
+         $style_td_bar = $bcolor." border: 1px solid #999999; color: #000000; text-align: center; vertical-align: middle; width: 100%; ";
          $style_td_x_axis = "background-color:#E4E1DC; color: #000000; border-top: 1px solid #000000; text-align: right; vertical-align: middle; ";
          $style_table_x_axis = "border-collapse: collapse; margin: 0px; padding: 0px; width: 100%;";
          $style_td_x_legend = "background-color:#E4E1DC; color: #000000; font-size: 10px; text-align: right; vertical-align: top; width: 10%; ";
+         
          /**
           * Count the counts
           */
          $cnt_legend = count($legend);
          $cnt_value = count($value);
          $cnt_max = !empty ($legend) ? min($cnt_legend, $cnt_value) : $cnt_value;
+         
          /**
           * Find the max value
           */
          for ($count=0, $max_value=0; $count<$cnt_max; $max_value=max($value[$count], $max_value), $count++);
+         
          /**
           * Compute the width of one virtual unit
           */
          $unit_width = !empty ($max_value) ? (0.92*($gwidth/$max_value)) : 0;
+         
          /**
           * Begin the main table
           */
@@ -112,6 +141,7 @@ if (!class_exists("Statistic_model")) {
          "      <td style=\"".$style_td_main_graph."\"><div align=\"center\">\n" .
          "         <table style=\"".$style_table_graph."\">\n"
          ;
+         
          /**
           * Now draw one table row for each legend/value set
           */
@@ -123,7 +153,6 @@ if (!class_exists("Statistic_model")) {
                $str .=
                "            <tr>\n" .
                "               <td style=\"".$style_td_legend."\">".$legend[$count]."</td>\n" .
-               "               <td style=\"".$style_td_legend_mark."\"></td>\n" .
                "               <td style=\"".$style_td_bar_bg."\">\n" .
                "                  <table style=\"".$style_table_bar." width: ".$bar_width."px;\">\n" .
                "                     <tr>\n" .
@@ -139,19 +168,18 @@ if (!class_exists("Statistic_model")) {
                $str .=
                "            <tr>\n" .
                "               <td style=\"".$style_td_legend."\">".$legend[$count]."</td>\n" .
-               "               <td style=\"".$style_td_legend_mark."\"></td>\n" .
                "               <td style=\"".$style_td_bar_bg."\">&nbsp;".$value[$count]."</td>\n" .
                "            </tr>\n"
                ;
             }
          }
+         
          /**
           * Draw the x-axis
           */
          $str .=
          "            <tr>\n" .
          "               <td style=\"".$style_td_x_legend."\"></td>\n" .
-         "               <td style=\"".$style_td_legend_mark."\"></td>\n" .
          "               <td style=\"".$style_td_x_axis."\">";
 
          $str1 =
@@ -176,6 +204,7 @@ if (!class_exists("Statistic_model")) {
          "               </td>\n" .
          "            </tr>\n"
          ;
+         
          $str .=
          "         </table>\n" .
          "      </div></td>\n" .
@@ -203,8 +232,47 @@ if (!class_exists("Statistic_model")) {
        * @param integer $width Width of main table in pixel
        * @return string HTML text of the graph
        */
-      function barGraphV($legend, $value, $height, $gheight, $header='', $footer='', $width='') {
+      function barGraphV($legend, $value, $height, $gheight, $barcolor, $header='', $footer='', $width='') 
+      {
          global $theme;
+         
+         switch ($barcolor)
+         {
+            case 'red':
+               $left='ff0000'; $right='cc0000';
+               break;
+                
+            case 'green':
+               $left='00dd00'; $right='00aa00';
+               break;
+         
+            case 'blue':
+               $left='0000ff'; $right='0000cc';
+               break;
+         
+            case 'gray':
+               $left='dddddd'; $right='aaaaaa';
+               break;
+         
+            case 'orange':
+               $left='ffbb00'; $right='cc8800';
+               break;
+         
+            case 'cyan':
+               $left='00dddd'; $right='00aaaa';
+               break;
+         
+            default:
+               $left='dddddd'; $right='aaaaaa';
+               break;
+         }
+          
+         $bcolor = 'background-image: -ms-linear-gradient(left, #'.$left.' 0%, #'.$right.' 100%); 
+                    background-image: -moz-linear-gradient(left, #'.$left.' 0%, #'.$right.' 100%); 
+                    background-image: -o-linear-gradient(left, #'.$left.' 0%, #'.$right.' 100%); 
+                    background-image: -webkit-linear-gradient(left, #'.$left.' 0%, #'.$right.' 100%); 
+                    background-image: linear-gradient(left, #'.$left.' 0%, #'.$right.' 100%);';
+         
          /**
           * Initialize the styles
           */
@@ -219,7 +287,7 @@ if (!class_exists("Statistic_model")) {
          $style_td_legend_mark = "background-color:#E4E1DC; color: #000000; border-top: 1px solid #000000; border-right: 1px solid #000000; height: 4px;";
          $style_td_bar_bg = "color: #000000; border-left: 1px solid #000000; padding-left:4px; padding-right:4px; text-align: center; vertical-align: bottom; height: 100%; ";
          $style_table_bar = "border-collapse: collapse; margin: 0px; padding: 0px; width: 90%;";
-         $style_td_bar = "background-image: url(themes/".$theme."/img/bg_graphV.gif); border: 1px solid #000000; border-bottom: 0px solid #000000; color: #000000; text-align: center; vertical-align: middle; width: 100%; ";
+         $style_td_bar = $bcolor." border: 1px solid #999999; color: #000000; text-align: center; vertical-align: middle; width: 100%; ";
          $style_td_y_axis = "background-color:#E4E1DC; height: 100%; ";
          $style_table_y_axis = "border-collapse: collapse; margin: 0px; padding: 0px; height: 100%; width: 100%;";
          $style_td_y_legend = "background-color:#E4E1DC; color: #000000; font-size: 10px; text-align: center; vertical-align: top; height: 10%; ";
@@ -297,15 +365,7 @@ if (!class_exists("Statistic_model")) {
             }
          }
          $str .= "            </tr>\n";
-         /**
-          * The marker line
-          */
-         $str .= "            <tr>\n";
-         $str .= "               <td style=\"".$style_td_legend."\"></td>\n";
-         for ($count = 0; $count < $cnt_max; $count++) {
-            $str .= "               <td style=\"".$style_td_legend_mark."\"></td>\n";
-         }
-         $str .= "            </tr>\n";
+         
          /**
           * The legend line
           */
@@ -315,6 +375,7 @@ if (!class_exists("Statistic_model")) {
             $str .= "               <td style=\"".$style_td_legend."\">".$legend[$count]."</td>\n";
          }
          $str .= "            </tr>\n";
+         
          /**
           * End of main table
           */
