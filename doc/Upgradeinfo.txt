@@ -54,7 +54,7 @@ Edit config.tcpro.php, enter your URLs and point to the copy of your data-
 base. Make sure the table prefix is correct in case you used a different
 one than default.
 
-Direct your browser to the new installation to file: upgrade35_36.php
+Direct your browser to the new installation to file: upgrade35-36.php
 
 This helper will upgrade your database to the new tables necessary to
 support the unlimited absence types. The script will display some messages on
