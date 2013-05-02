@@ -19,10 +19,12 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * To personalize your installation open the TeamCal Pro Configuration in the
  * Tools->Administration menu.
  */
+date_default_timezone_set('UTC');
+
 $CONF['app_name'] = "TeamCal Pro";
-$CONF['app_version'] = "3.6.003";
+$CONF['app_version'] = "3.6.004";
 $CONF['app_help_root'] = "https://georgelewe.atlassian.net/wiki/display/TCP036/";
-$CONF['app_version_date'] = "2013-04-22";
+$CONF['app_version_date'] = "2013-05-02";
 $CONF['app_year'] = "2004";
 $CONF['app_curr_year'] = date('Y');
 $CONF['app_author'] = "George Lewe";
