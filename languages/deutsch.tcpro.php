@@ -5,7 +5,7 @@
  * German language file
  *
  * @package TeamCalPro
- * @version 3.6.003
+* @version 3.6.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -347,7 +347,7 @@ $LANG['tab_membership_group'] = 'Gruppe';
 $LANG['tab_membership_member'] = 'Mitglied';
 $LANG['tab_membership_manager'] = 'Manager';
 $LANG['tab_options'] = 'Optionen';
-$LANG['tab_privileges'] = 'Privilegien';
+$LANG['tab_privileges'] = 'Konto';
 $LANG['tab_absences'] = 'Abwesenheiten';
 $LANG['show_profile_uname'] = 'Benutzername:';
 $LANG['show_profile_password'] = 'Neues&nbsp;Passwort:';

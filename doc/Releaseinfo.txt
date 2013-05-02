@@ -6,7 +6,7 @@ TEAMCAL PRO RELEASE INFO
 [3.6.004]
 
 DATE
-2013-xx-xx
+2013-05-02
 
 BUGFIX
 01 TCP-19: Editcalendar.php error
@@ -30,7 +30,7 @@ BUGFIX
 IMPROVEMENTS
 01 Statistics library
    The code of the statistics library has been streamlined. The background of
-   the bars is not an image anymore but a gradient CSS style.
+   the bars is not an image anymore but a gradient CSS styles.
 
 ------------------------------------------------------------------------------
 [3.6.003]

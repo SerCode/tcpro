@@ -5,7 +5,7 @@
  * Displays the phpinfo page
  *
  * @package TeamCalPro
- * @version 3.6.003
+* @version 3.6.004
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com

@@ -5,7 +5,7 @@
  * Displays a security image on the registration dialog
  *
  * @package TeamCalPro
- * @version 3.6.003 
+* @version 3.6.004 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com

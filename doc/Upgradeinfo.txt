@@ -3,6 +3,14 @@ TEAMCAL PRO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.003] -> [3.6.004]
+
+Backup your current files and database!
+
+Download the new release and overwrite all files.
+Overwrite config.tcpro.php from your backup.
+
+------------------------------------------------------------------------------
 [3.6.001] -> [3.6.003]
 
 Backup your current files and database!
