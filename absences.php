@@ -62,7 +62,6 @@ $A->get($absid);
  */
 if ( isset($_POST['btn_absCreate']) ) {
 
-   echo "<script type=\"text/javascript\">alert(\"Debug: ".$_POST['optPeriod']."\");</script>";
    if (isset($_POST['txt_create_name']) AND !empty($_POST['txt_create_name'])) {
       if (!preg_match('/^[a-zA-Z0-9-_\x20]*$/', $_POST['txt_create_name'])) {
         showError("input",$LANG['err_input_abs_name']);
