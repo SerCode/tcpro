@@ -94,7 +94,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
    </select>
 
    <!-- Year drop down -->
-   <select name="obar_year" class="select">
+   <select id="year_id" name="year_id" class="select">
       <option value="<?=$curryear-1?>" <?=$selectedYear==$curryear-1?' SELECTED':''?> ><?=$curryear-1?></option>
       <option value="<?=$curryear?>" <?=$selectedYear==$curryear?' SELECTED':''?> ><?=$curryear?></option>
       <option value="<?=$curryear+1?>" <?=$selectedYear==$curryear+1?' SELECTED':''?> ><?=$curryear+1?></option>
