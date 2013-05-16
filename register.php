@@ -117,7 +117,7 @@ if ( isset($_POST['btn_submit']) AND in_array($_POST['lst_group'],$G->getGroups(
             $amessage = str_replace("[USERNAME]",$U->username,$amessage);
 
             $fullname = $U->firstname . " " . $U->lastname;
-            $LOG->log("logRegistration", $L->checkLogin(), "New user registration: " . $U->username . " (" . $fullname . ")");
+            $LOG->log("logRegistration", $L->checkLogin(), "log_user_registered", $U->username . " (" . $fullname . ")");
 
             $information = $LANG['register_success'];
 

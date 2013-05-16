@@ -68,7 +68,7 @@ if (isset($_POST['btn_login'])) {
        * Successful login
        */
       $errors = $LANG['login_error_0'];
-      $LOG->log("logLogin", $uname, "Login successful");
+      $LOG->log("logLogin", $uname, "log_login_success");
 
       if ($UO->true($uname,"notifybirthday")) {
          $bdayalarm = '';
@@ -119,7 +119,7 @@ if (isset($_POST['btn_login'])) {
        * Username or password missing
        */
       $errors = $LANG['login_error_1'];
-      $LOG->log("logLogin", $uname, "Login: Username or password missing");
+      $LOG->log("logLogin", $uname, "log_login_missing");
       break;
 
       case 2 :
@@ -127,7 +127,7 @@ if (isset($_POST['btn_login'])) {
        * Username unknown
        */
       $errors = $LANG['login_error_2'];
-      $LOG->log("logLogin", $uname, "Login: Username unknown");
+      $LOG->log("logLogin", $uname, "log_login_unknown");
       break;
 
       case 3 :
@@ -135,7 +135,7 @@ if (isset($_POST['btn_login'])) {
        * Account is locked
        */
       $errors = $LANG['login_error_3'];
-      $LOG->log("logLogin", $uname, "Login: Account locked");
+      $LOG->log("logLogin", $uname, "log_login_locked");
       break;
 
       case 4 :
@@ -152,7 +152,7 @@ if (isset($_POST['btn_login'])) {
       $errors .= $LANG['login_error_4c'];
       $errors .= $C->readConfig("gracePeriod");
       $errors .= $LANG['login_error_4d'];
-      $LOG->log("logLogin", $uname, "Login: Password incorrect");
+      $LOG->log("logLogin", $uname, "log_login_pwd");
       break;
 
       case 6 :
@@ -164,7 +164,7 @@ if (isset($_POST['btn_login'])) {
       $errors = $LANG['login_error_6a'];
       $errors .= strval(intval($C->readConfig("gracePeriod")) - ($now - $U->bad_logins_start));
       $errors .= $LANG['login_error_6b'];
-      $LOG->log("logLogin", $uname, "Login: Too many bad login attempts");
+      $LOG->log("logLogin", $uname, "log_login_attempts");
       break;
 
       case 7 :
@@ -172,7 +172,7 @@ if (isset($_POST['btn_login'])) {
        * Password incorrect (no bad login count)
        */
       $errors = $LANG['login_error_7'];
-      $LOG->log("logLogin", $uname, "Login: Password incorrect");
+      $LOG->log("logLogin", $uname, "log_login_pwd");
       break;
 
       case 8 :
@@ -180,7 +180,7 @@ if (isset($_POST['btn_login'])) {
        * Account not verified
        */
       $errors = $LANG['login_error_8'];
-      $LOG->log("logLogin", $uname, "Login: Account not verified");
+      $LOG->log("logLogin", $uname, "log_login_not_verified");
       break;
 
       case 91 :
@@ -188,7 +188,7 @@ if (isset($_POST['btn_login'])) {
        * LDAP error: password missing
        */
       $errors = $LANG['login_error_91'];
-      $LOG->log("logLogin", $uname, "Login: LDAP password missing");
+      $LOG->log("logLogin", $uname, "log_login_ldap_pwd_missing");
       break;
 
       case 92 :
@@ -196,7 +196,7 @@ if (isset($_POST['btn_login'])) {
        * LDAP error: bind failed
        */
       $errors = $LANG['login_error_92'];
-      $LOG->log("logLogin", $uname, "Login: LDAP bind failed");
+      $LOG->log("logLogin", $uname, "log_login_ldap_bind_failed");
       break;
 
       case 93 :
@@ -204,7 +204,7 @@ if (isset($_POST['btn_login'])) {
        * LDAP error: Unable to connect
        */
       $errors = $LANG['login_error_93'];
-      $LOG->log("logLogin", $uname, "Login: LDAP unable to connect to server");
+      $LOG->log("logLogin", $uname, "log_login_ldap_connect_failed");
       break;
       
       case 94 :
@@ -212,7 +212,7 @@ if (isset($_POST['btn_login'])) {
        * LDAP error: Start of TLS encryption failed
        */
       $errors = $LANG['login_error_94'];
-      $LOG->log("logLogin", $uname, "Login: LDAP start TLS failed");
+      $LOG->log("logLogin", $uname, "log_login_ldap_tls_failed");
       break;
       
       case 95 :
@@ -220,7 +220,7 @@ if (isset($_POST['btn_login'])) {
        * LDAP error: Username not found
        */
       $errors = $LANG['login_error_95'];
-      $LOG->log("logLogin", $uname, "Login: LDAP username not found");
+      $LOG->log("logLogin", $uname, "log_login_ldap_username");
       break;
       
       case 96 :
@@ -228,7 +228,7 @@ if (isset($_POST['btn_login'])) {
        * LDAP error: LDAP search bind failed
        */
       $errors = $LANG['login_error_96'];
-      $LOG->log("logLogin", $uname, "Login: LDAP search bind failed");
+      $LOG->log("logLogin", $uname, "log_login_ldap_search_bind_failed");
       break;
    }
 }

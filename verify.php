@@ -75,7 +75,7 @@ else {
             sendEmail($to, $subject, $message);
 
             $info .= $LANG['verify_info_approval'];
-            $LOG->log("logRegistration", $U->username, "User verified, approval needed: " . $U->username . " (" . $fullname . ")");
+            $LOG->log("logRegistration", $U->username, "log_user_verify_approval", $U->username . " (" . $fullname . ")");
          }
          else {
             /**
@@ -84,7 +84,7 @@ else {
             $U->clearStatus($CONF['USLOCKED']);
             $U->clearStatus($CONF['USHIDDEN']);
             $U->update($U->username);
-            $LOG->log("logRegistration", $U->username, "User verified, unlocked and unhidden: " . $U->username . " (" . $fullname . ")");
+            $LOG->log("logRegistration", $U->username, "log_user_verify_unlocked", $U->username . " (" . $fullname . ")");
          }
       }
       else {
@@ -92,7 +92,7 @@ else {
           * Found the user but verify code does not match
           */
          $error = $LANG['verify_err_match'];
-         $LOG->log("logRegistration", $U->username, "User verification code does not match: " . $U->username . " (" . $fullname . "): ".$rverify);
+         $LOG->log("logRegistration", $U->username, "log_user_verify_mismatch", $U->username . " (" . $fullname . "): ".$rverify);
       }
    }
    else {
@@ -104,14 +104,14 @@ else {
           * No surprise, the user dos not exist
           */
          $error = $LANG['verify_err_user'];
-         $LOG->log("logRegistration", $ruser, "User does not exist: " . $ruser." : ".$rverify);
+         $LOG->log("logRegistration", $ruser, "log_user_verify_usr_notexist", $ruser." : ".$rverify);
       }
       else {
          /**
           * Verfiy code does not exist
           */
          $error = $LANG['verify_err_code'];
-         $LOG->log("logRegistration", $ruser, "Verification code does not exist: " . $ruser . " : ".$rverify);
+         $LOG->log("logRegistration", $ruser, "log_user_verify_code_notexist", $ruser . " : ".$rverify);
       }
    }
 }

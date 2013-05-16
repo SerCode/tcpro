@@ -103,7 +103,7 @@ if ( isset($_POST['btn_reg_add']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logRegion",$L->checkLogin(),"Region added: ".$R->regionname);
+         $LOG->log("logRegion",$L->checkLogin(),"log_region_created", $R->regionname);
       }
    }
    else {
@@ -167,7 +167,7 @@ else if ( isset($_POST['btn_import_ical']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logRegion",$L->checkLogin(),"Region added: ".$R->regionname);
+         $LOG->log("logRegion",$L->checkLogin(),"log_region_created", $R->regionname);
 
          /**
           * Now parse the iCal file (original code by Franz)
@@ -276,7 +276,7 @@ else if ( isset($_POST['btn_import_ical']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logRegion",$L->checkLogin(),"iCal file ".$_FILES['ical_file']['name']." imported into region: ".$R->regionname);
+         $LOG->log("logRegion",$L->checkLogin(),"log_region_ical", $_FILES['ical_file']['name'].$LANG['log_region_ical_in'].$R->regionname);
       }
    }
 }
@@ -304,7 +304,7 @@ else if ( isset($_POST['btn_reg_update']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logRegion",$L->checkLogin(),"Region updated: ".$R->regionname);
+   $LOG->log("logRegion",$L->checkLogin(),"log_region_updated", $R->regionname);
 }
 /**
  * =========================================================================
@@ -324,7 +324,7 @@ else if ( isset($_POST['btn_reg_delete']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logRegion",$L->checkLogin(),"Region deleted: ".$_POST['reg_namehidden']);
+   $LOG->log("logRegion",$L->checkLogin(),"log_region_deleted", $_POST['reg_namehidden']);
 }
 /**
  * =========================================================================
@@ -382,7 +382,7 @@ else if ( isset($_POST['btn_reg_merge']) ) {
       /**
        * Log this event
        */
-      $LOG->log("logRegion",$L->checkLogin(),"Regions merged: ".$_POST['sRegion']." => ".$_POST['tRegion']);
+      $LOG->log("logRegion",$L->checkLogin(),"log_region_merged", $_POST['sRegion']." => ".$_POST['tRegion']);
    }
 }
 /**

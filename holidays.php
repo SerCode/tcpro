@@ -111,7 +111,7 @@ if ( isset($_POST['btn_hol_add']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logHoliday",$L->checkLogin(),"Holiday created: ".$H->dspname." ".$H->dspcolor." ".$H->dspbgcolor);
+         $LOG->log("logHoliday",$L->checkLogin(),"log_hol_created", $H->dspname." ".$H->dspcolor." ".$H->dspbgcolor);
       }
       else {
          $error = true;
@@ -155,7 +155,7 @@ else if ( isset($_POST['btn_hol_update']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logHoliday",$L->checkLogin(),"Holiday updated: ".$H->dspname." ".$H->dspcolor." ".$H->dspbgcolor);
+   $LOG->log("logHoliday",$L->checkLogin(),"log_hol_updated", $H->dspname." ".$H->dspcolor." ".$H->dspbgcolor);
 
 }
 /**
@@ -184,7 +184,7 @@ else if ( isset($_POST['btn_hol_delete']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logHoliday",$L->checkLogin(),"Holiday deleted: ".$delname);
+   $LOG->log("logHoliday",$L->checkLogin(),"log_hol_deleted", $delname);
 }
 
 /**

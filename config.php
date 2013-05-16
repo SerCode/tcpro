@@ -121,6 +121,13 @@ if ( isset($_POST['btn_confApply']) ) {
       $C->saveConfig("defaultLanguage","english");
    }
    
+   if (trim($_POST['sel_logLang'])) {
+      $C->saveConfig("logLanguage",trim($_POST['sel_logLang']));
+   } 
+   else {
+      $C->saveConfig("logLanguage","english");
+   }
+   
    if (trim($_POST['sel_pscheme'])) $C->saveConfig("permissionScheme",trim($_POST['sel_pscheme'])); else $C->saveConfig("permissionScheme","Default");
    
    if ( isset($_POST['periodfrom']) AND isset($_POST['periodto']) ) {
@@ -229,7 +236,7 @@ if ( isset($_POST['btn_confApply']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logConfig",$L->checkLogin(),"Configuration changed");
+   $LOG->log("logConfig",$L->checkLogin(),"log_config");
    header("Location: ".$_SERVER['PHP_SELF']);
 }
 /**
@@ -249,7 +256,7 @@ if ( isset($_POST['btn_styles']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logConfig",$L->checkLogin(),"Style sheet rebuilt");
+   $LOG->log("logConfig",$L->checkLogin(),"log_styles");
    header("Location: ".$_SERVER['PHP_SELF']);
 }
 
@@ -766,6 +773,30 @@ if (ini_get('register_globals')) {
                               <select name="sel_defLang" class="select">
                                  <?php
                                     if (strlen($C->readConfig("defaultLanguage"))) $currlang = $C->readConfig("defaultLanguage");
+                                    else $currlang="english";
+                                    $languages = getLanguages();
+                                    foreach ($languages as $lang) {
+                                       if ($lang==$currlang)
+                                          echo ("<option value=\"".$lang."\" SELECTED=\"selected\">".$lang."</option>");
+                                       else
+                                          echo ("<option value=\"".$lang."\" >".$lang."</option>");
+                                    }
+                                 ?>
+                              </select>
+                           </td>
+                        </tr>
+               
+                        <!-- logLanguage -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_loglang']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_loglang_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <select name="sel_logLang" class="select">
+                                 <?php
+                                    if (strlen($C->readConfig("logLanguage"))) $currlang = $C->readConfig("logLanguage");
                                     else $currlang="english";
                                     $languages = getLanguages();
                                     foreach ($languages as $lang) {

@@ -115,7 +115,7 @@ if ( isset($_POST['btn_permActivate']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$_POST['sel_scheme']."' activated");
+   $LOG->log("logPermission",$L->checkLogin(),"log_perm_activated", $_POST['sel_scheme']);
    header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$_POST['sel_scheme']);
    die();
 }
@@ -131,7 +131,7 @@ else if ( isset($_POST['btn_permDelete']) ) {
       /**
        * Log this event
        */
-      $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$_POST['sel_scheme']."' deleted");
+      $LOG->log("logPermission",$L->checkLogin(),"log_perm_deleted", $_POST['sel_scheme']);
       header("Location: ".$_SERVER['PHP_SELF']."?scheme=Default");
       die();
    }
@@ -141,8 +141,10 @@ else if ( isset($_POST['btn_permDelete']) ) {
  * RESET, CREATE
  * Reset Default permission scheme or create a new with standard settings
  */
-else if ( isset($_POST['btn_permReset']) OR isset($_POST['btn_permCreate']) ) {
+else if ( isset($_POST['btn_permReset']) OR isset($_POST['btn_permCreate']) ) 
+{
    $error=FALSE;
+   $event = "log_perm_reset";
    if ( isset($_POST['btn_permCreate']) ) {
       if (!preg_match('/^[a-zA-Z0-9-]*$/', $_POST['txt_newScheme'])) {
          $error=TRUE;
@@ -165,6 +167,7 @@ else if ( isset($_POST['btn_permReset']) OR isset($_POST['btn_permCreate']) ) {
             $err_btn_close=FALSE;
          }
       }
+     $event = "log_perm_created";
    }
 
    if (!$error) {
@@ -185,7 +188,7 @@ else if ( isset($_POST['btn_permReset']) OR isset($_POST['btn_permCreate']) ) {
       /**
        * Log this event
        */
-      $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$scheme."' was created or reset");
+      $LOG->log("logPermission",$L->checkLogin(), $event, $scheme);
       header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme);
       die();
    }
@@ -211,7 +214,7 @@ else if ( isset($_POST['btn_permApply']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logPermission",$L->checkLogin(),"Permission scheme '".$scheme."' changed");
+   $LOG->log("logPermission",$L->checkLogin(),"log_perm_changed", $scheme);
    header("Location: ".$_SERVER['PHP_SELF']."?scheme=".$scheme);
    die();
 }

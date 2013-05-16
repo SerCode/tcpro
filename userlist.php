@@ -112,7 +112,7 @@ if ( isset($_POST['btn_usr_del']) AND ($_POST['usr_hidden']!="admin") ) {
    $AV->delete($U->username);
 
    // Log this event (Loglevel is checked in log())
-   $LOG->log("logUser",$L->checkLogin(),"User deleted: ".$deluser." (".$delname.")");
+   $LOG->log("logUser",$L->checkLogin(),"log_user_deleted", $deluser." (".$delname.")");
 
    // Send notification e-Mails
    sendNotification("userdelete",$delname,"");
@@ -149,7 +149,7 @@ else if ( isset($_POST['btn_usr_pwd_reset']) AND ($_POST['usr_hidden']!="admin")
    /**
     * Log this event
     */
-   $LOG->log("logUser",$L->checkLogin(),"User password reset: ".$U->username);
+   $LOG->log("logUser",$L->checkLogin(),"log_user_pwd_reset", $U->username);
    echo ("<script type=\"text/javascript\">alert(\"".$LANG['user_pwd_reset_complete']."\");</script>");
 }
 /**

@@ -299,7 +299,7 @@ if (!class_exists("CsvImport")) {
 	                     $UO->create($U->username, "defgroup", "All");
 	                     
 	                     $fullname = $U->firstname . " " . $U->lastname;
-	                     $LOG->log("logUser", $L->checkLogin(), "CSV user import: " . $U->username . " (" . $fullname . ")");
+	                     $LOG->log("logUser", $L->checkLogin(), "log_csv_import", $U->username . " (" . $fullname . ")");
 	                     $this->count_imported++;
 	                  }
 	                  else {

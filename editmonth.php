@@ -122,7 +122,7 @@ if (!$found || !$M->template) {
    /**
     * Log this event
     */
-   $LOG->log("logMonth", $L->checkLogin(), "Missing month template created: " . $M->region . " " . $M->yearmonth . " " . $M->template);
+   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $M->region . " " . $M->yearmonth . " " . $M->template);
 }
 /**
  * =========================================================================
@@ -164,7 +164,7 @@ if (isset ($_POST['btn_apply'])) {
    /**
     * Log this event
     */
-   $LOG->log("logMonth", $L->checkLogin(), "Month template updated: " . $M->region . " " . $M->yearmonth . " " . $M->template);
+   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_updated", $M->region . " " . $M->yearmonth . " " . $M->template);
    /**
     * Send notification e-Mails
     */
@@ -202,7 +202,7 @@ else if (isset ($_POST['btn_clear'])) {
    /**
     * Log this event
     */
-   $LOG->log("logMonth", $L->checkLogin(), "Month template updated: " . $M->region . " " . $M->yearmonth . " " . $M->template);
+   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_updated", $M->region . " " . $M->yearmonth . " " . $M->template);
    /**
     * Send notification e-Mails
     */

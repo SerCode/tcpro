@@ -211,7 +211,7 @@ if (!$found) {
    /**
     * Log this event
     */
-   $LOG->log("logUser",$luser, "User default template created: ".$T->year.$T->month);
+   $LOG->log("logUser",$luser, "log_cal_usr_def_tpl", $T->year.$T->month);
 }
 
 /**
@@ -659,7 +659,7 @@ if (isset($_POST['btn_apply'])) {
                   /**
                    * Log this event
                    */
-                  $LOG->log("logUser",$luser,"Template user default template created: ".$TT->username."|".$TT->year.$TT->month);
+                  $LOG->log("logUser",$luser,"log_cal_tplusr_def_tpl", $TT->username."|".$TT->year.$TT->month);
                }
                /**
                 * Loop through each day and compare the templates. Set new value from template
@@ -752,7 +752,7 @@ if (isset($_POST['btn_apply'])) {
       /**
        * Log this event
        */
-      $LOG->log("logUser",$luser,"User template changed: ".$caluser." ".$T->year.$T->month." ".$logtemplate);
+      $LOG->log("logUser",$luser,"log_cal_usr_tpl_chg", $caluser." ".$T->year.$T->month." ".$logtemplate);
 
    }
 
@@ -882,7 +882,7 @@ if (isset($_POST['btn_apply'])) {
       /*
        * Log this event
        */
-      $LOG->log("logUser",$luser,"Calendar change request declined: ".$caluser."\n".$notificationerror);
+      $LOG->log("logUser",$luser,"log_cal_declined", $caluser."\n".$notificationerror);
    }
 }
 
@@ -909,7 +909,7 @@ else if (isset($_POST['btn_clear'])) {
    /**
     * Log this event
     */
-   $LOG->log("logUser",$luser,"User template cleared: ".$caluser." ".$T->year.$T->month." ".$mailtemplate);
+   $LOG->log("logUser",$luser,"log_cal_usr_tpl_clr", $caluser." ".$T->year.$T->month." ".$mailtemplate);
 }
 
 /**

@@ -90,7 +90,7 @@ if ( isset($_POST['btn_grp_add']) ) {
       /**
        * Log this event
        */
-      $LOG->log("logGroup",$L->checkLogin(),"Group added: ".$G->groupname." ".$G->description);
+      $LOG->log("logGroup",$L->checkLogin(),"log_group_created", $G->groupname." ".$G->description);
       sendNotification("groupadd",$_POST['grp_nameadd'],"");
    }
    else {
@@ -139,7 +139,7 @@ else if ( isset($_POST['btn_grp_update']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logGroup",$L->checkLogin(),"Group updated: ".$G->groupname." ".$G->description);
+   $LOG->log("logGroup",$L->checkLogin(),"log_group_updated", $G->groupname." ".$G->description);
    sendNotification("groupchange",$_POST['grp_namehidden'],"");
 }
 /**
@@ -154,7 +154,7 @@ else if ( isset($_POST['btn_grp_delete']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logGroup",$L->checkLogin(),"Group deleted: ".$_POST['grp_namehidden']);
+   $LOG->log("logGroup",$L->checkLogin(),"log_group_deleted", $_POST['grp_namehidden']);
    sendNotification("groupdelete",$_POST['grp_namehidden'],"");
 
 }

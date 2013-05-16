@@ -122,7 +122,7 @@ if ( isset($_POST['btn_fastedit_apply']) ) {
             /**
              * Log this event
              */
-            $LOG->log("logUser",$L->checkLogin(),"Calendar Fast Edit for '".$feuser."': ".$feyear."-".$femonth."-".$feday.": ".$A->getName($value));
+            $LOG->log("logUser",$L->checkLogin(),"log_cal_fastedit", "'".$feuser."': ".$feyear."-".$femonth."-".$feday.": ".$A->getName($value));
          }
       }
    }

@@ -265,9 +265,8 @@ if (isset ($_POST['btn_add'])) {
          /**
           * Log this event
           */
-         $LOG->log("logUser", $L->checkLogin(), "User added: " . $U->username . " (" . $fullname . ")");
+         $LOG->log("logUser", $L->checkLogin(), "log_user_added", $U->username . " (" . $fullname . ")");
 
-         //echo ("<script type=\"text/javascript\">alert(\"".$LANG['profile_added'].".\");</script>");
          jsCloseAndReload("userlist.php");
       } // endif !$pwdmismatch
    }

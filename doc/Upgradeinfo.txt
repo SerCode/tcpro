@@ -3,6 +3,21 @@ TEAMCAL PRO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.004] -> [3.6.005]
+
+Backup your current files and database!
+
+Download the new release and overwrite all files.
+Overwrite config.tcpro.php from your backup.
+
+Database changes:
+
+INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'logLanguage', 'english' );
+
+This entry is necessary for the new log language feature. Make sure the table
+name matches yours.
+
+------------------------------------------------------------------------------
 [3.6.003] -> [3.6.004]
 
 Backup your current files and database!

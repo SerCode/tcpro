@@ -139,7 +139,7 @@ if ( isset($_POST['btn_apply']) ) {
    /*
     * Log this event
     */
-   $LOG->log("logUser",$L->checkLogin(),"User Type, Group assigments updated");
+   $LOG->log("logUser",$L->checkLogin(),"log_user_group_updated");
 }
 
 /**

@@ -114,7 +114,7 @@ if (isset($_POST['btn_save'])) {
       /**
        * Log this event
        */
-      $LOG->log("logDaynote",$L->checkLogin(),"Daynote updated: ".$_REQUEST['date']." - ".$_REQUEST['daynotefor']." - ".$region." : ".substr($N->daynote,0,20)."...");
+      $LOG->log("logDaynote",$L->checkLogin(),"log_daynote_updated", $_REQUEST['date']." - ".$_REQUEST['daynotefor']." - ".$region." : ".substr($N->daynote,0,20)."...");
    }
    else {
       $event="warning";
@@ -136,7 +136,7 @@ else if (isset($_POST['btn_create'])) {
       /**
        * Log this event
        */
-      $LOG->log("logDaynote",$L->checkLogin(),"Daynote created: ".$_REQUEST['date']." - ".$_REQUEST['daynotefor']." - ".$region." : ".substr($N->daynote,0,20)."...");
+      $LOG->log("logDaynote",$L->checkLogin(),"log_daynote_created", $_REQUEST['date']." - ".$_REQUEST['daynotefor']." - ".$region." : ".substr($N->daynote,0,20)."...");
       $daynote_exists=true;
    }
    else {
@@ -155,7 +155,7 @@ else if (isset($_POST['btn_delete'])) {
       /**
        * Log this event
        */
-      $LOG->log("logDaynote",$L->checkLogin(),"Daynote deleted: ".$_REQUEST['date']." - ".$_REQUEST['daynotefor']." - ".$region." : ".substr($N->daynote,0,20)."...");
+      $LOG->log("logDaynote",$L->checkLogin(),"log_daynote_deleted", $_REQUEST['date']." - ".$_REQUEST['daynotefor']." - ".$region." : ".substr($N->daynote,0,20)."...");
       $daynote_exists=false;
    }
 }

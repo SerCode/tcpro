@@ -83,7 +83,7 @@ if ( isset($_POST['btn_refresh']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logLoglevel",$L->checkLogin(),"Log settings updated");
+   $LOG->log("logLoglevel",$L->checkLogin(),"log_log_updated");
    header("Location: ".$_SERVER['PHP_SELF']);
 }
 else if ( isset($_POST['btn_clear']) ) {
@@ -92,7 +92,7 @@ else if ( isset($_POST['btn_clear']) ) {
    /**
     * Log this event
    */
-   $LOG->log("logLogLevel",$L->checkLogin(),"Log page: Log records cleared");
+   $LOG->log("logLogLevel",$L->checkLogin(),"log_log_cleared");
 }
 
 /**

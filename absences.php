@@ -106,7 +106,7 @@ if ( isset($_POST['btn_absCreate']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logAbsence",$L->checkLogin(),"Absence type created: ".$A->name." (".$absid.")");
+         $LOG->log("logAbsence",$L->checkLogin(),"log_abs_created", $A->name." (".$absid.")");
          header("Location: ".$_SERVER['PHP_SELF']."?absid=".$absid);
          die();
       }
@@ -212,7 +212,7 @@ else if ( isset($_POST['btn_absApply']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logAbsence",$L->checkLogin(),"Absence type updated: ".$A->name." (".$_POST['txt_absid'].")");
+   $LOG->log("logAbsence",$L->checkLogin(),"log_abs_updated", $A->name." (".$_POST['txt_absid'].")");
    header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['txt_absid']);
    die();
 }
@@ -228,7 +228,7 @@ else if (isset($_POST['btn_absDelete'])) {
    /**
     * Log this event
     */
-   $LOG->log("logAbsence",$L->checkLogin(),"Absence type deleted: ".$A->name." (".$_POST['txt_absid'].")");
+   $LOG->log("logAbsence",$L->checkLogin(),"log_abs_deleted", $A->name." (".$_POST['txt_absid'].")");
    header("Location: ".$_SERVER['PHP_SELF']);
    die();
 }

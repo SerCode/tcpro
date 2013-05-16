@@ -319,7 +319,7 @@ if (isset($_POST['btn_apply'])) {
       /**
        * Log this event
        */
-      $LOG->log("logUser",$L->checkLogin(),"User profile updated: ".$U->username);
+      $LOG->log("logUser",$L->checkLogin(),"log_user_updated", $U->username);
       header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
       die();
 
@@ -375,7 +375,7 @@ elseif ( isset($_POST['btn_abs_update']) ) {
    /**
     * Log this event
     */
-   $LOG->log("logUser",$L->checkLogin(),"User allowance updated: ".$U->username);
+   $LOG->log("logUser",$L->checkLogin(),"log_user_allow_updated", $U->username);
    header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
    die();
 }
@@ -396,7 +396,7 @@ elseif ( isset($_POST['btn_avatar_upload']) ) {
       /**
        * Log this event
        */
-      $LOG->log("logUser",$L->checkLogin(),"User avatar uploaded: ".$U->username);
+      $LOG->log("logUser",$L->checkLogin(),"log_user_avatar_updloaded", $U->username);
       header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
       die();
    }

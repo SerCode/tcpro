@@ -103,7 +103,7 @@ if (isset($_POST['btn_send'])) {
 
       if ( sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), $from) ) {
          $msgsent = true;
-         $LOG->log("logAnnouncement",$L->checkLogin(),"e-Mail message sent by ".$UL->username." to ".$to);
+         $LOG->log("logAnnouncement",$L->checkLogin(),"log_msg_email", $UL->username." to ".$to);
       }
 
    }
@@ -151,7 +151,7 @@ if (isset($_POST['btn_send'])) {
             break;
          }
          $msgsent = true;
-         $LOG->log("logAnnouncement",$L->checkLogin(),"Announcement ".$tstamp." sent by ".$UL->username." to ".$to);
+         $LOG->log("logAnnouncement",$L->checkLogin(),"log_msg_ann", $tstamp.$LANG['log_msg_ann_by'].$UL->username." to ".$to);
       }
    }
 }

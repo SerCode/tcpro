@@ -162,7 +162,7 @@ if ( isset($_POST['btn_apply']) ) {
     * Log this event
     */
    if ($declineupdate) {
-      $LOG->log("logConfig",$L->checkLogin(),"Decline settings updated");
+      $LOG->log("logConfig",$L->checkLogin(),"log_decl_updated");
       header("Location: ".$_SERVER['PHP_SELF']);
    }
 }

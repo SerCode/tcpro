@@ -67,7 +67,7 @@ if (isset ($_REQUEST['action']))
 
       case 'logout' :
          $L->logout();
-         $LOG->log("logLogin", $L->checkLogin(), "Logout");
+         $LOG->log("logLogin", $L->checkLogin(), "log_logout");
          header("Location: ".$_SERVER['PHP_SELF']);
          die();
          break;

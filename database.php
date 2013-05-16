@@ -153,7 +153,7 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database cleanup before: ".$_POST['clean_year'].$_POST['clean_month']);
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_cleanup_before", $_POST['clean_year'].$_POST['clean_month']);
       } else {
          $error=TRUE;
          $err_short = $LANG['err_input_caption'];
@@ -191,7 +191,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: All Users");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_users");
       }
 
       if ( isset($_POST['chkDBDeleteGroups']) ) {
@@ -202,7 +202,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: All Groups");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_groups");
       }
 
       if ( isset($_POST['chkDBDeleteHolidays']) ) {
@@ -211,7 +211,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: All Holidays");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_hol");
       }
 
       if ( isset($_POST['chkDBDeleteRegions']) ) {
@@ -224,7 +224,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
                   /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: All Regions (except default)");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_regions");
       }
 
       if ( isset($_POST['chkDBDeleteAbsence']) ) {
@@ -243,7 +243,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: All Absence Types");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_abs");
       }
 
       if ( isset($_POST['chkDBDeleteDaynotes']) ) {
@@ -252,7 +252,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: All general Daynotes");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_daynotes");
       }
 
       if ( isset($_POST['chkDBDeleteAnnouncements']) ) {
@@ -261,7 +261,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: All Announcements");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_ann");
       }
 
       if ( isset($_POST['chkDBDeleteOrphAnnouncements']) ) {
@@ -272,7 +272,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logAnnouncement",$L->checkLogin(),"Database delete: Orphaned Announcements");
+         $LOG->log("logAnnouncement",$L->checkLogin(),"log_db_delete_ann_orph");
       }
 
       if ( isset($_POST['chkDBDeleteLog']) ) {
@@ -281,7 +281,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: Log records cleared");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_log");
       }
 
       if ( isset($_POST['chkDBDeletePermissionSchemes']) ) {
@@ -290,7 +290,7 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logDatabase",$L->checkLogin(),"Database delete: All custom permission schemes");
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_perm");
       }
 
    } else {
@@ -337,7 +337,7 @@ else if (isset($_POST['btn_export'])) {
    /**
     * Log this event
     */
-   $LOG->log("logDatabase",$L->checkLogin(),"Database export: $format | $what | $type");
+   $LOG->log("logDatabase",$L->checkLogin(),"log_db_export", "$format | $what | $type");
    header('Location: exportdata.php?format='.$format.'&what='.$what.'&type='.$type);
 }
 /**
@@ -386,7 +386,7 @@ else if ( isset($_POST['btn_rest_rest']) ) {
                /**
                 * Log this event
                 */
-               $LOG->log("logDatabase",$L->checkLogin(),"Database restored from: ".$_FILES['sqlfile']['name']);
+               $LOG->log("logDatabase",$L->checkLogin(),"log_db_restore", $_FILES['sqlfile']['name']);
             }
          }
       }
