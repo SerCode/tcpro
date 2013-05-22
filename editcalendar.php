@@ -737,7 +737,7 @@ if (isset($_POST['btn_apply'])) {
       foreach ($ats as $at) {
          $ninfo .= $at['symbol']." = ".$at['name']."\n";
       }
-
+      
       /**
        * Send out the mails
        */

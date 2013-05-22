@@ -312,7 +312,7 @@ require("includes/menu_inc.php");
                      </td>
                      <td class="dlg-row<?=$printrow?>" <?=$botstyle?>><?=$U->last_login?></td>
                      <td class="dlg-row<?=$printrow?>" style="text-align: right; <?=$botborder?>">
-                        <input name="btn_usr_edit" type="button" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:this.blur();openPopup('editprofile.php?referrer=userlist&amp;username=<?=$U->username?>','editprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=no,dependent=1,width=600,height=680');">&nbsp;
+                        <input name="btn_usr_edit" type="button" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:this.blur();openPopup('editprofile.php?referrer=userlist&amp;username=<?=$U->username?>','editprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=no,dependent=1,width=640,height=720');">&nbsp;
                         <?php if ($U->username!="admin") { ?>
                         <form class="form" name="form-<?=$U->username?>-del" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                            <input name="usr_hidden" type="hidden" class="text" value="<?=$U->username?>">&nbsp;

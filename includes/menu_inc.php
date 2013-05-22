@@ -125,7 +125,7 @@ $m = buildMenu();
          <?php if ($m['mnu_tools'] ) { ?>
          [null,'<?=$LANG['mnu_tools']?>',null,null,null,
             <?php if ($m['mnu_tools_profile'] AND $luser=$L->checkLogin()) { ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_profile']?>','javascript:openPopup(\'editprofile.php?referrer=index&username=<?=$luser?>\',\'profile\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=700\');',null,null],
+            ['<img src="themes/<?=$theme?>/img/menu/ico_usr.png" />','<?=$LANG['mnu_tools_profile']?>','javascript:openPopup(\'editprofile.php?referrer=index&username=<?=$luser?>\',\'profile\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=640,height=720\');',null,null],
             <?php }
             if ($m['mnu_tools_message']) { ?>
             ['<img src="themes/<?=$theme?>/img/menu/ico_message.png" />','<?=$LANG['mnu_tools_message']?>','message.php',null,null],
