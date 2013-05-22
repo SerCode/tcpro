@@ -934,7 +934,7 @@ $CONF['options']['lang']=$currlang;
       <table class="dlg">
          <tr>
             <td class="dlg-header">
-               <?php printDialogTop($LANG['member_edit']." ".$U->firstname." ".$U->lastname." (".$LANG['month_region'].": ".$region.")", $help, "ico_calendar.png"); ?>
+               <?php printDialogTop($LANG['member_edit']." ".$UC->firstname." ".$UC->lastname." (".$LANG['month_region'].": ".$region.")", $help, "ico_calendar.png"); ?>
             </td>
          </tr>
          <tr>
