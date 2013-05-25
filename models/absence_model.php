@@ -216,6 +216,26 @@ if (!class_exists("Absence_model")) {
          }
          return $rc;
       }
+
+      //----------------------------------------------------------------------
+      /**
+       * Gets the manager only flag of an absence type
+       *
+       * @param string $absid Record ID
+       * @return boolean Manager only flag
+       */
+      function getManagerOnly($absid = '') {
+         $rc=0; // Default return 0
+         if (isset($absid)) {
+            $query = "SELECT manager_only FROM `".$this->table."` WHERE id='".$absid."';";
+            $result = $this->db->db_query($query);
+            if ($this->db->db_numrows($result) == 1) {
+               $row = $this->db->db_fetch_array($result);
+               $rc = $row['manager_only'];
+            }
+         }
+         return $rc;
+      }
       
       //----------------------------------------------------------------------
       /**

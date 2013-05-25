@@ -342,13 +342,16 @@ if (isset($_POST['btn_apply'])) {
     */
    $accepted = array();
    $difference=FALSE;
-   for ($i=1; $i<=$nofdays; $i++) {
+   for ($i=1; $i<=$nofdays; $i++) 
+   {
       $prop='abs'.$i;
-      if ($T->$prop!=$requested[$i]) {
+      if ($T->$prop!=$requested[$i]) 
+      {
          $difference=TRUE;
       }
       $accepted[$i]=$requested[$i];
       $unapproved[$i]='0';
+      //print $i.': '.$T->$prop.'-'.$requested[$i].'<br>';
    } 
     
    /**
@@ -586,6 +589,51 @@ if (isset($_POST['btn_apply'])) {
                   $accepted[$i]=$T->$prop;
                }
             }
+            
+            /**
+             * MANAGER ONLY
+             */
+            $managerOnly = FALSE;
+            if ($T->$prop!='0' AND $A->getManagerOnly($T->$prop)) {
+                
+               if (!$isManager OR !$UG->isGroupManagerOfUser($luser,$caluser)) {
+                  $managerOnly = TRUE;
+               }
+                
+               if ($managerOnly) {
+                  /**
+                   * The old absence type is manager only and cannot be changed
+                   */
+                  $declined=TRUE;
+                  foreach ($usergroups as $row) {
+                     $affectedgroups[] = $row['groupname'];
+                  }
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_old_abs'].$A->getName($T->$prop).$LANG['err_decl_manager_only'];
+                  $unapproved[$i]=$requested[$i];
+                  $accepted[$i]=$T->$prop;
+               }
+            }
+            
+            $managerOnly = FALSE;
+            if ($requested[$i]!='0' AND $A->getManagerOnly($requested[$i])) {
+            
+               if (!$isManager OR !$UG->isGroupManagerOfUser($luser,$caluser)) {
+                  $managerOnly = TRUE;
+               }
+            
+               if ($managerOnly) {
+                  /**
+                   * The new absence type is manager only and cannot be set
+                   */
+                  $declined=TRUE;
+                  foreach ($usergroups as $row) {
+                     $affectedgroups[] = $row['groupname'];
+                  }
+                  $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_new_abs'].$A->getName($requested[$i]).$LANG['err_decl_manager_only'];
+                  $unapproved[$i]=$requested[$i];
+                  $accepted[$i]=$T->$prop;
+               }
+            }
 
          } // if ($T->$prop!=$newtemplate[$i]) {
 
@@ -612,11 +660,13 @@ if (isset($_POST['btn_apply'])) {
       }
    }
 
-   if ($difference) {
+   if ($difference) 
+   {
       /**
        * One or more absence changes are accpeted. Update $T.
        */
-      if ( $UC->checkUserType($CONF['UTTEMPLATE']) ) {
+      if ( $UC->checkUserType($CONF['UTTEMPLATE']) ) 
+      {
          /**
           * This is a template user. We must not overwrite his old template yet.
           * We have to go through the templates of all other users in the same
@@ -625,7 +675,9 @@ if (isset($_POST['btn_apply'])) {
           */
          $query  = "SELECT groupname FROM `".$UG->table."` WHERE username='".$caluser."'";
          $result = $UG->db->db_query($query);
-         while ($row=$UG->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+         
+         while ($row=$UG->db->db_fetch_array($result,MYSQL_ASSOC) ) 
+         {
             /**
              * Go through all users of the same group
              */
@@ -639,12 +691,15 @@ if (isset($_POST['btn_apply'])) {
                      " AND ".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname".
                      " AND (".$CONF['db_table_groups'].".options&1)=0 )";
             $result2 = $UT->db->db_query($query2);
-            while ( $row2 = $UT->db->db_fetch_array($result2,MYSQL_ASSOC) ) {
+            
+            while ( $row2 = $UT->db->db_fetch_array($result2,MYSQL_ASSOC) ) 
+            {
                $UT->findByName($row2['username']);
                /**
                 * Find the template for the current loop user, otherwise create a fresh one
                 */
-               if (!$rc=$TT->getTemplate($UT->username,$Year,$monthno)) {
+               if (!$rc=$TT->getTemplate($UT->username,$Year,$monthno)) 
+               {
                   /**
                    * No template found for this template user. Create a default one.
                    */
@@ -677,12 +732,14 @@ if (isset($_POST['btn_apply'])) {
                 * absence x         | absence y         | absence x    | set absence y
                 *
                 */
-               for ($it=1; $it<=intval($nofdays); $it++ ) {
+               for ($it=1; $it<=intval($nofdays); $it++ ) 
+               {
                   $prop='abs'.$it;      
                   if ( ($accepted[$it]=='0' AND $T->$prop==$TT->$prop) OR 
                        ($accepted[$it]!='0' AND $TT->$prop=='0') OR
                        ($accepted[$it]!='0' AND $T->$prop!='0' AND $accepted[$it]!=$T->$prop AND $TT->$prop==$T->$prop)
-                     ) {
+                     ) 
+                  {
                      /* 
                       * Current user and template user match and new absence is present. OR
                       * Current user is present but new absence is absent. OR
@@ -707,7 +764,9 @@ if (isset($_POST['btn_apply'])) {
        */
       $mailtemplate="";
       $logtemplate="|";
-      for ($i=1; $i<=$nofdays; $i++) {
+      
+      for ($i=1; $i<=$nofdays; $i++) 
+      {
          $prop='abs'.$i;
          $T->$prop=$accepted[$i];
          $symbol=$A->getSymbol($T->$prop);
@@ -721,20 +780,27 @@ if (isset($_POST['btn_apply'])) {
        */
       $ninfo = $LANG['notification_new_template'].$T->year."-".$T->month."\n\n|";
       $j=1;
-      for ($i=0; $i<strlen($mailtemplate); $i++) {
+      for ($i=0; $i<strlen($mailtemplate); $i++) 
+      {
          $ninfo .= sprintf("%02d",$j++)."|";
       }
+      
       $ninfo .= "\n|";
-      for ($i=0; $i<strlen($mailtemplate)-1; $i++) {
+      for ($i=0; $i<strlen($mailtemplate)-1; $i++) 
+      {
          $ninfo .= "--+";
       }
+      
       $ninfo .= "--|\n|";
-      for ($i=0; $i<strlen($mailtemplate); $i++) {
+      for ($i=0; $i<strlen($mailtemplate); $i++) 
+      {
          $ninfo .= " ".$mailtemplate[$i]."|";
       }
+      
       $ninfo .= "\n\n";
       $ats = $A->getAll();
-      foreach ($ats as $at) {
+      foreach ($ats as $at) 
+      {
          $ninfo .= $at['symbol']." = ".$at['name']."\n";
       }
       
@@ -743,7 +809,8 @@ if (isset($_POST['btn_apply'])) {
        */
       $nobject = $UC->firstname." ".$UC->lastname;
       $ugroups = $UG->getAllforUser($caluser);
-      foreach ($ugroups as $ugroup) {
+      foreach ($ugroups as $ugroup) 
+      {
          $ntype = "usercalchange";
          $naffectedgroup = $ugroup['groupname'];
          sendNotification($ntype, $nobject, $naffectedgroup, $ninfo);
@@ -756,7 +823,8 @@ if (isset($_POST['btn_apply'])) {
 
    }
 
-   if ($declined) {
+   if ($declined) 
+   {
       /**
        * One or more absence requests have been declined.
        * Build javascript error message. Will be shown at bottom of page.
@@ -765,26 +833,30 @@ if (isset($_POST['btn_apply'])) {
       $notificationerror = "";
       $errormessage = $LANG['err_decl_title'];
       $errormessage .= $LANG['err_decl_subtitle'];
-      foreach($errorarray as $err) {
+      foreach($errorarray as $err) 
+      {
          $errormessage .= $err."\\n";
       }
 
       /**
        * Build notification message and send it to the appropriate receivers
        */
-      if ($C->readConfig("emailNotifications")) {
+      if ($C->readConfig("emailNotifications")) 
+      {
          $subject = $LANG['notification_subject'];
          $notification =$LANG['notification_greeting'];
          $notification.=$LANG['notification_decl_msg'];
          $notification.=$LANG['notification_decl_user'].$UC->firstname." ".$UC->lastname."\n";
                
-         if (isset($_POST['txtReason']) AND $_POST['txtReason']!=$LANG['cal_reason_dummy']) {
+         if (isset($_POST['txtReason']) AND $_POST['txtReason']!=$LANG['cal_reason_dummy']) 
+         {
             $notification.=$LANG['notification_decl_reason'].strip_tags(trim($_POST['txtReason']))."\n\n";
          }
          
          $notification.=$LANG['notification_decl_msg_2'];
 
-         foreach($errorarray as $err) {
+         foreach($errorarray as $err) 
+         {
             $notificationerror .= $err."\n";
          }
          
@@ -794,13 +866,15 @@ if (isset($_POST['btn_apply'])) {
          /*
           * Send email to requesting user if configured so in Declination Management
           */
-         if ( $C->readConfig("declNotifyUser") ) {
+         if ( $C->readConfig("declNotifyUser") ) 
+         {
             $to = $U->email;
             sendEmail($to, $subject, $notification);
             /*
              * Set to TRUE for debug
              */
-            if (FALSE) {
+            if (FALSE) 
+            {
                echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
                     "Subject: ".stripslashes($subject)."\n\n".
                     stripslashes($notification)."</textarea>";
@@ -810,21 +884,26 @@ if (isset($_POST['btn_apply'])) {
          /*
           * Send email to group manager of requesting user if configured so in Declination Management
           */
-         if ( $C->readConfig("declNotifyManager") ) {
+         if ( $C->readConfig("declNotifyManager") ) 
+         {
             $affgroups = array_unique($affectedgroups); 
-            foreach($affgroups as $grp) {
+            foreach($affgroups as $grp) 
+            {
                $query  = "SELECT DISTINCT ".$U->table.".email FROM ".$U->table.",".$UG->table." " .
                          "WHERE ".$U->table.".username=".$UG->table.".username " .
                          "AND ".$UG->table.".groupname='".trim($grp)."' " .
                          "AND ".$UG->table.".type='manager'";
                $result = $UG->db->db_query($query);
-               while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) {
+               
+               while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) 
+               {
                   $to = $row[0];
                   sendEmail($to, $subject, $notification);
                   /*
                    * Set to TRUE for debug
                    */
-                  if (FALSE) {
+                  if (FALSE) 
+                  {
                      echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
                           "Subject: ".stripslashes($subject)."\n\n".
                           stripslashes($notification)."</textarea>";
@@ -836,18 +915,23 @@ if (isset($_POST['btn_apply'])) {
          /*
           * Send email to director if configured so in Declination Management
           */
-         if ( $C->readConfig("declNotifyDirector") ) {
+         if ( $C->readConfig("declNotifyDirector") ) 
+         {
             $query  = "SELECT username FROM `".$U->table."`";
             $result = $U->db->db_query($query);
-            while ($row=$U->db->db_fetch_array($result,MYSQL_NUM) ) {
+            
+            while ($row=$U->db->db_fetch_array($result,MYSQL_NUM) ) 
+            {
                $U->findByName($row[0]);
-               if ($U->checkUserType($CONF['UTDIRECTOR'])) {
+               if ($U->checkUserType($CONF['UTDIRECTOR'])) 
+               {
                   $to = $U->email;
                   sendEmail($to, $subject, $notification);
                   /*
                    * Set to TRUE for debug
                    */
-                  if (FALSE) {
+                  if (FALSE) 
+                  {
                      echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
                           "Subject: ".$subject."\n\n".
                           $notification."</textarea>";
@@ -859,17 +943,22 @@ if (isset($_POST['btn_apply'])) {
          /*
           * Send email to admin if configured so in Declination Management
           */
-         if ( $C->readConfig("declNotifyAdmin") ) {
+         if ( $C->readConfig("declNotifyAdmin") ) 
+         {
             $users = $U->getAll();
-            foreach ($users as $u) {
+            foreach ($users as $u) 
+            {
                $U->findByName($u['username']);
-               if ($U->checkUserType($CONF['UTADMIN'])) {
+               
+               if ($U->checkUserType($CONF['UTADMIN'])) 
+               {
                   $to = $U->email;
                   sendEmail($to, $subject, $notification);
                   /*
                    * Set to TRUE for debug
                    */
-                  if (FALSE) {
+                  if (FALSE) 
+                  {
                      echo "<textarea cols=\"100\" rows=\"12\">To: ".$to."\n\n".
                           "Subject: ".$subject."\n\n".
                           $notification."</textarea>";
@@ -1064,39 +1153,47 @@ $CONF['options']['lang']=$currlang;
                   /**
                    * Absence type loop
                    */
-                  $approvalNeeded=false;
                   $absences = $A->getAll();
-                  foreach ($absences as $abs) {
+                  foreach ($absences as $abs) 
+                  {
                      /**
                       * Make sure this absence type is allowed for this group
                       */
                      $showthisabsence=false;
-                     $showdisabled=false;
                      $groups = $G->getAll();
-                     foreach ($groups as $Grow) {
-                        if ($UG->isMemberOfGroup($caluser,$Grow['groupname']) &&
-                            $AG->isAssigned($abs['id'],$Grow['groupname'])
-                           ) {
+                     foreach ($groups as $Grow) 
+                     {
+                        if ( $UG->isMemberOfGroup($caluser,$Grow['groupname']) AND $AG->isAssigned($abs['id'],$Grow['groupname']) ) 
+                        {
                            $showthisabsence=true;
-                           if ($abs['manager_only']) {
-                              if ( ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR'])) || ($UL->checkUserType($CONF['UTMANAGER']) && $UG->isMemberOfGroup($UL->username,$Grow['groupname'])) ) {
-                                 $showdisabled=false;
-                              }
-                              else {
-                                 $showdisabled=true;
-                              }
-                           }
-                           if ($abs['approval_required']) $approvalNeeded=true;
                         }
                      }
 
+                     /**
+                      * Create an icon to show certain absence type properties
+                      */
+                     $absicon = '&nbsp;';
+                     if ($abs['approval_required'] OR $abs['manager_only'] )
+                     {
+                        $info = '';
+                        if ($abs['approval_required'] OR $abs['manager_only'] )
+                        {
+                           $info .= $LANG['abs_info_approval_required'];
+                        }
+                        if ($abs['manager_only'])
+                        {
+                           $info .= $LANG['abs_info_manager_only'];
+                        }
+                        $absicon = '<img align="top" alt="" src="'.$CONF['app_icon_dir'].'info.png" title="'.$info.'" width="16" height="16">';
+                     }
+                      
                      /**
                       * Show the absence row
                       */
                      if ($showthisabsence) { ?>
                         <tr>
                            <td class="name"><?=str_replace(" ","&nbsp;",$abs['name'])?></td>
-                           <td class="name-button">&nbsp;</td>
+                           <td class="name-button"><?=$absicon?></td>
                         <?php
                         /**
                          * Show a line for this absence type covering each day of the month
@@ -1112,7 +1209,7 @@ $CONF['options']['lang']=$currlang;
                            }
                            if ($T->$prop==$abs['id']) $checked="checked"; else $checked=''; 
                            ?>
-                           <td class="<?=$class?>"><input name="opt_abs_<?=$idx?>" type="radio" value="<?=$abs['id']?>" <?=$checked?> <?=($showdisabled?'DISABLED':'')?>></td>
+                           <td class="<?=$class?>"><input name="opt_abs_<?=$idx?>" type="radio" value="<?=$abs['id']?>" <?=$checked?>></td>
                         <?php } ?>
                         </tr>
                      <?php }
@@ -1174,7 +1271,6 @@ $CONF['options']['lang']=$currlang;
                                                    $showthisabsence=false;
                                                 }
                                              }
-                                             if ($abs['approval_required']) $approvalNeeded=true;
                                           }
                                        }
                                        if ($showthisabsence) { ?>

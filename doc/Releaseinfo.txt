@@ -8,6 +8,13 @@ TEAMCAL PRO RELEASE INFO
 DATE
 2013-xx-xx
 
+BUGFIX
+01 Manager Only Absences
+   Manager only absence types were shown to regular users as disabled radio
+   boxes. Submitting that form tho would not return the values to the script.
+   Manager only absence types will now be shown are regular radio boxes but
+   will be checked in the declination routine.
+
 NEW FEATURES
 01 Log Language
    The log language can now be individually set in the configuration.
