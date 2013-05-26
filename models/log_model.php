@@ -84,8 +84,9 @@ if (!class_exists("Log_model")) {
          require_once ($CONF['app_root'] . "models/config_model.php");
          $C = new Config_model;
          if (!strlen($C->readConfig("logLanguage"))) $loglang='english'; 
-         require_once ($CONF['app_root'] . "languages/".$C->readConfig("logLanguage").".log.tcpro.php");
-
+         else $loglang = $C->readConfig("logLanguage");
+         require_once ($CONF['app_root'] . "languages/".$loglang.".log.tcpro.php");
+         
          $myEvent = $LANG[$event].$object;
          
          if ($C->readConfig($type)) {
