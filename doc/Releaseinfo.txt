@@ -6,7 +6,7 @@ TEAMCAL PRO RELEASE INFO
 [3.6.005]
 
 DATE
-2013-xx-xx
+2013-05-26
 
 BUGFIX
 01 Manager Only Absences
