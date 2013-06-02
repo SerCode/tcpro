@@ -1917,4 +1917,16 @@ $LANG['admin_config_loglang_comment'] = "Diese Einstellung bestimmt die Sprache 
 $LANG['err_decl_manager_only'] = "' kann nur von Managern gesetzt bzw. geaendert werden.";
 $LANG['abs_info_approval_required'] = "Dieser Abwesenheitstyp erfordert Best&auml;tigung eines Managers. ";
 $LANG['abs_info_manager_only'] = "Dieser Abwesenheitstyp kann nur vom Managern gesetzt bzw. ge&auml;ndert werden. ";
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.006
+ */
+
+/**
+ * Config page
+ */
+$LANG['admin_config_hideManagerOnlyAbsences'] = 'Manager Abwesenheiten verbergen';
+$LANG['admin_config_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen als "Nur Manager" markiert werden, so dass nur Manager sie editieren k&ouml;nnen. 
+Diese Abwesenheiten werden normalen Benutzern angezeigt, sie k&ouml;nnen sie aber nicht editieren. Mit diesem Schalter k&ouml;nnen sie die Anzeige f&uuml;r normale Benutzer verbergen.';
 ?>

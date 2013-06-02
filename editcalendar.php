@@ -1165,7 +1165,17 @@ $CONF['options']['lang']=$currlang;
                      {
                         if ( $UG->isMemberOfGroup($caluser,$Grow['groupname']) AND $AG->isAssigned($abs['id'],$Grow['groupname']) ) 
                         {
-                           $showthisabsence=true;
+                           if ($abs['manager_only'] AND intval($C->readConfig("hideManagerOnlyAbsences")))
+                           {
+                              if ( $UL->checkUserType($CONF['UTMANAGER']) OR $UL->checkUserType($CONF['UTADMIN']))
+                              {
+                                 $showthisabsence=true;
+                              }
+                           }
+                           else
+                           {    
+                              $showthisabsence=true;
+                           }
                         }
                      }
 

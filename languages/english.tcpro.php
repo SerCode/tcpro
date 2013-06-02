@@ -1917,4 +1917,16 @@ $LANG['admin_config_loglang_comment'] = "This setting sets the language for the 
 $LANG['err_decl_manager_only'] = "' can only be set/unset by managers.";
 $LANG['abs_info_approval_required'] = "This absence type requires management approval. ";
 $LANG['abs_info_manager_only'] = "This absence type can only be set/unset by managers. ";
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.006
+ */
+
+/**
+ * Config page
+ */
+$LANG['admin_config_hideManagerOnlyAbsences'] = 'Hide Manager Only Absences';
+$LANG['admin_config_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked as "manager-only", making them only editable to managers. 
+These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
 ?>

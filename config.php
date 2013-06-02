@@ -86,6 +86,7 @@ if ( isset($_POST['btn_confApply']) ) {
    if ( isset($_POST['chk_hideManagers']) && $_POST['chk_hideManagers'] ) $C->saveConfig("hideManagers","1"); else $C->saveConfig("hideManagers","0");
    if ( isset($_POST['chk_hideDaynotes']) && $_POST['chk_hideDaynotes'] ) $C->saveConfig("hideDaynotes","1"); else $C->saveConfig("hideDaynotes","0");
    if ( isset($_POST['chk_markConfidential']) ) $C->saveConfig("markConfidential","1"); else $C->saveConfig("markConfidential","0");
+   if ( isset($_POST['chk_hideManagerOnlyAbsences']) ) $C->saveConfig("hideManagerOnlyAbsences","1"); else $C->saveConfig("hideManagerOnlyAbsences","0");
    if ( isset($_POST['chk_fastEdit']) ) $C->saveConfig("fastEdit","1"); else $C->saveConfig("fastEdit","0");
     
    /**
@@ -606,6 +607,18 @@ if (ini_get('register_globals')) {
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                               <input name="chk_markConfidential" id="chk_markConfidential" value="chk_markConfidential" type="checkbox" <?=(intval($C->readConfig("markConfidential"))?"CHECKED":"")?>>
+                           </td>
+                        </tr>
+                        
+                        <!-- hideManagerOnlyAbsences -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_hideManagerOnlyAbsences']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_hideManagerOnlyAbsences_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input name="chk_hideManagerOnlyAbsences" id="chk_hideManagerOnlyAbsences" value="chk_hideManagerOnlyAbsences" type="checkbox" <?=(intval($C->readConfig("hideManagerOnlyAbsences"))?"CHECKED":"")?>>
                            </td>
                         </tr>
                         
