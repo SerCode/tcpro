@@ -229,39 +229,52 @@ require( "includes/menu_inc.php" );
                   <?php
                   $legend=array();
                   $value=array();
+                  
                   if ($statgroup=="%") $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;All)";
                   else $forgroup = "&nbsp;(".$LANG['stat_group'].":&nbsp;".$statgroup.")";
+                  
                   if ($periodAbsence=="All") $forabsence = "&nbsp;(".$LANG['stat_absence'].":&nbsp;All)";
                   else $forabsence = "&nbsp;(".$LANG['stat_absence'].":&nbsp;".$periodAbsenceName.")";
+                  
                   echo "<fieldset style=\"text-align: left; width: 96%;\"><legend>".$LANG['stat_results_total_absence_user'].$periodFrom."-".$periodTo.$forgroup.$forabsence."</legend>";
                   echo "<table><tr><td style=\"vertical-align: top;\">\n\r";
                   echo "<table>\n\r";
+                  
                   /**
                    * Get totals per user
                    */
                   $totaluser=0;
                   $groups = $G->getAllByGroup($statgroup);
-                  foreach ($groups as $group) {
+                  foreach ($groups as $group) 
+                  {
                      $G->findByName($group['groupname']);
-                     if (!$G->checkOptions($CONF['G_HIDE']) ) {
+                     if (!$G->checkOptions($CONF['G_HIDE']) ) 
+                     {
                         $total=0;
                         $gusers = $UG->getAllforGroup($group['groupname']);
-                        foreach ($gusers as $guser) {
+                        foreach ($gusers as $guser) 
+                        {
                            $U1->findByName($guser);
-                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) ) {
+                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) )
+                           {
                               $total=0;
-                              if ($periodAbsence=="All") {
+                              if ($periodAbsence=="All") 
+                              {
                                  $absences=$A->getAll();
-                                 foreach ($absences as $abs) {
-                                    if ($A->get($abs['id']) AND !$A->counts_as_present) {
+                                 foreach ($absences as $abs) 
+                                 {
+                                    if ($A->get($abs['id']) AND !$A->counts_as_present) 
+                                    {
                                        $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                        $total+=$count;
                                        $totaluser+=$count;
                                     }
                                  }
                               }
-                              else {
-                                 if ($A->get($periodAbsence) AND !$A->counts_as_present) {
+                              else 
+                              {
+                                 if ($A->get($periodAbsence) AND !$A->counts_as_present) 
+                                 {
                                     $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                     $total+=$count;
                                     $totaluser+=$count;
@@ -300,14 +313,18 @@ require( "includes/menu_inc.php" );
                    */
                   $totaluser=0;
                   $groups = $G->getAllByGroup($statgroup);
-                  foreach ($groups as $group) {
+                  foreach ($groups as $group) 
+                  {
                      $G->findByName($group['groupname']);
-                     if (!$G->checkOptions($CONF['G_HIDE']) ) {
+                     if (!$G->checkOptions($CONF['G_HIDE']) ) 
+                     {
                         $total=0;
                         $gusers = $UG->getAllforGroup($group['groupname']);
-                        foreach ($gusers as $guser) {
+                        foreach ($gusers as $guser) 
+                        {
                            $U1->findByName($guser);
-                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) ) {
+                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
+                           {
                               $total=0;
                               /*
                                * Count all non-absences
@@ -319,8 +336,10 @@ require( "includes/menu_inc.php" );
                                * Count all absences that count as present
                                */
                               $absences=$A->getAll();
-                              foreach($absences as $abs) {
-                                 if ($A->get($abs['id']) AND $A->counts_as_present) {
+                              foreach($absences as $abs) 
+                              {
+                                 if ($A->get($abs['id']) AND $A->counts_as_present) 
+                                 {
                                     $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                     $total+=$count;
                                     $totaluser+=$count;
@@ -361,24 +380,34 @@ require( "includes/menu_inc.php" );
                    */
                   $totalgroup=0;
                   $groups = $G->getAllByGroup($statgroup);
-                  foreach ($groups as $group) {
+                  foreach ($groups as $group) 
+                  {
                      $G->findByName($group['groupname']);
-                     if (!$G->checkOptions($CONF['G_HIDE']) ) {
+                     if (!$G->checkOptions($CONF['G_HIDE']) ) 
+                     {
                         $total=0;
                         $gusers = $UG->getAllforGroup($group['groupname']);
-                        foreach ($gusers as $guser) {
+                        foreach ($gusers as $guser) 
+                        {
                            $U1->findByName($guser);
-                           if ( $periodAbsence=="All" ) {
-                              $absences=$A->getAll();
-                              foreach ($absences as $abs) {
-                                 if ($A->get($abs['id']) AND !$A->counts_as_present) {
-                                    $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
+                           {
+                              if ( $periodAbsence=="All" ) 
+                              {
+                                 $absences=$A->getAll();
+                                 foreach ($absences as $abs) 
+                                 {
+                                    if ($A->get($abs['id']) AND !$A->counts_as_present) 
+                                    {
+                                       $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    }
                                  }
                               }
-                           }
-                           else {
-                              if ($A->get($periodAbsence) AND !$A->counts_as_present) {
-                                 $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                              else {
+                                 if ($A->get($periodAbsence) AND !$A->counts_as_present) 
+                                 {
+                                    $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                 }
                               }
                            }
                         }
@@ -394,7 +423,8 @@ require( "includes/menu_inc.php" );
                    */
                   $totaluser=0;
                   $absences = $A->getAll();
-                  foreach ($absences as $abs) {
+                  foreach ($absences as $abs) 
+                  {
                      if ($A->get($abs['id']) AND !$A->counts_as_present) $totaluser+=countAbsence("%",$abs['id'],$periodFrom,$periodTo);
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." days</b></td></tr>\n\r";
@@ -423,25 +453,34 @@ require( "includes/menu_inc.php" );
                   $legend=array();
                   $value=array();
                   $groups = $G->getAllByGroup($statgroup);
-                  foreach ($groups as $group) {
+                  foreach ($groups as $group) 
+                  {
                      $G->findByName($group['groupname']);
-                     if (!$G->checkOptions($CONF['G_HIDE']) ) {
+                     if (!$G->checkOptions($CONF['G_HIDE']) ) 
+                     {
                         $total=0;
                         $gusers = $UG->getAllforGroup($group['groupname']);
-                        foreach ($gusers as $guser) {
-                           /*
-                            * Count all non-absences
-                            */
-                           $count=countAbsence($guser,0,$periodFrom,$periodTo);
-                           $total+=$count;
-                           $totaluser+=$count;
-                           /*
-                            * Count all absences that count as present
-                            */
-                           $absences=$A->getAll();
-                           foreach($absences as $abs) {
-                              if ($A->get($abs['id']) AND $A->counts_as_present) {
-                                 $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                        foreach ($gusers as $guser) 
+                        {
+                           $U1->findByName($guser);
+                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
+                           {
+                              /*
+                               * Count all non-absences
+                               */
+                              $count=countAbsence($guser,0,$periodFrom,$periodTo);
+                              $total+=$count;
+                              $totaluser+=$count;
+                              /*
+                               * Count all absences that count as present
+                               */
+                              $absences=$A->getAll();
+                              foreach($absences as $abs) 
+                              {
+                                 if ($A->get($abs['id']) AND $A->counts_as_present) 
+                                 {
+                                    $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                 }
                               }
                            }
                         }
@@ -458,7 +497,8 @@ require( "includes/menu_inc.php" );
                   $totaluser=0;
                   $totaluser+=countAbsence('%',0,$periodFrom,$periodTo);
                   $absences = $A->getAll();
-                  foreach ($absences as $absA) {
+                  foreach ($absences as $absA) 
+                  {
                      if ($A->get($abs['id']) AND $A->counts_as_present) $totaluser+=countAbsence('%',$abs['id'],$periodFrom,$periodTo);
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." days</b></td></tr>\n\r";
@@ -487,16 +527,25 @@ require( "includes/menu_inc.php" );
                   $value=array();
                   $sum=0;
                   $absences = $A->getAll();
-                  foreach ($absences as $abs) {
-                     if (!$abs['counts_as_present']) {
+                  foreach ($absences as $abs) 
+                  {
+                     if (!$abs['counts_as_present']) 
+                     {
                         $total=0;
                         $groups = $G->getAllByGroup($statgroup);
-                        foreach ($groups as $group) {
+                        foreach ($groups as $group) 
+                        {
                            $G->findByName($group['groupname']);
-                           if (!$G->checkOptions($CONF['G_HIDE']) ) {
+                           if (!$G->checkOptions($CONF['G_HIDE']) ) 
+                           {
                               $gusers = $UG->getAllforGroup($group['groupname']);
-                              foreach ($gusers as $guser) {
-                                 $total+=countAbsence($guser,$abs['id'],$periodFrom,$periodTo);
+                              foreach ($gusers as $guser) 
+                              {
+                                 $U1->findByName($guser);
+                                 if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
+                                 {
+                                    $total+=countAbsence($guser,$abs['id'],$periodFrom,$periodTo);
+                                 }
                               }
                            }
                         }
@@ -530,28 +579,40 @@ require( "includes/menu_inc.php" );
                   $value=array();
                   $sum=0;
                   $absences = $A->getAll();
-                  foreach ($absences as $abs) {
-                     if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) {
+                  foreach ($absences as $abs) 
+                  {
+                     if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) 
+                     {
                         $total=0;
    
                         $groups = $G->getAllByGroup($statgroup);
-                        foreach ($groups as $group) {
+                        foreach ($groups as $group) 
+                        {
                            $G->findByName($group['groupname']);
-                           if (!$G->checkOptions($CONF['G_HIDE']) ) {
+                           if (!$G->checkOptions($CONF['G_HIDE']) ) 
+                           {
                               $gusers = $UG->getAllforGroup($group['groupname']);
-                              foreach ($gusers as $guser) {
-                                 if ( $B->find($guser,$A->id) ) {
-                                    $lstyr = $B->lastyear;
-                                    $allow = $B->curryear;
-                                 }else{
-                                    $lstyr = 0;
-                                    $allow = $A->allowance;
+                              foreach ($gusers as $guser) 
+                              {
+                                 $U1->findByName($guser);
+                                 if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
+                                 {
+                                    if ( $B->find($guser,$A->id) ) 
+                                    {
+                                       $lstyr = $B->lastyear;
+                                       $allow = $B->curryear;
+                                    }
+                                    else
+                                    {
+                                       $lstyr = 0;
+                                       $allow = $A->allowance;
+                                    }
+                                    $periodFrom = $yeartoday."0101";
+                                    $periodTo = $yeartoday."1231";
+                                    $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $total += ($lstyr+$allow)-($taken);
+                                    $sum += $total;
                                  }
-                                 $periodFrom = $yeartoday."0101";
-                                 $periodTo = $yeartoday."1231";
-                                 $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo);
-                                 $total += ($lstyr+$allow)-($taken);
-                                 $sum += $total;
                               }
                            }
                         }

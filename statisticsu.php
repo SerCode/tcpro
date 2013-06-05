@@ -143,21 +143,25 @@ require( "includes/menu_inc.php" );
                    * Loop through all groups
                    */
                   $groups = $G->getAllByGroup($statgroup);
-                  foreach ($groups as $group) {
+                  foreach ($groups as $group) 
+                  {
                      $G->findByName($group['groupname']);
-                     if (!$G->checkOptions($CONF['G_HIDE']) ) {
+                     if (!$G->checkOptions($CONF['G_HIDE']) ) 
+                     {
                         $total=0;
                         /**
                          * Now loop through all users in this group
                          */
                         $gusers = $UG->getAllforGroup($group['groupname']);
-                        foreach ($gusers as $guser) {
+                        foreach ($gusers as $guser) 
+                        {
                            if ($statuser!="%" AND $statuser!=$guser) continue;
                            $U1->findByName($guser);
-                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) ) {
+                           if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
+                           {
                               if ( strlen($U1->firstname)) $displayname = $U1->lastname.", ".$U1->firstname;
                               else                         $displayname = $U1->lastname;
-                              echo "<fieldset style=\"text-align: left; width: 96%;\"><legend>".$LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname."</legend>";
+                              echo "<fieldset style=\"text-align: left; width: 96%;\"><legend>".$LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname." (".$group['groupname'].")</legend>";
                               echo "<table><tr><td style=\"vertical-align: top;\">\n\r";
                               echo "<table>\n\r";
                               echo "<tr>" .
@@ -175,13 +179,18 @@ require( "includes/menu_inc.php" );
                               unset($value);
                               $sum=0;
                               $absences = $A->getAll();
-                              foreach ($absences as $abs) {
-                                 if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) {
+                              foreach ($absences as $abs) 
+                              {
+                                 if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) 
+                                 {
                                     $total=0;
-                                    if ( $B->find($guser,$A->id) ) {
+                                    if ( $B->find($guser,$A->id) ) 
+                                    {
                                        $lstyr = $B->lastyear;
                                        $allow = $B->curryear;
-                                    }else{
+                                    }
+                                    else
+                                    {
                                        $lstyr = 0;
                                        $allow = $A->allowance;
                                     }
@@ -195,25 +204,27 @@ require( "includes/menu_inc.php" );
                                           "   <td class=\"stat-value\" style=\"width: auto;\">".$lstyr."</td>" .
                                           "   <td class=\"stat-value\" style=\"width: auto;\">".$allow."</td>" .
                                           "   <td class=\"stat-value\" style=\"width: auto; color: #AA0000;\">".$taken."</td>" .
-                                          "   <td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td>" .
+                                          "   <td class=\"stat-value\">".sprintf("%1.1f",$total)." ".$LANG['stat_days']."</td>" .
                                           "</tr>\n\r";
                                  }
                               }
+                           
+                              echo "<tr>" .
+                                   "   <td class=\"stat-sum-caption\">".$LANG['stat_u_total']."</td>" .
+                                   "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
+                                   "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
+                                   "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
+                                   "   <td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." ".$LANG['stat_days']."</b></td>" .
+                                   "</tr>\n\r";
+                              
+                              echo "</table>\n\r";
+                              echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
+                              $header = $LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname;
+                              $footer = "";
+                              echo $ST->barGraphH($legend,$value,$diagramwidth,$barareawidth,"green",$header,$footer);
+                              echo "</td></tr></table>\n\r";
+                              echo "</fieldset><br>\n\r";
                            }
-                           echo "<tr>" .
-                                "   <td class=\"stat-sum-caption\">".$LANG['stat_u_total']."</td>" .
-                                "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
-                                "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
-                                "   <td class=\"stat-sum-value\" style=\"width: auto;\">&nbsp;</td>" .
-                                "   <td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." days</b></td>" .
-                                "</tr>\n\r";
-                           echo "</table>\n\r";
-                           echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
-                           $header = $LANG['stat_graph_u_remainder_title_1'].$periodFrom.'-'.$periodTo.$LANG['stat_graph_u_remainder_title_2'].$displayname;
-                           $footer = "";
-                           echo $ST->barGraphH($legend,$value,$diagramwidth,$barareawidth,"green",$header,$footer);
-                           echo "</td></tr></table>\n\r";
-                           echo "</fieldset><br>\n\r";
                         }
                      }
                   }

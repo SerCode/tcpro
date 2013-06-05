@@ -1928,5 +1928,10 @@ $LANG['abs_info_manager_only'] = "This absence type can only be set/unset by man
  */
 $LANG['admin_config_hideManagerOnlyAbsences'] = 'Hide Manager Only Absences';
 $LANG['admin_config_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked as "manager-only", making them only editable to managers. 
-These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
+
+      These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
+/**
+ * Statistics Page
+ */
+$LANG['stat_days'] = 'days';
 ?>
