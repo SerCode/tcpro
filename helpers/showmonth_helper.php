@@ -614,6 +614,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
          $j=0;
          $subusers = array();
          for ($su=0; $su<count($users); $su++) {
+            $T = new Template_model;
             $found = $T->getTemplate($users[$su]['user'],$year,$monthno);
             if (!$found) {
                /**
@@ -893,6 +894,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
             /**
              * Try to find this users template for this month
              */
+            $T = new Template_model;
             $found = $T->getTemplate($U->username,$year,$monthno);
             if (!$found) {
                /**
