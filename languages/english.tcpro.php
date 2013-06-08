@@ -1928,8 +1928,14 @@ $LANG['abs_info_manager_only'] = "This absence type can only be set/unset by man
  */
 $LANG['admin_config_hideManagerOnlyAbsences'] = 'Hide Manager Only Absences';
 $LANG['admin_config_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked as "manager-only", making them only editable to managers. 
-
       These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
+$LANG['admin_config_presenceBase'] = 'Presence Statistics Base';
+$LANG['admin_config_presenceBase_comment'] = 'The statistics page also counts presence days per month. Check here whether that count shall
+      be based on calendar days per month or business days per month. E.g. "Business days": If a user is present throghout all June, his presence
+      count would be 20 because June has 20 business days. The count would be 30 based on "Calendar days".';
+$LANG['admin_config_presenceBase_calendar'] = 'Calendar days';
+$LANG['admin_config_presenceBase_business'] = 'Business days';
+
 /**
  * Statistics Page
  */

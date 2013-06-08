@@ -152,7 +152,9 @@ if ( isset($_POST['btn_confApply']) ) {
       $_POST['periodfrom'] = $yeartoday."-01-01";
       $_POST['periodto'] = $yeartoday."-12-31";
    }
-   
+
+   if ($_POST['opt_presenceBase']) $C->saveConfig("presenceBase",$_POST['opt_presenceBase']);
+    
    $C->saveConfig("appSubTitle",htmlspecialchars($_POST['txt_appSubTitle']));
    if ($_POST['opt_homepage']) $C->saveConfig("homepage",$_POST['opt_homepage']);
    $C->saveConfig("welcomeTitle",htmlspecialchars(addslashes(strip_tags($_POST['txt_welcomeTitle'],"<i><b>"))));
@@ -870,6 +872,21 @@ if (ini_get('register_globals')) {
                               ?>
                               <input name="periodto" id="periodto" size="10" maxlength="10" type="text" class="text" value="<?php echo $periodtodate; ?>">
                               <br>
+                           </td>
+                        </tr>
+               
+                        <!-- presenceBase -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_presenceBase']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_presenceBase_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <table>
+                                 <tr><td><input name="opt_presenceBase" type="radio" value="calendardays" <?=(($C->readConfig("presenceBase")=="calendardays")?"CHECKED":"")?>></td><td style="vertical-align: bottom;"><?=$LANG['admin_config_presenceBase_calendar']?></td></tr>
+                                 <tr><td><input name="opt_presenceBase" type="radio" value="businessdays" <?=(($C->readConfig("presenceBase")=="businessdays")?"CHECKED":"")?>></td><td style="vertical-align: bottom;"><?=$LANG['admin_config_presenceBase_business']?></td></tr>
+                              </table>
                            </td>
                         </tr>
                

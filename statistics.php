@@ -89,6 +89,12 @@ $statgroup = "%";
 $periodAbsence = "All";
 $periodAbsenceName = "All";
 
+$calendarDaysInMonth = $periodTo-$periodFrom+1;
+$businessDaysInMonth = countBusinessDays($periodFrom, $periodTo);
+
+if ($C->readConfig("presenceBase")=="calendardays") $daysInMonth = $calendarDaysInMonth;
+else $daysInMonth = $businessDaysInMonth;
+
 /**
  * =========================================================================
  * APPLY
@@ -284,12 +290,12 @@ require( "includes/menu_inc.php" );
                               else                         $displayname = $U1->lastname;
                               $legend[] = $displayname;
                               $value[] = $total;
-                              echo "<tr><td class=\"stat-caption\">".$displayname."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                              echo "<tr><td class=\"stat-caption\">".$displayname."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." ".$LANG['stat_days']."</td></tr>\n\r";
                            }
                         }
                      }
                   }
-                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." days</b></td></tr>\n\r";
+                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." ".$LANG['stat_days']."</b></td></tr>\n\r";
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
                   $header = $LANG['stat_results_total_absence_user'].$periodFrom."-".$periodTo;
@@ -308,53 +314,50 @@ require( "includes/menu_inc.php" );
                   echo "<fieldset style=\"text-align: left; width: 96%;\"><legend>".$LANG['stat_results_total_presence_user'].$periodFrom."-".$periodTo.$forgroup."</legend>";
                   echo "<table><tr><td style=\"vertical-align: top;\">\n\r";
                   echo "<table>\n\r";
+                  
                   /**
                    * Get totals per user
                    */
-                  $totaluser=0;
+                  $total=0;
+                  
                   $groups = $G->getAllByGroup($statgroup);
                   foreach ($groups as $group) 
                   {
                      $G->findByName($group['groupname']);
                      if (!$G->checkOptions($CONF['G_HIDE']) ) 
                      {
-                        $total=0;
                         $gusers = $UG->getAllforGroup($group['groupname']);
                         foreach ($gusers as $guser) 
                         {
                            $U1->findByName($guser);
                            if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
                            {
-                              $total=0;
                               /*
-                               * Count all non-absences
+                               * Count all absences that count as absent
                                */
-                              $count=countAbsence($guser,0,$periodFrom,$periodTo);
-                              $total+=$count;
-                              $totaluser+=$count;
-                              /*
-                               * Count all absences that count as present
-                               */
+                              $totalAbsences=0;
                               $absences=$A->getAll();
                               foreach($absences as $abs) 
                               {
-                                 if ($A->get($abs['id']) AND $A->counts_as_present) 
+                                 if ($A->get($abs['id']) AND !$A->counts_as_present) 
                                  {
-                                    $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
-                                    $total+=$count;
-                                    $totaluser+=$count;
+                                    $totalAbsences+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                  }
                               }
+                              $total = $daysInMonth-$totalAbsences;
+                              $totaluser += $total;
+                              //echo "<script type=\"text/javascript\">alert(\"Debug: $daysInMonth,$businessDaysInMonth\");</script>";
+                              
                               if ( strlen($U1->firstname)) $displayname = $U1->lastname.", ".$U1->firstname;
                               else                         $displayname = $U1->lastname;
                               $legend[] = $displayname;
                               $value[] = $total;
-                              echo "<tr><td class=\"stat-caption\">".$displayname."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                              echo "<tr><td class=\"stat-caption\">".$displayname."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." ".$LANG['stat_days']."</td></tr>\n\r";
                            }
                         }
                      }
                   }
-                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." days</b></td></tr>\n\r";
+                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." ".$LANG['stat_days']."</b></td></tr>\n\r";
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
                   $header = $LANG['stat_results_total_presence_user'].$periodFrom."-".$periodTo;
@@ -414,21 +417,10 @@ require( "includes/menu_inc.php" );
                         $legend[] = $group['groupname'];
                         $value[] = $total;
                         $totalgroup += $total;
-                        echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$group['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                        echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$group['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." ".$LANG['stat_days']."</td></tr>\n\r";
                      }
                   }
-   
-                  /**
-                   * Get totals of all team members
-                   */
-                  $totaluser=0;
-                  $absences = $A->getAll();
-                  foreach ($absences as $abs) 
-                  {
-                     if ($A->get($abs['id']) AND !$A->counts_as_present) $totaluser+=countAbsence("%",$abs['id'],$periodFrom,$periodTo);
-                  }
-                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." days</b></td></tr>\n\r";
-                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." days</b></td></tr>\n\r";
+                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." ".$LANG['stat_days']."</b></td></tr>\n\r";
    
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
@@ -449,7 +441,7 @@ require( "includes/menu_inc.php" );
                   /**
                    * Get totals per group
                    */
-                  $totalgroup=0;
+                  $totalAllGroups=0;
                   $legend=array();
                   $value=array();
                   $groups = $G->getAllByGroup($statgroup);
@@ -458,7 +450,7 @@ require( "includes/menu_inc.php" );
                      $G->findByName($group['groupname']);
                      if (!$G->checkOptions($CONF['G_HIDE']) ) 
                      {
-                        $total=0;
+                        $totalThisGroup=0;
                         $gusers = $UG->getAllforGroup($group['groupname']);
                         foreach ($gusers as $guser) 
                         {
@@ -466,43 +458,28 @@ require( "includes/menu_inc.php" );
                            if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
                            {
                               /*
-                               * Count all non-absences
+                               * Count all absences that count as absent
                                */
-                              $count=countAbsence($guser,0,$periodFrom,$periodTo);
-                              $total+=$count;
-                              $totaluser+=$count;
-                              /*
-                               * Count all absences that count as present
-                               */
+                              $totalAbsences=0;
                               $absences=$A->getAll();
                               foreach($absences as $abs) 
                               {
-                                 if ($A->get($abs['id']) AND $A->counts_as_present) 
+                                 if ($A->get($abs['id']) AND !$A->counts_as_present) 
                                  {
-                                    $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $totalAbsences+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                  }
                               }
                            }
+                           $totalThisUser = $daysInMonth-$totalAbsences;
+                           $totalThisGroup += $totalThisUser;
                         }
                         $legend[] = $group['groupname'];
-                        $value[] = $total;
-                        $totalgroup += $total;
-                        echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$group['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                        $value[] = $totalThisGroup;
+                        echo "<tr><td class=\"stat-caption\">".$LANG['stat_results_group'].$group['groupname']."</td><td class=\"stat-value\">".sprintf("%1.1f",$totalThisGroup)." ".$LANG['stat_days']."</td></tr>\n\r";
                      }
+                     $totalAllGroups += $totalThisGroup;
                   }
-   
-                  /**
-                   * Get totals of all team members
-                   */
-                  $totaluser=0;
-                  $totaluser+=countAbsence('%',0,$periodFrom,$periodTo);
-                  $absences = $A->getAll();
-                  foreach ($absences as $absA) 
-                  {
-                     if ($A->get($abs['id']) AND $A->counts_as_present) $totaluser+=countAbsence('%',$abs['id'],$periodFrom,$periodTo);
-                  }
-                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalgroup)." days</b></td></tr>\n\r";
-                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totaluser)." days</b></td></tr>\n\r";
+                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_groups']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$totalAllGroups)." ".$LANG['stat_days']."</b></td></tr>\n\r";
    
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
@@ -552,10 +529,10 @@ require( "includes/menu_inc.php" );
                         $sum+=$total;
                         $legend[] = $abs['name'];
                         $value[] = $total;
-                        echo "<tr><td class=\"stat-caption\">".$abs['name']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                        echo "<tr><td class=\"stat-caption\">".$abs['name']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." ".$LANG['stat_days']."</td></tr>\n\r";
                      }
                   }
-                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." days</b></td></tr>\n\r";
+                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." ".$LANG['stat_days']."</b></td></tr>\n\r";
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
                   $header = $LANG['stat_results_total_per_type'].$periodFrom."-".$periodTo;
@@ -618,15 +595,15 @@ require( "includes/menu_inc.php" );
                         }
                         $legend[] = $abs['name'];
                         $value[] = $total;
-                        echo "<tr><td class=\"stat-caption\">".$abs['name']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." days</td></tr>\n\r";
+                        echo "<tr><td class=\"stat-caption\">".$abs['name']."</td><td class=\"stat-value\">".sprintf("%1.1f",$total)." ".$LANG['stat_days']."</td></tr>\n\r";
                      }
                   }
-                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." days</b></td></tr>\n\r";
+                  echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." ".$LANG['stat_days']."</b></td></tr>\n\r";
                   $fromtoday=$yeartoday.$monthtoday.$daytoday;
                   $remainBusi=countBusinessDays($fromtoday,$periodTo);
-                  echo "<tr><td class=\"stat-sum-caption\">Remaining Business Days</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$remainBusi)." days</b></td></tr>\n\r";
+                  echo "<tr><td class=\"stat-sum-caption\">Remaining Business Days</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$remainBusi)." ".$LANG['stat_days']."</b></td></tr>\n\r";
                   $remainBusi=countBusinessDays($fromtoday,$periodTo,1);
-                  echo "<tr><td class=\"stat-sum-caption\">Remaining Man Days</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$remainBusi)." days</b></td></tr>\n\r";
+                  echo "<tr><td class=\"stat-sum-caption\">Remaining Man Days</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$remainBusi)." ".$LANG['stat_days']."</b></td></tr>\n\r";
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";
                   $header = $LANG['stat_results_remainders'].$yeartoday;

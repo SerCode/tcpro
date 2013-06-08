@@ -1929,6 +1929,12 @@ $LANG['abs_info_manager_only'] = "Dieser Abwesenheitstyp kann nur vom Managern g
 $LANG['admin_config_hideManagerOnlyAbsences'] = 'Manager Abwesenheiten verbergen';
 $LANG['admin_config_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen als "Nur Manager" markiert werden, so dass nur Manager sie editieren k&ouml;nnen. 
 Diese Abwesenheiten werden normalen Benutzern angezeigt, sie k&ouml;nnen sie aber nicht editieren. Mit diesem Schalter k&ouml;nnen sie die Anzeige f&uuml;r normale Benutzer verbergen.';
+$LANG['admin_config_presenceBase'] = 'Basis der Anwesenheitsstatistik';
+$LANG['admin_config_presenceBase_comment'] = 'Die Statistikseite errechnet auch Anwesenheitstage pro Monat. Hier kann eingestellt werden, ob sich diese
+      Berechnung auf Monatstage oder Arbeitstage beziehen soll. Beispiel "Arbeitstage": Wenn ein Nutzer den ganzen Juni anwesend ist, sind das 20 
+      Anwesenheitstage weil der Juni 20 Arbeitstage hat. Es w&auml;ren 30 basierend auf "Monatstage".';
+$LANG['admin_config_presenceBase_calendar'] = 'Monatstage';
+$LANG['admin_config_presenceBase_business'] = 'Arbeitstage';
 
 /**
  * Statistics Page
