@@ -986,7 +986,7 @@ if (isset($_POST['btn_apply'])) {
           */
          if ( $C->readConfig("declNotifyUser") ) 
          {
-            $to = $U->email;
+            $to = $UL->email;
             sendEmail($to, $subject, $notification);
             /*
              * Set to TRUE for debug
