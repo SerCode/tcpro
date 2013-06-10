@@ -1703,7 +1703,7 @@ $LANG['abs_counts_as_present_desc'] = 'Dieser Schalter definiert einen Typen als
 'in den Summen als anwesend gewertet. Somit w&uuml;rde "Heimarbeit" dann auch nicht in den Abwesenheiten angezeigt.';
 $LANG['abs_manager_only'] = 'Nur Manager';
 $LANG['abs_manager_only_desc'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Manager und Direktoren diesen Typen setzen. Ein normaler '.
-'Nutzer kann den Abwesenheitstypen zwar sehen, aber nicht sezten. Diese Funktion macht Sinn, wenn z.B. nur Manager und Direktoren einen Typen wie '.
+'Nutzer kann den Abwesenheitstypen zwar sehen, aber nicht setzen. Diese Funktion macht Sinn, wenn z.B. nur Manager und Direktoren einen Typen wie '.
 '"Urlaub" managen.';
 $LANG['abs_hide_in_profile'] = 'Im Profil verbergen';
 $LANG['abs_hide_in_profile_desc'] = 'Dieser Schalter kann benutzt werden, um diesen Typen f&uuml;r normale Nutzer nicht im "Abwesenheiten" Reiter der '.

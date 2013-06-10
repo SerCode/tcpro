@@ -358,7 +358,8 @@ if (isset($_POST['btn_apply'])) {
     * Only go through this if the new template is different from the old
     * and if the user requesting this is not the Admin
     */
-   if ($difference AND !$isAdmin) {
+   if ($difference AND !$isAdmin) 
+   {
       /**
        * Create an array that will hold only groups affected by a declination.
        * This array is used later to send emails to only the affected managers.
@@ -367,36 +368,51 @@ if (isset($_POST['btn_apply'])) {
       /**
        * Loop through each day for the comparison
        */
-      for ($i=1; $i<=$nofdays; $i++) {
+      for ($i=1; $i<=$nofdays; $i++) 
+      {
          $prop='abs'.$i;
          /**
           * See if there was a change requested for this day
           */
-         if ($T->$prop!=$requested[$i]) {
-
+         if ($T->$prop!=$requested[$i]) 
+         {
             /**
              * ABSENCE THRESHOLD
              */
-            if ( $C->readConfig("declAbsence") ) {
-               if ($C->readConfig("declBase")=="group") {
+            if ( $C->readConfig("declAbsence") AND !isAllowed("editAllUserCalendars") ) 
+            {
+               if ($C->readConfig("declBase")=="group") 
+               {
                   /**
                    * There is a declination threshold for groups.
                    * We have to go through each group of this user and see
                    * wether the threshold would be violated by this request.
                    */
                   $groups = "";
-                  foreach ($usergroups as $row) {
-                     if (declineThresholdReached($Year,$monthno,$i+1,"group",$row['groupname'])) {
+                  foreach ($usergroups as $row) 
+                  {
+                     if (declineThresholdReached($Year,$monthno,$i+1,"group",$row['groupname'])) 
+                     {
                         /**
-                         * Only add the affected group if user is not the group manager
+                         * Only decline and add the affected group if user 
+                         * - is not allowed to edit group calendars
+                         * - OR is allowed but is neither member nor manager
                          */
-                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
+                        if ( !isAllowed("editGroupUserCalendars") 
+                             OR ( 
+                               !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                               AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                             )
+                           )
+                        {
                            $affectedgroups[] = $row['groupname'];
                            $groups .= $row['groupname'].", ";
                         }
                      }
                   }
-                  if (strlen($groups)) {
+                  
+                  if (strlen($groups)) 
+                  {
                      /**
                       * Absence threshold for on or more groups is reached. Absence cannot be set.
                       */
@@ -407,7 +423,8 @@ if (isset($_POST['btn_apply'])) {
                      $accepted[$i]=$T->$prop;
                   }
                }
-               else {
+               else 
+               {
                   if (declineThresholdReached($Year,$monthno,$ixx,"all")) {
                      /**
                       * Absence threshold for all is reached. Absence cannot be set.
@@ -423,35 +440,59 @@ if (isset($_POST['btn_apply'])) {
             /**
              * MIN_PRESENT or MAX_ABSENT
              */
-            if ($T->$prop=='0') {
+            if ($T->$prop=='0') 
+            {
                $groups_min = "";
                $groups_max = "";
-               foreach ($usergroups as $row) {
+               foreach ($usergroups as $row) 
+               {
                   $G->findByName($row['groupname']);
-                  if ($G->checkOptions($CONF['G_MIN_PRESENT'])) {
-                     if (declineThresholdReached($Year,$monthno,$i,"min_present",$row['groupname'])) {
+                  if ($G->checkOptions($CONF['G_MIN_PRESENT'])) 
+                  {
+                     if (declineThresholdReached($Year,$monthno,$i,"min_present",$row['groupname']) AND !isAllowed("editAllUserCalendars")) 
+                     {
                         /**
-                         * Only add the affected group if user is not the group manager
+                         * Only decline and add the affected group if user 
+                         * - is not allowed to edit group calendars
+                         * - OR is allowed but is neither member nor manager
                          */
-                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
+                        if ( !isAllowed("editGroupUserCalendars") 
+                             OR ( 
+                               !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                               AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                             )
+                           )
+                        {
                            $affectedgroups[] = $row['groupname'];
                            $groups_min .= $row['groupname'].", ";
                         }
                      }
                   }
-                  if ($G->checkOptions($CONF['G_MAX_ABSENT'])) {
-                     if (declineThresholdReached($Year,$monthno,$i,"max_absent",$row['groupname'])) {
+                  if ($G->checkOptions($CONF['G_MAX_ABSENT'])) 
+                  {
+                     if (declineThresholdReached($Year,$monthno,$i,"max_absent",$row['groupname']) AND !isAllowed("editAllUserCalendars")) 
+                     {
                         /**
-                         * Only add the affected group if user is no not the group manager
+                         * Only decline and add the affected group if user 
+                         * - is not allowed to edit group calendars
+                         * - OR is allowed but is neither member nor manager
                          */
-                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
+                        if ( !isAllowed("editGroupUserCalendars") 
+                             OR ( 
+                               !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                               AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                             )
+                           )
+                        {
                            $affectedgroups[] = $row['groupname'];
                            $groups_max .= $row['groupname'].", ";
                         }
                      }
                   }
                }
-               if (strlen($groups_min)) {
+               
+               if (strlen($groups_min)) 
+               {
                   /**
                    * Minimum presence of one or more groups is not given anymore. Absence cannot be set.
                    */
@@ -461,7 +502,9 @@ if (isset($_POST['btn_apply'])) {
                   $unapproved[$i]=$requested[$i];
                   $accepted[$i]=$T->$prop;
                }
-               if (strlen($groups_max)) {
+               
+               if (strlen($groups_max)) 
+               {
                   /**
                    * Maximum absence of one or more groups is reached. Absence cannot be set.
                    */
@@ -476,7 +519,8 @@ if (isset($_POST['btn_apply'])) {
             /**
              * DECLINE BEFORE
              */
-            if ( $C->readConfig("declBefore")!="0") {
+            if ( $C->readConfig("declBefore")!="0" AND !isAllowed("editAllUserCalendars") ) 
+            {
                $declineBefore = FALSE;
                $iDate = intval($Year.$monthno.sprintf("%02d",$i));
                $todayDate=date("Ymd", time());
@@ -485,19 +529,29 @@ if (isset($_POST['btn_apply'])) {
                if ( $C->readConfig("declBefore")=="Today" ) $blockBeforeDate = intval($todayDate);
                else $blockBeforeDate = intval($C->readConfig("declBeforeDate"));
 
-               if ( $iDate<$blockBeforeDate AND !$isDirector ) {
-                  if ( $isManager ) {
-                     foreach ($usergroups as $row) {
-                        /**
-                         * Only decline and add the affected group if user is no not the group manager
-                         */
-                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
-                           $affectedgroups[] = $row['groupname'];
-                           $declineBefore = TRUE;
-                        }
+               if ( $iDate<$blockBeforeDate ) 
+               {
+                  foreach ($usergroups as $row) 
+                  {
+                     /**
+                      * Only decline and add the affected group if user 
+                      * - is not allowed to edit group calendars
+                      * - OR is allowed but is neither member nor manager
+                      */
+                     if ( !isAllowed("editGroupUserCalendars") 
+                          OR ( 
+                            !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                            AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                          )
+                        )
+                     {
+                        $affectedgroups[] = $row['groupname'];
+                        $declineBefore = TRUE;
                      }
                   }
-                  if ($declineBefore) {
+                  
+                  if ($declineBefore) 
+                  {
                      /**
                       * Absences before this date are not allowed. Absence cannot be set.
                       */
@@ -513,24 +567,37 @@ if (isset($_POST['btn_apply'])) {
             /**
              * DECLINATION PERIOD
              */
-            if ( $C->readConfig("declPeriod") ) {
+            if ( $C->readConfig("declPeriod") AND !isAllowed("editAllUserCalendars") ) 
+            {
                $declinationPeriod = FALSE;
                $iDate = intval($Year.$monthno.sprintf("%02d",$i));
                $startDate = intval($C->readConfig("declPeriodStart"));
                $endDate = intval($C->readConfig("declPeriodEnd"));
 
-               if ( $iDate >= $startDate AND $iDate <= $endDate ) {
-                  if ( $isManager ) {
-                     foreach ($usergroups as $row) {
-                        /**
-                         * Only decline and add the affected group if user is no not the group manager
-                         */
-                        if ( !$UG->isGroupManagerOfGroup($luser,$row['groupname']) ) {
-                           $affectedgroups[] = $row['groupname'];
-                           $declinationPeriod = TRUE;
-                        }
+               if ( $iDate >= $startDate AND $iDate <= $endDate ) 
+               {
+                  /**
+                   * We are in a declination period
+                   */
+                  foreach ($usergroups as $row) 
+                  {
+                     /**
+                      * Only decline and add the affected group if user 
+                      * - is not allowed to edit group calendars
+                      * - OR is allowed but is neither member nor manager
+                      */
+                     if ( !isAllowed("editGroupUserCalendars") 
+                          OR ( 
+                            !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                            AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                          )
+                        )
+                     {
+                        $affectedgroups[] = $row['groupname'];
+                        $declinationPeriod = TRUE;
                      }
                   }
+                  
                   if ($declinationPeriod) {
                      /**
                       * Absences is in declination period. Absence cannot be set.
@@ -549,18 +616,31 @@ if (isset($_POST['btn_apply'])) {
              * APPROVAL REQUIRED
              */
             $approvalRequired=FALSE;
-            if ($T->$prop!='0' AND $A->getApprovalRequired($T->$prop)) {
-               
-               if (!$isManager OR !$UG->isGroupManagerOfUser($luser,$caluser)) {
+            if ($T->$prop!='0' AND $A->getApprovalRequired($T->$prop) AND !isAllowed("editAllUserCalendars") ) 
+            {
+               /**
+                * Only decline if user 
+                * - is not allowed to edit group calendars
+                * - OR is allowed but is neither member nor manager
+                */
+               if ( !isAllowed("editGroupUserCalendars") 
+                    OR ( 
+                      !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                      AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                    )
+                  )
+               {
                   $approvalRequired = TRUE;
                }
                
-               if ($approvalRequired) {
+               if ($approvalRequired) 
+               {
                   /**
                    * The old absence type requires approval and cannot be changed
                    */
                   $declined=TRUE;
-                  foreach ($usergroups as $row) {
+                  foreach ($usergroups as $row) 
+                  {
                      $affectedgroups[] = $row['groupname'];
                   }
                   $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_old_abs'].$A->getName($T->$prop).$LANG['err_decl_approval'];
@@ -570,18 +650,31 @@ if (isset($_POST['btn_apply'])) {
             }
             
             $approvalRequired=FALSE;
-            if ($requested[$i]!='0' AND $A->getApprovalRequired($requested[$i])) {
-
-               if (!$isManager OR !$UG->isGroupManagerOfUser($luser,$caluser)) {
+            if ($requested[$i]!='0' AND $A->getApprovalRequired($requested[$i]) AND !isAllowed("editAllUserCalendars") ) 
+            {
+               /**
+                * Only decline if user 
+                * - is not allowed to edit group calendars
+                * - OR is allowed but is neither member nor manager
+                */
+               if ( !isAllowed("editGroupUserCalendars") 
+                    OR ( 
+                      !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                      AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                    )
+                  )
+               {
                   $approvalRequired = TRUE;
                }
 
-               if ($approvalRequired) {
+               if ($approvalRequired) 
+               {
                   /**
                    * The new absence type requires approval and cannot be set
                    */
                   $declined=TRUE;
-                  foreach ($usergroups as $row) {
+                  foreach ($usergroups as $row) 
+                  {
                      $affectedgroups[] = $row['groupname'];
                   }
                   $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_new_abs'].$A->getName($requested[$i]).$LANG['err_decl_approval'];
@@ -594,18 +687,31 @@ if (isset($_POST['btn_apply'])) {
              * MANAGER ONLY
              */
             $managerOnly = FALSE;
-            if ($T->$prop!='0' AND $A->getManagerOnly($T->$prop)) {
-                
-               if (!$isManager OR !$UG->isGroupManagerOfUser($luser,$caluser)) {
+            if ($T->$prop!='0' AND $A->getManagerOnly($T->$prop) AND !isAllowed("editAllUserCalendars") ) 
+            {
+               /**
+                * Only decline if user 
+                * - is not allowed to edit group calendars
+                * - OR is allowed but is neither member nor manager
+                */
+               if ( !isAllowed("editGroupUserCalendars") 
+                    OR ( 
+                      !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                      AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                    )
+                  )
+               {
                   $managerOnly = TRUE;
                }
                 
-               if ($managerOnly) {
+               if ($managerOnly) 
+               {
                   /**
                    * The old absence type is manager only and cannot be changed
                    */
                   $declined=TRUE;
-                  foreach ($usergroups as $row) {
+                  foreach ($usergroups as $row) 
+                  {
                      $affectedgroups[] = $row['groupname'];
                   }
                   $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_old_abs'].$A->getName($T->$prop).$LANG['err_decl_manager_only'];
@@ -615,13 +721,25 @@ if (isset($_POST['btn_apply'])) {
             }
             
             $managerOnly = FALSE;
-            if ($requested[$i]!='0' AND $A->getManagerOnly($requested[$i])) {
-            
-               if (!$isManager OR !$UG->isGroupManagerOfUser($luser,$caluser)) {
+            if ($requested[$i]!='0' AND $A->getManagerOnly($requested[$i]) AND !isAllowed("editAllUserCalendars") ) 
+            {
+               /**
+                * Only decline if user 
+                * - is not allowed to edit group calendars
+                * - OR is allowed but is neither member nor manager
+                */
+               if ( !isAllowed("editGroupUserCalendars") 
+                    OR ( 
+                      !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
+                      AND !$UG->isMemberOfGroup($luser,$row['groupname'])
+                    )
+                  )
+               {
                   $managerOnly = TRUE;
                }
             
-               if ($managerOnly) {
+               if ($managerOnly) 
+               {
                   /**
                    * The new absence type is manager only and cannot be set
                    */

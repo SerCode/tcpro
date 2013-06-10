@@ -520,7 +520,7 @@ $LANG['admin_config_repeatheadercount_comment'] =
 'is repeated for better readability.';
 $LANG['admin_config_todaybordercolor'] = 'Today Border Color';
 $LANG['admin_config_todaybordercolor_comment'] =
-'Specifies the color in hexadecimal of the left an right border of the today column.';
+'Specifies the color in hexadecimal of the left and right border of the today column.';
 $LANG['admin_config_todaybordersize'] = 'Today Border Size';
 $LANG['admin_config_todaybordersize_comment'] =
 'Specifies the size (thickness) in pixel of the left an right border of the today column.';
@@ -1703,7 +1703,7 @@ $LANG['abs_counts_as_present_desc'] = 'Checking this box defines that this absen
 'absences count as present in the summary count section. Thus, "Home Office" is also not listed in the absence type list in the summary count.';
 $LANG['abs_manager_only'] = 'Manager only';
 $LANG['abs_manager_only_desc'] = 'Checking this box defines that this absence type is only available to directors and managers. A regular '.
-'member can see this absence type in his calendar but all check boxes are disabled. Only his manager or the director can check the boxes for him. '.
+'member can see this absence type in his calendar but setting them will be refused. Only his manager or the director can check the boxes for him. '.
 'This feature comes in handy if only the manager or director is supposed to manage this absence, e.g. vacation.';
 $LANG['abs_hide_in_profile'] = 'Hide in profile';
 $LANG['abs_hide_in_profile_desc'] = 'Checking this box defines that regular users cannot see this absence type on the Absences tab of their profile. '.
