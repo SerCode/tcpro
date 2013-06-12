@@ -3,6 +3,23 @@ TEAMCAL PRO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.005] -> [3.6.006]
+
+Backup your current files and database!
+
+Download the new release and overwrite all files.
+Overwrite config.tcpro.php from your backup.
+
+Database changes:
+
+INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'hideManagerOnlyAbsences', '0' );
+INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'presenceBase', 'calendardays' );
+
+ALTER TABLE `my_tc_permissions` ADD `assistant` TINYINT NOT NULL AFTER `manager`;
+
+Make sure the table name matches yours.
+
+------------------------------------------------------------------------------
 [3.6.004] -> [3.6.005]
 
 Backup your current files and database!

@@ -684,7 +684,7 @@ if (isset($_POST['btn_apply'])) {
             }
             
             /**
-             * MANAGER ONLY
+             * MANAGEMENT ONLY
              */
             $managerOnly = FALSE;
             if ($T->$prop!='0' AND $A->getManagerOnly($T->$prop) AND !isAllowed("editAllUserCalendars") ) 
@@ -694,12 +694,7 @@ if (isset($_POST['btn_apply'])) {
                 * - is not allowed to edit group calendars
                 * - OR is allowed but is neither member nor manager
                 */
-               if ( !isAllowed("editGroupUserCalendars") 
-                    OR ( 
-                      !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                      AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                    )
-                  )
+               if ( !$isAdmin OR ! $isDirector OR !$isManager )
                {
                   $managerOnly = TRUE;
                }
@@ -728,13 +723,8 @@ if (isset($_POST['btn_apply'])) {
                 * - is not allowed to edit group calendars
                 * - OR is allowed but is neither member nor manager
                 */
-               if ( !isAllowed("editGroupUserCalendars") 
-                    OR ( 
-                      !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                      AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                    )
-                  )
-               {
+               if ( !$isAdmin OR ! $isDirector OR !$isManager )
+                              {
                   $managerOnly = TRUE;
                }
             

@@ -162,17 +162,26 @@ if (isset ($_POST['btn_add'])) {
          else $UO->save($U->username,"showInGroups","no");
 
          /**
-          * Set user type
+          * Clear user type
           */
          $U->clearUserType($CONF['UTADMIN']);
          $U->clearUserType($CONF['UTDIRECTOR']);
+         $U->clearUserType($CONF['UTMANAGER']);
+         $U->clearUserType($CONF['UTASSISTANT']);
          $U->clearUserType($CONF['UTTEMPLATE']);
+         
+         /**
+          * Set user type
+          */
          switch ($_POST['opt_usertype']) {
             case "ut_admin" :
                $U->setUserType($CONF['UTADMIN']);
                break;
             case "ut_director" :
                $U->setUserType($CONF['UTDIRECTOR']);
+               break;
+            case "ut_assistant" :
+               $U->setUserType($CONF['UTASSISTANT']);
                break;
             case "ut_user" :
                $U->setUserType($CONF['UTUSER']);
@@ -183,9 +192,8 @@ if (isset ($_POST['btn_add'])) {
          }
 
          /**
-          * Set group memberships for this user
+          * Set group memberships and manager type for this user
           */
-         $U->clearUserType($CONF['UTMANAGER']);
          foreach ($_POST as $key => $value) {
             if ($key {0} == "X") {
                $theGroup = substr($key, 1);
@@ -591,10 +599,10 @@ require("includes/header_html_inc.php");
                                     <td class="dlg-frame-body" colspan="3"><b><?=$LANG['ut_caption']?></b></td>
                                  </tr>
                                  <tr>
-                                    <td class="dlg-frame-body" width="24">
-                                       <input name="opt_usertype" id="utuser" type="radio" value="ut_user" CHECKED>
+                                    <td class="dlg-frame-body">
+                                       <input name="opt_usertype" id="utadmin" type="radio" value="ut_admin">
                                     </td>
-                                    <td class="dlg-frame-body"><?=$LANG['ut_user']?></td>
+                                    <td class="dlg-frame-body"><?=$LANG['ut_admin']?></td>
                                     <td class="dlg-frame-body">&nbsp;</td>
                                  </tr>
                                  <tr>
@@ -606,9 +614,16 @@ require("includes/header_html_inc.php");
                                  </tr>
                                  <tr>
                                     <td class="dlg-frame-body">
-                                       <input name="opt_usertype" id="utadmin" type="radio" value="ut_admin">
+                                       <input name="opt_usertype" id="utassistant" type="radio" value="ut_assistant">
                                     </td>
-                                    <td class="dlg-frame-body"><?=$LANG['ut_admin']?></td>
+                                    <td class="dlg-frame-body"><?=$LANG['ut_assistant']?></td>
+                                    <td class="dlg-frame-body">&nbsp;</td>
+                                 </tr>
+                                 <tr>
+                                    <td class="dlg-frame-body" width="24">
+                                       <input name="opt_usertype" id="utuser" type="radio" value="ut_user" CHECKED>
+                                    </td>
+                                    <td class="dlg-frame-body"><?=$LANG['ut_user']?></td>
                                     <td class="dlg-frame-body">&nbsp;</td>
                                  </tr>
                                  <tr>

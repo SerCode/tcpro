@@ -106,6 +106,7 @@ $CONF['UTADMIN']           = 0x04;     // Flag: User Type: Administrator
 $CONF['UTMALE']            = 0x08;     // Flag: User Type: Male (if not set=female)
 $CONF['UTDIRECTOR']        = 0x10;     // Flag: User Type: Director
 $CONF['UTTEMPLATE']        = 0x20;     // Flag: User Type: Template (absences copied to all other users of the same group)
+$CONF['UTASSISTANT']       = 0x40;     // Flag: User Type: Assistant
 
 $CONF['USLOCKED']          = 0x01;     // Flag: User Status: Account locked
 $CONF['USCHGPWD']          = 0x02;     // Flag: User Status: Must change password (not used)

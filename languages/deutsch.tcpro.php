@@ -1074,7 +1074,7 @@ $LANG['ea_column_showremain_mouseover'] = "Verbleibende Anzeigen";
 $LANG['ea_column_showtotals_mouseover'] = "Summe Anzeigen";
 $LANG['ea_column_approval_mouseover'] = "Genehmigung Erforderlich";
 $LANG['ea_column_presence_mouseover'] = "Z&auml;hlt als Anwesend";
-$LANG['ea_column_manager_only_mouseover'] = "Nur Manager";
+$LANG['ea_column_manager_only_mouseover'] = "Nur Management";
 $LANG['ea_column_groups_mouseover'] = "Abwesenheit zu Gruppe Zuordnung";
 $LANG['ea_column_hide_in_profile'] = "H";
 $LANG['ea_column_hide_in_profile_mouseover'] = "In Nutzerprofil verbergen";
@@ -1701,7 +1701,7 @@ $LANG['abs_counts_as_present'] = 'Z&auml;hlt als anwesend';
 $LANG['abs_counts_as_present_desc'] = 'Dieser Schalter definiert einen Typen als "anwesend". Dies bietet sich z.B. beim Abwesenheitstyp '.
 '"Heimarbeit" an. Weil die Person arbeitet, m&ouml;chte man dies nicht als "abwesend" z&auml;hlen. Mit diesem Schalter aktiviert wird dann der Typ '.
 'in den Summen als anwesend gewertet. Somit w&uuml;rde "Heimarbeit" dann auch nicht in den Abwesenheiten angezeigt.';
-$LANG['abs_manager_only'] = 'Nur Manager';
+$LANG['abs_manager_only'] = 'Nur Management';
 $LANG['abs_manager_only_desc'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Manager und Direktoren diesen Typen setzen. Ein normaler '.
 'Nutzer kann den Abwesenheitstypen zwar sehen, aber nicht setzen. Diese Funktion macht Sinn, wenn z.B. nur Manager und Direktoren einen Typen wie '.
 '"Urlaub" managen.';
@@ -1926,8 +1926,8 @@ $LANG['abs_info_manager_only'] = "Dieser Abwesenheitstyp kann nur vom Managern g
 /**
  * Config page
  */
-$LANG['admin_config_hideManagerOnlyAbsences'] = 'Manager Abwesenheiten verbergen';
-$LANG['admin_config_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen als "Nur Manager" markiert werden, so dass nur Manager sie editieren k&ouml;nnen. 
+$LANG['admin_config_hideManagerOnlyAbsences'] = 'Management Abwesenheiten verbergen';
+$LANG['admin_config_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen als "Nur Management" markiert werden, so dass nur Manager und Direktoren sie editieren k&ouml;nnen. 
 Diese Abwesenheiten werden normalen Benutzern angezeigt, sie k&ouml;nnen sie aber nicht editieren. Mit diesem Schalter k&ouml;nnen sie die Anzeige f&uuml;r normale Benutzer verbergen.';
 $LANG['admin_config_presenceBase'] = 'Basis der Anwesenheitsstatistik';
 $LANG['admin_config_presenceBase_comment'] = 'Die Statistikseite errechnet auch Anwesenheitstage pro Monat. Hier kann eingestellt werden, ob sich diese
@@ -1940,4 +1940,15 @@ $LANG['admin_config_presenceBase_business'] = 'Arbeitstage';
  * Statistics Page
  */
 $LANG['stat_days'] = 'Tage';
+
+/**
+ * Profile Page
+ */
+$LANG['ut_assistant'] = 'Assistent';
+
+/**
+ * Permission scheme page
+ */
+$LANG['perm_col_assistant'] = "Assistent";
+$LANG['perm_col_assistant_tt'] = "Assistenten haben diese Berechtigung.";
 ?>

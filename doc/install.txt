@@ -37,17 +37,17 @@ Adjust your personal preferences (optional)
 
 Header
 ------
-INCLUDES/HEADER.APPLICATION.INC.PHP
+includes/header_app_inc.php
 You can adjust your own page header if you like to show a different logo or
 image on top of the main TeamCal page.
 
 Style
 -----
-There are two themes shipped with TeamCal Pro, "tcpro" and "deviant". You can 
-create your own theme by copying one of those directories in the theme folder and 
-name it as you like. Then make your changes to your new theme files. TeamCal Pro will 
-automatically detect that new theme folder and offer it as a theme selection in
-the configuration page.
+There are three themes shipped with TeamCal Pro, "tcpro", "deviant" and 
+"metro". You can create your own theme by copying one of those directories 
+in the theme folder and name it as you like. Then make your changes to your 
+new theme files. TeamCal Pro will automatically detect that new theme folder 
+and offer it as a theme selection in the configuration page.
 
 Languages
 ---------
@@ -77,16 +77,21 @@ appear in the list.
 
 Manual
 ------
-A detailed manual about using TeamCal Pro is included in the package.
-The manual can be viewed in HTML format and as a PDF.
+An English user manual is maintained here:
+https://georgelewe.atlassian.net/wiki
 
 The Help buttons will directly point to the appropriate page in the
 browser based help.
 
 Installation Support
 --------------------
-I will try to provide support for TeamCal Pro as far as my time allows. You
-can place your comments in the TeamCal Pro user forum at http://www.lewe.com.
+I will try to provide support for TeamCal Pro as far as my time allows. 
+
+Comments: http://forum.lewe.com
+Support: http://forum.lewe.com, https://georgelewe.atlassian.net
+Bugs: https://georgelewe.atlassian.net
+Change requests: https://georgelewe.atlassian.net
+
 Please forgive me if I can't answer right away. I'll try my best.
 
 Best regards,

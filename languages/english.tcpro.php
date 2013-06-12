@@ -1075,7 +1075,7 @@ $LANG['ea_column_showremain_mouseover'] = "Show Remainder";
 $LANG['ea_column_showtotals_mouseover'] = "Show Totals";
 $LANG['ea_column_approval_mouseover'] = "Approval Required";
 $LANG['ea_column_presence_mouseover'] = "Counts as Present";
-$LANG['ea_column_manager_only_mouseover'] = "Manager Only";
+$LANG['ea_column_manager_only_mouseover'] = "Management Only";
 $LANG['ea_column_hide_in_profile_mouseover'] = "Hide in user profile";
 $LANG['ea_column_groups_mouseover'] = "Absence to Group Assignments";
 
@@ -1701,7 +1701,7 @@ $LANG['abs_counts_as_present'] = 'Counts as present';
 $LANG['abs_counts_as_present_desc'] = 'Checking this box defines that this absence type counts as "present". Let\'s say you maintain an absence '.
 'type "Home Office" but since this person is working you do not want to count this as "absent". In that case check the box and all Home Office '.
 'absences count as present in the summary count section. Thus, "Home Office" is also not listed in the absence type list in the summary count.';
-$LANG['abs_manager_only'] = 'Manager only';
+$LANG['abs_manager_only'] = 'Management only';
 $LANG['abs_manager_only_desc'] = 'Checking this box defines that this absence type is only available to directors and managers. A regular '.
 'member can see this absence type in his calendar but setting them will be refused. Only his manager or the director can check the boxes for him. '.
 'This feature comes in handy if only the manager or director is supposed to manage this absence, e.g. vacation.';
@@ -1926,7 +1926,7 @@ $LANG['abs_info_manager_only'] = "This absence type can only be set/unset by man
 /**
  * Config page
  */
-$LANG['admin_config_hideManagerOnlyAbsences'] = 'Hide Manager Only Absences';
+$LANG['admin_config_hideManagerOnlyAbsences'] = 'Hide Management Only Absences';
 $LANG['admin_config_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked as "manager-only", making them only editable to managers. 
       These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
 $LANG['admin_config_presenceBase'] = 'Presence Statistics Base';
@@ -1940,4 +1940,15 @@ $LANG['admin_config_presenceBase_business'] = 'Business days';
  * Statistics Page
  */
 $LANG['stat_days'] = 'days';
+
+/**
+ * Profile Page
+ */
+$LANG['ut_assistant'] = 'Assistant';
+
+/**
+ * Permission scheme page
+ */
+$LANG['perm_col_assistant'] = "Assistant";
+$LANG['perm_col_assistant_tt'] = "Assistents can perform this action.";
 ?>

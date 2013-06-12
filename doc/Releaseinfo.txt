@@ -3,6 +3,38 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.006]
+
+DATE
+2013-06-12
+
+BUG FIXES
+
+https://georgelewe.atlassian.net/browse/TCP-20
+E-Mail to group manager is not sent
+
+https://georgelewe.atlassian.net/browse/TCP-33
+Presence per user stats and Manager email
+
+https://georgelewe.atlassian.net/browse/TCP-34
+Calendar shows icons for absences that are not applicable
+
+IMPROVEMENTS
+
+https://georgelewe.atlassian.net/browse/TCP-31
+Hide management only absence types
+
+https://georgelewe.atlassian.net/browse/TCP-32
+Option to only show active users in Statistics
+
+https://georgelewe.atlassian.net/browse/TCP-35
+DIRECTOR Permissions Problem?
+
+https://georgelewe.atlassian.net/browse/TCP-36
+New user type "Assistant"
+
+
+------------------------------------------------------------------------------
 [3.6.005]
 
 DATE

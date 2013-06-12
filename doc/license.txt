@@ -6,9 +6,9 @@ TeamCal Pro is free software licensed under the GNU General Public
 License v3 (GPLv3). You can find the GPLv3 license conditions in 'gpl.txt'.
 
 Even though (and especially because of) an author of free software is 
-not payed for his work I consider it as important to reference to the
-original author's work appropriately. It is not only a matter of good 
-manners, decency and code of honor. 
+not payed for his work I consider it as an important courtesy to reference to 
+the original author's work appropriately. It is not only a matter of good 
+manners, decency and code of honor.
 
 Therefore, in addition to the GPL license you agree to the following 
 conditions if you decide to use or modify or distribute TeamCal Pro:
