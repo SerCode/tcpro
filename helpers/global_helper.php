@@ -286,7 +286,8 @@ function countAbsence($user='%', $absid, $from, $to) {
  * @param string $cntto Date to count to (including)
  * @return boolean True if reached, false if not
  */
-function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
+function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) 
+{
    global $CONF;
    require_once ($CONF['app_root'] . "models/holiday_model.php");
    require_once ($CONF['app_root'] . "models/month_model.php");
@@ -306,25 +307,32 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
    $count = 0;
    $yearmonth = $startyearmonth;
    $firstday = $startday;
-   if ($firstday < 1 || $firstday > 31) $firstday = 1;
+   if ($firstday < 1 OR $firstday > 31) $firstday = 1;
 
-   while ($yearmonth <= $endyearmonth) {
-      $queryM = "SELECT * FROM `" . $M->table . "` WHERE `yearmonth`='" . $yearmonth . "';";
+   while ($yearmonth <= $endyearmonth) 
+   {
+      $queryM = "SELECT * FROM `".$M->table."` WHERE `yearmonth`='".$yearmonth."' AND region='default';";
       $resultM = $M->db->db_query($queryM);
-      while ($rowM = $M->db->db_fetch_array($resultM, MYSQL_ASSOC)) {
-         if ($yearmonth == $endyearmonth) {
+      while ($rowM = $M->db->db_fetch_array($resultM, MYSQL_ASSOC)) 
+      {
+         if ($yearmonth == $endyearmonth) 
+         {
             // This is the last template. Make sure we just read it up to the specified endday.
             if ($endday < strlen($rowM['template']))
                $lastday = $endday;
             else
                $lastday = strlen($rowM['template']);
          }
-         else {
+         else 
+         {
             $lastday = strlen($rowM['template']);
          }
-         for ($i = $firstday-1; $i < $lastday; $i++) {
+         
+         for ($i = $firstday-1; $i < $lastday; $i++) 
+         {
             $H->findBySymbol($rowM['template'][$i]);
-            if ($H->checkOptions($CONF['H_BUSINESSDAY'])) {
+            if ($H->checkOptions($CONF['H_BUSINESSDAY'])) 
+            {
                /*
                 * This daytype counts as a business day
                 */
@@ -332,12 +340,15 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
             }
          }
       }
-      if (intval(substr($yearmonth, 4, 2)) == 12) {
+      
+      if (intval(substr($yearmonth, 4, 2)) == 12) 
+      {
          $year = intval(substr($yearmonth, 0, 4));
          $year++;
          $yearmonth = strval($year) . "01";
       }
-      else {
+      else 
+      {
          $year = intval(substr($yearmonth, 0, 4));
          $month = intval(substr($yearmonth, 4, 2));
          $month++;
@@ -345,8 +356,9 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
       }
       $firstday = 1;
    }
-
-   if ($cntManDays) {
+    
+   if ($cntManDays) 
+   {
       /*
        * Now we know the remaining amount of business days left in this period.
        * In order to get the remaining man days we need to multiply that amount
@@ -356,13 +368,15 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) {
       $queryU = "SELECT * FROM `" . $U->table . "` WHERE `username`!='admin';";
       $resultU = $U->db->db_query($queryU);
       $usercount = 0;
-      while ($rowU = $U->db->db_fetch_array($resultU, MYSQL_ASSOC)) {
+      while ($rowU = $U->db->db_fetch_array($resultU, MYSQL_ASSOC)) 
+      {
          if (!$U->checkStatus($CONF['USHIDDEN']))
             $usercount++;
       }
       return $count * $usercount;
    }
-   else {
+   else 
+   {
       return $count;
    }
 }

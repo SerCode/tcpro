@@ -22,9 +22,9 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 date_default_timezone_set('UTC');
 
 $CONF['app_name'] = "TeamCal Pro";
-$CONF['app_version'] = "3.6.005";
+$CONF['app_version'] = "3.6.006 Dev";
 $CONF['app_help_root'] = "https://georgelewe.atlassian.net/wiki/display/TCP036/";
-$CONF['app_version_date'] = "2013-05-26";
+$CONF['app_version_date'] = "2013-06-xx";
 $CONF['app_year'] = "2004";
 $CONF['app_curr_year'] = date('Y');
 $CONF['app_author'] = "George Lewe";

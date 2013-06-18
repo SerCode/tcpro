@@ -89,18 +89,20 @@ $statgroup = "%";
 $periodAbsence = "All";
 $periodAbsenceName = "All";
 
-$calendarDaysInMonth = $periodTo-$periodFrom+1;
-$businessDaysInMonth = countBusinessDays($periodFrom, $periodTo);
+$calendarDaysInPeriod = $periodTo-$periodFrom+1;
+$businessDaysInPeriod = countBusinessDays($periodFrom, $periodTo);
 
-if ($C->readConfig("presenceBase")=="calendardays") $daysInMonth = $calendarDaysInMonth;
-else $daysInMonth = $businessDaysInMonth;
+if ($C->readConfig("presenceBase")=="calendardays") $daysInPeriod = $calendarDaysInPeriod;
+else $daysInPeriod = $businessDaysInPeriod;
 
 /**
  * =========================================================================
  * APPLY
  */
-if (isset($_POST['btn_apply'])) {
-   if (isset($_POST['optPeriod']) AND $_POST['optPeriod']=="standard") {
+if (isset($_POST['btn_apply'])) 
+{
+   if (isset($_POST['optPeriod']) AND $_POST['optPeriod']=="standard") 
+   {
       /*
        * Standard period was selected
        */
@@ -344,9 +346,9 @@ require( "includes/menu_inc.php" );
                                     $totalAbsences+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
                                  }
                               }
-                              $total = $daysInMonth-$totalAbsences;
+                              $total = $daysInPeriod-$totalAbsences;
                               $totaluser += $total;
-                              //echo "<script type=\"text/javascript\">alert(\"Debug: $daysInMonth,$businessDaysInMonth\");</script>";
+                              //echo "<script type=\"text/javascript\">alert(\"Debug: $daysInPeriod,$businessDaysInMonth\");</script>";
                               
                               if ( strlen($U1->firstname)) $displayname = $U1->lastname.", ".$U1->firstname;
                               else                         $displayname = $U1->lastname;
@@ -470,7 +472,7 @@ require( "includes/menu_inc.php" );
                                  }
                               }
                            }
-                           $totalThisUser = $daysInMonth-$totalAbsences;
+                           $totalThisUser = $daysInPeriod-$totalAbsences;
                            $totalThisGroup += $totalThisUser;
                         }
                         $legend[] = $group['groupname'];
