@@ -5,7 +5,7 @@
  * Displays the group assignment matrix page
  *
  * @package TeamCalPro
- * @version 3.6.005 * @author George Lewe
+ * @version 3.6.006 * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
