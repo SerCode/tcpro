@@ -333,6 +333,7 @@ $LANG['status_logged_out'] = "You are not logged in. Viewing and editing might b
 $LANG['status_ut_user'] = "Regular User";
 $LANG['status_ut_manager'] = "Manager of group: ";
 $LANG['status_ut_director'] = "Director";
+$LANG['status_ut_assistant'] = "Assistant";
 $LANG['status_ut_admin'] = "Administrator";
 
 /**
@@ -1471,7 +1472,7 @@ $LANG['log_settings_log'] = 'Log this event type';
 $LANG['log_settings_show'] = 'Show this event type in the system log';
 $LANG['log_sort_asc'] = 'Sort ascending...';
 $LANG['log_sort_desc'] = 'Sort descending...';
-$LANG['log_header_timestamp'] = 'Timestamp';
+$LANG['log_header_timestamp'] = 'Timestamp (UTC)';
 $LANG['log_header_type'] = 'Event Type';
 $LANG['log_header_user'] = 'User';
 $LANG['log_header_event'] = 'Event';
@@ -1951,4 +1952,14 @@ $LANG['ut_assistant'] = 'Assistant';
  */
 $LANG['perm_col_assistant'] = "Assistant";
 $LANG['perm_col_assistant_tt'] = "Assistents can perform this action.";
+
+/**
+ * Status Bar
+ */
+$LANG['status_ut_assistant'] = "Assistant";
+
+/**
+ * Admin Pages
+ */
+$LANG['icon_assistant'] = 'Assistant';
 ?>

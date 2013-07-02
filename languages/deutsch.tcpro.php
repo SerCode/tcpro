@@ -1471,7 +1471,7 @@ $LANG['log_settings_log'] = 'Ereignistyp loggen';
 $LANG['log_settings_show'] = 'Ereignistyp im Logbuch anzeigen';
 $LANG['log_sort_asc'] = 'Aufsteigend sortieren...';
 $LANG['log_sort_desc'] = 'Absteigend sortieren...';
-$LANG['log_header_timestamp'] = 'Zeitstempel';
+$LANG['log_header_timestamp'] = 'Zeitstempel (UTC)';
 $LANG['log_header_type'] = 'Ereignistyp';
 $LANG['log_header_user'] = 'Nutzer';
 $LANG['log_header_event'] = 'Ereignis';
@@ -1951,4 +1951,14 @@ $LANG['ut_assistant'] = 'Assistent';
  */
 $LANG['perm_col_assistant'] = "Assistent";
 $LANG['perm_col_assistant_tt'] = "Assistenten haben diese Berechtigung.";
+
+/**
+ * Status Bar
+ */
+$LANG['status_ut_assistant'] = "Assistent";
+
+/**
+ * Admin Pages
+ */
+$LANG['icon_assistant'] = 'Assistent';
 ?>

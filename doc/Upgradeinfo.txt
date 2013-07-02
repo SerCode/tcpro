@@ -8,7 +8,14 @@ TEAMCAL PRO UPGRADE INFO
 Backup your current files and database!
 
 Download the new release and overwrite all files.
+
 Overwrite config.tcpro.php from your backup.
+Edit config.tcpro.php and search for the line:
+$CONF['UTTEMPLATE']        = 0x20;     // Flag: User Type: Template (absences copied to all other users of the same group)
+
+After that line, add this one:
+$CONF['UTASSISTANT']       = 0x40;     // Flag: User Type: Assistant
+
 
 Database changes:
 

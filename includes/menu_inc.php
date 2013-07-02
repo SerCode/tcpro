@@ -60,6 +60,11 @@ $m = buildMenu();
             $icon = "ico_usr_director";
          }
 
+         if( $UL->checkUserType($CONF['UTASSISTANT']) ) {
+            $utype = $LANG['status_ut_assistant'];
+            $icon = "ico_usr_assistant";
+         }
+
          if( $UL->checkUserType($CONF['UTADMIN']) ) {
             $utype = $LANG['status_ut_admin'];
             $icon = "ico_usr_admin";

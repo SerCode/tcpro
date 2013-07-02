@@ -258,6 +258,9 @@ require("includes/menu_inc.php");
                   }else if ( $U->checkUserType($CONF['UTMANAGER']) ) {
                      $icon = "ico_usr_manager";
                      $icon_tooltip = $LANG['icon_manager'];
+                  }else if ( $U->checkUserType($CONF['UTASSISTANT']) ) {
+                     $icon = "ico_usr_assistant";
+                     $icon_tooltip = $LANG['icon_assistant'];
                   }else if ( $U->checkUserType($CONF['UTTEMPLATE']) ) {
                      $icon = "ico_users";
                      $icon_tooltip = $LANG['icon_template'];
