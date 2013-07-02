@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_config` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=119 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=124 ;
 
 --
 -- Dumping data for table `my_tc_config`
@@ -268,6 +268,8 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (119, 'fastEdit', '0'),
 (120, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCP036%2F'),
 (121, 'defaultLanguage', 'english');
+(122, 'hideManagerOnlyAbsences', '0');
+(123, 'presenceBase', 'calendardays');
 
 -- --------------------------------------------------------
 
@@ -407,12 +409,13 @@ INSERT INTO `my_tc_months` (`yearmonth`, `template`, `region`) VALUES
 --
 
 DROP TABLE IF EXISTS `my_tc_permissions`;
-CREATE TABLE IF NOT EXISTS `my_tc_permissions` (
+CREATE TABLE `my_tc_permissions` ( 
   `scheme` varchar(80) NOT NULL,
   `permission` varchar(40) NOT NULL,
   `admin` tinyint(1) NOT NULL,
   `director` tinyint(1) NOT NULL,
   `manager` tinyint(1) NOT NULL,
+  `assistant` tinyint(4) NOT NULL,
   `user` tinyint(1) NOT NULL,
   `public` tinyint(1) NOT NULL,
   PRIMARY KEY (`scheme`,`permission`)
@@ -422,42 +425,41 @@ CREATE TABLE IF NOT EXISTS `my_tc_permissions` (
 -- Dumping data for table `my_tc_permissions`
 --
 
-INSERT INTO `my_tc_permissions` (`scheme`, `permission`, `admin`, `director`, `manager`, `user`, `public`) VALUES
-('Default', 'viewGroupUserCalendars', 1, 0, 1, 1, 0),
-('Default', 'viewAllUserCalendars', 1, 1, 0, 0, 1),
-('Default', 'viewCalendar', 1, 1, 1, 1, 1),
-('Default', 'editGroupUserDaynotes', 1, 0, 1, 0, 0),
-('Default', 'editAllUserDaynotes', 1, 0, 0, 0, 0),
-('Default', 'editOwnUserCalendars', 1, 1, 1, 1, 0),
-('Default', 'editGroupUserCalendars', 1, 0, 1, 0, 0),
-('Default', 'editAllUserCalendars', 1, 0, 0, 0, 0),
-('Default', 'editGroupUserProfiles', 1, 0, 1, 0, 0),
-('Default', 'editAllUserProfiles', 1, 0, 0, 0, 0),
-('Default', 'editGroupUserAllowances', 1, 0, 1, 0, 0),
-('Default', 'editAllUserAllowances', 1, 0, 0, 0, 0),
-('Default', 'viewUserAbsenceCounts', 1, 1, 1, 0, 0),
-('Default', 'viewUserProfiles', 1, 1, 1, 1, 0),
-('Default', 'editGlobalDaynotes', 1, 0, 1, 0, 0),
-('Default', 'editGlobalCalendar', 1, 0, 1, 0, 0),
-('Default', 'viewEnvironment', 1, 0, 0, 0, 0),
-('Default', 'editSystemLog', 1, 0, 0, 0, 0),
-('Default', 'viewSystemLog', 1, 0, 0, 0, 0),
-('Default', 'manageDatabase', 1, 0, 0, 0, 0),
-('Default', 'editDeclination', 1, 0, 0, 0, 0),
-('Default', 'editHolidays', 1, 0, 0, 0, 0),
-('Default', 'editRegions', 1, 0, 0, 0, 0),
-('Default', 'editAbsenceTypes', 1, 0, 0, 0, 0),
-('Default', 'manageGroupMemberships', 1, 0, 0, 0, 0),
-('Default', 'manageGroups', 1, 0, 0, 0, 0),
-('Default', 'manageUsers', 1, 0, 0, 0, 0),
-('Default', 'editPermissionScheme', 1, 0, 0, 0, 0),
-('Default', 'editConfig', 1, 0, 0, 0, 0),
-('Default', 'viewYearCalendar', 1, 1, 1, 1, 0),
-('Default', 'viewAnnouncements', 1, 1, 1, 1, 0),
-('Default', 'useMessageCenter', 1, 1, 1, 1, 0),
-('Default', 'viewStatistics', 1, 1, 1, 0, 0),
-('Default', 'viewAllGroups', 1, 1, 0, 0, 0),
-('Default', 'viewFastEdit', 1, 1, 1, 0, 0);
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewGroupUserCalendars', '1', '0', '1', '1', '1', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewAllUserCalendars', '1', '1', '0', '0', '0', '1');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewCalendar', '1', '1', '1', '1', '1', '1');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editGroupUserDaynotes', '1', '0', '1', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editAllUserDaynotes', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editOwnUserCalendars', '1', '1', '1', '1', '1', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editGroupUserCalendars', '1', '0', '1', '1', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editAllUserCalendars', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editGroupUserProfiles', '1', '0', '1', '1', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editAllUserProfiles', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editGroupUserAllowances', '1', '0', '1', '1', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editAllUserAllowances', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewUserAbsenceCounts', '1', '1', '1', '1', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewUserProfiles', '1', '1', '1', '1', '1', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editGlobalDaynotes', '1', '0', '1', '1', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editGlobalCalendar', '1', '0', '1', '1', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewEnvironment', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editSystemLog', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewSystemLog', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'manageDatabase', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editDeclination', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editHolidays', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editRegions', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editAbsenceTypes', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'manageGroupMemberships', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'manageGroups', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'manageUsers', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editPermissionScheme', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'editConfig', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewYearCalendar', '1', '1', '1', '1', '1', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewAnnouncements', '1', '1', '1', '1', '1', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'useMessageCenter', '1', '1', '1', '1', '1', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewStatistics', '1', '1', '1', '1', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewAllGroups', '1', '1', '0', '0', '0', '0');
+INSERT INTO `my_tc_permissions` VALUES('Default', 'viewFastEdit', '1', '1', '1', '1', '0', '0');
 
 -- --------------------------------------------------------
 
