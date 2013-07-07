@@ -6,7 +6,7 @@ TEAMCAL PRO RELEASE INFO
 [3.6.006]
 
 DATE
-2013-06-12
+2013-07-07
 
 BUG FIXES
 
@@ -32,6 +32,9 @@ DIRECTOR Permissions Problem?
 
 https://georgelewe.atlassian.net/browse/TCP-36
 New user type "Assistant"
+
+https://georgelewe.atlassian.net/browse/TCP-40
+HTML table in notification e-mail
 
 
 ------------------------------------------------------------------------------

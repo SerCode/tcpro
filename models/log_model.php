@@ -79,17 +79,19 @@ if (!class_exists("Log_model")) {
        * @param string $user Corresponding user name of log entry
        * @param string $event Type of event to log
        */
-      function log($type, $user, $event, $object='') {
+      function log($type, $user, $event, $object='') 
+      {
          global $CONF;
-         require_once ($CONF['app_root'] . "models/config_model.php");
+         require ($CONF['app_root'] . "models/config_model.php");
          $C = new Config_model;
          if (!strlen($C->readConfig("logLanguage"))) $loglang='english'; 
          else $loglang = $C->readConfig("logLanguage");
-         require_once ($CONF['app_root'] . "languages/".$loglang.".log.tcpro.php");
+         require ($CONF['app_root'] . "languages/".$loglang.".log.tcpro.php");
          
          $myEvent = $LANG[$event].$object;
          
-         if ($C->readConfig($type)) {
+         if ($C->readConfig($type)) 
+         {
             $ts = date("YmdHis");
             $query = "INSERT into `" . $this->table . "` (`type`,`timestamp`,`user`,`event`) ";
             $query .= "VALUES ('" . $type . "','" . $ts . "','" . $user . "','" . addslashes($myEvent) . "')";

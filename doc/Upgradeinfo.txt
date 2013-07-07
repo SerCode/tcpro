@@ -21,6 +21,7 @@ Database changes:
 
 INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'hideManagerOnlyAbsences', '0' );
 INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'presenceBase', 'calendardays' );
+INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'mailHTML', '1' );
 
 ALTER TABLE `my_tc_permissions` ADD `assistant` TINYINT NOT NULL AFTER `manager`;
 

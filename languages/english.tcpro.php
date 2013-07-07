@@ -1936,6 +1936,8 @@ $LANG['admin_config_presenceBase_comment'] = 'The statistics page also counts pr
       count would be 20 because June has 20 business days. The count would be 30 based on "Calendar days".';
 $LANG['admin_config_presenceBase_calendar'] = 'Calendar days';
 $LANG['admin_config_presenceBase_business'] = 'Business days';
+$LANG['admin_config_mail_html'] = 'Use HTML for calendar notification mail';
+$LANG['admin_config_mail_html_comment'] = 'Use this switch to create an HTML table in the calendar edit notification e-mails.';
 
 /**
  * Statistics Page

@@ -219,6 +219,7 @@ if ( isset($_POST['btn_confApply']) ) {
    $C->saveConfig("mailSMTPusername",strip_tags(stripslashes($_POST['txt_mailSMTPusername'])));
    $C->saveConfig("mailSMTPpassword",strip_tags(stripslashes($_POST['txt_mailSMTPpassword'])));
    if ( isset($_POST['chk_mailSMTPSSL']) && $_POST['chk_mailSMTPSSL'] ) $C->saveConfig("mailSMTPSSL","1"); else $C->saveConfig("mailSMTPSSL","0");
+   if ( isset($_POST['chk_mailHTML']) && $_POST['chk_mailHTML'] ) $C->saveConfig("mailHTML","1"); else $C->saveConfig("mailHTML","0");
     
    /**
     * User registration
@@ -1260,6 +1261,18 @@ if (ini_get('register_globals')) {
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                               <input name="chk_mailSMTPSSL" value="chk_mailSMTPSSL" type="checkbox" <?=(intval($C->readConfig("mailSMTPSSL"))?"CHECKED":"")?>>
+                           </td>
+                        </tr>
+               
+                        <!-- Use HTML -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_mail_html']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_mail_html_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input name="chk_mailHTML" id="chk_mailHTML" value="chk_mailHTML" type="checkbox" <?=(intval($C->readConfig("mailHTML"))?"CHECKED":"")?>>
                            </td>
                         </tr>
                

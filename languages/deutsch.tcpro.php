@@ -1935,6 +1935,8 @@ $LANG['admin_config_presenceBase_comment'] = 'Die Statistikseite errechnet auch 
       Anwesenheitstage weil der Juni 20 Arbeitstage hat. Es w&auml;ren 30 basierend auf "Monatstage".';
 $LANG['admin_config_presenceBase_calendar'] = 'Monatstage';
 $LANG['admin_config_presenceBase_business'] = 'Arbeitstage';
+$LANG['admin_config_mail_html'] = 'HTML in Kalender e-Mail';
+$LANG['admin_config_mail_html_comment'] = 'Mit diesem Schalter wird in der Kalender Benachrichtigungs e-Mail eine HTML Tabelle benutzt.';
 
 /**
  * Statistics Page
