@@ -690,11 +690,10 @@ if (isset($_POST['btn_apply'])) {
             if ($T->$prop!='0' AND $A->getManagerOnly($T->$prop) AND !isAllowed("editAllUserCalendars") ) 
             {
                /**
-                * Only decline if user 
-                * - is not allowed to edit group calendars
-                * - OR is allowed but is neither member nor manager
+                * There is a manager-only absence set on this day already and can only be unset by a manager. 
+                * Decline if user is not Admin, Director or Manager
                 */
-               if ( !$isAdmin OR ! $isDirector OR !$isManager )
+               if ( !$isAdmin AND ! $isDirector AND !$isManager )
                {
                   $managerOnly = TRUE;
                }
@@ -719,12 +718,11 @@ if (isset($_POST['btn_apply'])) {
             if ($requested[$i]!='0' AND $A->getManagerOnly($requested[$i]) AND !isAllowed("editAllUserCalendars") ) 
             {
                /**
-                * Only decline if user 
-                * - is not allowed to edit group calendars
-                * - OR is allowed but is neither member nor manager
+                * The new absence type is manager-only and can only be set by a manager. 
+                * Decline if user is not Admin, Director or Manager
                 */
-               if ( !$isAdmin OR ! $isDirector OR !$isManager )
-                              {
+               if ( !$isAdmin AND ! $isDirector AND !$isManager )
+               {
                   $managerOnly = TRUE;
                }
             

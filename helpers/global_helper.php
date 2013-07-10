@@ -829,32 +829,42 @@ function generatePassword($length=9)
  * @param string $myExt Array of extensions to scan for
  * @return array Array containing the names of the files (optionally matching one of the extension in myExt)
  */
-function getFiles($myDir, $myExt = NULL) {
-
+function getFiles($myDir, $myExt = NULL) 
+{
    $myDir = rtrim($myDir, "/");
    $dir = opendir($myDir);
+   
    while (false !== ($filename = readdir($dir)))
-      $files[] = strtolower($filename);
+   {
+      $files[] = $filename;
+   }
 
-   foreach ($files as $pos => $file) {
-      if (is_dir($file)) {
+   foreach ($files as $pos => $file) 
+   {
+      if (is_dir($file)) 
+      {
          $dirs[] = $file;
          unset ($files[$pos]);
       }
    }
 
-   if (count($myExt)) {
-      if (count($files)) {
-         foreach ($files as $pos => $file) {
+   if (count($myExt)) 
+   {
+      if (count($files)) 
+      {
+         foreach ($files as $pos => $file) 
+         {
             $thisExt = explode(".", $file);
-            if (in_array($thisExt[1], $myExt)) {
+            if (in_array($thisExt[1], $myExt)) 
+            {
                $filearray[] = $file;
             }
          }
       }
       return $filearray;
    }
-   else {
+   else 
+   {
       return $files;
    }
 }
@@ -866,7 +876,8 @@ function getFiles($myDir, $myExt = NULL) {
  * @param string str String containing the path or filename
  * @return string File extension of the string passed
  */
-function getFileExtension($str) {
+function getFileExtension($str) 
+{
    $i = strrpos($str,".");
    if (!$i) return "";
    $l = strlen($str) - $i;
@@ -880,12 +891,16 @@ function getFileExtension($str) {
  *
  * @return array Array containing the folder names
  */
-function getFolders($myDir) {
+function getFolders($myDir) 
+{
 	$myDir = rtrim($myDir, '/').'/'; // Ensure trailing slash
    $handle = opendir($myDir);
    $diridx = 0;
-   while (false !== ($dir = readdir($handle))) {
-      if (is_dir($myDir . "/$dir") && $dir != "." && $dir != "..") {
+   
+   while (false !== ($dir = readdir($handle))) 
+   {
+      if (is_dir($myDir . "/$dir") && $dir != "." && $dir != "..") 
+      {
          $dirarray[$diridx]["name"] = $dir;
          $diridx++;
       }
