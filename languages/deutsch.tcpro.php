@@ -266,39 +266,47 @@ $LANG['upload_file'] = 'Datei...';
  */
 $LANG['notification_subject']   = $CONF['app_name']." ".$CONF['app_version']." - Aktualisierung";
 $LANG['notification_subject_approval'] = $CONF['app_name']." ".$CONF['app_version']." - Genehmigung erforderlich";
-$LANG['notification_greeting']  = "------------------------------------------------------------\n";
-$LANG['notification_greeting'] .= "Diese Nachricht wurde automatisch generiert von:\n";
-$LANG['notification_greeting'] .= $CONF['app_name']." ".$CONF['app_version']." at ".$CONF['app_url'].".\n";
-$LANG['notification_greeting'] .= "------------------------------------------------------------\n\n";
-$LANG['notification_greeting'] .= "Hallo TeamCal Pro Nutzer,\r\n\r\n";
-$LANG['notification_usr_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Hinzufuegen oder Aenderung von Nutzern zu benachrichtigen.\r\n";
-$LANG['notification_usr_add_msg'] = "Der folgende Nutzer wurde hinzugefuegt:\n\n";
-$LANG['notification_usr_chg_msg'] = "Der folgende Nutzer wurde geaendert:\n\n";
-$LANG['notification_usr_del_msg'] = "Der folgende Nutzer wurde geloescht:\n\n";
-$LANG['notification_usr_cal'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Aenderung von Nutzer Kalendern zu benachrichtigen.\r\n";
-$LANG['notification_usr_cal_msg'] = "Der Kalender des folgenden Nutzers wurde geaendert:\n\n";
-$LANG['notification_grp_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Hinzufuegen oder Aenderung von Gruppen zu benachrichtigen.\r\n";
-$LANG['notification_grp_add_msg'] = "Die folgende Gruppe wurde hinzugefuegt:\n\n";
-$LANG['notification_grp_chg_msg'] = "Die folgende Gruppe wurde geaendert:\n\n";
-$LANG['notification_grp_del_msg'] = "Die folgende Gruppe wurde geloescht:\n\n";
-$LANG['notification_abs_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Hinzufuegen oder Aenderung von Abwesenheitsarten zu benachrichtigen.\r\n";
-$LANG['notification_abs_add_msg'] = "Der folgende Abwesenheitstyp wurde hinzugefuegt:\n\n";
-$LANG['notification_abs_chg_msg'] = "Der folgende Abwesenheitstyp wurde geaendert:\n\n";
-$LANG['notification_abs_del_msg'] = "Der folgende Abwesenheitstyp wurde geloescht:\n\n";
-$LANG['notification_hol_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Hinzufuegen oder Aenderung von Feiertagen zu benachrichtigen.\r\n";
-$LANG['notification_hol_add_msg'] = "Der folgende Feiertag wurde hinzugefuegt:\n\n";
-$LANG['notification_hol_chg_msg'] = "Der folgende Feiertag wurde geaendert:\n\n";
-$LANG['notification_hol_del_msg'] = "Der folgende Feiertag wurde geloescht:\n\n";
-$LANG['notification_month_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Aktualisierungen an Monats-Schablonen zu benachrichtigen.\r\nEine Aktualisierung wurde vorgenommen an der Schablone fuer:\r\n\r\n";
-$LANG['notification_signature']  = "Wenn du dein Nutzerprofil aendern willst, oeffne TeamCal Pro, log dich ein\nund klicke auf deinen Namen in der Monatsuebersicht.\r\n\r\nMit freundlichen Gruessen,\r\n";
-$LANG['notification_signature'] .= "Deine TeamCal Pro Administration.\r\n";
-$LANG['notification_decl_msg'] = "eine Abwesenheitsanfrage wurde wegen zu hoher Gesamtabwesenheit abgelehnt.\n\n";
-$LANG['notification_decl_msg_2'] = "eine Abwesenheitsanfrage wurde abgelehnt, weil der Abwesenheitstyp einer Genehmigung bedarf.\n\n";
-$LANG['notification_decl_user'] = "Anfragender Nutzer: ";
+
+$LANG['notification_greeting']  = "<hr>Diese Nachricht wurde automatisch generiert von ".$CONF['app_name']." ".$CONF['app_version']." at:<br />".$CONF['app_url']."<hr>";
+$LANG['notification_greeting'] .= "Hallo TeamCal Pro Nutzer,<br /><br />";
+
+$LANG['notification_usr_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Hinzuf&uuml;gen oder &Auml;derung von Nutzern zu benachrichtigen.<br /><br />";
+$LANG['notification_usr_add_msg'] = "Der folgende Nutzer wurde hinzugefuegt:<br /><br />";
+$LANG['notification_usr_chg_msg'] = "Der folgende Nutzer wurde geaendert:<br /><br />";
+$LANG['notification_usr_del_msg'] = "Der folgende Nutzer wurde geloescht:<br /><br />";
+
+$LANG['notification_usr_cal'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei &Auml;nderung von Nutzer Kalendern zu benachrichtigen.<br /><br />";
+$LANG['notification_usr_cal_msg'] = "Der Kalender des folgenden Nutzers wurde geaendert:<br /><br />";
+
+$LANG['notification_grp_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Hinzuf&uuml;gen oder &Auml;nderung von Gruppen zu benachrichtigen.\r\n";
+$LANG['notification_grp_add_msg'] = "Die folgende Gruppe wurde hinzugefuegt:<br /><br />";
+$LANG['notification_grp_chg_msg'] = "Die folgende Gruppe wurde geaendert:<br /><br />";
+$LANG['notification_grp_del_msg'] = "Die folgende Gruppe wurde geloescht:<br /><br />";
+
+$LANG['notification_abs_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Hinzuf&uuml;gen oder &Auml;nderung von Abwesenheittypen zu benachrichtigen.\r\n";
+$LANG['notification_abs_add_msg'] = "Der folgende Abwesenheitstyp wurde hinzugefuegt:<br /><br />";
+$LANG['notification_abs_chg_msg'] = "Der folgende Abwesenheitstyp wurde geaendert:<br /><br />";
+$LANG['notification_abs_del_msg'] = "Der folgende Abwesenheitstyp wurde geloescht:<br /><br />";
+
+$LANG['notification_hol_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Hinzuf&uuml;gen oder &Auml;nderung von Feiertagen zu benachrichtigen.\r\n";
+$LANG['notification_hol_add_msg'] = "Der folgende Feiertag wurde hinzugefuegt:<br /><br />";
+$LANG['notification_hol_chg_msg'] = "Der folgende Feiertag wurde geaendert:<br /><br />";
+$LANG['notification_hol_del_msg'] = "Der folgende Feiertag wurde geloescht:<br /><br />";
+
+$LANG['notification_month_msg'] = "dein TeamCal Pro Nutzerprofil ist konfiguriert, dich bei Aktualisierungen an Monats-Schablonen zu benachrichtigen.<br />Eine Aktualisierung wurde vorgenommen an der Schablone fuer:<br /><br />";
+
+$LANG['notification_signature']  = "Du kannst die Einstellungen f&uuml;r e-Mail Benachrichtigungen in deinem Nutzerprofil in TeamCal Pro &auml;ndern.<br /><br />";
+$LANG['notification_signature'] .= "Mit freundlichen Gr&uuml;&szlig;en,<br /><br />";
+$LANG['notification_signature'] .= "Deine TeamCal Pro Administration<br />";
+
+$LANG['notification_decl_msg']    = "eine Abwesenheitsanfrage wurde wegen zu hoher Gesamtabwesenheit abgelehnt.<br /><br />";
+$LANG['notification_decl_msg_2']  = "eine Abwesenheitsanfrage wurde abgelehnt, weil der Abwesenheitstyp einer Genehmigung bedarf.<br /><br />";
+$LANG['notification_decl_user']   = "Anfragender Nutzer: ";
 $LANG['notification_decl_reason'] = "Angegebener Grund: ";
-$LANG['notification_decl_sign'] = "\n\nWenn du der anfragende Nutzer bist, kannst du deinen Gruppenmanager kontaktieren, der deine Anfrage bestaetigen kann.\n";
-$LANG['notification_decl_sign'].= "Wenn du der Manager der betroffenen Gruppe bist, bitte nehme mit dem Nutzer Kontakt auf.\n\n";
-$LANG['notification_decl_sign'].= "Deine TeamCal Pro Administration.\n";
+$LANG['notification_decl_sign']   = "<br /><br />Wenn du der anfragende Nutzer bist, kannst du deinen Gruppenmanager kontaktieren, der deine Anfrage bestaetigen kann.<br />";
+$LANG['notification_decl_sign']  .= "Wenn du der Manager der betroffenen Gruppe bist, bitte nehme mit dem Nutzer Kontakt auf.<br /><br />";
+$LANG['notification_decl_sign']  .= "Mit freundlichen Gr&uuml;&szlig;en,<br /><br />";
+$LANG['notification_decl_sign']  .= "Deine TeamCal Pro Administration<br />";
 
 /**
  * Login Dialog
@@ -1935,8 +1943,6 @@ $LANG['admin_config_presenceBase_comment'] = 'Die Statistikseite errechnet auch 
       Anwesenheitstage weil der Juni 20 Arbeitstage hat. Es w&auml;ren 30 basierend auf "Monatstage".';
 $LANG['admin_config_presenceBase_calendar'] = 'Monatstage';
 $LANG['admin_config_presenceBase_business'] = 'Arbeitstage';
-$LANG['admin_config_mail_html'] = 'HTML in Kalender e-Mail';
-$LANG['admin_config_mail_html_comment'] = 'Mit diesem Schalter wird in der Kalender Benachrichtigungs e-Mail eine HTML Tabelle benutzt.';
 
 /**
  * Statistics Page

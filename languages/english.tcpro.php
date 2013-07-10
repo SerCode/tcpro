@@ -266,39 +266,47 @@ $LANG['upload_file'] = 'Select file...';
  */
 $LANG['notification_subject']   = $CONF['app_name']." ".$CONF['app_version']." - Notification";
 $LANG['notification_subject_approval'] = $CONF['app_name']." ".$CONF['app_version']." - Approval required";
-$LANG['notification_greeting']  = "------------------------------------------------------------\n";
-$LANG['notification_greeting'] .= "This message was automatically created by:\n";
-$LANG['notification_greeting'] .= $CONF['app_name']." ".$CONF['app_version']." at ".$CONF['app_url'].".\n";
-$LANG['notification_greeting'] .= "------------------------------------------------------------\n\n";
-$LANG['notification_greeting'] .= "Hello TeamCal Pro User,\n\n";
-$LANG['notification_usr_msg'] = "your TeamCal Pro user profile is configured to notify you when a new user is added or an existing user profile is changed.\r\n";
-$LANG['notification_usr_add_msg'] = "The following user has been added:\n\n";
-$LANG['notification_usr_chg_msg'] = "Changes have been applied to the user profile of:\n\n";
-$LANG['notification_usr_del_msg'] = "The following user has been deleted:\n\n";
-$LANG['notification_usr_cal'] = "your TeamCal Pro user profile is configured to notify you when a user calendar has been changed.\r\n";
-$LANG['notification_usr_cal_msg'] = "The calendar of the following user has been changed:\n\n";
-$LANG['notification_grp_msg'] = "your TeamCal Pro user profile is configured to notify you when a new group is added or an existing group is changed.\r\n";
-$LANG['notification_grp_add_msg'] = "The following group has been added:\n\n";
-$LANG['notification_grp_chg_msg'] = "Changes have been applied to the group:\n\n";
-$LANG['notification_grp_del_msg'] = "The following group has been deleted:\n\n";
-$LANG['notification_abs_msg'] = "your TeamCal Pro user profile is configured to notify you when a new absence type is added or an exsiting one is changed.\r\n";
-$LANG['notification_abs_add_msg'] = "The following absence type has been added:\n\n";
-$LANG['notification_abs_chg_msg'] = "Changes have been applied to the absence type:\n\n";
-$LANG['notification_abs_del_msg'] = "The following absence type has been deleted:\n\n";
-$LANG['notification_hol_msg'] = "your TeamCal Pro user profile is configured to notify you when a new holiday was added or an existing one was changed.\r\n";
-$LANG['notification_hol_add_msg'] = "The following holiday has been added:\n\n";
-$LANG['notification_hol_chg_msg'] = "Changes have been applied to the holiday:\n\n";
-$LANG['notification_hol_del_msg'] = "The following holiday has been deleted:\n\n";
-$LANG['notification_month_msg'] = "your TeamCal Pro user profile is configured to notify you about changes to\nmonth templates.\r\nChanges were applied to the month template of:\n\n";
-$LANG['notification_signature']  = "If you want to change the notification settings in your user profile go to\nTeamCal Pro, log in and click on your name in the calendar display.\n\nBest regards,\r\n";
-$LANG['notification_signature'] .= "Your TeamCal Pro Administration.\n";
-$LANG['notification_decl_msg'] = "a calendar change has been declined.\n\n";
-$LANG['notification_decl_msg_2'] = "The following problems were found in your request:\n\n";
-$LANG['notification_decl_user'] = "Requesting User: ";
+
+$LANG['notification_greeting']  = "<hr>This message was automatically created by ".$CONF['app_name']." ".$CONF['app_version']." at:<br />".$CONF['app_url']."<hr>";
+$LANG['notification_greeting'] .= "Hello TeamCal Pro User,<br />";
+
+$LANG['notification_usr_msg'] = "your TeamCal Pro user profile is configured to notify you when a new user is added or an existing user profile is changed.<br /><br />";
+$LANG['notification_usr_add_msg'] = "The following user has been added:<br /><br />";
+$LANG['notification_usr_chg_msg'] = "Changes have been applied to the user profile of:<br /><br />";
+$LANG['notification_usr_del_msg'] = "The following user has been deleted:<br /><br />";
+
+$LANG['notification_usr_cal'] = "your TeamCal Pro user profile is configured to notify you when a user calendar has been changed.<br /><br />";
+$LANG['notification_usr_cal_msg'] = "The calendar of the following user has been changed:<br /><br />";
+
+$LANG['notification_grp_msg'] = "your TeamCal Pro user profile is configured to notify you when a new group is added or an existing group is changed.<br /><br />";
+$LANG['notification_grp_add_msg'] = "The following group has been added:<br /><br />";
+$LANG['notification_grp_chg_msg'] = "Changes have been applied to the group:<br /><br />";
+$LANG['notification_grp_del_msg'] = "The following group has been deleted:<br /><br />";
+
+$LANG['notification_abs_msg'] = "your TeamCal Pro user profile is configured to notify you when a new absence type is added or an exsiting one is changed.<br /><br />";
+$LANG['notification_abs_add_msg'] = "The following absence type has been added:<br /><br />";
+$LANG['notification_abs_chg_msg'] = "Changes have been applied to the absence type:<br /><br />";
+$LANG['notification_abs_del_msg'] = "The following absence type has been deleted:<br /><br />";
+
+$LANG['notification_hol_msg'] = "your TeamCal Pro user profile is configured to notify you when a new holiday was added or an existing one was changed.<br /><br />";
+$LANG['notification_hol_add_msg'] = "The following holiday has been added:<br /><br />";
+$LANG['notification_hol_chg_msg'] = "Changes have been applied to the holiday:<br /><br />";
+$LANG['notification_hol_del_msg'] = "The following holiday has been deleted:<br /><br />";
+
+$LANG['notification_month_msg'] = "your TeamCal Pro user profile is configured to notify you about changes to month templates.<br /><br />Changes were applied to the month template of:<br /><br />";
+
+$LANG['notification_signature']  = "You can change your notification settings in your user profile in TeamCal Pro.<br /><br />";
+$LANG['notification_signature'] .= "Best regards,<br />";
+$LANG['notification_signature'] .= "Your TeamCal Pro Administration.<br />";
+
+$LANG['notification_decl_msg']    = "a calendar change has been declined.<br /><br />";
+$LANG['notification_decl_msg_2']  = "The following problems were found in your request:<br /><br />";
+$LANG['notification_decl_user']   = "Requesting User: ";
 $LANG['notification_decl_reason'] = "Reason given: ";
-$LANG['notification_decl_sign'] = "\n\nIf you are the requesting user you may contact your group manager so he can confirm and enter the absence.\n";
-$LANG['notification_decl_sign'].= "If you are the group manager of the affected group you may contact the requesting user for clarification.\n\n";
-$LANG['notification_decl_sign'].= "Your TeamCal Pro Administration.\n";
+$LANG['notification_decl_sign']   = "<br /><br />If you are the requesting user you may contact your group manager so he can confirm and enter the absence.<br />";
+$LANG['notification_decl_sign']  .= "If you are the group manager of the affected group you may contact the requesting user for clarification.<br /><br />";
+$LANG['notification_decl_sign']  .= "Best regards,<br />";
+$LANG['notification_decl_sign']  .= "Your TeamCal Pro Administration.<br />";
 
 /**
  * Login Dialog
@@ -1936,8 +1944,6 @@ $LANG['admin_config_presenceBase_comment'] = 'The statistics page also counts pr
       count would be 20 because June has 20 business days. The count would be 30 based on "Calendar days".';
 $LANG['admin_config_presenceBase_calendar'] = 'Calendar days';
 $LANG['admin_config_presenceBase_business'] = 'Business days';
-$LANG['admin_config_mail_html'] = 'Use HTML for calendar notification mail';
-$LANG['admin_config_mail_html_comment'] = 'Use this switch to create an HTML table in the calendar edit notification e-mails.';
 
 /**
  * Statistics Page

@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_config` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=126 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=125 ;
 
 --
 -- Dumping data for table `my_tc_config`
@@ -215,8 +215,7 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (121, 'defaultLanguage', 'english'),
 (122, 'hideManagerOnlyAbsences', '0'),
 (123, 'presenceBase', 'calendardays'),
-(124, 'logLanguage', 'english'),
-(125, 'mailHTML', '1');
+(124, 'logLanguage', 'english');
 
 -- --------------------------------------------------------
 

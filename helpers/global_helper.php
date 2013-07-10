@@ -1527,7 +1527,7 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
 
 // ---------------------------------------------------------------------------
 /**
- * Sends an eMail, either via SMTP or regular PHP mail
+ * Sends an HTML eMail, either via SMTP or regular PHP mail
  * Requires the PEAR Mail package installed on the server that Tcpro is running on
  *
  * @param  string $to          eMail to address
@@ -1560,7 +1560,7 @@ function sendEmail($to, $subject, $body, $from='')
     
    if ($C->readConfig("mailSMTP")) 
    {
-      require_once "Mail.php";
+      include_once('Mail.php');
       
       $host     = $C->readConfig("mailSMTPHost");
       $port     = $C->readConfig("mailSMTPPort");
@@ -1579,9 +1579,15 @@ function sendEmail($to, $subject, $body, $from='')
          'From' => $from,
          'Reply-To' => $replyto,
          'To' => $to,
-         'Subject' => $subject
+         'Subject' => $subject,
+         'Content-type' => "text/html;  charset=iso-8859-1"
       );
-   
+
+      /*
+       * Put an HTML envelope around the body
+       */
+      $body = '<html><body>'.$body.'</body></html>';
+      
       $smtp = @Mail::factory(
          'smtp',
          array (
@@ -1605,7 +1611,7 @@ function sendEmail($to, $subject, $body, $from='')
                   <tr><td style=\"border: 1px solid #BBBBBB;\">From:</td><td style=\"border: 1px solid #BBBBBB;\">".$headers['From']."</td></tr>
                   <tr><td style=\"border: 1px solid #BBBBBB;\">To:</td><td style=\"border: 1px solid #BBBBBB;\">".$headers['To']."</td></tr>
                   <tr><td style=\"border: 1px solid #BBBBBB;\">Subject:</td><td style=\"border: 1px solid #BBBBBB;\">".$headers['Subject']."</td></tr>
-                  <tr><td style=\"border: 1px solid #BBBBBB;\">Body:</td><td style=\"border: 1px solid #BBBBBB;\">".$body."</td></tr>
+                  <tr><td style=\"border: 1px solid #BBBBBB;\">Body:</td><td style=\"border: 1px solid #BBBBBB;\"><pre>".$body."</pre></td></tr>
                </table>";
          showError("smtp",$err);
          return FALSE;
@@ -1615,8 +1621,13 @@ function sendEmail($to, $subject, $body, $from='')
          return TRUE;
       }
    }
-   else {
-      $headers = "From: ".$from."\r\nReply-To: ".$replyto;
+   else 
+   {
+      $headers  = 'MIME-Version: 1.0' . "\r\n";
+      $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+      $headers .= "From: " . $from . "\r\n";
+      $headers .= "Reply-To: " . $replyto;
+      $body = '<html><body>'.$body.'</body></html>';
       $result = mail($to, $subject, $body, $headers);
       return $result;
    }

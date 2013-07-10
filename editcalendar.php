@@ -1279,7 +1279,10 @@ $CONF['options']['lang']=$currlang;
                         $inner="&nbsp;";
                         if ( $A->get($T->$prop) ) { 
                            $class="day-a".$A->id;
-                           $inner="<img align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
+                           if ($A->icon!='No')
+                              $inner = "<img align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
+                           else
+                              $inner = $A->symbol;
                         }
                         else {
                            if ( $H->findBySymbol($M->template[$idx-1]) ) $class="day-".$H->cfgname;

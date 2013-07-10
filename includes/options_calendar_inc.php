@@ -13,8 +13,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
-?>
-<?php if ($C->readConfig("showGroup")) {
+if ($C->readConfig("showGroup")) {
    $selectedGroup=$CONF['options']['groupfilter']; ?>
    <!-- Group filter drop down -->
    &nbsp;&nbsp;<?=$LANG['nav_groupfilter']?>&nbsp;
@@ -22,6 +21,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
       <option value="All" <?=($selectedGroup=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
       <option value="Allbygroup" <?=($selectedGroup=="Allbygroup"?"SELECTED":"")?>><?=$LANG['drop_group_allbygroup']?></option>
       <?php
+      $G = new Group_model;
       $groups=$G->getAll(TRUE); // TRUE = exclude hidden
       foreach( $groups as $group ) {
          if (!isAllowed("viewAllGroups")) {
@@ -47,6 +47,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
    &nbsp;&nbsp;<?=$LANG['nav_regionfilter']?>&nbsp;
    <select name="regionfilter" class="select">
       <?php
+      $R = new Region_model;
       $regions = $R->getAll();
       foreach ($regions as $reg) { ?>
          <option value="<?=$reg['regionname']?>" <?=(($selectedRegion==$reg['regionname'])?"SELECTED":"")?>><?=$reg['regionname']?></option>
@@ -62,6 +63,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
    <select id="absencefilter" name="absencefilter" class="select">
       <option value="All" <?=($selectedAbsence=="All"?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
       <?php
+      $A = new Absence_model;
       $absences = $A->getAll();
       foreach ($absences as $abs) { ?>
          <option value="<?=$abs['id']?>" <?=(($selectedAbsence==$abs['id'])?' SELECTED':'')?>><?=$abs['name']?></option>
