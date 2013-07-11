@@ -5,7 +5,7 @@
  * Displays the edit calendar dialog
  *
  * @package TeamCalPro
- * @version 3.6.006
+ * @version 3.6.007
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -218,15 +218,22 @@ if (!$found) {
  * =========================================================================
  * APPLY
  */
-if (isset($_POST['btn_apply'])) {
+if (isset($_POST['btn_apply'])) 
+{
    /**
-    * Now get all single day requests
+    * We have to create an array for this month with all unchanged old absences
+    * and all the new ones. This is then the $requested() array.
+    * So we either pick up the old absence from $T or the new one if posted.
     */
    $requested = array();
-   for ($i=1; $i<=$nofdays; $i++) {
+   for ($i=1; $i<=$nofdays; $i++) 
+   {
       $key = 'opt_abs_'.$i;
-      if (isset($_POST[$key])) $requested[$i] = $_POST[$key];
-      else $requested[$i] = '0';
+      $prop = 'abs'.$i;
+      if (isset($_POST[$key])) 
+         $requested[$i] = $_POST[$key];
+      else 
+         $requested[$i] = $T->$prop;
    }
     
    foreach($_POST as $key=>$value) {
