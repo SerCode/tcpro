@@ -65,7 +65,7 @@ if ( isset($_POST['btn_confirm']) && strlen($_POST['ats'])) {
     */
    $chars = array("-", " ", ":");
    $ats = str_replace($chars, "", $_POST['ats']);
-   $LOG->log("logAnnouncement",$user,"log_ann_confirmed", $ats.$LANG['log_ann_confirmed_by'].$UL->username);
+   $LOG->log("logAnnouncement",$user,"log_ann_confirmed", $ats." -> ".$UL->username);
 }
 
 /**

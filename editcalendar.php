@@ -888,66 +888,31 @@ if (isset($_POST['btn_apply']))
       } 
       $T->update($caluser,$Year,$monthno);
 
-      if (!$C->readConfig("mailHTML"))
+      /**
+       * Create an HTML table for the template
+       */
+      $ninfo = '<p>'.$LANG['notification_new_template'].$T->year.'-'.$T->month.'</p>';
+      $ninfo .= '<table style="border-collapse: collapse;"><tbody><tr style="background-color: #DDDDDD;">';
+      $j=1;
+      for ($i=0; $i<strlen($mailtemplate); $i++)
       {
-         /**
-          * Create an ASCII table for the template
-          */
-         $ninfo = $LANG['notification_new_template'].$T->year."-".$T->month."\n\n|";
-         $j=1;
-         for ($i=0; $i<strlen($mailtemplate); $i++) 
-         {
-            $ninfo .= sprintf("%02d",$j++)."|";
-         }
-         
-         $ninfo .= "\n|";
-         for ($i=0; $i<strlen($mailtemplate)-1; $i++) 
-         {
-            $ninfo .= "--+";
-         }
-         
-         $ninfo .= "--|\n|";
-         for ($i=0; $i<strlen($mailtemplate); $i++) 
-         {
-            $ninfo .= " ".$mailtemplate[$i]."|";
-         }
-         
-         $ninfo .= "\n\n";
-         $ats = $A->getAll();
-         foreach ($ats as $at) 
-         {
-            $ninfo .= $at['symbol']." = ".$at['name']."\n";
-         }
+         $ninfo .= '<th style="border: 1px solid #999999; text-align: center;">'. sprintf("%02d",$j++).'</th>';
       }
-      else
+      $ninfo .= '</tr><tr>';
+       
+      for ($i=0; $i<strlen($mailtemplate); $i++)
       {
-         /**
-          * Create an HTML table for the template
-          */
-         $ninfo = '<p>'.$LANG['notification_new_template'].$T->year.'-'.$T->month.'</p>';
-         $ninfo .= '<table style="border-collapse: collapse;"><tbody><tr style="background-color: #DDDDDD;">';
-         $j=1;
-         for ($i=0; $i<strlen($mailtemplate); $i++)
-         {
-            $ninfo .= '<th style="border: 1px solid #999999; text-align: center;">'. sprintf("%02d",$j++).'</th>';
-         }
-         $ninfo .= '</tr><tr>';
-          
-         for ($i=0; $i<strlen($mailtemplate); $i++)
-         {
-            $ninfo .= '<td style="border: 1px solid #999999; text-align: center;">'. $mailtemplate[$i].'</td>';
-         }
-         $ninfo .= '</tr></tbody></table>';
-          
-         $ninfo .= '<p>';
-         $ats = $A->getAll();
-         foreach ($ats as $at)
-         {
-            $ninfo .= $at['symbol']." = ".$at['name']."<br />";
-         }
-         $ninfo .= '</p>';
+         $ninfo .= '<td style="border: 1px solid #999999; text-align: center;">'. $mailtemplate[$i].'</td>';
       }
-      //print $ninfo;
+      $ninfo .= '</tr></tbody></table>';
+       
+      $ninfo .= '<p>';
+      $ats = $A->getAll();
+      foreach ($ats as $at)
+      {
+         $ninfo .= $at['symbol']." = ".$at['name']."<br />";
+      }
+      $ninfo .= '</p>';
       
       /**
        * Send out the mails

@@ -19,6 +19,9 @@ Manager Only Absences can't be selected by managers!
 https://georgelewe.atlassian.net/browse/TCP-44
 getfiles and strtolower on file names
 
+https://georgelewe.atlassian.net/browse/TCP-45
+Hidden absences cause declination message to regular users
+
 
 ------------------------------------------------------------------------------
 [3.6.006]
