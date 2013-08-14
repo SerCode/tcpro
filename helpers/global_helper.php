@@ -1568,11 +1568,17 @@ function sendEmail($to, $subject, $body, $from='')
       $replyto = mb_encode_mimeheader($from);
    }
    /*
-    * "To" has to be a valid email. It might be empty if a user
-    * to be notified has not setup his email address
+    * "To" has to be a valid email or comma separated list of valid emails.
+    * It might be empty if a user to be notified has not setup his email address
     */
-   if (!validEmail($to)) $to=$C->readConfig("mailReply");
-    
+   $toArray = explode(",",$to);
+   $toValid = "";
+   foreach ($toArray as $toPiece)
+   {
+      if (!validEmail($toPiece)) $toValid.=$C->readConfig("mailReply").",";
+      else $toValid .= $toPiece.",";
+   }
+      
    if ($C->readConfig("mailSMTP")) 
    {
       include_once('Mail.php');
@@ -1593,7 +1599,7 @@ function sendEmail($to, $subject, $body, $from='')
       $headers = array (
          'From' => $from,
          'Reply-To' => $replyto,
-         'To' => $to,
+         'To' => $toValid,
          'Subject' => $subject,
          'Content-type' => "text/html;  charset=iso-8859-1"
       );
@@ -1614,7 +1620,7 @@ function sendEmail($to, $subject, $body, $from='')
          )
       );
    
-      $mail = @$smtp->send($to, $headers, $body);
+      $mail = @$smtp->send($toValid, $headers, $body);
    
       if ($error = @PEAR::isError($mail)) 
       {
@@ -1643,7 +1649,8 @@ function sendEmail($to, $subject, $body, $from='')
       $headers .= "From: " . $from . "\r\n";
       $headers .= "Reply-To: " . $replyto;
       $body = '<html><body>'.$body.'</body></html>';
-      $result = mail($to, $subject, $body, $headers);
+      $result = mail($toValid, $subject, $body, $headers);
+      
       return $result;
    }
 }

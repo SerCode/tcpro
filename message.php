@@ -105,6 +105,7 @@ if (isset($_POST['btn_send'])) {
          $msgsent = true;
          $LOG->log("logAnnouncement",$L->checkLogin(),"log_msg_email", $UL->username." to ".$to);
       }
+      
 
    }
    elseif ($_POST['opt_msgtype']=="silent" OR $_POST['opt_msgtype']=="popup") {
