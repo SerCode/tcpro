@@ -3,6 +3,23 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.008]
+
+DATE
+2013-07-14
+
+BUG FIXES
+
+https://georgelewe.atlassian.net/browse/TCP-48
+Problem with e-mails to Group or all
+
+NEW FEATURES
+
+https://georgelewe.atlassian.net/browse/TCP-47
+Global daynotes in Editcalenar
+
+
+------------------------------------------------------------------------------
 [3.6.007]
 
 DATE

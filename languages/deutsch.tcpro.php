@@ -1969,4 +1969,16 @@ $LANG['status_ut_assistant'] = "Assistent";
  * Admin Pages
  */
 $LANG['icon_assistant'] = 'Assistent';
+
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.008
+ */
+
+/**
+ * Month Dialog
+ */
+$LANG['month_global_daynote'] = 'Globale Tagesnotiz';
+$LANG['month_personal_daynote'] = 'Pers&ouml;nliche Tagesnotiz';
 ?>

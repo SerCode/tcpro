@@ -1206,7 +1206,70 @@ $CONF['options']['lang']=$currlang;
                      ?>
                   </tr>
                   
-                  <!-- Daynote row -->
+                  <!-- Global daynote row -->
+                  <tr>
+                     <td class="title"><?=$LANG['month_global_daynote']?></td>
+                     <td class="title-button">&nbsp;</td>
+                     <?php
+                     /**
+                      * Daynote columns
+                      */
+                     $x = intval($weekday1);
+                     for ($i = 1; $i <= $nofdays; $i = $i +1) 
+                     {
+                        if ($i < 10)
+                           $dd = "0" . strval($i);
+                        else
+                           $dd = strval($i);
+                        
+                        if ($H->findBySymbol($M->template[$i -1])) 
+                        {
+                           if ($H->cfgname == 'busi') 
+                           {
+                              if ($N->findByDay($Year . $monthno . $dd, "all", $region))
+                                 $style = "weekday-note";
+                              else
+                                 $style = "weekday";
+                           } 
+                           else 
+                           {
+                              if ($N->findByDay($Year . $monthno . $dd, "all", $region))
+                                 $style = "weekday-" . $H->cfgname . "-note";
+                              else
+                                 $style = "weekday-" . $H->cfgname;
+                           }
+                        } 
+                        else 
+                        {
+                           if ($N->findByDay($Year . $monthno . $dd, "all", $region))
+                              $style = "weekday-note";
+                           else
+                              $style = "weekday";
+                        }
+                        
+                        if (isAllowed("editGlobalDaynotes")) 
+                        {
+                           echo "<td class=\"".$style."\"><a href=\"javascript:this.blur(); openPopup('daynote.php?date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20" . $LANG['monthnames'][intval($monthno)] . "%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\">
+                                    <img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"" . $LANG['month_daynote_tooltip'] . "\" border=\"0\">
+                                 </a>
+                              </td>\n";
+                        }
+                        else 
+                        {
+                           $ttid = 'td-'.$i;
+                           $ttbody=$N->daynote;
+                           $ttcaption = $LANG['tt_title_dayinfo'];
+                           $ttcapicon = 'themes/'.$theme.'/img/ico_daynote.png';
+                           echo '<td class="'.$style.'" id="'.$ttid.'">'.createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
+                        }
+                        
+                        if ($x <= 6) $x += 1;
+                        else         $x  = 1;
+                     }
+                     ?>
+                  </tr>
+                  
+                  <!-- Personal daynote row -->
                   <?php 
                   if ( !intval($C->readConfig("hideDaynotes")) 
                         OR ( $UL->checkUserType($CONF['UTADMIN']) 
@@ -1217,7 +1280,7 @@ $CONF['options']['lang']=$currlang;
                   {
                      $x = intval($weekday1); ?>
                      <tr>
-                        <td class="title"><?=$LANG['month_daynote']?></td>
+                        <td class="title"><?=$LANG['month_personal_daynote']?></td>
                         <td class="title-button">&nbsp;</td>
                      <?php for ($i=1; $i<=$nofdays; $i=$i+1) {
                         if ($i<10) $dd="0".strval($i); else $dd=strval($i);
