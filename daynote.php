@@ -173,54 +173,53 @@ if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
 }
 require( "includes/header_html_inc.php" );
 ?>
-<body>
-   <div id="content">
-      <div id="content-content">
-         <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."?date=".$_REQUEST['date']."&amp;daynotefor=".$_REQUEST['daynotefor']."&amp;region=".$region."&amp;datestring=".$_REQUEST['datestring']?>">
-         <table class="dlg">
-            <tr>
-               <td class="dlg-header" colspan="3">
-                  <?php
-                  $title=$LANG['daynote_edit_title'].$_REQUEST['datestring']." (".$LANG['month_region'].": ".$region.")";
-                  if ( $_REQUEST['daynotefor']!="all" ) $title .= " ".$LANG['daynote_edit_title_for']." ".$daynote_user;
-                  printDialogTop($title, $help, "ico_daynote.png");
-                  ?>
-               </td>
-            </tr>
-            <tr>
-               <td class="dlg-body">
-                  <table class="dlg-frame">
-                     <tr>
-                        <td class="dlg-body"><strong><?=$LANG['daynote_edit_msg_caption']?></strong><br>
-                        <?=$LANG['daynote_edit_msg_hint']?></td>
-                     </tr>
-                     <tr>
-                        <td class="dlg-body">
-                           <textarea name="daynote" id="daynote" class="text" cols="50" rows="6"><?php if ( $daynote_exists ) echo str_replace("<br>","\r\n",stripslashes(trim($N->daynote))); else echo str_replace("<br>","\r\n",$LANG['daynote_edit_msg']); ?></textarea>
-                           <br>
-                        </td>
-                     </tr>
-                  </table>
-               </td>
-              </tr>
-              <tr>
-                 <td class="dlg-menu">
-                    <?php
-                    if ($daynote_exists) { ?>
-                        <input name="btn_save" type="submit" class="button" value="<?=$LANG['btn_save']?>">
-                        <input name="btn_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>">
-                    <?php } else { ?>
-                        <input name="btn_create" type="submit" class="button" value="<?=$LANG['btn_create']?>">
-                    <?php } ?>
-                    <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
-                    <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
-                    <input name="btn_done" type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_done']?>">
-                 </td>
-              </tr>
-            </table>
-         </form>
-      </div>
+<div id="content">
+   <div id="content-content">
+      <form name="message" method="POST" action="<?=$_SERVER['PHP_SELF']."?date=".$_REQUEST['date']."&amp;daynotefor=".$_REQUEST['daynotefor']."&amp;region=".$region."&amp;datestring=".$_REQUEST['datestring']?>">
+      <table class="dlg">
+         <tr>
+            <td class="dlg-header" colspan="3">
+               <?php
+               $title=$LANG['daynote_edit_title'].$_REQUEST['datestring']." (".$LANG['month_region'].": ".$region.")";
+               if ( $_REQUEST['daynotefor']!="all" ) $title .= " ".$LANG['daynote_edit_title_for']." ".$daynote_user;
+               printDialogTop($title, $help, "ico_daynote.png");
+               ?>
+            </td>
+         </tr>
+         <tr>
+            <td class="dlg-body">
+               <table class="dlg-frame">
+                  <tr>
+                     <td class="dlg-body"><strong><?=$LANG['daynote_edit_msg_caption']?></strong><br>
+                     <?=$LANG['daynote_edit_msg_hint']?></td>
+                  </tr>
+                  <tr>
+                     <td class="dlg-body">
+                        <textarea name="daynote" id="daynote" class="text" cols="50" rows="6"><?php if ( $daynote_exists ) echo str_replace("<br>","\r\n",stripslashes(trim($N->daynote))); else echo str_replace("<br>","\r\n",$LANG['daynote_edit_msg']); ?></textarea>
+                        <br>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+           </tr>
+           <tr>
+              <td class="dlg-menu">
+                 <?php
+                 if ($daynote_exists) { ?>
+                     <input name="btn_save" type="submit" class="button" value="<?=$LANG['btn_save']?>">
+                     <input name="btn_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>">
+                 <?php } else { ?>
+                     <input name="btn_create" type="submit" class="button" value="<?=$LANG['btn_create']?>">
+                 <?php } ?>
+                 <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
+                 <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
+                 <input name="btn_done" type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_done']?>">
+              </td>
+           </tr>
+         </table>
+      </form>
    </div>
+</div>
 <?php
 switch ($event) {
    case "created": echo ("<script type=\"text/javascript\">alert(\"" . $LANG['daynote_edit_event_created'] . "\")</script>"); break;

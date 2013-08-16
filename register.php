@@ -189,145 +189,144 @@ $help = urldecode($C->readConfig("userManual")).'User+Registration';
 
 require("includes/header_html_inc.php");
 ?>
-<body>
-   <div id="content">
-      <div id="content-content">
-         <form name="login" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-            <table class="dlg">
-               <tr>
-                  <td class="dlg-header">
-                     <?php printDialogTop($LANG['register_title'], $help, "ico_register.png"); ?>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-body" style="padding-left: 8px;">
-                     <fieldset><legend><?=$LANG['register_frame']?></legend>
-                        <table class="dlg-frame">
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['register_lastname']?></strong></td>
-                              <td class="dlg-body">
-                                 <input name="txt_lastname" id="txt_lastname" size="30" type="text" class="text" value="<?=(isset($_POST['txt_lastname']) && strlen($_POST['txt_lastname']))?$_POST['txt_lastname']:""?>">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['register_firstname']?></strong></td>
-                              <td class="dlg-body">
-                                 <input name="txt_firstname" id="txt_firstname" size="30" type="text" class="text" value="<?=(isset($_POST['txt_firstname']) && strlen($_POST['txt_firstname']))?$_POST['txt_firstname']:""?>">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['register_username']?></strong></td>
-                              <td class="dlg-body">
-                                 <input name="txt_username" id="txt_username" size="30" type="text" class="text" value="<?=(isset($_POST['txt_username']) && strlen($_POST['txt_username']))?$_POST['txt_username']:""?>">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['register_email']?></strong></td>
-                              <td class="dlg-body">
-                                 <input name="txt_email" id="txt_email" size="30" type="text" class="text" value="<?=(isset($_POST['txt_email']) && strlen($_POST['txt_email']))?$_POST['txt_email']:""?>">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['register_password']?></strong></td>
-                              <td class="dlg-body">
-                                 <input name="txt_password" id="txt_password" size="30" type="password" class="text" value="">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['register_password2']?></strong></td>
-                              <td class="dlg-body">
-                                 <input name="txt_password2" id="txt_password2" size="30" type="password" class="text" value="">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['show_profile_gender']?></strong></td>
-                              <td class="dlg-body">
-                                 <?php
-                                 $checked_male="";
-                                 $checked_female="";
-                                 if (isset ($_POST['btn_submit'])) {
-                                    switch ($_POST['opt_gender']) {
-                                       case "ut_male" :
-                                          $checked_male="CHECKED";
-                                          break;
-                                       case "ut_female" :
-                                          $checked_female="CHECKED";
-                                          break;
-                                    }
+<div id="content">
+   <div id="content-content">
+      <form name="login" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+         <table class="dlg">
+            <tr>
+               <td class="dlg-header">
+                  <?php printDialogTop($LANG['register_title'], $help, "ico_register.png"); ?>
+               </td>
+            </tr>
+            <tr>
+               <td class="dlg-body" style="padding-left: 8px;">
+                  <fieldset><legend><?=$LANG['register_frame']?></legend>
+                     <table class="dlg-frame">
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['register_lastname']?></strong></td>
+                           <td class="dlg-body">
+                              <input name="txt_lastname" id="txt_lastname" size="30" type="text" class="text" value="<?=(isset($_POST['txt_lastname']) && strlen($_POST['txt_lastname']))?$_POST['txt_lastname']:""?>">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['register_firstname']?></strong></td>
+                           <td class="dlg-body">
+                              <input name="txt_firstname" id="txt_firstname" size="30" type="text" class="text" value="<?=(isset($_POST['txt_firstname']) && strlen($_POST['txt_firstname']))?$_POST['txt_firstname']:""?>">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['register_username']?></strong></td>
+                           <td class="dlg-body">
+                              <input name="txt_username" id="txt_username" size="30" type="text" class="text" value="<?=(isset($_POST['txt_username']) && strlen($_POST['txt_username']))?$_POST['txt_username']:""?>">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['register_email']?></strong></td>
+                           <td class="dlg-body">
+                              <input name="txt_email" id="txt_email" size="30" type="text" class="text" value="<?=(isset($_POST['txt_email']) && strlen($_POST['txt_email']))?$_POST['txt_email']:""?>">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['register_password']?></strong></td>
+                           <td class="dlg-body">
+                              <input name="txt_password" id="txt_password" size="30" type="password" class="text" value="">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['register_password2']?></strong></td>
+                           <td class="dlg-body">
+                              <input name="txt_password2" id="txt_password2" size="30" type="password" class="text" value="">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['show_profile_gender']?></strong></td>
+                           <td class="dlg-body">
+                              <?php
+                              $checked_male="";
+                              $checked_female="";
+                              if (isset ($_POST['btn_submit'])) {
+                                 switch ($_POST['opt_gender']) {
+                                    case "ut_male" :
+                                       $checked_male="CHECKED";
+                                       break;
+                                    case "ut_female" :
+                                       $checked_female="CHECKED";
+                                       break;
                                  }
-                                 ?>
-                                 <input name="opt_gender" id="utmale" type="radio" value="ut_male" <?=$checked_male?>><?=$LANG['show_profile_male']?>
-                                 &nbsp;&nbsp;
-                                 <input name="opt_gender" id="utfemale" type="radio" value="ut_female" <?=$checked_female?>><?=$LANG['show_profile_female']?>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['register_group']?></strong></td>
-                              <td class="dlg-body">
-                                 <select name="lst_group" id="lst_group" class="select">
-                                 <?php
+                              }
+                              ?>
+                              <input name="opt_gender" id="utmale" type="radio" value="ut_male" <?=$checked_male?>><?=$LANG['show_profile_male']?>
+                              &nbsp;&nbsp;
+                              <input name="opt_gender" id="utfemale" type="radio" value="ut_female" <?=$checked_female?>><?=$LANG['show_profile_female']?>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['register_group']?></strong></td>
+                           <td class="dlg-body">
+                              <select name="lst_group" id="lst_group" class="select">
+                              <?php
+                              $selected="";
+                              $groups = $G->getAll();
+                              foreach ($groups as $row) {
+                                 if ( isset($_POST['lst_group']) && strlen($_POST['lst_group']) && ($row['groupname']==$_POST['lst_group']) ) $selected=" SELECTED";
+                                 echo "<option class=\"option\" value=\"".$row['groupname']."\"".$selected.">".$row['groupname']."</option>\n\r";
                                  $selected="";
-                                 $groups = $G->getAll();
-                                 foreach ($groups as $row) {
-                                    if ( isset($_POST['lst_group']) && strlen($_POST['lst_group']) && ($row['groupname']==$_POST['lst_group']) ) $selected=" SELECTED";
-                                    echo "<option class=\"option\" value=\"".$row['groupname']."\"".$selected.">".$row['groupname']."</option>\n\r";
-                                    $selected="";
-                                 }
-                                 ?>
-                                 </select>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body">&nbsp;</td>
-                              <td style="vertical-align: top;">
-                                 <img src="helpers/randomimage_helper.php" alt="" align="bottom">
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="dlg-body"><strong><?=$LANG['register_code']?></strong></td>
-                              <td style="vertical-align: top;">
-                                 <input name="txt_code" id="txt_code" size="8" type="text" class="text" value="">
-                              </td>
-                           </tr>
-                        </table>
-                     </fieldset>
+                              }
+                              ?>
+                              </select>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body">&nbsp;</td>
+                           <td style="vertical-align: top;">
+                              <img src="helpers/randomimage_helper.php" alt="" align="bottom">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-body"><strong><?=$LANG['register_code']?></strong></td>
+                           <td style="vertical-align: top;">
+                              <input name="txt_code" id="txt_code" size="8" type="text" class="text" value="">
+                           </td>
+                        </tr>
+                     </table>
+                  </fieldset>
 
-                     <?php if ( strlen($error) ) { ?>
-                     <fieldset><legend><?=$LANG['register_result']?></legend>
-                        <table class="dlg-frame">
-                           <tr>
-                              <td class="dlg-body" colspan="2">
-                                 <div class="erraction">
-                                 <?=$error?>
-                                 </div>
-                              </td>
-                           </tr>
-                        </table>
-                     </fieldset>
-                     <?php } elseif (strlen($information)) { ?>
-                     <fieldset><legend><?=$LANG['register_result']?></legend>
-                        <table class="dlg-frame">
-                           <tr>
-                              <td class="dlg-body" colspan="2">
-                                 <div class="class">
-                                 <?=$information?>
-                                 </div>
-                              </td>
-                           </tr>
-                        </table>
-                     </fieldset>
-                     <?php } ?>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-menu">
-                      <input name="btn_submit" type="submit" class="button" value="<?=$LANG['btn_submit']?>">
-                      <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
-                      <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
-                  </td>
-               </tr>
-            </table>
-         </form>
-      </div>
+                  <?php if ( strlen($error) ) { ?>
+                  <fieldset><legend><?=$LANG['register_result']?></legend>
+                     <table class="dlg-frame">
+                        <tr>
+                           <td class="dlg-body" colspan="2">
+                              <div class="erraction">
+                              <?=$error?>
+                              </div>
+                           </td>
+                        </tr>
+                     </table>
+                  </fieldset>
+                  <?php } elseif (strlen($information)) { ?>
+                  <fieldset><legend><?=$LANG['register_result']?></legend>
+                     <table class="dlg-frame">
+                        <tr>
+                           <td class="dlg-body" colspan="2">
+                              <div class="class">
+                              <?=$information?>
+                              </div>
+                           </td>
+                        </tr>
+                     </table>
+                  </fieldset>
+                  <?php } ?>
+               </td>
+            </tr>
+            <tr>
+               <td class="dlg-menu">
+                   <input name="btn_submit" type="submit" class="button" value="<?=$LANG['btn_submit']?>">
+                   <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
+                   <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
+               </td>
+            </tr>
+         </table>
+      </form>
    </div>
+</div>
 <?php require("includes/footer_inc.php"); ?>

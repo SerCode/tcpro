@@ -248,7 +248,7 @@ $LANG['daynote_edit_title'] = 'Edit Daynote for ';
 $LANG['daynote_edit_title_for'] = 'for';
 $LANG['daynote_edit_msg_caption'] = 'Note of the day:';
 $LANG['daynote_edit_msg_hint'] = '(You may use formatting HTML tags like &lt;b&gt;.)';
-$LANG['daynote_edit_msg'] = '<b>Note of the day</b><br>...your note here...';
+$LANG['daynote_edit_msg'] = '<strong>Note of the day</strong><br>...your note here...';
 $LANG['daynote_edit_event_created'] = '[CONFIRMATION]\n\nYour daynote has been created.';
 $LANG['daynote_edit_event_saved'] = '[CONFIRMATION]\n\nYour daynote has been saved.';
 $LANG['daynote_edit_event_deleted'] = '[CONFIRMATION]\n\nYour daynote has been deleted.';
@@ -1850,7 +1850,7 @@ $LANG['admin_config_fastedit_comment'] = 'With this option enabled, an additiona
 'button for each day. Clicking it will show an absence drop down list for each user for that day. An absence type can be selected and the [Apply] '.
 'button will save the selected absences right away. Note, that no declination check will be performed with Fast Edit. This feature here is rather meant '.
 'for managers. However, you can of course enable the corresponding permission for regular users as well.<br>'.
-'<br><b>Attention</b>: Fast Edit may create a large amount of $_POST input variables, depending on the number of users. Ceck the <i>max_input_vars</i> '.
+'<br><strong>Attention</strong>: Fast Edit may create a large amount of $_POST input variables, depending on the number of users. Ceck the <i>max_input_vars</i> '.
 'value in your php.ini. It is commonly set to 1000, i.e. you will reach that amount if you maintain around 20 users. Fast Edit will not work anymore '.
 'if that value is exceeded.';
 

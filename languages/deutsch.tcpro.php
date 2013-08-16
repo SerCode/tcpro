@@ -248,7 +248,7 @@ $LANG['daynote_edit_title'] = 'Tagesnotiz f&uuml;r ';
 $LANG['daynote_edit_title_for'] = 'f&uuml;r';
 $LANG['daynote_edit_msg_caption'] = 'Tagesnotiz:';
 $LANG['daynote_edit_msg_hint'] = '(Du kannst Format HTML Tags benutzen wie &lt;b&gt;.)';
-$LANG['daynote_edit_msg'] = '<b>Tagesnotiz</b><br>...die ist die Notiz...';
+$LANG['daynote_edit_msg'] = '<strong>Tagesnotiz</strong><br>...die ist die Notiz...';
 $LANG['daynote_edit_event_created'] = '[CONFIRMATION]\n\nDie Tagesnotiz wurde angelegt.';
 $LANG['daynote_edit_event_saved'] = '[CONFIRMATION]\n\nDie Tagesnotiz wurde gespeichert.';
 $LANG['daynote_edit_event_deleted'] = '[CONFIRMATION]\n\nDie Tagesnotiz wurde gel&ouml;scht.';
@@ -1849,7 +1849,7 @@ $LANG['admin_config_fastedit_comment'] = 'Mit dieser Option wir eine zus&auml;tz
 'Dadurch wird eine Abwesenheits-Drop-Down-Liste f&uuml;r jeden Nutzer an diesem Tag sichtbar. Eine Abwesenheit kann darin direkt gew&auml;hlt und mit dem '.
 '[Anwenden] Knopf gespeichert werden. Hinweis: Bei der Schnellbearbeitung wird kein Ablehnungscheck durchlaufen. Dieses Feature hier ist eher f&uuml;r '.
 'Manager gedacht. Nat&uuml;rlich kann es aber auch &uuml;ber die Berechtigungen normalen Nutzern verf&uuml;gbar gemachet werden.<br>'.
-'<br>Achtung: Bei vielen Nutzern kann hier eine erhebliche Anzahl an $_POST Eingabe-Variablen enstehen. Bitte den <b>max_input_vars</b> '.
+'<br>Achtung: Bei vielen Nutzern kann hier eine erhebliche Anzahl an $_POST Eingabe-Variablen enstehen. Bitte den <strong>max_input_vars</strong> '.
 'Wert in der php.ini pr&uuml;fen. Dieser steht z.B. oft bei 1000, d.h. bei knapp 20 Nutzern werden die 1000 &uuml;berschritten und die Schnellbearbeitung '.
 'funktioniert nicht mehr.';
 

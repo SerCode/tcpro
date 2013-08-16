@@ -101,93 +101,92 @@ if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
 }
 require( "includes/header_html_inc.php" );
 ?>
-<body>
-   <div id="content">
-      <div id="content-content">
-         <form name="userprofile" method="POST" action="<?=$_SERVER['PHP_SELF']."?username=".$U->username?>">
-            <table class="dlg">
-               <tr>
-                  <td class="dlg-header">
-                     <?php printDialogTop($LANG['view_profile_title'], $help, "ico_users.png"); ?>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-body">
-                     <table class="dlg-frame">
-                        <tr>
-                           <td class="dlg-body" width="110" rowspan="9">
-                              <?php
-                              if ($AV->find($U->username)) {
-                                 echo "<img src=\"".$AV->path.$AV->filename.".".$AV->fileextension."\" align=\"top\" border=\"0\" alt=\"".$U->username."\" title=\"".$U->username."\">";
-                              }
-                              else {
-                                 echo "<img src=\"".$AV->path."noavatar.gif\" align=\"top\" border=\"0\" alt=\"No avatar\" title=\"No avatar\">";
-                              }
-                              ?>
-                           </td>
-                           <td class="dlg-body" width="80"><?=$LANG['show_profile_name']?></td>
-                           <td class="dlg-body2"><b><?=$U->title." ".$U->firstname." ".$U->lastname?></b></td>
-                        </tr>
-                        <tr>
-                           <td class="dlg-body" width="80"><?=$LANG['show_profile_uname']?></td>
-                           <td class="dlg-body"><?=$U->username?></td>
-                        </tr>
-                        <tr>
-                           <td class="dlg-body" width="80"><?=$LANG['show_profile_position']?></td>
-                           <td class="dlg-body"><?=$U->position?></td>
-                        </tr>
-                        <tr>
-                           <td class="dlg-body" width="80"><?=$LANG['show_profile_idnumber']?></td>
-                           <td class="dlg-body"><?=$U->idnumber?></td>
-                        </tr>
-                        <tr>
-                           <td class="dlg-body" width="80"><?=$LANG['show_profile_group']?></td>
-                           <td class="dlg-body">
-                              <?php
-                              $ugroups = $UG->getAllforUser($U->username);
-                              foreach ($ugroups as $row) {
-                                 $G->findByName($row['groupname']);
-                                 echo $row['groupname']." - ".$G->description." (".ucfirst($row['type']).")<br>";
-                              }
-                              ?>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td class="dlg-body" width="80"><?=$LANG['show_profile_phone']?></td>
-                           <td class="dlg-body"><?=$U->phone?></td>
-                        </tr>
-                        <tr>
-                           <td class="dlg-body" width="80"><?=$LANG['show_profile_mobile']?></td>
-                           <td class="dlg-body"><?=$U->mobile?></td>
-                        </tr>
-                        <tr>
-                           <td class="dlg-body" width="80"><?=$LANG['show_profile_email']?></td>
-                           <td class="dlg-body"><?=$U->email?></td>
-                        </tr>
-                     </table>
-                  </td>
-               </tr>
+<div id="content">
+   <div id="content-content">
+      <form name="userprofile" method="POST" action="<?=$_SERVER['PHP_SELF']."?username=".$U->username?>">
+         <table class="dlg">
+            <tr>
+               <td class="dlg-header">
+                  <?php printDialogTop($LANG['view_profile_title'], $help, "ico_users.png"); ?>
+               </td>
+            </tr>
+            <tr>
+               <td class="dlg-body">
+                  <table class="dlg-frame">
+                     <tr>
+                        <td class="dlg-body" width="110" rowspan="9">
+                           <?php
+                           if ($AV->find($U->username)) {
+                              echo "<img src=\"".$AV->path.$AV->filename.".".$AV->fileextension."\" align=\"top\" border=\"0\" alt=\"".$U->username."\" title=\"".$U->username."\">";
+                           }
+                           else {
+                              echo "<img src=\"".$AV->path."noavatar.gif\" align=\"top\" border=\"0\" alt=\"No avatar\" title=\"No avatar\">";
+                           }
+                           ?>
+                        </td>
+                        <td class="dlg-body" width="80"><?=$LANG['show_profile_name']?></td>
+                        <td class="dlg-body2"><b><?=$U->title." ".$U->firstname." ".$U->lastname?></b></td>
+                     </tr>
+                     <tr>
+                        <td class="dlg-body" width="80"><?=$LANG['show_profile_uname']?></td>
+                        <td class="dlg-body"><?=$U->username?></td>
+                     </tr>
+                     <tr>
+                        <td class="dlg-body" width="80"><?=$LANG['show_profile_position']?></td>
+                        <td class="dlg-body"><?=$U->position?></td>
+                     </tr>
+                     <tr>
+                        <td class="dlg-body" width="80"><?=$LANG['show_profile_idnumber']?></td>
+                        <td class="dlg-body"><?=$U->idnumber?></td>
+                     </tr>
+                     <tr>
+                        <td class="dlg-body" width="80"><?=$LANG['show_profile_group']?></td>
+                        <td class="dlg-body">
+                           <?php
+                           $ugroups = $UG->getAllforUser($U->username);
+                           foreach ($ugroups as $row) {
+                              $G->findByName($row['groupname']);
+                              echo $row['groupname']." - ".$G->description." (".ucfirst($row['type']).")<br>";
+                           }
+                           ?>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="dlg-body" width="80"><?=$LANG['show_profile_phone']?></td>
+                        <td class="dlg-body"><?=$U->phone?></td>
+                     </tr>
+                     <tr>
+                        <td class="dlg-body" width="80"><?=$LANG['show_profile_mobile']?></td>
+                        <td class="dlg-body"><?=$U->mobile?></td>
+                     </tr>
+                     <tr>
+                        <td class="dlg-body" width="80"><?=$LANG['show_profile_email']?></td>
+                        <td class="dlg-body"><?=$U->email?></td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
 
-               <?php if (isAllowed("viewUserAbsenceCounts")) { ?>
-               <tr>
-                  <td class="dlg-bodyffc">
-                     <div align="center">
-                     <?php include( "includes/absencecount_inc.php" ); ?>
-                     </div>
-                  </td>
-               </tr>
-               <?php } ?>
+            <?php if (isAllowed("viewUserAbsenceCounts")) { ?>
+            <tr>
+               <td class="dlg-bodyffc">
+                  <div align="center">
+                  <?php include( "includes/absencecount_inc.php" ); ?>
+                  </div>
+               </td>
+            </tr>
+            <?php } ?>
 
-               <tr>
-                  <td class="dlg-menu">
-                     <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
-                     <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
-                  </td>
-               </tr>
-            </table>
-         </form>
-      </div>
+            <tr>
+               <td class="dlg-menu">
+                  <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
+                  <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
+               </td>
+            </tr>
+         </table>
+      </form>
    </div>
+</div>
 <?php
 if ($msg) echo ("<script type=\"text/javascript\">alert(\"".$message."\")</script>");
 require( "includes/footer_inc.php" );
