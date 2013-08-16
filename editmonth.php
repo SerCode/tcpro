@@ -223,188 +223,212 @@ if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
 }
 require("includes/header_html_inc.php");
 ?>
-<body>
-   <div id="content">
-      <div id="content-content">
-         <form  name="monthform" method="POST" action="<?=($_SERVER['PHP_SELF']."?region=".$region."&amp;Year=".$Year."&amp;Month=".$Month)?>">
-            <table class="dlg">
-               <tr>
-                  <td class="dlg-header">
-                     <?php printDialogTop($LANG['month_edit']." ".$LANG['monthnames'][intval($monthno)]." ".$Year." (".$LANG['month_region'].": ".$region.")", $help, "ico_holidays.png"); ?>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-body">
-                     <?php
-                     /**
-                      * Month frame: Day of month
-                      */
-                     ?>
-                     <br>
-                     <table class="month">
-                        <tr>
-                           <td class="month"><?=$LANG['monthnames'][intval($monthno)] . "&nbsp;" . trim($Year)?></td>
-                           <td class="month-button">&nbsp;</td>
-                           <?php
-                           /**
-                            * Daynumber row
-                            */
-                           for ($i = 1; $i <= $nofdays; $i = $i +1) {
-                              if ($H->findBySymbol($M->template[$i -1])) {
-                                 if ($H->cfgname == 'busi') {
-                                    // A business day has a special bgcolor in this dayofmonth row
-                                    echo "<td class=\"daynum\">" . $i . "</td>";
-                                 } else {
-                                    echo "<td class=\"daynum-" . $H->cfgname . "\">" . $i . "</td>";
-                                 }
-                              } else {
-                                 echo "<td class=\"daynum\">" . $i . "</td>";
-                              }
-                           }
-                           ?>
-                        </tr>
-                        <tr>
-                           <td class="title" style="font-size: 8pt;">
-                              <input title="<?=$LANG['tt_page_bwd']?>" name="btn_bwd" type="submit" class="button" value="&lt;&lt;">
-                              <input title="<?=$LANG['tt_page_fwd']?>" name="btn_fwd" type="submit" class="button" value="&gt;&gt;">
-                              <input type="hidden" name="hid_fwdMonth" value="<?=$fwdMonth?>">
-                              <input type="hidden" name="hid_fwdYear" value="<?=$fwdYear?>">
-                              <input type="hidden" name="hid_bwdMonth" value="<?=$bwdMonth?>">
-                              <input type="hidden" name="hid_bwdYear" value="<?=$bwdYear?>">
-                           </td>
-                           <td class="title-button">&nbsp;</td>
-                           <?php
-                           /**
-                            * Weekday columns
-                            */
-                           $x = intval($weekday1);
-                           for ($i = 1; $i <= $nofdays; $i = $i +1) {
-                              if ($H->findBySymbol($M->template[$i -1])) {
-                                 if ($H->cfgname == 'busi') {
-                                    // A business day has a special bgcolor in this dayofweek row
-                                    echo "<td class=\"weekday\">" . $weekdays[$x] . "</td>";
-                                 } else {
-                                    echo "<td class=\"weekday-" . $H->cfgname . "\">" . $weekdays[$x] . "</td>";
-                                 }
-                              } else {
-                                 echo "<td class=\"weekday\">" . $weekdays[$x] . "</td>";
-                              }
-                              if ($x <= 6)
-                                 $x += 1;
-                              else
-                                 $x = 1;
-                           }
-                           ?>
-                        </tr>
-                        <tr>
-                           <td class="name"><?=$LANG['month_daynote']?></td>
-                           <td class="name-button">&nbsp;</td>
-                           <?php
-                           /**
-                            * Daynote columns
-                            */
-                           $x = intval($weekday1);
-                           for ($i = 1; $i <= $nofdays; $i = $i +1) {
-                              if ($i < 10)
-                                 $dd = "0" . strval($i);
-                              else
-                                 $dd = strval($i);
-                              if ($H->findBySymbol($M->template[$i -1])) {
-                                 if ($H->cfgname == 'busi') {
-                                    if ($N->findByDay($Year . $monthno . $dd, "all", $region))
-                                       $style = "weekday-note";
-                                    else
-                                       $style = "weekday";
-                                 } else {
-                                    if ($N->findByDay($Year . $monthno . $dd, "all", $region))
-                                       $style = "weekday-" . $H->cfgname . "-note";
-                                    else
-                                       $style = "weekday-" . $H->cfgname;
-                                 }
-                              } else {
-                                 if ($N->findByDay($Year . $monthno . $dd, "all", $region))
-                                    $style = "weekday-note";
-                                 else
-                                    $style = "weekday";
-                              }
-                              echo "<td class=\"" . $style . "\">";
-                              if (isAllowed("editGlobalDaynotes")) {
-                                 echo "<a href=\"javascript:this.blur(); openPopup('daynote.php?date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20" . $LANG['monthnames'][intval($monthno)] . "%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\">
-                                          <img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"" . $LANG['month_daynote_tooltip'] . "\" border=\"0\">
-                                       </a>
-                                    </td>\n";
-                              }
-                              if ($x <= 6)
-                                 $x += 1;
-                              else
-                                 $x = 1;
-                           }
-                           ?>
-                        </tr>
+<div id="content">
+   <div id="content-content">
+      <form  name="monthform" method="POST" action="<?=($_SERVER['PHP_SELF']."?region=".$region."&amp;Year=".$Year."&amp;Month=".$Month)?>">
+         <table class="dlg">
+            <tr>
+               <td class="dlg-header">
+                  <?php printDialogTop($LANG['month_edit']." ".$LANG['monthnames'][intval($monthno)]." ".$Year." (".$LANG['month_region'].": ".$region.")", $help, "ico_holidays.png"); ?>
+               </td>
+            </tr>
+            <tr>
+               <td class="dlg-body">
+                  <?php
+                  /**
+                   * Month frame: Day of month
+                   */
+                  ?>
+                  <br>
+                  <table class="month">
+                     <tr>
+                        <td class="month"><?=$LANG['monthnames'][intval($monthno)] . "&nbsp;" . trim($Year)?></td>
+                        <td class="month-button">&nbsp;</td>
                         <?php
                         /**
-                         * Holiday rows
+                         * Daynumber row
                          */
-                        $i = 1;
-                        $holidays = $H->getAll();
-                        foreach ($holidays as $row) {
-                           // Show a row for each type of day except business and weekend.
-                           if ($row['cfgsym'] != '0' && $row['cfgsym'] != '1') {
-                              echo "
-                                 <tr>
-                                    <td class=\"name\">" . $row['dspname'] . "</td>
-                                    <td class=\"name-button\">&nbsp;</td>";
-                              for ($count=0; $count<strlen($M->template); $count++) {
-                                 if ($M->template[$count] == $row['cfgsym']) {
-                                    echo "
-                                       <td class=\"day-".$row['cfgname']."\">
-                                          <input name=\"opt_hol_".($count+1)."\" type=\"radio\" value=\"".$row['cfgsym']."\" CHECKED>";
-                                 } else {
-                                    if ($H2->findBySymbol($M->template[$count])) {
-                                       echo "<td class=\"day-".$H2->cfgname."\">";
-                                    } else {
-                                       echo "<td class=\"day\">";
-                                    }
-                                    echo "<input name=\"opt_hol_".($count+1)."\" type=\"radio\" value=\"".$row['cfgsym']."\">";
-                                 }
-                                 echo "</td>";
+                        for ($i = 1; $i <= $nofdays; $i = $i +1) {
+                           if ($H->findBySymbol($M->template[$i -1])) {
+                              if ($H->cfgname == 'busi') {
+                                 // A business day has a special bgcolor in this dayofmonth row
+                                 echo "<td class=\"daynum\">" . $i . "</td>";
+                              } else {
+                                 echo "<td class=\"daynum-" . $H->cfgname . "\">" . $i . "</td>";
                               }
-                              echo "</tr>";
+                           } else {
+                              echo "<td class=\"daynum\">" . $i . "</td>";
                            }
                         }
-                     
-                        /**
-                         * Clear Holiday row
-                         */
                         ?>
-                        <tr>
-                           <td class="title"><?=$LANG['month_clear_holiday']?></td>
-                           <td class="title-button">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td class="title" style="font-size: 8pt;">
+                           <input title="<?=$LANG['tt_page_bwd']?>" name="btn_bwd" type="submit" class="button" value="&lt;&lt;">
+                           <input title="<?=$LANG['tt_page_fwd']?>" name="btn_fwd" type="submit" class="button" value="&gt;&gt;">
+                           <input type="hidden" name="hid_fwdMonth" value="<?=$fwdMonth?>">
+                           <input type="hidden" name="hid_fwdYear" value="<?=$fwdYear?>">
+                           <input type="hidden" name="hid_bwdMonth" value="<?=$bwdMonth?>">
+                           <input type="hidden" name="hid_bwdYear" value="<?=$bwdYear?>">
+                        </td>
+                        <td class="title-button">&nbsp;</td>
                         <?php
                         /**
-                         * Show a line for this absence type covering each day of the month
+                         * Weekday columns
                          */
-                        for ($count=0; $count<strlen($M->template); $count++) { ?>
-                           <td class="weekday"><input name="opt_hol_<?=$count+1?>" type="radio" value="0"></td>
-                        <?php } ?>
-                        </tr>
+                        $x = intval($weekday1);
+                        for ($i = 1; $i <= $nofdays; $i = $i +1) {
+                           if ($H->findBySymbol($M->template[$i -1])) {
+                              if ($H->cfgname == 'busi') {
+                                 // A business day has a special bgcolor in this dayofweek row
+                                 echo "<td class=\"weekday\">" . $weekdays[$x] . "</td>";
+                              } else {
+                                 echo "<td class=\"weekday-" . $H->cfgname . "\">" . $weekdays[$x] . "</td>";
+                              }
+                           } else {
+                              echo "<td class=\"weekday\">" . $weekdays[$x] . "</td>";
+                           }
+                           if ($x <= 6)
+                              $x += 1;
+                           else
+                              $x = 1;
+                        }
+                        ?>
+                     </tr>
+                     <tr>
+                        <td class="title"><?=$LANG['month_global_daynote']?></td>
+                        <td class="title-button">&nbsp;</td>
+                        <?php
+                        /**
+                         * Global daynote row
+                         */
+                        $x = intval($weekday1);
+                        for ($i = 1; $i <= $nofdays; $i = $i +1) 
+                        {
+                           if ($i < 10)
+                              $dd = "0" . strval($i);
+                           else
+                              $dd = strval($i);
+   
+                           $ttid = 'td-'.$i;
+                           
+                           if ($N->findByDay($Year . $monthno . $dd, "all", $region))
+                           {
+                              $ttbody=$N->daynote;
+                              $ttcaption = $LANG['tt_title_dayinfo'];
+                              $ttcapicon = 'themes/'.$theme.'/img/ico_daynote.png';
+                              
+                              if ($H->findBySymbol($M->template[$i -1]))
+                              {
+                                 if ($H->cfgname == 'busi')
+                                    $style = "weekday-note";
+                                 else
+                                    $style = "weekday-" . $H->cfgname . "-note";
+                              }
+                              else
+                              {
+                                 $style = "weekday-note";
+                              }
+                              
+                              echo '<td class="'.$style.'" id="'.$ttid.'">';
+                              if (isAllowed("editGlobalDaynotes"))
+                              {
+                                 echo "<a href=\"javascript:this.blur(); openPopup('daynote.php?date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20".$LANG['monthnames'][intval($monthno)]."%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\"><img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"".$LANG['month_daynote_tooltip']."\" border=\"0\"></a>";
+                              }
+                              echo createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
+                              echo "</td>\n";
+                           }
+                           else
+                           {
+                              if ($H->findBySymbol($M->template[$i -1]))
+                              {
+                                 if ($H->cfgname == 'busi')
+                                    $style = "weekday";
+                                 else
+                                    $style = "weekday-" . $H->cfgname;
+                              }
+                              else
+                              {
+                                 $style = "weekday";
+                              }
+                              
+                              echo '<td class="'.$style.'" id="'.$ttid.'">';
+                              if (isAllowed("editGlobalDaynotes"))
+                              {
+                                 echo "<a href=\"javascript:this.blur(); openPopup('daynote.php?date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20".$LANG['monthnames'][intval($monthno)]."%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\"><img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"".$LANG['month_daynote_tooltip']."\" border=\"0\"></a>";
+                              }
+                              echo "</td>\n";
+                           }
+                           
+                           if ($x <= 6) $x += 1;
+                           else         $x  = 1;
+                        }
+                        ?>
+                     </tr>
+                     <?php
+                     /**
+                      * Holiday rows
+                      */
+                     $i = 1;
+                     $holidays = $H->getAll();
+                     foreach ($holidays as $row) {
+                        // Show a row for each type of day except business and weekend.
+                        if ($row['cfgsym'] != '0' && $row['cfgsym'] != '1') {
+                           echo "
+                              <tr>
+                                 <td class=\"name\">" . $row['dspname'] . "</td>
+                                 <td class=\"name-button\">&nbsp;</td>";
+                           for ($count=0; $count<strlen($M->template); $count++) {
+                              if ($M->template[$count] == $row['cfgsym']) {
+                                 echo "
+                                    <td class=\"day-".$row['cfgname']."\">
+                                       <input name=\"opt_hol_".($count+1)."\" type=\"radio\" value=\"".$row['cfgsym']."\" CHECKED>";
+                              } else {
+                                 if ($H2->findBySymbol($M->template[$count])) {
+                                    echo "<td class=\"day-".$H2->cfgname."\">";
+                                 } else {
+                                    echo "<td class=\"day\">";
+                                 }
+                                 echo "<input name=\"opt_hol_".($count+1)."\" type=\"radio\" value=\"".$row['cfgsym']."\">";
+                              }
+                              echo "</td>";
+                           }
+                           echo "</tr>";
+                        }
+                     }
                   
-                        
-                     </table>
-                     <br>
-                  </td>
-               </tr>
-               <tr>
-                  <td class="dlg-menu">
-                     <input name="btn_clear" type="submit" class="button" value="<?=$LANG['btn_clear']?>">
-                     <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-                     <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
-                     <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
-                     <input name="btn_done" type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_done']?>">
-                  </td>
-               </tr>
-            </table>
-         </form>
-      </div>
+                     /**
+                      * Clear Holiday row
+                      */
+                     ?>
+                     <tr>
+                        <td class="title"><?=$LANG['month_clear_holiday']?></td>
+                        <td class="title-button">&nbsp;</td>
+                     <?php
+                     /**
+                      * Show a line for this absence type covering each day of the month
+                      */
+                     for ($count=0; $count<strlen($M->template); $count++) { ?>
+                        <td class="weekday"><input name="opt_hol_<?=$count+1?>" type="radio" value="0"></td>
+                     <?php } ?>
+                     </tr>
+               
+                     
+                  </table>
+                  <br>
+               </td>
+            </tr>
+            <tr>
+               <td class="dlg-menu">
+                  <input name="btn_clear" type="submit" class="button" value="<?=$LANG['btn_clear']?>">
+                  <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
+                  <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
+                  <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
+                  <input name="btn_done" type="button" class="button" onclick="javascript:closeme();" value="<?=$LANG['btn_done']?>">
+               </td>
+            </tr>
+         </table>
+      </form>
    </div>
+</div>
 <?php require("includes/footer_inc.php"); ?>

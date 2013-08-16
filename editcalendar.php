@@ -1126,7 +1126,6 @@ $currlang = $CONF['options']['lang'];
 require("includes/header_html_inc.php");
 $CONF['options']['lang']=$currlang;
 ?>
-<body>
 <div id="content">
    <div id="content-content">
       <form  name="monthform" method="POST" action="<?=$_SERVER['PHP_SELF']."?Year=".$Year."&amp;Month=".$Month."&amp;Member=".$caluser."&amp;region=".$region?>">
@@ -1221,46 +1220,55 @@ $CONF['options']['lang']=$currlang;
                            $dd = "0" . strval($i);
                         else
                            $dd = strval($i);
+
+                        $ttid = 'td-'.$i;
                         
-                        if ($H->findBySymbol($M->template[$i -1])) 
+                        if ($N->findByDay($Year . $monthno . $dd, "all", $region))
                         {
-                           if ($H->cfgname == 'busi') 
-                           {
-                              if ($N->findByDay($Year . $monthno . $dd, "all", $region))
-                                 $style = "weekday-note";
-                              else
-                                 $style = "weekday";
-                           } 
-                           else 
-                           {
-                              if ($N->findByDay($Year . $monthno . $dd, "all", $region))
-                                 $style = "weekday-" . $H->cfgname . "-note";
-                              else
-                                 $style = "weekday-" . $H->cfgname;
-                           }
-                        } 
-                        else 
-                        {
-                           if ($N->findByDay($Year . $monthno . $dd, "all", $region))
-                              $style = "weekday-note";
-                           else
-                              $style = "weekday";
-                        }
-                        
-                        if (isAllowed("editGlobalDaynotes")) 
-                        {
-                           echo "<td class=\"".$style."\"><a href=\"javascript:this.blur(); openPopup('daynote.php?date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20" . $LANG['monthnames'][intval($monthno)] . "%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\">
-                                    <img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"" . $LANG['month_daynote_tooltip'] . "\" border=\"0\">
-                                 </a>
-                              </td>\n";
-                        }
-                        else 
-                        {
-                           $ttid = 'td-'.$i;
                            $ttbody=$N->daynote;
                            $ttcaption = $LANG['tt_title_dayinfo'];
                            $ttcapicon = 'themes/'.$theme.'/img/ico_daynote.png';
-                           echo '<td class="'.$style.'" id="'.$ttid.'">'.createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
+                           
+                           if ($H->findBySymbol($M->template[$i -1]))
+                           {
+                              if ($H->cfgname == 'busi')
+                                 $style = "weekday-note";
+                              else
+                                 $style = "weekday-" . $H->cfgname . "-note";
+                           }
+                           else
+                           {
+                              $style = "weekday-note";
+                           }
+                           
+                           echo '<td class="'.$style.'" id="'.$ttid.'">';
+                           if (isAllowed("editGlobalDaynotes"))
+                           {
+                              echo "<a href=\"javascript:this.blur(); openPopup('daynote.php?date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20".$LANG['monthnames'][intval($monthno)]."%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\"><img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"".$LANG['month_daynote_tooltip']."\" border=\"0\"></a>";
+                           }
+                           echo createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
+                           echo "</td>\n";
+                        }
+                        else
+                        {
+                           if ($H->findBySymbol($M->template[$i -1]))
+                           {
+                              if ($H->cfgname == 'busi')
+                                 $style = "weekday";
+                              else
+                                 $style = "weekday-" . $H->cfgname;
+                           }
+                           else
+                           {
+                              $style = "weekday";
+                           }
+                           
+                           echo '<td class="'.$style.'" id="'.$ttid.'">';
+                           if (isAllowed("editGlobalDaynotes"))
+                           {
+                              echo "<a href=\"javascript:this.blur(); openPopup('daynote.php?date=$Year$monthno$dd&amp;daynotefor=all&amp;region=$region&amp;datestring=$dd.%20".$LANG['monthnames'][intval($monthno)]."%20$Year','daynote','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=340');\"><img src=\"themes/".$theme."/img/ico_daynote.png\" alt=\"\" title=\"".$LANG['month_daynote_tooltip']."\" border=\"0\"></a>";
+                           }
+                           echo "</td>\n";
                         }
                         
                         if ($x <= 6) $x += 1;

@@ -16,7 +16,7 @@ Problem with e-mails to Group or all
 NEW FEATURES
 
 https://georgelewe.atlassian.net/browse/TCP-47
-Global daynotes in Editcalenar
+Global daynotes in Editcalendar
 
 
 ------------------------------------------------------------------------------
