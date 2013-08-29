@@ -13,6 +13,9 @@ BUG FIXES
 https://georgelewe.atlassian.net/browse/TCP-48
 Problem with e-mails to Group or all
 
+https://georgelewe.atlassian.net/browse/TCP-49
+Daynote popups do not always show
+
 NEW FEATURES
 
 https://georgelewe.atlassian.net/browse/TCP-47

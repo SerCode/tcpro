@@ -419,7 +419,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
                /*
                 * Prepare tooltip
                 */
-               $ttid = 'td-'.$i;
+               $ttid = 'td-'.$year.$monthno.$i;
                $ttbody=$N->daynotes['all'][$year.$monthno.$dd];
                $ttcaption = $LANG['tt_title_dayinfo'];
                $ttcapicon = 'themes/'.$theme.'/img/ico_daynote.png';
