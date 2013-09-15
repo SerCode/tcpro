@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_config` (
 INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (1, 'defgroupfilter', 'All'),
 (2, 'defregion', 'default'),
-(3, 'appSubTitle', 'Version 3.6.006'),
+(3, 'appSubTitle', 'Version 3.6.008'),
 (4, 'appFooterCpy', 'Copyright &amp;copy; 2013 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.'),
 (5, 'repeatHeaderCount', '8'),
 (6, 'todayBorderColor', 'FFCC00'),
@@ -252,8 +252,8 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (102, 'declNotifyManager', '1'),
 (103, 'declNotifyDirector', '0'),
 (104, 'declNotifyAdmin', '0'),
-(106, 'declPeriodStart', '20131204'),
-(107, 'declPeriodEnd', '20131225'),
+(106, 'declPeriodStart', '20140101'),
+(107, 'declPeriodEnd', '20131231'),
 (108, 'permissionScheme', 'Default'),
 (109, 'logfilterPermission', '1'),
 (110, 'logPermission', '1'),
@@ -295,11 +295,11 @@ CREATE TABLE IF NOT EXISTS `my_tc_daynotes` (
 --
 
 INSERT INTO `my_tc_daynotes` (`id`, `yyyymmdd`, `daynote`, `username`, `region`) VALUES
-(1, '20130329', 'Karfreitag', 'all', 'default'),
-(2, '20130328', 'I am off today', 'phead', 'default'),
-(3, '20130307', '<b>Note of the day</b><br>...your note here...', 'sgonzales', 'default'),
-(4, '20130328', '<b>Note of the day</b><br>...your note here...', 'all', 'default'),
-(5, '20130330', 'I want a cake', 'blightyear', 'default');
+(1, '20130929', 'Karfreitag', 'all', 'default'),
+(2, '20130928', 'I am off today', 'phead', 'default'),
+(3, '20130907', '<b>Note of the day</b><br>...your note here...', 'sgonzales', 'default'),
+(4, '20130928', '<b>Note of the day</b><br>...your note here...', 'all', 'default'),
+(5, '20130930', 'I want a cake', 'blightyear', 'default');
 
 -- --------------------------------------------------------
 
