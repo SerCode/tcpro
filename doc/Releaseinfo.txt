@@ -203,9 +203,9 @@ IMPROVEMENTS
    the editmonth dialog with a radiobox to clear each single holiday.
    
 02 Welcome Text HTML tags
-   Only <i> and <b> HTML tags are now allowed in the welcome title and message.
+   Only < i > and < b > HTML tags are now allowed in the welcome title and message.
    All other tags will be stripped. Line breaks are automatically translated
-   into <br> tags.
+   into < br > tags.
    
 03 Consistent username format check
    Usernames can only contain alphanumeric characters. This was not checked
@@ -1482,7 +1482,7 @@ FEATURES
    the delta is 5-3=2.
    
 08 Multiline Daynotes
-   Daynotes can now be multiline texts including HTML formatting tags like <b>.
+   Daynotes can now be multiline texts including HTML formatting tags like < b >.
    
 09 Reason/Comment for absence request
    When entering an absence the user can now enter a reason/comment for this
@@ -2203,7 +2203,6 @@ CHANGES/FEATURES
 KNOWN BUGS NOT FIXED YET
 
 
-
 ------------------------------------------------------------------------------
 [2.1]
 
@@ -2219,7 +2218,7 @@ BUGFIXES
    $tc_language['cal_caption_name'] = 'Name';
 
 02 The ALT= and TITLE= attributes of the edit-month button and the edit-calendar
-   button was harcoded in v2.0. This is fixed now and part of the language
+   button was hard coded in v2.0. This is fixed now and part of the language
    file:
    $tc_language['cal_img_alt_edit_month'] = 'Edit holidays for this month...';
    $tc_language['cal_img_alt_edit_cal'] = 'Edit calender for this person...';
@@ -2233,9 +2232,6 @@ BUGFIXES
 CHANGES/FEATURES
 01 The 'number of months to display' filter was supplemented by "1 month" and
    "2 months".
-   
-KNOWN BUGS NOT FIXED YET
-
 
 
 ------------------------------------------------------------------------------
@@ -2250,4 +2246,3 @@ This is the initial TeamCal Pro release.
 CHANGES
 
 KNOWN BUGS
-

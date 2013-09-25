@@ -1982,4 +1982,19 @@ $LANG['icon_assistant'] = 'Assistant';
  */
 $LANG['month_global_daynote'] = 'Global Daynote';
 $LANG['month_personal_daynote'] = 'Personal Daynote';
+
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.009
+ */
+
+/**
+ * Configuration Page
+ */
+$LANG['admin_config_emailnopastnotifications'] = 'No Past E-Mail Notifications';
+$LANG['admin_config_emailnopastnotifications_comment'] =
+'Enable/Disable E-Mail notifications for calendar changes that are entirely in the past. This setting can be useful ' .
+'if you do cleanup work for past absences and don\'t want E-mails to be sent out for those changes. But as soon as one '.
+'of the changed dates is for today or in the future the E-Mails will be sent.';
 ?>

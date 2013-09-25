@@ -349,18 +349,32 @@ if (isset($_POST['btn_apply']))
     */
    $accepted = array();
    $difference=FALSE;
+   $allChangesInPast=TRUE;
+   $todayDate=date("Ymd", time());
    for ($i=1; $i<=$nofdays; $i++) 
    {
       $prop='abs'.$i;
       if ($T->$prop!=$requested[$i]) 
       {
+         /**
+          * We have a difference
+          */
          $difference=TRUE;
+         /**
+          * Check whether at least one change is not in the past. We need that
+          * info later for not sending notification mails if all is in the past.
+          */
+         $iDate = intval($Year.$monthno.sprintf("%02d",$i));
+         if ($iDate>=$todayDate) $allChangesInPast=FALSE;
       }
       $accepted[$i]=$requested[$i];
       $unapproved[$i]='0';
       //print $i.': '.$T->$prop.'-'.$requested[$i].'<br>';
    } 
+
+   
     
+   
    /**
     * Only go through this if the new template is different from the old
     * and if the user requesting this is not the Admin
@@ -917,13 +931,16 @@ if (isset($_POST['btn_apply']))
       /**
        * Send out the mails
        */
-      $nobject = $UC->firstname." ".$UC->lastname;
-      $ugroups = $UG->getAllforUser($caluser);
-      foreach ($ugroups as $ugroup) 
-      {
-         $ntype = "usercalchange";
-         $naffectedgroup = $ugroup['groupname'];
-         sendNotification($ntype, $nobject, $naffectedgroup, $ninfo);
+      if ( !$allChangesInPast OR !$C->readConfig("emailNoPastNotifications") )
+      { 
+         $nobject = $UC->firstname." ".$UC->lastname;
+         $ugroups = $UG->getAllforUser($caluser);
+         foreach ($ugroups as $ugroup) 
+         {
+            $ntype = "usercalchange";
+            $naffectedgroup = $ugroup['groupname'];
+            sendNotification($ntype, $nobject, $naffectedgroup, $ninfo);
+         }
       }
 
       /**

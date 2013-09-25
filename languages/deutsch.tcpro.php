@@ -1981,4 +1981,19 @@ $LANG['icon_assistant'] = 'Assistent';
  */
 $LANG['month_global_daynote'] = 'Globale Tagesnotiz';
 $LANG['month_personal_daynote'] = 'Pers&ouml;nliche Tagesnotiz';
+
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.009
+ */
+
+/**
+ * Configuration Page
+ */
+$LANG['admin_config_emailnopastnotifications'] = 'Keine E-Mail Benachrichtigungen f&uuml;r Vergangenheit';
+$LANG['admin_config_emailnopastnotifications_comment'] =
+'Aktivierung/Deaktivierung von E-Mail Benachrichtigungen f&uuml;r Kalender&auml;nderungen die komplett in der Vergangenheit liegen. '.
+'Diese Funktion kann n&uuml;tzlich sein, wenn der Kalender "aufger&auml;umt" wird. Wenn aber nur eine &Auml;nderung von heute oder neuer ist, '.
+'werden die E-Mails gesendet.';
 ?>

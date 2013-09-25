@@ -211,6 +211,7 @@ if ( isset($_POST['btn_confApply']) ) {
     * Email options
     */
    if ( isset($_POST['chk_emailNotifications']) && $_POST['chk_emailNotifications'] ) $C->saveConfig("emailNotifications","1"); else $C->saveConfig("emailNotifications","0");
+   if ( isset($_POST['chk_emailNoPastNotifications']) && $_POST['chk_emailNoPastNotifications'] ) $C->saveConfig("emailNoPastNotifications","1"); else $C->saveConfig("emailNoPastNotifications","0");
    $C->saveConfig("mailFrom",strip_tags(stripslashes($_POST['txt_mailFrom'])));
    if (validEmail($_POST['txt_mailReply'])) $C->saveConfig("mailReply",$_POST['txt_mailReply']); else $C->saveConfig("mailReply","noreply@teamcalpro.com"); 
    if ( isset($_POST['chk_mailSMTP']) && $_POST['chk_mailSMTP'] ) $C->saveConfig("mailSMTP","1"); else $C->saveConfig("mailSMTP","0");
@@ -1164,6 +1165,18 @@ if (ini_get('register_globals')) {
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                               <input name="chk_emailNotifications" id="chk_emailNotifications" value="chk_emailNotifications" type="checkbox" <?=(intval($C->readConfig("emailNotifications"))?"CHECKED":"")?>>
+                           </td>
+                        </tr>
+               
+                        <!-- emailNoPastNotifications -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_emailnopastnotifications']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_emailnopastnotifications_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input name="chk_emailNoPastNotifications" id="chk_emailNoPastNotifications" value="chk_emailNoPastNotifications" type="checkbox" <?=(intval($C->readConfig("emailNoPastNotifications"))?"CHECKED":"")?>>
                            </td>
                         </tr>
                
