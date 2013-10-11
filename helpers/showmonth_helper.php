@@ -163,6 +163,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
    if ($monthname && $nofdays && $M->template && $weekday1) {
       $cols=0;
       
+      /**
+       * Declare Javascript array used later for Fast Edit toggle
+       */
+      echo '<script type="text/javascript">var jsusers = new Array();</script>';
+            
       echo '<table class="month">';
       
       // =====================================================================
@@ -1435,18 +1440,39 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
       /**
        * Print paging buttons if required
        */
-      if ($page) {
-         if ($intNumPages>1) {
-            if ($intDisplayPage==1) $showmonthBody .= '<input type="button" class="button" value="'.$LANG['btn_prev'].'">&nbsp;';
-            else $showmonthBody .= '<input type="button" class="button" onclick="window.location.href('.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage-1).'&lang='.$CONF['options']['lang'].');" value="'.$LANG['btn_prev'].'">&nbsp;';
-      
-            for ($i=1; $i<=$intNumPages; $i++) {
-               if ($intDisplayPage==$i) $showmonthBody .= '<span>'.$intDisplayPage.'</span>&nbsp;';
-               else $showmonthBody .= '<input type="button" class="button" onclick="window.location.href('.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($i).'&lang='.$CONF['options']['lang'].');" value="'.$i.'">&nbsp;';
+      if ($page) 
+      {
+         if ($intNumPages>1) 
+         {
+            if ($intDisplayPage==1) 
+            {
+               $showmonthBody .= '<span>'.$LANG['btn_prev'].'</span>&nbsp;';
+            }
+            else 
+            {
+               $showmonthBody .= '<input type="button" class="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage-1).'&lang='.$CONF['options']['lang'].'\';" value="'.$LANG['btn_prev'].'">&nbsp;';
             }
       
-            if ($intDisplayPage==$intNumPages) $showmonthBody .= '<span class="button">'.$LANG['btn_next'].'</span>&nbsp;';
-            else $showmonthBody .= '<input type="button" class="button" onclick="window.location.href('.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage+1).'&lang='.$CONF['options']['lang'].');" value="'.$LANG['btn_next'].'">&nbsp;';
+            for ($i=1; $i<=$intNumPages; $i++) 
+            {
+               if ($intDisplayPage==$i) 
+               {
+                  $showmonthBody .= '<span>'.$intDisplayPage.'</span>&nbsp;';
+               }
+               else 
+               {
+                  $showmonthBody .= '<input type="button" class="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($i).'&lang='.$CONF['options']['lang'].'\';" value="'.$i.'">&nbsp;';
+               }
+            }
+      
+            if ($intDisplayPage==$intNumPages) 
+            {
+               $showmonthBody .= '<span>'.$LANG['btn_next'].'</span>&nbsp;';
+            }
+            else 
+            {
+               $showmonthBody .= '<input type="button" class="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage+1).'&lang='.$CONF['options']['lang'].'\';" value="'.$LANG['btn_next'].'">&nbsp;';
+            }
          }
       }
 
