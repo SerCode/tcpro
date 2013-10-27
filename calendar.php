@@ -90,6 +90,7 @@ $month_id = intval($CONF['options']['month_id']);
 $year_id = intval($CONF['options']['year_id']);
 $show_id = intval($CONF['options']['show_id']);
 $region = $CONF['options']['region'];
+$calSearchUser = "%";
 
 // ============================================================================
 /*
@@ -127,6 +128,21 @@ if ( isset($_POST['btn_fastedit_apply']) ) {
       }
    }
 }
+// ============================================================================
+/*
+ * Process User Search
+ */
+if ( isset($_POST['btn_usrSearch']) ) 
+{
+	if (strlen($_POST['txt_calSearchUser']))
+	{
+		$calSearchUser = trim(preg_replace('/<\\?.*(\\?>|$)/Us', '',$_POST['txt_calSearchUser']));
+	}
+	else 
+	{
+		$calSearchUser = "%";
+	}
+}
 
 /**
  * Show header
@@ -136,7 +152,8 @@ $CONF['html_title'] = $LANG['html_title_calendar'];
  * User manual page
  */
 $help = urldecode($C->readConfig("userManual"));
-if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) 
+{
    $help .= 'Calendar';
 }
 require("includes/header_html_inc.php");
@@ -183,8 +200,9 @@ require("includes/menu_inc.php");
          <form name="form-fastedit" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?".setRequests()?>">
       <?php }
        
-      for ($i = 1; $i<= $show_id; $i++) {
-         echo showMonth(strval($year_id), $monthnames[$month_id], $groupfilter, $sort, $page);
+      for ($i = 1; $i<= $show_id; $i++) 
+      {
+      	echo showMonth(strval($year_id), $monthnames[$month_id], $groupfilter, $sort, $page, $calSearchUser);
          if ($month_id == 12) {
             $year_id += 1;
             $month_id = 1;

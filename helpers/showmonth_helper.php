@@ -25,7 +25,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @param string $groupfilter Identifying the group (or 'All') to filter by
  * @param string $sortorder Indicating ascending or descending sort order
  */
-function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
+function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='%') 
+{
    global $_POST;
    global $CONF;
    global $LANG;
@@ -505,68 +506,142 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
        */
       $users = array();
       $groupfilter = $CONF['options']['groupfilter'];
-      
-      if ($groupfilter=="All") {
-         $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
-                  " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
-                  " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                  " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                  " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                  " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
-         $result = $U->db->db_query($query);
-         $i=0;
-         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
-            $users[$i]['group']=$row['group'];
-            $users[$i]['user']=$row['username'];
-            $i++;
-         }
+
+      if ($calSearchUser=="%")
+      {
+	      if ($groupfilter=="All") 
+	      {
+	         $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
+	                  " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
+	                  " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+	                  " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+	                  " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+	                  " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+	         $result = $U->db->db_query($query);
+	         $i=0;
+	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+	            $users[$i]['group']=$row['group'];
+	            $users[$i]['user']=$row['username'];
+	            $i++;
+	         }
+	      }
+	      else if ($groupfilter=="Allbygroup") 
+	      {
+	         if (intval($C->readConfig("hideManagers"))) {
+	            $query = "SELECT DISTINCT ".$CONF['db_table_user_group'].".groupname, ".$CONF['db_table_user_group'].".username " .
+	                     " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
+	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+	                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+	                     " AND ".$CONF['db_table_user_group'].".username=".$CONF['db_table_users'].".username" .
+	                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
+	                     " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+	         }
+	         else {
+	            $query = "SELECT DISTINCT ".$CONF['db_table_user_group'].".groupname, ".$CONF['db_table_user_group'].".username " .
+	                     " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
+	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+	                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+	                     " AND ".$CONF['db_table_user_group'].".username=".$CONF['db_table_users'].".username" .
+	                     " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+	         }
+	         $result = $UG->db->db_query($query);
+	         $i=0;
+	         while ( $row = $UG->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+	            $users[$i]['group']=$row['groupname'];
+	            $users[$i]['user']=$row['username'];
+	            $i++;
+	         }
+	      }
+	      else 
+	      {
+	         /*
+	          * Get regular group members
+  	          */
+	         if (intval($C->readConfig("hideManagers"))) {
+	            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
+	                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
+	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+	                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+	                     " AND ".$CONF['db_table_groups'].".groupname='".$groupfilter."'" .
+	                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+	                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
+	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+	         }
+	         else {
+	            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
+	                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
+	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+	                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+	                     " AND ".$CONF['db_table_groups'].".groupname='".$groupfilter."'" .
+	                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+	         }
+	         $result = $U->db->db_query($query);
+	         $i=0;
+	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+	            $users[$i]['group']=$row['group'];
+	            $users[$i]['user']=$row['username'];
+	            $users[$i]['mship']="real";
+	            $i++;
+	         }
+	         /*
+	          * Get related user to this group (user option: show in other groups)
+	          */
+	         if (intval($C->readConfig("hideManagers"))) {
+	            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
+	                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
+	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+	                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+	                     " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
+	                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
+	                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+	                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
+	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+	         }
+	         else {
+	            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
+	                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
+	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+	                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
+	                     " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
+	                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
+	                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
+	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
+	         }
+	         $result = $U->db->db_query($query);
+	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+	            $users[$i]['group']=$row['group'];
+	            $users[$i]['user']=$row['username'];
+	            $users[$i]['mship']="related";
+	            $i++;
+	         }
+	      }
       }
-      else if ($groupfilter=="Allbygroup") {
-         if (intval($C->readConfig("hideManagers"))) {
-            $query = "SELECT DISTINCT ".$CONF['db_table_user_group'].".groupname, ".$CONF['db_table_user_group'].".username " .
-                     " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " AND ".$CONF['db_table_user_group'].".username=".$CONF['db_table_users'].".username" .
-                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
-                     " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
-         }
-         else {
-            $query = "SELECT DISTINCT ".$CONF['db_table_user_group'].".groupname, ".$CONF['db_table_user_group'].".username " .
-                     " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " AND ".$CONF['db_table_user_group'].".username=".$CONF['db_table_users'].".username" .
-                     " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
-         }
-         $result = $UG->db->db_query($query);
-         $i=0;
-         while ( $row = $UG->db->db_fetch_array($result,MYSQL_ASSOC) ) {
-            $users[$i]['group']=$row['groupname'];
-            $users[$i]['user']=$row['username'];
-            $i++;
-         }
-      }
-      else {
+      else 
+      {
          /*
-          * Get regular group members
-         */
-         if (intval($C->readConfig("hideManagers"))) {
-            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
+          * Get search user
+          */
+          if (intval($C->readConfig("hideManagers"))) {
+             $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
                      " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
                      " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                     " AND (".$CONF['db_table_users'].".username LIKE '".$calSearchUser."' ".
+                     "    OR ".$CONF['db_table_users'].".lastname LIKE '".$calSearchUser."' ".
+                     "    OR ".$CONF['db_table_users'].".firstname LIKE '".$calSearchUser."')".
                      " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                     " AND ".$CONF['db_table_groups'].".groupname='".$groupfilter."'" .
                      " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
                      " AND ".$CONF['db_table_user_group'].".type!='manager'" .
                      " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
-         }
-         else {
-            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
+          }
+          else {
+             $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
                      " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
                      " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
+                     " AND (".$CONF['db_table_users'].".username LIKE '".$calSearchUser."' ".
+                     "    OR ".$CONF['db_table_users'].".lastname LIKE '".$calSearchUser."' ".
+                     "    OR ".$CONF['db_table_users'].".firstname LIKE '".$calSearchUser."')".
                      " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                     " AND ".$CONF['db_table_groups'].".groupname='".$groupfilter."'" .
                      " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
                      " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
          }
@@ -576,37 +651,6 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1) {
             $users[$i]['group']=$row['group'];
             $users[$i]['user']=$row['username'];
             $users[$i]['mship']="real";
-            $i++;
-         }
-         /*
-          * Get related user to this group (user option: show in other groups)
-         */
-         if (intval($C->readConfig("hideManagers"))) {
-            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
-                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                     " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
-                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
-                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
-         }
-         else {
-            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
-                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
-                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
-                     " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
-                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
-                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
-                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
-         }
-         $result = $U->db->db_query($query);
-         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
-            $users[$i]['group']=$row['group'];
-            $users[$i]['user']=$row['username'];
-            $users[$i]['mship']="related";
             $i++;
          }
       }

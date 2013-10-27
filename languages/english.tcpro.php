@@ -1997,4 +1997,13 @@ $LANG['admin_config_emailnopastnotifications_comment'] =
 'Enable/Disable E-Mail notifications for calendar changes that are entirely in the past. This setting can be useful ' .
 'if you do cleanup work for past absences and don\'t want E-mails to be sent out for those changes. But as soon as one '.
 'of the changed dates is for today or in the future the E-Mails will be sent.';
+
+$LANG['admin_config_user_search'] = 'Show User Search Box';
+$LANG['admin_config_user_search_comment'] =
+'Enable/Disable a user search box in the Calendar view, enabling to search for single users.';
+
+/**
+ * Calendar page
+ */
+$LANG['cal_user_search'] = 'User';
 ?>

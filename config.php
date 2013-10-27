@@ -83,6 +83,7 @@ if ( isset($_POST['btn_confApply']) ) {
    $C->saveConfig("pastDayColor",strip_tags(stripslashes($_POST['txt_pastDayColor'])));
    if (trim($_POST['sel_defregion']))    $C->saveConfig("defregion",trim($_POST['sel_defregion'])); else $C->saveConfig("defregion","default");
    if (trim($_POST['sel_defgroupfilter'])) $C->saveConfig("defgroupfilter",trim($_POST['sel_defgroupfilter'])); else $C->saveConfig("defgroupfilter","All");
+   if ( isset($_POST['chk_userSearch']) && $_POST['chk_userSearch'] ) $C->saveConfig("userSearch","1"); else $C->saveConfig("userSearch","0");
    if ( isset($_POST['chk_hideManagers']) && $_POST['chk_hideManagers'] ) $C->saveConfig("hideManagers","1"); else $C->saveConfig("hideManagers","0");
    if ( isset($_POST['chk_hideDaynotes']) && $_POST['chk_hideDaynotes'] ) $C->saveConfig("hideDaynotes","1"); else $C->saveConfig("hideDaynotes","0");
    if ( isset($_POST['chk_markConfidential']) ) $C->saveConfig("markConfidential","1"); else $C->saveConfig("markConfidential","0");
@@ -574,6 +575,18 @@ if (ini_get('register_globals')) {
                                  <option value="All" <?=(($C->readConfig("defgroupfilter")=="All")?"SELECTED":"")?>><?=$LANG['drop_group_all']?></option>
                                  <option value="Allbygroup" <?=(($C->readConfig("defgroupfilter")=="Allbygroup")?"SELECTED":"")?>><?=$LANG['drop_group_allbygroup']?></option>
                               </select>
+                           </td>
+                        </tr>
+               
+                        <!-- userSearch -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_user_search']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_user_search_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input name="chk_userSearch" id="chk_userSearch" value="chk_userSearch" type="checkbox" <?=(intval($C->readConfig("userSearch"))?"CHECKED":"")?>>
                            </td>
                         </tr>
                

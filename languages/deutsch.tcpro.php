@@ -1996,4 +1996,13 @@ $LANG['admin_config_emailnopastnotifications_comment'] =
 'Aktivierung/Deaktivierung von E-Mail Benachrichtigungen f&uuml;r Kalender&auml;nderungen die komplett in der Vergangenheit liegen. '.
 'Diese Funktion kann n&uuml;tzlich sein, wenn der Kalender "aufger&auml;umt" wird. Wenn aber nur eine &Auml;nderung von heute oder neuer ist, '.
 'werden die E-Mails gesendet.';
+
+$LANG['admin_config_user_search'] = 'Nutzer Suchfeld Anzeigen';
+$LANG['admin_config_user_search_comment'] =
+'Aktivierung/Deaktivierung eines Suchfelds in der Kalenderanzeige, mit dem einzelne Nutzer gesucht werden k&ouml;nnen.';
+
+/**
+ * Calendar page
+ */
+$LANG['cal_user_search'] = 'Nutzer';
 ?>

@@ -13,6 +13,12 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
+if ($C->readConfig("userSearch")) { ?>
+   &nbsp;&nbsp;<?=$LANG['cal_user_search']?>&nbsp;
+   <input name="txt_calSearchUser" id="txt_calSearchUser" size="30" type="text" class="text" value="<?=$calSearchUser?>">
+   <input name="btn_usrSearch" type="submit" class="button" value="<?=$LANG['btn_search']?>">
+<?php }
+
 if ($C->readConfig("showGroup")) {
    $selectedGroup=$CONF['options']['groupfilter']; ?>
    <!-- Group filter drop down -->
