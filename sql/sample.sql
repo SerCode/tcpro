@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_config` (
 INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (1, 'defgroupfilter', 'All'),
 (2, 'defregion', 'default'),
-(3, 'appSubTitle', 'Version 3.6.009 Dev'),
+(3, 'appSubTitle', 'Version 3.6.009'),
 (4, 'appFooterCpy', 'Copyright &amp;copy; 2013 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.'),
 (5, 'repeatHeaderCount', '8'),
 (6, 'todayBorderColor', 'FFCC00'),
@@ -253,7 +253,7 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (103, 'declNotifyDirector', '0'),
 (104, 'declNotifyAdmin', '0'),
 (106, 'declPeriodStart', '20140101'),
-(107, 'declPeriodEnd', '20131231'),
+(107, 'declPeriodEnd', '20141231'),
 (108, 'permissionScheme', 'Default'),
 (109, 'logfilterPermission', '1'),
 (110, 'logPermission', '1'),
@@ -270,7 +270,8 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (121, 'defaultLanguage', 'english'),
 (122, 'hideManagerOnlyAbsences', '0'),
 (123, 'presenceBase', 'calendardays'),
-(124, 'logLanguage', 'english');
+(124, 'logLanguage', 'english'),
+(125, 'avatarMaxSize', '250000');
 
 
 -- --------------------------------------------------------
