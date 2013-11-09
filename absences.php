@@ -5,7 +5,7 @@
  * Displays the absence types configuration page
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -165,6 +165,8 @@ else if ( isset($_POST['btn_absApply']) ) {
          $A->factor = $_POST['txt_factor'];
       }
    }
+
+   $A->counts_as = $_POST['sel_absCountsAs'];
     
    if (!empty($_POST['txt_allowance'])) {
       if (!is_numeric($_POST['txt_allowance'])) {
@@ -402,6 +404,28 @@ require("includes/menu_inc.php");
             </td>
             <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                <input class="text" name="txt_allowance" id="txt_allowance" type="text" size="2" maxlength="4" value="<?=$A->allowance?>">
+            </td>
+         </tr>
+
+         <!-- Counts as -->
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
+         <tr>
+            <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+               <span class="config-key"><?=$LANG['abs_counts_as']?></span><br>
+               <span class="config-comment"><?=$LANG['abs_counts_as_desc']?></span>
+            </td>
+            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+					<select id="sel_absCountsAs" name="sel_absCountsAs" class="select">
+					   <option value="0" <?=(($A->counts_as==0)?"SELECTED":"")?>>-</option>
+					   <?php
+					   $countsAsAbsences = $A->getAll();
+					   foreach ($countsAsAbsences as $countsAsAbs) { 
+							if ($countsAsAbs['id']!=$A->id) { ?>
+					      	<option value="<?=$countsAsAbs['id']?>" <?=(($countsAsAbs['id']==$A->counts_as)?"SELECTED":"")?>><?=$countsAsAbs['name']?></option>
+					      <?php }
+					   } 
+					   ?>
+					</select>
             </td>
          </tr>
 

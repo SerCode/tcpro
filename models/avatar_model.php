@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Contains the Avatar class
  *
  * @package TeamCalPro
- * @version 3.6.007 
+ * @version 3.6.009 Dev 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -42,7 +42,7 @@ if (!class_exists("Avatar_model")) {
          $C = new Config_model;
          $this->maxHeight = $C->readConfig("avatarHeight");
          $this->maxWidth = $C->readConfig("avatarWidth");
-         $this->maxSize = "250000";
+         $this->maxSize = $C->readConfig("avatarMaxSize");
          $this->path = $CONF['app_avatar_dir'];
          $this->allowedtypes = array (
             "gif",
@@ -95,13 +95,15 @@ if (!class_exists("Avatar_model")) {
          $this->result = 0;
          $this->message = '';
 
-         if (is_uploaded_file($_FILES['imgfile']['tmp_name'])) {
+         if (is_uploaded_file($_FILES['imgfile']['tmp_name'])) 
+         {
             $this->filename = $_FILES['imgfile']['name'];
             $this->tmpfilename = $_FILES['imgfile']['tmp_name'];
             $this->fileextension = $this->getFileExtension($this->filename);
             $this->fileextension = strtolower($this->fileextension);
 
-            if ( is_numeric(array_search(strtolower($this->fileextension), $this->allowedtypes)) ) {
+            if ( is_numeric(array_search(strtolower($this->fileextension), $this->allowedtypes)) ) 
+            {
                $newfile = $this->path . $uname . "." . $this->fileextension;
                /**
                 * Check size and resize if necessary
@@ -109,25 +111,33 @@ if (!class_exists("Avatar_model")) {
                $imgsize = GetImageSize($this->tmpfilename);
                $width = $imgsize[0];
                $height = $imgsize[1];
-               if (($imgsize[0] > $this->maxWidth) || ($imgsize[1] > $this->maxHeight)) {
-                  if ($width > $this->maxWidth && $height <= $this->maxHeight) {
+               if (($imgsize[0] > $this->maxWidth) || ($imgsize[1] > $this->maxHeight)) 
+               {
+                  if ($width > $this->maxWidth && $height <= $this->maxHeight) 
+                  {
                      $ratio = $this->maxWidth / $width;
                   }
-                  elseif ($height > $this->maxHeight && $width <= $this->maxWidth) {
+                  elseif ($height > $this->maxHeight && $width <= $this->maxWidth) 
+                  {
                      $ratio = $this->maxHeight / $height;
                   }
-                  elseif ($width > $this->maxWidth && $height > $this->maxHeight) {
+                  elseif ($width > $this->maxWidth && $height > $this->maxHeight) 
+                  {
                      $ratio1 = $this->maxWidth / $width;
                      $ratio2 = $this->maxHeight / $height;
                      $ratio = ($ratio1 < $ratio2) ? $ratio1 : $ratio2;
                   } 
-                  else {
+                  else 
+                  {
                      $ratio = 1;
                   }
                   $nWidth = floor($width * $ratio);
                   $nHeight = floor($height * $ratio);
+                  
                   //echo "<script type=\"text/javascript\">alert(\"Debug: ".$imgsize[0]." ".$imgsize[1]." ".$nWidth." ".$nHeight."\");</script>";
-                  switch (strtolower($this->fileextension)) {
+                  
+                  switch (strtolower($this->fileextension)) 
+                  {
                      case "gif":
                         $origPic = imagecreatefromgif($this->tmpfilename);
                         $newPic = imagecreate($nWidth, $nHeight);
@@ -152,11 +162,13 @@ if (!class_exists("Avatar_model")) {
                         break;
                   }
                }
-               else  {
+               else  
+               {
                   /**
                    * The file is within the size restrictions. Just copy it to its destination.
                    */
-                  if (!copy($this->tmpfilename, $newfile)) {
+                  if (!copy($this->tmpfilename, $newfile)) 
+                  {
                      $this->message = $LANG['ava_write_error'];
                   }
                }
@@ -167,23 +179,28 @@ if (!class_exists("Avatar_model")) {
                /**
                 * Delete previous avatars if exist
                 */
-               foreach ($this->allowedtypes as $type) {
+               foreach ($this->allowedtypes as $type) 
+               {
                   if ($type!=$this->fileextension && file_exists($this->path . $uname . "." . $type)) unlink($this->path . $uname . "." . $type);
                }
             } 
-            else {
+            else 
+            {
                $this->message = $LANG['ava_wrongtype_1'];
                $this->message .= $this->fileextension." . ";
                $this->message .= $LANG['ava_wrongtype_2'];
-               foreach ($this->allowedtypes as $allowedtype) {
+               foreach ($this->allowedtypes as $allowedtype) 
+               {
                   $this->message .= strtoupper($allowedtype) . ", ";
                }
                $this->message = substr($this->message, 0, strlen($this->message)-2);
                $this->message .= ".";
             }
          }
-         else {
-            switch ($_FILES['imgfile']['error']) {
+         else 
+         {
+            switch ($_FILES['imgfile']['error']) 
+            {
                case 1 : // UPLOAD_ERR_INI_SIZE
                   $this->message = $LANG['ava_upload_error_1'];
                   break;

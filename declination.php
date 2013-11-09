@@ -5,7 +5,7 @@
  * Displays a declination management page
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -117,10 +117,12 @@ if ( isset($_POST['btn_apply']) ) {
    }
 
    /**
-    * Declination Period
+    * Declination Period 1
     */
-   if ( isset($_POST['chk_declPeriod']) ) {
-      if ( strlen($_POST['txt_declPeriodStart']) && strlen($_POST['txt_declPeriodEnd']) ) {
+   if ( isset($_POST['chk_declPeriod']) ) 
+   {
+      if ( strlen($_POST['txt_declPeriodStart']) && strlen($_POST['txt_declPeriodEnd']) ) 
+      {
          $periodstart = str_replace("-","",$_POST['txt_declPeriodStart']);
          $periodend   = str_replace("-","",$_POST['txt_declPeriodEnd']);
          if ($periodend>$periodstart) {
@@ -137,7 +139,8 @@ if ( isset($_POST['btn_apply']) ) {
             $err_btn_close=FALSE;
          }
       }
-      else {
+      else 
+      {
          $C->saveConfig("declPeriod","0");
          $error=TRUE;
          $err_short = $LANG['err_input_caption'];
@@ -146,8 +149,85 @@ if ( isset($_POST['btn_apply']) ) {
          $err_btn_close=FALSE;
       }
    }
-   else {
+   else 
+   {
       $C->saveConfig("declPeriod","0");
+   }
+
+   /**
+    * Declination Period 2
+    */
+   if ( isset($_POST['chk_declPeriod2']) ) 
+   {
+      if ( strlen($_POST['txt_declPeriod2Start']) && strlen($_POST['txt_declPeriod2End']) ) 
+      {
+         $periodstart = str_replace("-","",$_POST['txt_declPeriod2Start']);
+         $periodend   = str_replace("-","",$_POST['txt_declPeriod2End']);
+         if ($periodend>$periodstart) {
+            $C->saveConfig("declPeriod2","1");
+            $C->saveConfig("declPeriod2Start",$periodstart);
+            $C->saveConfig("declPeriod2End",$periodend);
+            $declineupdate=true;
+         }
+         else {
+            $error=TRUE;
+            $err_short = $LANG['err_input_caption'];
+            $err_long  = $LANG['err_input_period'];
+            $err_module=$_SERVER['SCRIPT_NAME'];
+            $err_btn_close=FALSE;
+         }
+      }
+      else 
+      {
+         $C->saveConfig("declPeriod2","0");
+         $error=TRUE;
+         $err_short = $LANG['err_input_caption'];
+         $err_long  = $LANG['err_input_period'];
+         $err_module=$_SERVER['SCRIPT_NAME'];
+         $err_btn_close=FALSE;
+      }
+   }
+   else 
+   {
+      $C->saveConfig("declPeriod2","0");
+   }
+
+   /**
+    * Declination Period 3
+    */
+   if ( isset($_POST['chk_declPeriod3']) ) 
+   {
+      if ( strlen($_POST['txt_declPeriod3Start']) && strlen($_POST['txt_declPeriod3End']) ) 
+      {
+         $periodstart = str_replace("-","",$_POST['txt_declPeriod3Start']);
+         $periodend   = str_replace("-","",$_POST['txt_declPeriod3End']);
+         if ($periodend>$periodstart) {
+            $C->saveConfig("declPeriod3","1");
+            $C->saveConfig("declPeriod3Start",$periodstart);
+            $C->saveConfig("declPeriod3End",$periodend);
+            $declineupdate=true;
+         }
+         else {
+            $error=TRUE;
+            $err_short = $LANG['err_input_caption'];
+            $err_long  = $LANG['err_input_period'];
+            $err_module=$_SERVER['SCRIPT_NAME'];
+            $err_btn_close=FALSE;
+         }
+      }
+      else 
+      {
+         $C->saveConfig("declPeriod3","0");
+         $error=TRUE;
+         $err_short = $LANG['err_input_caption'];
+         $err_long  = $LANG['err_input_period'];
+         $err_module=$_SERVER['SCRIPT_NAME'];
+         $err_btn_close=FALSE;
+      }
+   }
+   else 
+   {
+      $C->saveConfig("declPeriod3","0");
    }
 
    /**
@@ -240,11 +320,11 @@ require("includes/menu_inc.php");
                   </td>
                </tr>
 
-               <!--  Declination period -->
+               <!--  Declination period 1 -->
                <?php if ($style=="1") $style="2"; else $style="1"; ?>
                <tr>
                   <td class="config-row<?=$style?>" style="text-align: left;">
-                     <span class="config-key"><?=$LANG['decl_period']?></span><br>
+                     <span class="config-key"><?=$LANG['decl_period']?> 1</span><br>
                      <span class="config-comment"><?=$LANG['decl_period_comment']?></span>
                   </td>
                   <td class="config-row<?=$style?>" style="text-align: left;">
@@ -264,6 +344,62 @@ require("includes/menu_inc.php");
                            else $declPeriodEnd="";
                         ?>
                         <input name="txt_declPeriodEnd" id="txt_declPeriodEnd" size="10" maxlength="10" type="text" class="text" value="<?=$declPeriodEnd?>">&nbsp;<?=$LANG['decl_period_end']?>
+                     </div>
+                  </td>
+               </tr>
+
+               <!--  Declination period 2 -->
+               <?php if ($style=="1") $style="2"; else $style="1"; ?>
+               <tr>
+                  <td class="config-row<?=$style?>" style="text-align: left;">
+                     <span class="config-key"><?=$LANG['decl_period']?> 2</span><br>
+                     <span class="config-comment"><?=$LANG['decl_period_comment']?></span>
+                  </td>
+                  <td class="config-row<?=$style?>" style="text-align: left;">
+                     <script type="text/javascript">
+                        $(function() { $( "#txt_declPeriod2Start" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
+                        $(function() { $( "#txt_declPeriod2End" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
+                     </script>
+                     <input style="vertical-align: middle;" name="chk_declPeriod2" value="chk_declPeriod2" type="checkbox" <?=($C->readConfig("declPeriod2"))?'checked':''?>><?=$LANG['decl_activate']?><br>
+                     <div style="padding-left: 20px;">
+                        <?php
+                           if ($C->readConfig("declPeriod2Start")) $declPeriod2Start = substr($C->readConfig("declPeriod2Start"),0,4)."-".substr($C->readConfig("declPeriod2Start"),4,2)."-".substr($C->readConfig("declPeriod2Start"),6,2);
+                           else $declPeriod2Start="";
+                        ?>
+                        <input style="margin: 4px 0px 4px 0px;" name="txt_declPeriod2Start" id="txt_declPeriod2Start" size="10" maxlength="10" type="text" class="text" value="<?=$declPeriod2Start?>">&nbsp;<?=$LANG['decl_period_start']?><br>
+                        <?php
+                           if ($C->readConfig("declPeriod2End")) $declPeriod2End = substr($C->readConfig("declPeriod2End"),0,4)."-".substr($C->readConfig("declPeriod2End"),4,2)."-".substr($C->readConfig("declPeriod2End"),6,2);
+                           else $declPeriod2End="";
+                        ?>
+                        <input name="txt_declPeriod2End" id="txt_declPeriod2End" size="10" maxlength="10" type="text" class="text" value="<?=$declPeriod2End?>">&nbsp;<?=$LANG['decl_period_end']?>
+                     </div>
+                  </td>
+               </tr>
+
+               <!--  Declination period 3 -->
+               <?php if ($style=="1") $style="2"; else $style="1"; ?>
+               <tr>
+                  <td class="config-row<?=$style?>" style="text-align: left;">
+                     <span class="config-key"><?=$LANG['decl_period']?> 3</span><br>
+                     <span class="config-comment"><?=$LANG['decl_period_comment']?></span>
+                  </td>
+                  <td class="config-row<?=$style?>" style="text-align: left;">
+                     <script type="text/javascript">
+                        $(function() { $( "#txt_declPeriod3Start" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
+                        $(function() { $( "#txt_declPeriod3End" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
+                     </script>
+                     <input style="vertical-align: middle;" name="chk_declPeriod3" value="chk_declPeriod3" type="checkbox" <?=($C->readConfig("declPeriod3"))?'checked':''?>><?=$LANG['decl_activate']?><br>
+                     <div style="padding-left: 20px;">
+                        <?php
+                           if ($C->readConfig("declPeriod3Start")) $declPeriod3Start = substr($C->readConfig("declPeriod3Start"),0,4)."-".substr($C->readConfig("declPeriod3Start"),4,2)."-".substr($C->readConfig("declPeriod3Start"),6,2);
+                           else $declPeriod3Start="";
+                        ?>
+                        <input style="margin: 4px 0px 4px 0px;" name="txt_declPeriod3Start" id="txt_declPeriod3Start" size="10" maxlength="10" type="text" class="text" value="<?=$declPeriod3Start?>">&nbsp;<?=$LANG['decl_period_start']?><br>
+                        <?php
+                           if ($C->readConfig("declPeriod3End")) $declPeriod3End = substr($C->readConfig("declPeriod3End"),0,4)."-".substr($C->readConfig("declPeriod3End"),4,2)."-".substr($C->readConfig("declPeriod3End"),6,2);
+                           else $declPeriod3End="";
+                        ?>
+                        <input name="txt_declPeriod3End" id="txt_declPeriod3End" size="10" maxlength="10" type="text" class="text" value="<?=$declPeriod3End?>">&nbsp;<?=$LANG['decl_period_end']?>
                      </div>
                   </td>
                </tr>

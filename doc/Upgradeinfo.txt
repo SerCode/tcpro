@@ -3,6 +3,18 @@ TEAMCAL PRO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.008] -> [3.6.009]
+
+Backup your current files and database!
+
+Download the new release and overwrite all files.
+Overwrite config.tcpro.php from your backup.
+
+Database changes:
+ALTER TABLE `my_tc_absences` ADD `counts_as` INT( 11 ) NOT NULL AFTER `allowance` 
+INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'avatarMaxSize', '250000' );
+
+------------------------------------------------------------------------------
 [3.6.007] -> [3.6.008]
 
 Backup your current files and database!

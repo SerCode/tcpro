@@ -5,7 +5,7 @@
  * Displays the configuration page
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -97,7 +97,8 @@ if ( isset($_POST['btn_confApply']) ) {
    if ( isset($_POST['chk_showAvatars']) && $_POST['chk_showAvatars'] ) $C->saveConfig("showAvatars","1"); else $C->saveConfig("showAvatars","0");
    $C->saveConfig("avatarWidth",intval($_POST['txt_avatarWidth']));
    $C->saveConfig("avatarHeight",intval($_POST['txt_avatarHeight']));
-
+   $C->saveConfig("avatarMaxSize",intval($_POST['txt_avatarMaxSize']));
+    
    /**
     * User custom fields
     */
@@ -706,6 +707,18 @@ if (ini_get('register_globals')) {
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                               <input class="text" name="txt_avatarHeight" id="txt_avatarHeight" type="text" size="5" maxlength="3" value="<?=intval($C->readConfig("avatarHeight"))?>">
+                           </td>
+                        </tr>
+               
+                        <!-- avatarMaxSize -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_avatarmaxsize']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_avatarmaxsize_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input class="text" name="txt_avatarMaxSize" id="txt_avatarMaxSize" type="text" size="7" maxlength="7" value="<?=intval($C->readConfig("avatarMaxSize"))?>">
                            </td>
                         </tr>
                

@@ -5,7 +5,7 @@
  * Displays the dialog to add a user
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -262,6 +262,7 @@ if (isset ($_POST['btn_add'])) {
             }
          }
          $U->create();
+         
          /**
           * Send notification e-Mails. First to the user himself then to
           * others who asked for it.

@@ -5,7 +5,7 @@
  * Displays and runs the statistics page
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -252,6 +252,8 @@ require( "includes/menu_inc.php" );
                    * Get totals per user
                    */
                   $totaluser=0;
+                  $useFactor=TRUE;
+                  $countCombined=FALSE;
                   $groups = $G->getAllByGroup($statgroup);
                   foreach ($groups as $group) 
                   {
@@ -273,7 +275,7 @@ require( "includes/menu_inc.php" );
                                  {
                                     if ($A->get($abs['id']) AND !$A->counts_as_present) 
                                     {
-                                       $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                       $count=countAbsence($guser,$A->id,$periodFrom,$periodTo,$useFactor,$countCombined);
                                        $total+=$count;
                                        $totaluser+=$count;
                                     }
@@ -283,7 +285,7 @@ require( "includes/menu_inc.php" );
                               {
                                  if ($A->get($periodAbsence) AND !$A->counts_as_present) 
                                  {
-                                    $count=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $count=countAbsence($guser,$A->id,$periodFrom,$periodTo,$useFactor,$countCombined);
                                     $total+=$count;
                                     $totaluser+=$count;
                                  }
@@ -321,7 +323,8 @@ require( "includes/menu_inc.php" );
                    * Get totals per user
                    */
                   $total=0;
-                  
+                  $useFactor=TRUE;
+                  $countCombined=FALSE;
                   $groups = $G->getAllByGroup($statgroup);
                   foreach ($groups as $group) 
                   {
@@ -343,7 +346,7 @@ require( "includes/menu_inc.php" );
                               {
                                  if ($A->get($abs['id']) AND !$A->counts_as_present) 
                                  {
-                                    $totalAbsences+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $totalAbsences+=countAbsence($guser,$A->id,$periodFrom,$periodTo,$useFactor,$countCombined);
                                  }
                               }
                               $total = $daysInPeriod-$totalAbsences;
@@ -384,6 +387,8 @@ require( "includes/menu_inc.php" );
                    * Get totals per group
                    */
                   $totalgroup=0;
+                  $useFactor=TRUE;
+                  $countCombined=FALSE;
                   $groups = $G->getAllByGroup($statgroup);
                   foreach ($groups as $group) 
                   {
@@ -404,14 +409,14 @@ require( "includes/menu_inc.php" );
                                  {
                                     if ($A->get($abs['id']) AND !$A->counts_as_present) 
                                     {
-                                       $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                       $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo,$useFactor,$countCombined);
                                     }
                                  }
                               }
                               else {
                                  if ($A->get($periodAbsence) AND !$A->counts_as_present) 
                                  {
-                                    $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $total+=countAbsence($guser,$A->id,$periodFrom,$periodTo,$useFactor,$countCombined);
                                  }
                               }
                            }
@@ -444,6 +449,8 @@ require( "includes/menu_inc.php" );
                    * Get totals per group
                    */
                   $totalAllGroups=0;
+                  $useFactor=TRUE;
+                  $countCombined=FALSE;
                   $legend=array();
                   $value=array();
                   $groups = $G->getAllByGroup($statgroup);
@@ -468,7 +475,7 @@ require( "includes/menu_inc.php" );
                               {
                                  if ($A->get($abs['id']) AND !$A->counts_as_present) 
                                  {
-                                    $totalAbsences+=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $totalAbsences+=countAbsence($guser,$A->id,$periodFrom,$periodTo,$useFactor,$countCombined);
                                  }
                               }
                            }
@@ -502,9 +509,11 @@ require( "includes/menu_inc.php" );
                   /**
                    * Get totals per absence type
                    */
+                  $sum=0;
+                  $useFactor=FALSE;
+                  $countCombined=FALSE;
                   $legend=array();
                   $value=array();
-                  $sum=0;
                   $absences = $A->getAll();
                   foreach ($absences as $abs) 
                   {
@@ -523,7 +532,7 @@ require( "includes/menu_inc.php" );
                                  $U1->findByName($guser);
                                  if ( !$U1->checkUserType($CONF['UTTEMPLATE']) AND !$U1->checkStatus($CONF['USHIDDEN']) ) 
                                  {
-                                    $total+=countAbsence($guser,$abs['id'],$periodFrom,$periodTo);
+                                    $total+=countAbsence($guser,$abs['id'],$periodFrom,$periodTo,$useFactor,$countCombined);
                                  }
                               }
                            }
@@ -554,13 +563,15 @@ require( "includes/menu_inc.php" );
                   /**
                    * Get total remainders per absence type for current year
                    */
+                  $sum=0;
+                  $useFactor=TRUE;
+                  $countCombined=TRUE;
                   $legend=array();
                   $value=array();
-                  $sum=0;
                   $absences = $A->getAll();
                   foreach ($absences as $abs) 
                   {
-                     if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) 
+                     if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND !$A->counts_as AND $A->factor) 
                      {
                         $total=0;
    
@@ -588,7 +599,7 @@ require( "includes/menu_inc.php" );
                                     }
                                     $periodFrom = $yeartoday."0101";
                                     $periodTo = $yeartoday."1231";
-                                    $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo,$useFactor,$countCombined);
                                     $total += ($lstyr+$allow)-($taken);
                                     $sum += $total;
                                  }

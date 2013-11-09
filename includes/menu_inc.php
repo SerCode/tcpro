@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Displays the TeamCal Pro menu on every main page
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -228,115 +228,117 @@ $m = buildMenu();
    </div>
 </div>
 
-<?php
-/**
- * ============================================================================
- * OPTIONS BAR
- */
-$optionitems=FALSE;
-if (substr_count($_SERVER['PHP_SELF'],"calendar.php")) {
-   $action=$_SERVER['PHP_SELF']."?".setRequests();
-}
-else if (substr_count($_SERVER['PHP_SELF'],"permissions.php") AND isset($scheme)) {
-   $action=$_SERVER['PHP_SELF']."?scheme=".$scheme;
-}
-else if (substr_count($_SERVER['PHP_SELF'],"userlist.php") AND isset($searchuser) AND isset($searchgroup) AND isset($sort)) {
-   $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;searchgroup=".$searchgroup."&amp;sort=".$sort;
-}
-else if (substr_count($_SERVER['PHP_SELF'],"groupassign.php") AND isset($searchuser) AND isset($sort)) {
-   $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort;
-}
-else if (substr_count($_SERVER['PHP_SELF'],"absences.php") AND isset($absid)) {
-   $action=$_SERVER['PHP_SELF']."?absid=".$absid;
-}
-else {
-   $action=$_SERVER['PHP_SELF'];
-}
-?>
-<!-- OPTIONS BAR ========================================================== -->
-<div id="optionsbar">
-   <form class="form" method="POST" name="form_options" action="<?=$action?>">
-      <span id="optionsbar-content">
-      <?php
-      /**
-       * CALENDAR
-       * Group, Region, Absence, Start-year, Start-month, Number of months
-       */
-   	if (substr_count($_SERVER['PHP_SELF'],"calendar.php") AND isAllowed("viewCalendar")) {
-         include ($CONF['app_root']."includes/options_calendar_inc.php");
-         $optionitems=TRUE;
-      } 
-
-      /**
-       * YEAR CALENDAR
-       * Year, User
-       */
-      if (substr_count($_SERVER['PHP_SELF'],"showyear.php") AND isAllowed("viewYearCalendar")) {
-         include ($CONF['app_root']."includes/options_showyear_inc.php");
-         $optionitems=TRUE;
-      }
-      
-      /**
-       * GLOBAL STATISTICS
-       * Standard Period, Custom Period, Group, Absence
-       */
-      if (substr_count($_SERVER['PHP_SELF'],"statistics.php")AND isAllowed("viewStatistics")) {
-         include ($CONF['app_root']."includes/options_statistics_inc.php");
-         $optionitems=TRUE;
-      }
-
-      /**
-       * REMAINDER STATISTICS
-       * Group, User
-       */
-      if (substr_count($_SERVER['PHP_SELF'],"statisticsu.php")AND isAllowed("viewStatistics")) {
-         include ($CONF['app_root']."includes/options_statisticsu_inc.php");
-         $optionitems=TRUE;
-      }
-
-      /**
-       * OPTION BUTTONS
-       * Select scheme, Create scheme
-       */
-      if ( $optionitems ) { ?>
-         <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
-         <input name="btn_reset" type="button" class="button" onclick="javascript:document.location.href='<?=$_SERVER['PHP_SELF']?>'" value="<?=$LANG['btn_reset']?>">
-      <?php }
-
-      /**
-       * PERMISSIONS
-       * Select scheme, Create scheme
-       */
-      if (substr_count($_SERVER['PHP_SELF'],"permissions.php")AND isAllowed("editPermissionScheme")) {
-         include ($CONF['app_root']."includes/options_permissions_inc.php");
-      }
-
-      /**
-       * USERLIST
-       * Search, Group
-       */
-      if (substr_count($_SERVER['PHP_SELF'],"userlist.php")AND isAllowed("manageUsers")) {
-         include ($CONF['app_root']."includes/options_userlist_inc.php");
-      }
-
-      /**
-       * GROUP ASSIGN
-       * Search
-       */
-      if (substr_count($_SERVER['PHP_SELF'],"groupassign.php")AND isAllowed("manageGroupMemberships")) {
-         include ($CONF['app_root']."includes/options_groupassign_inc.php");
-      }
-
-      /**
-       * ABSENCES
-       * Select, Create
-       */
-      if (substr_count($_SERVER['PHP_SELF'],"absences.php")AND isAllowed("editAbsenceTypes")) {
-         include ($CONF['app_root']."includes/options_absences_inc.php");
-      }
-      ?>
-      </span>
-   </form>
-</div>
+<?php if (!isset($err_short)) 
+{
+	/**
+	 * ============================================================================
+	 * OPTIONS BAR
+	 */
+	$optionitems=FALSE;
+	if (substr_count($_SERVER['PHP_SELF'],"calendar.php")) {
+	   $action=$_SERVER['PHP_SELF']."?".setRequests();
+	}
+	else if (substr_count($_SERVER['PHP_SELF'],"permissions.php") AND isset($scheme)) {
+	   $action=$_SERVER['PHP_SELF']."?scheme=".$scheme;
+	}
+	else if (substr_count($_SERVER['PHP_SELF'],"userlist.php") AND isset($searchuser) AND isset($searchgroup) AND isset($sort)) {
+	   $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;searchgroup=".$searchgroup."&amp;sort=".$sort;
+	}
+	else if (substr_count($_SERVER['PHP_SELF'],"groupassign.php") AND isset($searchuser) AND isset($sort)) {
+	   $action=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort;
+	}
+	else if (substr_count($_SERVER['PHP_SELF'],"absences.php") AND isset($absid)) {
+	   $action=$_SERVER['PHP_SELF']."?absid=".$absid;
+	}
+	else {
+	   $action=$_SERVER['PHP_SELF'];
+	}
+	?>
+	<!-- OPTIONS BAR ========================================================== -->
+	<div id="optionsbar">
+	   <form class="form" method="POST" name="form_options" action="<?=$action?>">
+	      <span id="optionsbar-content">
+	      <?php
+	      /**
+	       * CALENDAR
+	       * Group, Region, Absence, Start-year, Start-month, Number of months
+	       */
+	   	if (substr_count($_SERVER['PHP_SELF'],"calendar.php") AND isAllowed("viewCalendar")) {
+	         include ($CONF['app_root']."includes/options_calendar_inc.php");
+	         $optionitems=TRUE;
+	      } 
+	
+	      /**
+	       * YEAR CALENDAR
+	       * Year, User
+	       */
+	      if (substr_count($_SERVER['PHP_SELF'],"showyear.php") AND isAllowed("viewYearCalendar")) {
+	         include ($CONF['app_root']."includes/options_showyear_inc.php");
+	         $optionitems=TRUE;
+	      }
+	      
+	      /**
+	       * GLOBAL STATISTICS
+	       * Standard Period, Custom Period, Group, Absence
+	       */
+	      if (substr_count($_SERVER['PHP_SELF'],"statistics.php") AND isAllowed("viewStatistics")) {
+	         include ($CONF['app_root']."includes/options_statistics_inc.php");
+	         $optionitems=TRUE;
+	      }
+	
+	      /**
+	       * REMAINDER STATISTICS
+	       * Group, User
+	       */
+	      if (substr_count($_SERVER['PHP_SELF'],"statisticsu.php") AND isAllowed("viewStatistics")) {
+	         include ($CONF['app_root']."includes/options_statisticsu_inc.php");
+	         $optionitems=TRUE;
+	      }
+	
+	      /**
+	       * OPTION BUTTONS
+	       * Select scheme, Create scheme
+	       */
+	      if ( $optionitems ) { ?>
+	         <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">
+	         <input name="btn_reset" type="button" class="button" onclick="javascript:document.location.href='<?=$_SERVER['PHP_SELF']?>'" value="<?=$LANG['btn_reset']?>">
+	      <?php }
+	
+	      /**
+	       * PERMISSIONS
+	       * Select scheme, Create scheme
+	       */
+	      if (substr_count($_SERVER['PHP_SELF'],"permissions.php")AND isAllowed("editPermissionScheme")) {
+	         include ($CONF['app_root']."includes/options_permissions_inc.php");
+	      }
+	
+	      /**
+	       * USERLIST
+	       * Search, Group
+	       */
+	      if (substr_count($_SERVER['PHP_SELF'],"userlist.php")AND isAllowed("manageUsers")) {
+	         include ($CONF['app_root']."includes/options_userlist_inc.php");
+	      }
+	
+	      /**
+	       * GROUP ASSIGN
+	       * Search
+	       */
+	      if (substr_count($_SERVER['PHP_SELF'],"groupassign.php")AND isAllowed("manageGroupMemberships")) {
+	         include ($CONF['app_root']."includes/options_groupassign_inc.php");
+	      }
+	
+	      /**
+	       * ABSENCES
+	       * Select, Create
+	       */
+	      if (substr_count($_SERVER['PHP_SELF'],"absences.php")AND isAllowed("editAbsenceTypes")) {
+	         include ($CONF['app_root']."includes/options_absences_inc.php");
+	      }
+	      ?>
+	      </span>
+	   </form>
+	</div>
+<?php } ?>
 
 <!-- CONTENT ============================================================== -->

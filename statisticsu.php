@@ -5,7 +5,7 @@
  * Displays and runs the statistics page for single users
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -178,10 +178,12 @@ require( "includes/menu_inc.php" );
                               unset($legend);
                               unset($value);
                               $sum=0;
+                              $useFactor=TRUE;
+                              $countCombined=TRUE;
                               $absences = $A->getAll();
                               foreach ($absences as $abs) 
                               {
-                                 if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND $A->factor) 
+                                 if ($A->get($abs['id']) AND !$A->counts_as_present AND $A->allowance AND !$A->counts_as AND $A->factor) 
                                  {
                                     $total=0;
                                     if ( $B->find($guser,$A->id) ) 
@@ -194,7 +196,7 @@ require( "includes/menu_inc.php" );
                                        $lstyr = 0;
                                        $allow = $A->allowance;
                                     }
-                                    $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo);
+                                    $taken=countAbsence($guser,$A->id,$periodFrom,$periodTo,$useFactor,$countCombined);
                                     $total += ($lstyr+$allow)-($taken);
                                     $sum += $total;
                                     $legend[] = $A->name;

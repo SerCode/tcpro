@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Contains the class to interface with the absence type table
  *
  * @package TeamCalPro
- * @version 3.6.007 
+ * @version 3.6.009 Dev 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -35,6 +35,7 @@ if (!class_exists("Absence_model")) {
       var $bgcolor = '';
       var $factor = 1;
       var $allowance = '0';
+      var $counts_as = 0;
       var $show_in_remainder = 1;
       var $show_totals = 1;
       var $approval_required = 0;
@@ -70,7 +71,8 @@ if (!class_exists("Absence_model")) {
                      `bgcolor`,
                      `factor`,
                      `allowance`,
-                     `show_in_remainder`,
+                     `counts_as`,
+         				`show_in_remainder`,
                      `show_totals`,
                      `approval_required`,
                      `counts_as_present`,
@@ -87,6 +89,7 @@ if (!class_exists("Absence_model")) {
                    '".$this->bgcolor."',
                    '".$this->factor."',
                    '".$this->allowance."',
+                   '".$this->counts_as."',
                    '".$this->show_in_remainder."',
                    '".$this->show_totals."',
                    '".$this->approval_required."',
@@ -146,6 +149,7 @@ if (!class_exists("Absence_model")) {
                $this->bgcolor = $row['bgcolor'];
                $this->factor = $row['factor'];
                $this->allowance = $row['allowance'];
+               $this->counts_as = $row['counts_as'];
                $this->show_in_remainder = $row['show_in_remainder'];
                $this->show_totals = $row['show_totals'];
                $this->approval_required = $row['approval_required'];
@@ -195,6 +199,38 @@ if (!class_exists("Absence_model")) {
             }
          }
          return $rc;
+      }
+
+      //----------------------------------------------------------------------
+      /**
+       * Gets the absence ID of the allowance linked absence, or own ID
+       * 
+       * @param string $absid Record ID
+       * @return string Absence ID
+       */ 
+      function getCountsAs($absid = '') 
+      {
+         if (isset($absid)) 
+         {
+            $query = "SELECT counts_as FROM `".$this->table."` WHERE id='".$absid."';";
+            $result = $this->db->db_query($query);
+            if ($this->db->db_numrows($result) == 1) 
+            {
+               $row = $this->db->db_fetch_array($result);
+               $rc = $row['counts_as'];
+            }
+         }
+         if ($rc)
+         {
+         	//
+         	// Means there is a value greater 0 in here => ID of another absence type
+         	//
+         	return $rc;
+         }
+         else
+         {
+         	return FALSE;
+         }
       }
 
       //----------------------------------------------------------------------
@@ -338,6 +374,7 @@ if (!class_exists("Absence_model")) {
                      `bgcolor`           = '".$this->bgcolor."', 
                      `factor`            = '".$this->factor."', 
                      `allowance`         = '".$this->allowance."', 
+                     `counts_as`         = '".$this->counts_as."', 
                      `show_in_remainder` = '".$this->show_in_remainder."', 
                      `show_totals`       = '".$this->show_totals."', 
                      `approval_required` = '".$this->approval_required."', 

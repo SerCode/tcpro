@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Fieldset showing absence counts. Used in editprofile and viewprofile.
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -45,31 +45,40 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                $countfrom = str_replace("-","",$countfrom);
                $countto = str_replace("-","",$countto);
                $rowstyle=0;
+               $useFactor=TRUE;
+               $countCombined=TRUE;
                $absences=$A->getAll();
-               foreach ($absences as $abs) {
-                  $A->get($abs['id']);
-                  if ( $A->factor ) {
+               foreach ($absences as $abs) 
+               {
+                  if ($A->get($abs['id']) AND !$A->counts_as_present AND !$A->counts_as AND $A->factor) 
+                  {
                      if ( !$A->hide_in_profile ||
                           ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR']) || $UL->checkUserType($CONF['UTMANAGER']) )
-                        ) {
-                        if ( $B->find($U->username,$A->id)) {
+                        ) 
+                     {
+                        if ( $B->find($U->username,$A->id)) 
+                        {
                            $lstyr = $B->lastyear;
                            $allow = $B->curryear;
-                        }else{
+                        }
+                        else
+                        {
                            $lstyr = 0;
                            $allow = $A->allowance;
                         }
                         //echo "<script type=\"text/javascript\">alert(\"Debug: ".$countfrom."|".$countto." \");</script>";
-                        $taken=countAbsence($U->username,$A->id,$countfrom,$countto);
+                        $taken=countAbsence($U->username,$A->id,$countfrom,$countto,$useFactor,$countCombined);
                         $remain = $lstyr + $allow - $taken;
                         if ($remain<0) $stylesuffix="r"; else $stylesuffix="";
                         if ($rowstyle==1) $rowstyle=0; else $rowstyle=1;
 
                         $allowed=FALSE;
-                        if ( $UG->shareGroups($user, $U->username) ) {
+                        if ( $UG->shareGroups($user, $U->username) ) 
+                        {
                            if (isAllowed("editGroupUserAllowances")) $allowed=TRUE;
                         }
-                        else {
+                        else 
+                        {
                            if (isAllowed("editAllUserAllowances")) $allowed=TRUE;
                         } ?>
 

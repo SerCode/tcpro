@@ -5,7 +5,7 @@
  * Displays the edit calendar dialog
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -588,14 +588,18 @@ if (isset($_POST['btn_apply']))
             /**
              * DECLINATION PERIOD
              */
-            if ( $C->readConfig("declPeriod") AND !isAllowed("editAllUserCalendars") ) 
+            if ( ($C->readConfig("declPeriod") OR $C->readConfig("declPeriod2") OR $C->readConfig("declPeriod3")) AND !isAllowed("editAllUserCalendars") ) 
             {
                $declinationPeriod = FALSE;
                $iDate = intval($Year.$monthno.sprintf("%02d",$i));
                $startDate = intval($C->readConfig("declPeriodStart"));
                $endDate = intval($C->readConfig("declPeriodEnd"));
-
-               if ( $iDate >= $startDate AND $iDate <= $endDate ) 
+               $startDate2 = intval($C->readConfig("declPeriod2Start"));
+               $endDate2 = intval($C->readConfig("declPeriod2End"));
+               $startDate3 = intval($C->readConfig("declPeriod3Start"));
+               $endDate3 = intval($C->readConfig("declPeriod3End"));
+                
+               if ( ($iDate >= $startDate AND $iDate <= $endDate) OR ($iDate >= $startDate2 AND $iDate <= $endDate2) OR ($iDate >= $startDate3 AND $iDate <= $endDate3) ) 
                {
                   /**
                    * We are in a declination period
@@ -624,8 +628,21 @@ if (isset($_POST['btn_apply']))
                       * Absences is in declination period. Absence cannot be set.
                       */
                      $declined=TRUE;
-                     $dspStartDate = substr($startDate,0,4)."-".substr($startDate,4,2)."-".substr($startDate,6,2);
-                     $dspEndDate = substr($endDate,0,4)."-".substr($endDate,4,2)."-".substr($endDate,6,2);
+                     if ( $iDate >= $startDate AND $iDate <= $endDate ) 
+                     { 
+                        $dspStartDate = substr($startDate,0,4)."-".substr($startDate,4,2)."-".substr($startDate,6,2);
+                        $dspEndDate = substr($endDate,0,4)."-".substr($endDate,4,2)."-".substr($endDate,6,2);
+                     }
+                     else if ( $iDate >= $startDate2 AND $iDate <= $endDate2 ) 
+                     { 
+                        $dspStartDate = substr($startDate2,0,4)."-".substr($startDate2,4,2)."-".substr($startDate2,6,2);
+                        $dspEndDate = substr($endDate2,0,4)."-".substr($endDate2,4,2)."-".substr($endDate2,6,2);
+                     }
+                     else if ( $iDate >= $startDate3 AND $iDate <= $endDate3 ) 
+                     { 
+                        $dspStartDate = substr($startDate3,0,4)."-".substr($startDate3,4,2)."-".substr($startDate3,6,2);
+                        $dspEndDate = substr($endDate3,0,4)."-".substr($endDate3,4,2)."-".substr($endDate3,6,2);
+                     }
                      $errorarray[] = $T->year."-".$T->month."-".sprintf("%02d",($i)).$LANG['err_decl_period'].$dspStartDate.$LANG['err_decl_and'].$dspEndDate.".";
                      $unapproved[$i]=$requested[$i];
                      $accepted[$i]=$T->$prop;

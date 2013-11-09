@@ -5,7 +5,7 @@
  * English language file
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -541,12 +541,12 @@ $LANG['admin_config_avatars'] = 'Show Avatars';
 $LANG['admin_config_avatars_comment'] =
 'Checking this option will show a user avatar pop-up when moving the mouse over the user icon.'.
 'Note: This feature only works when "'.$LANG['admin_config_usericons'].'" is switched on.';
-$LANG['admin_config_avatarwidth'] = 'Avatar Width';
+$LANG['admin_config_avatarwidth'] = 'Avatar Max Width';
 $LANG['admin_config_avatarwidth_comment'] =
-'Specifies the width in pixel of the avatar image. Avatar images uploaded will be resized to this width.';
-$LANG['admin_config_avatarheight'] = 'Avatar Height';
+'Specifies the maximum width in pixel of the avatar image. Avatar images with a larger width will be resized to this width while adjusting the height proportionally.';
+$LANG['admin_config_avatarheight'] = 'Avatar Max Height';
 $LANG['admin_config_avatarheight_comment'] =
-'Specifies the height in pixel of the avatar image. Avatar images uploaded will be resized to this height.';
+'Specifies the maximum height in pixel of the avatar image. Avatar images with a larger height will be resized to this height while adjusting the width proportionally.';
 $LANG['admin_config_debughide'] = 'Debug Hide Info';
 $LANG['admin_config_debughide_comment'] =
 'If you want to hide the database info on the environment page, set this switch. However, the db_password will never be displayed in clear text, always as ******.';
@@ -2002,8 +2002,20 @@ $LANG['admin_config_user_search'] = 'Show User Search Box';
 $LANG['admin_config_user_search_comment'] =
 'Enable/Disable a user search box in the Calendar view, enabling to search for single users.';
 
+$LANG['admin_config_avatarmaxsize'] = 'Avatar Max Size';
+$LANG['admin_config_avatarmaxsize_comment'] =
+'Specifies the maximum files size in Bytes for the avatar image file.';
+
 /**
  * Calendar page
  */
 $LANG['cal_user_search'] = 'User';
+
+/**
+ * Absence type page
+ */
+$LANG['abs_counts_as'] = 'Counts as';
+$LANG['abs_counts_as_desc'] = 'Select whether taken absences of this type count against the allowance of another absence type. ' . 
+'If you select any other absence type the allowance of this absence type is not taken into account, but the allowance of the selected one.<br> ' .
+'Example: "Vacation half day" with factor 0.5 counts against the allowance of "Vacation".';
 ?>

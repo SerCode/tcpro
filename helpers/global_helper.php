@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Collection of global functions for TeamCal Pro
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -219,13 +219,16 @@ function clearFlag($flagset, $bitmask) {
  * Counts all occurences of a given absence type for a given user in a given
  * time period
  *
- * @param   string $cntuser     User to count for
- * @param   string $cntabsence  Absence type to count
- * @param   string $cntfrom     Date to count from (including)
- * @param   string $cntto       Date to count to (including)
- * @return  integer             Result of the count
+ * @param   string $user       User to count for
+ * @param   string $absid      Absence type ID to count
+ * @param   string $from       Date to count from (including)
+ * @param   string $to         Date to count to (including)
+ * @param   boolean $useFactor Multiply count by factor
+ * @param   boolean $combined  Count other absences that count as this one
+ * @return  integer            Result of the count
  */
-function countAbsence($user='%', $absid, $from, $to) {
+function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined=FALSE) 
+{
    global $CONF;
    require_once ($CONF['app_root']."models/absence_model.php");
    require_once ($CONF['app_root'] . "models/template_model.php");
@@ -233,7 +236,9 @@ function countAbsence($user='%', $absid, $from, $to) {
    $A = new Absence_model;
    $T = new Template_model;
 
+   // 
    // Figure out starting month and ending month
+   //
    $startyear = intval(substr($from, 0, 4));
    $startmonth = intval(substr($from, 4, 2));
    $startday = intval(substr($from, 6, 2));
@@ -241,10 +246,10 @@ function countAbsence($user='%', $absid, $from, $to) {
    $endmonth = intval(substr($to, 4, 2));
    $endday = intval(substr($to, 6, 2));
 
-   // Get the count factor for this absence type
+   // 
+   // Get the count for this absence type
+   //
    $factor = $A->getFactor($absid);
-
-   // Now count
    $count = 0;
    $firstday = $startday;
    if ($firstday < 1 || $firstday > 31) $firstday = 1;
@@ -254,27 +259,87 @@ function countAbsence($user='%', $absid, $from, $to) {
    $ymstart = intval($year.sprintf("%02d",$month));
    $ymend= intval($endyear.sprintf("%02d",$endmonth));
 
-   while ($ymstart<=$ymend) {
-      if ($year==$startyear AND $month==$startmonth) {
+   while ($ymstart<=$ymend) 
+   {
+      if ($year==$startyear AND $month==$startmonth) 
+      {
          $count+=$T->countAbsence($user,$year,$month,$absid,$startday);
       }
-      else if ($year==$endyear AND $month==$endmonth) {
+      else if ($year==$endyear AND $month==$endmonth) 
+      {
          $count+=$T->countAbsence($user,$year,$month,$absid,1,$endday);
       }
-      else {
+      else 
+      {
          $count+=$T->countAbsence($user,$year,$month,$absid);
       }
       
-      if ($month==12) {
+      if ($month==12) 
+      {
          $year++;
          $month = 1;
       }
-      else {
+      else 
+      {
          $month++;
       }
       $ymstart = intval($year.sprintf("%02d",$month));
    }
-   return $count;
+   
+   if ($useFactor) $count*=$factor;
+     
+   //
+   // If requested, count all those absence types that count as this one
+   //
+   $otherCount = 0;
+   if ($combined)
+   {
+      $otherAbsences = $A->getAll();
+      foreach ($otherAbsences as $otherAbs) 
+      {
+         if ($otherId=$otherAbs['counts_as'] AND $otherId==$absid) 
+         {
+            $otherFactor = $otherAbs['factor'];
+            $year = $startyear;
+            $month = $startmonth;
+            $ymstart = intval($year.sprintf("%02d",$month));
+            $ymend= intval($endyear.sprintf("%02d",$endmonth));
+         
+            while ($ymstart<=$ymend) 
+            {
+               if ($year==$startyear AND $month==$startmonth) 
+               {
+                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id'],$startday);
+               }
+               else if ($year==$endyear AND $month==$endmonth) 
+               {
+                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id'],1,$endday);
+               }
+               else 
+               {
+                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id']);
+               }
+               
+               if ($month==12) 
+               {
+                  $year++;
+                  $month = 1;
+               }
+               else 
+               {
+                  $month++;
+               }
+               $ymstart = intval($year.sprintf("%02d",$month));
+            }
+            //
+            // A combined count always uses the factor. Doesn't make sense otherwise.
+            //
+            $otherCount*=$otherFactor;
+         }
+      }
+   }
+    
+   return $count+$otherCount;
 }
 
 // ---------------------------------------------------------------------------
@@ -691,7 +756,8 @@ function createPopup($id, $body, $caption='', $capicon='') {
  * @param   string $group  Group to refer to in case of base=group
  * @return  boolean        True if reached, false if not
  */
-function declineThresholdReached($year, $month, $day, $base, $group = '') {
+function declineThresholdReached($year, $month, $day, $base, $group = '') 
+{
    global $CONF;
    require_once ($CONF['app_root'] . "models/config_model.php");
    require_once ($CONF['app_root'] . "models/group_model.php");
@@ -705,7 +771,8 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
    $U = new User_model;
    $UG = new User_group_model;
 
-   if ($base=="group") {
+   if ($base=="group") 
+   {
       /*
        * Count group members
        */
@@ -721,12 +788,14 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
       "AND (".$T->table.".username=".$UG->table.".username AND ".$UG->table.".groupname='".$group."');";
       $result = $T->db->db_query($query);
       $absences = 0;
-      while ($row = $T->db->db_fetch_array($result, MYSQL_ASSOC)) {
+      while ($row = $T->db->db_fetch_array($result, MYSQL_ASSOC)) 
+      {
          $prop='abs'.$day;
          if ($row[$prop] != 0) $absences++;
       }
    }
-   else if ($base=="min_present") {
+   else if ($base=="min_present") 
+   {
       /*
        * Count group members
        */
@@ -742,7 +811,8 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
       "AND   (".$T->table.".username=".$UG->table.".username AND ".$UG->table.".groupname='".$group."');";
       $result = $T->db->db_query($query);
       $absences = 0;
-      while ($row = $T->db->db_fetch_array($result, MYSQL_ASSOC)) {
+      while ($row = $T->db->db_fetch_array($result, MYSQL_ASSOC)) 
+      {
          $prop='abs'.$day;
          if ($row[$prop] != 0) $absences++;
       }
@@ -750,7 +820,8 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
       $G->findByName($group);
       if ($users-$absences < $G->min_present) return true; else return false;
    }
-   else if ($base=="max_absent") {
+   else if ($base=="max_absent") 
+   {
       /*
        *  Count all group absences for this day
        */
@@ -759,7 +830,8 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
       "AND (".$T->table.".username=".$UG->table.".username AND ".$UG->table.".groupname='".$group."');";
       $result = $T->db->db_query($query);
       $absences = 0;
-      while ($row = $T->db->db_fetch_array($result, MYSQL_ASSOC)) {
+      while ($row = $T->db->db_fetch_array($result, MYSQL_ASSOC)) 
+      {
          $prop='abs'.$day;
          if ($row[$prop] != 0) $absences++;
       }
@@ -767,7 +839,8 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
       $G->findByName($group);
       if ($absences+1 > $G->max_absent) return true; else return false;
    }
-   else {
+   else 
+   {
       /*
        * Count all members
        */
@@ -781,7 +854,8 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
       $query = "SELECT * FROM `".$T->table."` WHERE `year`='".$year."' AND `month`='".sprintf("%02d", $month)."';";
       $result = $T->db->db_query($query);
       $absences = 0;
-      while ($row = $T->db->db_fetch_array($result, MYSQL_ASSOC)) {
+      while ($row = $T->db->db_fetch_array($result, MYSQL_ASSOC)) 
+      {
          $prop='abs'.$day;
          if ($row[$prop] != 0) $absences++;
       }
@@ -793,10 +867,12 @@ function declineThresholdReached($year, $month, $day, $base, $group = '') {
    $absencerate = ((100 * $absences) / $users);
    $threshold = intval($C->readConfig("declThreshold"));
    //echo "<script type=\"text/javascript\">alert(\"Threshold ".$absencerate." : ".$threshold."\");</script>";
-   if ($absencerate >= $threshold) {
+   if ($absencerate >= $threshold) 
+   {
       return true;
    }
-   else {
+   else 
+   {
       return false;
    }
 

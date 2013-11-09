@@ -3,6 +3,30 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.009]
+
+DATE
+2013-11-09
+
+NEW FEATURES
+
+https://georgelewe.atlassian.net/browse/TCP-61
+Additional Declination Period Opportunity
+
+https://georgelewe.atlassian.net/browse/TCP-60
+Option to specify Avatar File Size
+
+https://georgelewe.atlassian.net/browse/TCP-58
+Combine absence allowance
+
+https://georgelewe.atlassian.net/browse/TCP-55
+User filter/search in calendar view
+
+https://georgelewe.atlassian.net/browse/TCP-50
+No notifications for changes in the past
+
+
+------------------------------------------------------------------------------
 [3.6.008]
 
 DATE

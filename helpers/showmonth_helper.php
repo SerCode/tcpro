@@ -7,7 +7,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * seperate file.
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -626,9 +626,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
              $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
                      " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
                      " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND (".$CONF['db_table_users'].".username LIKE '".$calSearchUser."' ".
-                     "    OR ".$CONF['db_table_users'].".lastname LIKE '".$calSearchUser."' ".
-                     "    OR ".$CONF['db_table_users'].".firstname LIKE '".$calSearchUser."')".
+                     " AND (".$CONF['db_table_users'].".username LIKE '%".$calSearchUser."%' ".
+                     "    OR ".$CONF['db_table_users'].".lastname LIKE '%".$calSearchUser."%' ".
+                     "    OR ".$CONF['db_table_users'].".firstname LIKE '%".$calSearchUser."%')".
                      " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
                      " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
                      " AND ".$CONF['db_table_user_group'].".type!='manager'" .
@@ -638,9 +638,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
              $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
                      " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
                      " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
-                     " AND (".$CONF['db_table_users'].".username LIKE '".$calSearchUser."' ".
-                     "    OR ".$CONF['db_table_users'].".lastname LIKE '".$calSearchUser."' ".
-                     "    OR ".$CONF['db_table_users'].".firstname LIKE '".$calSearchUser."')".
+                     " AND (".$CONF['db_table_users'].".username LIKE '%".$calSearchUser."%' ".
+                     "    OR ".$CONF['db_table_users'].".lastname LIKE '%".$calSearchUser."%' ".
+                     "    OR ".$CONF['db_table_users'].".firstname LIKE '%".$calSearchUser."%')".
                      " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
                      " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
                      " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";

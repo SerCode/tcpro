@@ -5,7 +5,7 @@
  * German language file
  *
  * @package TeamCalPro
- * @version 3.6.007
+ * @version 3.6.009 Dev
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -539,12 +539,12 @@ $LANG['admin_config_avatars'] = 'Avatars anzeigen';
 $LANG['admin_config_avatars_comment'] =
 'Mit dieser Option wird ein User Avatar in einem Pop-Up Fenster angezeigt, wenn die Maus &uuml;ber das User Icon '.
 'gef&uuml;hrt wird. Hinweis: Diese Funktion arbeitet nur, wenn "'.$LANG['admin_config_usericons'].'" eingschaltet ist.';
-$LANG['admin_config_avatarwidth'] = 'Avatar Breite';
+$LANG['admin_config_avatarwidth'] = 'Avatar Maximale Breite';
 $LANG['admin_config_avatarwidth_comment'] =
-'Gibt die Breite in Pixel von Avatar Bildern an. Hochgeladene Avatar Bilder werden ggfs. auf diese Breite verkleinert.';
-$LANG['admin_config_avatarheight'] = 'Avatar H&ouml;he';
+'Gibt die Breite in Pixel von Avatar Bildern an. Avatar Bilder mit gr&ouml;&szlig;erer Breite werden auf diese Breite reduziert und die H&ouml;he wird proportional angepasst.';
+$LANG['admin_config_avatarheight'] = 'Avatar Maximale H&ouml;he';
 $LANG['admin_config_avatarheight_comment'] =
-'Gibt die H&ouml;he in Pixel von Avatar Bildern an. Hochgeladene Avatar Bilder werden ggfs. auf diese H&ouml;he verkleinert.';
+'Gibt die H&ouml;he in Pixel von Avatar Bildern an. Avatar Bilder mit gr&ouml;&szlig;erer H&ouml;he werden auf diese H&ouml;he reduziert und die Breite wird proportional angepasst.';
 $LANG['admin_config_debughide'] = 'Debug Info Verstecken';
 $LANG['admin_config_debughide_comment'] =
 'Mit diesem Switch werden sensitive Daten wie (Server, Name, Userid) von der Environment Seite verborgen. ' .
@@ -2001,8 +2001,20 @@ $LANG['admin_config_user_search'] = 'Nutzer Suchfeld Anzeigen';
 $LANG['admin_config_user_search_comment'] =
 'Aktivierung/Deaktivierung eines Suchfelds in der Kalenderanzeige, mit dem einzelne Nutzer gesucht werden k&ouml;nnen.';
 
+$LANG['admin_config_avatarmaxsize'] = 'Avatar Maximale Dateigr&ouml;&szlig;e';
+$LANG['admin_config_avatarmaxsize_comment'] =
+'Bestimmt die maximale Dateigr&ouml;&szlig;e f&uuml;r Avatar Dateien in Bytes.';
+
 /**
  * Calendar page
  */
 $LANG['cal_user_search'] = 'Nutzer';
+
+/**
+ * Absence type page
+ */
+$LANG['abs_counts_as'] = 'Z&auml;hlt als';
+$LANG['abs_counts_as_desc'] = 'Hier kann ausgew&auml;hlt werden, ob die genommenen Tage diese Abwesenheitstyps gegen die Erlaubnis eines anderen Typs z&auml;hlen. ' . 
+'Wenn ein anderer Typ gew&auml;hlt wird, wird die Erlaubnis diese Typs hier nicht in Betracht gezogen, nur die des anderen Typs.<br> ' .
+'Beispiel: "Urlaub Halbtag" mit Faktor z&auml;hlt gegen die Erlaubnis des Typs "Urlaub".';
 ?>

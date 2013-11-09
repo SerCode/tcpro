@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_config` (
 INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (1, 'defgroupfilter', 'All'),
 (2, 'defregion', 'default'),
-(3, 'appSubTitle', 'Version 3.6.008'),
+(3, 'appSubTitle', 'Version 3.6.009 Dev'),
 (4, 'appFooterCpy', 'Copyright &amp;copy; 2013 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.'),
 (5, 'repeatHeaderCount', '8'),
 (6, 'todayBorderColor', 'FFCC00'),
