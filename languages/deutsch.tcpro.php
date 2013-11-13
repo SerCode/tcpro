@@ -5,7 +5,7 @@
  * German language file
  *
  * @package TeamCalPro
- * @version 3.6.009
+ * @version 3.6.010
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com

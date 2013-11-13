@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_absences` (
   `bgcolor` varchar(6) NOT NULL,
   `factor` float NOT NULL,
   `allowance` float NOT NULL,
+  `counts_as` int(11) NOT NULL,
   `show_in_remainder` tinyint(1) NOT NULL,
   `show_totals` tinyint(1) NOT NULL,
   `approval_required` tinyint(1) NOT NULL,

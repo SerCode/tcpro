@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_absences` (
   `bgcolor` varchar(6) NOT NULL,
   `factor` float NOT NULL,
   `allowance` float NOT NULL,
+  `counts_as` int(11) NOT NULL,
   `show_in_remainder` tinyint(1) NOT NULL,
   `show_totals` tinyint(1) NOT NULL,
   `approval_required` tinyint(1) NOT NULL,
@@ -28,15 +29,16 @@ CREATE TABLE IF NOT EXISTS `my_tc_absences` (
 -- Dumping data for table `my_tc_absences`
 --
 
-INSERT INTO `my_tc_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `factor`, `allowance`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`) VALUES
-(1, 'Vacation', 'V', 'sun.png', '000000', 'FC3737', 1, 20, 1, 1, 1, 0, 0, 0, 0),
-(2, 'Sick', 'S', 'virus.png', '000000', 'FFCCFF', 1, 24, 1, 0, 0, 0, 0, 0, 1),
-(3, 'Day Off', 'F', 'No', '000000', '00FF00', 1.5, 12, 1, 1, 0, 0, 0, 1, 0),
-(4, 'Duty Trip', 'D', 'cactus.png', '000000', 'FFDB9E', 1, 20, 1, 0, 0, 0, 0, 0, 0),
-(5, 'Home Office', 'H', 'home.png', '000000', 'ADD8E6', 1, 0, 0, 0, 1, 1, 0, 0, 0),
-(6, 'Not Present', 'N', 'x.png', '000000', 'C0C0C0', 1, 0, 0, 0, 0, 0, 0, 0, 0),
-(7, 'Training', 'T', 'book2.png', '000000', '6495ED', 1, 10, 0, 0, 0, 0, 0, 0, 0),
-(8, 'Tentative Absence', 'A', 'alarm.png', '000000', 'EFEFEF', 1, 0, 0, 1, 0, 0, 0, 0, 0);
+INSERT INTO `my_tc_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `factor`, `allowance`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`) VALUES
+(1, 'Vacation', 'V', 'sun.png', '000000', 'FC3737', 1, 20, 0, 1, 1, 1, 0, 0, 0, 0),
+(2, 'Sick', 'S', 'virus.png', '000000', 'FFCCFF', 1, 24, 0, 1, 0, 0, 0, 0, 0, 1),
+(3, 'Day Off', 'F', 'No', '000000', '00FF00', 1, 12, 0, 1, 1, 0, 0, 0, 1, 0),
+(4, 'Duty Trip', 'D', 'cactus.png', '000000', 'FFDB9E', 1, 20, 0, 1, 0, 0, 0, 0, 0, 0),
+(5, 'Home Office', 'H', 'home.png', '000000', 'ADD8E6', 1, 0, 0, 0, 0, 1, 1, 0, 0, 0),
+(6, 'Not Present', 'N', 'x.png', '000000', 'C0C0C0', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(7, 'Training', 'T', 'book2.png', '000000', '6495ED', 1, 10, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'Tentative Absence', 'A', 'alarm.png', '000000', 'EFEFEF', 1, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+
 
 -- --------------------------------------------------------
 
