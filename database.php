@@ -96,9 +96,12 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
    /**
     * Clean old templates older than year.month ...
     */
-   if ( strlen($_POST['clean_year']) && strlen($_POST['clean_month']) ) {
-      if ( $_POST['cleanup_confirm']=="CLEANUP" ) {
-         if ( isset($_POST['chkDBCleanupUsers']) ) {
+   if ( strlen($_POST['clean_year']) && strlen($_POST['clean_month']) ) 
+   {
+      if ( $_POST['cleanup_confirm']=="CLEANUP" ) 
+      {
+         if ( isset($_POST['chkDBCleanupUsers']) ) 
+         {
             /**
              * Delete Templates
              */
@@ -113,7 +116,9 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
             $query  = "DELETE FROM `".$N->table."` WHERE `yyyymmdd`<=".$keydate." AND `username`<>'all'";
             $result = $N->db->db_query($query);
          }
-         if ( isset($_POST['chkDBCleanupMonths']) ) {
+         
+         if ( isset($_POST['chkDBCleanupMonths']) ) 
+         {
             /**
              * Delete Month Templates
              */
@@ -127,7 +132,9 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
             $query  = "DELETE FROM `".$N->table."` WHERE `yyyymmdd`<=".$keydate;
             $result = $N->db->db_query($query);
          }
-         if ( isset($_POST['chkDBOptimize']) ) {
+         
+         if ( isset($_POST['chkDBOptimize']) ) 
+         {
             /**
              * Optimize tables
              */
@@ -154,14 +161,18 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
           * Log this event
           */
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_cleanup_before", $_POST['clean_year'].$_POST['clean_month']);
-      } else {
+      } 
+      else 
+      {
          $error=TRUE;
          $err_short = $LANG['err_input_caption'];
          $err_long = $LANG['err_input_dbmaint_clean_confirm'];
          $err_module=$_SERVER['SCRIPT_NAME'];
          $err_btn_close=FALSE;
       }
-   } else {
+   } 
+   else 
+   {
       $error=TRUE;
       $err_short = $LANG['err_input_caption'];
       $err_long = $LANG['err_input_dbmaint_clean'];
@@ -173,11 +184,12 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
  * =========================================================================
  * DELETE RECORDS
  */
-else if ( isset($_POST['btn_dbmaint_del']) ) {
-
-   if ( isset($_POST['del_confirm']) AND $_POST['del_confirm']=="DELETE" ) {
-
-      if ( isset($_POST['chkDBDeleteUsers']) ) {
+else if ( isset($_POST['btn_dbmaint_del']) ) 
+{
+   if ( isset($_POST['del_confirm']) AND $_POST['del_confirm']=="DELETE" ) 
+   {
+      if ( isset($_POST['chkDBDeleteUsers']) ) 
+      {
          $query  = "DELETE FROM `".$U->table."` WHERE `username`<> 'admin'";
          $U->db->db_query($query);
          $query  = "DELETE FROM `".$UO->table."` WHERE `username`<> 'admin'";
@@ -194,7 +206,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_users");
       }
 
-      if ( isset($_POST['chkDBDeleteGroups']) ) {
+      if ( isset($_POST['chkDBDeleteGroups']) ) 
+      {
          $query  = "TRUNCATE TABLE `".$G->table."`";
          $G->db->db_query($query);
          $query  = "TRUNCATE TABLE `".$UG->table."`";
@@ -205,7 +218,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_groups");
       }
 
-      if ( isset($_POST['chkDBDeleteHolidays']) ) {
+      if ( isset($_POST['chkDBDeleteHolidays']) ) 
+      {
          $query  = "DELETE FROM `".$H->table."` WHERE `cfgname`<>'wend' AND `cfgname`<>'busi'";
          $H->db->db_query($query);
          /**
@@ -214,7 +228,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_hol");
       }
 
-      if ( isset($_POST['chkDBDeleteRegions']) ) {
+      if ( isset($_POST['chkDBDeleteRegions']) ) 
+      {
          $query  = "DELETE FROM `".$N->table."` WHERE `region`<>'default'";
          $result = $N->db->db_query($query);
          $query  = "DELETE FROM `".$M->table."` WHERE `region`<>'default'";
@@ -227,7 +242,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_regions");
       }
 
-      if ( isset($_POST['chkDBDeleteAbsence']) ) {
+      if ( isset($_POST['chkDBDeleteAbsence']) ) 
+      {
          $query  = "DELETE FROM `".$A->table."` WHERE `cfgname`<> 'present'";
          $A->db->db_query($query);
          /**
@@ -246,7 +262,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_abs");
       }
 
-      if ( isset($_POST['chkDBDeleteDaynotes']) ) {
+      if ( isset($_POST['chkDBDeleteDaynotes']) ) 
+      {
          $query  = "DELETE FROM `".$N->table."` WHERE `username`='all'";
          $N->db->db_query($query);
          /**
@@ -255,7 +272,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_daynotes");
       }
 
-      if ( isset($_POST['chkDBDeleteAnnouncements']) ) {
+      if ( isset($_POST['chkDBDeleteAnnouncements']) ) 
+      {
          $AN->clearAnnouncements();
          $UA->deleteAll();
          /**
@@ -264,7 +282,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_ann");
       }
 
-      if ( isset($_POST['chkDBDeleteOrphAnnouncements']) ) {
+      if ( isset($_POST['chkDBDeleteOrphAnnouncements']) ) 
+      {
          $announcements = $AN->getAll();
          foreach ($announcements as $row) {
             if (!count($UA->getAllForTimestamp($row['timestamp']))) $AN->delete($row['timestamp']);
@@ -275,7 +294,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logAnnouncement",$L->checkLogin(),"log_db_delete_ann_orph");
       }
 
-      if ( isset($_POST['chkDBDeleteLog']) ) {
+      if ( isset($_POST['chkDBDeleteLog']) ) 
+      {
          $query  = "TRUNCATE TABLE `".$CONF['db_table_log']."`";
          $LOG->db->db_query($query);
          /**
@@ -284,7 +304,8 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_log");
       }
 
-      if ( isset($_POST['chkDBDeletePermissionSchemes']) ) {
+      if ( isset($_POST['chkDBDeletePermissionSchemes']) ) 
+      {
          $query = "DELETE FROM ".$P->table." WHERE scheme != 'Default';";
          $P->db->db_query($query);
          /**
@@ -292,8 +313,9 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
           */
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_perm");
       }
-
-   } else {
+   } 
+   else 
+   {
       $error=TRUE;
       $err_short = $LANG['err_input_caption'];
       $err_long = $LANG['err_input_dbmaint_del'];
@@ -305,15 +327,16 @@ else if ( isset($_POST['btn_dbmaint_del']) ) {
  * =========================================================================
  * EXPORT
  */
-else if (isset($_POST['btn_export'])) {
-
-   switch ($_POST['exp_table']) {
+else if (isset($_POST['btn_export'])) 
+{
+   switch ($_POST['exp_table']) 
+   {
       case 'exp_all':      $what="all"; break;
       case 'exp_absence':  $what=$A->table; break;
       case 'exp_group':    $what=$G->table; break;
       case 'exp_holiday':  $what=$H->table; break;
       case 'exp_region':   $what=$R->table; break;
-      case 'exp_log':      $what=$L->table; break;
+      case 'exp_log':      $what=$LOG->table; break;
       case 'exp_month':    $what=$M->table; break;
       case 'exp_styles':   $what=$S->table; break;
       case 'exp_template': $what=$T->table; break;
@@ -321,14 +344,16 @@ else if (isset($_POST['btn_export'])) {
       default:             $what="all"; break;
    }
 
-   switch ($_POST['exp_format']) {
+   switch ($_POST['exp_format']) 
+   {
       case 'exp_format_csv': $format="csv"; break;
       case 'exp_format_sql': $format="sql"; break;
       case 'exp_format_xml': $format="xml"; break;
       default:               $format="sql"; break;
    }
 
-   switch ($_POST['exp_output']) {
+   switch ($_POST['exp_output']) 
+   {
       case 'exp_output_browser': $type="browser"; break;
       case 'exp_output_file':    $type="download"; break;
       default:                   $type=""; break;
@@ -344,30 +369,36 @@ else if (isset($_POST['btn_export'])) {
  * =========================================================================
  * RESTORE
  */
-else if ( isset($_POST['btn_rest_rest']) ) {
+else if ( isset($_POST['btn_rest_rest']) ) 
+{
 
    $message['header']=$LANG['admin_dbmaint_rest_caption'];
    $message['title']=$LANG['admin_dbmaint_rest_caption']." ".$LANG['result'];
 
-   if (strlen($_FILES['sqlfile']['name'])) {
-
+   if (strlen($_FILES['sqlfile']['name'])) 
+   {
       $updir = $CONF['app_root'].'sql/';
       //$upfile = $updir . basename($_FILES['sqlfile']['name']);
       $upfile = $updir . "tcpro_dbrestore_".date('Ymd_His').".sql";
 
-      if (move_uploaded_file($_FILES['sqlfile']['tmp_name'], $upfile)) {
+      if (move_uploaded_file($_FILES['sqlfile']['tmp_name'], $upfile)) 
+      {
          /**
           * Restore database from file
           */
          $db = new Db_model;
          $db->db_connect();
-         if ($file_content = file($upfile)) {
+         if ($file_content = file($upfile)) 
+         {
             $query = "";
-            foreach($file_content as $sql_line) {
+            foreach($file_content as $sql_line) 
+            {
                $tsl = trim($sql_line);
-               if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
+               if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) 
+               {
                   $query .= $sql_line;
-                  if(preg_match("/;\s*$/", $sql_line)) {
+                  if(preg_match("/;\s*$/", $sql_line)) 
+                  {
                      $result = $db->db_query($query);
                      if (!$result) die(mysql_error());
                      $query = "";
@@ -376,11 +407,13 @@ else if ( isset($_POST['btn_rest_rest']) ) {
                }
             }
             $message['show']=true;
-            if (!$found) {
+            if (!$found) 
+            {
                $message['success']=false;
                $message['text'] = $LANG['admin_dbmaint_msg_001'];
             }
-            else {
+            else 
+            {
                $message['success']=true;
                $message['text'] = $LANG['admin_dbmaint_msg_002'];
                /**
@@ -390,13 +423,15 @@ else if ( isset($_POST['btn_rest_rest']) ) {
             }
          }
       }
-      else {
+      else 
+      {
          $message['show']=true;
          $message['success']=false;
          $message['text'] = $LANG['admin_dbmaint_msg_003'];
       }
    }
-   else {
+   else 
+   {
       $message['show']=true;
       $message['success']=false;
       $message['text'] = $LANG['admin_dbmaint_msg_004'];
@@ -411,7 +446,8 @@ $CONF['html_title'] = $LANG['html_title_database'];
  * User manual page
  */
 $help = urldecode($C->readConfig("userManual"));
-if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) 
+{
    $help .= 'Database+Management';
 }
 require("includes/header_html_inc.php");

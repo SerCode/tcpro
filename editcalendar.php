@@ -373,8 +373,6 @@ if (isset($_POST['btn_apply']))
    } 
 
    
-    
-   
    /**
     * Only go through this if the new template is different from the old
     * and if the user requesting this is not the Admin
@@ -420,10 +418,10 @@ if (isset($_POST['btn_apply']))
                          * - OR is allowed but is neither member nor manager
                          */
                         if ( !isAllowed("editGroupUserCalendars") 
-                             OR ( 
-                               !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                               AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                             )
+                             OR
+                             $C->readConfig("declApplyToAll")
+                             OR
+                             (!$UG->isGroupManagerOfGroup($luser,$row['groupname']) AND !$UG->isMemberOfGroup($luser,$row['groupname']))
                            )
                         {
                            $affectedgroups[] = $row['groupname'];
@@ -478,10 +476,10 @@ if (isset($_POST['btn_apply']))
                          * - OR is allowed but is neither member nor manager
                          */
                         if ( !isAllowed("editGroupUserCalendars") 
-                             OR ( 
-                               !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                               AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                             )
+                             OR
+                             $C->readConfig("declApplyToAll")
+                             OR 
+                             (!$UG->isGroupManagerOfGroup($luser,$row['groupname']) AND !$UG->isMemberOfGroup($luser,$row['groupname']))
                            )
                         {
                            $affectedgroups[] = $row['groupname'];
@@ -499,10 +497,10 @@ if (isset($_POST['btn_apply']))
                          * - OR is allowed but is neither member nor manager
                          */
                         if ( !isAllowed("editGroupUserCalendars") 
-                             OR ( 
-                               !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                               AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                             )
+                             OR
+                             $C->readConfig("declApplyToAll")
+                             OR 
+                             (!$UG->isGroupManagerOfGroup($luser,$row['groupname']) AND !$UG->isMemberOfGroup($luser,$row['groupname']))
                            )
                         {
                            $affectedgroups[] = $row['groupname'];
@@ -549,7 +547,7 @@ if (isset($_POST['btn_apply']))
 
                if ( $C->readConfig("declBefore")=="Today" ) $blockBeforeDate = intval($todayDate);
                else $blockBeforeDate = intval($C->readConfig("declBeforeDate"));
-
+               
                if ( $iDate<$blockBeforeDate ) 
                {
                   foreach ($usergroups as $row) 
@@ -560,10 +558,10 @@ if (isset($_POST['btn_apply']))
                       * - OR is allowed but is neither member nor manager
                       */
                      if ( !isAllowed("editGroupUserCalendars") 
-                          OR ( 
-                            !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                            AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                          )
+                          OR
+                          $C->readConfig("declApplyToAll")
+                          OR 
+                          (!$UG->isGroupManagerOfGroup($luser,$row['groupname']) AND !$UG->isMemberOfGroup($luser,$row['groupname']))
                         )
                      {
                         $affectedgroups[] = $row['groupname'];
@@ -612,10 +610,10 @@ if (isset($_POST['btn_apply']))
                       * - OR is allowed but is neither member nor manager
                       */
                      if ( !isAllowed("editGroupUserCalendars") 
-                          OR ( 
-                            !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                            AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                          )
+                          OR
+                          $C->readConfig("declApplyToAll")
+                          OR 
+                          (!$UG->isGroupManagerOfGroup($luser,$row['groupname']) AND !$UG->isMemberOfGroup($luser,$row['groupname']))
                         )
                      {
                         $affectedgroups[] = $row['groupname'];
@@ -662,10 +660,10 @@ if (isset($_POST['btn_apply']))
                 * - OR is allowed but is neither member nor manager
                 */
                if ( !isAllowed("editGroupUserCalendars") 
-                    OR ( 
-                      !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                      AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                    )
+                    OR
+                    $C->readConfig("declApplyToAll")
+                    OR 
+                    (!$UG->isGroupManagerOfGroup($luser,$row['groupname']) AND !$UG->isMemberOfGroup($luser,$row['groupname']))
                   )
                {
                   $approvalRequired = TRUE;
@@ -696,10 +694,10 @@ if (isset($_POST['btn_apply']))
                 * - OR is allowed but is neither member nor manager
                 */
                if ( !isAllowed("editGroupUserCalendars") 
-                    OR ( 
-                      !$UG->isGroupManagerOfGroup($luser,$row['groupname']) 
-                      AND !$UG->isMemberOfGroup($luser,$row['groupname'])
-                    )
+                    OR
+                    $C->readConfig("declApplyToAll")
+                    OR 
+                    (!$UG->isGroupManagerOfGroup($luser,$row['groupname']) AND !$UG->isMemberOfGroup($luser,$row['groupname']))
                   )
                {
                   $approvalRequired = TRUE;

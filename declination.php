@@ -239,6 +239,11 @@ if ( isset($_POST['btn_apply']) ) {
    if (isset($_POST['chk_declNotifyAdmin'])) $C->saveConfig("declNotifyAdmin","1"); else $C->saveConfig("declNotifyAdmin","0");
 
    /**
+    * Apply Declination
+    */
+   if (isset($_POST['radio_declApplyToAll'])) $C->saveConfig("declApplyToAll",$_POST['radio_declApplyToAll']); else $C->saveConfig("declApplyToAll","0");
+    
+   /**
     * Log this event
     */
    if ($declineupdate) {
@@ -414,10 +419,24 @@ require("includes/menu_inc.php");
                   <td class="config-row<?=$style?>" style="text-align: left;">
                      <input style="vertical-align: middle;" name="chk_declNotifyUser" id="chk_declNotifyUser" type="checkbox" value="chkDeclNotifyUser" <?=($C->readConfig("declNotifyUser"))?'checked':''?>><?=$LANG['decl_notify_user']?><br>
                      <input style="vertical-align: middle;" name="chk_declNotifyManager" id="chk_declNotifyManager" type="checkbox" value="chk_declNotifyManager" <?=($C->readConfig("declNotifyManager"))?'checked':''?>><?=$LANG['decl_notify_manager']?><br>
-                     <input style="vertical-align: middle;" name="chk_declNotifyDirector" id="chk_declDirector" type="checkbox" value="chk_declDirector" <?=($C->readConfig("declNotifyDirector"))?'checked':''?>><?=$LANG['decl_notify_director']?><br>
+                     <input style="vertical-align: middle;" name="chk_declNotifyDirector" id="chk_declNotifyDirector" type="checkbox" value="chk_declNotifyDirector" <?=($C->readConfig("declNotifyDirector"))?'checked':''?>><?=$LANG['decl_notify_director']?><br>
                      <input style="vertical-align: middle;" name="chk_declNotifyAdmin" id="chk_declNotifyAdmin" type="checkbox" value="chk_declNotifyAdmin" <?=($C->readConfig("declNotifyAdmin"))?'checked':''?>><?=$LANG['decl_notify_admin']?><br>
                   </td>
                </tr>
+               
+               <!--  Apply Declination -->
+               <?php if ($style=="1") $style="2"; else $style="1"; ?>
+               <tr>
+                  <td class="config-row<?=$style?>" style="text-align: left;">
+                     <span class="config-key"><?=$LANG['decl_applyto']?></span><br>
+                     <span class="config-comment"><?=$LANG['decl_applyto_comment']?></span>
+                  </td>
+                  <td class="config-row<?=$style?>" style="text-align: left;">
+                     <input style="vertical-align: bottom;" name="radio_declApplyToAll" type="radio" value="0" <?=(!$C->readConfig("declApplyToAll"))?'checked':''?>>&nbsp;<?=$LANG['decl_applyto_regular']?><br>
+                     <input style="vertical-align: bottom;" name="radio_declApplyToAll" type="radio" value="1" <?=($C->readConfig("declApplyToAll"))?'checked':''?>>&nbsp;<?=$LANG['decl_applyto_all']?><br>
+                  </td>
+               </tr>
+               
                <tr>
                   <td class="dlg-menu" style="text-align: left;" colspan="2">
                      <input name="btn_apply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">

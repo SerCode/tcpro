@@ -2017,4 +2017,18 @@ $LANG['abs_counts_as'] = 'Z&auml;hlt als';
 $LANG['abs_counts_as_desc'] = 'Hier kann ausgew&auml;hlt werden, ob die genommenen Tage diese Abwesenheitstyps gegen die Erlaubnis eines anderen Typs z&auml;hlen. ' . 
 'Wenn ein anderer Typ gew&auml;hlt wird, wird die Erlaubnis diese Typs hier nicht in Betracht gezogen, nur die des anderen Typs.<br> ' .
 'Beispiel: "Urlaub Halbtag" mit Faktor z&auml;hlt gegen die Erlaubnis des Typs "Urlaub".';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.011
+ */
+
+/**
+ * Declination Page
+ */
+$LANG['decl_applyto'] = 'Ablehnung anwenden bei';
+$LANG['decl_applyto_comment'] =
+'Hier kann eingestellt werden, ob Ablehnung nur bei normalen Nutzern gepr&uuml;ft wird oder auch bei Managern und Direktoren. Bei Administratoren wird Ablehnung nicht gepr&uuml;t.';
+$LANG['decl_applyto_regular'] = 'Nur bei normalen Nutzern';
+$LANG['decl_applyto_all'] = 'Bei allen Nutzern (au&szlig;er Administratoren)';
 ?>

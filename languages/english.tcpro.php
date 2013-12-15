@@ -2018,4 +2018,18 @@ $LANG['abs_counts_as'] = 'Counts as';
 $LANG['abs_counts_as_desc'] = 'Select whether taken absences of this type count against the allowance of another absence type. ' . 
 'If you select any other absence type the allowance of this absence type is not taken into account, but the allowance of the selected one.<br> ' .
 'Example: "Vacation half day" with factor 0.5 counts against the allowance of "Vacation".';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.011
+ */
+
+/**
+ * Declination Page
+ */
+$LANG['decl_applyto'] = 'Apply Declination To';
+$LANG['decl_applyto_comment'] =
+'Select whether the declination management shall apply to regular users only or to managers and directors too. Declination management does not apply to administrators.';
+$LANG['decl_applyto_regular'] = 'Regular users only';
+$LANG['decl_applyto_all'] = 'All users (but administrators)';
 ?>
