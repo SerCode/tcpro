@@ -169,7 +169,8 @@ $m = buildMenu();
                ['<img src="themes/<?=$theme?>/img/menu/ico_usr_member.png" />','<?=$LANG['mnu_tools_admin_usergroups']?>','groupassign.php',null,null],
                <?php }
                if ($m['mnu_tools_admin_absences']) { ?>
-               ['<img src="themes/<?=$theme?>/img/menu/ico_absences.png" />','<?=$LANG['mnu_tools_admin_absences']?>','absences.php',null,null],
+               ['<img src="themes/<?=$theme?>/img/menu/ico_absences.png" />','<?=$LANG['mnu_tools_admin_absences']?>','abslist.php',null,null],
+               ['<img src="themes/<?=$theme?>/img/menu/ico_absences.png" />','<?=$LANG['mnu_tools_admin_absences_edit']?>','absences.php',null,null],
                <?php }
                if ($m['mnu_tools_admin_regions']) { ?>
                ['<img src="themes/<?=$theme?>/img/menu/ico_region.png" />','<?=$LANG['mnu_tools_admin_regions']?>','regions.php',null,null],

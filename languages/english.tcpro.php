@@ -57,7 +57,8 @@ $LANG['mnu_tools_admin_perm'] = "Permissions";
 $LANG['mnu_tools_admin_users'] = 'Users';
 $LANG['mnu_tools_admin_groups'] = 'Groups';
 $LANG['mnu_tools_admin_usergroups'] = 'Group Memberships';
-$LANG['mnu_tools_admin_absences'] = 'Absence Types';
+$LANG['mnu_tools_admin_absences'] = 'Absence Type List';
+$LANG['mnu_tools_admin_absences_edit'] = 'Absence Type Edit';
 $LANG['mnu_tools_admin_regions'] = 'Regions';
 $LANG['mnu_tools_admin_holidays'] = 'Holiday Types';
 $LANG['mnu_tools_admin_declination'] = 'Declination Management';
@@ -381,7 +382,7 @@ $LANG['show_profile_subject'] = 'Subject:';
 $LANG['show_profile_message'] = 'Message:';
 $LANG['show_profile_from'] = 'TeamCal Pro - Show Profile Message';
 $LANG['show_profile_msgsent'] = 'Your message was sent.';
-$LANG['user_delete_confirm'] = "Are you sure you want to delete this user?\\r\\n";
+$LANG['user_delete_confirm'] = "Are you sure you want to delete the selected user/s?\\r\\n";
 $LANG['frame_user_type'] = "User&nbsp;Type";
 $LANG['ut_caption'] = "Grant privileges by assigning a special user type";
 $LANG['ut_user'] = "Regular User (Member and/or Manager)";
@@ -1208,8 +1209,7 @@ $LANG['admin_config_welcome_comment'] = 'Enter a title and a text for the welcom
 /**
  * Userlist Page
  */
-$LANG['user_pwd_reset_confirm'] = "Are you sure you want to reset the password of this user?\\r\\n";
-$LANG['user_pwd_reset_complete'] = "The password for this user was reset and a mail with the new password was sent to him/her.\\r\\n";
+$LANG['user_pwd_reset_confirm'] = "Are you sure you want to reset the password of the selected user/s?\\r\\n";
 
 /**
  * Notification Messages
@@ -2032,4 +2032,26 @@ $LANG['decl_applyto_comment'] =
 'Select whether the declination management shall apply to regular users only or to managers and directors too. Declination management does not apply to administrators.';
 $LANG['decl_applyto_regular'] = 'Regular users only';
 $LANG['decl_applyto_all'] = 'All users (but administrators)';
+
+/**
+ * User list page
+ */
+$LANG['select_all'] = 'Select all';
+$LANG['btn_delete_selected'] = 'Delete selected';
+$LANG['btn_reset_password_selected'] = 'Reset password of selected';
+$LANG['confirmation_success'] = 'Success';
+$LANG['confirmation_failed'] = 'Failure';
+$LANG['confirmation_delete_selected_users'] = 'The selected users were deleted.';
+$LANG['confirmation_reset_password_selected'] = 'The passwords of selected users were reset and a corresponding e-mail was sent to them.';
+
+/**
+ * Absence list page
+ */
+$LANG['abs_list_title'] = 'Absence Types';
+$LANG['abs_col_display'] = 'Display';
+$LANG['abs_col_name'] = 'Name (Symbol)';
+$LANG['confirmation_delete_selected_absences'] = 'The selected absence types were deleted.';
+$LANG['abs_delete_confirm'] = 'Are you sure you want to delete the selected absence types?';
+$LANG['btn_abs_list'] = 'Show list view';
+
 ?>

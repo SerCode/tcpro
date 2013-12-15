@@ -32,3 +32,4 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 &nbsp;&nbsp;<?=$LANG['abs_create_abs']?>&nbsp;
 <input name="txt_create_name" id="txt_create_name" maxlength="80" size="40" type="text" class="text" value="">
 &nbsp;&nbsp;<input name="btn_absCreate" type="submit" class="button" value="<?=$LANG['btn_create']?>">
+&nbsp;&nbsp;<input name="btn_absList" type="button" class="button" value="<?=$LANG['btn_abs_list']?>" onclick="javascript:window.location.href='abslist.php';">&nbsp;

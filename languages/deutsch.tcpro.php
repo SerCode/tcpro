@@ -58,6 +58,7 @@ $LANG['mnu_tools_admin_users'] = 'Nutzer';
 $LANG['mnu_tools_admin_groups'] = 'Gruppen';
 $LANG['mnu_tools_admin_usergroups'] = 'Gruppenzuordnung';
 $LANG['mnu_tools_admin_absences'] = 'Abwesenheitstypen';
+$LANG['mnu_tools_admin_absences_edit'] = 'Abwesenheitstypen bearbeiten';
 $LANG['mnu_tools_admin_regions'] = 'Regionen';
 $LANG['mnu_tools_admin_holidays'] = 'Feiertagstypen';
 $LANG['mnu_tools_admin_declination'] = 'Ablehnungs Management';
@@ -341,6 +342,7 @@ $LANG['status_logged_out'] = "Du bist nicht eingeloggt. Anzeigen und Editieren k
 $LANG['status_ut_user'] = "Regul&auml;rer Nutzer";
 $LANG['status_ut_manager'] = "Manager der Gruppe: ";
 $LANG['status_ut_director'] = "Direktor";
+$LANG['status_ut_assistant'] = "Assistent";
 $LANG['status_ut_admin'] = "Administrator";
 
 /**
@@ -380,7 +382,7 @@ $LANG['show_profile_subject'] = 'Thema:';
 $LANG['show_profile_message'] = 'Nachricht:';
 $LANG['show_profile_from'] = 'TeamCal Pro - Nutzerprofil Anzeige Message';
 $LANG['show_profile_msgsent'] = 'Deine Mail wurde gesendet.';
-$LANG['user_delete_confirm'] = "Bist du sicher, dass du diesen Nutzer l&ouml;schen willst?\\r\\n";
+$LANG['user_delete_confirm'] = "Bist du sicher, dass du die ausgew&auml;hlten Nutzer l&ouml;schen willst?\\r\\n";
 $LANG['frame_user_type'] = "Spezial&nbsp;Usertyp";
 $LANG['ut_caption'] = "Privilegien nach Spezial Usertyp";
 $LANG['ut_user'] = "Normaler User (Mitglied und/oder Manager)";
@@ -1207,8 +1209,7 @@ $LANG['admin_config_welcome_comment'] = 'Hier kann ein Titel und ein Text f&uuml
 /**
  * Userlist Page
  */
-$LANG['user_pwd_reset_confirm'] = "Bist du sicher, dass du das Passwort dieses Nutzers zur&uuml;cksetzen m&ouml;chtest?\\r\\n";
-$LANG['user_pwd_reset_complete'] = "Das Passwort dieses Nutzers wurde zur&uuml;ckgesetzt und eine Mail mit dem neuen Passwort an ihn/sie geschickt.\\r\\n";
+$LANG['user_pwd_reset_confirm'] = "Bist du sicher, dass du das Passw&ouml;rter der ausgew&auml;hlten Nutzer zur&uuml;cksetzen willst?\\r\\n";
 
 /**
  * Notification Messages
@@ -2031,4 +2032,26 @@ $LANG['decl_applyto_comment'] =
 'Hier kann eingestellt werden, ob Ablehnung nur bei normalen Nutzern gepr&uuml;ft wird oder auch bei Managern und Direktoren. Bei Administratoren wird Ablehnung nicht gepr&uuml;t.';
 $LANG['decl_applyto_regular'] = 'Nur bei normalen Nutzern';
 $LANG['decl_applyto_all'] = 'Bei allen Nutzern (au&szlig;er Administratoren)';
+
+/**
+ * User list page
+ */
+$LANG['select_all'] = 'Alle ausw&auml;hlen';
+$LANG['btn_delete_selected'] = 'Auswahl l&ouml;schen';
+$LANG['btn_reset_password_selected'] = 'Auswahl Passwort zur&uuml;cksetzen';
+$LANG['confirmation_success'] = 'Erfolgreich';
+$LANG['confirmation_failed'] = 'Fehlgeschlagen';
+$LANG['confirmation_delete_selected_users'] = 'Die ausgew&auml;hlten Nutzer wurden gel&ouml;scht.';
+$LANG['confirmation_reset_password_selected'] = 'Die Passw&ouml;rter der ausgew&auml;hlten Nutzer wurden zur&uuml;ckgesetzt und eine entsprechende e-Mail an sie versendet.';
+
+/**
+ * Absence list page
+ */
+$LANG['abs_list_title'] = 'Abwesenheitstypen';
+$LANG['abs_col_display'] = 'Anzeige';
+$LANG['abs_col_name'] = 'Name (Symbol)';
+$LANG['confirmation_delete_selected_absences'] = 'Die ausgew&auml;hlten Abwesenheitstypen wurden gel&ouml;scht.';
+$LANG['abs_delete_confirm'] = 'Bist du sicher, dass du die ausgew&auml;hlten Abwesenheitstypen l&ouml;schen willst?';
+$LANG['btn_abs_list'] = 'Liste anzeigen';
+
 ?>
