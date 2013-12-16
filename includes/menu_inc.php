@@ -288,6 +288,15 @@ $m = buildMenu();
 	      }
 	
 	      /**
+	       * LOG
+	       * Standard Period, Custom Period
+	       */
+	      if (substr_count($_SERVER['PHP_SELF'],"log.php") AND isAllowed("viewSystemLog")) {
+	         include ($CONF['app_root']."includes/options_log_inc.php");
+	         $optionitems=TRUE;
+	      }
+	
+	      /**
 	       * REMAINDER STATISTICS
 	       * Group, User
 	       */

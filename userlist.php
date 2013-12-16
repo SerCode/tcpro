@@ -93,14 +93,14 @@ if ( isset($_POST['btn_usr_del']) )
    $selected_users = $_POST['chk_user'];
    foreach($selected_users as $su=>$value) 
    {
-      /*
+      /**
        * Get user info
        */
       $deluser = $value;
       $U->findByName($deluser);
       $delname = $U->firstname." ".$U->lastname;
    
-      /*
+      /**
        * Delete user
        * Delete memberships
        * Delete options

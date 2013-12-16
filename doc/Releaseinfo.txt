@@ -8,7 +8,13 @@ TEAMCAL PRO RELEASE INFO
 DATE
 2013-12-xx
 
-NEW FEATURE
+NEW FEATURES
+
+https://georgelewe.atlassian.net/browse/TCP-63
+Selective log entry display
+
+https://georgelewe.atlassian.net/browse/TCP-70
+Multiple selection lists for absence types and users
 
 https://georgelewe.atlassian.net/browse/TCP-71
 Adding SQL_BIG_SELECT parameter to database session

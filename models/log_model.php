@@ -65,8 +65,11 @@ if (!class_exists("Log_model")) {
        * @param integer $order Sort order (1=DESC, 0=ASC)
        * @return integer 1 success, 0 failure
        */
-      function read($order='DESC') {
-         $query = "SELECT * FROM `" . $this->table . "` WHERE 1 ORDER BY `timestamp` ".$order.";";
+      function read($order='DESC', $from='', $to='') 
+      {
+         $query = "SELECT * FROM ".$this->table." ".
+         "WHERE (timestamp>='".$from."' AND timestamp<='".$to." 23:59:59') ".
+         "ORDER BY timestamp ".$order.";";
          $result = $this->db->db_query($query);
          return $result;
       }
