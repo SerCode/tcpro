@@ -26,35 +26,73 @@ if (!class_exists("User_announcement_model")) {
     * Provides objects and methods to interface with the announcement and user-announcement table
     * @package TeamCalPro
     */
-   class User_announcement_model {
+   class User_announcement_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
-      var $id = NULL;
-      var $timestamp = '';
-      var $text = '';
-      var $popup = '0';
-      var $silent = '0';
-
+      var $archive_table = '';
+      
       // ---------------------------------------------------------------------
       /**
        * Constructor
        */
-      function User_announcement_model() {
+      function User_announcement_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_user_announcement'];
-         $this->log = $CONF['db_table_log'];
+         $this->archive_table = $CONF['db_table_archive_user_announcement'];
       }
 
       // ---------------------------------------------------------------------
       /**
+       * Archives a user record
+       * 
+       * @param string $name Username to archive
+       */
+      function archive($name) 
+      {
+         $query  = "INSERT INTO ".$this->archive_table." SELECT u.* FROM ".$this->table." u WHERE username = '".$name."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Restore arcived user records
+       * 
+       * @param string $name Username to restore
+       */
+      function restore($name) 
+      {
+         $query  = "INSERT INTO ".$this->table." SELECT a.* FROM ".$this->archive_table." a WHERE username = '".$name."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Checks whether a user record exists
+       * 
+       * @param string $name Username to find
+       * @param boolean $archive Whether to search in archive table
+       * @return integer Result of MySQL query
+       */
+      function exists($name='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "SELECT username FROM `".$findTable."` WHERE username = '".$name."'";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result)) return TRUE;
+         else return FALSE;
+      }
+       
+      // ---------------------------------------------------------------------
+      /**
        * Clear all records in the user-announcement table
        */
-      function deleteAll() {
+      function deleteAll() 
+      {
          $query = "TRUNCATE TABLE `".$this->table."`";
          $result = $this->db->db_query($query);
       }
@@ -65,7 +103,8 @@ if (!class_exists("User_announcement_model")) {
        * 
        * @param string $username Username of the records to delete
        */
-      function deleteAllForUser($username) {
+      function deleteByUser($username) 
+      {
          $query = "DELETE FROM `".$this->table."` WHERE `username`='".$username."';";
          $result = $this->db->db_query($query);
       }
@@ -77,13 +116,12 @@ if (!class_exists("User_announcement_model")) {
        * @param string $username Username
        * @return array $uaarray Array with all records
        */
-      function getAllForUser($username) {
+      function getAllForUser($username) 
+      {
          $uaarray = array();
          $query = "SELECT * FROM `".$this->table."` WHERE username='".$username."' ORDER BY ats DESC;";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $uaarray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $uaarray[] = $row;
          return $uaarray;
       }
 
@@ -94,13 +132,12 @@ if (!class_exists("User_announcement_model")) {
        * @param string $ts Timestamp
        * @return array $uaarray Array with all records
        */
-      function getAllForTimestamp($ts) {
+      function getAllForTimestamp($ts) 
+      {
          $uaarray = array();
          $query = "SELECT * FROM `".$this->table."` WHERE ats='".$ts."' ORDER BY ats DESC;";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $uaarray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $uaarray[] = $row;
          return $uaarray;
       }
 
@@ -111,9 +148,9 @@ if (!class_exists("User_announcement_model")) {
        * @param string $ts Timestamp to search for
        * @param string $user Username to assign to
        */
-      function assign($ts, $user) {
-         $query = "INSERT into `".$this->table."` (`username`,`ats`) ";
-         $query .= "VALUES ('".$user."','".$ts."')";
+      function assign($ts, $user) 
+      {
+         $query = "INSERT into `".$this->table."` (`username`,`ats`) VALUES ('".$user."','".$ts."')";
          $result = $this->db->db_query($query);
       }
 
@@ -124,7 +161,8 @@ if (!class_exists("User_announcement_model")) {
        * @param string $ts Timestamp to search for
        * @param string $user Username to search for
        */
-      function unassign($ts, $user) {
+      function unassign($ts, $user) 
+      {
          $query = "DELETE FROM ".$this->table." WHERE username='".$user."' AND ats='".$ts."'";
          $result = $this->db->db_query($query);
       }
@@ -135,11 +173,11 @@ if (!class_exists("User_announcement_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

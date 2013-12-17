@@ -25,12 +25,12 @@ if (!class_exists("User_option_model")) {
     * Provides objects and methods to manage the user-option table
     * @package TeamCalPro
     */
-   class User_option_model {
+   class User_option_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
-
+      var $archive_table = '';
+      
       var $id = NULL;
       var $username = NULL;
       var $option = NULL;
@@ -40,15 +40,58 @@ if (!class_exists("User_option_model")) {
       /**
        * Constructor
        */
-      function User_option_model() {
+      function User_option_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_user_options'];
+         $this->archive_table = $CONF['db_table_archive_user_options'];
          $this->log = $CONF['db_table_log'];
       }
 
+      // ---------------------------------------------------------------------
+      /**
+       * Archives all records for a given user
+       * 
+       * @param string $username Username to archive
+       */
+      function archive($username) 
+      {
+         $query  = "INSERT INTO ".$this->archive_table." SELECT t.* FROM ".$this->table." t WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Restores all records for a given user
+       * 
+       * @param string $name Username to restore
+       */
+      function restore($username) 
+      {
+         $query  = "INSERT INTO ".$this->table." SELECT a.* FROM ".$this->archive_table." a WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Checks whether a record exists
+       * 
+       * @param string $username Username to find
+       * @param boolean $archive Whether to search in archive table
+       * @return integer Result of MySQL query
+       */
+      function exists($username='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "SELECT id FROM `".$findTable."` WHERE username = '".$username."'";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result)) return TRUE;
+         else return FALSE;
+      } 
+      
       // ---------------------------------------------------------------------
       /**
        * Creates a new user-option record
@@ -83,8 +126,10 @@ if (!class_exists("User_option_model")) {
        *
        * @param string $deluser Username to delete
        */
-      function deleteByUser($deluser = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `username` = '" . $deluser . "'";
+      function deleteByUser($deluser = '', $archive=FALSE)
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "DELETE FROM `" . $findTable . "` WHERE `username` = '" . $deluser . "'";
          $result = $this->db->db_query($query);
       }
 

@@ -11,6 +11,9 @@ DATE
 NEW FEATURES
 
 https://georgelewe.atlassian.net/browse/TCP-63
+Database archiving. User record archiving
+
+https://georgelewe.atlassian.net/browse/TCP-63
 Selective log entry display
 
 https://georgelewe.atlassian.net/browse/TCP-70

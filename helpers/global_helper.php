@@ -17,6 +17,83 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 
 // ---------------------------------------------------------------------------
 /**
+ * Archives a user and all related records
+ *
+ * @param string  $username     Username to archive
+ */
+function archiveUser($username) 
+{
+   global $CONF;
+   
+   require_once($CONF['app_root']."models/allowance_model.php" );
+   require_once($CONF['app_root']."models/daynote_model.php" );
+   require_once($CONF['app_root']."models/log_model.php" );
+   require_once($CONF['app_root']."models/login_model.php" );
+   require_once($CONF['app_root']."models/template_model.php" );
+   require_once($CONF['app_root']."models/user_model.php" );
+   require_once($CONF['app_root']."models/user_announcement_model.php" );
+   require_once($CONF['app_root']."models/user_group_model.php" );
+   require_once($CONF['app_root']."models/user_option_model.php" );
+   
+   $A = new Allowance_model;
+   $L = new Login_model;
+   $LOG = new Log_model;
+   $N  = new Daynote_model;
+   $T  = new Template_model;
+   $U  = new User_model;
+   $UA = new User_announcement_model;
+   $UG = new User_group_model;
+   $UO = new User_option_model;
+       
+   /**
+    * Do not archive if username exists in any of the archive table
+    */
+   if ($U->exists($username, TRUE)) return FALSE;
+   if ($UG->exists($username, TRUE)) return FALSE;
+   if ($UO->exists($username, TRUE)) return FALSE;
+   if ($T->exists($username, TRUE)) return FALSE;
+   if ($N->exists($username, TRUE)) return FALSE;
+   if ($A->exists($username, TRUE)) return FALSE;
+   if ($UA->exists($username, TRUE)) return FALSE;
+   
+   /**
+    * Get fullname for log
+    */
+   $U->findByName($username);
+   $fullname = trim($U->firstname." ".$U->lastname);
+         
+   /**
+    * Archive user
+    * Archive memberships
+    * Archive options
+    * Archive templates
+    * Archive daynotes
+    * Archive allowances
+    * Archive announcements
+    */
+   $U->archive($username);
+   $UG->archive($username);
+   $UO->archive($username);
+   $T->archive($username);
+   $N->archive($username);
+   $A->archive($username);
+   $UA->archive($username);
+
+   /**
+    * Delete user from active tables
+    */
+   deleteUser($username);
+     
+   /**
+    * Log this event
+    */
+   $LOG->log("logUser",$L->checkLogin(),"log_user_archived", $fullname." (".$username.")");
+    
+   return true;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Builds the menu based on permissions
  *
  * @return array menu
@@ -880,6 +957,78 @@ function declineThresholdReached($year, $month, $day, $base, $group = '')
 
 // ---------------------------------------------------------------------------
 /**
+ * Deletes a user and all related records
+ *
+ * @param string  $deluser      User to delete
+ * @param boolean $fromArchive  Flag whether to delete from archive tables
+ */
+function deleteUser($username, $fromArchive=FALSE) 
+{
+   global $CONF;
+   
+   require_once($CONF['app_root']."models/allowance_model.php" );
+   require_once($CONF['app_root']."models/avatar_model.php" );
+   require_once($CONF['app_root']."models/daynote_model.php" );
+   require_once($CONF['app_root']."models/log_model.php" );
+   require_once($CONF['app_root']."models/login_model.php" );
+   require_once($CONF['app_root']."models/template_model.php" );
+   require_once($CONF['app_root']."models/user_model.php" );
+   require_once($CONF['app_root']."models/user_announcement_model.php" );
+   require_once($CONF['app_root']."models/user_group_model.php" );
+   require_once($CONF['app_root']."models/user_option_model.php" );
+   
+   $AV = new Avatar_model;
+   $A = new Allowance_model;
+   $L = new Login_model;
+   $LOG = new Log_model;
+   $N  = new Daynote_model;
+   $T  = new Template_model;
+   $U  = new User_model;
+   $UA = new User_announcement_model;
+   $UG = new User_group_model;
+   $UO = new User_option_model;
+       
+   /**
+    * Get fullname for log
+    */
+   $U->findByName($username);
+   $fullname = trim($U->firstname." ".$U->lastname);
+   
+   /**
+    * Delete user
+    * Delete memberships
+    * Delete options
+    * Delete templates
+    * Delete daynotes
+    * Delete allowances
+    * Delete announcements
+    * Delete avatars
+    */
+   $U->deleteByName($username, $fromArchive);
+   $UG->deleteByUser($username, $fromArchive);
+   $UO->deleteByUser($username, $fromArchive);
+   $T->deleteByUser($username, $fromArchive);
+   $N->deleteByUser($username, $fromArchive);
+   $A->deleteByUser($username, $fromArchive);
+   $UA->deleteByUser($username, $fromArchive);
+   $AV->delete($username);
+
+   /**
+    * Send notification e-mails
+    */
+   sendNotification("userdelete",$fullname,"");
+   
+   /**
+    * Log this event
+   */
+   if ($fromArchive) 
+      $LOG->log("logUser",$L->checkLogin(),"log_user_archived_deleted", $fullname." (".$username.")");
+   else
+      $LOG->log("logUser",$L->checkLogin(),"log_user_deleted", $fullname." (".$username.")");
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Generates a password
  *
  * @param   integer $length    Desired password length
@@ -895,6 +1044,7 @@ function generatePassword($length=9)
    }
    return $password;
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -945,6 +1095,7 @@ function getFiles($myDir, $myExt = NULL)
    }
 }
 
+
 // ---------------------------------------------------------------------------
 /**
  * Extracts the file extension from a given file name
@@ -960,6 +1111,7 @@ function getFileExtension($str)
    $ext = substr($str,$i+1,$l);
    return $ext;
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -985,6 +1137,7 @@ function getFolders($myDir)
    return $dirarray;
 }
 
+
 // ---------------------------------------------------------------------------
 /**
  * Gets the number of days in a given month
@@ -1003,6 +1156,7 @@ function getMonthInfo($yr, $mt) {
    $mi['weekday1'] = $mydate['wday'];
    return $mi;
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -1035,6 +1189,7 @@ function getLanguages() {
    }
    return $langarray;
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -1258,6 +1413,7 @@ function getOptions() {
    date_default_timezone_set($tz);
 }
 
+
 // ---------------------------------------------------------------------------
 /**
  * Checks whether a user is authorized in the active permission scheme
@@ -1314,6 +1470,7 @@ function isAllowed($permission='') {
    }
 }
 
+
 // ---------------------------------------------------------------------------
 /**
  * Checks wether a bit combination is set in a given bitmask
@@ -1328,6 +1485,7 @@ function isFlag($flagset, $bitmask) {
    else
       return false;
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -1349,6 +1507,7 @@ function jsCloseAndReload($page = 'index.php') {
    "</html>";
 }
 
+
 // ---------------------------------------------------------------------------
 /**
  * Sends a HTTP redirect instruction to the browser via http-equiv
@@ -1363,6 +1522,7 @@ function jsReloadPage($url = '') {
    "   <body></body>" .
    "</html>";
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -1396,6 +1556,84 @@ function printDialogTop($title = '', $help = '', $icon = '') {
    echo '</tr></table>';
 }
 
+
+// ---------------------------------------------------------------------------
+/**
+ * Restores a user and all related records from archive
+ *
+ * @param string  $username     Username to restore
+ */
+function restoreUser($username) 
+{
+   global $CONF;
+   
+   require_once($CONF['app_root']."models/allowance_model.php" );
+   require_once($CONF['app_root']."models/daynote_model.php" );
+   require_once($CONF['app_root']."models/log_model.php" );
+   require_once($CONF['app_root']."models/login_model.php" );
+   require_once($CONF['app_root']."models/template_model.php" );
+   require_once($CONF['app_root']."models/user_model.php" );
+   require_once($CONF['app_root']."models/user_announcement_model.php" );
+   require_once($CONF['app_root']."models/user_group_model.php" );
+   require_once($CONF['app_root']."models/user_option_model.php" );
+   
+   $A = new Allowance_model;
+   $L = new Login_model;
+   $LOG = new Log_model;
+   $N  = new Daynote_model;
+   $T  = new Template_model;
+   $U  = new User_model;
+   $UA = new User_announcement_model;
+   $UG = new User_group_model;
+   $UO = new User_option_model;
+    
+   /**
+    * Do not restore if username exists in any of the active tables
+    */
+   if ($U->exists($username)) return FALSE;
+   if ($UG->exists($username)) return FALSE;
+   if ($UO->exists($username)) return FALSE;
+   if ($T->exists($username)) return FALSE;
+   if ($N->exists($username)) return FALSE;
+   if ($A->exists($username)) return FALSE;
+   if ($UA->exists($username)) return FALSE;
+   
+   /**
+    * Get fullname for log
+    */
+   $U->findByName($username);
+   $fullname = trim($U->firstname." ".$U->lastname);
+         
+   /**
+    * Restore user
+    * Restore memberships
+    * Restore options
+    * Restore templates
+    * Restore daynotes
+    * Restore allowances
+    * Restore announcements
+    */
+   $U->restore($username);
+   $UG->restore($username);
+   $UO->restore($username);
+   $T->restore($username);
+   $N->restore($username);
+   $A->restore($username);
+   $UA->restore($username);
+
+   /**
+    * Delete user from archive tables
+    */
+   deleteUser($username, TRUE);
+     
+   /**
+    * Log this event
+    */
+   $LOG->log("logUser",$L->checkLogin(),"log_user_restored", $fullname." (".$username.")");
+    
+   return true;
+}
+
 // ---------------------------------------------------------------------------
 /**
  * If a user was added or updated we send him an info to let him know.
@@ -1426,6 +1664,7 @@ function sendAccountCreatedMail($uname, $pwd) {
       sendEmail($to, $subject, $message);
    }
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -1616,6 +1855,7 @@ function sendNotification($type, $object, $grouptouched = '', $addlinfo = '') {
    return;
 }
 
+
 // ---------------------------------------------------------------------------
 /**
  * Sends an HTML eMail, either via SMTP or regular PHP mail
@@ -1731,6 +1971,7 @@ function sendEmail($to, $subject, $body, $from='')
    }
 }
 
+
 // ---------------------------------------------------------------------------
 /**
  * Sets a bit combination in a given bitmask
@@ -1743,6 +1984,7 @@ function setFlag($flagset, $bitmask) {
    $newflagset = $flagset | $bitmask;
    return $newflagset;
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -1758,6 +2000,7 @@ function setRequests() {
    }
    return $requ;
 }
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -1811,6 +2054,7 @@ function showError($error="notallowed",$message="",$closeButton=FALSE) {
    require("includes/footer_inc.php");
    die();
 }
+
 
 // ---------------------------------------------------------------------------
 /**

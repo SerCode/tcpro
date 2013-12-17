@@ -110,7 +110,7 @@ require("includes/menu_inc.php");
    <div id="content-content">
       <form class="form" name="form-abslist" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
          <!--  ABSENCE TYPES =========================================================== -->
-         <?php $colspan="4"; ?>
+         <?php $colspan="5"; ?>
          <table class="dlg">
             <tr>
                <td class="dlg-header" colspan="<?=$colspan?>">
@@ -135,9 +135,10 @@ require("includes/menu_inc.php");
             <?php } ?> 
 
             <tr>
-               <td class="dlg-caption" style="text-align: left; padding-left: 8px;"></td>
-               <td class="dlg-caption" style="text-align: left; padding-left: 8px;"><?=$LANG['abs_col_display']?></td>
-               <td class="dlg-caption" style="text-align: left;"><?=$LANG['abs_col_name']?></td>
+               <td class="dlg-caption" style="text-align: left;"></td>
+               <td class="dlg-caption" style="text-align: left;"></td>
+               <td class="dlg-caption" style="text-align: left;"></td>
+               <td class="dlg-caption" style="text-align: left;"></td>
                <td class="dlg-caption" style="text-align: right; padding-right: 8px;"><?=$LANG['admin_user_action']?></td>
             </tr>
                         
@@ -149,25 +150,52 @@ require("includes/menu_inc.php");
             foreach ($absences as $abs)
             {
                if ($printrow==1) $printrow=2; else $printrow=1;
-            ?>
-               <!-- <?=$abs['name']?> -->
-               <tr>
-                  <td class="dlg-row<?=$printrow?>" style="width: 20px; text-align: center;"><input type="checkbox" name="chk_abs[]" value="<?=$abs['id']?>"></td>
-                  <td class="dlg-row<?=$printrow?>" style="width: 26px; padding-left: 12px;">
-                     <div style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
-                     <?php if ($abs['icon']=="No") {?>
-                        <?=$abs['symbol']?>
-                     <?php } else { ?>
-                        <img src="<?=$CONF['app_icon_dir'].$abs['icon']?>" alt="" style="vertical-align: middle;">
-                     <?php } ?>
-                     </div>
-                  </td>
-                  <td class="dlg-row<?=$printrow?>" style="font-weight: bold; vertical-align: middle;"><?=$abs['name']?> (<?=$abs['symbol']?>)</td>
-                  <td class="dlg-row<?=$printrow?>" style="text-align: right;">
-                     <input name="btn_edit" type="button" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:window.location.href='absences.php?absid=<?=$abs['id']?>';">&nbsp;
-                  </td>
-               </tr>
-            <?php } ?>
+               if (!$abs['counts_as'])
+               { ?>
+                  <!-- <?=$abs['name']?> -->
+                  <tr>
+                     <td class="dlg-row<?=$printrow?>" style="width: 24px; text-align: center;"><input type="checkbox" name="chk_abs[]" value="<?=$abs['id']?>"></td>
+                     <td class="dlg-row<?=$printrow?>" style="width: 24px; padding-left: 12px;">
+                        <div style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
+                        <?php if ($abs['icon']=="No") {?>
+                           <?=$abs['symbol']?>
+                        <?php } else { ?>
+                           <img src="<?=$CONF['app_icon_dir'].$abs['icon']?>" alt="" style="vertical-align: middle;">
+                        <?php } ?>
+                        </div>
+                     </td>
+                     <td class="dlg-row<?=$printrow?>" style="font-weight: bold; vertical-align: middle;" colspan="2"><?=$abs['name']?> (<?=$abs['symbol']?>)</td>
+                     <td class="dlg-row<?=$printrow?>" style="text-align: right;">
+                        <input name="btn_edit" type="button" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:window.location.href='absences.php?absid=<?=$abs['id']?>';">&nbsp;
+                     </td>
+                  </tr>
+                  <?php 
+                  $subabsences = $A->getAllSub($abs['id']);
+                  foreach ($subabsences as $subabs)
+                  {
+                     if ($printrow==1) $printrow=2; else $printrow=1;
+                     ?>
+                     <tr>
+                        <td class="dlg-row<?=$printrow?>" style="width: 24px; text-align: center;"></td>
+                        <td class="dlg-row<?=$printrow?>" style="width: 24px; text-align: center;"><input type="checkbox" name="chk_abs[]" value="<?=$subabs['id']?>"></td>
+                        <td class="dlg-row<?=$printrow?>" style="width: 24px;">
+                           <div style="color: #<?=$subabs['color']?>; background-color: #<?=$subabs['bgcolor']?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
+                           <?php if ($subabs['icon']=="No") {?>
+                              <?=$abs['symbol']?>
+                           <?php } else { ?>
+                              <img src="<?=$CONF['app_icon_dir'].$subabs['icon']?>" alt="" style="vertical-align: middle;">
+                           <?php } ?>
+                           </div>
+                        </td>
+                        <td class="dlg-row<?=$printrow?>" style="font-weight: normal; vertical-align: middle;"><strong><?=$subabs['name']?> (<?=$subabs['symbol']?>)</strong> => <?=$LANG['abs_counts_as']?> <?=$abs['name']?> (<?=$abs['symbol']?>)</td>
+                        <td class="dlg-row<?=$printrow?>" style="text-align: right;">
+                           <input name="btn_edit" type="button" class="button" value="<?=$LANG['btn_edit']?>" onclick="javascript:window.location.href='absences.php?absid=<?=$subabs['id']?>';">&nbsp;
+                        </td>
+                     </tr>
+                     <?php
+                  }                
+               } 
+            } ?>
             <tr>
                <td class="dlg-row<?=$printrow?>" style="border-bottom: 1px solid #000000;" colspan="<?=$colspan?>">
                   <input type="checkbox" name="select-all" id="select-all" style="margin-right: 8px; vertical-align: middle;"><?=$LANG['select_all']?>&nbsp;

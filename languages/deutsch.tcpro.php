@@ -2036,20 +2036,29 @@ $LANG['decl_applyto_all'] = 'Bei allen Nutzern (au&szlig;er Administratoren)';
 /**
  * User list page
  */
+$LANG['tab_active_users'] = 'Aktive Benutzer';
+$LANG['tab_archived_users'] = 'Archivierte Benutzer';
 $LANG['select_all'] = 'Alle ausw&auml;hlen';
 $LANG['btn_delete_selected'] = 'Auswahl l&ouml;schen';
+$LANG['btn_archive_selected'] = 'Auswahl archivieren';
+$LANG['btn_restore_selected'] = 'Auswahl wiederherstellen';
 $LANG['btn_reset_password_selected'] = 'Auswahl Passwort zur&uuml;cksetzen';
+$LANG['user_archive_confirm'] = 'Sollen die ausgew&auml;hlten Nutzer archiviert werden?';
+$LANG['user_restore_confirm'] = 'Sollen die ausgew&auml;hlten Nutzer wiederhergestellt werden?';
 $LANG['confirmation_success'] = 'Erfolgreich';
-$LANG['confirmation_failed'] = 'Fehlgeschlagen';
+$LANG['confirmation_failure'] = 'Problem';
 $LANG['confirmation_delete_selected_users'] = 'Die ausgew&auml;hlten Nutzer wurden gel&ouml;scht.';
+$LANG['confirmation_archive_selected_users'] = 'Die ausgew&auml;hlten Nutzer wurden archiviert.';
+$LANG['confirmation_archive_selected_users_failed'] = 'Ein oder mehr Benutzer existieren bereits im Archive. Das kann der gleiche Benutzer oder einer mit selbem Benutzernamen sein.<br>Bitte l&ouml;sche diese archivierten Benutzer zuerst.';
+$LANG['confirmation_restore_selected_users'] = 'Die ausgew&auml;hlten Nutzer wurden wiederhergestellt.';
+$LANG['confirmation_restore_selected_users_failed'] = 'Ein oder mehr Benutzer existieren bereits als aktive Benutzer. Das kann der gleiche Benutzer oder einer mit selbem Benutzernamen sein.<br>Bitte l&ouml;sche diese aktiven Benutzer zuerst.';
 $LANG['confirmation_reset_password_selected'] = 'Die Passw&ouml;rter der ausgew&auml;hlten Nutzer wurden zur&uuml;ckgesetzt und eine entsprechende e-Mail an sie versendet.';
 
 /**
  * Absence list page
  */
 $LANG['abs_list_title'] = 'Abwesenheitstypen';
-$LANG['abs_col_display'] = 'Anzeige';
-$LANG['abs_col_name'] = 'Name (Symbol)';
+$LANG['abs_counts_as'] = 'Z&auml;hlt als';
 $LANG['confirmation_delete_selected_absences'] = 'Die ausgew&auml;hlten Abwesenheitstypen wurden gel&ouml;scht.';
 $LANG['abs_delete_confirm'] = 'Bist du sicher, dass du die ausgew&auml;hlten Abwesenheitstypen l&ouml;schen willst?';
 $LANG['btn_abs_list'] = 'Liste anzeigen';

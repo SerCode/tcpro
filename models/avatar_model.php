@@ -20,7 +20,8 @@ if (!class_exists("Avatar_model")) {
     * Provides objects and methods to deal with avatars
     * @package TeamCalPro
     */
-   class Avatar_model {
+   class Avatar_model 
+   {
       var $filename = '';
       var $tmpfilename = '';
       var $fileextension = '';
@@ -34,7 +35,8 @@ if (!class_exists("Avatar_model")) {
       /**
        * Constructor
        */
-      function Avatar_model() {
+      function Avatar_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -58,9 +60,12 @@ if (!class_exists("Avatar_model")) {
        * @param string $uname Username (file name) to find
        * @return boolean True if found, false if not
        */
-      function find($uname) {
-         foreach ($this->allowedtypes as $extension) {
-            if (file_exists($this->path.$uname.".".$extension)) {
+      function find($uname) 
+      {
+         foreach ($this->allowedtypes as $extension) 
+         {
+            if (file_exists($this->path.$uname.".".$extension)) 
+            {
                $this->filename = $uname;
                $this->fileextension = $extension;
                return true;
@@ -75,9 +80,12 @@ if (!class_exists("Avatar_model")) {
        * 
        * @param string $uname Username (file name) to delete
        */
-      function delete($uname) {
-         foreach ($this->allowedtypes as $extension) {
-            if (file_exists($this->path.$uname.".".$extension)) {
+      function delete($uname) 
+      {
+         foreach ($this->allowedtypes as $extension) 
+         {
+            if (file_exists($this->path.$uname.".".$extension)) 
+            {
                unlink($this->path.$uname.".".$extension);
             }
          }
@@ -89,7 +97,8 @@ if (!class_exists("Avatar_model")) {
        * 
        * @param string $uname Username (file name) to save
        */
-      function save($uname) {
+      function save($uname) 
+      {
          global $_FILES;
          global $LANG;
          $this->result = 0;
@@ -139,27 +148,29 @@ if (!class_exists("Avatar_model")) {
                   switch (strtolower($this->fileextension)) 
                   {
                      case "gif":
-                        $origPic = imagecreatefromgif($this->tmpfilename);
-                        $newPic = imagecreate($nWidth, $nHeight);
-                        imagecopyresized($newPic, $origPic, 0, 0, 0, 0, $nWidth, $nHeight, $width, $height);
-                        imagegif($newPic, $newfile);
-                        imagedestroy($origPic);
-                        break;
+                     $origPic = imagecreatefromgif($this->tmpfilename);
+                     $newPic = imagecreate($nWidth, $nHeight);
+                     imagecopyresized($newPic, $origPic, 0, 0, 0, 0, $nWidth, $nHeight, $width, $height);
+                     imagegif($newPic, $newfile);
+                     imagedestroy($origPic);
+                     break;
+
                      case "jpg":
                      case "jpeg":
-                        $origPic = imagecreatefromjpeg($this->tmpfilename);
-                        $newPic = imagecreatetruecolor($nWidth, $nHeight);
-                        imagecopyresized($newPic, $origPic, 0, 0, 0, 0, $nWidth, $nHeight, $width, $height);
-                        imagejpeg($newPic, $newfile, 90);
-                        imagedestroy($origPic);
-                        break;
+                     $origPic = imagecreatefromjpeg($this->tmpfilename);
+                     $newPic = imagecreatetruecolor($nWidth, $nHeight);
+                     imagecopyresized($newPic, $origPic, 0, 0, 0, 0, $nWidth, $nHeight, $width, $height);
+                     imagejpeg($newPic, $newfile, 90);
+                     imagedestroy($origPic);
+                     break;
+
                      case "png":
-                        $origPic = imagecreatefrompng($this->tmpfilename);
-                        $newPic = imagecreate($nWidth, $nHeight);
-                        imagecopyresized($newPic, $origPic, 0, 0, 0, 0, $nWidth, $nHeight, $width, $height);
-                        imagepng($newPic, $newfile);
-                        imagedestroy($origPic);
-                        break;
+                     $origPic = imagecreatefrompng($this->tmpfilename);
+                     $newPic = imagecreate($nWidth, $nHeight);
+                     imagecopyresized($newPic, $origPic, 0, 0, 0, 0, $nWidth, $nHeight, $width, $height);
+                     imagepng($newPic, $newfile);
+                     imagedestroy($origPic);
+                     break;
                   }
                }
                else  
@@ -202,24 +213,24 @@ if (!class_exists("Avatar_model")) {
             switch ($_FILES['imgfile']['error']) 
             {
                case 1 : // UPLOAD_ERR_INI_SIZE
-                  $this->message = $LANG['ava_upload_error_1'];
-                  break;
+               $this->message = $LANG['ava_upload_error_1'];
+               break;
    
                case 2 : // UPLOAD_ERR_FORM_SIZE
-                  $this->message = $LANG['ava_upload_error_2a'] . $this->maxSize . $LANG['ava_upload_error_2b'];
-                  break;
+               $this->message = $LANG['ava_upload_error_2a'] . $this->maxSize . $LANG['ava_upload_error_2b'];
+               break;
    
                case 3 : // UPLOAD_ERR_PARTIAL
-                  $this->message = $LANG['ava_upload_error_3'];
-                  break;
+               $this->message = $LANG['ava_upload_error_3'];
+               break;
    
                case 4 : // UPLOAD_ERR_NO_FILE
-                  $this->message = $LANG['ava_upload_error_4'];
-                  break;
+               $this->message = $LANG['ava_upload_error_4'];
+               break;
    
                default :
-                  $this->message = $LANG['ava_upload_error'];
-                  break;
+               $this->message = $LANG['ava_upload_error'];
+               break;
             }
          }
       }
@@ -231,16 +242,14 @@ if (!class_exists("Avatar_model")) {
        * @param string $str File name to scan
        * @return string File extension if exists
        */
-      function getFileExtension($str) {
+      function getFileExtension($str) 
+      {
          $i = strrpos($str, ".");
-         if (!$i) {
-            return "";
-         }
+         if (!$i) return "";
          $l = strlen($str) - $i;
          $ext = substr($str, $i +1, $l);
          return $ext;
       }
-      
    }
 }
 ?>

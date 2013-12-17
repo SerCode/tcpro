@@ -26,11 +26,12 @@ if (!class_exists("Daynote_model")) {
     * Provides objects and methods to interface with the daynote table
     * @package TeamCalPro
     */
-   class Daynote_model {
-      var $db = NULL;
-      var $table = NULL;
-      var $log = '';
-      var $logtype = '';
+   class Daynote_model 
+   {
+      var $db = '';
+      var $table = '';
+      var $archive_table = '';
+      
       var $id = NULL;
       var $yyyymmdd = '';
       var $daynote = '';
@@ -43,22 +44,63 @@ if (!class_exists("Daynote_model")) {
       /**
        * Constructor
        */
-      function Daynote_model() {
+      function Daynote_model() 
+      {
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_daynotes'];
-         $this->log = $CONF['db_table_log'];
+         $this->archive_table = $CONF['db_table_archive_daynotes'];
       }
 
       // ---------------------------------------------------------------------
       /**
+       * Archives all records for a given user
+       * 
+       * @param string $username Username to archive
+       */
+      function archive($username) 
+      {
+         $query  = "INSERT INTO ".$this->archive_table." SELECT t.* FROM ".$this->table." t WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Restores all records for a given user
+       * 
+       * @param string $name Username to restore
+       */
+      function restore($username) 
+      {
+         $query  = "INSERT INTO ".$this->table." SELECT a.* FROM ".$this->archive_table." a WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Checks whether a record exists
+       * 
+       * @param string $username Username to find
+       * @param boolean $archive Whether to search in archive table
+       * @return integer Result of MySQL query
+       */
+      function exists($username='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "SELECT id FROM `".$findTable."` WHERE username = '".$username."'";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result)) return TRUE;
+         else return FALSE;
+      } 
+      
+      // ---------------------------------------------------------------------
+      /**
        * Creates a daynote record from class variables
        */
-      function create() {
-         $query = "INSERT INTO `" . $this->table . "` ";
-         $query .= "(`yyyymmdd`,`daynote`,`username`, `region`) ";
-         $query .= "VALUES ('";
+      function create() 
+      {
+         $query = "INSERT INTO `".$this->table."` (`yyyymmdd`,`daynote`,`username`, `region`) VALUES ('";
          $query .= $this->yyyymmdd . "','";
          $query .= mysql_real_escape_string ($this->daynote) . "','";
          $query .= $this->username . "','";
@@ -75,11 +117,12 @@ if (!class_exists("Daynote_model")) {
        * @param string $username Userame to find for deletion
        * @param string $region Region to find for deletion
        */
-      function deleteByDay($yyyymmdd = '', $username = '', $region = 'default') {
-         $query  = "DELETE FROM `" . $this->table . "` ";
-         $query .= "WHERE `yyyymmdd` = '" . $yyyymmdd . "' ";
-         $query .= "AND `username` = '" . $username . "' ";
-         $query .= "AND `region` = '" . $region . "'";
+      function deleteByDay($yyyymmdd = '', $username = '', $region = 'default') 
+      {
+         $query  = "DELETE FROM `".$this->table."` ";
+         $query .= "WHERE `yyyymmdd` = '".$yyyymmdd."' ";
+         $query .= "AND `username` = '".$username."' ";
+         $query .= "AND `region` = '".$region."'";
          $result = $this->db->db_query($query);
       }
 
@@ -89,8 +132,9 @@ if (!class_exists("Daynote_model")) {
        * 
        * @param string $id ID to find for deletion
        */
-      function deleteById($id = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `id` = '" . $id . "'";
+      function deleteById($id = '') 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `id` = '".$id."'";
          $result = $this->db->db_query($query);
       }
 
@@ -100,8 +144,9 @@ if (!class_exists("Daynote_model")) {
        * 
        * @param string $region Region to find for deletion
        */
-      function deleteByRegion($region = 'default') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `region` = '" . $region . "'";
+      function deleteByRegion($region = 'default') 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `region` = '".$region."'";
          $result = $this->db->db_query($query);
       }
 
@@ -111,8 +156,10 @@ if (!class_exists("Daynote_model")) {
        * 
        * @param string $uname Username to find for deletion
        */
-      function deleteByUser($uname = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `username` = '" . $uname . "'";
+      function deleteByUser($uname = '', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "DELETE FROM `".$findTable."` WHERE `username` = '".$uname."'";
          $result = $this->db->db_query($query);
       }
 
@@ -123,16 +170,19 @@ if (!class_exists("Daynote_model")) {
        * @param string $yyyymmdd 8 character date (YYYYMMDD) to find
        * @param string $username Userame to find
        */
-      function findByDay($yyyymmdd = '', $username = '', $region = 'default') {
-         $rc = 0;
-         // see if the user exists
-         $query  = "SELECT * FROM `" . $this->table . "` ";
-         $query .= "WHERE `yyyymmdd` = '" . $yyyymmdd . "' ";
-         $query .= "AND `username` = '" . $username . "' ";
-         $query .= "AND `region` = '" . $region . "'";
+      function findByDay($yyyymmdd = '', $username = '', $region = 'default') 
+      {
+         $rc=0;
+         
+         $query  = "SELECT * FROM `".$this->table."` ";
+         $query .= "WHERE `yyyymmdd` = '".$yyyymmdd."' ";
+         $query .= "AND `username` = '".$username."' ";
+         $query .= "AND `region` = '".$region."'";
+         
          $result = $this->db->db_query($query);
 
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             // exactly one row found ( a good thing!)
             $row = $this->db->db_fetch_array($result);
             $this->id = $row['id'];
@@ -155,20 +205,20 @@ if (!class_exists("Daynote_model")) {
        * @param string $username Username to find
        * @param string $region   Region to find
        */
-      function findAllByMonthUser($yyyy = '', $mm = '', $days = '', $username = '', $region = 'default') {
+      function findAllByMonthUser($yyyy = '', $mm = '', $days = '', $username = '', $region = 'default') 
+      {
          if ($days < 10) $days = '0' + "0".strval($days);
          $rc = 0;
-         $startdate = $yyyy . $mm . '01';
-         $enddate = $yyyy . $mm . $days;
-         $query  = "SELECT * FROM `" . $this->table . "` ";
+         $startdate = $yyyy.$mm.'01';
+         $enddate = $yyyy.$mm.$days;
+         $query  = "SELECT * FROM `".$this->table."` ";
          $query .= "WHERE `yyyymmdd` BETWEEN '".$startdate."' AND '".$enddate."' ";
-         $query .= "AND `username` = '" . $username . "' ";
-         $query .= "AND `region` = '" . $region . "'";
+         $query .= "AND `username` = '".$username."' ";
+         $query .= "AND `region` = '".$region."'";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) > 0) {
-            while($row = $this->db->db_fetch_array($result)) {
-               $this->daynotes[$row['username']][$row['yyyymmdd']] = stripslashes($row['daynote']);
-            }
+         if ($this->db->db_numrows($result) > 0) 
+         {
+            while($row = $this->db->db_fetch_array($result)) $this->daynotes[$row['username']][$row['yyyymmdd']] = stripslashes($row['daynote']);
             $rc = 1;
          }
          return $rc;
@@ -184,20 +234,20 @@ if (!class_exists("Daynote_model")) {
        * @param string $usernames Array of usernames to find
        * @param string $region    Region to find
        */
-      function findAllByMonth($yyyy = '', $mm = '', $days = '', $usernames, $region = 'default') {
+      function findAllByMonth($yyyy = '', $mm = '', $days = '', $usernames, $region = 'default') 
+      {
          $rc = 0;
          if ($days < 10) $days = '0' + "0".strval($days);
-         $startdate = $yyyy . $mm . '01';
-         $enddate = $yyyy . $mm . $days;
-         $query  = "SELECT * FROM `" . $this->table . "` ";
+         $startdate = $yyyy.$mm.'01';
+         $enddate = $yyyy.$mm.$days;
+         $query  = "SELECT * FROM `".$this->table."` ";
          $query .= "WHERE `yyyymmdd` BETWEEN '".$startdate."' AND '".$enddate."' ";
          $query .= "AND username IN('".$usernames."')";
-         $query .= "AND `region` = '" . $region . "'";
+         $query .= "AND `region` = '".$region."'";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) > 0) {
-            while($row = $this->db->db_fetch_array($result)) {
-               $this->daynotes[$row['username']][$row['yyyymmdd']] = stripslashes($row['daynote']);
-            }
+         if ($this->db->db_numrows($result) > 0) 
+         {
+            while($row = $this->db->db_fetch_array($result)) $this->daynotes[$row['username']][$row['yyyymmdd']] = stripslashes($row['daynote']);
             $rc = 1;
          }
          $this->count = $this->db->db_numrows($result);
@@ -210,14 +260,14 @@ if (!class_exists("Daynote_model")) {
        * 
        * @param string $id ID to find
        */
-      function findById($id = '') {
+      function findById($id = '') 
+      {
          $rc = 0;
-         // see if the user exists
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `id` = '" . $id . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `id` = '".$id."'";
          $result = $this->db->db_query($query);
 
-         if ($this->db->db_numrows($result) == 1) {
-            // exactly one row found ( a good thing!)
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             $this->id = $row['id'];
             $this->yyyymmdd = $row['yyyymmdd'];
@@ -233,13 +283,14 @@ if (!class_exists("Daynote_model")) {
       /**
        * Updates a daynote record from local class variables
        */
-      function update() {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `yyyymmdd`   = '" . $this->yyyymmdd . "', ";
-         $query .= "`daynote`    = '" . mysql_real_escape_string ($this->daynote) . "', ";
-         $query .= "`username`   = '" . $this->username . "', ";
-         $query .= "`region`   = '" . $this->region . "' ";
-         $query .= "WHERE `id`       = '" . $this->id . "'";
+      function update() 
+      {
+         $query = "UPDATE `".$this->table."` SET ";
+         $query .= "`yyyymmdd` = '".$this->yyyymmdd."', ";
+         $query .= "`daynote` = '".mysql_real_escape_string($this->daynote)."', ";
+         $query .= "`username` = '".$this->username."', ";
+         $query .= "`region` = '".$this->region."' ";
+         $query .= "WHERE `id` = '".$this->id."'";
          $result = $this->db->db_query($query);
       }
 
@@ -249,7 +300,8 @@ if (!class_exists("Daynote_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }

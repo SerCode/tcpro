@@ -25,12 +25,13 @@ if (!class_exists("Template_model")) {
     * Provides objects and methods to manage the template table
     * @package TeamCalPro
     */
-   class Template_model {
+   class Template_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
-      var $username = ''; // link to username of user table
+      var $archive_table = '';
+      
+      var $username = '';
       var $year = '';
       var $month = '';
       var $abs1 = 0;
@@ -69,15 +70,57 @@ if (!class_exists("Template_model")) {
       /**
        * Constructor
        */
-      function Template_model() {
+      function Template_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_templates'];
-         $this->log = $CONF['db_table_log'];
+         $this->archive_table = $CONF['db_table_archive_templates'];
       }
 
+      // ---------------------------------------------------------------------
+      /**
+       * Archives all records for a given user
+       * 
+       * @param string $username Username to archive
+       */
+      function archive($username) 
+      {
+         $query  = "INSERT INTO ".$this->archive_table." SELECT t.* FROM ".$this->table." t WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Restores all records for a given user
+       * 
+       * @param string $name Username to restore
+       */
+      function restore($username) 
+      {
+         $query  = "INSERT INTO ".$this->table." SELECT a.* FROM ".$this->archive_table." a WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Checks whether a record exists
+       * 
+       * @param string $username Username to find
+       * @param boolean $archive Whether to search in archive table
+       * @return integer Result of MySQL query
+       */
+      function exists($username='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "SELECT id FROM `".$findTable."` WHERE username = '".$username."'";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result)) return TRUE;
+         else return FALSE;
+      } 
+      
       // ---------------------------------------------------------------------
       /**
        * Creates a template from local variables
@@ -126,9 +169,12 @@ if (!class_exists("Template_model")) {
        * Deletes all templates for a username
        * 
        * @param string $uname Username to delete all records of
+       * @param boolean $archive Whether to search in archive table
        */
-      function deleteByUser($uname = '') {
-         $query = "DELETE FROM `".$this->table."` WHERE `username`='".$uname."'";
+      function deleteByUser($uname = '', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "DELETE FROM `".$findTable."` WHERE `username`='".$uname."'";
          $result = $this->db->db_query($query);
       }
 

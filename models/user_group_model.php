@@ -25,12 +25,12 @@ if (!class_exists("User_group_model")) {
     * Provides objects and methods to manage the user-group table
     * @package TeamCalPro
     */
-   class User_group_model {
+   class User_group_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
-
+      var $archive_table = '';
+      
       var $id = NULL;
       var $username = NULL;
       var $groupname = NULL;
@@ -40,15 +40,57 @@ if (!class_exists("User_group_model")) {
       /**
        * Constructor
        */
-      function User_group_model() {
+      function User_group_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_user_group'];
-         $this->log = $CONF['db_table_log'];
+         $this->archive_table = $CONF['db_table_archive_user_group'];
       }
 
+      // ---------------------------------------------------------------------
+      /**
+       * Archives all user_group records for a given user
+       * 
+       * @param string $username Username to archive
+       */
+      function archive($username) 
+      {
+         $query  = "INSERT INTO ".$this->archive_table." SELECT u.* FROM ".$this->table." u WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Restores all user_group records for a given user
+       * 
+       * @param string $name Username to restore
+       */
+      function restore($username) 
+      {
+         $query  = "INSERT INTO ".$this->table." SELECT a.* FROM ".$this->archive_table." a WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Checks whether a record exists
+       * 
+       * @param string $username Username to find
+       * @param boolean $archive Whether to search in archive table
+       * @return integer Result of MySQL query
+       */
+      function exists($username='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "SELECT id FROM `".$findTable."` WHERE username = '".$username."'";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result)) return TRUE;
+         else return FALSE;
+      } 
+      
       // ---------------------------------------------------------------------
       /**
        * Creates a new user-group record
@@ -152,9 +194,12 @@ if (!class_exists("User_group_model")) {
        * Deletes all records for a given user
        * 
        * @param string $user Username to delete
+       * @param boolean $archive Whether to search in archive table
        */
-      function deleteByUser($deluser = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `username` = '" . $deluser . "'";
+      function deleteByUser($deluser = '', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "DELETE FROM `" . $findTable . "` WHERE `username` = '" . $deluser . "'";
          $result = $this->db->db_query($query);
       }
 

@@ -337,20 +337,23 @@ if (isset($_POST['btn_apply'])) {
  * =========================================================================
  * ABSENCE UPDATE
  */
-elseif ( isset($_POST['btn_abs_update']) ) {
-
-   
+elseif ( isset($_POST['btn_abs_update']) ) 
+{
    $countfrom = stripslashes($_POST['cntfrom']);
    $countto = stripslashes($_POST['cntto']);
 
    $absences = $A->getAll();
-   foreach ($absences as $abs) {
+   foreach ($absences as $abs) 
+   {
       $A->get($abs['id']);
-      if ( isset($_POST['lastyear-'.$A->id]) && isset($_POST['allowance-'.$A->id]) ) {
-         if ( is_numeric($_POST['lastyear-'.$A->id]) && is_numeric($_POST['allowance-'.$A->id]) ) {
+      if ( isset($_POST['lastyear-'.$A->id]) && isset($_POST['allowance-'.$A->id]) ) 
+      {
+         if ( is_numeric($_POST['lastyear-'.$A->id]) && is_numeric($_POST['allowance-'.$A->id]) ) 
+         {
             $newlastyear = floatval($_POST['lastyear-'.$A->id]);
             $newallowance = floatval($_POST['allowance-'.$A->id]);
-            if ($B->find($U->username,$A->id)) {
+            if ($B->find($U->username,$A->id)) 
+            {
                /**
                 * This user has an individual allowance record for this
                 * absence type. Let's update it...
@@ -359,14 +362,16 @@ elseif ( isset($_POST['btn_abs_update']) ) {
                $B->curryear=$newallowance;
                $B->update();
             }
-            else {
+            else 
+            {
                /**
                 * This user does not have an individual allowance record
                 * for this absence type yet. Let's create one if a left
                 * over from last year was specified or if the allowance
                 * differs from the general allowance for this absence type.
                 */
-               if ( $newlastyear>0 || $newallowance<>floatval($A->allowance)) {
+               if ( $newlastyear>0 || $newallowance<>floatval($A->allowance)) 
+               {
                   $B->username=$U->username;
                   $B->absid=$A->id;
                   $B->lastyear=$newlastyear;
@@ -375,7 +380,8 @@ elseif ( isset($_POST['btn_abs_update']) ) {
                }
             }
          }
-         else {
+         else 
+         {
             echo "<script type=\"text/javascript\">alert(\"".$LANG['err_allowance_not_numeric']."\");</script>";
          }
       }
@@ -391,7 +397,8 @@ elseif ( isset($_POST['btn_abs_update']) ) {
  * =========================================================================
  * AVATAR UPDATE
  */
-elseif ( isset($_POST['btn_avatar_upload']) ) {
+elseif ( isset($_POST['btn_avatar_upload']) ) 
+{
    $AV->save($U->username);
    if ($AV->message)
    {
@@ -413,7 +420,8 @@ elseif ( isset($_POST['btn_avatar_upload']) ) {
  * =========================================================================
  * DONE
  */
-elseif (isset($_POST['btn_done'])) {
+elseif (isset($_POST['btn_done'])) 
+{
    if (isset($_REQUEST['referrer']))
       jsCloseAndReload($_REQUEST['referrer'].".php");
    else

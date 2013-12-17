@@ -15,7 +15,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("User_model")) {
+if (!class_exists("User_model")) 
+{
    /**
     * Requires the database class
     */
@@ -25,14 +26,12 @@ if (!class_exists("User_model")) {
     * Provides objects and methods to manage the user table
     * @package TeamCalPro
     */
-   class User_model {
+   class User_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
-      var $salt = '';
-      var $tpl = '';
-
+      var $archive_table = '';
+      
       var $username = '';
       var $password = '';
       var $firstname = '';
@@ -67,22 +66,64 @@ if (!class_exists("User_model")) {
       /**
        * Constructor
        */
-      function User_model() {
+      function User_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_users'];
-         $this->salt = $CONF['salt'];
-         $this->log = $CONF['db_table_log'];
+         $this->archive_table = $CONF['db_table_archive_users'];
       }
 
       // ---------------------------------------------------------------------
       /**
+       * Archives a user record
+       * 
+       * @param string $name Username to archive
+       */
+      function archive($name) 
+      {
+         $query  = "INSERT INTO ".$this->archive_table." SELECT u.* FROM ".$this->table." u WHERE username = '".$name."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Restore arcived user records
+       * 
+       * @param string $name Username to restore
+       */
+      function restore($name) 
+      {
+         $query  = "INSERT INTO ".$this->table." SELECT a.* FROM ".$this->archive_table." a WHERE username = '".$name."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Checks whether a user record exists
+       * 
+       * @param string $name Username to find
+       * @param boolean $archive Whether to search in archive table
+       * @return integer Result of MySQL query
+       */
+      function exists($name='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "SELECT username FROM `".$findTable."` WHERE username = '".$name."'";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result)) return TRUE;
+         else return FALSE;
+      }
+       
+      // ---------------------------------------------------------------------
+      /**
        * Creates a new user record from local variables
        */
-      function create() {
-         $query = "INSERT INTO `" . $this->table . "` ";
+      function create() 
+      {
+         $query  = "INSERT INTO `".$this->table."` ";
          $query .= " (`username`,`password`,`firstname`,`lastname`,`title`,`position`,`group`,`phone`,`mobile`,`email`,`notify`,`notify_group`,`status`,`usertype`,`ut_group`,`privileges`,`bad_logins`,`bad_logins_start`,`last_pw_change`,`birthday`,`idnumber`,`last_login`,`custom1`,`custom2`,`custom3`,`custom4`,`custom5`,`customFree`,`customPopup`) ";
          $query .= "VALUES ('";
          $query .= addslashes($this->username) . "','";
@@ -122,10 +163,13 @@ if (!class_exists("User_model")) {
       /**
        * Deletes a user record by name
        * 
-       * @param string $name Username to delete
+       * @param string $name Username to find
+       * @param boolean $archive Whether to search in archive table
        */
-      function deleteByName($name = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `username` = '" . $name . "'";
+      function deleteByName($name = '', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "DELETE FROM `".$findTable."` WHERE `username` = '".$name."'";
          $result = $this->db->db_query($query);
       }
 
@@ -134,15 +178,18 @@ if (!class_exists("User_model")) {
        * Finds a user record by name and fills values into local variables
        * 
        * @param string $name Username to find
+       * @param boolean $archive Whether to search in archive table
        * @return integer Result of MySQL query
        */
-      function findByName($name = '') {
+      function findByName($name='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
          $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` ";
-         $query .= "WHERE username = '" . addslashes($name) . "'";
+         $query = "SELECT * FROM `".$findTable."` WHERE username = '".$name."'";
          $result = $this->db->db_query($query);
 
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result, MYSQL_ASSOC);
             $this->username = stripslashes($row['username']);
             $this->password = $row['password'];
@@ -165,6 +212,7 @@ if (!class_exists("User_model")) {
             $this->last_pw_change = $row['last_pw_change'];
             $this->birthday = str_replace("-", "", $row['birthday']);
             $this->idnumber = stripslashes($row['idnumber']);
+            
             if (strlen($row['last_login'])==14)
                /*
                 * MySQL did not provide the colons in the timestamps so we have to put them in.
@@ -197,13 +245,35 @@ if (!class_exists("User_model")) {
        * 
        * @return array $uarray Array with all records
        */
-      function getAll($order1='lastname', $order2='firstname', $sort='ASC') {
+      function getAll($order1='lastname', $order2='firstname', $sort='ASC', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
          $uarray = array();
-         $query = "SELECT * FROM `".$this->table."` ORDER BY `".$order1."` ".$sort.",`".$order2."` ".$sort.";";
+         $query = "SELECT * FROM `".$findTable."` ORDER BY `".$order1."` ".$sort.",`".$order2."` ".$sort.";";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $uarray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $uarray[] = $row;
+         return $uarray;
+      }
+
+      // ---------------------------------------------------------------------
+      /**
+       * Reads all records into an array where username, lastname or firstname
+       * is like specified
+       * 
+       * @param string $like Likeness to search for
+       * @return array $uarray Array with all records
+       */
+      function getAllLike($like, $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $uarray = array();
+         $query = "SELECT * FROM `".$findTable."` ".
+                  "WHERE `firstname` LIKE '%".$like."%' ".
+                  "OR `lastname` LIKE '%".$like."%' ".
+                  "OR `username` LIKE '%".$like."%' ".
+                  "ORDER BY `lastname` ASC, `firstname` ASC;";
+         $result = $this->db->db_query($query);
+         while ( $row=$this->db->db_fetch_array($result) ) $uarray[] = $row;
          return $uarray;
       }
 
@@ -213,13 +283,12 @@ if (!class_exists("User_model")) {
        * 
        * @return array $uarray Array with all records
        */
-      function getAllButAdmin($order1='lastname', $order2='firstname', $sort='ASC') {
+      function getAllButAdmin($order1='lastname', $order2='firstname', $sort='ASC') 
+      {
          $uarray = array();
          $query = "SELECT * FROM `".$this->table."` WHERE username!='admin' ORDER BY `".$order1."` ".$sort.",`".$order2."` ".$sort.";";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $uarray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $uarray[] = $row;
          return $uarray;
       }
 
@@ -229,13 +298,12 @@ if (!class_exists("User_model")) {
        * 
        * @return array $unamearray Array with all usernames
        */
-      function getUsernames() {
+      function getUsernames() 
+      {
          $unamearray = array();
-         $query = "SELECT username FROM `" . $this->table . "`";
+         $query = "SELECT username FROM `".$this->table."`";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $unamearray[] = stripslashes($row['username']);
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $unamearray[] = $row['username'];
          return $unamearray;
       }
 
@@ -245,7 +313,8 @@ if (!class_exists("User_model")) {
        * 
        * @param integer $bitmask Contains 0's for flags to clear (see config.tcpro.php for predefined bitmasks)
        */
-      function clearPrivilege($bitmask) {
+      function clearPrivilege($bitmask) 
+      {
          $this->privileges = $this->privileges & (~$bitmask);
       }
 
@@ -256,7 +325,8 @@ if (!class_exists("User_model")) {
        * @param integer $bitmask Bitmask to check (see config.tcpro.php for predefined bitmasks)
        * @return boolean True if matches the bitmask, false if not
        */
-      function checkPrivilege($bitmask) {
+      function checkPrivilege($bitmask) 
+      {
          if ($this->privileges & $bitmask)
             return 1;
          else
@@ -269,7 +339,8 @@ if (!class_exists("User_model")) {
        * 
        * @param integer $bitmask Contains 1's for flags to set (see config.tcpro.php for predefined bitmasks)
        */
-      function setPrivilege($bitmask) {
+      function setPrivilege($bitmask) 
+      {
          $this->privileges = $this->privileges | $bitmask;
       }
 
@@ -280,7 +351,8 @@ if (!class_exists("User_model")) {
        * @param integer $bitmask Bitmask to check (see config.tcpro.php for predefined bitmasks)
        * @return boolean True if matches the bitmask, false if not
        */
-      function checkNotify($bitmask) {
+      function checkNotify($bitmask) 
+      {
          if ($this->notify & $bitmask)
             return 1;
          else
@@ -293,7 +365,8 @@ if (!class_exists("User_model")) {
        * 
        * @param integer $bitmask Contains 1's for flags to set (see config.tcpro.php for predefined bitmasks)
        */
-      function setNotify($bitmask) {
+      function setNotify($bitmask) 
+      {
          $this->notify = $this->notify | $bitmask;
       }
 
@@ -303,7 +376,8 @@ if (!class_exists("User_model")) {
        * 
        * @param integer $bitmask Contains 0's for flags to clear (see config.tcpro.php for predefined bitmasks)
        */
-      function clearNotify($bitmask) {
+      function clearNotify($bitmask) 
+      {
          $this->notify = $this->notify & (~$bitmask);
       }
 
@@ -313,7 +387,8 @@ if (!class_exists("User_model")) {
        * 
        * @param integer $bitmask Contains 0's for flags to clear (see config.tcpro.php for predefined bitmasks)
        */
-      function clearStatus($bitmask) {
+      function clearStatus($bitmask) 
+      {
          $this->status = $this->status & (~$bitmask);
       }
 
@@ -324,7 +399,8 @@ if (!class_exists("User_model")) {
        * @param integer $bitmask Bitmask to check (see config.tcpro.php for predefined bitmasks)
        * @return boolean True if matches the bitmask, false if not
        */
-      function checkStatus($bitmask) {
+      function checkStatus($bitmask) 
+      {
          if ($this->status & $bitmask)
             return 1;
          else
@@ -337,7 +413,8 @@ if (!class_exists("User_model")) {
        * 
        * @param integer $bitmask Contains 1's for flags to set (see config.tcpro.php for predefined bitmasks)
        */
-      function setStatus($bitmask) {
+      function setStatus($bitmask) 
+      {
          $this->status = $this->status | $bitmask;
       }
 
@@ -347,7 +424,8 @@ if (!class_exists("User_model")) {
        * 
        * @param integer $bitmask Contains 0's for flags to clear (see config.tcpro.php for predefined bitmasks)
        */
-      function clearUserType($bitmask) {
+      function clearUserType($bitmask) 
+      {
          $this->usertype = $this->usertype & (~intval($bitmask));
       }
 
@@ -358,7 +436,8 @@ if (!class_exists("User_model")) {
        * @param integer $bitmask Bitmask to check (see config.tcpro.php for predefined bitmasks)
        * @return boolean True if matches the bitmask, false if not
        */
-      function checkUserType($bitmask) {
+      function checkUserType($bitmask) 
+      {
          if ($this->usertype & $bitmask)
             return 1;
          else
@@ -371,7 +450,8 @@ if (!class_exists("User_model")) {
        * 
        * @param integer $bitmask Contains 1's for flags to set (see config.tcpro.php for predefined bitmasks)
        */
-      function setUserType($bitmask) {
+      function setUserType($bitmask) 
+      {
          $this->usertype = $this->usertype | $bitmask;
       }
 
@@ -379,11 +459,12 @@ if (!class_exists("User_model")) {
       /**
        * Updates an existing user record from local class variables
        * 
-       * @param string $uname Username of record to update
+       * @param string $name Username of record to update
        */
-      function update($uname) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `username`         = '" . addslashes($this->username) . "', ";
+      function update($name) 
+      {
+         $query  = "UPDATE `".$this->table."` ";
+         $query .= "SET `username`     = '" . addslashes($this->username) . "', ";
          $query .= "`password`         = '" . $this->password . "', ";
          $query .= "`firstname`        = '" . addslashes($this->firstname) . "', ";
          $query .= "`lastname`         = '" . addslashes($this->lastname) . "', ";
@@ -412,7 +493,7 @@ if (!class_exists("User_model")) {
          $query .= "`custom5`          = '" . addslashes($this->custom5) . "', ";
          $query .= "`customFree`       = '" . addslashes($this->customFree) . "', ";
          $query .= "`customPopup`      = '" . addslashes($this->customPopup) . "'";
-         $query .= " WHERE `username`  = '" . addslashes($uname) . "'";
+         $query .= " WHERE `username`  = '" . $name . "'";
          $result = $this->db->db_query($query);
       }
 
@@ -422,7 +503,8 @@ if (!class_exists("User_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }

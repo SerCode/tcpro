@@ -22,11 +22,11 @@ if (!class_exists("Absence_model")) {
     * Provides objects and methods to interface with the absence type table
     * @package TeamCalPro
     */
-   class Absence_model {
+   class Absence_model 
+   {
       var $db = NULL;
       var $table = '';
-      var $log = '';
-      var $logtype = '';
+      
       var $id = 0;
       var $name = '';
       var $symbol = '';
@@ -48,20 +48,21 @@ if (!class_exists("Absence_model")) {
       /**
        * Constructor
        */ 
-      function Absence_model() {
+      function Absence_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_absence'];
-         $this->log = $CONF['db_table_log'];
       }
 
       //----------------------------------------------------------------------
       /**
        * Creates an absence type record
        */ 
-      function create() {
+      function create() 
+      {
          $query = "INSERT INTO `".$this->table."` ";
          $query .= "(
                      `name`,
@@ -109,9 +110,11 @@ if (!class_exists("Absence_model")) {
        * 
        * @param string $absid Record ID
        */ 
-      function delete($absid = '') {
+      function delete($absid = '') 
+      {
          $result=0;
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "DELETE FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
          }
@@ -122,7 +125,8 @@ if (!class_exists("Absence_model")) {
       /**
        * Deletes all absence type records
        */ 
-      function deleteAll() {
+      function deleteAll() 
+      {
          $query = "TRUNCATE `".$this->table."`;";
          $result = $this->db->db_query($query);
          return $result;
@@ -134,7 +138,8 @@ if (!class_exists("Absence_model")) {
        * 
        * @param string $absid Record ID
        */ 
-      function get($absid = '') {
+      function get($absid='') 
+      {
          $rc = 0;
          if (isset($absid)) {
             $query = "SELECT * FROM `".$this->table."` WHERE id='".$absid."';";
@@ -171,13 +176,29 @@ if (!class_exists("Absence_model")) {
        * @param string $sort Sort direction
        * @return array $absarray Array with all records
        */
-      function getAll($order='name', $sort='ASC') {
+      function getAll($order='name', $sort='ASC') 
+      {
          $absarray = array();
          $query = "SELECT * FROM `".$this->table."` ORDER BY `".$order."` ".$sort.";";
          $result = $this->db->db_query($query);
-         while ($row=$this->db->db_fetch_array($result)) {
-            $absarray[] = $row;
-         }
+         while ($row=$this->db->db_fetch_array($result)) $absarray[] = $row;
+         return $absarray;
+      }
+
+      //----------------------------------------------------------------------
+      /**
+       * Reads all absence types counting as the given ID
+       * 
+       * @param string $order Column to sort by
+       * @param string $sort Sort direction
+       * @return array $absarray Array with all records
+       */
+      function getAllSub($absid) 
+      {
+         $absarray = array();
+         $query = "SELECT * FROM `".$this->table."` WHERE counts_as='".$absid."' ORDER BY `name` ASC;";
+         $result = $this->db->db_query($query);
+         while ($row=$this->db->db_fetch_array($result)) $absarray[] = $row;
          return $absarray;
       }
 
@@ -188,12 +209,14 @@ if (!class_exists("Absence_model")) {
        * @param string $absid Record ID
        * @return string Absence type factor
        */ 
-      function getFactor($absid = '') {
+      function getFactor($absid = '') 
+      {
          $rc = 1; // default factor is 1
          if (isset($absid)) {
             $query = "SELECT factor FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
-            if ($this->db->db_numrows($result) == 1) {
+            if ($this->db->db_numrows($result) == 1) 
+            {
                $row = $this->db->db_fetch_array($result);
                $rc = $row['factor'];
             }
@@ -240,12 +263,14 @@ if (!class_exists("Absence_model")) {
        * @param string $absid Record ID
        * @return boolean Approval required
        */
-      function getApprovalRequired($absid = '') {
+      function getApprovalRequired($absid = '') 
+      {
          $rc=0; // Default approval required is 0
          if (isset($absid)) {
             $query = "SELECT approval_required FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
-            if ($this->db->db_numrows($result) == 1) {
+            if ($this->db->db_numrows($result) == 1) 
+            {
                $row = $this->db->db_fetch_array($result);
                $rc = $row['approval_required'];
             }
@@ -260,12 +285,14 @@ if (!class_exists("Absence_model")) {
        * @param string $absid Record ID
        * @return boolean Manager only flag
        */
-      function getManagerOnly($absid = '') {
+      function getManagerOnly($absid = '') 
+      {
          $rc=0; // Default return 0
          if (isset($absid)) {
             $query = "SELECT manager_only FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
-            if ($this->db->db_numrows($result) == 1) {
+            if ($this->db->db_numrows($result) == 1) 
+            {
                $row = $this->db->db_fetch_array($result);
                $rc = $row['manager_only'];
             }
@@ -280,12 +307,14 @@ if (!class_exists("Absence_model")) {
        * @param string $absid Record ID
        * @return string Absence type name
        */
-      function getName($absid = '') {
+      function getName($absid = '') 
+      {
          $rc='unknown';
          if (isset($absid)) {
             $query = "SELECT name FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
-            if ($this->db->db_numrows($result) == 1) {
+            if ($this->db->db_numrows($result) == 1) 
+            {
                $row = $this->db->db_fetch_array($result);
                $rc = $row['name'];
             }
@@ -300,12 +329,14 @@ if (!class_exists("Absence_model")) {
        * @param string $absid Record ID
        * @return string Absence type symbol
        */
-      function getSymbol($absid = '') {
+      function getSymbol($absid = '') 
+      {
          $rc='.';
          if (isset($absid)) {
             $query = "SELECT symbol FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
-            if ($this->db->db_numrows($result) == 1) {
+            if ($this->db->db_numrows($result) == 1) 
+            {
                $row = $this->db->db_fetch_array($result);
                $rc = $row['symbol'];
             }
@@ -320,12 +351,14 @@ if (!class_exists("Absence_model")) {
        * @param string $absid Record ID
        * @return string Absence type icon
        */
-      function getIcon($absid = '') {
+      function getIcon($absid = '') 
+      {
          $rc='.';
          if (isset($absid)) {
             $query = "SELECT icon FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
-            if ($this->db->db_numrows($result) == 1) {
+            if ($this->db->db_numrows($result) == 1) 
+            {
                $row = $this->db->db_fetch_array($result);
                $rc = $row['icon'];
             }
@@ -339,7 +372,8 @@ if (!class_exists("Absence_model")) {
        * 
        * @return string Last auto-increment ID
        */ 
-      function getLastId() {
+      function getLastId() 
+      {
          $result = mysql_query('SHOW TABLE STATUS LIKE "'.$this->table.'";');
          $row = mysql_fetch_assoc($result);
          return intval($row['Auto_increment'])-1;
@@ -351,7 +385,8 @@ if (!class_exists("Absence_model")) {
        * 
        * @return string Next auto-increment ID
        */ 
-      function getNextId() {
+      function getNextId() 
+      {
          $result = mysql_query('SHOW TABLE STATUS LIKE "'.$this->table.'"');
          $row = mysql_fetch_assoc($result);
          return $row['Auto_increment'];
@@ -363,9 +398,11 @@ if (!class_exists("Absence_model")) {
        * 
        * @param string $absid Record ID
        */ 
-      function update($absid='') {
+      function update($absid='') 
+      {
          $result=0;
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "UPDATE `".$this->table."` SET 
                      `name`              = '".$this->name."', 
                      `symbol`            = '".$this->symbol."', 
@@ -394,11 +431,11 @@ if (!class_exists("Absence_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

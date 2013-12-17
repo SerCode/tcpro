@@ -2036,20 +2036,29 @@ $LANG['decl_applyto_all'] = 'All users (but administrators)';
 /**
  * User list page
  */
+$LANG['tab_active_users'] = 'Active Users';
+$LANG['tab_archived_users'] = 'Archived Users';
 $LANG['select_all'] = 'Select all';
 $LANG['btn_delete_selected'] = 'Delete selected';
+$LANG['btn_archive_selected'] = 'Archive selected';
+$LANG['btn_restore_selected'] = 'Restore selected';
 $LANG['btn_reset_password_selected'] = 'Reset password of selected';
+$LANG['user_archive_confirm'] = 'Are you sure you want to archive the selected users?';
+$LANG['user_restore_confirm'] = 'Are you sure you want to restore the selected users?';
 $LANG['confirmation_success'] = 'Success';
-$LANG['confirmation_failed'] = 'Failure';
+$LANG['confirmation_failure'] = 'Problem';
 $LANG['confirmation_delete_selected_users'] = 'The selected users were deleted.';
+$LANG['confirmation_archive_selected_users'] = 'The selected users were archived.';
+$LANG['confirmation_archive_selected_users_failed'] = 'One or more of the selected users already exist in the archive. This could be the same user or one with the same username.<br>Please delete these archived users first.';
+$LANG['confirmation_restore_selected_users'] = 'The selected users were restored.';
+$LANG['confirmation_restore_selected_users_failed'] = 'One or more of the selected users already exist as active users. This could be the same user or one with the same username.<br>Please delete these active users first.';
 $LANG['confirmation_reset_password_selected'] = 'The passwords of selected users were reset and a corresponding e-mail was sent to them.';
 
 /**
  * Absence list page
  */
 $LANG['abs_list_title'] = 'Absence Types';
-$LANG['abs_col_display'] = 'Display';
-$LANG['abs_col_name'] = 'Name (Symbol)';
+$LANG['abs_counts_as'] = 'Counts as';
 $LANG['confirmation_delete_selected_absences'] = 'The selected absence types were deleted.';
 $LANG['abs_delete_confirm'] = 'Are you sure you want to delete the selected absence types?';
 $LANG['btn_abs_list'] = 'Show list view';

@@ -3,12 +3,140 @@ TEAMCAL PRO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.010] -> [3.6.011]
+
+Backup your current files and database!
+
+Download the new release and overwrite all files.
+Overwrite config.tcpro.php from your backup.
+
+Database changes:
+
+CREATE TABLE IF NOT EXISTS `my_tc_archive_allowances` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) NOT NULL,
+  `absid` int(11) NOT NULL,
+  `lastyear` smallint(6) DEFAULT '0',
+  `curryear` smallint(6) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `my_tc_archive_daynotes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `yyyymmdd` varchar(8) DEFAULT NULL,
+  `daynote` text,
+  `username` varchar(40) NOT NULL DEFAULT 'all',
+  `region` varchar(40) NOT NULL DEFAULT 'default',
+  PRIMARY KEY (`id`),
+  KEY `yyyymmdd` (`yyyymmdd`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `my_tc_archive_templates` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) DEFAULT NULL,
+  `year` varchar(4) DEFAULT NULL,
+  `month` char(2) DEFAULT NULL,
+  `abs1` int(11) DEFAULT NULL,
+  `abs2` int(11) DEFAULT NULL,
+  `abs3` int(11) DEFAULT NULL,
+  `abs4` int(11) DEFAULT NULL,
+  `abs5` int(11) DEFAULT NULL,
+  `abs6` int(11) DEFAULT NULL,
+  `abs7` int(11) DEFAULT NULL,
+  `abs8` int(11) DEFAULT NULL,
+  `abs9` int(11) DEFAULT NULL,
+  `abs10` int(11) DEFAULT NULL,
+  `abs11` int(11) DEFAULT NULL,
+  `abs12` int(11) DEFAULT NULL,
+  `abs13` int(11) DEFAULT NULL,
+  `abs14` int(11) DEFAULT NULL,
+  `abs15` int(11) DEFAULT NULL,
+  `abs16` int(11) DEFAULT NULL,
+  `abs17` int(11) DEFAULT NULL,
+  `abs18` int(11) DEFAULT NULL,
+  `abs19` int(11) DEFAULT NULL,
+  `abs20` int(11) DEFAULT NULL,
+  `abs21` int(11) DEFAULT NULL,
+  `abs22` int(11) DEFAULT NULL,
+  `abs23` int(11) DEFAULT NULL,
+  `abs24` int(11) DEFAULT NULL,
+  `abs25` int(11) DEFAULT NULL,
+  `abs26` int(11) DEFAULT NULL,
+  `abs27` int(11) DEFAULT NULL,
+  `abs28` int(11) DEFAULT NULL,
+  `abs29` int(11) DEFAULT NULL,
+  `abs30` int(11) DEFAULT NULL,
+  `abs31` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `username` (`username`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `my_tc_archive_users` (
+  `username` varchar(40) NOT NULL DEFAULT '',
+  `password` varchar(40) DEFAULT NULL,
+  `firstname` varchar(80) DEFAULT NULL,
+  `lastname` varchar(80) DEFAULT NULL,
+  `title` varchar(80) DEFAULT NULL,
+  `position` varchar(80) DEFAULT NULL,
+  `group` varchar(50) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `mobile` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `notify` tinyint(4) DEFAULT '0',
+  `notify_group` varchar(50) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT '0',
+  `usertype` tinyint(4) DEFAULT '0',
+  `ut_group` varchar(50) DEFAULT NULL,
+  `privileges` tinyint(4) NOT NULL DEFAULT '1',
+  `bad_logins` int(11) DEFAULT '0',
+  `bad_logins_start` varchar(15) DEFAULT NULL,
+  `last_pw_change` datetime DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `idnumber` varchar(40) DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `custom1` varchar(80) NOT NULL DEFAULT '',
+  `custom2` varchar(80) NOT NULL DEFAULT '',
+  `custom3` varchar(80) NOT NULL DEFAULT '',
+  `custom4` varchar(80) NOT NULL DEFAULT '',
+  `custom5` varchar(80) NOT NULL DEFAULT '',
+  `customFree` text NOT NULL,
+  `customPopup` text NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `my_tc_archive_user_announcement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) DEFAULT NULL,
+  `ats` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `my_tc_archive_user_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) DEFAULT NULL,
+  `groupname` varchar(40) DEFAULT NULL,
+  `type` tinytext,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `my_tc_archive_user_options` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) DEFAULT NULL,
+  `option` varchar(40) DEFAULT NULL,
+  `value` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+------------------------------------------------------------------------------
 [3.6.009] -> [3.6.010]
 
 Backup your current files and database!
 
 Download the new release and overwrite all files.
 Overwrite config.tcpro.php from your backup.
+
+Database changes:
+
 
 ------------------------------------------------------------------------------
 [3.6.008] -> [3.6.009]

@@ -69,6 +69,14 @@ $CONF['db_table_user_announcement'] = $CONF['db_table_prefix'].'tc_user_announce
 $CONF['db_table_user_group']        = $CONF['db_table_prefix'].'tc_user_group';
 $CONF['db_table_user_options']      = $CONF['db_table_prefix'].'tc_user_options';
 
+$CONF['db_table_archive_users']             = $CONF['db_table_prefix'].'tc_archive_users';
+$CONF['db_table_archive_user_group']        = $CONF['db_table_prefix'].'tc_archive_user_group';
+$CONF['db_table_archive_user_options']      = $CONF['db_table_prefix'].'tc_archive_user_options';
+$CONF['db_table_archive_templates']         = $CONF['db_table_prefix'].'tc_archive_templates';
+$CONF['db_table_archive_daynotes']          = $CONF['db_table_prefix'].'tc_archive_daynotes';
+$CONF['db_table_archive_allowance']         = $CONF['db_table_prefix'].'tc_archive_allowances';
+$CONF['db_table_archive_user_announcement'] = $CONF['db_table_prefix'].'tc_archive_user_announcement';
+
 /**===========================================================================
  * LDAP AUTHENTICATION
 *

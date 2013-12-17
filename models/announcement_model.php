@@ -26,11 +26,11 @@ if (!class_exists("Announcement_model")) {
     * Provides objects and methods to interface with the announcement and user-announcement table
     * @package TeamCalPro
     */
-   class Announcement_model {
+   class Announcement_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
+      
       var $id = NULL;
       var $timestamp = '';
       var $text = '';
@@ -41,21 +41,22 @@ if (!class_exists("Announcement_model")) {
       /**
        * Constructor
        */
-      function Announcement_model() {
+      function Announcement_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_announcements'];
-         $this->log = $CONF['db_table_log'];
       }
 
       // ---------------------------------------------------------------------
       /**
        * Clear all records in announcement table
        */
-      function clearAnnouncements() {
-         $query = "TRUNCATE TABLE `" . $this->table . "`";
+      function clearAnnouncements() 
+      {
+         $query = "TRUNCATE TABLE `".$this->table."`";
          $result = $this->db->db_query($query);
       }
 
@@ -65,13 +66,12 @@ if (!class_exists("Announcement_model")) {
        * 
        * @return array $aarray Array with all records
        */
-      function getAll() {
+      function getAll() 
+      {
          $aarray = array();
          $query = "SELECT * FROM `".$this->table."`;";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $aarray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $aarray[] = $row;
          return $aarray;
       }
 
@@ -81,17 +81,22 @@ if (!class_exists("Announcement_model")) {
        * 
        * @param string $ts Timestamp to search for
        */
-      function read($ts) {
-         $query = "SELECT * FROM " . $this->table . " WHERE timestamp='" . $ts . "';";
+      function read($ts) 
+      {
+         $query = "SELECT * FROM ".$this->table." WHERE timestamp='".$ts."';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result, MYSQL_ASSOC);
             $this->text = $row['text'];
             $this->popup = $row['popup'];
             $this->silent = $row['silent'];
             return $this->text;
          }
-         return 0;
+         else 
+         {
+            return 0;
+         }
       }
 
       // ---------------------------------------------------------------------
@@ -103,7 +108,8 @@ if (!class_exists("Announcement_model")) {
        * @param integer $popup 1 if this announcement should popup upon login
        * @param integer $silent 1 if this announcement should be listed on the users announcement page
        */
-      function save($ts, $text, $popup, $silent) {
+      function save($ts, $text, $popup, $silent) 
+      {
          $query = "INSERT into `".$this->table."` (`timestamp`,`text`,`popup`,`silent`) ";
          $query .= "VALUES ('".$ts."','".$text."','".$popup."','".$silent."')";
          $result = $this->db->db_query($query);
@@ -115,7 +121,8 @@ if (!class_exists("Announcement_model")) {
        * 
        * @param string $ts Timestamp to search for
        */
-      function delete($ts) {
+      function delete($ts) 
+      {
          $query = "DELETE FROM ".$this->table." WHERE `timestamp`='".$ts."';";
          $result = $this->db->db_query($query);
       }
@@ -126,7 +133,8 @@ if (!class_exists("Announcement_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }

@@ -26,11 +26,12 @@ if (!class_exists("Allowance_model")) {
     * Provides objects and methods to interface with the allowance table
     * @package TeamCalPro
     */
-   class Allowance_model {
+   class Allowance_model 
+   {
       var $db = NULL;
       var $table = '';
-      var $log = '';
-      var $logtype = '';
+      var $archive_table = '';
+      
       var $id = NULL;
       var $username = '';
       var $absid = 0;
@@ -41,20 +42,63 @@ if (!class_exists("Allowance_model")) {
       /**
        * Constructor
        */
-      function Allowance_model() {
+      function Allowance_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_allowance'];
-         $this->log = $CONF['db_table_log'];
+         $this->archive_table = $CONF['db_table_archive_allowance'];
       }
 
       // ---------------------------------------------------------------------
       /**
+       * Archives all records for a given user
+       * 
+       * @param string $username Username to archive
+       */
+      function archive($username) 
+      {
+         $query  = "INSERT INTO ".$this->archive_table." SELECT t.* FROM ".$this->table." t WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Restores all records for a given user
+       * 
+       * @param string $name Username to restore
+       */
+      function restore($username) 
+      {
+         $query  = "INSERT INTO ".$this->table." SELECT a.* FROM ".$this->archive_table." a WHERE username = '".$username."';";
+         $result = $this->db->db_query($query);
+      }
+      
+      // ---------------------------------------------------------------------
+      /**
+       * Checks whether a record exists
+       * 
+       * @param string $username Username to find
+       * @param boolean $archive Whether to search in archive table
+       * @return integer Result of MySQL query
+       */
+      function exists($username='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "SELECT id FROM `".$findTable."` WHERE username = '".$username."'";
+         $result = $this->db->db_query($query);
+         if ($this->db->db_numrows($result)) return TRUE;
+         else return FALSE;
+      } 
+      
+      // ---------------------------------------------------------------------
+      /**
        * Creates an allowance record
        */
-      function create() {
+      function create() 
+      {
          $query = "INSERT INTO `".$this->table."` (`username`,`absid`,`lastyear`,`curryear`) VALUES (";
          $query .= "'".$this->username."', ";
          $query .= $this->absid.", ";
@@ -105,8 +149,10 @@ if (!class_exists("Allowance_model")) {
        * 
        * @param string $username Username to delete
        */
-      function deleteUser($username='') {
-         $query = "DELETE FROM `".$this->table."` WHERE `username`='".$username."'";
+      function deleteByUser($username='', $archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "DELETE FROM `".$findTable."` WHERE `username`='".$username."'";
          $result = $this->db->db_query($query);
       }
 
