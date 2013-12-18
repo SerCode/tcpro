@@ -5,7 +5,7 @@
  * Displays and runs the user administration page
  *
  * @package TeamCalPro
- * @version 3.6.010
+ * @version 3.6.011Beta
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -282,10 +282,8 @@ require("includes/menu_inc.php");
       <!-- Message -->
       <?php if ($confirmation['show']) { ?>
       <div id="message-active-users" title="<?=$confirmation['header']?>">
-         <p>
-            <b><?=$confirmation['title']?></b><br>
-            <?=$confirmation['text']?>
-         </p>
+         <p style="color: #ffffff; font-weight: bold; padding: 4px; <?=($confirmation['success'])?"background-color: #009900;":"background-color: #990000;";?>"><?=$confirmation['title']?></p>
+         <p><?=$confirmation['text']?></p>
       </div>
       <script type="text/javascript">
          $(function() { 

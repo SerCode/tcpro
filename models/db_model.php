@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Interface to the TeamCal Pro database
  *
  * @package TeamCalPro
- * @version 3.6.010 
+ * @version 3.6.011Beta 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -16,12 +16,14 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Db_model")) {
+if (!class_exists("Db_model")) 
+{
    /**
     * Interface to the TeamCal Pro database
     * @package TeamCalPro
     */
-   class Db_model {
+   class Db_model 
+   {
       var $db_type = '';
       var $db_server = '';
       var $db_name = '';
@@ -37,7 +39,8 @@ if (!class_exists("Db_model")) {
        * Constructor reading server and database information from the
        * configuration file. 
        */
-      function Db_model() {
+      function Db_model() 
+      {
          global $CONF;
          $this->db_type = $CONF['db_type'];
          $this->db_server = $CONF['db_server'];
@@ -123,7 +126,7 @@ if (!class_exists("Db_model")) {
                if (!$result) 
                {
                   $errtxt = "<p>Error: A problem was encountered while executing this query:</p>\n<p><pre>".$query."</pre></p>\n";
-                  $this->db_error($errtxt, "db_query()", true);
+                  $this->db_error($errtxt, "db_query(), Line 125", true);
                }
                Db_model::$query_cache[$query] = $result;
             } 
@@ -133,7 +136,7 @@ if (!class_exists("Db_model")) {
                if (!$result) 
                {
                   $errtxt = "<p>Error: A problem was encountered while executing this query:</p>\n<p><pre>".$query."</pre></p>\n";
-                  $this->db_error($errtxt, "db_query()", true);
+                  $this->db_error($errtxt, "db_query(), Line 135", true);
                }
                else 
                { 

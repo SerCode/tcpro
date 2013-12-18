@@ -5,7 +5,7 @@
  * Displays the database maintenance page
  *
  * @package TeamCalPro
- * @version 3.6.010
+ * @version 3.6.011Beta
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -161,23 +161,38 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
           * Log this event
           */
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_cleanup_before", $_POST['clean_year'].$_POST['clean_month']);
+         
+         /**
+          * Prepare confirmation message
+          */
+         $message['header'] = $LANG['admin_dbmaint_cleanup_caption'];
+         $message['title'] = $LANG['result'];
+         $message['show'] = true;
+         $message['success'] = true;
+         $message['text'] = $LANG['admin_dbmaint_cleanup_confirm'];
       } 
       else 
       {
-         $error=TRUE;
-         $err_short = $LANG['err_input_caption'];
-         $err_long = $LANG['err_input_dbmaint_clean_confirm'];
-         $err_module=$_SERVER['SCRIPT_NAME'];
-         $err_btn_close=FALSE;
+         /**
+          * Prepare failure message
+          */
+         $message['header'] = $LANG['admin_dbmaint_cleanup_caption'];
+         $message['title'] = $LANG['result'];
+         $message['show'] = true;
+         $message['success'] = false;
+         $message['text'] = $LANG['err_input_dbmaint_clean_success'];
       }
    } 
    else 
    {
-      $error=TRUE;
-      $err_short = $LANG['err_input_caption'];
-      $err_long = $LANG['err_input_dbmaint_clean'];
-      $err_module=$_SERVER['SCRIPT_NAME'];
-      $err_btn_close=FALSE;
+      /**
+       * Prepare failure message
+       */
+      $message['header'] = $LANG['admin_dbmaint_cleanup_caption'];
+      $message['title'] = $LANG['result'];
+      $message['show'] = true;
+      $message['success'] = false;
+      $message['text'] = $LANG['err_input_dbmaint_clean'];
    }
 }
 /**
@@ -296,12 +311,28 @@ else if ( isset($_POST['btn_dbmaint_del']) )
 
       if ( isset($_POST['chkDBDeleteLog']) ) 
       {
-         $query  = "TRUNCATE TABLE `".$CONF['db_table_log']."`";
-         $LOG->db->db_query($query);
+         $LOG->clear();
+         
          /**
           * Log this event
           */
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_log");
+      }
+
+      if ( isset($_POST['chkDBDeleteArchive']) ) 
+      {
+         $U->deleteAll(TRUE);
+         $UG->deleteAll(TRUE);
+         $UO->deleteAll(TRUE);
+         $T->deleteAll(TRUE);
+         $N->deleteAll(TRUE);
+         $B->deleteAll(TRUE);
+         $UA->deleteAll(TRUE);
+         
+         /**
+          * Log this event
+          */
+         $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_archive");
       }
 
       if ( isset($_POST['chkDBDeletePermissionSchemes']) ) 
@@ -313,14 +344,26 @@ else if ( isset($_POST['btn_dbmaint_del']) )
           */
          $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_perm");
       }
+      
+      /**
+       * Prepare confirmation message
+       */
+      $message['header'] = $LANG['admin_dbmaint_del_caption'];
+      $message['title'] = $LANG['result'];
+      $message['show'] = true;
+      $message['success'] = true;
+      $message['text'] = $LANG['admin_dbmaint_del_confirm'];
    } 
    else 
    {
-      $error=TRUE;
-      $err_short = $LANG['err_input_caption'];
-      $err_long = $LANG['err_input_dbmaint_del'];
-      $err_module=$_SERVER['SCRIPT_NAME'];
-      $err_btn_close=FALSE;
+      /**
+       * Prepare failure message
+       */
+      $message['header'] = $LANG['admin_dbmaint_del_caption'];
+      $message['title'] = $LANG['result'];
+      $message['show'] = true;
+      $message['success'] = false;
+      $message['text'] = $LANG['err_input_dbmaint_del'];
    }
 }
 /**
@@ -371,14 +414,9 @@ else if (isset($_POST['btn_export']))
  */
 else if ( isset($_POST['btn_rest_rest']) ) 
 {
-
-   $message['header']=$LANG['admin_dbmaint_rest_caption'];
-   $message['title']=$LANG['admin_dbmaint_rest_caption']." ".$LANG['result'];
-
    if (strlen($_FILES['sqlfile']['name'])) 
    {
       $updir = $CONF['app_root'].'sql/';
-      //$upfile = $updir . basename($_FILES['sqlfile']['name']);
       $upfile = $updir . "tcpro_dbrestore_".date('Ymd_His').".sql";
 
       if (move_uploaded_file($_FILES['sqlfile']['tmp_name'], $upfile)) 
@@ -406,16 +444,23 @@ else if ( isset($_POST['btn_rest_rest']) )
                   }
                }
             }
+            
             $message['show']=true;
+            
             if (!$found) 
             {
+               $message['header'] = $LANG['admin_dbmaint_rest_caption'];
+               $message['title'] = $LANG['result'];
                $message['success']=false;
                $message['text'] = $LANG['admin_dbmaint_msg_001'];
             }
             else 
             {
+               $message['header'] = $LANG['admin_dbmaint_rest_caption'];
+               $message['title'] = $LANG['result'];
                $message['success']=true;
                $message['text'] = $LANG['admin_dbmaint_msg_002'];
+               
                /**
                 * Log this event
                 */
@@ -425,6 +470,8 @@ else if ( isset($_POST['btn_rest_rest']) )
       }
       else 
       {
+         $message['header'] = $LANG['admin_dbmaint_rest_caption'];
+         $message['title'] = $LANG['result'];
          $message['show']=true;
          $message['success']=false;
          $message['text'] = $LANG['admin_dbmaint_msg_003'];
@@ -432,6 +479,8 @@ else if ( isset($_POST['btn_rest_rest']) )
    }
    else 
    {
+      $message['header'] = $LANG['admin_dbmaint_rest_caption'];
+      $message['title'] = $LANG['result'];
       $message['show']=true;
       $message['success']=false;
       $message['text'] = $LANG['admin_dbmaint_msg_004'];
@@ -456,6 +505,23 @@ require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
+
+      <!-- Message -->
+      <?php if ($message['show']) { ?>
+      <div id="message-dbmaint" title="<?=$message['header']?>">
+         <p style="color: #ffffff; font-weight: bold; padding: 4px; <?=($message['success'])?"background-color: #009900;":"background-color: #990000;";?>"><?=$message['title']?></p>
+         <p><?=$message['text']?></p>
+      </div>
+      <script type="text/javascript">
+         $(function() { 
+            $( "#message-dbmaint" ).dialog({
+               modal: true,
+               buttons: { Ok: function() { $( this ).dialog( "close" ); } }
+            });
+         });
+      </script>                        
+      <?php } ?>
+                        
       <!--  DATABASE MANAGEMENT ================================================= -->
       <table class="dlg">
          <tr>
@@ -464,158 +530,186 @@ require("includes/menu_inc.php");
             </td>
          </tr>
 
-         <!-- MESSAGE -->
-         <?php if ($message['show']) { ?>
-            <?php $style="2"; ?>
-            <tr>
-               <td class="dlg-caption-<?=($message['success'])?"green":"red";?>" colspan="4" style="text-align: left;"><?=$message['header']?></td>
-            </tr>
+         <tr>
+            <td class="dlg-body">
+               <div id="tabs">
+                  <ul>
+                     <li><a href="#tabs-1"><?=$LANG['admin_dbmaint_tab_cleanup']?></a></li>
+                     <li><a href="#tabs-2"><?=$LANG['admin_dbmaint_tab_delete']?></a></li>
+                     <li><a href="#tabs-3"><?=$LANG['admin_dbmaint_tab_export']?></a></li>
+                     <li><a href="#tabs-4"><?=$LANG['admin_dbmaint_tab_restore']?></a></li>
+                   </ul>
 
-            <?php if ($style=="1") $style="2"; else $style="1"; ?>
-            <tr>
-               <td colspan="4" class="config-row<?=$style?>" style="text-align: left; width: 60%;">
-                  <span class="config-key"><?=$message['title']?></span><br>
-                  <span class="config-comment"><?=$message['text']?></span>
-               </td>
-            </tr>
-         <?php } ?>
+                  <!-- =======================================================
+                       CLEANUP
+                  -->
+                  <div id="tabs-1">
+                     <table class="dlg">
+                        <tr>
+                           <td class="dlg-caption" colspan="4"><?=$LANG['admin_dbmaint_cleanup_caption']?></td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-help" colspan="4">
+                              <form class="form" name="form-db-clean" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+                              <table>
+                                 <tr>
+                                    <td>
+                                       <?=$LANG['admin_dbmaint_cleanup_year']?>&nbsp;<input name="clean_year" type="text" class="text" size="6" maxlength="4" value="">&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <?=$LANG['admin_dbmaint_cleanup_month']?>&nbsp;<input name="clean_month" type="text" class="text" size="6" maxlength="2" value="">&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <?=$LANG['admin_dbmaint_cleanup_hint']?>
+                                       <br>
+                                    </td>
+                                 </tr>
+                              </table>
+                              <table>
+                                 <tr>
+                                    <td><input name="chkDBCleanupUsers" id="chkDBCleanupUsers" type="checkbox" value="chkDBCleanupUsers" CHECKED></td>
+                                    <td><?=$LANG['admin_dbmaint_cleanup_chkUsers']?></td>
+                                 </tr>
+                                 <tr>
+                                    <td><input name="chkDBCleanupMonths" id="chkDBCleanupMonths" type="checkbox" value="chkDBCleanupMonths" CHECKED></td>
+                                    <td><?=$LANG['admin_dbmaint_cleanup_chkMonths']?></td>
+                                 </tr>
+                                 <tr>
+                                    <td><input name="chkDBOptimize" id="chkDBOptimize" type="checkbox" value="chkDBOptimize" CHECKED></td>
+                                    <td><?=$LANG['admin_dbmaint_cleanup_chkOptimize']?></td>
+                                 </tr>
+                                 <tr>
+                                    <td colspan="2">
+                                       <p>
+                                       <?=$LANG['admin_dbmaint_cleanup_confirm']?>&nbsp;<input name="cleanup_confirm" type="text" class="text" size="6" maxlength="7" value="">&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <input name="btn_dbmaint_clean" type="submit" class="button" value="<?=$LANG['btn_delete_records']?>">
+                                       </p>
+                                       <p><?=$LANG['admin_dbmaint_cleanup_note']?></p>
+                                    </td>
+                                 </tr>
+                              </table>
+                              </form>
+                           </td>
+                        </tr>
+                     </table>
+                  </div>
 
-         <!--  Clean up -->
-         <tr>
-            <td class="dlg-caption" colspan="4"><?=$LANG['admin_dbmaint_cleanup_caption']?></td>
-         </tr>
-         <tr>
-            <td class="dlg-help" colspan="4">
-               <form class="form" name="form-db-clean" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-               <table>
-                  <tr>
-                     <td>
-                        <?=$LANG['admin_dbmaint_cleanup_year']?>&nbsp;<input name="clean_year" type="text" class="text" size="6" maxlength="4" value="">&nbsp;&nbsp;&nbsp;&nbsp;
-                        <?=$LANG['admin_dbmaint_cleanup_month']?>&nbsp;<input name="clean_month" type="text" class="text" size="6" maxlength="2" value="">&nbsp;&nbsp;&nbsp;&nbsp;
-                        <?=$LANG['admin_dbmaint_cleanup_hint']?>
-                        <br>
-                     </td>
-                  </tr>
-               </table>
-               <table>
-                  <tr>
-                     <td><input name="chkDBCleanupUsers" id="chkDBCleanupUsers" type="checkbox" value="chkDBCleanupUsers" CHECKED></td>
-                     <td><?=$LANG['admin_dbmaint_cleanup_chkUsers']?></td>
-                  </tr>
-                  <tr>
-                     <td><input name="chkDBCleanupMonths" id="chkDBCleanupMonths" type="checkbox" value="chkDBCleanupMonths" CHECKED></td>
-                     <td><?=$LANG['admin_dbmaint_cleanup_chkMonths']?></td>
-                  </tr>
-                  <tr>
-                     <td><input name="chkDBOptimize" id="chkDBOptimize" type="checkbox" value="chkDBOptimize" CHECKED></td>
-                     <td><?=$LANG['admin_dbmaint_cleanup_chkOptimize']?></td>
-                  </tr>
-                  <tr><td colspan="2">
-                  <br>
-                  &nbsp;<?=$LANG['admin_dbmaint_cleanup_confirm']?>&nbsp;<input name="cleanup_confirm" type="text" class="text" size="6" maxlength="7" value="">&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input name="btn_dbmaint_clean" type="submit" class="button" value="<?=$LANG['btn_delete_records']?>">
-                  </td></tr>
-               </table>
-               </form>
-            </td>
-         </tr>
+                  <!-- =======================================================
+                       DELETE
+                  -->
+                  <div id="tabs-2">
+                     <table class="dlg">
+                        <tr>
+                           <td class="dlg-caption" colspan="4"><?=$LANG['admin_dbmaint_del_caption']?></td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-help" colspan="4">
+                              <form class="form" name="form-db-maint" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+                              <table>
+                                 <tr><td><input name="chkDBDeleteUsers" id="chkDBDeleteUsers" type="checkbox" value="chkDBDeleteUsers"></td><td><?=$LANG['admin_dbmaint_del_chkUsers']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteGroups" id="chkDBDeleteGroups" type="checkbox" value="chkDBDeleteGroups"></td><td><?=$LANG['admin_dbmaint_del_chkGroups']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteHolidays" id="chkDBDeleteHolidays" type="checkbox" value="chkDBDeleteHolidays"></td><td><?=$LANG['admin_dbmaint_del_chkHolidays']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteRegions" id="chkDBDeleteRegions" type="checkbox" value="chkDBDeleteRegions"></td><td><?=$LANG['admin_dbmaint_del_chkRegions']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteAbsence" id="chkDBDeleteAbsence" type="checkbox" value="chkDBDeleteAbsence"></td><td><?=$LANG['admin_dbmaint_del_chkAbsence']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteDaynotes" id="chkDBDeleteDaynotes" type="checkbox" value="chkDBDeleteDaynotes"></td><td><?=$LANG['admin_dbmaint_del_chkDaynotes']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteAnnouncements" id="chkDBDeleteAnnouncements" type="checkbox" value="chkDBDeleteAnnouncements"></td><td><?=$LANG['admin_dbmaint_del_chkAnnouncements']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteOrphAnnouncements" id="chkDBDeleteOrphAnnouncements" type="checkbox" value="chkDBDeleteOrphAnnouncements"></td><td><?=$LANG['admin_dbmaint_del_chkOrphAnnouncements']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteLog" id="chkDBDeleteLog" type="checkbox" value="chkDBDeleteLog"></td><td><?=$LANG['admin_dbmaint_del_chkLog']?></td></tr>
+                                 <tr><td><input name="chkDBDeleteArchive" id="chkDBDeleteArchive" type="checkbox" value="chkDBDeleteArchive"></td><td><?=$LANG['admin_dbmaint_del_chkArchive']?></td></tr>
+                                 <tr><td><input name="chkDBDeletePermissionSchemes" id="chkDBDeletePermissionSchemes" type="checkbox" value="chkDBDeletePermissionSchemes"></td><td><?=$LANG['admin_dbmaint_del_pschemes']?></td></tr>
+                                 <tr><td colspan="2">
+                                 <br>
+                                 &nbsp;<?=$LANG['admin_dbmaint_del_confirm']?>&nbsp;<input name="del_confirm" type="text" class="text" size="6" maxlength="6" value="">&nbsp;&nbsp;&nbsp;&nbsp;
+                                 <input name="btn_dbmaint_del" type="submit" class="button" value="<?=$LANG['btn_delete_records']?>">
+                                 </td></tr>
+                              </table>
+                              </form>
+                           </td>
+                        </tr>
+                    </table>
+                 </div>
 
-         <!--  Delete -->
-         <tr>
-            <td class="dlg-caption" colspan="4"><?=$LANG['admin_dbmaint_del_caption']?></td>
-         </tr>
-         <tr>
-            <td class="dlg-help" colspan="4">
-               <form class="form" name="form-db-maint" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-               <table>
-                  <tr><td><input name="chkDBDeleteUsers" id="chkDBDeleteUsers" type="checkbox" value="chkDBDeleteUsers"></td><td><?=$LANG['admin_dbmaint_del_chkUsers']?></td></tr>
-                  <tr><td><input name="chkDBDeleteGroups" id="chkDBDeleteGroups" type="checkbox" value="chkDBDeleteGroups"></td><td><?=$LANG['admin_dbmaint_del_chkGroups']?></td></tr>
-                  <tr><td><input name="chkDBDeleteHolidays" id="chkDBDeleteHolidays" type="checkbox" value="chkDBDeleteHolidays"></td><td><?=$LANG['admin_dbmaint_del_chkHolidays']?></td></tr>
-                  <tr><td><input name="chkDBDeleteRegions" id="chkDBDeleteRegions" type="checkbox" value="chkDBDeleteRegions"></td><td><?=$LANG['admin_dbmaint_del_chkRegions']?></td></tr>
-                  <tr><td><input name="chkDBDeleteAbsence" id="chkDBDeleteAbsence" type="checkbox" value="chkDBDeleteAbsence"></td><td><?=$LANG['admin_dbmaint_del_chkAbsence']?></td></tr>
-                  <tr><td><input name="chkDBDeleteDaynotes" id="chkDBDeleteDaynotes" type="checkbox" value="chkDBDeleteDaynotes"></td><td><?=$LANG['admin_dbmaint_del_chkDaynotes']?></td></tr>
-                  <tr><td><input name="chkDBDeleteAnnouncements" id="chkDBDeleteAnnouncements" type="checkbox" value="chkDBDeleteAnnouncements"></td><td><?=$LANG['admin_dbmaint_del_chkAnnouncements']?></td></tr>
-                  <tr><td><input name="chkDBDeleteOrphAnnouncements" id="chkDBDeleteOrphAnnouncements" type="checkbox" value="chkDBDeleteOrphAnnouncements"></td><td><?=$LANG['admin_dbmaint_del_chkOrphAnnouncements']?></td></tr>
-                  <tr><td><input name="chkDBDeleteLog" id="chkDBDeleteLog" type="checkbox" value="chkDBDeleteLog"></td><td><?=$LANG['admin_dbmaint_del_chkLog']?></td></tr>
-                  <tr><td><input name="chkDBDeletePermissionSchemes" id="chkDBDeletePermissionSchemes" type="checkbox" value="chkDBDeletePermissionSchemes"></td><td><?=$LANG['admin_dbmaint_del_pschemes']?></td></tr>
-                  <tr><td colspan="2">
-                  <br>
-                  &nbsp;<?=$LANG['admin_dbmaint_del_confirm']?>&nbsp;<input name="del_confirm" type="text" class="text" size="6" maxlength="6" value="">&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input name="btn_dbmaint_del" type="submit" class="button" value="<?=$LANG['btn_delete_records']?>">
-                  </td></tr>
-               </table>
-               </form>
-            </td>
-         </tr>
+                  <!-- =======================================================
+                       EXPORT
+                  -->
+                  <div id="tabs-3">
+                     <table class="dlg">
+                        <tr>
+                           <td class="dlg-caption" colspan="4"><?=$LANG['admin_dbmaint_exp_caption']?></td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-help" colspan="4">
+                              <form enctype="multipart/form-data" class="form" name="form-db-rest" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+                              <table>
+                                 <tr>
+                                    <td>
+                                       <?=$LANG['exp_table']?>&nbsp;
+                                       <select name="exp_table" id="exp_table" class="select">
+                                          <option class="option" value="exp_all" SELECTED><?=$LANG['exp_table_all']?></option>
+                                          <option class="option" value="exp_absence"><?=$LANG['exp_table_absence']?></option>
+                                          <option class="option" value="exp_group"><?=$LANG['exp_table_group']?></option>
+                                          <option class="option" value="exp_holiday"><?=$LANG['exp_table_holiday']?></option>
+                                          <option class="option" value="exp_region"><?=$LANG['exp_table_region']?></option>
+                                          <option class="option" value="exp_log"><?=$LANG['exp_table_log']?></option>
+                                          <option class="option" value="exp_month"><?=$LANG['exp_table_month']?></option>
+                                          <option class="option" value="exp_template"><?=$LANG['exp_table_template']?></option>
+                                          <option class="option" value="exp_user"><?=$LANG['exp_table_user']?></option>
+                                       </select>
+                                    </td>
+                                 </tr>
+                              </table>
+                              <br>
+                              <table>
+                                 <tr>
+                                    <td style="vertical-align: top; padding-right: 20px;">
+                                       <strong><?=$LANG['exp_format']?></strong><br>
+                                       <input name="exp_format" id="exp_format_csv" type="radio" value="exp_format_csv"><?=$LANG['exp_format_csv']?><br>
+                                       <input name="exp_format" id="exp_format_sql" type="radio" value="exp_format_sql" CHECKED><?=$LANG['exp_format_sql']?><br>
+                                       <input name="exp_format" id="exp_format_xml" type="radio" value="exp_format_xml"><?=$LANG['exp_format_xml']?><br>
+                                       <br>
+                                       <input name="btn_export" type="submit" class="button" value="<?=$LANG['btn_export']?>">
+                                    </td>
+                                    <td style="vertical-align: top;">
+                                       <strong><?=$LANG['exp_output']?></strong><br>
+                                       <input name="exp_output" id="exp_output_browser" type="radio" value="exp_output_browser"><?=$LANG['exp_output_browser']?><br>
+                                       <input name="exp_output" id="exp_output_file" type="radio" value="exp_output_file" CHECKED><?=$LANG['exp_output_file']?><br>
+                                    </td>
+                                 </tr>
+                              </table>
+                              </form>
+                           </td>
+                        </tr>
+                     </table>
+                  </div>
 
-         <!--  Export -->
-         <tr>
-            <td class="dlg-caption" colspan="4"><?=$LANG['admin_dbmaint_exp_caption']?></td>
-         </tr>
-         <tr>
-            <td class="dlg-help" colspan="4">
-               <form enctype="multipart/form-data" class="form" name="form-db-rest" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-               <table>
-                  <tr>
-                     <td>
-                        <?=$LANG['exp_table']?>&nbsp;
-                        <select name="exp_table" id="exp_table" class="select">
-                           <option class="option" value="exp_all" SELECTED><?=$LANG['exp_table_all']?></option>
-                           <option class="option" value="exp_absence"><?=$LANG['exp_table_absence']?></option>
-                           <option class="option" value="exp_group"><?=$LANG['exp_table_group']?></option>
-                           <option class="option" value="exp_holiday"><?=$LANG['exp_table_holiday']?></option>
-                           <option class="option" value="exp_region"><?=$LANG['exp_table_region']?></option>
-                           <option class="option" value="exp_log"><?=$LANG['exp_table_log']?></option>
-                           <option class="option" value="exp_month"><?=$LANG['exp_table_month']?></option>
-                           <option class="option" value="exp_template"><?=$LANG['exp_table_template']?></option>
-                           <option class="option" value="exp_user"><?=$LANG['exp_table_user']?></option>
-                        </select>
-                     </td>
-                  </tr>
-               </table>
-               <br>
-               <table>
-                  <tr>
-                     <td style="vertical-align: top; padding-right: 20px;">
-                        <strong><?=$LANG['exp_format']?></strong><br>
-                        <input name="exp_format" id="exp_format_csv" type="radio" value="exp_format_csv"><?=$LANG['exp_format_csv']?><br>
-                        <input name="exp_format" id="exp_format_sql" type="radio" value="exp_format_sql" CHECKED><?=$LANG['exp_format_sql']?><br>
-                        <input name="exp_format" id="exp_format_xml" type="radio" value="exp_format_xml"><?=$LANG['exp_format_xml']?><br>
-                        <br>
-                        <input name="btn_export" type="submit" class="button" value="<?=$LANG['btn_export']?>">
-                     </td>
-                     <td style="vertical-align: top;">
-                        <strong><?=$LANG['exp_output']?></strong><br>
-                        <input name="exp_output" id="exp_output_browser" type="radio" value="exp_output_browser"><?=$LANG['exp_output_browser']?><br>
-                        <input name="exp_output" id="exp_output_file" type="radio" value="exp_output_file" CHECKED><?=$LANG['exp_output_file']?><br>
-                     </td>
-                  </tr>
-               </table>
-               </form>
-            </td>
-         </tr>
-
-         <!--  Restore -->
-         <tr>
-            <td class="dlg-caption" colspan="4"><?=$LANG['admin_dbmaint_rest_caption']?></td>
-         </tr>
-         <tr>
-            <td class="dlg-help" colspan="4">
-               <form enctype="multipart/form-data" class="form" name="form-db-rest" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-               <table>
-                  <tr>
-                     <td>
-                        <?=$LANG['admin_dbmaint_rest_comment']?><br><br>
-                        <input class="text" type="hidden" name="MAX_FILE_SIZE" value="<?PHP echo $maxsize; ?>">
-                        <input class="text" type="file" name="sqlfile" size="46"><br><br>
-                        <input name="btn_rest_rest" type="submit" class="button" value="<?=$LANG['btn_restore']?>">
-                     </td>
-                  </tr>
-               </table>
-               </form>
+                  <!-- =======================================================
+                       RESTORE
+                  -->
+                  <div id="tabs-4">
+                     <table class="dlg">
+                        <tr>
+                           <td class="dlg-caption" colspan="4"><?=$LANG['admin_dbmaint_rest_caption']?></td>
+                        </tr>
+                        <tr>
+                           <td class="dlg-help" colspan="4">
+                              <form enctype="multipart/form-data" class="form" name="form-db-rest" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+                              <table>
+                                 <tr>
+                                    <td>
+                                       <?=$LANG['admin_dbmaint_rest_comment']?><br><br>
+                                       <input class="text" type="hidden" name="MAX_FILE_SIZE" value="<?PHP echo $maxsize; ?>">
+                                       <input class="text" type="file" name="sqlfile" size="46"><br><br>
+                                       <input name="btn_rest_rest" type="submit" class="button" value="<?=$LANG['btn_restore']?>">
+                                    </td>
+                                 </tr>
+                              </table>
+                              </form>
+                           </td>
+                        </tr>
+                     </table>
+                  </div>
+                  
+               </div>
             </td>
          </tr>
       </table>
    </div>
 </div>
+<script type="text/javascript">$(function() { $( "#tabs" ).tabs(); });</script>
 <?php require("includes/footer_inc.php"); ?>

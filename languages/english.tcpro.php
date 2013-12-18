@@ -5,7 +5,7 @@
  * English language file
  *
  * @package TeamCalPro
- * @version 3.6.010
+ * @version 3.6.011Beta
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -622,7 +622,7 @@ $LANG['admin_dbmaint_del_chkAbsence'] = 'Delete all absence types';
 $LANG['admin_dbmaint_del_chkDaynotes'] = 'Delete all general daynotes';
 $LANG['admin_dbmaint_del_chkAnnouncements'] = 'Delete all announcements';
 $LANG['admin_dbmaint_del_chkOrphAnnouncements'] = 'Delete orphaned announcements';
-$LANG['admin_dbmaint_del_chkLog'] = 'Clear System Log';
+$LANG['admin_dbmaint_del_chkLog'] = 'Clear system log';
 $LANG['admin_dbmaint_del_confirm'] = 'Please type in "DELETE" to confirm this action:';
 
 /**
@@ -852,8 +852,7 @@ $LANG['admin_config_usertheme_comment'] = 'Check whether you want each user to b
  */
 $LANG['admin_dbmaint_rest_caption'] = 'Restore Database';
 $LANG['admin_dbmaint_rest_comment'] = 'Select a file of a previous database download to import back into the database. ' .
-                                             'Make sure it was downloaded with this version of TeamCal Pro. <span class="erraction">All data will be ' .
-                                             'overwritten!</span>';
+'Make sure it was downloaded with this version of TeamCal Pro.<br><span class="erraction">Backup or export your current database first! All data will be overwritten!</span>';
 $LANG['admin_dbmaint_msg_001'] = "No valid SQL statement found in file.";
 $LANG['admin_dbmaint_msg_002'] = "Database restore successful. The file was also uploaded to your 'sql' folder.";
 $LANG['admin_dbmaint_msg_003'] = "The database restore file could not be uploaded.";
@@ -1518,9 +1517,9 @@ $LANG['err_input_perm_exists_1'] = 'The permission scheme \'';
 $LANG['err_input_perm_exists_2'] = '\' already exists. Use a different name or delete the old one first.';
 $LANG['err_input_group_add'] = 'You have to add at least a name in order to add a new group.';
 $LANG['err_input_max_daytype'] = 'You have reached the maximum amount of day types.\\nPlease delete one before you create a new one.\\n';
-$LANG['err_input_dbmaint_clean'] = 'Please provide both, year and month,\\nfor cleaning up old templates.\\n';
-$LANG['err_input_dbmaint_clean_confirm'] = 'You need to confirm the database cleanup\\nby typing \'CLEANUP\' (using capital letters) in the confirmation field.\\n';
-$LANG['err_input_dbmaint_del'] = 'You need to confirm the database record deletion\\nby typing \'DELETE\' (using capital letters) in the confirmation field.\\n';
+$LANG['err_input_dbmaint_clean'] = 'Please provide both, year and month, for cleaning up old templates.';
+$LANG['err_input_dbmaint_clean_confirm'] = 'You need to confirm the database cleanup by typing \'CLEANUP\' (using capital letters) in the confirmation field.';
+$LANG['err_input_dbmaint_del'] = 'You need to confirm the database record deletion by typing \'DELETE\' (using capital letters) in the confirmation field.';
 $LANG['err_input_daynote_nouser'] = 'The specified user does not exist.\\n';
 $LANG['err_input_daynote_date'] = 'Date: ';
 $LANG['err_input_daynote_username'] = 'Username: ';
@@ -2063,4 +2062,15 @@ $LANG['confirmation_delete_selected_absences'] = 'The selected absence types wer
 $LANG['abs_delete_confirm'] = 'Are you sure you want to delete the selected absence types?';
 $LANG['btn_abs_list'] = 'Show list view';
 
+/**
+ * Database Maintenance Page
+ */
+$LANG['admin_dbmaint_tab_cleanup'] = "Cleanup";
+$LANG['admin_dbmaint_tab_delete'] = "Delete Records";
+$LANG['admin_dbmaint_tab_export'] = "Export";
+$LANG['admin_dbmaint_tab_restore'] = "Restore";
+$LANG['admin_dbmaint_cleanup_note'] = 'Note: The database cleanup will not delete any archived records.';
+$LANG['admin_dbmaint_cleanup_success'] = "All cleanup activities have been completed.";
+$LANG['admin_dbmaint_del_chkArchive'] = 'Clear archive tables';
+$LANG['admin_dbmaint_del_confirm'] = "The selected records have been deleted.";
 ?>

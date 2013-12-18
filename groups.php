@@ -5,7 +5,7 @@
  * Displays the groups administration page
  *
  * @package TeamCalPro
- * @version 3.6.010
+ * @version 3.6.011Beta
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -61,39 +61,47 @@ $currmonth = $today['mon']; // numeric value
  * =========================================================================
  * ADD
  */
-if ( isset($_POST['btn_grp_add']) ) {
-
-   if (trim($_POST['grp_nameadd'])!='') {
+if ( isset($_POST['btn_grp_add']) ) 
+{
+   if (trim($_POST['grp_nameadd'])!='') 
+   {
       $G->groupname=preg_replace("/[^A-Za-z0-9_]/i",'',trim($_POST['grp_nameadd']));
       $G->description=htmlspecialchars($_POST['grp_descadd'],ENT_QUOTES);
       $G->options=0x000000;
 
-      if (isset($_POST['chkMinPresent'])) {
+      if (isset($_POST['chkMinPresent'])) 
+      {
          $G->setOptions($CONF['G_MIN_PRESENT']);
          if (is_numeric(trim($_POST['grp_min_present']))) $G->min_present = trim($_POST['grp_min_present']); else $G->min_present = 1;
       }
 
-      if (isset($_POST['chkMaxAbsent'])) {
+      if (isset($_POST['chkMaxAbsent'])) 
+      {
          $G->setOptions($CONF['G_MAX_ABSENT']);
          if (is_numeric(trim($_POST['grp_max_absent']))) $G->max_absent = trim($_POST['grp_max_absent']); else $G->max_absent = 1;
       }
       if (isset($_POST['chkHide'])) $G->setOptions($CONF['G_HIDE']);
 
       $G->create();
+      
       /**
        * Assign all absence types to this group by default
        */
       $absences = $A->getAll();
-      foreach ($absences as $Arow) {
-         $AG->assign($Arow['cfgsym'],$G->groupname);
-      }
+      foreach ($absences as $Arow) $AG->assign($Arow['cfgsym'],$G->groupname);
+      
+      /**
+       * Send notification mails
+       */
+      sendNotification("groupadd",$_POST['grp_nameadd'],"");
+      
       /**
        * Log this event
        */
       $LOG->log("logGroup",$L->checkLogin(),"log_group_created", $G->groupname." ".$G->description);
-      sendNotification("groupadd",$_POST['grp_nameadd'],"");
    }
-   else {
+   else 
+   {
       $error = true;
       $errmsg  = $LANG['err_input_caption'];
       $errmsg .= $LANG['err_input_group_add'];
@@ -103,24 +111,24 @@ if ( isset($_POST['btn_grp_add']) ) {
  * =========================================================================
  * UPDATE
  */
-else if ( isset($_POST['btn_grp_update']) ) {
-
-   // Drop old and save new value.
+else if ( isset($_POST['btn_grp_update']) ) 
+{
+   /**
+    * Delete group
+    */
    $G->deleteByName($_POST['grp_namehidden']);
+   
+   /**
+    * Recreate with new values
+    */
    $G->groupname=preg_replace("/[^A-Za-z0-9_]/i",'',trim($_POST['grp_name']));
    $G->description=htmlspecialchars($_POST['grp_desc'],ENT_QUOTES);
    $G->options=0x000000;
-
    if (isset($_POST['chkMinPresent'])) $G->setOptions($CONF['G_MIN_PRESENT']);
-
    if (is_numeric(trim($_POST['grp_min_present']))) $G->min_present = trim($_POST['grp_min_present']); else $G->min_present = 1;
-
    if (isset($_POST['chkMaxAbsent'])) $G->setOptions($CONF['G_MAX_ABSENT']);
-
    if (is_numeric(trim($_POST['grp_max_absent']))) $G->max_absent = trim($_POST['grp_max_absent']); else $G->max_absent = 1;
-
    if (isset($_POST['chkHide'])) $G->setOptions($CONF['G_HIDE']);
-
    $G->create();
 
    /**
@@ -128,35 +136,43 @@ else if ( isset($_POST['btn_grp_update']) ) {
     * this group and change it there as well.
     * Also, the absence type assigments for that group have to be updated.
     */
-   if ($_POST['grp_name'] != $_POST['grp_namehidden']) {
+   if ($_POST['grp_name'] != $_POST['grp_namehidden']) 
+   {
       $query= "UPDATE `".$UG->table."` SET `groupname` = '".$G->groupname."' WHERE `groupname` = '".$_POST['grp_namehidden']."';";
       $result = $UG->db->db_query($query);
-
       $query= "UPDATE `".$AG->table."` SET `group` = '".$G->groupname."' WHERE `group` = '".$_POST['grp_namehidden']."';";
       $result = $AG->db->db_query($query);
    }
 
    /**
+    * Send notification mails
+    */
+   sendNotification("groupchange",$_POST['grp_namehidden'],"");
+   
+   /**
     * Log this event
     */
    $LOG->log("logGroup",$L->checkLogin(),"log_group_updated", $G->groupname." ".$G->description);
-   sendNotification("groupchange",$_POST['grp_namehidden'],"");
 }
 /**
  * =========================================================================
  * DELETE
  */
-else if ( isset($_POST['btn_grp_delete']) ) {
-
+else if ( isset($_POST['btn_grp_delete']) ) 
+{
    $G->deleteByName($_POST['grp_namehidden']);
    $AG->unassignGroup($_POST['grp_namehidden']);
    $UG->deleteByGroup($_POST['grp_namehidden']);
+
+   /**
+    * Send notification mails
+    */
+   sendNotification("groupdelete",$_POST['grp_namehidden'],"");
+   
    /**
     * Log this event
     */
    $LOG->log("logGroup",$L->checkLogin(),"log_group_deleted", $_POST['grp_namehidden']);
-   sendNotification("groupdelete",$_POST['grp_namehidden'],"");
-
 }
 
 /**
@@ -202,45 +218,45 @@ require("includes/menu_inc.php");
             <td>
                <!-- Add new group -->
                <form class="form" name="form-grp-add" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-               <table style="border-collapse: collapse; border: 0px; width: 100%;">
-                  <tr>
-                     <td class="dlg-row1" width="30"><img src="themes/<?=$theme?>/img/ico_add.png" alt="Group" title="Group" align="middle" style="padding-right: 2px;"></td>
-                     <td class="dlg-row1" width="130"><input name="grp_nameadd" size="16" type="text" class="text" id="grp_nameadd" value=""></td>
-                     <td class="dlg-row1" width="240"><input name="grp_descadd" size="34" type="text" class="text" id="grp_descadd" value=""></td>
-                     <td class="dlg-row1" width="70"><input name="chkMinPresent" type="checkbox" value="chkMinPresent"><input name="grp_min_present" size="1" maxlength="3" type="text" class="text" value=""></td>
-                     <td class="dlg-row1" width="70"><input name="chkMaxAbsent" type="checkbox" value="chkMaxAbsent"><input name="grp_max_absent" size="1" maxlength="3" type="text" class="text" value=""></td>
-                     <td class="dlg-row1"><input name="chkHide" type="checkbox" value="chkHide"></td>
-                     <td class="dlg-row1" width="200" style="text-align: right;"><input name="btn_grp_add" type="submit" class="button" value="<?=$LANG['btn_add']?>"></td>
-                  </tr>
-               </table>
+                  <table style="border-collapse: collapse; border: 0px; width: 100%;">
+                     <tr>
+                        <td class="dlg-row1" style="text-align: center; width: 30px;"><img src="themes/<?=$theme?>/img/ico_add.png" alt="Group" title="Group" align="middle"></td>
+                        <td class="dlg-row1" style="width: 130px;"><input name="grp_nameadd" size="16" type="text" class="text" id="grp_nameadd" value=""></td>
+                        <td class="dlg-row1" style="width: 240px;"><input name="grp_descadd" size="34" type="text" class="text" id="grp_descadd" value=""></td>
+                        <td class="dlg-row1" style="width: 70px;"><input name="chkMinPresent" type="checkbox" value="chkMinPresent"><input name="grp_min_present" size="1" maxlength="3" type="text" class="text" value=""></td>
+                        <td class="dlg-row1" style="width: 70px;"><input name="chkMaxAbsent" type="checkbox" value="chkMaxAbsent"><input name="grp_max_absent" size="1" maxlength="3" type="text" class="text" value=""></td>
+                        <td class="dlg-row1"><input name="chkHide" type="checkbox" value="chkHide"></td>
+                        <td class="dlg-row1" style="width: 200px; text-align: right;"><input name="btn_grp_add" type="submit" class="button" value="<?=$LANG['btn_add']?>"></td>
+                     </tr>
+                  </table>
                </form>
                <?php
                $i=1;
                $printrow=1;
                $groups = $G->getAll();
-               foreach ($groups as $row) {
+               foreach ($groups as $row) 
+               {
                   $G->findByName(stripslashes($row['groupname']));
                   if ($printrow==1) $printrow=2; else $printrow=1;
-                  echo "
-
-                  <!-- ".$G->groupname." -->
-                  <form class=\"form\" name=\"form-grp-".$i."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">
-                  <table style=\"border-collapse: collapse; border: 0px; width: 100%;\">
-                     <tr>
-                        <td class=\"dlg-row".$printrow."\" width=\"30\"><img src=\"themes/".$theme."/img/ico_group.png\" alt=\"Group\" title=\"Group\" align=\"middle\" style=\"padding-right: 2px;\"></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"130\"><input name=\"grp_namehidden\" type=\"hidden\" class=\"text\" value=\"".$G->groupname."\"><input name=\"grp_name\" size=\"16\" type=\"text\" class=\"text\" value=\"".$G->groupname."\"></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"240\"><input name=\"grp_desc\" size=\"34\" type=\"text\" class=\"text\" value=\"".$G->description."\"></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"70\"><input name=\"chkMinPresent\" type=\"checkbox\" value=\"chkMinPresent\" ".($G->checkOptions($CONF['G_MIN_PRESENT'])?'CHECKED':'')."><input name=\"grp_min_present\" size=\"1\" maxlength=\"3\" type=\"text\" class=\"text\" value=\"".$G->min_present."\"></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"70\"><input name=\"chkMaxAbsent\" type=\"checkbox\" value=\"chkMaxAbsent\" ".($G->checkOptions($CONF['G_MAX_ABSENT'])?'CHECKED':'')."><input name=\"grp_max_absent\" size=\"1\" maxlength=\"3\" type=\"text\" class=\"text\" value=\"".$G->max_absent."\"></td>
-                        <td class=\"dlg-row".$printrow."\"><input name=\"chkHide\" type=\"checkbox\" value=\"chkHide\" ".($G->checkOptions($CONF['G_HIDE'])?'CHECKED':'')."></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"200\" style=\"text-align: right;\">
-                           <input name=\"btn_grp_update\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_update']."\">&nbsp;
-                           <input name=\"btn_grp_delete\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_delete']."\" onclick=\"return confirmSubmit('".$LANG['eg_delete_confirm']."')\">
-                        </td>
-                     </tr>
-                  </table>
+                  ?>
+                  <!-- <?=$G->groupname?> -->
+                  <form class="form" name="form-grp-<?=$i?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+                     <table style="border-collapse: collapse; border: 0px; width: 100%;">
+                        <tr>
+                           <td class="dlg-row<?=$printrow?>" style="text-align: center; width: 30px;"><img src="themes/<?=$theme?>/img/ico_group.png" alt="Group" title="Group" align="middle"></td>
+                           <td class="dlg-row<?=$printrow?>" style="width: 130px;"><input name="grp_namehidden" type="hidden" class="text" value="<?=$G->groupname?>"><input name="grp_name" size="16" type="text" class="text" value="<?=$G->groupname?>"></td>
+                           <td class="dlg-row<?=$printrow?>" style="width: 240px;"><input name="grp_desc" size="34" type="text" class="text" value="<?=$G->description?>"></td>
+                           <td class="dlg-row<?=$printrow?>" style="width: 70px;"><input name="chkMinPresent" type="checkbox" value="chkMinPresent" <?=($G->checkOptions($CONF['G_MIN_PRESENT'])?'CHECKED':'')?>><input name="grp_min_present" size="1" maxlength="3" type="text" class="text" value="<?=$G->min_present?>"></td>
+                           <td class="dlg-row<?=$printrow?>" style="width: 70px;"><input name="chkMaxAbsent" type="checkbox" value="chkMaxAbsent" <?=($G->checkOptions($CONF['G_MAX_ABSENT'])?'CHECKED':'')?>><input name="grp_max_absent" size="1" maxlength="3" type="text" class="text" value="<?=$G->max_absent?>"></td>
+                           <td class="dlg-row<?=$printrow?>"><input name="chkHide" type="checkbox" value="chkHide" <?=($G->checkOptions($CONF['G_HIDE'])?'CHECKED':'')?>></td>
+                           <td class="dlg-row<?=$printrow?>" style="width: 200px; text-align: right;">
+                              <input name="btn_grp_update" type="submit" class="button" value="<?=$LANG['btn_update']?>">&nbsp;
+                              <input name="btn_grp_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="return confirmSubmit('<?=$LANG['eg_delete_confirm']?>')">
+                           </td>
+                        </tr>
+                     </table>
                   </form>
-                  ";
+                  <?php 
                   $i+=1;
                }
                ?>

@@ -5,7 +5,7 @@
  * German language file
  *
  * @package TeamCalPro
- * @version 3.6.010
+ * @version 3.6.011Beta
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -852,8 +852,7 @@ $LANG['admin_config_usertheme_comment'] = 'W&auml;hle aus, ob jeder User sein ei
  */
 $LANG['admin_dbmaint_rest_caption'] = 'Datenbank Import';
 $LANG['admin_dbmaint_rest_comment'] = 'W&auml;hle eine Datei aus mit einem Datenbank Dump, der importiert werden soll. ' .
-                                             'Es muss sich um einen Datenbank Dump der gleichen TeamCal Pro Version handeln. ' .
-                                             '<span class="erraction">Alle aktuellen Daten werden &uuml;berschrieben!</span>';
+'Es muss sich um einen Datenbank Dump der gleichen TeamCal Pro Version handeln.<br><span class="erraction">Exportiere oder sichere die aktuelle Datenbank zuerst! Alle Daten werden &uuml;berschrieben!</span>';
 $LANG['admin_dbmaint_msg_001'] = "Kein g&uuml;ltiges SQL Statement in hochgeladener Datei gefunden.";
 $LANG['admin_dbmaint_msg_002'] = "Datenbank erfolgreich wiederhergestellt. Die Datei wurde ausserdem in dein 'sql' Verzeichnis hochgeladen.";
 $LANG['admin_dbmaint_msg_003'] = "Die Datei konnte nicht hochgeladen werden.";
@@ -2063,4 +2062,15 @@ $LANG['confirmation_delete_selected_absences'] = 'Die ausgew&auml;hlten Abwesenh
 $LANG['abs_delete_confirm'] = 'Bist du sicher, dass du die ausgew&auml;hlten Abwesenheitstypen l&ouml;schen willst?';
 $LANG['btn_abs_list'] = 'Liste anzeigen';
 
+/**
+ * Database Maintenance Page
+ */
+$LANG['admin_dbmaint_tab_cleanup'] = "Aufr&auml;umen";
+$LANG['admin_dbmaint_tab_delete'] = "L&ouml;schen";
+$LANG['admin_dbmaint_tab_export'] = "Exportieren";
+$LANG['admin_dbmaint_tab_restore'] = "Wiederherstellen";
+$LANG['admin_dbmaint_cleanup_note'] = 'Hinweis: Der Datenbank Cleanup l&ouml;scht keine archivierten Datens&auml;tze.';
+$LANG['admin_dbmaint_cleanup_success'] = "All Aufr&auml;arbeiten wurden durchgef&uuml;hrt.";
+$LANG['admin_dbmaint_del_chkArchive'] = 'Archiv Tabellen leeren';
+$LANG['admin_dbmaint_del_confirm'] = "Die ausgew&auml;hlten Daten wurden gel&ouml;scht.";
 ?>

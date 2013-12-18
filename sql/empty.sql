@@ -1,5 +1,17 @@
 -- --------------------------------------------------------
+-- 
+-- empty.sql
+--
+-- Empty core database for TeamCal Pro
+--
+-- @package TeamCalPro
+-- @version 3.6.011Beta
+-- @author George Lewe
+-- @copyright Copyright (c) 2004-2013 by George Lewe
+-- @link http://www.lewe.com
+-- @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
 
+-- --------------------------------------------------------
 --
 -- Table structure for table `my_tc_absences`
 --
@@ -96,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_config` (
 INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (1, 'defgroupfilter', 'All'),
 (2, 'defregion', 'default'),
-(3, 'appSubTitle', 'Version 3.6.010'),
+(3, 'appSubTitle', 'Version 3.6.011Beta'),
 (4, 'appFooterCpy', 'Copyright &amp;copy; 2013 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.'),
 (5, 'repeatHeaderCount', '8'),
 (6, 'todayBorderColor', 'FFCC00'),

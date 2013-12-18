@@ -5,7 +5,7 @@
  * German log language file
  *
  * @package TeamCalPro
- * @version 3.6.010
+ * @version 3.6.011Beta
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -50,6 +50,7 @@ $LANG['log_db_delete_daynotes'] = 'Datenbank L&ouml;schung: All allgemeinen Tage
 $LANG['log_db_delete_ann'] = 'Datenbank L&ouml;schung: All Nachrichten';
 $LANG['log_db_delete_ann_orph'] = 'Datenbank L&ouml;schung: Alle verwaisten Nachrichten';
 $LANG['log_db_delete_log'] = 'Datenbank L&ouml;schung: Logbuch gel&ouml;scht';
+$LANG['log_db_delete_log'] = 'Datenbank L&ouml;schung: Archiv gel&ouml;scht';
 $LANG['log_db_delete_perm'] = 'Datenbank L&ouml;schung: All individuellen Berechtigungsschemata';
 $LANG['log_db_export'] = 'Datenbank Export: ';
 $LANG['log_db_restore'] = 'Datenbank wiederhergestellt von ';

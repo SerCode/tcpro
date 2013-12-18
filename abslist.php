@@ -5,7 +5,7 @@
  * Displays the absence type list
  *
  * @package TeamCalPro
- * @version 3.6.011
+ * @version 3.6.011Beta
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -108,6 +108,23 @@ require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
+   
+      <!-- Message -->
+      <?php if ($confirmation['show']) { ?>
+      <div id="message-dbmaint" title="<?=$confirmation['header']?>">
+         <p style="color: #ffffff; font-weight: bold; padding: 4px; <?=($confirmation['success'])?"background-color: #009900;":"background-color: #990000;";?>"><?=$confirmation['title']?></p>
+         <p><?=$confirmation['text']?></p>
+      </div>
+      <script type="text/javascript">
+         $(function() { 
+            $( "#message-dbmaint" ).dialog({
+               modal: true,
+               buttons: { Ok: function() { $( this ).dialog( "close" ); } }
+            });
+         });
+      </script>                        
+      <?php } ?>
+   
       <form class="form" name="form-abslist" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
          <!--  ABSENCE TYPES =========================================================== -->
          <?php $colspan="5"; ?>
@@ -118,22 +135,6 @@ require("includes/menu_inc.php");
                </td>
             </tr>
             
-            <!-- MESSAGE -->
-            <?php if ($confirmation['show']) { ?>
-               <?php $style="2"; ?>
-               <tr>
-                  <td class="dlg-caption-<?=($confirmation['success'])?"green":"red";?>" colspan="<?=$colspan?>" style="text-align: left;"><?=$confirmation['header']?></td>
-               </tr>
-   
-               <?php if ($style=="1") $style="2"; else $style="1"; ?>
-               <tr>
-                  <td colspan="<?=$colspan?>" class="config-row<?=$style?>">
-                     <span class="config-key"><?=$confirmation['title']?></span><br>
-                     <span class="config-comment"><?=$confirmation['text']?></span>
-                  </td>
-               </tr>
-            <?php } ?> 
-
             <tr>
                <td class="dlg-caption" style="text-align: left;"></td>
                <td class="dlg-caption" style="text-align: left;"></td>

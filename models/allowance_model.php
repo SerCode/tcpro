@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Contains the class to interface with the allowance table
  *
  * @package TeamCalPro
- * @version 3.6.010 
+ * @version 3.6.011Beta 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -141,6 +141,24 @@ if (!class_exists("Allowance_model")) {
       function deleteAbs($absid='') {
          $query = "DELETE FROM `".$this->table."` WHERE `absid`='".$absid."'";
          $result = $this->db->db_query($query);
+      }
+
+      // ---------------------------------------------------------------------
+      /**
+       * Deletes all records
+       * 
+       * @param boolean $archive Whether to search in archive table
+       */
+      function deleteAll($archive=FALSE) 
+      {
+         if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
+         $query = "SELECT * FROM `".$findTable."`;";
+         $result = $this->db->db_query($query);
+         if (mysql_num_rows($result))
+         {
+            $query = "TRUNCATE TABLE ".$findTable.";";
+            $result = $this->db->db_query($query);
+         }
       }
 
       // ---------------------------------------------------------------------

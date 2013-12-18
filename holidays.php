@@ -5,7 +5,7 @@
  * Displays the groups administration page
  *
  * @package TeamCalPro
- * @version 3.6.010
+ * @version 3.6.011Beta
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -214,7 +214,7 @@ require("includes/menu_inc.php");
          <tr>
             <td>
                <form class="form" name="form-hol-add" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-               <table style="border-collapse: collapse; border: 0px; width: 100%;s">
+               <table style="border-collapse: collapse; border: 0px; width: 100%;">
                   <tr>
                      <td class="dlg-caption" width="5%">&nbsp;</td>
                      <td class="dlg-caption" width="30%"><?=$LANG['ed_column_name']?></td>
@@ -244,45 +244,48 @@ require("includes/menu_inc.php");
          $printrow=1;
          $holids = "#color-new, #bgcolor-new, ";
          $holidays = $H->getAll();
-         foreach ($holidays as $row) {
+         foreach ($holidays as $row) 
+         {
             $H->findBySymbol($row['cfgsym']);
             if ($printrow==1) $printrow=2; else $printrow=1;
-            echo "
-            <!-- ".$H->dspname." -->
+            ?>
+            <!-- <?=$H->dspname?> -->
             <tr>
                <td>
-                  <form class=\"form\" name=\"form-hol-".$i."\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">
-                  <table style=\"border-collapse: collapse; border: 0px; width: 100%;\">
+                  <form class="form" name="form-hol-<?=$i?>" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+                  <table style="border-collapse: collapse; border: 0px; width: 100%;">
                      <tr>
-                        <td class=\"dlg-row".$printrow."\" width=\"5%\">
-                           <table style=\"border-collapse: collapse;\">
-                              <tr><td class=\"daynum-".$H->cfgname."\" style=\"width: 20px; height: 20px;\">15</td></tr>
+                        <td class="dlg-row<?=$printrow?>" width="5%">
+                           <table style="border-collapse: collapse;">
+                              <tr><td class="daynum-<?=$H->cfgname?>" style="border: 1px solid #000000; width: 20px; height: 20px;">15</td></tr>
                            </table>
                         </td>
-                        <td class=\"dlg-row".$printrow."\" width=\"30%\">
-                           <input name=\"hol_symbolhidden\" type=\"hidden\" class=\"text\" value=\"".$H->cfgsym."\">
-                           <input name=\"hol_dspname\" size=\"28\" type=\"text\" class=\"text\" value=\"".$H->dspname."\">
+                        <td class="dlg-row<?=$printrow?>" width="30%">
+                           <input name="hol_symbolhidden" type="hidden" class="text" value="<?=$H->cfgsym?>">
+                           <input name="hol_dspname" size="28" type="text" class="text" value="<?=$H->dspname?>">
                         </td>
-                        <td class=\"dlg-row".$printrow."\" width=\"15%\">
-                           <input name=\"hol_color\" id=\"color-".$i."\" size=\"6\" maxlength=\"6\" type=\"text\" class=\"text\" style=\"text-align: center;\" value=\"".$H->dspcolor."\">
+                        <td class="dlg-row<?=$printrow?>" width="15%">
+                           <input name="hol_color" id="color-<?=$i?>" size="6" maxlength="6" type="text" class="text" style="text-align: center;" value="<?=$H->dspcolor?>">
                         </td>
-                        <td class=\"dlg-row".$printrow."\" width=\"15%\">
-                           <input name=\"hol_bgcolor\" id=\"bgcolor-".$i."\" size=\"6\" maxlength=\"6\" type=\"text\" class=\"text\" style=\"text-align: center;\" value=\"".$H->dspbgcolor."\">
+                        <td class="dlg-row<?=$printrow?>" width="15%">
+                           <input name="hol_bgcolor" id="bgcolor-<?=$i?>" size="6" maxlength="6" type="text" class="text" style="text-align: center;" value="<?=$H->dspbgcolor?>">
                         </td>
-                        <td class=\"dlg-row".$printrow."\" width=\"10%\"><input name=\"chkBusinessDay\" type=\"checkbox\" value=\"chkBusinessDay\" ".($H->checkOptions($CONF['H_BUSINESSDAY'])?'CHECKED':'')."></td>
-                        <td class=\"dlg-row".$printrow."\" width=\"25%\">
-                           <input name=\"btn_hol_update\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_update']."\">&nbsp;";
-                           if ( $H->cfgsym!='0' && $H->cfgsym!='1' ) { // Business Day and Weekend Day cannot be deleted
-                             echo "<input name=\"btn_hol_delete\" type=\"submit\" class=\"button\" value=\"".$LANG['btn_delete']."\" onclick=\"return confirmSubmit('".$LANG['ed_delete_confirm']."')\">";
-                           }
-                           echo "
+                        <td class="dlg-row<?=$printrow?>" width="10%"><input name="chkBusinessDay" type="checkbox" value="chkBusinessDay" <?=($H->checkOptions($CONF['H_BUSINESSDAY'])?'CHECKED':'')?>></td>
+                        <td class="dlg-row<?=$printrow?>" width="25%">
+                           <input name="btn_hol_update" type="submit" class="button" value="<?=$LANG['btn_update']?>">&nbsp;
+                           <?php
+                           if ( $H->cfgsym!='0' && $H->cfgsym!='1' ) 
+                           { 
+                             // Business Day and Weekend Day cannot be deleted ?>
+                             <input name="btn_hol_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="return confirmSubmit('<?=$LANG['ed_delete_confirm']?>')">
+                           <?php } ?>
                         </td>
                      </tr>
                   </table>
                   </form>
                </td>
             </tr>
-            ";
+            <?php 
             $holids.="#color-".$i.", #bgcolor-".$i.", ";
             $i+=1;
          }

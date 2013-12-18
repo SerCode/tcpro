@@ -5,7 +5,8 @@
  * Displays the group assignment matrix page
  *
  * @package TeamCalPro
- * @version 3.6.010 * @author George Lewe
+ * @version 3.6.011Beta 
+ * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
@@ -178,7 +179,7 @@ require("includes/menu_inc.php");
 
       <form name="assign" class="form" method="POST" action="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=".$sort?>">
 
-         <table class="dlg">
+         <table class="dlg" style="border: 1px solid #000000;">
             <tr>
                <td class="dlg-header" colspan="<?=($gcols*3)+4+($groupblocks-4)?>">
                   <?php printDialogTop($LANG['uassign_title'], $help, "ico_users.png"); ?>
@@ -215,8 +216,7 @@ require("includes/menu_inc.php");
                   <?php } ?>
                      <td class="dlg-row<?=$printrow?>" style="border-left: 1px solid #bbbbbb; text-align: center;"><img src="themes/<?=$theme?>/img/btn_del.gif" align="middle" alt="ico_usr.png" title="<?=$LANG['uassign_tt_gnotmember']?>"></td>
                      <td class="dlg-row<?=$printrow?>" style="text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr.png" align="middle" alt="ico_usr.png" title="<?=$LANG['uassign_tt_gmember']?>"></td>
-                     <?php if ($i==$gcols) $color="#000000"; else $color="#bbbbbb"; ?>
-                     <td class="dlg-row<?=$printrow?>" style="border-right: 1px solid <?=$color?>; text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_manager.png" align="middle" alt="ico_usr_manager.png" title="<?=$LANG['uassign_tt_gmanager']?>"></td>
+                     <td class="dlg-row<?=$printrow?>" style="text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_manager.png" align="middle" alt="ico_usr_manager.png" title="<?=$LANG['uassign_tt_gmanager']?>"></td>
                <?php } ?>
             </tr>
             <?php
@@ -323,8 +323,7 @@ require("includes/menu_inc.php");
                   echo "<td class=\"dlg-row".$printrow."\" style=\"text-align: center;\">
                         <input name=\"".$U->username."_".$grouparray[$groupindex]."\" id=\"".$U->username."_".$grouparray[$groupindex]."_t_member\" type=\"radio\" value=\"member\" ".$memberchk." onclick=\"changedRadio('hid_#".$U->username."#_".$grouparray[$groupindex]."')\">
                      </td>";
-                  if ($gnum==$gcols-1) $color="#000000"; else $color="#bbbbbb";
-                  echo "<td class=\"dlg-row".$printrow."\" style=\"border-right: 1px solid ".$color."; text-align: center;\">
+                  echo "<td class=\"dlg-row".$printrow."\" style=\"text-align: center;\">
                         <input name=\"".$U->username."_".$grouparray[$groupindex]."\" id=\"".$U->username."_".$grouparray[$groupindex]."_t_manager\" type=\"radio\" value=\"manager\" ".$managerchk." onclick=\"changedRadio('hid_#".$U->username."#_".$grouparray[$groupindex]."')\">
                         <input id=\"hid_#".$U->username."#_".$grouparray[$groupindex]."\" name=\"hid_#".$U->username."#_".$grouparray[$groupindex]."\" type=\"hidden\" value=\"false\">
                      </td>
@@ -332,48 +331,45 @@ require("includes/menu_inc.php");
                   $gnum++;
                }
                echo "</tr>";
-            ?>
-
-            <?php if ($norows==intval($C->readConfig("repeatHeadersAfter"))) { ?>
-               <!-- Captions -->
-               <tr>
-                  <td class="dlg-caption" style="text-align: left; padding-left: 8px;">
-                     <?php if ( $sort=="desc" ) { ?>
-                        <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=asc"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
-                     <?php }else { ?>
-                        <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=desc"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
-                      <?php } ?>
-                      &nbsp;<?=$LANG['admin_user_user']?>
-                  </td>
-                  <td class="dlg-caption" style="text-align: center;" colspan="3"><?=$LANG['uassign_usertype']?></td>
-                  <?php for ($groupindex=0; $groupindex<$nofgroups; $groupindex++ ) {
-                     if ($groupindex>0 && ($groupindex+1)%$groupsperblock==0) { ?>
-                     <td class="dlg-caption" style="text-align: center;"><?=$LANG['admin_user_user']?></td>
+               if ($norows==intval($C->readConfig("repeatHeadersAfter"))) { ?>
+                  <!-- Captions -->
+                  <tr>
+                     <td class="dlg-caption" style="text-align: left; padding-left: 8px;">
+                        <?php if ( $sort=="desc" ) { ?>
+                           <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=asc"?>"><img src="themes/<?=$theme?>/img/asc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_asc']?>"></a>
+                        <?php }else { ?>
+                           <a href="<?=$_SERVER['PHP_SELF']."?searchuser=".$searchuser."&amp;sort=desc"?>"><img src="themes/<?=$theme?>/img/desc.png" border="0" align="middle" alt="" title="<?=$LANG['log_sort_desc']?>"></a>
+                         <?php } ?>
+                         &nbsp;<?=$LANG['admin_user_user']?>
+                     </td>
+                     <td class="dlg-caption" style="text-align: center;" colspan="3"><?=$LANG['uassign_usertype']?></td>
+                     <?php for ($groupindex=0; $groupindex<$nofgroups; $groupindex++ ) {
+                        if ($groupindex>0 && ($groupindex+1)%$groupsperblock==0) { ?>
+                        <td class="dlg-caption" style="text-align: center;"><?=$LANG['admin_user_user']?></td>
+                        <?php } ?>
+                        <td class="dlg-caption" style="text-align: center;" colspan="3"><?=$grouparray[$groupindex]?></td>
                      <?php } ?>
-                     <td class="dlg-caption" style="text-align: center;" colspan="3"><?=$grouparray[$groupindex]?></td>
-                  <?php } ?>
-               </tr>
-               <!-- Sub Captions -->
-               <?php $printrow=1; ?>
-               <tr>
-                  <td class="dlg-row<?=$printrow?>" style="text-align: center;">&nbsp;</td>
-                  <td class="dlg-row<?=$printrow?>" style="border-left: 1px solid #bbbbbb; text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_member.png" align="middle" alt="ico_usr_member.png" title="<?=$LANG['uassign_tt_member']?>"></td>
-                  <td class="dlg-row<?=$printrow?>" style="text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_director.png" align="middle" alt="ico_usr_director.png" title="<?=$LANG['uassign_tt_director']?>"></td>
-                  <td class="dlg-row<?=$printrow?>" style="border-right: 1px solid #bbbbbb; text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_admin.png" align="middle" alt="ico_usr_admin.png" title="<?=$LANG['uassign_tt_admin']?>"></td>
-                  <?php for ($i=0; $i<$gcols-1; $i++) {
-                     if ( $i>0 && (($i+1)%$groupsperblock) == 0) { ?>
-                        <td class="dlg-row<?=$printrow?>" style="border-left: 1px solid #bbbbbb; text-align: center;">&nbsp;</td>
+                  </tr>
+                  <!-- Sub Captions -->
+                  <?php $printrow=1; ?>
+                  <tr>
+                     <td class="dlg-row<?=$printrow?>" style="text-align: center;">&nbsp;</td>
+                     <td class="dlg-row<?=$printrow?>" style="border-left: 1px solid #bbbbbb; text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_member.png" align="middle" alt="ico_usr_member.png" title="<?=$LANG['uassign_tt_member']?>"></td>
+                     <td class="dlg-row<?=$printrow?>" style="text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_director.png" align="middle" alt="ico_usr_director.png" title="<?=$LANG['uassign_tt_director']?>"></td>
+                     <td class="dlg-row<?=$printrow?>" style="border-right: 1px solid #bbbbbb; text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_admin.png" align="middle" alt="ico_usr_admin.png" title="<?=$LANG['uassign_tt_admin']?>"></td>
+                     <?php for ($i=0; $i<$gcols-1; $i++) {
+                        if ( $i>0 && (($i+1)%$groupsperblock) == 0) { ?>
+                           <td class="dlg-row<?=$printrow?>" style="border-left: 1px solid #bbbbbb; text-align: center;">&nbsp;</td>
+                        <?php } ?>
+                           <td class="dlg-row<?=$printrow?>" style="border-left: 1px solid #bbbbbb; text-align: center;"><img src="themes/<?=$theme?>/img/btn_del.gif" align="middle" alt="ico_usr.png" title="<?=$LANG['uassign_tt_gnotmember']?>"></td>
+                           <td class="dlg-row<?=$printrow?>" style="text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr.png" align="middle" alt="ico_usr.png" title="<?=$LANG['uassign_tt_gmember']?>"></td>
+                           <td class="dlg-row<?=$printrow?>" style="text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_manager.png" align="middle" alt="ico_usr_manager.png" title="<?=$LANG['uassign_tt_gmanager']?>"></td>
                      <?php } ?>
-                        <td class="dlg-row<?=$printrow?>" style="border-left: 1px solid #bbbbbb; text-align: center;"><img src="themes/<?=$theme?>/img/btn_del.gif" align="middle" alt="ico_usr.png" title="<?=$LANG['uassign_tt_gnotmember']?>"></td>
-                        <td class="dlg-row<?=$printrow?>" style="text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr.png" align="middle" alt="ico_usr.png" title="<?=$LANG['uassign_tt_gmember']?>"></td>
-                        <?php if ($i==$gcols) $color="#000000"; else $color="#bbbbbb"; ?>
-                        <td class="dlg-row<?=$printrow?>" style="border-right: 1px solid <?=$color?>; text-align: center;"><img src="themes/<?=$theme?>/img/ico_usr_manager.png" align="middle" alt="ico_usr_manager.png" title="<?=$LANG['uassign_tt_gmanager']?>"></td>
-                  <?php } ?>
-               </tr>
-            <?php $norows=0; } ?>
-
-            <?php
-            $norows++;
+                  </tr>
+               <?php 
+                  $norows=0; 
+               }
+               $norows++;
             }
             ?>
             <tr>

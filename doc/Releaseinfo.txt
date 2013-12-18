@@ -22,6 +22,8 @@ Multiple selection lists for absence types and users
 https://georgelewe.atlassian.net/browse/TCP-71
 Adding SQL_BIG_SELECT parameter to database session
 
+Tabbed dialog on database maintenance page
+
 ------------------------------------------------------------------------------
 [3.6.010]
 

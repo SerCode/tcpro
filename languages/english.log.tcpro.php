@@ -5,7 +5,7 @@
  * English language file
  *
  * @package TeamCalPro
- * @version 3.6.010
+ * @version 3.6.011Beta
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -50,6 +50,7 @@ $LANG['log_db_delete_daynotes'] = 'Database delete: All General Daynotes';
 $LANG['log_db_delete_ann'] = 'Database delete: All Announcements';
 $LANG['log_db_delete_ann_orph'] = 'Database delete: All Orphaned Announcements';
 $LANG['log_db_delete_log'] = 'Database delete: Log records cleared';
+$LANG['log_db_delete_archive'] = 'Database delete: Archive records cleared';
 $LANG['log_db_delete_perm'] = 'Database delete: All custom permission schemes';
 $LANG['log_db_export'] = 'Database export: ';
 $LANG['log_db_restore'] = 'Database restored from ';

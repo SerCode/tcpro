@@ -1,5 +1,17 @@
 -- --------------------------------------------------------
+-- 
+-- sample.sql
+--
+-- Sample database for TeamCal Pro
+--
+-- @package TeamCalPro
+-- @version 3.6.011Beta
+-- @author George Lewe
+-- @copyright Copyright (c) 2004-2013 by George Lewe
+-- @link http://www.lewe.com
+-- @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
 
+-- --------------------------------------------------------
 --
 -- Table structure for table `my_tc_absences`
 --
@@ -23,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_absences` (
   `hide_in_profile` tinyint(1) NOT NULL,
   `confidential` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `my_tc_absences`
@@ -37,7 +49,8 @@ INSERT INTO `my_tc_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`
 (5, 'Home Office', 'H', 'home.png', '000000', 'ADD8E6', 1, 0, 0, 0, 0, 1, 1, 0, 0, 0),
 (6, 'Not Present', 'N', 'x.png', '000000', 'C0C0C0', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (7, 'Training', 'T', 'book2.png', '000000', '6495ED', 1, 10, 0, 0, 0, 0, 0, 0, 0, 0),
-(8, 'Tentative Absence', 'A', 'alarm.png', '000000', 'EFEFEF', 1, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+(8, 'Tentative Absence', 'A', 'alarm.png', '000000', 'EFEFEF', 1, 0, 0, 0, 1, 0, 0, 0, 0, 0),
+(9, 'Half day', 'H', 'clock.png', '000000', 'FFAAAA', 1, 0, 1, 1, 1, 0, 0, 0, 0, 0);
 
 
 -- --------------------------------------------------------
@@ -152,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_config` (
 INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (1, 'defgroupfilter', 'All'),
 (2, 'defregion', 'default'),
-(3, 'appSubTitle', 'Version 3.6.010'),
+(3, 'appSubTitle', 'Version 3.6.011Beta'),
 (4, 'appFooterCpy', 'Copyright &amp;copy; 2013 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.'),
 (5, 'repeatHeaderCount', '8'),
 (6, 'todayBorderColor', 'FFCC00'),
@@ -766,7 +779,7 @@ INSERT INTO `my_tc_user_options` (`id`, `username`, `option`, `value`) VALUES
 (16, 'mmouse', 'language', 'english'),
 (17, 'mimouse', 'language', 'english'),
 (18, 'mmouse', 'defgroup', 'Disney'),
-(19, 'admin', 'language', 'english'),
+(19, 'admin', 'language', 'default'),
 (20, 'admin', 'defgroup', 'default'),
 (21, 'sman', 'language', 'english'),
 (22, 'sman', 'defgroup', 'All'),
