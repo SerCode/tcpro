@@ -27,7 +27,8 @@ if (!class_exists("Statistic_model"))
       /**
        * Constructor
        */
-      function Statistic_model() {
+      function Statistic_model() 
+      {
          global $CONF;
          global $LANG;
          unset($CONF);
@@ -393,7 +394,6 @@ if (!class_exists("Statistic_model"))
 
          return $str;
       }
-
    }
 }
 ?>

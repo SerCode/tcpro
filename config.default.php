@@ -91,6 +91,7 @@ $CONF['db_table_archive_user_announcement'] = $CONF['db_table_prefix'].'tc_archi
 * be sure --with-ldap-sasl[=DIR] is used, and that sasl.h exists on the system.
 */
 $CONF['LDAP_YES']   = 0;                   // Use LDAP authentication
+$CONF['LDAP_ADS']   = 0;                   // Set to 1 when authenticating against an Active Directory
 $CONF['LDAP_HOST']  = "ldap.mydomain.com"; // LDAP host name
 $CONF['LDAP_PORT']  = "389";               // LDAP port
 $CONF['LDAP_PASS']  = 'XXXXXXXX';          // SA associated password

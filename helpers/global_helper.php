@@ -2006,9 +2006,11 @@ function setRequests() {
 /**
  * Shows the error page
  */
-function showError($error="notallowed",$message="",$closeButton=FALSE) {
+function showError($error="notallowed",$message="",$closeButton=FALSE) 
+{
    global $CONF, $LANG, $U;
-   switch($error) {
+   switch($error) 
+   {
       case "smtp":
          $err_short="SMTP Error";
          $err_long=$message;
@@ -2046,7 +2048,8 @@ function showError($error="notallowed",$message="",$closeButton=FALSE) {
    $CONF['html_title'] = $LANG['html_title_error'];
 
    require("includes/header_html_inc.php");
-   if (!$closeButton) {
+   if (!$closeButton) 
+   {
       require("includes/header_app_inc.php");
       require("includes/menu_inc.php");
    }

@@ -15,10 +15,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("User_option_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("User_option_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
@@ -100,10 +98,9 @@ if (!class_exists("User_option_model")) {
        * @param string $createoption Option name
        * @param string $createvalue Option value
        */
-      function create($createuser, $createoption, $createvalue) {
-         $query = "INSERT INTO `" . $this->table . "` ";
-         $query .= "(`username`,`option`,`value`) ";
-         $query .= "VALUES ('";
+      function create($createuser, $createoption, $createvalue) 
+      {
+         $query = "INSERT INTO `".$this->table."` (`username`,`option`,`value`) VALUES ('";
          $query .= $createuser . "','";
          $query .= $createoption . "','";
          $query .= $createvalue . "'";
@@ -133,8 +130,9 @@ if (!class_exists("User_option_model")) {
       /**
        * Deletes a user-option record by ID from local class variable
        */
-      function deleteById() {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `id` = '" . $this->id . "'";
+      function deleteById() 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `id` = '".$this->id."';";
          $result = $this->db->db_query($query);
       }
 
@@ -144,10 +142,10 @@ if (!class_exists("User_option_model")) {
        *
        * @param string $deluser Username to delete
        */
-      function deleteByUser($deluser = '', $archive=FALSE)
+      function deleteByUser($deluser='', $archive=FALSE)
       {
          if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
-         $query = "DELETE FROM `" . $findTable . "` WHERE `username` = '" . $deluser . "'";
+         $query = "DELETE FROM `".$findTable."` WHERE `username` = '".$deluser."';";
          $result = $this->db->db_query($query);
       }
 
@@ -158,8 +156,9 @@ if (!class_exists("User_option_model")) {
        * @param string $deluser Username to find
        * @param string $deloption Option to delete
        */
-      function deleteUserOption($deluser,$deloption) {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `username` = '" . $deluser . "' AND `option` = '".$deloption."';";
+      function deleteUserOption($deluser,$deloption) 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `username` = '".$deluser."' AND `option` = '".$deloption."';";
          $result = $this->db->db_query($query);
       }
 
@@ -171,16 +170,13 @@ if (!class_exists("User_option_model")) {
        * @param string $findoption Option to find
        * @return string Value of the option (or NULL of not found)
        */
-      function find($finduser, $findoption) {
+      function find($finduser, $findoption) 
+      {
          $rc = NULL;
-         // see if an entry for this user and absence type exists
-         $query = "SELECT value FROM " . $this->table .
-         " WHERE `username`=\"" . $finduser . "\"" .
-         " AND `option`=\"" . $findoption . "\"";
+         $query = "SELECT value FROM ".$this->table." WHERE `username`=\"".$finduser."\" AND `option`=\"".$findoption."\"";
          $result = $this->db->db_query($query);
          if ($this->db->db_numrows($result) == 1)
          {
-            // exactly one row found ( a good thing!)
             $row = $this->db->db_fetch_array($result, MYSQL_ASSOC);
             $rc = trim($row['value']);
          }
@@ -195,16 +191,15 @@ if (!class_exists("User_option_model")) {
        * @param string $findoption Option to find
        * @return string True or false
        */
-      function true($finduser, $findoption) {
+      function true($finduser, $findoption) 
+      {
          $rc = NULL;
-         // see if an entry for this user and absence type exists
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `username` = '" . $finduser . "' AND `option` = '" . $findoption . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `username` = '".$finduser."' AND `option` = '".$findoption."';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1) {
-            // exactly one row found ( a good thing!)
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
-            if (trim($row['value'])=="yes" OR trim($row['value'])!="no")
-               $rc = 1;
+            if (trim($row['value'])=="yes" OR trim($row['value'])!="no") $rc = 1;
          }
          return $rc;
       }
@@ -217,15 +212,18 @@ if (!class_exists("User_option_model")) {
        * @param string $updoption Option to find
        * @param string $updvalue New value
        */
-      function update($upduser, $updoption, $updvalue) {
+      function update($upduser, $updoption, $updvalue) 
+      {
          $query = "SELECT value FROM `".$this->table."` WHERE `username` = '".$upduser."' AND `option`='".$updoption."';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $query = "UPDATE `".$this->table."` SET `value` = '".$updvalue."' WHERE `username` = '".$upduser."' AND `option`='".$updoption."';";
             $result = $this->db->db_query($query);
             return $result;
          }
-         elseif ($this->db->db_numrows($result) == 0) {
+         elseif ($this->db->db_numrows($result) == 0) 
+         {
             $query = "INSERT INTO `".$this->table."` (`username`,`option`,`value`) VALUES ('".$upduser."','".$updoption."','".$updvalue."')";
             $result = $this->db->db_query($query);
             return $result;
@@ -240,15 +238,18 @@ if (!class_exists("User_option_model")) {
        * @param string $updoption Option to find
        * @param string $updvalue New value
        */
-      function save($upduser, $updoption, $updvalue) {
+      function save($upduser, $updoption, $updvalue) 
+      {
          $query = "SELECT value FROM `".$this->table."` WHERE `username` = '".$upduser."' AND `option`='".$updoption."';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $query = "UPDATE `".$this->table."` SET `value` = '".$updvalue."' WHERE `username` = '".$upduser."' AND `option`='".$updoption."';";
             $result = $this->db->db_query($query);
             return $result;
          }
-         elseif ($this->db->db_numrows($result) == 0) {
+         elseif ($this->db->db_numrows($result) == 0) 
+         {
             $query = "INSERT INTO `".$this->table."` (`username`,`option`,`value`) VALUES ('".$upduser."','".$updoption."','".$updvalue."')";
             $result = $this->db->db_query($query);
             return $result;
@@ -263,7 +264,8 @@ if (!class_exists("User_option_model")) {
        * @param string $updoption Option to find
        * @param string $updvalue New value
        */
-      function updateRegion($region_old, $region_new='default') {
+      function updateRegion($region_old, $region_new='default') 
+      {
          $query = "UPDATE `".$this->table."` SET `value`='".$region_new."' WHERE `option`='defregion' AND `value`='".$region_old."'";
          $result = $this->db->db_query($query);
       }
@@ -274,11 +276,11 @@ if (!class_exists("User_option_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

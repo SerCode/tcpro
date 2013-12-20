@@ -15,12 +15,14 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Xml_model")) {
+if (!class_exists("Xml_model")) 
+{
    /** 
     * Provides objects and methods to parse MySQL into XML
     * @package TeamCalPro
     */
-   class Xml_model {
+   class Xml_model 
+   {
       var $header;
       var $startTag;
       var $endTag;
@@ -32,9 +34,10 @@ if (!class_exists("Xml_model")) {
        * 
        * @param string $tablename Name of MySQL table to parse
        */
-      function Xml_model($tablename) {
+      function Xml_model($tablename) 
+      {
          /* $this->header="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"; */
-         $this->startTag = "<Table Name=\"" . $tablename . "\">";
+         $this->startTag = "<Table Name=\"".$tablename."\">";
          $this->endTag = "</Table>\n";
       }
    
@@ -45,19 +48,23 @@ if (!class_exists("Xml_model")) {
        * @param array $row Single MySQL query result row
        * @param integer MySQL query result handle
        */
-      function addElement($row, $rows) {
+      function addElement($row, $rows) 
+      {
          $out = "\t<DataRow>\n";
-         for ($i = 0; $i < mysql_num_fields($rows); $i++) {
+         for ($i = 0; $i < mysql_num_fields($rows); $i++) 
+         {
             $meta = mysql_fetch_field($rows, $i);
-            if ($meta->name == "password") {
-               $out = $out . "\t\t<DataField Name=\"" . $meta->name . "\" Type=\"" . $meta->type . "\">********</DataField>\n";
+            if ($meta->name == "password") 
+            {
+               $out = $out."\t\t<DataField Name=\"".$meta->name."\" Type=\"".$meta->type."\">********</DataField>\n";
             }
-            else {
-               $out = $out . "\t\t<DataField Name=\"" . $meta->name . "\" Type=\"" . $meta->type . "\">" . htmlspecialchars($row[$i]) . "</DataField>\n";
+            else 
+            {
+               $out = $out."\t\t<DataField Name=\"".$meta->name."\" Type=\"".$meta->type."\">".htmlspecialchars($row[$i])."</DataField>\n";
             }
          }
-         $out = $out . "\t</DataRow>\n";
-         $this->body = $this->body . $out;
+         $out = $out."\t</DataRow>\n";
+         $this->body = $this->body.$out;
       }
    
       // ---------------------------------------------------------------------
@@ -66,8 +73,9 @@ if (!class_exists("Xml_model")) {
        * 
        * @return string XML text
        */
-      function getXMLDocument() {
-         return $this->header . $this->startTag . "\n" . $this->body . $this->endTag;
+      function getXMLDocument() 
+      {
+         return $this->header.$this->startTag."\n".$this->body.$this->endTag;
       }
    }
 }
@@ -75,13 +83,14 @@ if (!class_exists("Xml_model")) {
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("sql2xml")) {
+if (!class_exists("sql2xml")) 
+{
    /** 
     * Provides object and methods to access a MySQL database and wraps up the XML export
     * @package TeamCalPro
     */
-   class sql2xml {
-   
+   class sql2xml 
+   {
       var $connection;
    
       // ---------------------------------------------------------------------
@@ -94,7 +103,8 @@ if (!class_exists("sql2xml")) {
        * @param string $dbuser Database user name
        * @param string $dbpwd Database user password
        */
-      function sql2xml($dbhost, $dbport, $dbname, $dbuser, $dbpwd) {
+      function sql2xml($dbhost, $dbport, $dbname, $dbuser, $dbpwd) 
+      {
          $this->connection = mysql_connect($dbhost . ":" . $dbport, $dbuser, $dbpwd);
          mysql_select_db($dbname, $this->connection);
       }
@@ -106,10 +116,10 @@ if (!class_exists("sql2xml")) {
        * @param string $dbtable Database table name to export
        * @param string $filename File name to export to
        */
-      function exportTable($dbtable, $filename) {
-         $result = mysql_query("SELECT * FROM " . $dbtable);
-         if (!$result)
-            die('Query failed: "SELECT * FROM ' . $dbtable . '"' . mysql_error());
+      function exportTable($dbtable, $filename) 
+      {
+         $result = mysql_query("SELECT * FROM ".$dbtable);
+         if (!$result) die('Query failed: "SELECT * FROM '.$dbtable.'"'.mysql_error());
          $this->export($result, $filename);
       }
    
@@ -120,7 +130,8 @@ if (!class_exists("sql2xml")) {
        * @param string $query Custom query to export
        * @param string $filename File name to export to
        */
-      function exportCustomTable($query, $filename) {
+      function exportCustomTable($query, $filename) 
+      {
          $rows = mysql_query($query);
          $this->export($rows, $filename);
       }
@@ -132,11 +143,13 @@ if (!class_exists("sql2xml")) {
        * @param integer $result MySQL query result handle
        * @param string $filename File name to export to
        */
-      function export($result, $filename) {
+      function export($result, $filename) 
+      {
          $meta = mysql_fetch_field($result);
          $xmldoc = new xmlHandler($meta->table);
    
-         while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
+         while ($row = mysql_fetch_array($result, MYSQL_NUM)) 
+         {
             $xmldoc->addElement($row, $result);
          }
    
@@ -157,12 +170,14 @@ if (!class_exists("sql2xml")) {
        * 
        * @param string $dbtable Table name
        */
-      function getTableAsXml($dbtable) {
-         $rows = mysql_query("SELECT * FROM " . $dbtable);
+      function getTableAsXml($dbtable) 
+      {
+         $rows = mysql_query("SELECT * FROM ".$dbtable);
          $meta = mysql_fetch_field($rows);
          $xmldoc = new xmlHandler($meta->table);
    
-         while ($row = mysql_fetch_array($rows, MYSQL_NUM)) {
+         while ($row = mysql_fetch_array($rows, MYSQL_NUM)) 
+         {
             $xmldoc->addElement($row, $rows);
          }
          return $xmldoc->getXMLDocument();

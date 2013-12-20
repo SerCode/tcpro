@@ -15,10 +15,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Log_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Log_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
@@ -29,8 +27,6 @@ if (!class_exists("Log_model")) {
    {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
 
       // Database fields
       var $id = NULL;
@@ -43,7 +39,8 @@ if (!class_exists("Log_model")) {
       /**
        * Constructor
        */
-      function Log_model() {
+      function Log_model() 
+      {
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
@@ -75,8 +72,8 @@ if (!class_exists("Log_model")) {
       function read($order='DESC', $from='', $to='') 
       {
          $query = "SELECT * FROM ".$this->table." ".
-         "WHERE (timestamp>='".$from."' AND timestamp<='".$to." 23:59:59') ".
-         "ORDER BY timestamp ".$order.";";
+                  "WHERE (timestamp>='".$from."' AND timestamp<='".$to." 23:59:59') ".
+                  "ORDER BY timestamp ".$order.";";
          $result = $this->db->db_query($query);
          return $result;
       }
@@ -115,11 +112,11 @@ if (!class_exists("Log_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

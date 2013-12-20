@@ -12,10 +12,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
-if (!class_exists("Absence_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Absence_model")) 
+{
    require_once ("models/db_model.php");
    
    /**
@@ -141,10 +139,12 @@ if (!class_exists("Absence_model")) {
       function get($absid='') 
       {
          $rc = 0;
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "SELECT * FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
-            if ($this->db->db_numrows($result) == 1) {
+            if ($this->db->db_numrows($result) == 1) 
+            {
                $row = $this->db->db_fetch_array($result);
                $this->id = $row['id'];
                $this->name = $row['name'];
@@ -212,7 +212,8 @@ if (!class_exists("Absence_model")) {
       function getFactor($absid = '') 
       {
          $rc = 1; // default factor is 1
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "SELECT factor FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
             if ($this->db->db_numrows($result) == 1) 
@@ -266,7 +267,8 @@ if (!class_exists("Absence_model")) {
       function getApprovalRequired($absid = '') 
       {
          $rc=0; // Default approval required is 0
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "SELECT approval_required FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
             if ($this->db->db_numrows($result) == 1) 
@@ -288,7 +290,8 @@ if (!class_exists("Absence_model")) {
       function getManagerOnly($absid = '') 
       {
          $rc=0; // Default return 0
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "SELECT manager_only FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
             if ($this->db->db_numrows($result) == 1) 
@@ -310,7 +313,8 @@ if (!class_exists("Absence_model")) {
       function getName($absid = '') 
       {
          $rc='unknown';
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "SELECT name FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
             if ($this->db->db_numrows($result) == 1) 
@@ -332,7 +336,8 @@ if (!class_exists("Absence_model")) {
       function getSymbol($absid = '') 
       {
          $rc='.';
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "SELECT symbol FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
             if ($this->db->db_numrows($result) == 1) 
@@ -354,7 +359,8 @@ if (!class_exists("Absence_model")) {
       function getIcon($absid = '') 
       {
          $rc='.';
-         if (isset($absid)) {
+         if (isset($absid)) 
+         {
             $query = "SELECT icon FROM `".$this->table."` WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
             if ($this->db->db_numrows($result) == 1) 

@@ -17,9 +17,6 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  */
 if (!class_exists("User_model")) 
 {
-   /**
-    * Requires the database class
-    */
    require_once ("models/db_model.php");
 
    /**
@@ -166,7 +163,7 @@ if (!class_exists("User_model"))
        * @param string $name Username to find
        * @param boolean $archive Whether to search in archive table
        */
-      function deleteByName($name = '', $archive=FALSE) 
+      function deleteByName($name='', $archive=FALSE) 
       {
          if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
          $query = "DELETE FROM `".$findTable."` WHERE `username` = '".$name."'";
@@ -526,7 +523,6 @@ if (!class_exists("User_model"))
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

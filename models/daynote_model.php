@@ -16,10 +16,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Daynote_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Daynote_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
@@ -135,7 +133,7 @@ if (!class_exists("Daynote_model")) {
        * @param string $username Userame to find for deletion
        * @param string $region Region to find for deletion
        */
-      function deleteByDay($yyyymmdd = '', $username = '', $region = 'default') 
+      function deleteByDay($yyyymmdd='', $username='', $region='default') 
       {
          $query  = "DELETE FROM `".$this->table."` ";
          $query .= "WHERE `yyyymmdd` = '".$yyyymmdd."' ";
@@ -150,7 +148,7 @@ if (!class_exists("Daynote_model")) {
        * 
        * @param string $id ID to find for deletion
        */
-      function deleteById($id = '') 
+      function deleteById($id='') 
       {
          $query = "DELETE FROM `".$this->table."` WHERE `id` = '".$id."'";
          $result = $this->db->db_query($query);
@@ -162,7 +160,7 @@ if (!class_exists("Daynote_model")) {
        * 
        * @param string $region Region to find for deletion
        */
-      function deleteByRegion($region = 'default') 
+      function deleteByRegion($region='default') 
       {
          $query = "DELETE FROM `".$this->table."` WHERE `region` = '".$region."'";
          $result = $this->db->db_query($query);
@@ -174,7 +172,7 @@ if (!class_exists("Daynote_model")) {
        * 
        * @param string $uname Username to find for deletion
        */
-      function deleteByUser($uname = '', $archive=FALSE) 
+      function deleteByUser($uname='', $archive=FALSE) 
       {
          if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
          $query = "DELETE FROM `".$findTable."` WHERE `username` = '".$uname."'";
@@ -188,7 +186,7 @@ if (!class_exists("Daynote_model")) {
        * @param string $yyyymmdd 8 character date (YYYYMMDD) to find
        * @param string $username Userame to find
        */
-      function findByDay($yyyymmdd = '', $username = '', $region = 'default') 
+      function findByDay($yyyymmdd='', $username='', $region='default') 
       {
          $rc=0;
          
@@ -223,7 +221,7 @@ if (!class_exists("Daynote_model")) {
        * @param string $username Username to find
        * @param string $region   Region to find
        */
-      function findAllByMonthUser($yyyy = '', $mm = '', $days = '', $username = '', $region = 'default') 
+      function findAllByMonthUser($yyyy='', $mm='', $days='', $username='', $region='default') 
       {
          if ($days < 10) $days = '0' + "0".strval($days);
          $rc = 0;
@@ -252,7 +250,7 @@ if (!class_exists("Daynote_model")) {
        * @param string $usernames Array of usernames to find
        * @param string $region    Region to find
        */
-      function findAllByMonth($yyyy = '', $mm = '', $days = '', $usernames, $region = 'default') 
+      function findAllByMonth($yyyy='', $mm='', $days='', $usernames, $region='default') 
       {
          $rc = 0;
          if ($days < 10) $days = '0' + "0".strval($days);
@@ -278,7 +276,7 @@ if (!class_exists("Daynote_model")) {
        * 
        * @param string $id ID to find
        */
-      function findById($id = '') 
+      function findById($id='') 
       {
          $rc = 0;
          $query = "SELECT * FROM `".$this->table."` WHERE `id` = '".$id."'";
@@ -323,7 +321,6 @@ if (!class_exists("Daynote_model")) {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

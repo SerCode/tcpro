@@ -15,17 +15,16 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Month_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Month_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to manage the month table
     * @package TeamCalPro
     */
-   class Month_model {
+   class Month_model 
+   {
       var $db = '';
       var $table = '';
       var $firstweekday = '';
@@ -34,8 +33,6 @@ if (!class_exists("Month_model")) {
       var $nofdays = '';
       var $weekday1 = '';
       var $weekdays = '';
-      var $log = '';
-      var $logtype = '';
       
       var $yearmonth = '';
       var $template = '';
@@ -52,15 +49,15 @@ if (!class_exists("Month_model")) {
          $this->db = new Db_model;
          $this->table = $CONF['db_table_months'];
          $this->weekdays = $CONF['weekdays'];
-         $this->log = $CONF['db_table_log'];
       }
 
       // ---------------------------------------------------------------------
       /**
        * Create a month template record from local variables
        */
-      function create() {
-         $query = "INSERT INTO `" . $this->table . "` (`yearmonth`,`template`,`region`) ";
+      function create() 
+      {
+         $query = "INSERT INTO `".$this->table."` (`yearmonth`,`template`,`region`) ";
          $query .= "VALUES ('";
          $query .= $this->yearmonth . "','";
          $query .= $this->template . "','";
@@ -75,8 +72,9 @@ if (!class_exists("Month_model")) {
        * 
        * @param string $mname Name of month to delete (YYYYMM)
        */
-      function deleteByName($region='default', $mname='') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `region` = '" . addslashes($region) . "' AND `yearmonth` = '" . addslashes($mname) . "'";
+      function deleteByName($region='default', $mname='') 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `region` = '".addslashes($region)."' AND `yearmonth` = '".addslashes($mname)."'";
          $result = $this->db->db_query($query);
       }
 
@@ -86,8 +84,9 @@ if (!class_exists("Month_model")) {
        * 
        * @param string $region Region to delete
        */
-      function deleteRegion($region) {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `region` = '" . $region . "'";
+      function deleteRegion($region) 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `region` = '".$region."';";
          $result = $this->db->db_query($query);
       }
 
@@ -98,10 +97,11 @@ if (!class_exists("Month_model")) {
        * @param string $mname Name of month to find (YYYYMM)
        * @return integer Result of the MySQL query
        */
-      function findByName($region='default', $mname='') {
+      function findByName($region='default', $mname='') 
+      {
          $rc = 0;
          // see if the user exists
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `region` = '" . $region . "' AND `yearmonth` = '" . $mname . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `region` = '".$region."' AND `yearmonth` = '".$mname."';";
          $result = $this->db->db_query($query);
 
          // exactly one row found ( a good thing!)
@@ -122,11 +122,12 @@ if (!class_exists("Month_model")) {
        * 
        * @param string $mname Name of month to update (YYYYMM)
        */
-      function update($region='default', $mname) {
-         $query  = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `template` = '" . $this->template . "' ";
-         $query .= "WHERE `region` = '" . $region . "' ";
-         $query .= "AND `yearmonth` = '" . $mname . "'";
+      function update($region='default', $mname) 
+      {
+         $query  = "UPDATE `".$this->table."` ";
+         $query .= "SET `template` = '".$this->template."' ";
+         $query .= "WHERE `region` = '".$region."' ";
+         $query .= "AND `yearmonth` = '".$mname."';";
          $result = $this->db->db_query($query);
       }
 
@@ -136,10 +137,11 @@ if (!class_exists("Month_model")) {
        * 
        * @param string $region Region to update
        */
-      function updateRegion($region_old, $region_new) {
-         $query  = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `region` = '" . $region_new . "' ";
-         $query .= "WHERE `region` = '" . $region_old . "'";
+      function updateRegion($region_old, $region_new) 
+      {
+         $query  = "UPDATE `".$this->table."` ";
+         $query .= "SET `region` = '".$region_new."' ";
+         $query .= "WHERE `region` = '".$region_old."';";
          $result = $this->db->db_query($query);
       }
 
@@ -151,14 +153,15 @@ if (!class_exists("Month_model")) {
        * @param string $year Year to check (YYYY)
        * @param string $month Month to check (friendly name e.g. January)
        */
-      function getMonthInfo($year, $month) {
+      function getMonthInfo($year, $month) 
+      {
          global $LANG;
          /**
           * Create a timestamp for the given year and month (using day 1 of the 
           * month) and use it to get some relevant information using date() and
           * getdate()
           */
-         $mytime = $month . " 1," . $year;
+         $mytime = $month." 1,".$year;
          $myts = strtotime($mytime);
          /**
           * Get number of days in month
@@ -185,12 +188,14 @@ if (!class_exists("Month_model")) {
        *  
        * @param string $symbol Holiday symbol to delete
        */
-      function removeHoliday($region='default', $symbol) {
+      function removeHoliday($region='default', $symbol) 
+      {
          global $CONF;
          
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `region` = '".$region."'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `region` = '".$region."'";
          $result = $this->db->db_query($query);
-         while ($row = $this->db->db_fetch_array($result)) {
+         while ($row = $this->db->db_fetch_array($result)) 
+         {
             $mymonth = $CONF['monthnames'][intval(substr($row['yearmonth'],4,2))];
             $mytime = $mymonth . " 1," . substr($row['yearmonth'],0,4);
             $myts = strtotime($mytime);
@@ -200,8 +205,10 @@ if (!class_exists("Month_model")) {
             $dayofweek = intval($weekday1);
             
             // Replace symbol in this record
-            for ($i = 1; $i <= $nofdays; $i++) {
-               if ( $row['template'][$i-1] == $symbol ) {
+            for ($i = 1; $i <= $nofdays; $i++) 
+            {
+               if ( $row['template'][$i-1] == $symbol ) 
+               {
                   if ( $dayofweek==6 || $dayofweek==7 ) $row['template'][$i-1] = 1;
                   else $row['template'][$i-1] = 0;   
                }
@@ -223,11 +230,11 @@ if (!class_exists("Month_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

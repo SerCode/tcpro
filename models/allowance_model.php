@@ -16,10 +16,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Allowance_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Allowance_model")) 
+{
    require_once ("models/db_model.php");
    
    /**
@@ -113,7 +111,8 @@ if (!class_exists("Allowance_model")) {
        * Updates an allowance record from the local variables
        * 
        */
-      function update() {
+      function update() 
+      {
          $query = "UPDATE `" . $this->table . "` SET ";
          $query .= "`username`='".$this->username."', ";
          $query .= "`absid`=".$this->absid.", ";
@@ -127,7 +126,8 @@ if (!class_exists("Allowance_model")) {
       /**
        * Deletes an allowance record
        */
-      function delete() {
+      function delete() 
+      {
          $query = "DELETE FROM `".$this->table."` WHERE `id` = '".$this->id."'";
          $result = $this->db->db_query($query);
       }
@@ -138,7 +138,8 @@ if (!class_exists("Allowance_model")) {
        * 
        * @param string $absid Absence ID to delete
        */
-      function deleteAbs($absid='') {
+      function deleteAbs($absid='') 
+      {
          $query = "DELETE FROM `".$this->table."` WHERE `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
@@ -187,7 +188,8 @@ if (!class_exists("Allowance_model")) {
          $rc = 0;
          $query = "SELECT * FROM `".$this->table."` WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             $this->id = $row['id'];
             $this->username = $row['username'];
@@ -207,9 +209,9 @@ if (!class_exists("Allowance_model")) {
        * @param string $absid Absence ID to find
        * @param integer $lastyear New value for last year
        */
-      function updateLastyear($username, $absid, $lastyear) {
-         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."' ".
-                  "WHERE `username`='".$username."' AND `absid`='".$absid."'";
+      function updateLastyear($username, $absid, $lastyear) 
+      {
+         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
 
@@ -221,9 +223,9 @@ if (!class_exists("Allowance_model")) {
        * @param string $absid Absence ID to find
        * @param integer $curryear New value for current year
        */
-      function updateCurryear($username, $absid, $curryear) {
-         $query = "UPDATE `".$this->table."` SET `curryear`='".$newcurr."' ".
-                  "WHERE `username`='".$username."' AND `absid`='".$absid."'";
+      function updateCurryear($username, $absid, $curryear) 
+      {
+         $query = "UPDATE `".$this->table."` SET `curryear`='".$newcurr."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
 
@@ -236,9 +238,9 @@ if (!class_exists("Allowance_model")) {
        * @param integer $lastyear New value for last year
        * @param integer $curryear New value for current year
        */
-      function updateAllowance($username, $absid, $lastyear, $curryear) {
-         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."', `curryear`='".$curryear."' ".
-                  "WHERE `username`='".$username."' AND `absid`='".$absid."'";
+      function updateAllowance($username, $absid, $lastyear, $curryear) 
+      {
+         $query = "UPDATE `".$this->table."` SET `lastyear`='".$lastyear."', `curryear`='".$curryear."' WHERE `username`='".$username."' AND `absid`='".$absid."'";
          $result = $this->db->db_query($query);
       }
       
@@ -252,7 +254,6 @@ if (!class_exists("Allowance_model")) {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

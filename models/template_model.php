@@ -15,10 +15,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Template_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Template_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
@@ -125,13 +123,15 @@ if (!class_exists("Template_model")) {
       /**
        * Creates a template from local variables
        */
-      function create() {
+      function create() 
+      {
          $query = "INSERT INTO `".$this->table."` (`username`,`year`,`month`,`abs1`,`abs2`,`abs3`,`abs4`,`abs5`,`abs6`,`abs7`,`abs8`,`abs9`,`abs10`,`abs11`,`abs12`,`abs13`,`abs14`,`abs15`,`abs16`,`abs17`,`abs18`,`abs19`,`abs20`,`abs21`,`abs22`,`abs23`,`abs24`,`abs25`,`abs26`,`abs27`,`abs28`,`abs29`,`abs30`,`abs31`) ";
          $query .= "VALUES ('";
          $query .= $this->username . "','";
          $query .= $this->year . "','";
          $query .= $this->month . "','";
-         for ($i=1; $i<=31; $i++) {
+         for ($i=1; $i<=31; $i++) 
+         {
             $prop='abs'.$i;
             $query .= $this->$prop."','";
          }
@@ -166,7 +166,8 @@ if (!class_exists("Template_model")) {
        * @param string $year Year of the template (YYYY)
        * @param string $month Month of the template (MM)
        */
-      function deleteTemplate($uname = '', $year = '', $month = '') {
+      function deleteTemplate($uname='', $year='', $month='') 
+      {
          $query = "DELETE FROM `".$this->table."` WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."'";
          $result = $this->db->db_query($query);
       }
@@ -177,7 +178,8 @@ if (!class_exists("Template_model")) {
        * 
        * @param integer $id ID of record to delete
        */
-      function deleteById($id = '') {
+      function deleteById($id='') 
+      {
          $query = "DELETE FROM `".$this->table."` WHERE `id`='".$id."'";
          $result = $this->db->db_query($query);
       }
@@ -189,7 +191,7 @@ if (!class_exists("Template_model")) {
        * @param string $uname Username to delete all records of
        * @param boolean $archive Whether to search in archive table
        */
-      function deleteByUser($uname = '', $archive=FALSE) 
+      function deleteByUser($uname='', $archive=FALSE) 
       {
          if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
          $query = "DELETE FROM `".$findTable."` WHERE `username`='".$uname."'";
@@ -206,16 +208,19 @@ if (!class_exists("Template_model")) {
        * @param string $day Day of month to find (D)
        * @return integer 0 or absence ID
        */
-      function getAbsence($uname='', $year='', $month='', $day='1') {
+      function getAbsence($uname='', $year='', $month='', $day='1') 
+      {
          $rc = 0;
          $query = "SELECT abs".$day." FROM `".$this->table."` WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."'";
          $result = $this->db->db_query($query);
 
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             return $row['abs'.$day];
          }
-         else {
+         else 
+         {
             return $rc;
          }
       }
@@ -230,22 +235,28 @@ if (!class_exists("Template_model")) {
        * @param string $day Day of month to find (D)
        * @return integer 0 or absence ID count
        */
-      function countAbsence($uname='%', $year='', $month='', $absid, $start=1, $end=0) {
+      function countAbsence($uname='%', $year='', $month='', $absid, $start=1, $end=0) 
+      {
          $rc = 0;
          $mytime = $month . " 1," . $year;
          $myts = strtotime($mytime);
          if (!$end OR $end>31) $end = date("t",$myts);
          $query = "SELECT * FROM `".$this->table."` WHERE `username` LIKE '".$uname."' AND `year`='".$year."' AND `month`='".sprintf("%02d",$month)."';";
          $result = $this->db->db_query($query);
-         if ($uname!="%" AND $this->db->db_numrows($result) == 1) {
+         if ($uname!="%" AND $this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
-            for ($i=$start; $i<=$end; $i++) {
+            for ($i=$start; $i<=$end; $i++) 
+            {
                if ($row['abs'.$i]==$absid) $rc++;
             }
          }
-         else if ($this->db->db_numrows($result)) {
-            while ($row = $this->db->db_fetch_array($result)) {
-               for ($i=$start; $i<=$end; $i++) {
+         else if ($this->db->db_numrows($result)) 
+         {
+            while ($row = $this->db->db_fetch_array($result)) 
+            {
+               for ($i=$start; $i<=$end; $i++) 
+               {
                   if ($row['abs'.$i]==$absid) $rc++;
                }
             }
@@ -262,17 +273,20 @@ if (!class_exists("Template_model")) {
        * @param string $month Month to find (MM)
        * @return integer Result of MySQL query
        */
-      function getTemplate($uname='', $year='', $month='') {
+      function getTemplate($uname='', $year='', $month='') 
+      {
          $rc = 0;
          $query = "SELECT * FROM `".$this->table."` WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."'";
          $result = $this->db->db_query($query);
 
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             $this->username = $row['username'];
             $this->year = $row['year'];
             $this->month = $row['month'];
-            for ($i=1; $i<=31; $i++) {
+            for ($i=1; $i<=31; $i++) 
+            {
                $prop='abs'.$i;
                $this->$prop = $row[$prop];
             }
@@ -288,17 +302,20 @@ if (!class_exists("Template_model")) {
        * @param string $id Record ID to find
        * @return integer Result of MySQL query
        */
-      function getTemplateById($id = '') {
+      function getTemplateById($id = '') 
+      {
          $rc = 0;
          $query = "SELECT * FROM `".$this->table."` WHERE `id`='".$id."'";
          $result = $this->db->db_query($query);
 
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             $this->username = $row['username'];
             $this->year = $row['year'];
             $this->month = $row['month'];
-            for ($i=1; $i<=31; $i++) {
+            for ($i=1; $i<=31; $i++) 
+            {
                $prop='abs'.$i;
                $this->$prop = $row[$prop];
             }
@@ -317,7 +334,8 @@ if (!class_exists("Template_model")) {
        * @param string $day Day for update
        * @param string $abs Absence to set
        */
-      function setAbsence($uname, $year, $month, $day, $abs) {
+      function setAbsence($uname, $year, $month, $day, $abs) 
+      {
          $prop='abs'.$day;
          $query  = "UPDATE `".$this->table."` SET `".$prop."`='".$abs."'";
          $query .= " WHERE `username`='".$uname."' AND `year`='".$year."' AND `month`='".$month."';";
@@ -332,12 +350,14 @@ if (!class_exists("Template_model")) {
        * @param string $year Year for update (YYYY)
        * @param string $month Month for update (MM)
        */
-      function update($uname, $year, $month) {
+      function update($uname, $year, $month) 
+      {
          $query = "UPDATE `" . $this->table . "` SET ";
          $query .= "`username` = '".$this->username."', ";
          $query .= "`year`     = '".$this->year."', ";
          $query .= "`month`    = '".$this->month."', ";
-         for ($i=1; $i<=31; $i++) {
+         for ($i=1; $i<=31; $i++) 
+         {
             $prop='abs'.$i;
             $query .= "`".$prop."`='".$this->$prop."', ";
          }
@@ -353,13 +373,17 @@ if (!class_exists("Template_model")) {
        * @param string $symopld Symbol to be replaced
        * @param string $symnew Symbol to replace with
        */
-      function replaceAbsID($absidold, $absidnew) {
+      function replaceAbsID($absidold, $absidnew) 
+      {
          $query = "SELECT * FROM `" . $this->table . "`";
          $result = $this->db->db_query($query);
-         while ($row = $this->db->db_fetch_array($result)) {
+         while ($row = $this->db->db_fetch_array($result)) 
+         {
             $qry = "UPDATE `".$this->table."` SET ";
-            for ($i=1; $i<=31; $i++) {
-               if ($row['abs'.$i]==$absidold) {
+            for ($i=1; $i<=31; $i++) 
+            {
+               if ($row['abs'.$i]==$absidold) 
+               {
                   $prop='abs'.$i;
                   $row[$prop]=$absidnew;
                   $qry .= "`".$prop."`='".$row[$prop]."', ";
@@ -377,11 +401,11 @@ if (!class_exists("Template_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

@@ -13,12 +13,10 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
-if (!class_exists("Csv_model")) {
-	/** 
-	 * Provides objects and methods to parse MySQL into CSV
-	 * @package TeamCalPro
-	 */
-	class Csv_model {
+if (!class_exists("Csv_model")) 
+{
+	class Csv_model 
+	{
 	   var $headrow;
 	   var $body;
 	
@@ -26,7 +24,8 @@ if (!class_exists("Csv_model")) {
 	   /** 
 	    * Class constructor
 	    */
-	   function Csv_model() {
+	   function Csv_model() 
+	   {
 	      $this->headrow = "";
 	      $this->body = "";
 	   }
@@ -37,8 +36,10 @@ if (!class_exists("Csv_model")) {
 	    * 
 	    * @param integer $rows MySQL query result (contains the number of fields)
 	    */
-	   function addHeadrow($rows) {
-	      for ($i = 0; $i < mysql_num_fields($rows); $i++) {
+	   function addHeadrow($rows) 
+	   {
+	      for ($i = 0; $i < mysql_num_fields($rows); $i++) 
+	      {
 	         $meta = mysql_fetch_field($rows, $i);
 	         $out .= "\"".$meta->name . "\";";
 	      }
@@ -54,12 +55,17 @@ if (!class_exists("Csv_model")) {
 	    * @param integer $rows MySQL query result
 	    * @param array $row Array of field values
 	    */
-	   function addElement($row, $rows) {
-	      for ($i = 0; $i < mysql_num_fields($rows); $i++) {
+	   function addElement($row, $rows) 
+	   {
+	      for ($i = 0; $i < mysql_num_fields($rows); $i++) 
+	      {
 	         $meta = mysql_fetch_field($rows, $i);
-	         if ($meta->name == "password") {
+	         if ($meta->name == "password") 
+	         {
 	            $out .= "\"********\";";
-	         } else {
+	         } 
+	         else 
+	         {
 	            if (strlen($row[$i])) $out .= "\"".$row[$i] . "\";";
 	            else $out .= ";";
 	         }
@@ -75,70 +81,72 @@ if (!class_exists("Csv_model")) {
 	    * 
 	    * @return string CSV text (header row and body)
 	    */
-	   function getCSVDocument() {
+	   function getCSVDocument() 
+	   {
 	      return $this->headrow . $this->body;
 	   }
-	
    }
 }
 
 
-if (!class_exists("Sql2Csv")) {
-	/** 
-	 * Provides objects and methods to read MySQL record and pass them to the CSV handler class
-	 * @package TeamCalPro
-	 */
-	class Sql2Csv {
-	   /** 
-	    * Database handle
-	    * @var integer
-	    */
+if (!class_exists("Sql2Csv")) 
+{
+	class Sql2Csv 
+	{
 	   var $connection;
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Class constructor. Connects to the database server and selects the database.
 	    */
-	   function Sql2Csv($dbhost, $dbport, $dbname, $dbuser, $dbpwd) {
-	      $this->connection = mysql_connect($dbhost . ":" . $dbport, $dbuser, $dbpwd);
+	   function Sql2Csv($dbhost, $dbport, $dbname, $dbuser, $dbpwd) 
+	   {
+	      $this->connection = mysql_connect($dbhost.":".$dbport, $dbuser, $dbpwd);
 	      mysql_select_db($dbname, $this->connection);
 	   }
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Exports a table to a CSV file
 	    * 
 	    * @param string $dbtable Table name
 	    * @param string $filename File name
 	    */
-	   function exportTable($dbtable, $filename) {
+	   function exportTable($dbtable, $filename) 
+	   {
 	      $result = mysql_query("SELECT * FROM " . $dbtable);
-	      if (!$result)
-	         die('Query failed: "SELECT * FROM ' . $dbtable . '"' . mysql_error());
+	      if (!$result) die('Query failed: "SELECT * FROM '.$dbtable.'"'.mysql_error());
 	      $this->export($result, $filename);
 	   }
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Launches the export of a query to a CSV file
 	    * 
 	    * @param string $query MySQL query
 	    * @param string $filename File name
 	    */
-	   function exportCustomTable($query, $filename) {
+	   function exportCustomTable($query, $filename) 
+	   {
 	      $rows = mysql_query($query);
 	      $this->export($rows, $filename);
 	   }
-	
+	   
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Exports a query to a CSV file
 	    * 
 	    * @param string $result Result handle of MySQL query
 	    * @param string $filename File name
 	    */
-	   function export($result, $filename) {
+	   function export($result, $filename) 
+	   {
 	      $meta = mysql_fetch_field($result);
 	      $csvdoc = new Csv_model($meta->table);
 	
 	      $csvdoc->addHeadrow($result);
-	      while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
+	      while ($row = mysql_fetch_array($result, MYSQL_NUM)) 
+	      {
 	         $csvdoc->addElement($row, $result);
 	      }
 	      
@@ -149,34 +157,34 @@ if (!class_exists("Sql2Csv")) {
 	      /** 
 	       * I am not exporting it from here. Just returning the text
 	       */
-	      //$fileHandle = fopen($filename, "w");
-	      //fwrite($fileHandle, $csvdoc->getCSVDocument());
-	      //fclose($fileHandle);
+	      // $fileHandle = fopen($filename, "w");
+	      // fwrite($fileHandle, $csvdoc->getCSVDocument());
+	      // fclose($fileHandle);
 	   }
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Returns a CSV document from a database table
 	    * 
 	    * @param string $dbtable Table name
 	    */
-	   function getTableAsCsv($dbtable) {
+	   function getTableAsCsv($dbtable) 
+	   {
 	      $rows = mysql_query("SELECT * FROM " . $dbtable);
 	      $meta = mysql_fetch_field($rows);
 	      $csvdoc = new Csv_model($meta->table);
-	      while ($row = mysql_fetch_array($rows, MYSQL_NUM)) {
+	      while ($row = mysql_fetch_array($rows, MYSQL_NUM)) 
+	      {
 	         $csvdoc->addElement($row, $rows);
 	      }
 	      return $csvdoc->getCSVDocument();
 	   }
-   } // End Class Sql2Csv
+   }
+}
 
-} // End if (!class_exists("Sql2Csv"))
 
-
-if (!class_exists("CsvImport")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("CsvImport")) 
+{
    require_once ("models/db_model.php");
 
 	/** 
@@ -185,7 +193,8 @@ if (!class_exists("CsvImport")) {
 	 * @package TeamCalPro
 	 * @param string $dbtable Table name
 	 */
-	class CsvImport {
+	class CsvImport 
+	{
 	   var $table;
 	   var $file_name;
 	   var $error='';
@@ -207,10 +216,12 @@ if (!class_exists("CsvImport")) {
 	   var $idnumber;
 	   var $status;
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Class constructor
 	    */
-	   function CsvImport($file_name = "") {
+	   function CsvImport($file_name = "") 
+	   {
 	      global $CONF;
 	      global $LANG;
 	      $this->db = new Db_model;
@@ -219,6 +230,7 @@ if (!class_exists("CsvImport")) {
 	      $this->file_name = $file_name;
 	   }
 	
+	   // ---------------------------------------------------------------------
 	   /** 
 	    * Parses a CSV file into the TeamCal Pro database
 	    * 
@@ -228,7 +240,8 @@ if (!class_exists("CsvImport")) {
 	    * @param boolean $hide Flag indicating whether to hide the user accounts or not
 	    * @return boolean Success indicator
 	    */
-	   function import($defgroup, $deflang, $lock=true, $hide=true) {
+	   function import($defgroup, $deflang, $lock=true, $hide=true) 
+	   {
 	      /**
 	       * The expected columns are:
 	       *  0          1           2          3       4          5       6        7       8          9      10
@@ -249,18 +262,25 @@ if (!class_exists("CsvImport")) {
 	      
 	      $result=true;
 	      $fpointer = fopen($this->file_name, "r");
-	      if ($fpointer) {
-	         while ($arr = fgetcsv($fpointer, 10 * 1024, ";")) {
-	            if (is_array($arr) && !empty ($arr)) {
-	               if (count($arr)<>11) {
+	      
+	      if ($fpointer) 
+	      {
+	         while ($arr = fgetcsv($fpointer, 10 * 1024, ";")) 
+	         {
+	            if (is_array($arr) && !empty ($arr)) 
+	            {
+	               if (count($arr)<>11) 
+	               {
 	                  $this->error = $LANG['uimp_err_col_1'].$arr[0].$LANG['uimp_err_col_2'].count($arr).$LANG['uimp_err_col_3'];
 	                  unset ($arr);
 	                  fclose($fpointer);
 	                  $result=false;
 	                  return;
 	               }
-	               else {
-	                  if ( !$U->findByName(trim($arr[0])) AND $arr[0]!="admin" AND preg_match('/^[a-zA-Z0-9]*$/',$arr[0]) ) { 
+	               else 
+	               {
+	                  if ( !$U->findByName(trim($arr[0])) AND $arr[0]!="admin" AND preg_match('/^[a-zA-Z0-9]*$/',$arr[0]) ) 
+	                  { 
 	                     $U->username = trim($arr[0]);              
 	                     $U->password = crypt("password", $CONF['salt']);
 	                     $U->firstname = $arr[1];              
@@ -302,7 +322,8 @@ if (!class_exists("CsvImport")) {
 	                     $LOG->log("logUser", $L->checkLogin(), "log_csv_import", $U->username . " (" . $fullname . ")");
 	                     $this->count_imported++;
 	                  }
-	                  else {
+	                  else 
+	                  {
 	                     $this->count_skipped++;
 	                  }
 	               }            
@@ -312,7 +333,6 @@ if (!class_exists("CsvImport")) {
 	         fclose($fpointer);
 	      }
 	   }
-   } // End Class CsvImport
-
-} // End if (!class_exists("CsvImport"))
+   }
+}
 ?>

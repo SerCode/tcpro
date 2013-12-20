@@ -15,17 +15,16 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Absence_group_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Absence_group_model")) 
+{
    require_once ("models/db_model.php");
    
    /**
     * Provides objects and methods to interface with the absence group table
     * @package TeamCalPro
     */
-   class Absence_group_model {
+   class Absence_group_model 
+   {
       var $db = '';
       var $table = '';
       var $log = '';
@@ -38,7 +37,8 @@ if (!class_exists("Absence_group_model")) {
       /**
        * Constructor
        */
-      function Absence_group_model() {
+      function Absence_group_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
@@ -54,7 +54,8 @@ if (!class_exists("Absence_group_model")) {
        * @param string $absid Absence ID
        * @param string $group Group short name
        */
-      function assign($absid, $group) {
+      function assign($absid, $group) 
+      {
          $query = "INSERT INTO `".$this->table."` (`absid`,`group`) VALUES ('".$absid."','".$group."')";
          $result = $this->db->db_query($query);
       }
@@ -66,7 +67,8 @@ if (!class_exists("Absence_group_model")) {
        * @param string $absid Absence ID
        * @param string $group Group short name
        */
-      function unassign($absid='', $group='') {
+      function unassign($absid='', $group='') 
+      {
          $query = "DELETE FROM `".$this->table."` WHERE `absid`='".$absid." AND `group`=".$group."'";
          $result = $this->db->db_query($query);
       }
@@ -77,7 +79,8 @@ if (!class_exists("Absence_group_model")) {
        * 
        * @param string $absid Absence ID
        */
-      function unassignAbs($absid='') {
+      function unassignAbs($absid='') 
+      {
          $query = "DELETE FROM `".$this->table."` WHERE `absid` = '".$absid."'";
          $result = $this->db->db_query($query);
       }
@@ -88,7 +91,8 @@ if (!class_exists("Absence_group_model")) {
        * 
        * @param string $group Group short name
        */
-      function unassignGroup($group = '') {
+      function unassignGroup($group = '') 
+      {
          $query = "DELETE FROM `".$this->table."` WHERE `group`='".$group."'";
          $result = $this->db->db_query($query);
       }
@@ -100,13 +104,12 @@ if (!class_exists("Absence_group_model")) {
        * @param string $absid Absence ID
        * @param string $group Group short name
        */
-      function isAssigned($absid, $group) {
+      function isAssigned($absid, $group) 
+      {
          $rc = 0;
          $query = "SELECT * FROM `".$this->table."` WHERE `absid`='".$absid."' AND `group`='".$group."'";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1) {
-            $rc = 1;
-         }
+         if ($this->db->db_numrows($result) == 1) $rc = 1;
          return $rc;
       }
 
@@ -115,7 +118,8 @@ if (!class_exists("Absence_group_model")) {
        * Updates a record with the values in the class variables
        * 
        */
-      function update() {
+      function update() 
+      {
          $query = "UPDATE `".$this->table."` SET `absid`='".$this->absid."', `group`='".$this->group."' WHERE `id`='".$this->id."'";
          $result = $this->db->db_query($query);
       }
@@ -127,7 +131,8 @@ if (!class_exists("Absence_group_model")) {
        * @param string $absold Absence ID to change
        * @param string $absnew New absence ID
        */
-      function updateAbsence($absold, $absnew) {
+      function updateAbsence($absold, $absnew) 
+      {
          $query = "UPDATE `".$this->table."` SET `absence`='".$absnew."' WHERE `absid`='".$absold."'";
          $result = $this->db->db_query($query);
       }
@@ -139,7 +144,8 @@ if (!class_exists("Absence_group_model")) {
        * @param string $groupold Old group name
        * @param string $groupnew New group name
        */
-      function updateGroupname($groupold, $groupnew) {
+      function updateGroupname($groupold, $groupnew) 
+      {
          $query = "UPDATE `".$this->table."` SET `group`='".$groupnew."' WHERE `group`='".$groupold."'";
          $result = $this->db->db_query($query);
       }
@@ -150,11 +156,11 @@ if (!class_exists("Absence_group_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

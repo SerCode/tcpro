@@ -15,7 +15,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Avatar_model")) {
+if (!class_exists("Avatar_model")) 
+{
    /**
     * Provides objects and methods to deal with avatars
     * @package TeamCalPro
@@ -46,11 +47,7 @@ if (!class_exists("Avatar_model")) {
          $this->maxWidth = $C->readConfig("avatarWidth");
          $this->maxSize = $C->readConfig("avatarMaxSize");
          $this->path = $CONF['app_avatar_dir'];
-         $this->allowedtypes = array (
-            "gif",
-            "jpg",
-            "png"
-         );
+         $this->allowedtypes = array ( "gif", "jpg", "png" );
       }
 
       // ---------------------------------------------------------------------

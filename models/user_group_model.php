@@ -15,10 +15,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("User_group_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("User_group_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
@@ -99,7 +97,8 @@ if (!class_exists("User_group_model")) {
        * @param string $creategroup Groupname
        * @param string $createtype Type of membership (member, manager)
        */
-      function createUserGroupEntry($createuser, $creategroup, $createtype) {
+      function createUserGroupEntry($createuser, $creategroup, $createtype) 
+      {
          $query = "INSERT INTO `" . $this->table . "` ";
          $query .= "(`username`,`groupname`,`type`) ";
          $query .= "VALUES ('";
@@ -135,7 +134,8 @@ if (!class_exists("User_group_model")) {
        * @param string $groupname Group to search by
        * @return array $uarray Array with all group records
        */
-      function getAllforGroup($groupname) {
+      function getAllforGroup($groupname) 
+      {
          $uarray = array();
          $query = "SELECT username FROM `".$this->table."` WHERE groupname='".$groupname."' ORDER BY username ASC;";
          $result = $this->db->db_query($query);
@@ -152,13 +152,12 @@ if (!class_exists("User_group_model")) {
        * @param string $username Username to find
        * @return array $ugarray Array with all records
        */
-      function getAllforUser($username) {
+      function getAllforUser($username) 
+      {
          $ugarray = array();
          $query = "SELECT * FROM `".$this->table."` WHERE `username` = '" . $username . "';";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $ugarray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $ugarray[] = $row;
          return $ugarray;
       }
 
@@ -169,13 +168,12 @@ if (!class_exists("User_group_model")) {
        * @param string $username Username to find
        * @return array $ugarray Array with all records
        */
-      function getAllforUser2($username) {
+      function getAllforUser2($username) 
+      {
          $ugarray = array();
          $query = "SELECT * FROM `".$this->table."` WHERE `username` = '" . $username . "';";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $ugarray[$row['groupname']] = $row['type'];
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $ugarray[$row['groupname']] = $row['type'];
          return $ugarray;
       }
 
@@ -186,14 +184,17 @@ if (!class_exists("User_group_model")) {
        * @param string $user Username to find
        * @return string Groupname of first group found or 'unknown'
        */
-      function getGroupName($user) {
-         $query = "SELECT groupname FROM `" . $this->table . "` WHERE `username` = '" . $user . "'";
+      function getGroupName($user) 
+      {
+         $query = "SELECT groupname FROM `".$this->table."` WHERE `username` = '".$user."';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result)) {
+         if ($this->db->db_numrows($result)) 
+         {
             $row = $this->db->db_fetch_array($result, MYSQL_NUM);
             return $row[0];
          }
-         else {
+         else 
+         {
             return "unknown";
          }
       }
@@ -202,8 +203,9 @@ if (!class_exists("User_group_model")) {
       /**
        * Deletes a user-group record by ID from local class variable
        */
-      function deleteById() {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `id` = '" . $this->id . "'";
+      function deleteById() 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `id` = '".$this->id."';";
          $result = $this->db->db_query($query);
       }
 
@@ -217,7 +219,7 @@ if (!class_exists("User_group_model")) {
       function deleteByUser($deluser = '', $archive=FALSE) 
       {
          if ($archive) $findTable = $this->archive_table; else $findTable = $this->table;
-         $query = "DELETE FROM `" . $findTable . "` WHERE `username` = '" . $deluser . "'";
+         $query = "DELETE FROM `".$findTable."` WHERE `username` = '".$deluser."';";
          $result = $this->db->db_query($query);
       }
 
@@ -227,8 +229,9 @@ if (!class_exists("User_group_model")) {
        * 
        * @param string $user Groupname to delete
        */
-      function deleteByGroup($delgroup = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `groupname` = '" . $delgroup . "'";
+      function deleteByGroup($delgroup = '') 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `groupname` = '".$delgroup."';";
          $result = $this->db->db_query($query);
       }
 
@@ -239,8 +242,9 @@ if (!class_exists("User_group_model")) {
        * @param string $deluser Username
        * @param string $delgroup Groupname
        */
-      function deleteMembership($deluser='',$delgroup = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `username` ='".$deluser."' AND `groupname` = '" . $delgroup . "'";
+      function deleteMembership($deluser='',$delgroup = '') 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `username` ='".$deluser."' AND `groupname` = '".$delgroup."';";
          $result = $this->db->db_query($query);
       }
 
@@ -252,13 +256,13 @@ if (!class_exists("User_group_model")) {
        * @param string $findgroup Groupname
        * @return boolean True if member, false if not
        */
-      function isMemberOfGroup($finduser, $findgroup) {
+      function isMemberOfGroup($finduser, $findgroup) 
+      {
          $rc = 0;
-         // see if finduser is member of findgroup
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `username` = '" . $finduser . "' AND `groupname` = '" . $findgroup . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `username` = '".$finduser."' AND `groupname` = '".$findgroup."';";
          $result = $this->db->db_query($query);
-         // exactly one row found ( a good thing!)
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result, MYSQL_ASSOC);
             $this->username = $row['username'];
             $this->groupname = $row['groupname'];
@@ -276,16 +280,16 @@ if (!class_exists("User_group_model")) {
        * @param string $user2 Second username
        * @return boolean True if they do, false if not
        */
-      function shareGroups($user1, $user2) {
+      function shareGroups($user1, $user2) 
+      {
          $rc = 0;
-         // see if user1 and user2 share one or more groups
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `username` = '" . $user1 . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `username` = '".$user1."';";
          $result = $this->db->db_query($query);
-         while ($row = $this->db->db_fetch_array($result)) {
-            $query2 = "SELECT * FROM `" . $this->table . "` WHERE `username` = '" . $user2 . "' AND `groupname` = '" . $row['groupname'] . "'";
+         while ($row = $this->db->db_fetch_array($result)) 
+         {
+            $query2 = "SELECT * FROM `".$this->table."` WHERE `username` = '".$user2."' AND `groupname` = '".$row['groupname']."';";
             $result2 = $this->db->db_query($query2);
-            if ($this->db->db_numrows($result2))
-               return 1;
+            if ($this->db->db_numrows($result2)) return 1;
          }
          return $rc;
       }
@@ -297,12 +301,12 @@ if (!class_exists("User_group_model")) {
        * @param string $checkuser Username to check
        * @return boolean True if he is, false if not
        */
-      function isGroupManager($checkuser) {
+      function isGroupManager($checkuser) 
+      {
          $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `username` = '" . $checkuser . "' AND `type` = 'manager'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `username` = '".$checkuser."' AND `type` = 'manager';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) >= 1)
-            $rc = 1;
+         if ($this->db->db_numrows($result) >= 1) $rc = 1;
          return $rc;
       }
 
@@ -314,12 +318,12 @@ if (!class_exists("User_group_model")) {
        * @param string $checkgroup Groupname to check
        * @return boolean True if he is, false if not
        */
-      function isGroupManagerOfGroup($checkuser, $checkgroup) {
+      function isGroupManagerOfGroup($checkuser, $checkgroup) 
+      {
          $rc = 0;
-         $query = "SELECT `username` FROM `" . $this->table . "` WHERE `username` = '" . $checkuser . "' AND `groupname` = '" . $checkgroup . "' AND `type` = 'manager'";
+         $query = "SELECT `username` FROM `".$this->table."` WHERE `username` = '".$checkuser."' AND `groupname` = '".$checkgroup."' AND `type` = 'manager';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1)
-            $rc = 1;
+         if ($this->db->db_numrows($result) == 1) $rc = 1;
          return $rc;
       }
 
@@ -331,15 +335,16 @@ if (!class_exists("User_group_model")) {
        * @param string $user1 Username to check whether he is managed by user 1
        * @return boolean True if he is, false if not
        */
-      function isGroupManagerOfUser($user1, $user2) {
+      function isGroupManagerOfUser($user1, $user2) 
+      {
          $rc = 0;
-         $query = "SELECT `groupname` FROM `" . $this->table . "` WHERE `username` = '" . $user2 . "'";
+         $query = "SELECT `groupname` FROM `".$this->table."` WHERE `username` = '".$user2."';";
          $result = $this->db->db_query($query);
-         while ($row = $this->db->db_fetch_array($result, MYSQL_ASSOC)) {
-            $query2 = "SELECT `username` FROM `" . $this->table . "` WHERE `username` = '" . $user1 . "' AND `groupname` = '" . $row['groupname'] . "' AND `type` = 'manager'";
+         while ($row = $this->db->db_fetch_array($result, MYSQL_ASSOC)) 
+         {
+            $query2 = "SELECT `username` FROM `".$this->table."` WHERE `username` = '".$user1."' AND `groupname` = '".$row['groupname']."' AND `type` = 'manager';";
             $result2 = $this->db->db_query($query2);
-            if ($this->db->db_numrows($result2) == 1)
-               return 1;
+            if ($this->db->db_numrows($result2) == 1) return 1;
          }
          return $rc;
       }
@@ -351,9 +356,10 @@ if (!class_exists("User_group_model")) {
        * @param string $findid Record ID to find
        * @return integer Result of MySQL query
        */
-      function findById($findid) {
+      function findById($findid) 
+      {
          $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `id` = '" . $findid . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `id` = '".$findid."';";
          $result = $this->db->db_query($query);
          // exactly one row found ( a good thing!)
          if ($this->db->db_numrows($result) == 1)
@@ -371,12 +377,13 @@ if (!class_exists("User_group_model")) {
       /**
        * Updates a user-group record from local class variables
        */
-      function update() {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `username`   = '" . $this->username . "', ";
-         $query .= "`groupname`  = '" . $this->groupname . "', ";
-         $query .= "`type`       = '" . $this->type . "' ";
-         $query .= "WHERE `id`       = '" . $this->id . "'";
+      function update() 
+      {
+         $query = "UPDATE `".$this->table."` ";
+         $query .= "SET `username`   = '".$this->username."', ";
+         $query .= "`groupname`  = '".$this->groupname."', ";
+         $query .= "`type`       = '".$this->type."' ";
+         $query .= "WHERE `id`       = '".$this->id."'";
          $result = $this->db->db_query($query);
       }
 
@@ -387,10 +394,11 @@ if (!class_exists("User_group_model")) {
        * @param string $groupold Old groupname
        * @param string $groupnew New groupname
        */
-      function updateGroupname($groupold, $groupnew) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `groupname`   = '" . $groupnew . "' ";
-         $query .= "WHERE `groupname` = '" . $groupold . "'";
+      function updateGroupname($groupold, $groupnew) 
+      {
+         $query = "UPDATE `".$this->table."` ";
+         $query .= "SET `groupname`   = '".$groupnew."' ";
+         $query .= "WHERE `groupname` = '".$groupold."'";
          $result = $this->db->db_query($query);
       }
 
@@ -402,10 +410,11 @@ if (!class_exists("User_group_model")) {
        * @param string $updgroup Groupname to update
        * @param string $updtype New membership type
        */
-      function updateUserGroupType($upduser, $updgroup, $updtype) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `type`   = '" . $updtype . "' ";
-         $query .= "WHERE `groupname` = '" . $updgroup . "' AND `username`='" . $upduser . "'";
+      function updateUserGroupType($upduser, $updgroup, $updtype) 
+      {
+         $query = "UPDATE `".$this->table."` ";
+         $query .= "SET `type`   = '".$updtype."' ";
+         $query .= "WHERE `groupname` = '".$updgroup."' AND `username`='".$upduser."'";
          $result = $this->db->db_query($query);
       }
 
@@ -415,11 +424,11 @@ if (!class_exists("User_group_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

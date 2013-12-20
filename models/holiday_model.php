@@ -15,23 +15,19 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Holiday_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Holiday_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to interface with the holiday table
     * @package TeamCalPro
     */
-   class Holiday_model {
+   class Holiday_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
 
-      // Database fields
       var $cfgsym = '';
       var $cfgname = '';
       var $dspsym = '';
@@ -44,21 +40,22 @@ if (!class_exists("Holiday_model")) {
       /**
        * Constructor
        */
-      function Holiday_model() {
+      function Holiday_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_holidays'];
-         $this->log = $CONF['db_table_log'];
       }
 
       // ---------------------------------------------------------------------
       /**
        * Creates a new holiday record from local class variables
        */
-      function create() {
-         $query = "INSERT INTO `" . $this->table . "` ";
+      function create() 
+      {
+         $query = "INSERT INTO `".$this->table."` ";
          $query .= "(`cfgsym`,`cfgname`,`dspsym`,`dspname`,`dspcolor`,`dspbgcolor`,`options`) ";
          $query .= "VALUES ('";
          $query .= $this->cfgsym . "','";
@@ -78,8 +75,9 @@ if (!class_exists("Holiday_model")) {
        * 
        * @param string $symbol Symbol of record to delete
        */
-      function deleteBySymbol($symbol = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `cfgsym` = '" . $symbol . "'";
+      function deleteBySymbol($symbol='') 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `cfgsym` = '".$symbol."';";
          $result = $this->db->db_query($query);
       }
 
@@ -90,12 +88,14 @@ if (!class_exists("Holiday_model")) {
        * @param string $symbol Symbol to find
        * @return integer 1 if found, 0 if not found
        */
-      function findBySymbol($symbol = '') {
+      function findBySymbol($symbol='') 
+      {
          $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `cfgsym` = '" . $symbol . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `cfgsym` = '".$symbol."';";
          $result = $this->db->db_query($query);
 
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             $this->cfgsym = $row['cfgsym'];
             $this->cfgname = $row['cfgname'];
@@ -116,12 +116,14 @@ if (!class_exists("Holiday_model")) {
        * @param string $cfgname Name to find
        * @return integer 1 if found, 0 if not found
        */
-      function findByName($cfgname = '') {
+      function findByName($cfgname='') 
+      {
          $rc = 0;
-         $query = "SELECT * FROM `" . $this->table . "` WHERE `cfgname` = '" . $cfgname . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE `cfgname` = '".$cfgname."';";
          $result = $this->db->db_query($query);
 
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             $this->cfgsym = $row['cfgsym'];
             $this->cfgname = $row['cfgname'];
@@ -141,13 +143,12 @@ if (!class_exists("Holiday_model")) {
        * 
        * @return array $harray Array with all records
        */
-      function getAll($order='cfgsym', $sort='ASC') {
+      function getAll($order='cfgsym', $sort='ASC') 
+      {
          $harray = array();
          $query = "SELECT * FROM `".$this->table."` ORDER BY `".$order."` ".$sort.";";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $harray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $harray[] = $row;
          return $harray;
       }
 
@@ -155,16 +156,17 @@ if (!class_exists("Holiday_model")) {
       /**
        * Updates a holiday record from local class variables
        */
-      function update($symbol) {
-         $query = "UPDATE `" . $this->table . "` ";
-         $query .= "SET `cfgsym`     = '" . $this->cfgsym . "', ";
-         $query .= "`cfgname`    = '" . $this->cfgname . "', ";
-         $query .= "`dspsym`     = '" . $this->dspsym . "', ";
-         $query .= "`dspname`    = '" . $this->dspname . "', ";
-         $query .= "`dspcolor`   = '" . $this->dspcolor . "', ";
-         $query .= "`dspbgcolor` = '" . $this->dspbgcolor . "', ";
-         $query .= "`options`    = '" . $this->options . "' ";
-         $query .= "WHERE `cfgsym`   = '" . $symbol . "'";
+      function update($symbol) 
+      {
+         $query = "UPDATE `".$this->table."` ";
+         $query .= "SET `cfgsym` = '".$this->cfgsym."', ";
+         $query .= "`cfgname`    = '".$this->cfgname."', ";
+         $query .= "`dspsym`     = '".$this->dspsym."', ";
+         $query .= "`dspname`    = '".$this->dspname."', ";
+         $query .= "`dspcolor`   = '".$this->dspcolor."', ";
+         $query .= "`dspbgcolor` = '".$this->dspbgcolor."', ";
+         $query .= "`options`    = '".$this->options."' ";
+         $query .= "WHERE `cfgsym`   = '".$symbol."';";
          $result = $this->db->db_query($query);
       }
 
@@ -174,7 +176,8 @@ if (!class_exists("Holiday_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to clear
        */ 
-      function clearOptions($bitmask) {
+      function clearOptions($bitmask) 
+      {
          $this->options = $this->options & (~$bitmask);
       }
 
@@ -184,7 +187,8 @@ if (!class_exists("Holiday_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to check
        */ 
-      function checkOptions($bitmask) {
+      function checkOptions($bitmask) 
+      {
          if ($this->options & $bitmask)
             return 1;
          else
@@ -197,7 +201,8 @@ if (!class_exists("Holiday_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to set
        */ 
-      function setOptions($bitmask) {
+      function setOptions($bitmask) 
+      {
          $this->options = $this->options | $bitmask;
       }
 
@@ -207,11 +212,11 @@ if (!class_exists("Holiday_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

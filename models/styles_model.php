@@ -16,21 +16,19 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Styles_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Styles_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to interface with the announcement and user-announcement table
     * @package TeamCalPro
     */
-   class Styles_model {
+   class Styles_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
+      
       var $id = NULL;
       var $name = '';
       var $value = '';
@@ -39,21 +37,22 @@ if (!class_exists("Styles_model")) {
       /**
        * Constructor
        */
-      function Styles_model() {
+      function Styles_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_styles'];
-         $this->log = $CONF['db_table_log'];
       }
 
       // ---------------------------------------------------------------------
       /**
        * Clear all records in styles table
        */
-      function deleteAll() {
-         $query = "TRUNCATE TABLE `" . $this->table . "`";
+      function deleteAll() 
+      {
+         $query = "TRUNCATE TABLE `".$this->table."`;";
          $result = $this->db->db_query($query);
       }
 
@@ -63,7 +62,8 @@ if (!class_exists("Styles_model")) {
        * 
        * @param string $name Name of style to delete
        */
-      function deleteStyle($name) {
+      function deleteStyle($name) 
+      {
          $query = "DELETE FROM ".$this->table." WHERE name='".$name."';";
          $result = $this->db->db_query($query);
       }
@@ -74,13 +74,12 @@ if (!class_exists("Styles_model")) {
        * 
        * @return array $sarray Array with all records
        */
-      function getAll() {
+      function getAll() 
+      {
          $myarray = array();
          $query = "SELECT * FROM ".$this->table.";";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $myarray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $myarray[] = $row;
          return $myarray;
       }
 
@@ -90,10 +89,12 @@ if (!class_exists("Styles_model")) {
        * 
        * @param string $name Name of stylesheet
        */
-      function getStyle($name) {
+      function getStyle($name) 
+      {
          $query = "SELECT value FROM ".$this->table." WHERE name='".$name."';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result, MYSQL_ASSOC);
             return $row['value'];
          }
@@ -107,14 +108,17 @@ if (!class_exists("Styles_model")) {
        * @param string $name Name of style to save
        * @param string $value Style to save
        */
-      function saveStyle($name, $value) {
+      function saveStyle($name, $value) 
+      {
          $query = "SELECT * FROM ".$this->table." WHERE name='".$name."';";
          $result = $this->db->db_query($query);
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result, MYSQL_ASSOC);
             $query = "UPDATE ".$this->table." SET name='".$name."', value='".$value."' WHERE id='".$row['id']."'";
          }
-         else {
+         else 
+         {
             $query = "INSERT into ".$this->table." (name,value) VALUES ('".$name."','".$value."')";
          }
          $result = $this->db->db_query($query);
@@ -126,11 +130,11 @@ if (!class_exists("Styles_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

@@ -15,21 +15,19 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Group_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Group_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to interface with the group table
     * @package TeamCalPro
     */
-   class Group_model {
+   class Group_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
+      
       var $groupname = '';
       var $description = '';
       var $options = '0';
@@ -40,13 +38,13 @@ if (!class_exists("Group_model")) {
       /**
        * Constructor
        */
-      function Group_model() {
+      function Group_model() 
+      {
          global $CONF;
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_groups'];
-         $this->log = $CONF['db_table_log'];
          $this->hide = $CONF['G_HIDE'];
       }
 
@@ -54,7 +52,8 @@ if (!class_exists("Group_model")) {
       /**
        * Creates a new group record from local class variables
        */
-      function create() {
+      function create() 
+      {
          $query = "INSERT INTO `" . $this->table . "` ";
          $query .= " (`groupname`,`description`,`options`, `min_present`, `max_absent`) ";
          $query .= "VALUES ('";
@@ -73,8 +72,9 @@ if (!class_exists("Group_model")) {
        * 
        * @param string $gname Group to delete
        */
-      function deleteByName($gname = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `groupname` = '" . addslashes($gname) . "'";
+      function deleteByName($gname='') 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `groupname` = '".addslashes($gname)."';";
          $result = $this->db->db_query($query);
       }
 
@@ -84,14 +84,16 @@ if (!class_exists("Group_model")) {
        * 
        * @param string $gname Group to find
        */
-      function findByName($gname = '') {
+      function findByName($gname='') 
+      {
          $rc = 0;
          // see if the user exists
-         $query = "SELECT * FROM `" . $this->table . "` WHERE groupname = '" . $gname . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE groupname = '".$gname."'";
          $result = $this->db->db_query($query);
 
          // exactly one row found ( a good thing!)
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             $this->groupname = stripslashes($row['groupname']);
             $this->description = stripslashes($row['description']);
@@ -110,15 +112,19 @@ if (!class_exists("Group_model")) {
        * @param boolean $excludeHidden If TRUE, exclude hidden groups
        * @return array $grouparray Array with all group records
        */
-      function getAll($excludeHidden=FALSE, $order='groupname', $sort='ASC') {
+      function getAll($excludeHidden=FALSE, $order='groupname', $sort='ASC') 
+      {
          $grouparray = array();
          $query = "SELECT * FROM `".$this->table."` ORDER BY `".$order."` ".$sort.";";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            if (!$excludeHidden) {
+         while ( $row=$this->db->db_fetch_array($result) ) 
+         {
+            if (!$excludeHidden) 
+            {
                $grouparray[] = $row;
             }
-            else {
+            else 
+            {
                $this->options = $row['options'];
                if (!$this->checkOptions($this->hide)) $grouparray[] = $row;
             }
@@ -134,15 +140,19 @@ if (!class_exists("Group_model")) {
        * @param boolean $excludeHidden If TRUE, exclude hidden groups
        * @return array $grouparray Array with all group records
        */
-      function getAllByGroup($group="%", $excludeHidden=FALSE) {
+      function getAllByGroup($group="%", $excludeHidden=FALSE) 
+      {
          $grouparray = array();
          $query = "SELECT * FROM `".$this->table."` WHERE groupname LIKE '".$group."' ORDER BY groupname ASC;";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            if (!$excludeHidden) {
+         while ( $row=$this->db->db_fetch_array($result) ) 
+         {
+            if (!$excludeHidden) 
+            {
                $grouparray[] = $row;
             }
-            else {
+            else 
+            {
                $this->options = $row['options'];
                if (!$this->checkOptions($this->hide)) $grouparray[] = $row;
             }
@@ -156,11 +166,13 @@ if (!class_exists("Group_model")) {
        * 
        * @return array $grouparray Array with all group names
        */
-      function getGroups() {
+      function getGroups() 
+      {
          $grouparray = array();
          $query = "SELECT groupname FROM `" . $this->table . "` ORDER BY groupname ASC;";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
+         while ( $row=$this->db->db_fetch_array($result) ) 
+         {
             $grouparray[] = stripslashes($row['groupname']);
          }
          return $grouparray;
@@ -172,7 +184,8 @@ if (!class_exists("Group_model")) {
        * 
        * @param string $gname Group to update
        */
-      function update($gname) {
+      function update($gname) 
+      {
          $query = "UPDATE `" . $this->table . "` ";
          $query .= "SET `groupname` = '" . addslashes($this->groupname) . "', ";
          $query .= "`description` = '" . addslashes($this->description) . "', ";
@@ -189,7 +202,8 @@ if (!class_exists("Group_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to clear
        */ 
-      function clearOptions($bitmask) {
+      function clearOptions($bitmask) 
+      {
          $this->options = $this->options & (~$bitmask);
       }
 
@@ -199,7 +213,8 @@ if (!class_exists("Group_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to check
        */ 
-      function checkOptions($bitmask) {
+      function checkOptions($bitmask) 
+      {
          if ($this->options & $bitmask)
             return 1;
          else
@@ -212,7 +227,8 @@ if (!class_exists("Group_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to set
        */ 
-      function setOptions($bitmask) {
+      function setOptions($bitmask) 
+      {
          $this->options = $this->options | $bitmask;
       }
 
@@ -222,11 +238,11 @@ if (!class_exists("Group_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

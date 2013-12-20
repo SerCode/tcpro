@@ -89,11 +89,10 @@ if (!class_exists("Db_model"))
                //
                // Allow big selects
                //
-               $query = "SET SQL_BIG_SELECTS=1";
-               $result = mysql_query($query, Db_model::$db_handle);
+               $result = mysql_query("SET SQL_BIG_SELECTS=1", Db_model::$db_handle);
                if (!$result)
                {
-                  $errtxt = "<p>Error: A problem was encountered while executing this query:</p>\n<p><pre>".$query."</pre></p>\n";
+                  $errtxt = "<p>Error: A problem was encountered while executing this query:</p>\n<p><pre>SET SQL_BIG_SELECTS=1</pre></p>\n";
                   $this->db_error($errtxt, "db_connect()", true);
                }
         
@@ -161,8 +160,10 @@ if (!class_exists("Db_model"))
        * @param integer $result Result of the query 
        * @return integer Number of records matching the query
        */
-      function db_numrows($result) {
-         switch ($this->db_type) {
+      function db_numrows($result) 
+      {
+         switch ($this->db_type) 
+         {
             case 1 : // MySQL
             return mysql_num_rows($result);
          }
@@ -176,8 +177,10 @@ if (!class_exists("Db_model"))
        * @param integer $type  MYSQL_ASSOC, MYSQL_NUM or MYSQL_BOTH, defining the type of index for the returned array 
        * @return array Array of records matching the query
        */
-      function db_fetch_array(& $result, $type = MYSQL_BOTH) {
-         switch ($this->db_type) {
+      function db_fetch_array(& $result, $type = MYSQL_BOTH) 
+      {
+         switch ($this->db_type) 
+         {
             case 1 : // MySQL
             return mysql_fetch_array($result, $type);
          }
@@ -191,7 +194,8 @@ if (!class_exists("Db_model"))
        * @param string $func Name of the method in which this error ocurred
        * @param boolean $die Switch whether to die with this error or to procede after displayed
        */
-      function db_error($errtxt, $func, $die, $statement="") {
+      function db_error($errtxt, $func, $die, $statement="") 
+      {
          $this->db_errortxt = "
          <p style=\"background: #990000; color: #ffffff; font-weight: bold; padding: 8px;\">TeamCal Pro Database Error</p>\n
          <p><span style=\"font-weight: bold;\">Module: </span>db_model.php</p>\n

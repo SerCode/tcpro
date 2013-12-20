@@ -16,10 +16,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("User_announcement_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("User_announcement_model")) 
+{
    require_once ("models/db_model.php");
 
    /**

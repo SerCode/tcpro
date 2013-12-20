@@ -15,21 +15,18 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Region_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Region_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
     * Provides objects and methods to interface with the region table
     * @package TeamCalPro
     */
-   class Region_model {
+   class Region_model 
+   {
       var $db = '';
       var $table = '';
-      var $log = '';
-      var $logtype = '';
 
       // Database fields
       var $regionname = '';
@@ -40,20 +37,21 @@ if (!class_exists("Region_model")) {
       /**
        * Constructor
        */
-      function Region_model() {
+      function Region_model() 
+      {
          unset($CONF);
          require ("config.tcpro.php");
          $this->db = new Db_model;
          $this->table = $CONF['db_table_regions'];
-         $this->log = $CONF['db_table_log'];
       }
 
       // ---------------------------------------------------------------------
       /**
        * Creates a new region record from local class variables
        */
-      function create() {
-         $query = "INSERT INTO `" . $this->table . "` ";
+      function create() 
+      {
+         $query = "INSERT INTO `".$this->table."` ";
          $query .= " (`regionname`,`description`,`options`) ";
          $query .= "VALUES ('";
          $query .= addslashes($this->regionname) . "','";
@@ -69,8 +67,9 @@ if (!class_exists("Region_model")) {
        * 
        * @param string $gname Region to delete
        */
-      function deleteByName($rname = '') {
-         $query = "DELETE FROM `" . $this->table . "` WHERE `regionname` = '" . addslashes($rname) . "'";
+      function deleteByName($rname = '') 
+      {
+         $query = "DELETE FROM `".$this->table."` WHERE `regionname` = '".addslashes($rname)."';";
          $result = $this->db->db_query($query);
       }
 
@@ -80,14 +79,14 @@ if (!class_exists("Region_model")) {
        * 
        * @param string $gname Region to find
        */
-      function findByName($rname = 'default') {
+      function findByName($rname = 'default') 
+      {
          $rc = 0;
-         // see if the user exists
-         $query = "SELECT * FROM `" . $this->table . "` WHERE regionname = '" . $rname . "'";
+         $query = "SELECT * FROM `".$this->table."` WHERE regionname = '".$rname."';";
          $result = $this->db->db_query($query);
 
-         // exactly one row found ( a good thing!)
-         if ($this->db->db_numrows($result) == 1) {
+         if ($this->db->db_numrows($result) == 1) 
+         {
             $row = $this->db->db_fetch_array($result);
             $this->regionname = stripslashes($row['regionname']);
             $this->description = stripslashes($row['description']);
@@ -103,13 +102,12 @@ if (!class_exists("Region_model")) {
        * 
        * @return array $absarray Array with all records
        */
-      function getAll($order='regionname', $sort='ASC') {
+      function getAll($order='regionname', $sort='ASC') 
+      {
          $rarray = array();
          $query = "SELECT * FROM `".$this->table."` ORDER BY `".$order."` ".$sort.";";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $rarray[] = $row;
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $rarray[] = $row;
          return $rarray;
       }
 
@@ -119,13 +117,12 @@ if (!class_exists("Region_model")) {
        * 
        * @return array $regionarray Array with all region names
        */
-      function getRegions() {
+      function getRegions() 
+      {
          $regionarray = array();
-         $query = "SELECT regionname FROM `" . $this->table . "`";
+         $query = "SELECT regionname FROM `".$this->table."`;";
          $result = $this->db->db_query($query);
-         while ( $row=$this->db->db_fetch_array($result) ) {
-            $regionarray[] = stripslashes($row['regionname']);
-         }
+         while ( $row=$this->db->db_fetch_array($result) ) $regionarray[] = stripslashes($row['regionname']);
          return $regionarray;
       }
 
@@ -135,8 +132,9 @@ if (!class_exists("Region_model")) {
        * 
        * @param string $gname Region to update
        */
-      function update($rname) {
-         $query = "UPDATE `" . $this->table . "` ";
+      function update($rname) 
+      {
+         $query = "UPDATE `".$this->table."` ";
          $query .= "SET `regionname` = '" . addslashes($this->regionname) . "', ";
          $query .= "`description` = '" . addslashes($this->description) . "', ";
          $query .= "`options` = '" . $this->options . "' ";
@@ -150,7 +148,8 @@ if (!class_exists("Region_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to clear
        */ 
-      function clearOptions($bitmask) {
+      function clearOptions($bitmask) 
+      {
          $this->options = $this->options & (~$bitmask);
       }
 
@@ -160,7 +159,8 @@ if (!class_exists("Region_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to check
        */ 
-      function checkOptions($bitmask) {
+      function checkOptions($bitmask) 
+      {
          if ($this->options & $bitmask)
             return 1;
          else
@@ -173,7 +173,8 @@ if (!class_exists("Region_model")) {
        * 
        * @param integer $bitmask Bitmask with flags to set
        */ 
-      function setOptions($bitmask) {
+      function setOptions($bitmask) 
+      {
          $this->options = $this->options | $bitmask;
       }
 
@@ -183,11 +184,11 @@ if (!class_exists("Region_model")) {
        * 
        * @return boolean Optimize result
        */ 
-      function optimize() {
+      function optimize() 
+      {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>

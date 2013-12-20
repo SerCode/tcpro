@@ -5,12 +5,28 @@ TEAMCAL PRO UPGRADE INFO
 ------------------------------------------------------------------------------
 [3.6.010] -> [3.6.011]
 
-Backup your current files and database!
+1. Backup your current files and database!
 
-Download the new release and overwrite all files.
-Overwrite config.tcpro.php from your backup.
+2. Download the new release and overwrite all files.
 
-Database changes:
+3. Update your config.tcpro.php backup file
+
+   Add these lines in the Table names section
+$CONF['db_table_archive_users']             = $CONF['db_table_prefix'].'tc_archive_users';
+$CONF['db_table_archive_user_group']        = $CONF['db_table_prefix'].'tc_archive_user_group';
+$CONF['db_table_archive_user_options']      = $CONF['db_table_prefix'].'tc_archive_user_options';
+$CONF['db_table_archive_templates']         = $CONF['db_table_prefix'].'tc_archive_templates';
+$CONF['db_table_archive_daynotes']          = $CONF['db_table_prefix'].'tc_archive_daynotes';
+$CONF['db_table_archive_allowance']         = $CONF['db_table_prefix'].'tc_archive_allowances';
+$CONF['db_table_archive_user_announcement'] = $CONF['db_table_prefix'].'tc_archive_user_announcement';
+
+   Add these lines in the LDAP section
+$CONF['LDAP_ADS']   = 0;                   // Set to 1 when authenticating against an Active Directory
+   Set this value to 1 if you are using LDAP and are authenticating against an Active Directory
+
+4. Overwrite config.tcpro.php from your backup.
+
+5. Database changes:
 
 CREATE TABLE IF NOT EXISTS `my_tc_archive_allowances` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -126,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `my_tc_archive_user_options` (
   `value` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 
 ------------------------------------------------------------------------------
 [3.6.009] -> [3.6.010]

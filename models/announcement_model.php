@@ -16,10 +16,8 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 /**
  * Make sure the class hasn't been loaded yet
  */
-if (!class_exists("Announcement_model")) {
-   /**
-    * Requires the database class
-    */
+if (!class_exists("Announcement_model")) 
+{
    require_once ("models/db_model.php");
 
    /**
@@ -138,7 +136,6 @@ if (!class_exists("Announcement_model")) {
          $result = $this->db->db_query('OPTIMIZE TABLE '.$this->table);
          return $result;
       }
-            
    }
 }
 ?>
