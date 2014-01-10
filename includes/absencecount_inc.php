@@ -116,7 +116,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                   <td>&nbsp;</td>
                   <td colspan="2" style="text-align: center;">
                      <?php if ($allowed) { ?>
-                        <input name="btn_abs_update" type="submit" class="button" value="<?=$LANG['btn_update']?>">
+                     <input name="btn_abs_update" type="submit" class="button" value="<?=$LANG['btn_update']?>">
                      <?php } ?>
                   </td>
                   <td colspan="3">&nbsp;</td>

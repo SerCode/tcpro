@@ -69,13 +69,16 @@ if (isset($_REQUEST['username'])) $U->findByName(stripslashes($_REQUEST['usernam
  * Check authorization
  */
 $allowed=FALSE;
-if ( $user == $U->username ) {
+if ( $user == $U->username ) 
+{
    $allowed=true;
 }
-else if ( $UG->shareGroups($user, $U->username) ) {
+else if ( $UG->shareGroups($user, $U->username) ) 
+{
    if (isAllowed("editGroupUserProfiles")) $allowed=TRUE;
 }
-else {
+else 
+{
    if (isAllowed("editAllUserProfiles")) $allowed=TRUE;
 }
 
@@ -88,28 +91,34 @@ $today     = getdate();
 $countfrom = $C->readConfig("defperiodfrom");
 $countto = $C->readConfig("defperiodto");
 
+
 /**
  * =========================================================================
  * UPDATE
  */
-if (isset($_POST['btn_apply'])) {
-
+if (isset($_POST['btn_apply'])) 
+{
    /**
     * Set password
     */
-   if ( strlen($_POST['password']) ) {
-      if ( $_POST['password']==$_POST['password2'] ) {
+   if ( strlen($_POST['password']) ) 
+   {
+      if ( $_POST['password']==$_POST['password2'] ) 
+      {
          $U->password = crypt($_POST['password'],$CONF['salt']);
          $U->last_pw_change = date("Y-m-d H:I:s");
          $U->clearStatus($CONF['USCHGPWD']);
-      } else {
+      } 
+      else 
+      {
          $pwdmismatch = true;
          $msg = true;
          $message = $LANG['error_password_mismatch'];
       }
    }
 
-   if ( !$pwdmismatch ) {
+   if ( !$pwdmismatch ) 
+   {
       $U->lastname    = htmlspecialchars($_POST['lastname'],ENT_QUOTES);
       $U->firstname   = htmlspecialchars($_POST['firstname'],ENT_QUOTES);
       $U->title       = htmlspecialchars($_POST['title'],ENT_QUOTES);
@@ -130,7 +139,8 @@ if (isset($_POST['btn_apply'])) {
       /**
        * Set gender
        */
-      switch ($_POST['opt_gender']) {
+      switch ($_POST['opt_gender']) 
+      {
       case "ut_male":
          $U->setUserType($CONF['UTMALE']);
          break;
@@ -169,10 +179,13 @@ if (isset($_POST['btn_apply'])) {
       if (isset($_POST['uo_deftheme']) AND $_POST['uo_deftheme'] ) $UO->save($U->username,"deftheme",$_POST['uo_deftheme']);
       else $UO->save($U->username,"deftheme",$C->readConfig("theme"));
 
-      if (isset($_POST['uo_showInGroups']) AND $_POST['uo_showInGroups'] ) {
-         if (isset($_POST['sel_showInGroups'])) {
+      if (isset($_POST['uo_showInGroups']) AND $_POST['uo_showInGroups'] ) 
+      {
+         if (isset($_POST['sel_showInGroups'])) 
+         {
             $sgrps = "";
-            foreach ($_POST['sel_showInGroups'] as $sgrp) {
+            foreach ($_POST['sel_showInGroups'] as $sgrp) 
+            {
                if ($G->findByName($sgrp)) $sgrps.=$G->groupname.",";
             }
             $sgrps = substr($sgrps,0,-1); // remove the last ", "
@@ -214,20 +227,25 @@ if (isset($_POST['btn_apply'])) {
        * Set group membership and manager type
        * First, delete all group memberships for this user and clear the manager flag
        */
-      if (isAllowed("manageGroupMemberships")) {
+      if (isAllowed("manageGroupMemberships")) 
+      {
 	      $UG->deleteByUser($U->username);
 	      $U->clearUserType($CONF['UTMANAGER']);
 	      $isManager = FALSE;
 	      //
 	      // Now loop thru all groups and set new memberships
 	      //
-	      foreach($_POST as $key=>$value) {
-	         if ($key{0}=="X") {
+	      foreach($_POST as $key=>$value) 
+	      {
+	         if ($key{0}=="X") 
+	         {
 	            $theGroup=substr($key,1);
-	            if ( isset($_POST["M".$theGroup]) ) {
+	            if ( isset($_POST["M".$theGroup]) ) 
+	            {
 	               //echo "<script type=\"text/javascript\">alert(\"Debug: ".$theGroup."\");</script>";
-	               switch ($_POST["M".$theGroup]) {
-	               case "ismember":
+	               switch ($_POST["M".$theGroup]) 
+	               {
+	                  case "ismember":
 	                  if (!$UG->isMemberOfGroup($U->username,$theGroup)) {
 	                     $UG->createUserGroupEntry($U->username,$theGroup,"member");
 	                  }
@@ -235,7 +253,8 @@ if (isset($_POST['btn_apply'])) {
 	                     $UG->updateUserGroupType($U->username,$theGroup,"member");
 	                  }
 	                  break;
-	               case "ismanager":
+	                  
+	                  case "ismanager":
 	                  if (!$UG->isMemberOfGroup($U->username,$theGroup)) {
 	                     $UG->createUserGroupEntry($U->username,$theGroup,"manager");
 	                  }
@@ -244,7 +263,8 @@ if (isset($_POST['btn_apply'])) {
 	                  }
 	                  $isManager = TRUE;
 	                  break;
-	               default:
+	                  
+	                  default:
 	                  break;
 	               }
 	            }
@@ -262,18 +282,23 @@ if (isset($_POST['btn_apply'])) {
       $U->clearStatus($CONF['USLOCKED']);
       $U->clearStatus($CONF['USLOGLOC']);
       $U->clearStatus($CONF['USHIDDEN']);
-      foreach($_POST as $key=>$value) {
-         switch ($key) {
-         case "us_locked":
+      
+      foreach($_POST as $key=>$value) 
+      {
+         switch ($key) 
+         {
+            case "us_locked":
             $U->setStatus($CONF['USLOCKED']);
             break;
-         case "us_logloc":
+            
+            case "us_logloc":
             $U->bad_logins = intval($C->readConfig("badLogins"));
             $U->bad_logins_start = date("U");
             $U->setStatus($CONF['USLOGLOC']);
             $U->update($U->username);
             break;
-         case "us_hidden":
+            
+            case "us_hidden":
             $U->setStatus($CONF['USHIDDEN']);
             break;
          }
@@ -283,24 +308,31 @@ if (isset($_POST['btn_apply'])) {
        * Set notification options
        */
       $U->notify=0;
-      foreach($_POST as $key=>$value) {
-         switch ($key) {
-         case "notify_team":
+      foreach($_POST as $key=>$value) 
+      {
+         switch ($key) 
+         {
+            case "notify_team":
             $U->notify+=$CONF['userchg'];
             break;
-         case "notify_groups":
+            
+            case "notify_groups":
             $U->notify+=$CONF['groupchg'];
             break;
-         case "notify_month":
+            
+            case "notify_month":
             $U->notify+=$CONF['monthchg'];
             break;
-         case "notify_absence":
+            
+            case "notify_absence":
             $U->notify+=$CONF['absencechg'];
             break;
-         case "notify_holiday":
+            
+            case "notify_holiday":
             $U->notify+=$CONF['holidaychg'];
             break;
-         case "notify_usercal":
+            
+            case "notify_usercal":
             $U->notify+=$CONF['usercalchg'];
             $U->notify_group = $_POST['lbxNotifyGroup'];
             break;
@@ -328,8 +360,8 @@ if (isset($_POST['btn_apply'])) {
        * Log this event
        */
       $LOG->log("logUser",$L->checkLogin(),"log_user_updated", $U->username);
-      header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
-      die();
+      //header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
+      //die();
 
    } // endif !$pwdmismatch
 }
@@ -337,11 +369,11 @@ if (isset($_POST['btn_apply'])) {
  * =========================================================================
  * ABSENCE UPDATE
  */
-elseif ( isset($_POST['btn_abs_update']) ) 
+elseif (isset($_POST['btn_abs_update'])) 
 {
    $countfrom = stripslashes($_POST['cntfrom']);
    $countto = stripslashes($_POST['cntto']);
-
+   
    $absences = $A->getAll();
    foreach ($absences as $abs) 
    {
@@ -390,8 +422,8 @@ elseif ( isset($_POST['btn_abs_update']) )
     * Log this event
     */
    $LOG->log("logUser",$L->checkLogin(),"log_user_allow_updated", $U->username);
-   header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
-   die();
+   //header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
+   //die();
 }
 /**
  * =========================================================================
@@ -407,13 +439,14 @@ elseif ( isset($_POST['btn_avatar_upload']) )
       $err_long=$AV->message;
       $err_module="editprofile.php";
    }
-   else {
+   else 
+   {
       /**
        * Log this event
        */
       $LOG->log("logUser",$L->checkLogin(),"log_user_avatar_updloaded", $U->username);
-      header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
-      die();
+      //header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
+      //die();
    }
 }
 /**
@@ -757,7 +790,7 @@ require( "includes/header_html_inc.php" );
 
                      <!-- ABSENCES -->
                      <div id="tabs-3">
-                        <?php include( "includes/absencecount_inc.php" ); ?>
+                     <?php include( "includes/absencecount_inc.php" ); ?>
                      </div>
 
                      <!-- AVATAR -->
