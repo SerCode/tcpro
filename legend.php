@@ -137,7 +137,7 @@ require("includes/header_html_inc.php" );
                               foreach ($atypes as $atype) { ?>
                                     <tr>
                                        <td class="day-a<?=$atype['id']?>" width="20">
-                                          <?php if ($atype['icon']) { ?>
+                                          <?php if ($atype['icon']!="No") { ?>
                                              <img align="top" alt="" src="<?=$CONF['app_icon_dir'].$atype['icon']?>" width="16" height="16">
                                           <?php } else {
                                              echo $atype['symbol'];
