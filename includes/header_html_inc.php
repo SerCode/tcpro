@@ -132,7 +132,6 @@ if (!$S->getStyle($theme)) createCSS($theme);
       <script type="text/javascript" src="javascript/tipsy/jquery.tipsy.js"></script>
       <link rel="shortcut icon" href="themes/<?=$theme?>/img/favicon.ico">
       <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/menu.css">
-      <link type="text/css" rel="stylesheet" href="themes/<?=$theme?>/css/calendar.css" media="All" title="Summer">
       
 <!--
 ===============================================================================

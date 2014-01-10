@@ -352,7 +352,7 @@ require("includes/menu_inc.php");
                </select>
                &nbsp;<input name="btn_upload" type="button" class="button" onclick="javascript:this.blur();openPopup('upload.php?target=icon','upload','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=500,height=400');" value="<?=$LANG['btn_upload']?>">
                <?php if($A->icon!="No") { ?>
-               <img src="<?=$CONF['app_homepage_dir'].$A->icon?>" alt="" align="top" id="absIcon">
+               <img src="<?=$CONF['app_icon_dir'].$A->icon?>" alt="" align="top" id="absIcon">
                <?php } ?>
             </td>
          </tr>
