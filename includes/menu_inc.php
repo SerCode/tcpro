@@ -220,7 +220,7 @@ $m = buildMenu();
              * You may not disable or alter the About dialog nor its menu item here.
              */
             ?>
-            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_help_about']?>','javascript:openPopup(\'about.php\',\'about\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,titlebar=0,resizable=0,dependent=1,width=580,height=370\');',null,null],
+            ['<img src="themes/<?=$theme?>/img/menu/ico_calendar.png" />','<?=$LANG['mnu_help_about']?>','javascript:openPopup(\'about.php\',\'about\',\'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,titlebar=0,resizable=0,dependent=1,width=580,height=390\');',null,null],
          ],
       ];
       cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');

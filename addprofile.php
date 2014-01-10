@@ -68,28 +68,38 @@ $pwdmismatch = false;
 if (isset ($_POST['btn_add'])) {
 
    $username = trim($_POST['username']);
-   if (!preg_match('/^[a-zA-Z0-9]*$/', $username)) {
+   if (!preg_match('/^[a-zA-Z0-9.]*$/', $username)) 
+   {
       $msg = true;
       $message = $LANG['error_user_nospecialchars'];
    }
-   elseif ($res = $U->findByName($username)) {
+   elseif ($res = $U->findByName($username)) 
+   {
       $msg = true;
       $message = $LANG['error_user_exists'];
       $_REQUEST['action'] = "add";
-   } else {
+   } 
+   else 
+   {
       $U->username = $username;
-      if (strlen($_POST['password'])) {
-         if ($_POST['password'] == $_POST['password2']) {
+      if (strlen($_POST['password'])) 
+      {
+         if ($_POST['password'] == $_POST['password2']) 
+         {
             $U->password = crypt($_POST['password'], $CONF['salt']);
             $U->last_pw_change = date("Y-m-d H:I:s");
             $U->clearStatus($CONF['USCHGPWD']);
-         } else {
+         } 
+         else 
+         {
             $pwdmismatch = true;
             $msg = true;
             $message = $LANG['error_password_mismatch'];
          }
       }
-      if (!$pwdmismatch && !$msg) {
+      
+      if (!$pwdmismatch && !$msg) 
+      {
          $U->lastname    = htmlspecialchars($_POST['lastname'], ENT_QUOTES);
          $U->firstname   = htmlspecialchars($_POST['firstname'], ENT_QUOTES);
          $U->title       = htmlspecialchars($_POST['title'], ENT_QUOTES);
@@ -110,7 +120,8 @@ if (isset ($_POST['btn_add'])) {
          /**
           * Set user gender
           */
-         switch ($_POST['opt_gender']) {
+         switch ($_POST['opt_gender']) 
+         {
             case "ut_male" :
                $U->setUserType($CONF['UTMALE']);
                break;
@@ -149,10 +160,13 @@ if (isset ($_POST['btn_add'])) {
          if (isset($_POST['uo_deftheme']) AND $_POST['uo_deftheme'] ) $UO->save($U->username,"deftheme",$_POST['uo_deftheme']);
          else $UO->save($U->username,"deftheme",$C->readConfig("theme"));
 
-         if (isset($_POST['uo_showInGroups']) AND $_POST['uo_showInGroups'] ) {
-            if (isset($_POST['sel_showInGroups'])) {
+         if (isset($_POST['uo_showInGroups']) AND $_POST['uo_showInGroups'] ) 
+         {
+            if (isset($_POST['sel_showInGroups'])) 
+            {
                $sgrps = "";
-               foreach ($_POST['sel_showInGroups'] as $sgrp) {
+               foreach ($_POST['sel_showInGroups'] as $sgrp) 
+               {
                   if ($G->findByName($sgrp)) $sgrps.=$G->groupname.",";
                }
                $sgrps = substr($sgrps,0,-1); // remove the last ", "
@@ -173,7 +187,8 @@ if (isset ($_POST['btn_add'])) {
          /**
           * Set user type
           */
-         switch ($_POST['opt_usertype']) {
+         switch ($_POST['opt_usertype']) 
+         {
             case "ut_admin" :
                $U->setUserType($CONF['UTADMIN']);
                break;
@@ -194,11 +209,15 @@ if (isset ($_POST['btn_add'])) {
          /**
           * Set group memberships and manager type for this user
           */
-         foreach ($_POST as $key => $value) {
-            if ($key {0} == "X") {
+         foreach ($_POST as $key => $value) 
+         {
+            if ($key {0} == "X") 
+            {
                $theGroup = substr($key, 1);
-               if (isset ($_POST["M".$theGroup])) {
-                  switch ($_POST["M".$theGroup]) {
+               if (isset ($_POST["M".$theGroup])) 
+               {
+                  switch ($_POST["M".$theGroup]) 
+                  {
                      case "ismember" :
                         $UG->createUserGroupEntry($U->username, $theGroup, "member");
                         break;
@@ -216,8 +235,10 @@ if (isset ($_POST['btn_add'])) {
          /**
           * Set user status
           */
-         foreach ($_POST as $key => $value) {
-            switch ($key) {
+         foreach ($_POST as $key => $value) 
+         {
+            switch ($key) 
+            {
                case "us_locked" :
                   $U->setStatus($CONF['USLOCKED']);
                   break;
@@ -238,8 +259,10 @@ if (isset ($_POST['btn_add'])) {
           * Then overwrite the updated check marks
           */
          $U->notify = 0;
-         foreach ($_POST as $key => $value) {
-            switch ($key) {
+         foreach ($_POST as $key => $value) 
+         {
+            switch ($key) 
+            {
                case "notify_team" :
                   $U->notify += $CONF['userchg'];
                   break;
@@ -285,7 +308,8 @@ if (isset ($_POST['btn_add'])) {
  * =========================================================================
  * DONE
  */
-elseif (isset ($_POST['btn_done'])) {
+elseif (isset ($_POST['btn_done'])) 
+{
    jsCloseAndReload("userlist.php");
 }
 

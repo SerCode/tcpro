@@ -111,18 +111,10 @@ require("includes/menu_inc.php");
    
       <!-- Message -->
       <?php if ($confirmation['show']) { ?>
-      <div id="message-dbmaint" title="<?=$confirmation['header']?>">
+      <div id="message-abslist" title="<?=$confirmation['header']?>">
          <p style="color: #ffffff; font-weight: bold; padding: 4px; <?=($confirmation['success'])?"background-color: #009900;":"background-color: #990000;";?>"><?=$confirmation['title']?></p>
          <p><?=$confirmation['text']?></p>
       </div>
-      <script type="text/javascript">
-         $(function() { 
-            $( "#message-dbmaint" ).dialog({
-               modal: true,
-               buttons: { Ok: function() { $( this ).dialog( "close" ); } }
-            });
-         });
-      </script>                        
       <?php } ?>
    
       <form class="form" name="form-abslist" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
@@ -208,6 +200,13 @@ require("includes/menu_inc.php");
    </div>
 </div>
 <script type="text/javascript">
+$(function() { 
+   $( "#message-abslist" ).dialog({
+      modal: true,
+      buttons: { Ok: function() { $( this ).dialog( "close" ); } }
+   });
+});
+
 $('#select-all').click(function(event) {   
    if(this.checked) {
       // Tick each checkbox

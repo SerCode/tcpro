@@ -90,7 +90,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
    $monthtoday = $today['mon'];   // Numeric representation of todays' month
    $yeartoday  = $today['year'];  // A full numeric representation of todays' year, 4 digits
    $todaysmonth = false;
-   if ( $mydate['mon']==$today['mon'] && $mydate['year']==$today['year'] ) {
+   
+   if ( $mydate['mon']==$today['mon'] && $mydate['year']==$today['year'] ) 
+   {
       $todaysmonth = true; // The current month is todays' month
    }
 
@@ -107,10 +109,13 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
    $userType = "regular";
    $userGroups = null;
    $managerOf = null;
-   if ($user = $L->checkLogin()) {
+   
+   if ($user = $L->checkLogin()) 
+   {
       $UL->findByName($user);
       $loggedIn = true;
-		switch (true) {
+		switch (true) 
+		{
 			case $UL->checkUserType($CONF['UTADMIN']):
 				$regularUser = FALSE;
 				$userType = "admin";
@@ -130,11 +135,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
    /**
     * See if this user is manager of one or more groups
     */
-   if(!empty($userGroups)) {
-      foreach($userGroups as $key=>$value) {
-         if ($value == "manager") {
-            $managerOf[]=$key;
-         }
+   if(!empty($userGroups)) 
+   {
+      foreach($userGroups as $key=>$value) 
+      {
+         if ($value == "manager") $managerOf[]=$key;
       }
    }
 
@@ -142,7 +147,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
     * Read Month Template
     */
    $found = $M->findByName($CONF['options']['region'], $year.$monthno);
-   if ( !$found ) {
+   if ( !$found ) 
+   {
       /**
        * Seems there is no default template for this month yet.
        * Let's create a default one.
@@ -152,7 +158,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       $M->template = createMonthTemplate($year,$month);
       $M->create();
    }
-   else if ( empty($M->template) ) {
+   else if ( empty($M->template) ) 
+   {
       /**
        * Seems there is an empty default template. That can't be.
        * Let's create a default one.
@@ -161,7 +168,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       $M->update($CONF['options']['region'], $year.$monthno);
    }
    
-   if ($monthname && $nofdays && $M->template && $weekday1) {
+   if ($monthname && $nofdays && $M->template && $weekday1) 
+   {
       $cols=0;
       
       /**
@@ -179,10 +187,12 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       $monthHeader.="<td class=\"month\">" . trim($monthname) . "</td>\n\r";
       $cols++;
    
-      if (isAllowed("editGlobalCalendar")) {
+      if (isAllowed("editGlobalCalendar")) 
+      {
          $monthHeader.="<td class=\"month-button\"><a href=\"javascript:openPopup('editmonth.php?lang=".$CONF['options']['lang']."&amp;region=".$CONF['options']['region']."&amp;Year=".$year."&amp;Month=".$month."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=1024,height=400');\"><img class=\"noprint\" src=\"themes/".$theme."/img/date.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_month']."\" alt=\"".$LANG['cal_img_alt_edit_month']."\"></a></td>\n\r";
       }
-      else {
+      else 
+      {
          $monthHeader.="<td class=\"month-button\">&nbsp;</td>\n\r";
       }
       $cols++;
@@ -190,7 +200,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       /**
        * Row 1: We have to add columns if the Remainder section is switched on
        */
-      if (intval($C->readConfig("includeRemainder"))) {
+      if (intval($C->readConfig("includeRemainder"))) 
+      {
          /**
           * Go through each absence type, see wether its option is set
           * to be shown in the remainders. We need the count for the COLSPAN.
@@ -198,10 +209,14 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          $cntRemainders=0;
          $cntTotals=0;
          $absences=$A->getAll();
-         foreach($absences as $abs) {
+         
+         foreach($absences as $abs) 
+         {
             if ($abs['show_in_remainder']) $cntRemainders++;
          }
-         if ( $CONF['options']['remainder']=="show" && $cntRemainders ) {
+         
+         if ( $CONF['options']['remainder']=="show" && $cntRemainders ) 
+         {
             $monthHeader.="<td class=\"remainder-title\" colspan=\"".$cntRemainders."\">".$LANG['remainder']."</td>\n\r";
             $cols+=$cntRemainders;
          }
@@ -210,17 +225,22 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       /**
        * Row 1: We have to add columns if the Totals in the Remainder section is switched on
        */
-      if (intval($C->readConfig("includeTotals"))) {
+      if (intval($C->readConfig("includeTotals"))) 
+      {
          /**
           * Go through each absence type, see wether its option is set
           * to be shown in the remainders. We need the count for the COLSPAN.
           */
          $cntTotals=0;
          $absences=$AC->getAll();
-         foreach ($absences as $abs) {
+         
+         foreach ($absences as $abs) 
+         {
             if ($abs['show_totals']) $cntTotals++;
          }
-         if ( $CONF['options']['remainder']=="show" && $cntTotals ) {
+         
+         if ( $CONF['options']['remainder']=="show" && $cntTotals ) 
+         {
             $monthHeader.="<td class=\"remainder-title\" colspan=\"".$cntTotals."\">".$LANG['totals']."</td>\n\r";
             $cols+=$cntTotals;
          }
@@ -230,37 +250,48 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
        * Row 1: Day numbers
        */
       $businessDayCount = 0;
-      for ($i=1; $i<=$nofdays; $i=$i+1) {
-         if ( $H->findBySymbol($M->template[$i-1]) ) {
+      for ($i=1; $i<=$nofdays; $i=$i+1) 
+      {
+         if ( $H->findBySymbol($M->template[$i-1]) ) 
+         {
             if ($H->checkOptions($CONF['H_BUSINESSDAY'])) $businessDayCount++;
-            if ( $H->cfgname=='busi' ) {
+            if ( $H->cfgname=='busi' ) 
+            {
                /**
                 * It's a regular business day
                 */
-               if ( $todaysmonth && $i==intval($today['mday']) ) {
+               if ( $todaysmonth && $i==intval($today['mday']) ) 
+               {
                   $monthHeader.="<td class=\"todaynum\" title=\"".$H->dspname."\">".$i."</td>\n\r";
                }
-               else {
+               else 
+               {
                   $monthHeader.="<td class=\"daynum\" title=\"".$H->dspname."\">".$i."</td>\n\r";
                }
             }
-            else {
+            else 
+            {
                /**
                 * It's a holiday or any other non-business day
                 */
-               if ( $todaysmonth && $i==intval($today['mday']) ) {
+               if ( $todaysmonth && $i==intval($today['mday']) ) 
+               {
                   $monthHeader.="<td class=\"todaynum-".$H->cfgname."\" title=\"".$H->dspname."\">".$i."</td>\n\r";
                }
-               else {
+               else 
+               {
                   $monthHeader.="<td class=\"daynum-".$H->cfgname."\" title=\"".$H->dspname."\">".$i."</td>\n\r";
                }
             }
          }
-         else {
-            if ( $todaysmonth && $i==intval($today['mday']) ) {
+         else 
+         {
+            if ( $todaysmonth && $i==intval($today['mday']) ) 
+            {
                $monthHeader.="<td class=\"todaynum\">".$i."</td>\n\r";
             }
-            else {
+            else 
+            {
                $monthHeader.="<td class=\"daynum\">".$i."</td>\n\r";
             }
          }
@@ -272,20 +303,23 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       /**
        * Row 2: Week numbers
        */
-      if (intval($C->readConfig("showWeekNumbers"))) {
+      if (intval($C->readConfig("showWeekNumbers"))) 
+      {
          $wd = intval($weekday1);
       
          $colspan=0;
          $monthHeader.="<tr>\n\r";
          $monthHeader.="<td class=\"title\">".$LANG['cal_caption_weeknumber']."</td>\n\r";
          
-         if ( $CONF['options']['remainder']=="show" && $cntRemainders ) {
+         if ( $CONF['options']['remainder']=="show" && $cntRemainders ) 
+         {
             /**
              * Remainder section on: Add colspan
              */
             $monthHeader.="<td class=\"title-button\" colspan=\"".($cntRemainders+$cntTotals+1)."\">&nbsp;</td>\n\r";
          }
-         else {
+         else 
+         {
             /**
              * Remainder section off
              */
@@ -297,13 +331,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          $lastDayOfWeeknumber = $firstDayOfWeeknumber-1;
          if ($lastDayOfWeeknumber==0) $lastDayOfWeeknumber = 7;
          
-         for ($i=1; $i<=$nofdays; $i=$i+1) {
-            if ($wd != $lastDayOfWeeknumber) {
+         for ($i=1; $i<=$nofdays; $i=$i+1) 
+         {
+            if ($wd != $lastDayOfWeeknumber) 
+            {
                $colspan++;
                $wd++;
                if ($wd==8) $wd = 1;
             }
-            else {
+            else 
+            {
                $colspan++;
                $w=date("W",mktime(0,0,0,intval($mydate['mon']),$i,$year));
                $monthHeader.="<td class=\"weeknumber\" colspan=\"".$colspan."\">".sprintf("%d",$w)."</td>\n\r";
@@ -325,13 +362,15 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       $monthHeader.="<tr>\n\r";
       $monthHeader.="<td class=\"title\">";
       
-      if ($sortorder=="ASC") {
+      if ($sortorder=="ASC") 
+      {
          $request = setRequests();
          $request .= "sort=DESC";
          $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
          $monthHeader.="<img class=\"noprint\" alt=\"".$LANG['log_sort_desc']."\" title=\"".$LANG['log_sort_desc']."\" src=\"themes/".$theme."/img/desc.png\" align=\"middle\" border=\"0\"></a>";
       }
-      else {
+      else 
+      {
          $request = setRequests();
          $request .= "sort=ASC";
          $monthHeader.="<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
@@ -345,9 +384,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       /**
        * Row 3: Remainder section header
        */
-      if (intval($C->readConfig("includeRemainder")) && $cntRemainders) {
+      if (intval($C->readConfig("includeRemainder")) && $cntRemainders) 
+      {
          
-         if ( $CONF['options']['remainder']=="show" ) {
+         if ( $CONF['options']['remainder']=="show" ) 
+         {
             /**
              * The remainder section is expanded. Display the collapse button.
              */
@@ -363,33 +404,42 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
              * title column.
              */
             $absences=$AC->getAll();
-            foreach ($absences as $abs) {
-               if ($abs['show_in_remainder']) {
+            foreach ($absences as $abs) 
+            {
+               if ($abs['show_in_remainder']) 
+               {
                   $monthHeader.="<td class=\"day-a".$abs['id']."\" title=\"".$abs['name']."\" style=\"border-right: 1px dotted #000000;\">";
-                  if ($abs['icon']!="No") {
+                  if ($abs['icon']!="No") 
+                  {
                      $monthHeader.="<img class=\"noprint\" align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$abs['icon']."\" width=\"16\" height=\"16\">";
                   }
-                  else {
+                  else 
+                  {
                      $monthHeader.=$abs['symbol'];
                   }
                   $monthHeader.="</td>\r\n";
                }
             }
       
-            if ( intval($C->readConfig("includeTotals")) && $cntTotals ) {
+            if ( intval($C->readConfig("includeTotals")) && $cntTotals ) 
+            {
                /**
                 * Go through each absence type, see wether its option is set
                 * to be shown in the totals. Then display the totals
                 * title column.
                 */
                $absences=$AC->getAll();
-               foreach ($absences as $abs) {
-                  if ($abs['show_totals']) {
+               foreach ($absences as $abs) 
+               {
+                  if ($abs['show_totals']) 
+                  {
                      $monthHeader.="<td class=\"day-a".$abs['id']."\" title=\"".$abs['name']."\" style=\"border-right: 1px dotted #000000;\">";
-                     if ($abs['icon']!="No") {
+                     if ($abs['icon']!="No") 
+                     {
                         $monthHeader.="<img class=\"noprint\" align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$abs['icon']."\" width=\"16\" height=\"16\">";
                      }
-                     else {
+                     else 
+                     {
                         $monthHeader.=$abs['symbol'];
                      }
                      $monthHeader.="</td>\r\n";
@@ -397,7 +447,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                }
             }
          }
-         else {
+         else 
+         {
             /**
              * The remainder section is collapsed. Display the expand button.
              */
@@ -413,14 +464,17 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
        * Row 3: Weekdays continued
        */
       $ttbody = "";
-      for ($i=1; $i<=$nofdays; $i=$i+1) {
+      for ($i=1; $i<=$nofdays; $i=$i+1) 
+      {
          /*
           * Get general Daynote into $ttbody if one exists
           */
          if ($i<10) $dd="0".strval($i); else $dd=strval($i);
          
-         if ( $N->findAllByMonthUser($year,$monthno,$nofdays,"all",$CONF['options']['region']) ) {
-            if (!empty($N->daynotes['all'][$year.$monthno.$dd])) {
+         if ( $N->findAllByMonthUser($year,$monthno,$nofdays,"all",$CONF['options']['region']) ) 
+         {
+            if (!empty($N->daynotes['all'][$year.$monthno.$dd])) 
+            {
                $style="-note";
                /*
                 * Prepare tooltip
@@ -430,62 +484,90 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                $ttcaption = $LANG['tt_title_dayinfo'];
                $ttcapicon = 'themes/'.$theme.'/img/ico_daynote.png';
             }
-            else {
+            else 
+            {
                $ttbody="";
                $style="";
             }
          }
       
-         if ( $H->findBySymbol($M->template[$i-1]) ) {
+         if ( $H->findBySymbol($M->template[$i-1]) ) 
+         {
             /*
              * Display cell
              */
-            if ( $H->cfgname=='busi' ) {
-               if ( $todaysmonth && $i==intval($today['mday']) ) {
-                  if (strlen($ttbody)) {
+            if ( $H->cfgname=='busi' ) 
+            {
+               if ( $todaysmonth && $i==intval($today['mday']) ) 
+               {
+                  if (strlen($ttbody)) 
+                  {
                      $monthHeader.="<td class=\"toweekday".$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$weekdays[$x]."</td>\n\r";
                   }
-                  else {
+                  else 
+                  {
                      $monthHeader.="<td class=\"toweekday\">".$weekdays[$x]."</td>\n\r";
                   }
-               } else {
-                  if (strlen($ttbody)) {
+               } 
+               else 
+               {
+                  if (strlen($ttbody)) 
+                  {
                      $monthHeader.="<td class=\"weekday".$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$weekdays[$x]."</td>\n\r";
                   }
-                  else {
+                  else 
+                  {
                      $monthHeader.="<td class=\"weekday\">".$weekdays[$x]."</td>\n\r";
                   }
                }
-            } else {
-               if ( $todaysmonth && $i==intval($today['mday']) ) {
-                  if (strlen($ttbody)) {
+            } 
+            else 
+            {
+               if ( $todaysmonth && $i==intval($today['mday']) ) 
+               {
+                  if (strlen($ttbody)) 
+                  {
                      $monthHeader.="<td class=\"toweekday-".$H->cfgname."".$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$weekdays[$x]."</td>\n\r";
                   }
-                  else {
+                  else 
+                  {
                      $monthHeader.="<td class=\"toweekday-".$H->cfgname."\">".$weekdays[$x]."</td>\n\r";
                   }
-               } else {
-                  if (strlen($ttbody)) {
+               } 
+               else 
+               {
+                  if (strlen($ttbody)) 
+                  {
                      $monthHeader.="<td class=\"weekday-".$H->cfgname."".$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$weekdays[$x]."</td>\n\r";
                   }
-                  else {
+                  else 
+                  {
                      $monthHeader.="<td class=\"weekday-".$H->cfgname."\">".$weekdays[$x]."</td>\n\r";
                   }
                }
             }
-         } else {
-            if ( $todaysmonth && $i==intval($today['mday']) ) {
-               if (strlen($ttbody)) {
+         } 
+         else 
+         {
+            if ( $todaysmonth && $i==intval($today['mday']) ) 
+            {
+               if (strlen($ttbody)) 
+               {
                   $monthHeader.="<td class=\"toweekday".$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$weekdays[$x]."</td>\n\r";
                }
-               else {
+               else 
+               {
                   $monthHeader.="<td class=\"toweekday\">".$weekdays[$x]."</td>\n\r";
                }
-            } else {
-               if (strlen($ttbody)) {
+            } 
+            else 
+            {
+               if (strlen($ttbody)) 
+               {
                   $monthHeader.="<td class=\"weekday".$style."\" id=\"".$ttid."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$weekdays[$x]."</td>\n\r";
                }
-               else {
+               else 
+               {
                   $monthHeader.="<td class=\"weekday\">".$weekdays[$x]."</td>\n\r";
                }
             }
@@ -519,7 +601,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	                  " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
 	         $result = $U->db->db_query($query);
 	         $i=0;
-	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) 
+	         {
 	            $users[$i]['group']=$row['group'];
 	            $users[$i]['user']=$row['username'];
 	            $i++;
@@ -527,7 +610,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	      }
 	      else if ($groupfilter=="Allbygroup") 
 	      {
-	         if (intval($C->readConfig("hideManagers"))) {
+	         if (intval($C->readConfig("hideManagers"))) 
+	         {
 	            $query = "SELECT DISTINCT ".$CONF['db_table_user_group'].".groupname, ".$CONF['db_table_user_group'].".username " .
 	                     " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
 	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
@@ -536,7 +620,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
 	                     " ORDER BY ".$CONF['db_table_user_group'].".groupname ASC, ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
 	         }
-	         else {
+	         else 
+	         {
 	            $query = "SELECT DISTINCT ".$CONF['db_table_user_group'].".groupname, ".$CONF['db_table_user_group'].".username " .
 	                     " FROM ".$CONF['db_table_user_group'].", ".$CONF['db_table_users'].", ".$CONF['db_table_groups'].
 	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
@@ -546,7 +631,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	         }
 	         $result = $UG->db->db_query($query);
 	         $i=0;
-	         while ( $row = $UG->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+	         while ( $row = $UG->db->db_fetch_array($result,MYSQL_ASSOC) ) 
+	         {
 	            $users[$i]['group']=$row['groupname'];
 	            $users[$i]['user']=$row['username'];
 	            $i++;
@@ -557,7 +643,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	         /*
 	          * Get regular group members
   	          */
-	         if (intval($C->readConfig("hideManagers"))) {
+	         if (intval($C->readConfig("hideManagers"))) 
+	         {
 	            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
 	                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
 	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
@@ -567,7 +654,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
 	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
 	         }
-	         else {
+	         else 
+	         {
 	            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
 	                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
 	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
@@ -578,7 +666,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	         }
 	         $result = $U->db->db_query($query);
 	         $i=0;
-	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) 
+	         {
 	            $users[$i]['group']=$row['group'];
 	            $users[$i]['user']=$row['username'];
 	            $users[$i]['mship']="real";
@@ -587,7 +676,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	         /*
 	          * Get related user to this group (user option: show in other groups)
 	          */
-	         if (intval($C->readConfig("hideManagers"))) {
+	         if (intval($C->readConfig("hideManagers"))) 
+	         {
 	            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
 	                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
 	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
@@ -598,7 +688,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
 	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
 	         }
-	         else {
+	         else 
+	         {
 	            $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
 	                     " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].",".$CONF['db_table_user_options'].
 	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
@@ -609,7 +700,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
 	         }
 	         $result = $U->db->db_query($query);
-	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+	         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) 
+	         {
 	            $users[$i]['group']=$row['group'];
 	            $users[$i]['user']=$row['username'];
 	            $users[$i]['mship']="related";
@@ -622,7 +714,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          /*
           * Get search user
           */
-          if (intval($C->readConfig("hideManagers"))) {
+          if (intval($C->readConfig("hideManagers"))) 
+          {
              $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
                      " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
                      " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
@@ -634,7 +727,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                      " AND ".$CONF['db_table_user_group'].".type!='manager'" .
                      " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
           }
-          else {
+          else 
+          {
              $query = "SELECT DISTINCT ".$CONF['db_table_users'].".*" .
                      " FROM ".$CONF['db_table_users'].",".$CONF['db_table_user_group'].",".$CONF['db_table_groups'].
                      " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
@@ -647,7 +741,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          }
          $result = $U->db->db_query($query);
          $i=0;
-         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) 
+         {
             $users[$i]['group']=$row['group'];
             $users[$i]['user']=$row['username'];
             $users[$i]['mship']="real";
@@ -659,20 +754,24 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       /**
        * Check whether an absence filter was requested
        */
-      if ($CONF['options']['absencefilter']!="All" AND $todaysmonth) {
+      if ($CONF['options']['absencefilter']!="All" AND $todaysmonth) 
+      {
          $j=0;
          $subusers = array();
-         for ($su=0; $su<count($users); $su++) {
+         for ($su=0; $su<count($users); $su++) 
+         {
             $T = new Template_model;
             $found = $T->getTemplate($users[$su]['user'],$year,$monthno);
-            if (!$found) {
+            if (!$found) 
+            {
                /**
                 * No template found for this user and month. Create one.
                 */
                $T->username = $users[$su]['user'];
                $T->year = $year;
                $T->month = $monthno;
-               for ($i=1; $i<=intval($nofdays); $i++ ) {
+               for ($i=1; $i<=intval($nofdays); $i++ ) 
+               {
                   $prop='abs'.$i;
                   $T->$prop = 0;
                }
@@ -684,7 +783,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
              * If so, add him to the subusers array.
              */
             $prop='abs'.(intval($today['mday']));
-            if ( $T->$prop==$CONF['options']['absencefilter'] ) {
+            if ( $T->$prop==$CONF['options']['absencefilter'] ) 
+            {
                $subusers[$j]['group']=$users[$su]['group'];
                $subusers[$j]['user']=$users[$su]['user'];
                $j++;
@@ -696,7 +796,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
           * If there are no $subusers, $users will be empty too.
           */
          $users = array();
-         for ($su=0; $su<count($subusers); $su++) {
+         for ($su=0; $su<count($subusers); $su++) 
+         {
             $users[$su]['group']=$subusers[$su]['group'];
             $users[$su]['user']=$subusers[$su]['user'];
          }
@@ -715,9 +816,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       for($x=0; $x<intval($nofdays); $x++) $intSumPresentDay[$x]=0; // Sum present per day
       for($x=0; $x<intval($nofdays); $x++) $intSumAbsentDay[$x]=0; // Sum absent per day
       $absences=$AC->getAll();
-      foreach($absences as $abs) {
+      foreach($absences as $abs) 
+      {
          $arrAbsenceMonth[$abs['name']]=0;
-         for($x=0; $x<intval($nofdays); $x++) {
+         for($x=0; $x<intval($nofdays); $x++) 
+         {
             $arrAbsenceDay[$abs['name']][$x]=0;
          }
       }
@@ -741,11 +844,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       /**
        * Get all usernames in an array
        */
-      foreach($users as $value) {
-         foreach($value as $key => $value2) {
-            if ($key == 'user') {
-               $newarray[] = mysql_real_escape_string($value2);
-            }
+      foreach($users as $value) 
+      {
+         foreach($value as $key => $value2) 
+         {
+            if ($key == 'user') $newarray[] = mysql_real_escape_string($value2);
          }
       }
       $userset = join("','", $newarray);
@@ -754,11 +857,10 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
        * Get all daynotes for this userlist
       */
       $dayNotesExist = 0;
-      if ( $N2->findAllByMonth($year,$monthno,$nofdays,$userset) ) {
-         $dayNotesExist = 1;
-      }
+      if ( $N2->findAllByMonth($year,$monthno,$nofdays,$userset) ) $dayNotesExist = 1;
       
-      foreach ($users as $usr) {
+      foreach ($users as $usr) 
+      {
          $monthBody='';
       
          $U->findByName($usr['user']);
@@ -767,17 +869,21 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
           * Permission to view this user?
           */
          $allowed=FALSE;
-         if ( $user == $U->username ) {
+         if ( $user == $U->username )
+         { 
             $allowed=TRUE;
          }
-         else if ( $UG->shareGroups($user, $U->username) ) {
+         else if ( $UG->shareGroups($user, $U->username) ) 
+         {
             if (isAllowed("viewGroupUserCalendars")) $allowed=TRUE;
          }
-         else {
+         else 
+         {
             if (isAllowed("viewAllUserCalendars")) $allowed=TRUE;
          }
       
-         if ( $allowed AND !($U->status&$CONF['USHIDDEN']) ) {
+         if ( $allowed AND !($U->status&$CONF['USHIDDEN']) ) 
+         {
             $intCurrentUserCount++;
             $intPageUserCount++;
             /**
@@ -786,16 +892,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
              * $intPageUserCount = current amount of user rows we have on this page already
              * $intSumUser = how many users
              */
-            if ( $intPageUserCount!=0 AND (($intPageUserCount)%$repHeadCnt)==0 ) {
-               $showmonthBody .= $monthHeader;
-            }
+            if ( $intPageUserCount!=0 AND (($intPageUserCount)%$repHeadCnt)==0 ) $showmonthBody .= $monthHeader;
             $intThisUsersPage = floor($intCurrentUserCount/$intUsersPerPage) + 1;
             if ( $intThisUsersPage < $intDisplayPage ) { $intPageUserCount=-1; continue; }
             if ( $intThisUsersPage > $intDisplayPage ) break;
             if ( $intPageUserCount == $intUsersPerPage ) break;
       
-            if ( $groupfilter=="Allbygroup" ) {
-               if (!strlen($currentgroup) OR $currentgroup!=$usr['group']) {
+            if ( $groupfilter=="Allbygroup" ) 
+            {
+               if (!strlen($currentgroup) OR $currentgroup!=$usr['group']) 
+               {
                   $currentgroup=$usr['group'];
                   $G->findByName($currentgroup);
                   $monthBody .= "<tr><td class=\"groupdelim\" colspan=\"".$cols."\">".$G->description."</td></tr>\n\r";
@@ -820,19 +926,23 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             /**
              * Get user icon if configured
              */
-            if ($C->readConfig("showUserIcons")) {
+            if ($C->readConfig("showUserIcons")) 
+            {
                /**
                 * Select user icon, make it female if necessary and put it in the body
                 */
-               if ( $U->checkUserType($CONF['UTADMIN']) ) {
+               if ( $U->checkUserType($CONF['UTADMIN']) ) 
+               {
                   $icon = "ico_usr_admin";
                   $icon_tooltip = $LANG['icon_admin'];
                }
-               else if ( $U->checkUserType($CONF['UTMANAGER']) ) {
+               else if ( $U->checkUserType($CONF['UTMANAGER']) ) 
+               {
                   $icon = "ico_usr_manager";
                   $icon_tooltip = $LANG['icon_manager'];
                }
-               else {
+               else 
+               {
                   $icon = "ico_usr";
                   $icon_tooltip = $LANG['icon_user'];
                }
@@ -841,8 +951,10 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                /**
                 * If user is a related user (not member but shown in this group), just use grey icon
                 */
-               if ($groupfilter!="All" AND $groupfilter!="Allbygroup") {
-                  if ($usr['mship']=="related") {
+               if ($groupfilter!="All" AND $groupfilter!="Allbygroup") 
+               {
+                  if ($usr['mship']=="related") 
+                  {
                      $icon = "ico_usr_grey.png";
                      $icon_tooltip = $LANG['cal_tt_related_1'].$groupfilter.$LANG['cal_tt_related_2'];
                   }
@@ -853,14 +965,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                 */
                $avatar_link='';
                $avatar_close='';
-               if ($C->readConfig("showAvatars")) {
+               if ($C->readConfig("showAvatars")) 
+               {
                   $avatar='';
                   $avatar_fullname=$U->title." ".$U->firstname." ".$U->lastname;
                   if( file_exists("img/avatar/".$U->username.".gif")) $avatar="<img src=\"img/avatar/".$U->username.".gif\" alt=\"\">";
                   else if( file_exists("img/avatar/".$U->username.".jpg")) $avatar="<img src=\"img/avatar/".$U->username.".jpg\" alt=\"\">";
                   else if( file_exists("img/avatar/".$U->username.".jpeg")) $avatar="<img src=\"img/avatar/".$U->username.".jpeg\" alt=\"\">";
                   else if( file_exists("img/avatar/".$U->username.".png")) $avatar="<img src=\"img/avatar/".$U->username.".png\" alt=\"\">";
-                  if( strlen($avatar) ) {
+                  if( strlen($avatar) ) 
+                  {
                      /**
                       * Prepare tootlip
                       */
@@ -870,7 +984,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                      $ttcapicon = '';
                      $monthBody .= '<div style="float: left;" id="'.$ttid.'">'.createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
                   }
-                  else {
+                  else 
+                  {
                      $monthBody .= '<div style="float: left;">';
                   }
                }
@@ -885,20 +1000,24 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             if ( ($UL->username==$U->username) 
                   OR isAllowed("editAllUserProfiles") 
                   OR (isAllowed("editGroupUserProfiles") AND $UG->shareGroups($UL->username, $U->username)) 
-               ) {
+               ) 
+            {
                $editProfile=TRUE;
             }
       
             $viewProfile=FALSE;
             if (isAllowed("viewUserProfiles")) $viewProfile=TRUE;
       
-            if($editProfile) {
+            if($editProfile) 
+            {
                $monthBody .= "&nbsp;<a title=\"".$LANG['tt_edit_profile']."\" class=\"name\" href=\"javascript:this.blur();openPopup('editprofile.php?referrer=index&amp;lang=".$CONF['options']['lang']."&amp;username=".addslashes($U->username)."','editprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=600,height=680');\">".$showname."</a>\n\r";
             }
-            else if($viewProfile) {
+            else if($viewProfile) 
+            {
                $monthBody .= "&nbsp;<a title=\"".$LANG['tt_view_profile']."\" class=\"name\" href=\"javascript:this.blur();openPopup('viewprofile.php?lang=".$CONF['options']['lang']."&amp;username=".addslashes($U->username)."','viewprofile','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=480,height=580');\">".$showname."</a>\n\r";
             }
-            else {
+            else 
+            {
                $monthBody .= $showname;
             }
             $monthBody .= "</td>\n\r";
@@ -906,10 +1025,12 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             /**
              * Show the custom popup if one exists
              */
-            if (!strlen($U->customPopup) OR !$viewProfile) {
+            if (!strlen($U->customPopup) OR !$viewProfile) 
+            {
                $monthBody .= "<td class=\"name-button\">\n\r";
             }
-            else {
+            else 
+            {
                /*
                 * Prepare tooltip
                 */
@@ -921,20 +1042,24 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             }
              
             /**
-             * Check permission to edit or view the calendar
+             * Check permission to edit calendar
              */
             $editCalendar=FALSE;
-            if ( $UL->username == $U->username ) {
+            if ( $UL->username == $U->username ) 
+            {
                if (isAllowed("editOwnUserCalendars")) $editCalendar=TRUE;
             }
-            else if ( $UG->shareGroups($UL->username, $U->username) ) {
+            else if ( $UG->shareGroups($UL->username, $U->username) ) 
+            {
                if (isAllowed("editGroupUserCalendars")) $editCalendar=TRUE;
             }
-            else {
+            else 
+            {
                if (isAllowed("editAllUserCalendars")) $editCalendar=TRUE;
             }
       
-            if ($editCalendar) {
+            if ($editCalendar) 
+            {
                if (!$thisregion = $UO->find($U->username,"defregion")) $thisregion = $CONF['options']['region'];
                $monthBody .= "<a href=\"javascript:openPopup('editcalendar.php?lang=".$CONF['options']['lang']."&amp;Year=".$year."&amp;Month=".$month."&amp;region=".$thisregion."&amp;Member=".addslashes($U->username)."','shop','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=no,dependent=1,width=1024,height=640');\"><img class=\"noprint\" src=\"themes/".$theme."/img/btn_edit.gif\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_img_alt_edit_cal']."\" alt=\"".$LANG['cal_img_alt_edit_cal']."\"></a>\n\r";
             }
@@ -945,7 +1070,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
              */
             $T = new Template_model;
             $found = $T->getTemplate($U->username,$year,$monthno);
-            if (!$found) {
+            if (!$found) 
+            {
                /**
                 * No template found for this user and month yet.
                 * Create a default one.
@@ -953,7 +1079,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                $T->username = $U->username;
                $T->year = $year;
                $T->month = $monthno;
-               for ($i=1; $i<=intval($nofdays); $i++ ) {
+               for ($i=1; $i<=intval($nofdays); $i++ ) 
+               {
                   $prop='abs'.$i;      
                   $T->$prop = 0;
                }
@@ -963,24 +1090,31 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             /**
              * Show the remainder section for this user
              */
-            if ( intval($C->readConfig("includeRemainder")) && $cntRemainders ) {
-               if ( $CONF['options']['remainder']=="show" ) {
+            if ( intval($C->readConfig("includeRemainder")) && $cntRemainders ) 
+            {
+               if ( $CONF['options']['remainder']=="show" ) 
+               {
                   /**
                    * Go through each absence type, see wether its option is set
                    * to be shown in the remainders. Then display the remainder
                    * if the current user has editCalendar rights.
                    */
                   $absences=$AC->getAll();
-                  foreach ($absences as $abs) {
+                  foreach ($absences as $abs) 
+                  {
                      $isConfidential = $abs['confidential'];
                      if ($U->username == $UL->username) $isSameUser = TRUE; else $isSameUser = FALSE;
-                     if ($abs['show_in_remainder']) {
-                        if (isAllowed("editAllUserCalendars") OR isAllowed("editGroupUserCalendars") OR isAllowed("editOwnUserCalendars")) {
-                           if ( $AL->find($U->username,$abs['id']) ) {
+                     if ($abs['show_in_remainder']) 
+                     {
+                        if (isAllowed("editAllUserCalendars") OR isAllowed("editGroupUserCalendars") OR isAllowed("editOwnUserCalendars")) 
+                        {
+                           if ( $AL->find($U->username,$abs['id']) ) 
+                           {
                               $lastYearAllowance = $AL->lastyear;
                               $thisYearAllowance = $AL->curryear;
                            }
-                           else {
+                           else 
+                           {
                               $lastYearAllowance = 0;
                               $thisYearAllowance = $abs['allowance'];
                            }
@@ -999,20 +1133,24 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                            }
       
                            if ( $thisYearRemainder<0 ) $addStyle=" style=\"color: #FF0000;\""; else $addStyle="";
-                           if ( intval($C->readConfig("includeRemainderTotal")) ) {
+                           if ( intval($C->readConfig("includeRemainderTotal")) ) 
+                           {
                               $monthBody .= "<td class=\"remainder\"><span".$addStyle.">".$thisYearRemainder."</span>/".$totalAllowance."</td>\n\r";
                            }
-                           else {
+                           else 
+                           {
                               $monthBody .= "<td class=\"remainder\"><span ".$addStyle.">".$thisYearRemainder."</span></td>\n\r";
                            }
                         }
-                        else {
+                        else 
+                        {
                            $monthBody .= "<td class=\"remainder\">&nbsp;</td>\n\r";
                         }
                      }
                   }
       
-                  if ( intval($C->readConfig("includeTotals")) && $cntTotals ) {
+                  if ( intval($C->readConfig("includeTotals")) && $cntTotals ) 
+                  {
                      /**
                       * Go through each absence type, see wether its option is set
                       * to be shown in the totals. Then display the total
@@ -1020,22 +1158,27 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                       */
                      $first=true;
                      $absences=$AC->getAll();
-                     foreach ($absences as $abs) {
+                     foreach ($absences as $abs) 
+                     {
                         $isConfidential = $abs['confidential'];
                         if ($U->username==$UL->username) $isSameUser = TRUE; else $isSameUser = FALSE;
-                        if ($abs['show_totals']) {
-                           if (isAllowed("editAllUserCalendars") OR isAllowed("editGroupUserCalendars") OR isAllowed("editOwnUserCalendars")) {
+                        if ($abs['show_totals']) 
+                        {
+                           if (isAllowed("editAllUserCalendars") OR isAllowed("editGroupUserCalendars") OR isAllowed("editOwnUserCalendars")) 
+                           {
                               $thisTotal = $T->countAbsence($U->username,$year,$monthno,$abs['id']);
                               if ( $isConfidential AND $regularUser AND !$isSameUser ) $thisTotal = "&nbsp;";
                                
                               $addStyle="";
-                              if ( $first ) {
+                              if ( $first ) 
+                              {
                                  $addStyle=" style=\"border-left: 1px solid #000000;\"";
                                  $first=false;
                               }
                               $monthBody .= "<td class=\"totals\"".$addStyle."\">".$thisTotal."</td>\n\r";
                            }
-                           else {
+                           else 
+                           {
                               $monthBody .= "<td class=\"totals\">&nbsp;</td>\n\r";
                            }
                         }
@@ -1047,8 +1190,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             /**
              * Go through each day now
              */
-            for($i=0; $i<intval($nofdays); $i++) {
-      
+            for($i=0; $i<intval($nofdays); $i++) 
+            {
                $style="";
                $cellid = $rowid."_".($i+1);
                /**
@@ -1063,12 +1206,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                 * Check Birthday
                 */
                if (($i+1)<10) $dd="0".strval($i+1); else $dd=strval($i+1);
-               if ( (substr($U->birthday,4)==$monthno.$dd) && ($UO->true($U->username,"showbirthday")) ) {
+               if ( (substr($U->birthday,4)==$monthno.$dd) && ($UO->true($U->username,"showbirthday")) ) 
+               {
                   $ttbody='<img src="img/icons/cake.png" alt="cake" style="vertical-align: bottom; padding-right: 4px;">';
-                  if($UO->true($U->username,"ignoreage")) {
+                  if($UO->true($U->username,"ignoreage")) 
+                  {
                      $birthdate=date("d M",strtotime($U->birthday));
                      $ttbody .= "* ".$LANG['cal_birthday'].": ".$birthdate.". * <br><br>";
-                  } else {
+                  } 
+                  else 
+                  {
                      $birthdate=date("d M Y",strtotime($U->birthday));
                      $dayofbirth=date("d M",strtotime($U->birthday));
                      $age=intval($year)-intval(substr($U->birthday,0,4));
@@ -1080,9 +1227,12 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                /**
                 * Check Daynote
                 */
-               if ( !intval($C->readConfig("hideDaynotes")) || !$regularUser ) {
-                  if ($dayNotesExist == 1) {
-                     if(!empty($N2->daynotes[addslashes($U->username)][$year.$monthno.$dd])) {
+               if ( !intval($C->readConfig("hideDaynotes")) || !$regularUser ) 
+               {
+                  if ($dayNotesExist == 1) 
+                  {
+                     if(!empty($N2->daynotes[addslashes($U->username)][$year.$monthno.$dd])) 
+                     {
                         /**
                          * The personal daynote is appended to $ttbody because it might
                          * contain a birthday text already. The style is overwritten.
@@ -1095,13 +1245,15 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                }
       
                $prop='abs'.($i+1);
-               if ($T->$prop) {
+               if ($T->$prop) 
+               {
                   $A->get($T->$prop);
                   $isAbsence=TRUE;
                   $countsAsPresent=$A->counts_as_present;
                   $isConfidential=$A->confidential;
                }
-               else {
+               else 
+               {
                   $isAbsence=FALSE;
                   $countsAsPresent=TRUE;
                   $isConfidential=FALSE;
@@ -1113,14 +1265,16 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                 */
                $monthBody .= "<td id=\"userdayinfo-".$cellid."\" ";
                
-               if ( !$isAbsence OR ($isAbsence AND $isConfidential AND $regularUser AND !$isSameUser) ) {
+               if ( !$isAbsence OR ($isAbsence AND $isConfidential AND $regularUser AND !$isSameUser) ) 
+               {
                   /**
                    * This person is present or the viewer may not see this absence. Lets color the day as present.
                    * Also, add this to the presence count for the summary.
                    */
                   $abs_original='0';
                   
-                  if (!$isAbsence) {
+                  if (!$isAbsence) 
+                  {
                      $intSumPresentMonth++;
                      $intSumPresentDay[$i]++;
                   }
@@ -1129,79 +1283,101 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                   
                   if ( $isAbsence AND $isConfidential AND $regularUser AND !$isSameUser AND $C->readConfig("markConfidential") ) $inner = "X";
       
-                  if ( $H->findBySymbol($M->template[$i]) ) {
-                     if ( $todaysmonth && $i+1<intval($today['mday']) ) {
+                  if ( $H->findBySymbol($M->template[$i]) ) 
+                  {
+                     if ( $todaysmonth && $i+1<intval($today['mday']) ) 
+                     {
                         /**
                          * Today's month and day is in the past
                          */
                         if (strlen($C->readConfig("pastDayColor"))) $pdcolor="style=\"background: #".$C->readConfig("pastDayColor").";\""; else $pdcolor="";
-                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
+                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) 
+                        {
                            $monthBody .= "class=\"day-".$H->cfgname.$style."\" ".$pdcolor.">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
-                        else {
+                        else 
+                        {
                            $monthBody .= "class=\"day-".$H->cfgname."\" ".$pdcolor.">".$inner;
                         }
                      }
-                     else if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+                     else if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                     {
                         /**
                          * Today's month and day is today
                          */
-                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
+                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) 
+                        {
                            $monthBody .= "class=\"today-".$H->cfgname.$style."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
-                        else {
+                        else 
+                        {
                            $monthBody .= "class=\"today-".$H->cfgname."\">".$inner;
                         }
                      }
-                     else {
+                     else 
+                     {
                         /**
                          * All other days
                          */
-                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
+                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) 
+                        {
                            $monthBody .= "class=\"day-".$H->cfgname.$style."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
-                        else {
+                        else 
+                        {
                            $monthBody .= "class=\"day-".$H->cfgname."\">".$inner;
                         }
                      }
                   }
-                  else {
-                     if ( $todaysmonth && $i+1<intval($today['mday']) ) {
+                  else 
+                  {
+                     if ( $todaysmonth && $i+1<intval($today['mday']) ) 
+                     {
                         /**
                          * Today's month and day is in the past
                          */
                         if (strlen($C->readConfig("pastDayColor"))) $pdcolor="style=\"background: #".$C->readConfig("pastDayColor").";\""; else $pdcolor="";
-                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
+                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) 
+                        {
                            $monthBody .= "class=\"day".$style."\" ".$pdcolor."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
-                        else {
+                        else 
+                        {
                            $monthBody .= "class=\"day\" ".$pdcolor.">".$inner;
                         }
                      }
-                     else if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+                     else if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                     {
                         /**
                          * Today's month and day is today
                          */
-                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
+                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) 
+                        {
                            $monthBody .= "class=\"today".$style."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
-                        else {
+                        else 
+                        {
                            $monthBody .= "class=\"today\">".$inner;
                         }
-                     } else {
+                     } 
+                     else 
+                     {
                         /**
                          * All other days
                          */
-                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) {
+                        if (strlen($ttbody) && isAllowed("viewUserProfiles")) 
+                        {
                            $monthBody .= "class=\"day".$style."\">".createPopup($ttid, $ttbody, $ttcaption, $ttcapicon).$inner;
                         }
-                        else {
+                        else 
+                        {
                            $monthBody .= "class=\"day\">".$inner;
                         }
                      }
                   }
                }
-               else {
+               else 
+               {
                   /**
                    * This person is not present. Let's add this absence to
                    * the counter for the summary. Then we gotta color the
@@ -1213,11 +1389,13 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                    */
                   $abs_original=$A->id;
                   
-                  if ( $countsAsPresent ) {
+                  if ( $countsAsPresent ) 
+                  {
                      $intSumPresentMonth++;
                      $intSumPresentDay[$i]++;
                   }
-                  else {
+                  else 
+                  {
                      $intSumAbsentMonth++;
                      $intSumAbsentDay[$i]++;
                      $arrAbsenceMonth[$A->name]++;
@@ -1231,8 +1409,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       
                   $monthBody .= "class=\"".$cssclass."\" >";
 
-                  if ( strlen($ttbody) && isAllowed("viewUserProfiles") )
-                     $monthBody .= createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
+                  if ( strlen($ttbody) && isAllowed("viewUserProfiles") ) $monthBody .= createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
                    
                   if ($A->icon!='No')
                      $inner = "<div id=\"view-".$cellid."\" style=\"display: block;\"><img title=\"".$A->name."\" align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\"></div>";
@@ -1252,12 +1429,14 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                 * Right before it we put a hidden field containing the original absence. Will
                 * be used when submitting the form to only set the changed values.
                 */
-               if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit") AND $CONF['options']['absencefilter']=="All") {
+               if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit") AND $CONF['options']['absencefilter']=="All") 
+               {
                   $form = '<input name="hid_abs_'.$cellid.'" type="hidden" class="text" value="'.$abs_original.'">'."\r\n";
                   $form .= '<select name="sel_abs_'.$cellid.'" id="sel_abs_'.$cellid.'" class="select" style="background-image: url('.(($isAbsence)?$CONF['app_icon_dir'].$A->icon:"img/pixel.gif").'); background-size: 16px 16px; background-repeat: no-repeat; background-position: 2px 2px; padding: 2px 0px 0px 22px;" onchange="javascript: switchAbsIcon(this.id,absicon[this.value]);">'."\r\n";
                   $form .= '<option style="background-image: url(img/pixel.gif); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="0" '.((!$isAbsence)?"SELECTED":"").'>'.$LANG['cal_abs_present'].'</option>'."\r\n";
                   $absences = $A->getAll();
-                  foreach ($absences as $abs) { 
+                  foreach ($absences as $abs) 
+                  { 
                      $form .= '<option style="background-image: url('.$CONF['app_icon_dir'].$abs['icon'].'); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="'.$abs['id'].'" '.(($isAbsence AND $abs['id']==$A->id)?"SELECTED":"").'>'.$abs['name'].'</option>'."\r\n";
                   }
                   $form .= '</select>'."\r\n";
@@ -1286,17 +1465,17 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       /**=====================================================================
        * Row: Fast Edit
        */
-      if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit") AND $CONF['options']['absencefilter']=="All") {
+      if ($C->readConfig("fastEdit") AND isAllowed("viewFastEdit") AND $CONF['options']['absencefilter']=="All") 
+      {
          $cspan = ' colspan="2"';
-         if ( $CONF['options']['remainder']=="show" && $cntRemainders ) {
-            $cspan = ' colspan="'.($cntRemainders+$cntTotals+1+1).'"';
-         }
+         if ( $CONF['options']['remainder']=="show" && $cntRemainders ) $cspan = ' colspan="'.($cntRemainders+$cntTotals+1+1).'"';
          $showmonthBody.="<tr>\n\r";
          $showmonthBody.="<td class=\"title\"".$cspan.">";
          $showmonthBody.="&nbsp;".$LANG['cal_fastedit'];
          $showmonthBody.='<input name="btn_fastedit_apply" type="submit" class="button" style="margin-left: 10px;" value="'.$LANG['btn_apply'].'">';
          $showmonthBody.="</td>\n\r";
-         for ($i=1; $i<=$nofdays; $i=$i+1) {
+         for ($i=1; $i<=$nofdays; $i=$i+1) 
+         {
             $showmonthBody.="<td class=\"weekday\"><a href=\"javascript:toggleFastEdit('".$year."', '".$monthno."', '".$i."', jsusers);\"><img class=\"noprint\" src=\"themes/".$theme."/img/ico_edit.png\" width=\"16\" height=\"16\" border=\"0\" title=\"".$LANG['cal_fastedit_tt']."\" alt=\"ico_edit.png\"></a></td>\n\r";
          }
          $showmonthBody.="</tr>\n\r";
@@ -1307,18 +1486,21 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
        * Summary Header
        */
       $summaryBody='';
-      if ($C->readConfig("includeSummary")) {
+      if ($C->readConfig("includeSummary")) 
+      {
          $summaryBody .= "<tr>\n\r";
          $summaryBody .= "   <td class=\"title\" colspan=\"3\">";
          $summaryBody .= "      <b>".$LANG['sum_summary'].":</b>&nbsp;";
       
          $request = setRequests();
-         if ($CONF['options']['summary']=="show") {
+         if ($CONF['options']['summary']=="show") 
+         {
             $request=str_replace("summary=show","summary=hide",$request);
             $summaryBody .= "<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
             $summaryBody .= "<img alt=\"".$LANG['col_summary']."\" title=\"".$LANG['col_summary']."\" src=\"themes/".$theme."/img/hide_section.gif\" align=\"top\" border=\"0\"></a>";
          }
-         else {
+         else 
+         {
             $request=str_replace("summary=hide","summary=show",$request);
             $summaryBody .= "<a href=\"".$_SERVER['PHP_SELF']."?action=calendar&amp;".$request."\">";
             $summaryBody .= "<img alt=\"".$LANG['exp_summary']."\" title=\"".$LANG['exp_summary']."\" src=\"themes/".$theme."/img/show_section.gif\" align=\"top\" border=\"0\"></a>";
@@ -1328,31 +1510,43 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          $summaryBody .= "   <td class=\"title-button\" colspan=\"".($cols-3)."\">".$businessDayCount." ".$LANG['sum_business_day_count']."</td>\n\r";
          $summaryBody .= "</tr>\n\r";
       
-         if ($CONF['options']['summary']=="show") {
+         if ($CONF['options']['summary']=="show") 
+         {
             /**
              * Sum Present
              */
             $summaryBody .= "<tr>\n\r";
             $summaryBody .= "   <td class=\"name\"><b>".$LANG['sum_present']."</b></td>\n\r";
             $summaryBody .= "   <td class=\"name-button\">&nbsp;</td>\n\r";
-            if ( intval($C->readConfig("includeRemainder")) && $CONF['options']['remainder']=="show" && $cntRemainders ) {
+            if ( intval($C->readConfig("includeRemainder")) && $CONF['options']['remainder']=="show" && $cntRemainders ) 
+            {
                $summaryColSpan = $cntRemainders;
                if ( intval($C->readConfig("includeTotals")) ) $summaryColSpan+=$cntTotals;
                $summaryBody .= "<td class=\"day\" colspan=\"".$summaryColSpan."\"></td>\r\n";
             }
-            for($i=0; $i<intval($nofdays); $i++) {
-               if ( $H->findBySymbol($M->template[$i]) ) {
+            for($i=0; $i<intval($nofdays); $i++) 
+            {
+               if ( $H->findBySymbol($M->template[$i]) ) 
+               {
                   if ($H->checkOptions($CONF['H_BUSINESSDAY'])) $summaryValue = $intSumPresentDay[$i];
                   else $summaryValue = "&nbsp;";
-                  if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+                  if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                  {
                      $summaryBody .= "<td class=\"today-".$H->cfgname."-sum-present\">".$summaryValue."</td>\n\r";
-                  } else {
+                  } 
+                  else 
+                  {
                      $summaryBody .= "<td class=\"day-".$H->cfgname."-sum-present\">".$summaryValue."</td>\n\r";
                   }
-               } else {
-                  if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+               } 
+               else 
+               {
+                  if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                  {
                      $summaryBody .= "<td class=\"today-sum-present\">".$intSumPresentDay[$i]."</td>\n\r";
-                  } else {
+                  } 
+                  else 
+                  {
                      $summaryBody .= "<td class=\"day-sum-present\">".$intSumPresentDay[$i]."</td>\n\r";
                   }
                }
@@ -1365,24 +1559,35 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             $summaryBody .= "<tr>\n\r";
             $summaryBody .= "   <td class=\"name\"><b>".$LANG['sum_absent']."</b></td>\n\r";
             $summaryBody .= "   <td class=\"name-button\">&nbsp;</td>\n\r";
-            if ( intval($C->readConfig("includeRemainder")) && $CONF['options']['remainder']=="show" && $cntRemainders ) {
+            if ( intval($C->readConfig("includeRemainder")) && $CONF['options']['remainder']=="show" && $cntRemainders ) 
+            {
                $summaryColSpan = $cntRemainders;
                if ( intval($C->readConfig("includeTotals")) ) $summaryColSpan+=$cntTotals;
                $summaryBody .= "<td class=\"day\" colspan=\"".$summaryColSpan."\"></td>\r\n";
             }
-            for($i=0; $i<intval($nofdays); $i++) {
-               if ( $H->findBySymbol($M->template[$i]) ) {
+            for($i=0; $i<intval($nofdays); $i++) 
+            {
+               if ( $H->findBySymbol($M->template[$i]) ) 
+               {
                   if ($H->checkOptions($CONF['H_BUSINESSDAY'])) $summaryValue = $intSumAbsentDay[$i];
                   else $summaryValue = "&nbsp;";
-                  if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+                  if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                  {
                      $summaryBody .= "<td class=\"today-".$H->cfgname."-sum-absent\">".$summaryValue."</td>\n\r";
-                  } else {
+                  } 
+                  else 
+                  {
                      $summaryBody .= "<td class=\"day-".$H->cfgname."-sum-absent\">".$summaryValue."</td>\n\r";
                   }
-               } else {
-                  if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+               } 
+               else 
+               {
+                  if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                  {
                      $summaryBody .= "<td class=\"today-sum-absent\">".$intSumAbsentDay[$i]."</td>\n\r";
-                  } else {
+                  } 
+                  else 
+                  {
                      $summaryBody .= "<td class=\"day-sum-absent\">".$intSumAbsentDay[$i]."</td>\n\r";
                   }
                }
@@ -1395,26 +1600,37 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             $summaryBody .= "<tr>\n\r";
             $summaryBody .= "   <td class=\"name\"><b>".$LANG['sum_delta']."</b></td>\n\r";
             $summaryBody .= "   <td class=\"name-button\">&nbsp;</td>\n\r";
-            if ( intval($C->readConfig("includeRemainder")) && $CONF['options']['remainder']=="show" && $cntRemainders ) {
+            if ( intval($C->readConfig("includeRemainder")) && $CONF['options']['remainder']=="show" && $cntRemainders ) 
+            {
                $summaryColSpan = $cntRemainders;
                if ( intval($C->readConfig("includeTotals")) ) $summaryColSpan+=$cntTotals;
                $summaryBody .= "<td class=\"day\" colspan=\"".$summaryColSpan."\"></td>\r\n";
             }
-            for($i=0; $i<intval($nofdays); $i++) {
+            for($i=0; $i<intval($nofdays); $i++) 
+            {
                if (($delta=$intSumPresentDay[$i]-$intSumAbsentDay[$i])>=0) $suffix="-positive";
                else $suffix="-negative";
-               if ( $H->findBySymbol($M->template[$i]) ) {
+               if ( $H->findBySymbol($M->template[$i]) ) 
+               {
                   if ($H->checkOptions($CONF['H_BUSINESSDAY'])) $summaryValue = $delta;
                   else $summaryValue = "&nbsp;";
-                  if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+                  if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                  {
                      $summaryBody .= "<td class=\"today-".$H->cfgname."-sum-delta".$suffix."\">".$summaryValue."</td>\n\r";
-                  } else {
+                  } 
+                  else 
+                  {
                      $summaryBody .= "<td class=\"day-".$H->cfgname."-sum-delta".$suffix."\">".$summaryValue."</td>\n\r";
                   }
-               } else {
-                  if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+               } 
+               else 
+               {
+                  if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                  {
                      $summaryBody .= "<td class=\"today-sum-delta".$suffix."\">".$delta."</td>\n\r";
-                  } else {
+                  } 
+                  else 
+                  {
                      $summaryBody .= "<td class=\"day-sum-delta".$suffix."\">".$delta."</td>\n\r";
                   }
                }
@@ -1433,37 +1649,47 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
              * Day Absences, one per row. Hide confidential ones to regular users.
              */
             $absences=$AC->getAll();
-            foreach($absences as $abs) {
+            foreach($absences as $abs) 
+            {
                $countsAsPresent = $abs['counts_as_present'];
                $isConfidential = $abs['confidential'];
                /**
                 * Only show those that do not count as 'present'
                 */
-               if ( (!$countsAsPresent AND !$isConfidential) OR (!$countsAsPresent AND $isConfidential AND !$regularUser) ) {
+               if ( (!$countsAsPresent AND !$isConfidential) OR (!$countsAsPresent AND $isConfidential AND !$regularUser) ) 
+               {
                   $summaryBody .= "<tr>\n\r";
                   $summaryBody .= "   <td class=\"name\">".$abs['name']."</td>\n\r";
                   $summaryBody .= "   <td class=\"name-button\">".$arrAbsenceMonth[$abs['name']]."</td>\n\r";
-                  if ( intval($C->readConfig("includeRemainder")) && $CONF['options']['remainder']=="show" && $cntRemainders ) {
+                  if ( intval($C->readConfig("includeRemainder")) && $CONF['options']['remainder']=="show" && $cntRemainders ) 
+                  {
                      $summaryColSpan = $cntRemainders;
                      if ( intval($C->readConfig("includeTotals")) ) $summaryColSpan+=$cntTotals;
                      $summaryBody .= "<td class=\"day\" colspan=\"".$summaryColSpan."\"></td>\r\n";
                   }
-                  for($i=0; $i<intval($nofdays); $i++) {
-                     if ( $H->findBySymbol($M->template[$i]) ) {
+                  for($i=0; $i<intval($nofdays); $i++) 
+                  {
+                     if ( $H->findBySymbol($M->template[$i]) ) 
+                     {
                         if ($H->checkOptions($CONF['H_BUSINESSDAY'])) $summaryValue = $arrAbsenceDay[$abs['name']][$i];
                         else $summaryValue = "&nbsp;";
-                        if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+                        if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                        {
                            $summaryBody .= "<td class=\"today-".$H->cfgname."-day-absent\">".$summaryValue."</td>\n\r";
                         }
-                        else {
+                        else 
+                        {
                            $summaryBody .= "<td class=\"day-".$H->cfgname."-day-absent\">".$summaryValue."</td>\n\r";
                         }
                      }
-                     else {
-                        if ( $todaysmonth && $i+1==intval($today['mday']) ) {
+                     else 
+                     {
+                        if ( $todaysmonth && $i+1==intval($today['mday']) ) 
+                        {
                            $summaryBody .= "<td class=\"today-day-absent\">".$arrAbsenceDay[$abs['name']][$i]."</td>\n\r";
                         }
-                        else {
+                        else 
+                        {
                            $summaryBody .= "<td class=\"day-day-absent\">".$arrAbsenceDay[$abs['name']][$i]."</td>\n\r";
                         }
                      }
