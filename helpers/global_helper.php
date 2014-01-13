@@ -1894,6 +1894,7 @@ function sendEmail($to, $subject, $body, $from='')
       if (!validEmail($toPiece)) $toValid.=$C->readConfig("mailReply").",";
       else $toValid .= $toPiece.",";
    }
+   $toValid = substr($toValid,0,strlen($toValid)-1); // remove the last ","
       
    if ($C->readConfig("mailSMTP")) 
    {

@@ -767,7 +767,7 @@ $LANG['register_admin_mail_message']   = "Ein neuer Nutzer hat sich registriert:
 $LANG['register_admin_mail_message']  .= "Name: [FIRSTNAME] [LASTNAME]\n";
 $LANG['register_admin_mail_message']  .= "Benutzername: [USERNAME]\n\n";
 $LANG['register_admin_mail_message_1'] = "Der Nuzter muss sein Konto noch verifizieren.\n";
-$LANG['register_admin_mail_message_2'] = "Nach erfolgreicher Verifizierung musst du das Konto noch freischalten. Du wirst eine separate Mail dazu erhalten.";
+$LANG['register_admin_mail_message_2'] = "Nach erfolgreicher Verifizierung muss der Administrator das Konto noch freischalten. Du wirst eine separate Mail dazu erhalten.";
 $LANG['register_admin_mail_message_3'] = "\n\nDie TeamCal Pro Administration\n";
 
 $LANG['verify_title'] = 'Nutzer Verifizierung';

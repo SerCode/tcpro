@@ -201,6 +201,22 @@ if (!class_exists("User_group_model"))
 
       // ---------------------------------------------------------------------
       /**
+       * Gets all group managers of a given group
+       * 
+       * @param string $checkgroup Groupname to check
+       * @return array $gmarray Array with usernames of group managers
+       */
+      function getGroupManagers($checkgroup) 
+      {
+         $gmarray = array();
+         $query = "SELECT `username` FROM `".$this->table."` WHERE groupname` = '".$checkgroup."' AND `type` = 'manager';";
+         $result = $this->db->db_query($query);
+         while ( $row=$this->db->db_fetch_array($result) ) $gmarray[$row['groupname']] = $row['username'];
+         return $gmarray;
+      }
+
+      // ---------------------------------------------------------------------
+      /**
        * Deletes a user-group record by ID from local class variable
        */
       function deleteById() 

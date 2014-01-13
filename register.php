@@ -43,6 +43,7 @@ $L = new Login_model;
 $LOG = new Log_model;
 $U = new User_model;
 $UA = new User_model;
+$UB = new User_model;
 $UG = new User_group_model;
 $UO = new User_option_model;
 

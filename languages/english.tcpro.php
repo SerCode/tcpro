@@ -767,7 +767,7 @@ $LANG['register_admin_mail_message']   = "A new user has registered:\n";
 $LANG['register_admin_mail_message']  .= "Fullname: [FIRSTNAME] [LASTNAME]\n";
 $LANG['register_admin_mail_message']  .= "Username: [USERNAME]\n\n";
 $LANG['register_admin_mail_message_1'] = "The user needs to verify his account.\n";
-$LANG['register_admin_mail_message_2'] = "Your approval is required after successful verification. You will be notified about the verification in a separate mail.";
+$LANG['register_admin_mail_message_2'] = "Administrator approval is required after successful verification. You will be notified about the verification in a separate mail.";
 $LANG['register_admin_mail_message_3'] = "\n\nYour TeamCal Pro Administration\n";
 
 $LANG['verify_title'] = 'User Verification';
