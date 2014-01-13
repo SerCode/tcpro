@@ -57,20 +57,20 @@ $user=$L->checkLogin();
  * =========================================================================
  * SEND
  */
-if (isset($_POST['btn_send'])) {
-
-   if ($_POST['opt_msgtype']=="email") {
+if (isset($_POST['btn_send'])) 
+{
+   if ($_POST['opt_msgtype']=="email" AND $C->readConfig("emailNotifications")) 
+   {
       /**
        * Send as e-Mail
        */
       $to="";
-      switch ($_POST['sendto']) {
+      switch ($_POST['sendto']) 
+      {
       case "all":
          $query  = "SELECT * FROM `".$U->table."`;";
          $result = $U->db->db_query($query);
-         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
-            if (strlen($row['email'])) $to.=$row['email'].',';
-         }
+         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) if (strlen($row['email'])) $to.=$row['email'].',';
          break;
 
       case "group":
@@ -78,19 +78,17 @@ if (isset($_POST['btn_send'])) {
                   " WHERE ".$UG->table.".groupname='".$_POST['groupto']."'" .
                   " AND ".$U->table.".username=".$UG->table.".username";
          $result = $U->db->db_query($query);
-         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
-            if (strlen($row['email'])) $to.=$row['email'].",";
-         }
+         while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) if (strlen($row['email'])) $to.=$row['email'].",";
          break;
 
       case "user":
-         if (isset($_POST['userto'])) {
-            foreach ($_POST['userto'] as $uto) {
-               if ($U->findByName($uto) && strlen($U->email) ) $to.=$U->email.", ";
-            }
+         if (isset($_POST['userto'])) 
+         {
+            foreach ($_POST['userto'] as $uto) if ($U->findByName($uto) && strlen($U->email) ) $to.=$U->email.", ";
             $to = substr($to,0,strlen($to)-2); // remove the last ", "
          }
-         else {
+         else 
+         {
             showError("input",$LANG['message_sendto_err']);
             die;
          }
@@ -101,14 +99,16 @@ if (isset($_POST['btn_send'])) {
       $UL->findByName($user);
       if (strlen($UL->email)) $from=ltrim(mb_encode_mimeheader($UL->firstname." ".$UL->lastname))." <".$UL->email.">"; else $from='';
 
-      if ( sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), $from) ) {
+      if ( sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']), $from) ) 
+      {
          $msgsent = true;
          $LOG->log("logAnnouncement",$L->checkLogin(),"log_msg_email", $UL->username." to ".$to);
       }
       
 
    }
-   elseif ($_POST['opt_msgtype']=="silent" OR $_POST['opt_msgtype']=="popup") {
+   elseif ($_POST['opt_msgtype']=="silent" OR $_POST['opt_msgtype']=="popup") 
+   {
       /**
        * Send as Announcement
        */
@@ -122,29 +122,31 @@ if (isset($_POST['btn_send'])) {
          if ($_POST['opt_msgtype']=="popup") $popup=1; else $popup=0;
          if (!$popup && !$silent) $silent=1;
          $AN->save($tstamp,$message,$popup,$silent);
-         switch ($_POST['sendto']) {
+         
+         switch ($_POST['sendto']) 
+         {
          case "all":
             $to = "all";
             $query  = "SELECT username FROM `".$U->table."`;";
             $result = $U->db->db_query($query);
-            while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
-               $UA->assign($tstamp,$row['username']);
-            }
+            while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) $UA->assign($tstamp,$row['username']);
             break;
+            
          case "group":
             $to = "group '".$_POST['groupto']."'";
             $query = "SELECT ".$U->table.".* FROM ".$U->table.",".$UG->table .
                      " WHERE ".$UG->table.".groupname='".$_POST['groupto']."'" .
                      " AND ".$U->table.".username=".$UG->table.".username";
             $result = $U->db->db_query($query);
-            while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ){
-               $UA->assign($tstamp,$row['username']);
-            }
+            while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) $UA->assign($tstamp,$row['username']);
             break;
+            
          case "user":
-            if (isset($_POST['userto'])) {
+            if (isset($_POST['userto'])) 
+            {
                $to = "user(s) ";
-               foreach ($_POST['userto'] as $uto) {
+               foreach ($_POST['userto'] as $uto) 
+               {
                   $to .= "'".$uto."', ";
                   if ( $U->findByName($uto) ) $UA->assign($tstamp,$U->username);
                }
@@ -199,7 +201,9 @@ require("includes/menu_inc.php");
                <span class="config-comment"><?=$LANG['message_type_desc']?></span>
             </td>
             <td class="config-row<?=$style?>">
+               <?php if ($C->readConfig("emailNotifications")) { ?>
                <input style="vertical-align: bottom; margin-right: 8px;" name="opt_msgtype" type="radio" value="email" checked><?=$LANG['message_type_email']?><br>
+               <?php } ?>
                <input style="vertical-align: bottom; margin-right: 8px;" name="opt_msgtype" type="radio" value="silent"><?=$LANG['message_type_announcement_silent']?><br>
                <input style="vertical-align: bottom; margin-right: 8px;" name="opt_msgtype" type="radio" value="popup"><?=$LANG['message_type_announcement_popup']?><br>
             </td>
