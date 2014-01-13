@@ -229,7 +229,12 @@ INSERT INTO `my_tc_config` (`id`, `name`, `value`) VALUES
 (122, 'hideManagerOnlyAbsences', '0'),
 (123, 'presenceBase', 'calendardays'),
 (124, 'logLanguage', 'english'),
-(125, 'avatarMaxSize', '250000');
+(125, 'avatarMaxSize', '250000'),
+(126, 'userSearch', '0'),
+(127, 'logoption', 'standard'),
+(128, 'logfrom', '2014-01-01'),
+(129, 'logto', '2014-12-31'),
+(130, 'logperiod', 'curr_all');
 
 -- --------------------------------------------------------
 

@@ -90,12 +90,15 @@ if ( isset($_POST['btn_apply']) )
        * Standard period was selected
       */
       $C->saveConfig("logoption","standard");
-      switch ( $_POST['period'] ) {
+      
+      switch ( $_POST['period'] ) 
+      {
          case "curr_month":
             $C->saveConfig("logperiod","curr_month");
             $periodFrom = $yeartoday."-".$monthtoday."-01";
             $periodTo = $yeartoday."-".$monthtoday."-".$nofdays;
             break;
+            
          case "curr_quarter":
             $C->saveConfig("logperiod","curr_quarter");
             switch ($monthtoday) {
@@ -125,6 +128,7 @@ if ( isset($_POST['btn_apply']) )
                   break;
             }
             break;
+            
          case "curr_half":
             $C->saveConfig("logperiod","curr_half");
             switch ($monthtoday) {
@@ -148,11 +152,13 @@ if ( isset($_POST['btn_apply']) )
                   break;
             }
             break;
+            
          case "curr_year":
             $C->saveConfig("logperiod","curr_year");
             $periodFrom = $yeartoday."-01-01";
             $periodTo = $yeartoday."-12-31";
             break;
+            
          default:
             $C->saveConfig("logperiod","curr_all");
             break;

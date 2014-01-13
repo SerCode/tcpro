@@ -194,33 +194,64 @@ if (isset($_POST['btn_apply']))
       }
       else $UO->save($U->username,"showInGroups","no");
 
-      /**
-       * Clear user type
-       */
-      $U->clearUserType($CONF['UTDIRECTOR']);
-      $U->clearUserType($CONF['UTADMIN']);
-      $U->clearUserType($CONF['UTTEMPLATE']);
-      
-      /**
-       * Set user type
-       */
-      switch ($_POST['opt_usertype']) 
+      if (isAllowed("manageUsers")) 
       {
-         case "ut_admin":
-            $U->setUserType($CONF['UTADMIN']);
-            break;
-         case "ut_director":
-            $U->setUserType($CONF['UTDIRECTOR']);
-            break;
-         case "ut_assistant":
-            $U->setUserType($CONF['UTASSISTANT']);
-            break;
-         case "ut_user":
-            $U->setUserType($CONF['UTUSER']);
-            break;
-         case "ut_template":
-            $U->setUserType($CONF['UTTEMPLATE']);
-            break;
+         /**
+          * Set user type
+          */
+         $U->clearUserType($CONF['UTDIRECTOR']);
+         $U->clearUserType($CONF['UTADMIN']);
+         $U->clearUserType($CONF['UTTEMPLATE']);
+         
+         switch ($_POST['opt_usertype']) 
+         {
+            case "ut_admin":
+               $U->setUserType($CONF['UTADMIN']);
+               break;
+            case "ut_director":
+               $U->setUserType($CONF['UTDIRECTOR']);
+               break;
+            case "ut_assistant":
+               $U->setUserType($CONF['UTASSISTANT']);
+               break;
+            case "ut_user":
+               $U->setUserType($CONF['UTUSER']);
+               break;
+            case "ut_template":
+               $U->setUserType($CONF['UTTEMPLATE']);
+               break;
+         }
+         
+         /**
+          * Set user status
+          */
+         $U->bad_logins = 0;
+         $U->bad_logins_start = "";
+         $U->last_login = substr($U->last_login, 0, 19); // stripping time zone at end if any
+         $U->clearStatus($CONF['USLOCKED']);
+         $U->clearStatus($CONF['USLOGLOC']);
+         $U->clearStatus($CONF['USHIDDEN']);
+         
+         foreach($_POST as $key=>$value) 
+         {
+            switch ($key) 
+            {
+               case "us_locked":
+               $U->setStatus($CONF['USLOCKED']);
+               break;
+               
+               case "us_logloc":
+               $U->bad_logins = intval($C->readConfig("badLogins"));
+               $U->bad_logins_start = date("U");
+               $U->setStatus($CONF['USLOGLOC']);
+               $U->update($U->username);
+               break;
+               
+               case "us_hidden":
+               $U->setStatus($CONF['USHIDDEN']);
+               break;
+            }
+         }
       }
 
       /**
@@ -271,37 +302,6 @@ if (isset($_POST['btn_apply']))
 	         }
 	      }
 	      if ($isManager) $U->setUserType($CONF['UTMANAGER']);
-      }
-
-      /**
-       * Set user status
-       */
-      $U->bad_logins = 0;
-      $U->bad_logins_start = "";
-      $U->last_login = substr($U->last_login, 0, 19); // stripping time zone at end if any
-      $U->clearStatus($CONF['USLOCKED']);
-      $U->clearStatus($CONF['USLOGLOC']);
-      $U->clearStatus($CONF['USHIDDEN']);
-      
-      foreach($_POST as $key=>$value) 
-      {
-         switch ($key) 
-         {
-            case "us_locked":
-            $U->setStatus($CONF['USLOCKED']);
-            break;
-            
-            case "us_logloc":
-            $U->bad_logins = intval($C->readConfig("badLogins"));
-            $U->bad_logins_start = date("U");
-            $U->setStatus($CONF['USLOGLOC']);
-            $U->update($U->username);
-            break;
-            
-            case "us_hidden":
-            $U->setStatus($CONF['USHIDDEN']);
-            break;
-         }
       }
 
       /**
