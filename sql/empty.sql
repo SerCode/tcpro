@@ -35,8 +35,10 @@ CREATE TABLE IF NOT EXISTS `my_tc_absences` (
   `hide_in_profile` tinyint(1) NOT NULL,
   `confidential` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+INSERT INTO `my_tc_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `factor`, `allowance`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`) VALUES
+(1, 'Vacation', 'V', 'sun.png', '000000', 'FC3737', 1, 20, 0, 1, 1, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
