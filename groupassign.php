@@ -64,36 +64,51 @@ if (isset($_POST['btn_usrReset'])) $searchuser="";
  * =========================================================================
  * APPLY
  */
-if ( isset($_POST['btn_apply']) ) {
-
+if ( isset($_POST['btn_apply']) ) 
+{
    $groups = $G->getAll();
 
-   foreach($_POST as $key=>$value) {
-      if (substr($key,0 ,3)== "hid" ) {
+   foreach($_POST as $key=>$value) 
+   {
+      if (substr($key,0 ,3)== "hid" ) 
+      {
          //
          // Hidden field. Get the value of it
          //
-         if($value == "true") {
+         if($value == "true") 
+         {
             //
             // The associated radio set that was changed
             // Get the username out of the key - between two '#'
             //
             preg_match_all('/#(.*)#/', $key, $matches);
             $username = $matches[1][0];
+            
+            //
+            // The only special character allowed in usernames is the dot (.).
+            // However it will have been replaced by an underscore by the web server
+            // when it submits the form to this code. We have to change it back.
+            // Underscores are not allowed in usernames so we should be safe.
+            //
+            $username = str_replace ( "_" , "." , $username);
+            
             //
             // The radio button set name is the key value without the cgd prefix and the '#'
             //
             $radioFieldName = ltrim($key, "hid_");
             $radioFieldName = str_replace ( "#" , "" , $radioFieldName);
-
-            if ($key=="hid_#".$username."#_t") {
+            
+            if ($key=="hid_#".$username."#_t") 
+            {
                //
                // Set user type
                //
                $U->findByName($username);
                $U->clearUserType($CONF['UTDIRECTOR']);
                $U->clearUserType($CONF['UTADMIN']);
-               switch ($_POST[$radioFieldName]) {
+               
+               switch ($_POST[$radioFieldName]) 
+               {
                case "admin":
                   $U->setUserType($CONF['UTADMIN']);
                   break;
@@ -106,25 +121,31 @@ if ( isset($_POST['btn_apply']) ) {
                }
                $U->update($U->username);
             }
-            else {
+            else 
+            {
                $groupName = ltrim($radioFieldName, $username."_");
-               switch ($_POST[$radioFieldName]) {
+               switch ($_POST[$radioFieldName]) 
+               {
                   case "notmember":
                      $UG->deleteMembership($username,$groupName);
                      break;
                   case "member":
-                     if (!$UG->isMemberOfGroup($username,$groupName)) {
+                     if (!$UG->isMemberOfGroup($username,$groupName)) 
+                     {
                         $UG->createUserGroupEntry($username,$groupName,"member");
                      }
-                     else {
+                     else 
+                     {
                         $UG->updateUserGroupType($username,$groupName,"member");
                      }
                      break;
                   case "manager":
-                     if (!$UG->isMemberOfGroup($username,$groupName)) {
+                     if (!$UG->isMemberOfGroup($username,$groupName)) 
+                     {
                         $UG->createUserGroupEntry($username,$groupName,"manager");
                      }
-                     else {
+                     else 
+                     {
                         $UG->updateUserGroupType($username,$groupName,"manager");
                      }
                      $U->setUserType($CONF['UTMANAGER']);
@@ -151,7 +172,8 @@ $CONF['html_title'] = $LANG['html_title_groupassign'];
  * User manual page
  */
 $help = urldecode($C->readConfig("userManual"));
-if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) 
+{
    $help .= 'Group+Assignment';
 }
 require("includes/header_html_inc.php");
