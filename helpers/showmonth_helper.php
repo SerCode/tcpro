@@ -1716,32 +1716,32 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          {
             if ($intDisplayPage==1) 
             {
-               $showmonthBody .= '<span>'.$LANG['btn_prev'].'</span>&nbsp;';
+               $showmonthBody .= '<input type="button" value="'.$LANG['btn_prev'].'" disabled>&nbsp;';
             }
             else 
             {
-               $showmonthBody .= '<input type="button" class="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage-1).'&lang='.$CONF['options']['lang'].'\';" value="'.$LANG['btn_prev'].'">&nbsp;';
+               $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage-1).'&amp;lang='.$CONF['options']['lang'].'&amp;groupfilter='.$groupfilter.'\';" value="'.$LANG['btn_prev'].'">&nbsp;';
             }
       
             for ($i=1; $i<=$intNumPages; $i++) 
             {
                if ($intDisplayPage==$i) 
                {
-                  $showmonthBody .= '<span>'.$intDisplayPage.'</span>&nbsp;';
+                  $showmonthBody .= '<input type="button" style="color: #ffffff; font-weight: bold;" value="'.$intDisplayPage.'" disabled>&nbsp;';
                }
                else 
                {
-                  $showmonthBody .= '<input type="button" class="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($i).'&lang='.$CONF['options']['lang'].'\';" value="'.$i.'">&nbsp;';
+                  $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($i).'&amp;lang='.$CONF['options']['lang'].'&amp;groupfilter='.$groupfilter.'\';" value="'.$i.'">&nbsp;';
                }
             }
       
             if ($intDisplayPage==$intNumPages) 
             {
-               $showmonthBody .= '<span>'.$LANG['btn_next'].'</span>&nbsp;';
+               $showmonthBody .= '<input type="button" value="'.$LANG['btn_next'].'" disabled>&nbsp;';
             }
             else 
             {
-               $showmonthBody .= '<input type="button" class="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage+1).'&lang='.$CONF['options']['lang'].'\';" value="'.$LANG['btn_next'].'">&nbsp;';
+               $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage+1).'&amp;lang='.$CONF['options']['lang'].'&amp;groupfilter='.$groupfilter.'\';" value="'.$LANG['btn_next'].'">&nbsp;';
             }
          }
       }
