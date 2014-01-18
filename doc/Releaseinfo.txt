@@ -6,9 +6,43 @@ TEAMCAL PRO RELEASE INFO
 [3.6.011]
 
 DATE
-2013-12-xx
+2014-01-18
+
+BUGFIXES
+
+https://georgelewe.atlassian.net/browse/TCP-67
+Export log entries
+
+https://georgelewe.atlassian.net/browse/TCP-71
+Adding SQL_BIG_SELECT parameter to database session
+
+https://georgelewe.atlassian.net/browse/TCP-76
+Absence counts in profile date switching
+
+https://georgelewe.atlassian.net/browse/TCP-77
+Legend missing character display
+
+https://georgelewe.atlassian.net/browse/TCP-82
+System log emtpy
+
+https://georgelewe.atlassian.net/browse/TCP-83
+Editprofile group memberships
+
+https://georgelewe.atlassian.net/browse/TCP-84
+Removed last comma in mail distribution list
+
+https://georgelewe.atlassian.net/browse/TCP-86
+Basic absence type in empty.sql
+
+https://georgelewe.atlassian.net/browse/TCP-87
+Groupassignment page change to support dots in usernames
+
 
 NEW FEATURES
+
+Periods (.) allowed in usernames
+
+Tabbed dialog on database maintenance page
 
 https://georgelewe.atlassian.net/browse/TCP-63
 Database archiving. User record archiving
@@ -16,13 +50,13 @@ Database archiving. User record archiving
 https://georgelewe.atlassian.net/browse/TCP-63
 Selective log entry display
 
+https://georgelewe.atlassian.net/browse/TCP-64
+Declination apply to managers
+
 https://georgelewe.atlassian.net/browse/TCP-70
 Multiple selection lists for absence types and users
 
-https://georgelewe.atlassian.net/browse/TCP-71
-Adding SQL_BIG_SELECT parameter to database session
 
-Tabbed dialog on database maintenance page
 
 ------------------------------------------------------------------------------
 [3.6.010]

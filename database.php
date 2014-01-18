@@ -5,7 +5,7 @@
  * Displays the database maintenance page
  *
  * @package TeamCalPro
- * @version 3.6.011Beta
+ * @version 3.6.011
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -352,7 +352,7 @@ else if ( isset($_POST['btn_dbmaint_del']) )
       $message['title'] = $LANG['result'];
       $message['show'] = true;
       $message['success'] = true;
-      $message['text'] = $LANG['admin_dbmaint_del_confirm'];
+      $message['text'] = $LANG['admin_dbmaint_del_confirm_popup'];
    } 
    else 
    {

@@ -5,7 +5,7 @@
  * English language file
  *
  * @package TeamCalPro
- * @version 3.6.011Beta
+ * @version 3.6.011
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
@@ -2072,5 +2072,5 @@ $LANG['admin_dbmaint_tab_restore'] = "Restore";
 $LANG['admin_dbmaint_cleanup_note'] = 'Note: The database cleanup will not delete any archived records.';
 $LANG['admin_dbmaint_cleanup_success'] = "All cleanup activities have been completed.";
 $LANG['admin_dbmaint_del_chkArchive'] = 'Clear archive tables';
-$LANG['admin_dbmaint_del_confirm'] = "The selected records have been deleted.";
+$LANG['admin_dbmaint_del_confirm_popup'] = "The selected records have been deleted.";
 ?>

@@ -28,6 +28,8 @@ $CONF['LDAP_ADS']   = 0;                   // Set to 1 when authenticating again
 
 5. Database changes:
 
+INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'emailNoPastNotifications', '0' );
+
 CREATE TABLE IF NOT EXISTS `my_tc_archive_allowances` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) NOT NULL,
@@ -164,7 +166,7 @@ Download the new release and overwrite all files.
 Overwrite config.tcpro.php from your backup.
 
 Database changes:
-ALTER TABLE `my_tc_absences` ADD `counts_as` INT( 11 ) NOT NULL AFTER `allowance` 
+ALTER TABLE `my_tc_absences` ADD `counts_as` INT( 11 ) NOT NULL AFTER `allowance`; 
 INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'avatarMaxSize', '250000' );
 
 ------------------------------------------------------------------------------

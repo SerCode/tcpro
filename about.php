@@ -7,7 +7,7 @@
  * the corresponding $CONF variables.
  *
  * @package TeamCalPro
- * @version 3.6.011Beta
+ * @version 3.6.011
  * @author George Lewe
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
