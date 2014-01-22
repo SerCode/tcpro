@@ -99,6 +99,5 @@ $LANG['log_region_updated'] = 'Region updated: ';
 $LANG['log_region_deleted'] = 'Region deleted: ';
 $LANG['log_region_merged'] = 'Regions merged: ';
 $LANG['log_region_ical'] = 'iCal file ';
-$LANG['log_region_ical_in'] = ' imported into region ';
 $LANG['log_csv_import'] = 'CSV user import: ';
 ?>

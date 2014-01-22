@@ -2073,4 +2073,14 @@ $LANG['admin_dbmaint_cleanup_note'] = 'Hinweis: Der Datenbank Cleanup l&ouml;sch
 $LANG['admin_dbmaint_cleanup_success'] = "All Aufr&auml;arbeiten wurden durchgef&uuml;hrt.";
 $LANG['admin_dbmaint_del_chkArchive'] = 'Archiv Tabellen leeren';
 $LANG['admin_dbmaint_del_confirm_popup'] = "Die ausgew&auml;hlten Daten wurden gel&ouml;scht.";
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.011
+ */
+
+/**
+ * Regions page
+ */
+$LANG['region_ical_in'] = ' importiert in Region ';
 ?>

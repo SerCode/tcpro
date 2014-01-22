@@ -67,8 +67,10 @@ $yeartoday  = $today['year'];  // A full numeric representation of todays' year,
  * =========================================================================
  * ADD
  */
-if ( isset($_POST['btn_reg_add']) ) {
-   if (!preg_match('/^[a-zA-Z0-9-]*$/', $_POST['reg_nameadd'])) {
+if ( isset($_POST['btn_reg_add']) ) 
+{
+   if (!preg_match('/^[a-zA-Z0-9-]*$/', $_POST['reg_nameadd'])) 
+   {
       /**
        * The region name is invalid
        */
@@ -80,8 +82,10 @@ if ( isset($_POST['btn_reg_add']) ) {
       $err_module=$_SERVER['SCRIPT_NAME'];
       $err_btn_close=FALSE;
    }
-   else  if (strlen($rname=trim($_POST['reg_nameadd']))) {
-      if ($R->findByName($rname)) {
+   else  if (strlen($rname=trim($_POST['reg_nameadd']))) 
+   {
+      if ($R->findByName($rname)) 
+      {
          /**
           * The region already exists
           */
@@ -91,7 +95,8 @@ if ( isset($_POST['btn_reg_add']) ) {
          $err_module=$_SERVER['SCRIPT_NAME'];
          $err_btn_close=FALSE;
       }
-      else {
+      else 
+      {
          /**
           * Create the new region
           */
@@ -100,13 +105,15 @@ if ( isset($_POST['btn_reg_add']) ) {
          $R->options=0x000000;
          if (isset($_POST['chkHide'])) $R->setOptions($CONF['R_HIDE']);
          $R->create();
+         
          /**
           * Log this event
           */
          $LOG->log("logRegion",$L->checkLogin(),"log_region_created", $R->regionname);
       }
    }
-   else {
+   else 
+   {
       /**
        * No shortname was submitted
        */
@@ -121,9 +128,10 @@ if ( isset($_POST['btn_reg_add']) ) {
  * =========================================================================
  * IMPORT
  */
-else if ( isset($_POST['btn_import_ical']) ) {
-
-   if (trim($_POST['icalreg_nameadd'])=='') {
+else if ( isset($_POST['btn_import_ical']) ) 
+{
+   if (trim($_POST['icalreg_nameadd'])=='') 
+   {
       /**
        * No shortname was submitted
        */
@@ -133,7 +141,8 @@ else if ( isset($_POST['btn_import_ical']) ) {
       $err_module=$_SERVER['SCRIPT_NAME'];
       $err_btn_close=FALSE;
    }
-   else if ( trim($_FILES['ical_file']['tmp_name'])=='' ) {
+   else if ( trim($_FILES['ical_file']['tmp_name'])=='' ) 
+   {
       /**
        * No filename was submitted
        */
@@ -143,9 +152,11 @@ else if ( isset($_POST['btn_import_ical']) ) {
       $err_module=$_SERVER['SCRIPT_NAME'];
       $err_btn_close=FALSE;
    }
-   else {
+   else 
+   {
       $rname = preg_replace("/[^A-Za-z0-9_]/i",'',trim($_POST['icalreg_nameadd']));
-      if ($R->findByName($rname)) {
+      if ($R->findByName($rname)) 
+      {
          /**
           * The region already exists
           */
@@ -155,7 +166,8 @@ else if ( isset($_POST['btn_import_ical']) ) {
          $err_module=$_SERVER['SCRIPT_NAME'];
          $err_btn_close=FALSE;
       }
-      else {
+      else 
+      {
          /**
           * Let's create the new region first
           */
@@ -164,6 +176,7 @@ else if ( isset($_POST['btn_import_ical']) ) {
          $R->options=0x000000;
          if (isset($_POST['icalchkHide'])) $R->setOptions($CONF['R_HIDE']);
          $R->create();
+         
          /**
           * Log this event
           */
@@ -176,7 +189,9 @@ else if ( isset($_POST['btn_import_ical']) ) {
          $end_of_ical = 0;
          $iCalEvents = array();
          preg_match_all("#(?sU)BEGIN:VEVENT.*END:VEVENT#", file_get_contents($_FILES['ical_file']['tmp_name']), $events);
-         foreach($events[0] as $event) {
+         
+         foreach($events[0] as $event) 
+         {
             preg_match("#(?sU)DTSTART;.*DATE:([0-9]{8})#", $event, $start);
             preg_match("#(?sU)DTEND;.*DATE:([0-9]{8})#", $event, $end);
             $start = mktime (0,0,0, substr($start[1],4,2), substr($start[1],6,2), substr($start[1],0,4));
@@ -201,12 +216,14 @@ else if ( isset($_POST['btn_import_ical']) ) {
           */
          $current_event = $begin_of_ical;
          $M->yearmonth = 0;
-         while ($current_event < $end_of_ical) {
+         while ($current_event < $end_of_ical) 
+         {
             $current_year = date("Y", $current_event);
             $current_month = date("M", $current_event);
             $current_yearmonth = date("Ym", $current_event);
 
-            if ($M->yearmonth != $current_yearmonth) {
+            if ($M->yearmonth != $current_yearmonth) 
+            {
                /**
                 * We don't have the month template we want. Two possible reasons:
                 * - we haven't loaded one
@@ -216,14 +233,13 @@ else if ( isset($_POST['btn_import_ical']) ) {
                 * We need the second instance cause findByName() would overwrite an M instance that we might still
                 * have in memory and not saved yet.
                 */
-               if ( !$M2->findByName($R->regionname, $current_yearmonth) ) {
+               if ( !$M2->findByName($R->regionname, $current_yearmonth) ) 
+               {
                   /**
                    * Seems there is no template for this month yet.
                    * If we have one in cache, write it first.
                    */
-                  if ( $M->yearmonth ) {
-                     $M->update($R->regionname, $M->yearmonth);
-                  }
+                  if ( $M->yearmonth ) $M->update($R->regionname, $M->yearmonth);
                   /**
                    * Create the new blank template
                    */
@@ -232,7 +248,8 @@ else if ( isset($_POST['btn_import_ical']) ) {
                   $M->template = createMonthTemplate((string)$current_year,(string)$current_month);
                   $M->create();
                }
-               else {
+               else 
+               {
                   /**
                    * There is a template for this month.
                    * Let's save the current and load the new.
@@ -248,18 +265,24 @@ else if ( isset($_POST['btn_import_ical']) ) {
             $dayno = date("j", $current_event);
             $start_of_iCal_period = min(array_keys($iCalEvents)); // Select start of earliest iCal period
             $end_of_iCal_period = $iCalEvents[$start_of_iCal_period]; // Select end of earliest iCal period
-            if ($start_of_iCal_period <= $current_event) {
-               if ($end_of_iCal_period >= $current_event) {
+            
+            if ($start_of_iCal_period <= $current_event) 
+            {
+               if ($end_of_iCal_period >= $current_event) 
+               {
                   /**
                    * We are currently inbetween begin and end of an iCal period
                    */
-                  if (substr($M->template, $dayno-1, 1) != 1) {
+                  if (substr($M->template, $dayno-1, 1) != 1) 
+                  {
                      /**
                       * This is a business day. Only change the holiday type in this case.
                       */
                      $M->template[$dayno-1] = $_POST['icalHol'];
                   }
-               } else {
+               }
+               else 
+               {
                   /**
                    * We are done with this event period! Remove this period from the iCalEvents array.
                    * That makes the next one the earliest.
@@ -276,7 +299,7 @@ else if ( isset($_POST['btn_import_ical']) ) {
          /**
           * Log this event
           */
-         $LOG->log("logRegion",$L->checkLogin(),"log_region_ical", $_FILES['ical_file']['name'].$LANG['log_region_ical_in'].$R->regionname);
+         $LOG->log("logRegion",$L->checkLogin(),"log_region_ical", $_FILES['ical_file']['name'].$LANG['region_ical_in'].$R->regionname);
       }
    }
 }
@@ -284,23 +307,26 @@ else if ( isset($_POST['btn_import_ical']) ) {
  * =========================================================================
  * UPDATE
  */
-else if ( isset($_POST['btn_reg_update']) ) {
-   //
-   // Update the region record
-   //
+else if ( isset($_POST['btn_reg_update']) ) 
+{
+   /**
+    * Update region record
+    */
    $R->regionname=preg_replace("/[^a-z0-9]/i",'',$_POST['reg_name']);
    $R->description=htmlspecialchars($_POST['reg_desc'],ENT_QUOTES);
    $R->options=0x000000;
    if (isset($_POST['chkHide'])) $R->setOptions($CONF['R_HIDE']);
    $R->update($_POST['reg_namehidden']);
-   //
-   // Update the config defregion record
-   // Update all month templates for this region
-   // Update all user option records that had this region as defregion
-   //
+   
+   /**
+    * Update the config defregion record
+    * Update all month templates for this region
+    * Update all user option records that had this region as defregion
+    */
    $C->updateRegion($_POST['reg_namehidden'], $R->regionname);
    $M->updateRegion($_POST['reg_namehidden'], $R->regionname);
    $UO->updateRegion($_POST['reg_namehidden'], $R->regionname);
+   
    /**
     * Log this event
     */
@@ -310,17 +336,19 @@ else if ( isset($_POST['btn_reg_update']) ) {
  * =========================================================================
  * DELETE
  */
-else if ( isset($_POST['btn_reg_delete']) ) {
-   //
-   // Delete the region record
-   // Delete all month templates for this region
-   // Update the config defregion back to default
-   // Update all user option records back to default
-   //
+else if ( isset($_POST['btn_reg_delete']) ) 
+{
+   /*
+    * Delete the region record
+    * Delete all month templates for this region
+    * Update the config defregion back to default
+    * Update all user option records back to default
+    */
    $R->deleteByName($_POST['reg_namehidden']);
    $M->deleteRegion($_POST['reg_namehidden']);
    $C->updateRegion($_POST['reg_namehidden'], 'default');
    $UO->updateRegion($_POST['reg_namehidden'], 'default');
+   
    /**
     * Log this event
     */
@@ -330,12 +358,13 @@ else if ( isset($_POST['btn_reg_delete']) ) {
  * =========================================================================
  * MERGE
  */
-else if ( isset($_POST['btn_reg_merge']) ) {
-
+else if ( isset($_POST['btn_reg_merge']) ) 
+{
    $R->regionname=$_POST['sRegion'];
    $R2->regionname=$_POST['tRegion'];
 
-   if ($R->regionname==$R2->regionname) {
+   if ($R->regionname==$R2->regionname) 
+   {
       /**
        * Same source and target region
        */
@@ -345,28 +374,34 @@ else if ( isset($_POST['btn_reg_merge']) ) {
       $err_module=$_SERVER['SCRIPT_NAME'];
       $err_btn_close=FALSE;
    }
-   else {
+   else 
+   {
       /**
        * Loop through every month of the source region
        */
       $result = $M->db->db_query("SELECT * FROM `".$M->table."` WHERE `region` = '".$R->regionname."' ORDER BY `yearmonth`;");
-      while ( $row = $M->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+      while ( $row = $M->db->db_fetch_array($result,MYSQL_ASSOC) ) 
+      {
          /**
           * Try to find the same month in the target region
           */
          print("Source month ".$R->regionname."-".$row['yearmonth']."<br>");
-         if ($M2->findByName($R2->regionname, $row['yearmonth'])) {
+         if ($M2->findByName($R2->regionname, $row['yearmonth'])) 
+         {
             /**
              * Now copy each event from source to target but check the overwrite flag
              */
-            for ($i = 0; $i<strlen($row['template']); $i++) {
-                if ($M2->template[$i] == 0 OR $M2->template[$i] == 1) {
+            for ($i = 0; $i<strlen($row['template']); $i++) 
+            {
+                if ($M2->template[$i] == 0 OR $M2->template[$i] == 1) 
+                {
                   /**
                    * Nothing in the target template yet. Just overwrite with source.
                    */
                    $M2->template[$i] = $row['template'][$i];
                 }
-                else {
+                else 
+                {
                   /**
                    * Absence in the target template. Only overwrite if user wanted it.
                    */
@@ -385,6 +420,7 @@ else if ( isset($_POST['btn_reg_merge']) ) {
       $LOG->log("logRegion",$L->checkLogin(),"log_region_merged", $_POST['sRegion']." => ".$_POST['tRegion']);
    }
 }
+
 /**
  * HTML title. Will be shown in browser tab.
  */
@@ -393,7 +429,8 @@ $CONF['html_title'] = $LANG['html_title_regions'];
  * User manual page
  */
 $help = urldecode($C->readConfig("userManual"));
-if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) 
+{
    $help .= 'Regions';
 }
 require("includes/header_html_inc.php");
@@ -460,6 +497,7 @@ require("includes/menu_inc.php");
                                  <input type="file" class="button" accept="text/calendar" name="ical_file">
                                  <select name="icalHol" id="icalHol" class="select">
                                  <?php
+                                 $hols = array();
                                  $hols=$H->getAll();
                                  foreach($hols as $hol) {
                                     if ( $hol['cfgname']!="wend" AND $hol['cfgname']!="busi" ) { ?>
@@ -517,6 +555,7 @@ require("includes/menu_inc.php");
                         </table>
                      </form>
                      <?php 
+                     $regs = array();
                      $regs=$R->getAll();
                      foreach($regs as $reg) {
                         if ($printrow==1) $printrow=2; else $printrow=1; 

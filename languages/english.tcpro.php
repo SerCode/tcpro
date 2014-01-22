@@ -2073,4 +2073,14 @@ $LANG['admin_dbmaint_cleanup_note'] = 'Note: The database cleanup will not delet
 $LANG['admin_dbmaint_cleanup_success'] = "All cleanup activities have been completed.";
 $LANG['admin_dbmaint_del_chkArchive'] = 'Clear archive tables';
 $LANG['admin_dbmaint_del_confirm_popup'] = "The selected records have been deleted.";
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.011
+ */
+
+/**
+ * Regions page
+ */
+$LANG['region_ical_in'] = ' imported into region ';
 ?>

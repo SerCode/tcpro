@@ -38,6 +38,7 @@ if (!class_exists("Csv_model"))
 	    */
 	   function addHeadrow($rows) 
 	   {
+	      $out = '';
 	      for ($i = 0; $i < mysql_num_fields($rows); $i++) 
 	      {
 	         $meta = mysql_fetch_field($rows, $i);
@@ -57,6 +58,7 @@ if (!class_exists("Csv_model"))
 	    */
 	   function addElement($row, $rows) 
 	   {
+	      $out = '';
 	      for ($i = 0; $i < mysql_num_fields($rows); $i++) 
 	      {
 	         $meta = mysql_fetch_field($rows, $i);

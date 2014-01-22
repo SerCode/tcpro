@@ -67,9 +67,10 @@ $themearray = getFolders('themes');
  * =========================================================================
  * ADD
  */
-if ( isset($_POST['btn_hol_add']) ) {
-
-   if ( strlen($_POST['hol_nameadd']) && strlen($_POST['hol_coloradd']) && strlen($_POST['hol_bgcoloradd']) ) {
+if ( isset($_POST['btn_hol_add']) ) 
+{
+   if ( strlen($_POST['hol_nameadd']) && strlen($_POST['hol_coloradd']) && strlen($_POST['hol_bgcoloradd']) ) 
+   {
       /**
        * The user needs not to be bothered with the symbol that is used
        * to identify this day type internally since it is never displayed
@@ -79,17 +80,22 @@ if ( isset($_POST['btn_hol_add']) ) {
       $symbols = "23456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
       // Get next available symbol
       $holidays = $H->getAll();
-      for ( $i=0; $i<strlen($symbols); $i++ ) {
+      for ( $i=0; $i<strlen($symbols); $i++ ) 
+      {
          $taken=false;
-         foreach ($holidays as $row) {
-            if ( $row['cfgsym']==$symbols[$i] ) {
+         foreach ($holidays as $row) 
+         {
+            if ( $row['cfgsym']==$symbols[$i] ) 
+            {
                $taken=true;
                break;
             }
          }
          if (!$taken) break;
       }
-      if ( !$taken ) {
+      
+      if ( !$taken ) 
+      {
          $hol_symadd = $symbols[$i];
          $H->cfgsym=strtoupper(trim($hol_symadd));
          $H->cfgname="d".strval(rand(1000,9999));
@@ -97,15 +103,13 @@ if ( isset($_POST['btn_hol_add']) ) {
          $H->dspname=trim($_POST['hol_nameadd']);
          $H->dspcolor=strtoupper(trim($_POST['hol_coloradd']));
          $H->dspbgcolor=strtoupper(trim($_POST['hol_bgcoloradd']));
-         if ($_POST['chkBusinessDay']) $H->setOptions($CONF['H_BUSINESSDAY']);
+         if (isset($_POST['chkBusinessDay'])) $H->setOptions($CONF['H_BUSINESSDAY']);
          $H->create();
 
          /**
           * Create the theme css files so it includes this absence type
           */
-         foreach ($themearray as $theme) {
-            createCSS($theme["name"]);
-         }
+         foreach ($themearray as $theme) createCSS($theme["name"]);
 
          sendNotification("holidayadd",trim($_POST['hol_nameadd']),"");
          /**
@@ -113,7 +117,8 @@ if ( isset($_POST['btn_hol_add']) ) {
           */
          $LOG->log("logHoliday",$L->checkLogin(),"log_hol_created", $H->dspname." ".$H->dspcolor." ".$H->dspbgcolor);
       }
-      else {
+      else 
+      {
          $error = true;
          $err_short = $LANG['err_input_caption'];
          $err_long  = $LANG['err_input_max_daytype'];
@@ -121,7 +126,8 @@ if ( isset($_POST['btn_hol_add']) ) {
          $err_btn_close=FALSE;
       }
    }
-   else {
+   else 
+   {
       $error = true;
       $err_short = $LANG['err_input_caption'];
       $err_long  = $LANG['err_input_hol_add'];
@@ -134,8 +140,8 @@ if ( isset($_POST['btn_hol_add']) ) {
  * =========================================================================
  * UPDATE
  */
-else if ( isset($_POST['btn_hol_update']) ) {
-
+else if ( isset($_POST['btn_hol_update']) ) 
+{
    $H->findBySymbol($_POST['hol_symbolhidden']);
    $H->dspname=trim($_POST['hol_dspname']);
    $H->dspcolor=strtoupper(trim($_POST['hol_color']));
@@ -147,23 +153,21 @@ else if ( isset($_POST['btn_hol_update']) ) {
    /**
     * Create the theme css files so it includes this absence type
     */
-   foreach ($themearray as $theme) {
-      createCSS($theme["name"]);
-   }
+   foreach ($themearray as $theme) createCSS($theme["name"]);
 
    sendNotification("holidaychange",trim($_POST['hol_dspname']),"");
+   
    /**
     * Log this event
     */
    $LOG->log("logHoliday",$L->checkLogin(),"log_hol_updated", $H->dspname." ".$H->dspcolor." ".$H->dspbgcolor);
-
 }
 /**
  * =========================================================================
  * DELETE
  */
-else if ( isset($_POST['btn_hol_delete']) ) {
-
+else if ( isset($_POST['btn_hol_delete']) ) 
+{
    $delsym = strtoupper(trim($_POST['hol_symbolhidden']));
    $H->findBySymbol($delsym);
    $delname = $H->dspname;
@@ -176,11 +180,10 @@ else if ( isset($_POST['btn_hol_delete']) ) {
    /**
     * Create the theme css files so it includes this absence type
     */
-   foreach ($themearray as $theme) {
-      createCSS($theme["name"]);
-   }
+   foreach ($themearray as $theme) createCSS($theme["name"]);
 
    sendNotification("holidaydelete",$delname,"");
+   
    /**
     * Log this event
     */
@@ -195,7 +198,8 @@ $CONF['html_title'] = $LANG['html_title_holidays'];
  * User manual page
  */
 $help = urldecode($C->readConfig("userManual"));
-if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) 
+{
    $help .= 'Holiday+Types';
 }
 require("includes/header_html_inc.php");
@@ -243,6 +247,7 @@ require("includes/menu_inc.php");
          $i=1;
          $printrow=1;
          $holids = "#color-new, #bgcolor-new, ";
+         $holidays = array();
          $holidays = $H->getAll();
          foreach ($holidays as $row) 
          {
