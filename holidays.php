@@ -119,20 +119,20 @@ if ( isset($_POST['btn_hol_add']) )
       }
       else 
       {
-         $error = true;
-         $err_short = $LANG['err_input_caption'];
-         $err_long  = $LANG['err_input_max_daytype'];
-         $err_module=$_SERVER['SCRIPT_NAME'];
-         $err_btn_close=FALSE;
+         $error       = true;
+         $err_type    = 'error';
+         $err_title   = $LANG['error'];
+         $err_caption = $LANG['err_input_caption'];
+         $err_text    = $LANG['err_input_max_daytype'];
       }
    }
    else 
    {
-      $error = true;
-      $err_short = $LANG['err_input_caption'];
-      $err_long  = $LANG['err_input_hol_add'];
-      $err_module=$_SERVER['SCRIPT_NAME'];
-      $err_btn_close=FALSE;
+      $error       = true;
+      $err_type    = 'error';
+      $err_title   = $LANG['error'];
+      $err_caption = $LANG['err_input_caption'];
+      $err_text    = $LANG['err_input_hol_add'];
    }
 
 }
@@ -208,6 +208,10 @@ require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
+      
+      <!-- Message -->
+      <?php if ($error) echo jQueryPopup($err_type, $err_title, $err_caption, $err_text); ?>
+                        
       <!--  HOLIDAY TYPES ==================================================== -->
       <table class="dlg">
          <tr>

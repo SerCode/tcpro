@@ -135,7 +135,7 @@ if (!$allowed) {
     * At this point we have determined the year calendar view is allowed
     * but no user's calendar may be viewed.
     */
-   $err_short=$LANG['err_not_authorized_short']."XXX";
+   $err_short=$LANG['err_not_authorized_short'];
    $err_long=$LANG['err_not_authorized_long'];
    $err_module=$_SERVER['SCRIPT_NAME'];
    $err_btn_close=FALSE;

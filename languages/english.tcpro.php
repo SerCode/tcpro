@@ -2083,4 +2083,12 @@ $LANG['admin_dbmaint_del_confirm_popup'] = "The selected records have been delet
  * Regions page
  */
 $LANG['region_ical_in'] = ' imported into region ';
+
+/**
+ * Messages
+ */
+$LANG['information'] = 'Information';
+$LANG['success'] = 'Success';
+$LANG['warning'] = 'Warning';
+$LANG['error'] = 'Error';
 ?>

@@ -102,9 +102,11 @@ if ( isset($_POST['btn_grp_add']) )
    }
    else 
    {
-      $error = true;
-      $errmsg  = $LANG['err_input_caption'];
-      $errmsg .= $LANG['err_input_group_add'];
+      $error       = true;
+      $err_type    = 'error';
+      $err_title   = $LANG['error'];
+      $err_caption = $LANG['err_input_caption'];
+      $err_text    = $LANG['err_input_group_add'];
    }
 }
 /**
@@ -192,6 +194,10 @@ require("includes/menu_inc.php");
 ?>
 <div id="content">
    <div id="content-content">
+      
+      <!-- Message -->
+      <?php if ($error) echo jQueryPopup($err_type, $err_title, $err_caption, $err_text); ?>
+                        
       <!--  GROUPS =========================================================== -->
       <table class="dlg">
          <tr>

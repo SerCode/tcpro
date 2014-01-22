@@ -2083,4 +2083,12 @@ $LANG['admin_dbmaint_del_confirm_popup'] = "Die ausgew&auml;hlten Daten wurden g
  * Regions page
  */
 $LANG['region_ical_in'] = ' importiert in Region ';
+
+/**
+ * Messages
+ */
+$LANG['information'] = 'Information';
+$LANG['success'] = 'Erfolg';
+$LANG['warning'] = 'Warnung';
+$LANG['error'] = 'Fehler';
 ?>

@@ -1489,6 +1489,38 @@ function isFlag($flagset, $bitmask) {
 
 // ---------------------------------------------------------------------------
 /**
+ * Creates a message div and displays it via jQuery dialog()
+ *
+ * @param string $type     What type of message: info, success, warning, error
+ * @param string $title    Dialog title
+ * @param string $caption  Inside the dialog above the message, bold and backcolored
+ * @param string $message  The message itself
+ * @return string $html    The HTML code
+ */
+function jQueryPopup($type='info', $title='Information', $caption, $message) 
+{
+   $bgcolor = array('info'=>'#0099ff', 'success'=>'009900', 'warning'=>'#ffb300', 'error'=>'#990000');
+
+   $html = '
+   <div id="jqpopup" title="'.$title.'">
+      <p style="color: #ffffff; font-weight: bold; padding: 4px; background-color: '.$bgcolor[$type].';">'.$caption.'</p>
+      <p>'.$message.'</p>
+   </div>
+   <script type="text/javascript">
+      $(function() { 
+         $( "#jqpopup" ).dialog({
+            modal: true,
+            buttons: { Ok: function() { $( this ).dialog( "close" ); } }
+         });
+      });
+   </script>';
+                           
+   return $html;
+}
+
+
+// ---------------------------------------------------------------------------
+/**
  * Uses Javascript to close the current window and reload the calling page
  * without the previous POST parameters
  *
