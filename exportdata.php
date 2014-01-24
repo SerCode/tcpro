@@ -51,6 +51,7 @@ $tables = array (
    $CONF['db_table_holidays'],
    $CONF['db_table_log'],
    $CONF['db_table_months'],
+   $CONF['db_table_options'],
    $CONF['db_table_permissions'],
    $CONF['db_table_regions'],
    $CONF['db_table_styles'],
@@ -58,7 +59,14 @@ $tables = array (
    $CONF['db_table_users'],
    $CONF['db_table_user_announcement'],
    $CONF['db_table_user_group'],
-   $CONF['db_table_user_options']
+   $CONF['db_table_user_options'],
+   $CONF['db_table_archive_users'],
+   $CONF['db_table_archive_user_group'],
+   $CONF['db_table_archive_user_options'],
+   $CONF['db_table_archive_templates'],
+   $CONF['db_table_archive_daynotes'],
+   $CONF['db_table_archive_allowance'],
+   $CONF['db_table_archive_user_announcement']
 );
 
 
@@ -72,29 +80,36 @@ else $format = trim($_REQUEST['format']);
 if (!isset($_REQUEST['what'])) $what="all";
 else $what = trim($_REQUEST['what']);
 
-if ($_REQUEST['type']=="download") {
+if ($_REQUEST['type']=="download") 
+{
    header("Content-type: application/force-download");
    header("Content-Disposition: attachment; filename=tcpro_dbexport_".date('Ymd_His').".".$format);
 }
-else {
+else 
+{
    header('Content-Type: text/plain');
 }
 
 $table_status = $mydb->db_query("SHOW TABLE STATUS");
-while($all = mysql_fetch_assoc($table_status)) {
+while($all = mysql_fetch_assoc($table_status)) 
+{
    $tbl_stat[$all['Name']] = $all['Auto_increment'];
 }
 
-foreach($tables as $table) {
-   if ($what=="all" || $what==$table) {
+foreach($tables as $table) 
+{
+   if ($what=="all" || $what==$table) 
+   {
       $show = $mydb->db_query("SHOW TABLE STATUS FROM ".$mydb->db_name." LIKE '".$table."'");
-      while($tabs = mysql_fetch_row($show)) {
+      while($tabs = mysql_fetch_row($show)) 
+      {
          $backup .= PrintOut($backup,$tabs[0],$tbl_stat[$tabs[0]],$format);
       }
    }
 }
 
-switch ($format) {
+switch ($format) 
+{
    case 'csv':
       echo "# TeamCal Pro CSV Export\n# Date: ".date('d-m-Y')."\n# Time: ".date('H:i:m')."\n# Server: ".$_SERVER['SERVER_NAME']."\n# Database: ".$mydb->db_name."\n\n";
       echo $backup;
@@ -121,29 +136,35 @@ switch ($format) {
  * @param string $format sql, csv or xml. Defaults to sql.
  * @return string Database dump text
  */
-function PrintOut($output,$tbl,$stats,$format='sql') {
-
+function PrintOut($output,$tbl,$stats,$format='sql') 
+{
    global $CONF;
 
-   switch ($format) {
-
+   switch ($format) 
+   {
       case 'sql':
       $output  = "--\n-- Table structure for `$tbl`\n--\n\n";
       $output .= "DROP TABLE IF EXISTS `$tbl`;\n";
       $output .= "CREATE TABLE `$tbl` ( ";
       $res = mysql_query("SHOW CREATE TABLE $tbl");
-      while($al = mysql_fetch_assoc($res)) {
+      
+      while($al = mysql_fetch_assoc($res)) 
+      {
          $str = str_replace("CREATE TABLE `$tbl` (", "", $al['Create Table']);
          $str = str_replace(",", ",", $str);
          $str2 = str_replace("`) ) TYPE=MyISAM ", "`)\n ) TYPE=MyISAM ", $str);
          if ($stats) {$str2 = $str2." AUTO_INCREMENT=".$stats;}
          $output .= $str2.";\n\n";
       }
+      
       $output .= "-- \n-- Dumping data for table `".$tbl."`\n-- \n\n";
       $data = mysql_query("SELECT * FROM $tbl");
-      while($dt = mysql_fetch_row($data)) {
+      
+      while($dt = mysql_fetch_row($data)) 
+      {
          $output .= "INSERT INTO `$tbl` VALUES('$dt[0]'";
-         for($i=1; $i<sizeof($dt); $i++) {
+         for($i=1; $i<sizeof($dt); $i++) 
+         {
             $dt[$i] = mysql_real_escape_string($dt[$i]);
             $output .= ", '$dt[$i]'";
          }

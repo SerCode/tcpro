@@ -50,7 +50,6 @@ $U = new User_model;
 $U1 = new User_model;
 $UL = new User_model;
 $UG = new User_group_model;
-$error=FALSE;
 
 /**
  * Check if allowed

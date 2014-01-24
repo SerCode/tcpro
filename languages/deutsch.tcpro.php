@@ -2087,8 +2087,9 @@ $LANG['region_ical_in'] = ' importiert in Region ';
 /**
  * Messages
  */
-$LANG['information'] = 'Information';
-$LANG['success'] = 'Erfolg';
-$LANG['warning'] = 'Warnung';
-$LANG['error'] = 'Fehler';
+$LANG['information'] = 'TeamCal Pro Information';
+$LANG['success'] = 'TeamCal Pro Erfolg';
+$LANG['warning'] = 'TeamCal Pro Warnung';
+$LANG['error'] = 'TeamCal Pro Fehler';
+$LANG['err_avatar_upload'] = 'Beim Hochladen des Avatar ist ein Fehler aufgetreten.';
 ?>

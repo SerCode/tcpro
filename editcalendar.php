@@ -73,11 +73,13 @@ $UL->findByName($luser);
  * Get the target user, the one that we edit the calender off here
  * $UC represents the user of the calendar, $caluser his username.
  */
-if (isset($_REQUEST['Member'])) {
+if (isset($_REQUEST['Member'])) 
+{
    $caluser=$_REQUEST['Member'];
    $UC->findByName($caluser);
 }
-else {
+else 
+{
    showError("notarget");
 }
 
@@ -86,13 +88,16 @@ else {
  */
 $allowed=FALSE;
 
-if ( $luser == $caluser ) {
+if ( $luser == $caluser ) 
+{
    if (isAllowed("editOwnUserCalendars")) $allowed=TRUE;
 }
-else if ( $UG->shareGroups($luser, $caluser) ) {
+else if ( $UG->shareGroups($luser, $caluser) ) 
+{
    if (isAllowed("editGroupUserCalendars")) $allowed=TRUE;
 }
-else {
+else 
+{
    if (isAllowed("editAllUserCalendars")) $allowed=TRUE;
 }
 
@@ -109,7 +114,8 @@ if (isset($_REQUEST['region'])) $region=$_REQUEST['region']; else $region = $CON
  * =========================================================================
  * BACKWARD
  */
-if ( isset($_POST['btn_bwd']) ) {
+if ( isset($_POST['btn_bwd']) ) 
+{
    $Year=$_POST['hid_bwdYear'];
    $Month=$_POST['hid_bwdMonth'];
    $caluser=$_POST['hid_Member'];
@@ -119,7 +125,8 @@ if ( isset($_POST['btn_bwd']) ) {
  * =========================================================================
  * FORWARD
  */
-if ( isset($_POST['btn_fwd']) ) {
+if ( isset($_POST['btn_fwd']) ) 
+{
    $Year=$_POST['hid_fwdYear'];
    $Month=$_POST['hid_fwdMonth'];
    $caluser=$_POST['hid_Member'];
@@ -139,20 +146,24 @@ $dayofweek = intval($weekday1);
 /**
  * Prepare the Fwd/Bwd buttons
  */
-if (intval($monthno)==12) {
+if (intval($monthno)==12) 
+{
    $fwdMonth=$CONF['monthnames'][1];
    $fwdYear=$Year+1;
 }
-else {
+else 
+{
    $fwdMonth=$CONF['monthnames'][intval($monthno)+1];
    $fwdYear=$Year;
 }
 
-if (intval($monthno)==1) {
+if (intval($monthno)==1) 
+{
    $bwdMonth=$CONF['monthnames'][12];
    $bwdYear=$Year-1;
 }
-else {
+else 
+{
    $bwdMonth=$CONF['monthnames'][intval($monthno)-1];
    $bwdYear=$Year;
 }
@@ -165,7 +176,8 @@ if ( $UL->checkUserType($CONF['UTMANAGER']) )  $isManager  = TRUE; else $isManag
  * Read Month Template
  */
 $found = $M->findByName($region, $Year.$monthno);
-if ( !$found ) {
+if ( !$found ) 
+{
    /**
     * Seems there is no default template for this month yet.
     * Let's create a default one.
@@ -175,7 +187,8 @@ if ( !$found ) {
    $M->template = createMonthTemplate($Year,$Month);
    $M->create();
 }
-else if ( empty($M->template) ) {
+else if ( empty($M->template) ) 
+{
    /**
     * Seems there is an empty default template. That can't be.
     * Let's create a default one.
@@ -195,7 +208,8 @@ $notifygroup = $UC->notify_group;
  * Try to find this user's current template for this month
  */
 $found = $T->getTemplate($caluser,$Year,$monthno);
-if (!$found) {
+if (!$found) 
+{
    /**
     * No template found for this user and month yet.
     * Create a default one.
@@ -203,7 +217,8 @@ if (!$found) {
    $T->username = $caluser;
    $T->year = $Year;
    $T->month = $monthno;
-   for ($i=1; $i<=intval($nofdays); $i++ ) {
+   for ($i=1; $i<=intval($nofdays); $i++ ) 
+   {
       $prop='abs'.$i;      
       $T->$prop = 0;
    }
@@ -236,31 +251,40 @@ if (isset($_POST['btn_apply']))
          $requested[$i] = $T->$prop;
    }
     
-   foreach($_POST as $key=>$value) {
+   foreach($_POST as $key=>$value) 
+   {
       /**
        * Get the range input
        */
-      if ( $key=="rangeabs" && strlen($_POST['rangefrom']) && strlen($_POST['rangeto']) ) {
+      if ( $key=="rangeabs" && strlen($_POST['rangefrom']) && strlen($_POST['rangeto']) ) 
+      {
 	   	$yearfrom = substr($_POST['rangefrom'],0,4);
 	   	$monthfrom = substr($_POST['rangefrom'],5,2);
 	   	$dayfrom = substr($_POST['rangefrom'],8,2);
 	   	$yearto = substr($_POST['rangeto'],0,4);
 	   	$monthto = substr($_POST['rangeto'],5,2);
 	   	$dayto = substr($_POST['rangeto'],8,2);
-         if ( $yearfrom!=$Year || $monthfrom!=$monthno || $yearto!=$Year || $monthto!=$monthno ) {
+         if ( $yearfrom!=$Year || $monthfrom!=$monthno || $yearto!=$Year || $monthto!=$monthno ) 
+         {
             echo "<script type=\"text/javascript\">alert(\"".$LANG['cal_range_within']."\");</script>";
          }
-         else if ( $_POST['rangefrom']>$_POST['rangeto']) {
+         else if ( $_POST['rangefrom']>$_POST['rangeto']) 
+         {
             echo "<script type=\"text/javascript\">alert(\"".$LANG['cal_range_start']."\");</script>";
          }
-         else {
-            for ($i=intval($dayfrom);$i<=intval($dayto);$i++) {
-               if (isset($_POST['range_only_business'])) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
+         else 
+         {
+            for ($i=intval($dayfrom);$i<=intval($dayto);$i++) 
+            {
+               if (isset($_POST['range_only_business'])) 
+               {
+                  if ( $H->findBySymbol($M->template[$i-1]) ) 
+                  {
                      if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $requested[$i]=$_POST['rangeabs'];
                   }
                }
-               else {
+               else 
+               {
 		            $requested[$i]=$_POST['rangeabs'];
                }
             }
@@ -271,17 +295,24 @@ if (isset($_POST['btn_apply']))
        * Then get the recurring input
        */
       $wdays = array('monday'=>1, 'tuesday'=>2, 'wednesday'=>3, 'thursday'=>4, 'friday'=>5, 'saturday'=>6, 'sunday'=>7);
-      foreach ($wdays as $wday => $wdaynr) {
-         if ( $key==$wday ) {
+      foreach ($wdays as $wday => $wdaynr) 
+      {
+         if ( $key==$wday ) 
+         {
             $x = intval($weekday1);
-            for ($i=1; $i<=$nofdays; $i++) {
-               if ($x==$wdaynr) {
-                  if (isset($_POST['recurring_only_business'])) {
-                     if ( $H->findBySymbol($M->template[$i-1]) ) {
+            for ($i=1; $i<=$nofdays; $i++) 
+            {
+               if ($x==$wdaynr) 
+               {
+                  if (isset($_POST['recurring_only_business'])) 
+                  {
+                     if ( $H->findBySymbol($M->template[$i-1]) ) 
+                     {
                         if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $requested[$i]=$_POST['recurrabs'];
                      }
                   }
-                  else {
+                  else 
+                  {
                      $requested[$i]=$_POST['recurrabs'];
                   }
                }
@@ -290,16 +321,22 @@ if (isset($_POST['btn_apply']))
          }
       }
       
-      if ( $key=="workdays" ) {
+      if ( $key=="workdays" ) 
+      {
          $x = intval($weekday1);
-         for ($i=1; $i<=$nofdays; $i++) {
-            if ($x>=1 AND $x<=5) {
-               if (isset($_POST['recurring_only_business'])) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
+         for ($i=1; $i<=$nofdays; $i++) 
+         {
+            if ($x>=1 AND $x<=5) 
+            {
+               if (isset($_POST['recurring_only_business'])) 
+               {
+                  if ( $H->findBySymbol($M->template[$i-1]) ) 
+                  {
                      if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $requested[$i]=$_POST['recurrabs'];
                   }
                }
-               else {
+               else 
+               {
                   $requested[$i]=$_POST['recurrabs'];
                }
             }
@@ -307,16 +344,22 @@ if (isset($_POST['btn_apply']))
          }
       }
 
-      if ( $key=="weekend" ) {
+      if ( $key=="weekend" ) 
+      {
          $x = intval($weekday1);
-         for ($i=1; $i<=$nofdays; $i=$i+1) {
-            if ($x>=6 AND $x<=7) {
-               if (isset($_POST['recurring_only_business'])) {
-                  if ( $H->findBySymbol($M->template[$i-1]) ) {
+         for ($i=1; $i<=$nofdays; $i=$i+1) 
+         {
+            if ($x>=6 AND $x<=7) 
+            {
+               if (isset($_POST['recurring_only_business'])) 
+               {
+                  if ( $H->findBySymbol($M->template[$i-1]) ) 
+                  {
                      if ( $H->cfgname=='busi' OR $H->checkOptions($CONF['H_BUSINESSDAY']) ) $requested[$i]=$_POST['recurrabs'];
                   }
                }
-               else {
+               else 
+               {
                   $requested[$i]=$_POST['recurrabs'];
                }
             }
@@ -794,9 +837,11 @@ if (isset($_POST['btn_apply']))
     * Let's see if there are differences
     */
    $difference=FALSE;
-   for ($i=1; $i<=$nofdays; $i++) {
+   for ($i=1; $i<=$nofdays; $i++) 
+   {
       $prop='abs'.$i;
-      if ($T->$prop!=$accepted[$i]) {
+      if ($T->$prop!=$accepted[$i]) 
+      {
          $difference=TRUE;
          break;
       }
@@ -848,7 +893,8 @@ if (isset($_POST['btn_apply']))
                   $TT->username = $UT->username;
                   $TT->year = $Year;
                   $TT->month = $monthno;
-                  for ($i=1; $i<=intval($nofdays); $i++ ) {
+                  for ($i=1; $i<=intval($nofdays); $i++ ) 
+                  {
                      $prop='abs'.$i;      
                      $TT->$prop = 0;
                   }
@@ -975,10 +1021,7 @@ if (isset($_POST['btn_apply']))
       $notificationerror = "";
       $errormessage = $LANG['err_decl_title'];
       $errormessage .= $LANG['err_decl_subtitle'];
-      foreach($errorarray as $err) 
-      {
-         $errormessage .= $err."\\n";
-      }
+      foreach($errorarray as $err) $errormessage .= $err."\\n";
 
       /**
        * Build notification message and send it to the appropriate receivers
@@ -997,10 +1040,7 @@ if (isset($_POST['btn_apply']))
          
          $notification.=$LANG['notification_decl_msg_2'];
 
-         foreach($errorarray as $err) 
-         {
-            $notificationerror .= $err."\n";
-         }
+         foreach($errorarray as $err) $notificationerror .= $err."\n";
          
          $notification.=$notificationerror;
          $notification.=$LANG['notification_decl_sign'];
@@ -1121,20 +1161,24 @@ if (isset($_POST['btn_apply']))
  * =========================================================================
  * CLEAR
  */
-else if (isset($_POST['btn_clear'])) {
+else if (isset($_POST['btn_clear'])) 
+{
    /**
     * Reset absences to present for this month
     */
    $mailtemplate='';
-   for ($i=1; $i<=intval($nofdays); $i++ ) {
+   for ($i=1; $i<=intval($nofdays); $i++ ) 
+   {
       $prop='abs'.$i;
       $T->$prop = 0;
       $mailtemplate.='0';
    }
+   
    $T->update($caluser,$Year,$monthno);
    $query  = "SELECT groupname FROM `".$UG->table."` WHERE username='".$caluser."'";
    $result = $UG->db->db_query($query);
-   while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) {
+   while ($row=$UG->db->db_fetch_array($result,MYSQL_NUM) ) 
+   {
       sendNotification("usercalchange",$U->firstname." ".$U->lastname, $row[0],$T->year.$T->month." ".$mailtemplate);
    }
    /**

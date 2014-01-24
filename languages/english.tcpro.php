@@ -1516,15 +1516,15 @@ $LANG['err_input_perm_invalid_2'] = '\' is invalid. Choose upper or lower case c
 $LANG['err_input_perm_exists_1'] = 'The permission scheme \'';
 $LANG['err_input_perm_exists_2'] = '\' already exists. Use a different name or delete the old one first.';
 $LANG['err_input_group_add'] = 'You have to add at least a name in order to add a new group.';
-$LANG['err_input_max_daytype'] = 'You have reached the maximum amount of day types.\\nPlease delete one before you create a new one.\\n';
+$LANG['err_input_max_daytype'] = 'You have reached the maximum amount of day types. Please delete one before you create a new one.';
 $LANG['err_input_dbmaint_clean'] = 'Please provide both, year and month, for cleaning up old templates.';
 $LANG['err_input_dbmaint_clean_confirm'] = 'You need to confirm the database cleanup by typing \'CLEANUP\' (using capital letters) in the confirmation field.';
 $LANG['err_input_dbmaint_del'] = 'You need to confirm the database record deletion by typing \'DELETE\' (using capital letters) in the confirmation field.';
-$LANG['err_input_daynote_nouser'] = 'The specified user does not exist.\\n';
+$LANG['err_input_daynote_nouser'] = 'The specified user does not exist.';
 $LANG['err_input_daynote_date'] = 'Date: ';
 $LANG['err_input_daynote_username'] = 'Username: ';
-$LANG['err_input_daynote_save'] = 'You can\'t save an empty note.\\nPlease submit some text in the daynote field\\nor use the [Delete] button if you want to delete this daynote.';
-$LANG['err_input_daynote_create'] = 'You can\'t create an empty daynote.\\nPlease submit some text in the daynote field.\\n';
+$LANG['err_input_daynote_save'] = 'You can\'t save an empty note. Please submit some text in the daynote field or use the [Delete] button if you want to delete this daynote.';
+$LANG['err_input_daynote_create'] = 'You can\'t create an empty daynote. Please submit some text in the daynote field.';
 $LANG['err_input_declbefore'] = 'You need to select a decline-before date.';
 $LANG['err_input_period'] = 'You need to select a valid declination period. The start date must be before the end date.';
 
@@ -2087,8 +2087,9 @@ $LANG['region_ical_in'] = ' imported into region ';
 /**
  * Messages
  */
-$LANG['information'] = 'Information';
-$LANG['success'] = 'Success';
-$LANG['warning'] = 'Warning';
-$LANG['error'] = 'Error';
+$LANG['information'] = 'TeamCal Pro Information';
+$LANG['success'] = 'TeamCal Pro Success';
+$LANG['warning'] = 'TeamCal Pro Warning';
+$LANG['error'] = 'TeamCal Pro Error';
+$LANG['err_avatar_upload'] = 'An error occurred while uploading your avatar.';
 ?>

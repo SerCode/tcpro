@@ -42,8 +42,6 @@ $P = new Permission_model;
 $R = new Region_model;
 $U  = new User_model;
 
-$error = false;
-
 /**
  * Check if allowed
  */

@@ -53,20 +53,12 @@ $UA = new User_announcement_model;
 $UG = new User_group_model;
 $UO = new User_option_model;
 
-$error=FALSE;
+$message = false;
 
 /**
  * Check if allowed
  */
 if (!isAllowed("manageUsers")) showError("notallowed");
-
-$confirmation = array (
-   'header'  => "Header",
-   'title'   => "Title",
-   'show'    => false,
-   'success' => false,
-   'text'    => ""
-);
 
 /**
  * Initiate the search parameters
@@ -105,24 +97,24 @@ if ( isset($_POST['btn_usr_archive']) AND isset($_POST['chk_user_active']) )
    if (!$exists)
    {
       /**
-       * Prepare confirmation message
+       * Prepare error message
        */
-      $confirmation['show']=true;
-      $confirmation['success']=true;
-      $confirmation['header'] = $LANG['confirmation_success'];
-      $confirmation['title'] = $LANG['btn_archive_selected'];
-      $confirmation['text'] = $LANG['confirmation_archive_selected_users'];
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['btn_archive_selected'];
+      $msg_text    = $LANG['confirmation_archive_selected_users'];
    }
    else 
    {
       /**
        * Prepare failure message
        */
-      $confirmation['show']=true;
-      $confirmation['success']=false;
-      $confirmation['header'] = $LANG['confirmation_failure'];
-      $confirmation['title'] = $LANG['btn_archive_selected'];
-      $confirmation['text'] = $LANG['confirmation_archive_selected_users_failed'];
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['btn_archive_selected'];
+      $msg_text    = $LANG['confirmation_archive_selected_users_failed'];
    }
 }
 /**
@@ -140,11 +132,11 @@ else if ( isset($_POST['btn_usr_del']) AND isset($_POST['chk_user_active']) )
    /**
     * Prepare confirmation message
     */
-   $confirmation['show']=true;
-   $confirmation['success']=true;
-   $confirmation['header'] = $LANG['confirmation_success'];
-   $confirmation['title'] = $LANG['btn_delete_selected'];
-   $confirmation['text'] = $LANG['confirmation_delete_selected_users'];
+   $message     = true;
+   $msg_type    = 'success';
+   $msg_title   = $LANG['success'];
+   $msg_caption = $LANG['btn_delete_selected'];
+   $msg_text    = $LANG['confirmation_delete_selected_users'];
 }
 /**
  * =========================================================================
@@ -162,11 +154,11 @@ else if ( isset($_POST['btn_usr_del_archived']) AND isset($_POST['chk_user_archi
    /**
     * Prepare confirmation message
     */
-   $confirmation['show']=true;
-   $confirmation['success']=true;
-   $confirmation['header'] = $LANG['confirmation_success'];
-   $confirmation['title'] = $LANG['btn_delete_selected'];
-   $confirmation['text'] = $LANG['confirmation_delete_selected_users'];
+   $message     = true;
+   $msg_type    = 'success';
+   $msg_title   = $LANG['success'];
+   $msg_caption = $LANG['btn_delete_selected'];
+   $msg_text    = $LANG['confirmation_delete_selected_users'];
 }
 /**
  * =========================================================================
@@ -211,11 +203,11 @@ else if ( isset($_POST['btn_usr_pwd_reset']) AND isset($_POST['chk_user_active']
       /**
        * Prepare confirmation message
        */
-      $confirmation['show']=true;
-      $confirmation['success']=true;
-      $confirmation['header'] = $LANG['confirmation_success'];
-      $confirmation['title'] = $LANG['btn_reset_password_selected'];
-      $confirmation['text'] = $LANG['confirmation_reset_password_selected'];
+      $message     = true;
+      $msg_type    = 'success';
+      $msg_title   = $LANG['success'];
+      $msg_caption = $LANG['btn_reset_password_selected'];
+      $msg_text    = $LANG['confirmation_reset_password_selected'];
    }
 }
 /**
@@ -240,22 +232,22 @@ else if ( isset($_POST['btn_usr_restore']) AND isset($_POST['chk_user_archived']
       /**
        * Prepare confirmation message
        */
-      $confirmation['show']=true;
-      $confirmation['success']=true;
-      $confirmation['header'] = $LANG['confirmation_success'];
-      $confirmation['title'] = $LANG['btn_restore_selected'];
-      $confirmation['text'] = $LANG['confirmation_restore_selected_users'];
+      $message     = true;
+      $msg_type    = 'success';
+      $msg_title   = $LANG['success'];
+      $msg_caption = $LANG['btn_restore_selected'];
+      $msg_text    = $LANG['confirmation_restore_selected_users'];
    }
    else 
    {
       /**
        * Prepare failure message
        */
-      $confirmation['show']=true;
-      $confirmation['success']=false;
-      $confirmation['header'] = $LANG['confirmation_failure'];
-      $confirmation['title'] = $LANG['btn_restore_selected'];
-      $confirmation['text'] = $LANG['confirmation_restore_selected_users_failed'];
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['btn_restore_selected'];
+      $msg_text    = $LANG['confirmation_restore_selected_users_failed'];
    }
 }
 
@@ -280,21 +272,8 @@ require("includes/menu_inc.php");
    <div id="content-content">
    
       <!-- Message -->
-      <?php if ($confirmation['show']) { ?>
-      <div id="message-active-users" title="<?=$confirmation['header']?>">
-         <p style="color: #ffffff; font-weight: bold; padding: 4px; <?=($confirmation['success'])?"background-color: #009900;":"background-color: #990000;";?>"><?=$confirmation['title']?></p>
-         <p><?=$confirmation['text']?></p>
-      </div>
-      <script type="text/javascript">
-         $(function() { 
-            $( "#message-active-users" ).dialog({
-               modal: true,
-               buttons: { Ok: function() { $( this ).dialog( "close" ); } }
-            });
-         });
-      </script>                        
-      <?php } ?>
-                        
+      <?php if ($message) echo jQueryPopup($msg_type, $msg_title, $msg_caption, $msg_text); ?>
+                           
       <form class="form" name="form-userlist" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
          <!--  USERS =========================================================== -->
          <?php $colspan="5"; ?>

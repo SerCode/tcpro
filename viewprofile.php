@@ -55,8 +55,8 @@ if ($user = $L->checkLogin()) $UL->findByName($user);
 
 if ( isset($_REQUEST['username']) ) $req_username = $_REQUEST['username'];
 else $req_username=$user;
-$error = false;
-$msg = false;
+
+$message = false;
 
 /**
  * Check if allowed
@@ -75,13 +75,18 @@ $countto = str_replace("-","",$C->readConfig("defperiodto"));
 /**
  * Process form
  */
-if ( isset($_POST['btn_send']) ) {
+if ( isset($_POST['btn_send']) ) 
+{
    $to = $U->email;
    sendEmail($to, stripslashes($_POST['subject']), stripslashes($_POST['msg']));
-   $msg = true;
-   $message = $LANG['message_msgsent'];
+   $message     = true;
+   $msg_type    = 'success';
+   $msg_title   = $LANG['success'];
+   $msg_caption = $LANG['view_profile_title'];
+   $msg_text    = $LANG['message_msgsent'];
 }
-else if ( isset($_POST['btn_refresh']) ) {
+else if ( isset($_POST['btn_refresh']) ) 
+{
    /**
     * Adjust period for absence count
     */
@@ -96,13 +101,18 @@ $CONF['html_title'] = $LANG['html_title_viewprofile'];
  * User manual page
  */
 $help = urldecode($C->readConfig("userManual"));
-if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) 
+{
    $help .= 'View+Profile';
 }
 require( "includes/header_html_inc.php" );
 ?>
 <div id="content">
    <div id="content-content">
+      
+      <!-- Message -->
+      <?php if ($message) echo jQueryPopup($msg_type, $msg_title, $msg_caption, $msg_text); ?>
+                        
       <form name="userprofile" method="POST" action="<?=$_SERVER['PHP_SELF']."?username=".$U->username?>">
          <table class="dlg">
             <tr>
@@ -188,6 +198,5 @@ require( "includes/header_html_inc.php" );
    </div>
 </div>
 <?php
-if ($msg) echo ("<script type=\"text/javascript\">alert(\"".$message."\")</script>");
 require( "includes/footer_inc.php" );
 ?>

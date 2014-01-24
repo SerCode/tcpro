@@ -3,6 +3,19 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.012]
+
+DATE
+2014-01-xx
+
+BUGFIXES
+
+https://georgelewe.atlassian.net/browse/TCP-92
+Absence count was wrong in profile dialog
+
+Cleaned up the confirmation and error messages
+
+------------------------------------------------------------------------------
 [3.6.011]
 
 DATE

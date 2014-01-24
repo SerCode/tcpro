@@ -59,7 +59,7 @@ $UO  = new User_option_model;
 
 $error=false;
 $grouprights=false;
-$msg = false;
+$message = false;
 $pwdmismatch = false;
 
 if ($user=$L->checkLogin()) $UL->findByName($user);
@@ -112,8 +112,11 @@ if (isset($_POST['btn_apply']))
       else 
       {
          $pwdmismatch = true;
-         $msg = true;
-         $message = $LANG['error_password_mismatch'];
+         $message     = true;
+         $msg_type    = 'error';
+         $msg_title   = $LANG['error'];
+         $msg_caption = $LANG['edit_profile_title'];
+         $msg_text    = $LANG['error_password_mismatch'];
       }
    }
 
@@ -141,15 +144,15 @@ if (isset($_POST['btn_apply']))
        */
       switch ($_POST['opt_gender']) 
       {
-      case "ut_male":
-         $U->setUserType($CONF['UTMALE']);
-         break;
-      case "ut_female":
-         $U->clearUserType($CONF['UTMALE']);
-         break;
-      default:
-         $U->setUserType($CONF['UTMALE']);
-         break;
+         case "ut_male":
+            $U->setUserType($CONF['UTMALE']);
+            break;
+         case "ut_female":
+            $U->clearUserType($CONF['UTMALE']);
+            break;
+         default:
+            $U->setUserType($CONF['UTMALE']);
+            break;
       }
 
       /**
@@ -351,10 +354,13 @@ if (isset($_POST['btn_apply']))
       sendNotification("userchange",$fullname,"");
 
       /**
-       * Set $msg to true if you wanna see a Javascript popup after update
+       * Set $messsage to true if you wanna see a Javascript popup after update
        */
-      $msg = false;
-      $message = $LANG['profile_updated'];
+      $message     = false;
+      $msg_type    = 'success';
+      $msg_title   = $LANG['success'];
+      $msg_caption = $LANG['edit_profile_title'];
+      $msg_text    = $LANG['profile_updated'];
 
       /**
        * Log this event
@@ -432,10 +438,11 @@ elseif ( isset($_POST['btn_avatar_upload']) )
    $AV->save($U->username);
    if ($AV->message)
    {
-      $error=true;
-      $err_short="Avatar Upload Error";
-      $err_long=$AV->message;
-      $err_module="editprofile.php";
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['err_avatar_upload'];
+      $msg_text    = $AV->message;
    }
    else 
    {
@@ -467,7 +474,8 @@ $CONF['html_title'] = $LANG['html_title_editprofile'];
  * User manual page
  */
 $help = urldecode($C->readConfig("userManual"));
-if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) {
+if (urldecode($C->readConfig("userManual"))==$CONF['app_help_root']) 
+{
    $help .= 'User+Profile';
 }
 require( "includes/header_html_inc.php" );
@@ -475,6 +483,10 @@ require( "includes/header_html_inc.php" );
 <script type="text/javascript">$(function() { $( "#tabs" ).tabs(); });</script>
 <div id="content">
    <div id="content-content">
+      
+      <!-- Message -->
+      <?php if ($message) echo jQueryPopup($msg_type, $msg_title, $msg_caption, $msg_text); ?>
+                        
       <form enctype="multipart/form-data" name="userprofile" method="POST" action="<?=$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&amp;username=".$U->username?>">
          <table class="dlg">
             <tr>

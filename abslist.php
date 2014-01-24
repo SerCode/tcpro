@@ -50,19 +50,13 @@ $error=FALSE;
  */
 if (!isAllowed("manageUsers")) showError("notallowed");
 
-$confirmation = array (
-   'header'  => "Header",
-   'title'   => "Title",
-   'show'    => false,
-   'success' => false,
-   'text'    => ""
-);
+$message=false;
 
 /**
  * =========================================================================
  * DELETE
  */
-if ( isset($_POST['btn_abs_del']) ) 
+if ( isset($_POST['btn_abs_del']) AND (isset($_POST['chk_abs'])) ) 
 {
    $selected_absences = $_POST['chk_abs'];
    foreach($selected_absences as $sa=>$value) 
@@ -81,11 +75,11 @@ if ( isset($_POST['btn_abs_del']) )
       /**
        * Prepare confirmation message
        */
-      $confirmation['show']=true;
-      $confirmation['success']=true;
-      $confirmation['header'] = $LANG['confirmation_success'];
-      $confirmation['title'] = $LANG['btn_delete_selected'];
-      $confirmation['text'] = $LANG['confirmation_delete_selected_absences'];
+      $message     = true;
+      $msg_type    = 'success';
+      $msg_title   = $LANG['success'];
+      $msg_caption = $LANG['btn_delete_selected'];
+      $msg_text    = $LANG['confirmation_delete_selected_absences'];
    }
 }
 
@@ -110,12 +104,7 @@ require("includes/menu_inc.php");
    <div id="content-content">
    
       <!-- Message -->
-      <?php if ($confirmation['show']) { ?>
-      <div id="message-abslist" title="<?=$confirmation['header']?>">
-         <p style="color: #ffffff; font-weight: bold; padding: 4px; <?=($confirmation['success'])?"background-color: #009900;":"background-color: #990000;";?>"><?=$confirmation['title']?></p>
-         <p><?=$confirmation['text']?></p>
-      </div>
-      <?php } ?>
+      <?php if ($message) echo jQueryPopup($msg_type, $msg_title, $msg_caption, $msg_text); ?>
    
       <form class="form" name="form-abslist" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
          <!--  ABSENCE TYPES =========================================================== -->

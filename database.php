@@ -69,7 +69,7 @@ $UA = new User_announcement_model;
 $UG = new User_group_model;
 $UO = new User_option_model;
 
-$error=FALSE;
+$message = false;
 
 /**
  * Check if allowed
@@ -82,13 +82,7 @@ $curryear = $today['year']; // numeric value, 4 digits
 $currmonth = $today['mon']; // numeric value
 
 $maxsize = "1000000";
-$message = array (
-   'show'    => false,
-   'type'    => 'information',
-   'title'   => 'Information',
-   'caption' => '',
-   'text'    => ''
-);
+
 /**
  * =========================================================================
  * CLEANUP
@@ -167,22 +161,22 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
          /**
           * Prepare confirmation message
           */
-         $message['show']    = true;
-         $message['type']    = 'success';
-         $message['title']   = $LANG['success'];
-         $message['caption'] = $LANG['admin_dbmaint_cleanup_caption'];
-         $message['text']    = $LANG['admin_dbmaint_cleanup_confirm'];
+         $message     = true;
+         $msg_type    = 'success';
+         $msg_title   = $LANG['success'];
+         $msg_caption = $LANG['admin_dbmaint_cleanup_caption'];
+         $msg_text    = $LANG['admin_dbmaint_cleanup_confirm'];
       } 
       else 
       {
          /**
           * Prepare failure message
           */
-         $message['show']    = true;
-         $message['type']    = 'error';
-         $message['title']   = $LANG['error'];
-         $message['caption'] = $LANG['admin_dbmaint_cleanup_caption'];
-         $message['text']    = $LANG['err_input_dbmaint_clean_success'];
+         $message     = true;
+         $msg_type    = 'error';
+         $msg_title   = $LANG['error'];
+         $msg_caption = $LANG['admin_dbmaint_cleanup_caption'];
+         $msg_text    = $LANG['err_input_dbmaint_clean_success'];
       }
    } 
    else 
@@ -190,11 +184,11 @@ if ( isset($_POST['btn_dbmaint_clean']) ) {
       /**
        * Prepare failure message
        */
-      $message['show']    = true;
-      $message['type']    = 'error';
-      $message['title']   = $LANG['error'];
-      $message['caption'] = $LANG['admin_dbmaint_cleanup_caption'];
-      $message['text']    = $LANG['err_input_dbmaint_clean'];
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['admin_dbmaint_cleanup_caption'];
+      $msg_text    = $LANG['err_input_dbmaint_clean'];
    }
 }
 /**
@@ -350,22 +344,22 @@ else if ( isset($_POST['btn_dbmaint_del']) )
       /**
        * Prepare confirmation message
        */
-      $message['show']    = true;
-      $message['type']    = 'success';
-      $message['title']   = $LANG['success'];
-      $message['caption'] = $LANG['admin_dbmaint_del_caption'];
-      $message['text']    = $LANG['admin_dbmaint_del_confirm_popup'];
+      $message     = true;
+      $msg_type    = 'success';
+      $msg_title   = $LANG['success'];
+      $msg_caption = $LANG['admin_dbmaint_del_caption'];
+      $msg_text    = $LANG['admin_dbmaint_del_confirm_popup'];
    } 
    else 
    {
       /**
        * Prepare failure message
        */
-      $message['show']    = true;
-      $message['type']    = 'error';
-      $message['title']   = $LANG['error'];
-      $message['caption'] = $LANG['admin_dbmaint_del_caption'];
-      $message['text']    = $LANG['err_input_dbmaint_del'];
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['admin_dbmaint_del_caption'];
+      $msg_text    = $LANG['err_input_dbmaint_del'];
    }
 }
 /**
@@ -447,21 +441,21 @@ else if ( isset($_POST['btn_rest_rest']) )
                }
             }
             
-            $message['show']=true;
-            
             if (!$found) 
             {
-               $message['type']    = 'error';
-               $message['title']   = $LANG['error'];
-               $message['caption'] = $LANG['admin_dbmaint_rest_caption'];
-               $message['text']    = $LANG['admin_dbmaint_msg_001'];
+               $message     = true;
+               $msg_type    = 'error';
+               $msg_title   = $LANG['error'];
+               $msg_caption = $LANG['admin_dbmaint_rest_caption'];
+               $msg_text    = $LANG['admin_dbmaint_msg_001'];
             }
             else 
             {
-               $message['type']    = 'error';
-               $message['title']   = $LANG['error'];
-               $message['caption'] = $LANG['admin_dbmaint_rest_caption'];
-               $message['text']    = $LANG['admin_dbmaint_msg_002'];
+               $message     = true;
+               $msg_type    = 'success';
+               $msg_title   = $LANG['success'];
+               $msg_caption = $LANG['admin_dbmaint_rest_caption'];
+               $msg_text    = $LANG['admin_dbmaint_msg_002'];
                
                /**
                 * Log this event
@@ -472,20 +466,20 @@ else if ( isset($_POST['btn_rest_rest']) )
       }
       else 
       {
-         $message['show']    = true;
-         $message['type']    = 'error';
-         $message['title']   = $LANG['error'];
-         $message['caption'] = $LANG['admin_dbmaint_rest_caption'];
-         $message['text']    = $LANG['admin_dbmaint_msg_003'];
+         $message     = true;
+         $msg_type    = 'error';
+         $msg_title   = $LANG['error'];
+         $msg_caption = $LANG['admin_dbmaint_rest_caption'];
+         $msg_text    = $LANG['admin_dbmaint_msg_003'];
       }
    }
    else 
    {
-      $message['show']    = true;
-      $message['type']    = 'error';
-      $message['title']   = $LANG['error'];
-      $message['caption'] = $LANG['admin_dbmaint_rest_caption'];
-      $message['text']    = $LANG['admin_dbmaint_msg_004'];
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['admin_dbmaint_rest_caption'];
+      $msg_text    = $LANG['admin_dbmaint_msg_004'];
    }
 }
 
@@ -509,7 +503,7 @@ require("includes/menu_inc.php");
    <div id="content-content">
 
       <!-- Message -->
-      <?php if ($message['show']) echo jQueryPopup($message['type'], $message['title'], $message['caption'], $message['text']); ?>
+      <?php if ($message) echo jQueryPopup($msg_type, $msg_title, $msg_caption, $msg_text); ?>
                         
       <!--  DATABASE MANAGEMENT ================================================= -->
       <table class="dlg">

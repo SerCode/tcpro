@@ -49,7 +49,7 @@ $R2  = new Region_model;
 $U  = new User_model;
 $UO  = new User_option_model;
 
-$error = false;
+$message = false;
 
 /**
  * Check if allowed
@@ -74,11 +74,11 @@ if ( isset($_POST['btn_reg_add']) )
       /**
        * The region name is invalid
        */
-      $error       = true;
-      $err_type    = 'error';
-      $err_title   = $LANG['error'];
-      $err_caption = $LANG['err_input_caption'];
-      $err_text    = $LANG['err_input_reg_invalid_1'].trim($_POST['reg_nameadd']).$err_long .= $LANG['err_input_reg_invalid_2'];
+      $message       = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['err_input_caption'];
+      $msg_text    = $LANG['err_input_reg_invalid_1'].trim($_POST['reg_nameadd']).$msg_long .= $LANG['err_input_reg_invalid_2'];
    }
    else  if (strlen($rname=trim($_POST['reg_nameadd']))) 
    {
@@ -87,11 +87,11 @@ if ( isset($_POST['btn_reg_add']) )
          /**
           * The region already exists
           */
-         $error       = true;
-         $err_type    = 'error';
-         $err_title   = $LANG['error'];
-         $err_caption = $LANG['err_input_caption'];
-         $err_text    = $LANG['err_input_region_exists'];
+         $message       = true;
+         $msg_type    = 'error';
+         $msg_title   = $LANG['error'];
+         $msg_caption = $LANG['err_input_caption'];
+         $msg_text    = $LANG['err_input_region_exists'];
       }
       else 
       {
@@ -115,11 +115,11 @@ if ( isset($_POST['btn_reg_add']) )
       /**
        * No shortname was submitted
        */
-      $error       = true;
-      $err_type    = 'error';
-      $err_title   = $LANG['error'];
-      $err_caption = $LANG['err_input_caption'];
-      $err_text    = $LANG['err_input_reg_add'];
+      $message       = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['err_input_caption'];
+      $msg_text    = $LANG['err_input_reg_add'];
    }
 }
 /**
@@ -133,22 +133,22 @@ else if ( isset($_POST['btn_import_ical']) )
       /**
        * No shortname was submitted
        */
-      $error       = true;
-      $err_type    = 'error';
-      $err_title   = $LANG['error'];
-      $err_caption = $LANG['err_input_caption'];
-      $err_text    = $LANG['err_input_region_add'];
+      $message       = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['err_input_caption'];
+      $msg_text    = $LANG['err_input_region_add'];
    }
    else if ( trim($_FILES['ical_file']['tmp_name'])=='' ) 
    {
       /**
        * No filename was submitted
        */
-      $error       = true;
-      $err_type    = 'error';
-      $err_title   = $LANG['error'];
-      $err_caption = $LANG['err_input_caption'];
-      $err_text    = $LANG['err_input_no_filename'];
+      $message       = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['err_input_caption'];
+      $msg_text    = $LANG['err_input_no_filename'];
    }
    else 
    {
@@ -158,11 +158,11 @@ else if ( isset($_POST['btn_import_ical']) )
          /**
           * The region already exists
           */
-         $error       = true;
-         $err_type    = 'error';
-         $err_title   = $LANG['error'];
-         $err_caption = $LANG['err_input_caption'];
-         $err_text    = $LANG['err_input_region_exists'];
+         $message       = true;
+         $msg_type    = 'error';
+         $msg_title   = $LANG['error'];
+         $msg_caption = $LANG['err_input_caption'];
+         $msg_text    = $LANG['err_input_region_exists'];
       }
       else 
       {
@@ -366,11 +366,11 @@ else if ( isset($_POST['btn_reg_merge']) )
       /**
        * Same source and target region
        */
-      $error       = true;
-      $err_type    = 'error';
-      $err_title   = $LANG['error'];
-      $err_caption = $LANG['err_input_caption'];
-      $err_text    = $LANG['err_input_same_region'];
+      $message       = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['err_input_caption'];
+      $msg_text    = $LANG['err_input_same_region'];
    }
    else 
    {
@@ -440,7 +440,7 @@ require("includes/menu_inc.php");
    <div id="content-content">
    
       <!-- Message -->
-      <?php if ($error) echo jQueryPopup($err_type, $err_title, $err_caption, $err_text); ?>
+      <?php if ($message) echo jQueryPopup($msg_type, $msg_title, $msg_caption, $msg_text); ?>
                         
       <!--  REGIONS =========================================================== -->
       <table class="dlg">

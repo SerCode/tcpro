@@ -51,8 +51,6 @@ $UG = new User_group_model;
 $UL = new User_model;
 $UO = new User_option_model;
 
-$error=FALSE;
-
 /**
  * Check if allowed
  */

@@ -48,7 +48,6 @@ $CONF['db_pass']   ="";
  * Table names
  */
 $CONF['db_table_prefix']            = "my_";
-$CONF['db_table_abs_group']         = $CONF['db_table_prefix'].'tc_abs_group';
 $CONF['db_table_absence']           = $CONF['db_table_prefix'].'tc_absences';
 $CONF['db_table_absence_group']     = $CONF['db_table_prefix'].'tc_absence_group';
 $CONF['db_table_allowance']         = $CONF['db_table_prefix'].'tc_allowances';

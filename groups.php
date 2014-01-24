@@ -45,7 +45,7 @@ $LOG = new Log_model;
 $U  = new User_model;
 $UG  = new User_group_model;
 
-$error = false;
+$message = false;
 
 /**
  * Check if allowed
@@ -102,11 +102,11 @@ if ( isset($_POST['btn_grp_add']) )
    }
    else 
    {
-      $error       = true;
-      $err_type    = 'error';
-      $err_title   = $LANG['error'];
-      $err_caption = $LANG['err_input_caption'];
-      $err_text    = $LANG['err_input_group_add'];
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['err_input_caption'];
+      $msg_text    = $LANG['err_input_group_add'];
    }
 }
 /**
@@ -196,7 +196,7 @@ require("includes/menu_inc.php");
    <div id="content-content">
       
       <!-- Message -->
-      <?php if ($error) echo jQueryPopup($err_type, $err_title, $err_caption, $err_text); ?>
+      <?php if ($message) echo jQueryPopup($msg_type, $msg_title, $msg_caption, $msg_text); ?>
                         
       <!--  GROUPS =========================================================== -->
       <table class="dlg">

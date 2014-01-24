@@ -862,7 +862,7 @@ CREATE TABLE `my_tc_archive_users` (
   PRIMARY KEY (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `my_tc_archive_user_announcements`;
+DROP TABLE IF EXISTS `my_tc_archive_user_announcement`;
 CREATE TABLE `my_tc_archive_user_announcement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) DEFAULT NULL,

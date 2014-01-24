@@ -1499,12 +1499,17 @@ function isFlag($flagset, $bitmask) {
  */
 function jQueryPopup($type='info', $title='Information', $caption, $message) 
 {
-   $bgcolor = array('info'=>'#0099ff', 'success'=>'009900', 'warning'=>'#ffb300', 'error'=>'#990000');
+   $color = array(
+      'info' => array( 'border'=>'#bce8f1', 'headerbg'=>'#d9edf7', 'headerfg'=>'#31708f'), 
+      'success' => array( 'border'=>'#d6e9c6', 'headerbg'=>'#dff0d8', 'headerfg'=>'#3c763d'),
+      'warning' => array( 'border'=>'#faebcc', 'headerbg'=>'#fcf8e3', 'headerfg'=>'#8a6d3b'),
+      'error' => array( 'border'=>'#ebccd1', 'headerbg'=>'#f2dede', 'headerfg'=>'#a94442'),
+   );
 
    $html = '
-   <div id="jqpopup" title="'.$title.'">
-      <p style="color: #ffffff; font-weight: bold; padding: 4px; background-color: '.$bgcolor[$type].';">'.$caption.'</p>
-      <p>'.$message.'</p>
+   <div id="jqpopup" title="'.$title.'" style="border: 1px solid '.$color[$type]['border'].'; margin: 8px; padding: 0px; border-radius: 4px;">
+      <p style="color: '.$color[$type]['headerfg'].'; font-weight: bold; padding: 8px; margin: 0px; background-color: '.$color[$type]['headerbg'].';">'.$caption.'</p>
+      <p style="background-color: #ffffff; padding: 0 8px 8px 8px;">'.$message.'</p>
    </div>
    <script type="text/javascript">
       $(function() { 

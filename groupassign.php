@@ -43,8 +43,6 @@ $U  = new User_model;
 $UG = new User_group_model;
 $UO = new User_option_model;
 
-$error=FALSE;
-
 /**
  * Check if allowed
  */
@@ -189,9 +187,7 @@ require("includes/menu_inc.php");
       $groups = $G->getAll();
       $nofgroups = count($groups);
       $gcols = $nofgroups + 1; // Have to add the column for user type
-      foreach ($groups as $row) {
-         $grouparray[] = $row['groupname'];
-      }
+      foreach ($groups as $row) $grouparray[] = $row['groupname'];
       $groupsperblock = intval($C->readConfig("repeatUsernamesAfter"));
       $groupblocks = floor($gcols/$groupsperblock);
       if ($gcols%$groupsperblock) $groupblocks++;
@@ -243,40 +239,47 @@ require("includes/menu_inc.php");
             </tr>
             <?php
             if ($sort=="desc") $sortorder="DESC"; else $sortorder="ASC";
-            if (strlen($searchuser)) {
+            if (strlen($searchuser)) 
+            {
                $query  = "SELECT `username` FROM `".$U->table."` ".
                          "WHERE username!='admin' ".
                          "AND firstname LIKE '".$searchuser."' ".
                          "OR lastname LIKE '".$searchuser."' ".
                          "ORDER BY `lastname` ".$sortorder.",`firstname`;";
             }
-            else {
+            else 
+            {
                $query = "SELECT `username` FROM `".$U->table."` WHERE username!='admin' ORDER BY `lastname` ".$sortorder.",`firstname`;";
             }
             $norows=1;
             $result = $U->db->db_query($query);
-            while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) {
+            while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) 
+            {
                $userchk="";
                $directorchk="";
                $adminchk="";
                $U->findByName($row['username']);
                if ( $U->firstname!="" ) $showname = $U->lastname.", ".$U->firstname; else $showname = $U->lastname;
-               if ( $U->checkUserType($CONF['UTADMIN']) ) {
+               if ( $U->checkUserType($CONF['UTADMIN']) ) 
+               {
                   $icon = "ico_usr_admin.png";
                   $icon_tooltip = $LANG['icon_admin'];
                   $adminchk="CHECKED";
                }
-               else if ( $U->checkUserType($CONF['UTDIRECTOR']) ) {
+               else if ( $U->checkUserType($CONF['UTDIRECTOR']) ) 
+               {
                   $icon = "ico_usr_director.png";
                   $icon_tooltip = $LANG['icon_director'];
                   $directorchk="CHECKED";
                }
-               else if ( $U->checkUserType($CONF['UTMANAGER']) ) {
+               else if ( $U->checkUserType($CONF['UTMANAGER']) ) 
+               {
                   $icon = "ico_usr_manager.png";
                   $icon_tooltip = $LANG['icon_manager'];
                   $userchk="CHECKED";
                }
-               else {
+               else  
+               {
                   $icon = "ico_usr.png";
                   $icon_tooltip = $LANG['icon_user'];
                   $userchk="CHECKED";
@@ -320,22 +323,28 @@ require("includes/menu_inc.php");
                 * Memberships
                 */
                $gnum=1;
-               for ($groupindex=0; $groupindex<$nofgroups; $groupindex++ ) {
-                  if ($groupindex>0 && ($groupindex+1)%$groupsperblock==0) {
+               for ($groupindex=0; $groupindex<$nofgroups; $groupindex++ ) 
+               {
+                  if ($groupindex>0 && ($groupindex+1)%$groupsperblock==0) 
+                  {
                      echo "<td class=\"dlg-row".$printrow."\" style=\"white-space:nowrap;\"><img src=\"themes/".$theme."/img/".$icon."\" align=\"middle\" alt=\"".$icon_tooltip."\" title=\"".$icon_tooltip."\" style=\"padding-right: 2px;\">$showname</td>";
                   }
                   $notmemberchk="";
                   $memberchk="";
                   $managerchk="";
-                  if ($UG->isMemberOfGroup($U->username,$grouparray[$groupindex])) {
-                     if ($UG->type=="manager") {
+                  if ($UG->isMemberOfGroup($U->username,$grouparray[$groupindex])) 
+                  {
+                     if ($UG->type=="manager") 
+                     {
                         $managerchk="CHECKED";
                      }
-                     else if ($UG->type=="member") {
+                     else if ($UG->type=="member") 
+                     {
                         $memberchk="CHECKED";
                      }
                   }
-                  else {
+                  else 
+                  {
                      $notmemberchk="CHECKED";
                   }
                   echo "<td class=\"dlg-row".$printrow."\" style=\"border-left: 1px solid #bbbbbb; text-align: center;\">

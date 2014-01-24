@@ -42,8 +42,6 @@ $U   = new User_model;
 $UA  = new User_announcement_model;
 $UL  = new User_model;
 
-$error=FALSE;
-
 /**
  * Check if allowed
  */
