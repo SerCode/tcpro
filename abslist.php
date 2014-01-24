@@ -43,8 +43,6 @@ $L = new Login_model;
 $LOG = new Log_model;
 $U = new User_model;
 
-$error=FALSE;
-
 /**
  * Check if allowed
  */
