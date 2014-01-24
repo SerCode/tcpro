@@ -95,7 +95,40 @@ if (!class_exists("Db_model"))
                   $errtxt = "<p>Error: A problem was encountered while executing this query:</p>\n<p><pre>SET SQL_BIG_SELECTS=1</pre></p>\n";
                   $this->db_error($errtxt, "db_connect()", true);
                }
-        
+               
+               /*
+                * The following code will make sure the database knows that all is UTF8.
+                * The problem is that for existing TCP installations that will upgrade to this
+                * release/code will see all their special characters look weird in TCP. They
+                * would have to re-edit and save them in TCP.
+                * Decision whether to activate this code or not is pending.
+                *
+               //
+               // Tell database to be UTF8
+               //
+               $db_version = mysql_get_server_info();
+               if (intval(substr($db_version, 0, 1))<5)
+               {
+                  //
+                  // Database version below 5
+                  //
+                  $result = mysql_query("SET NAMES UTF8", Db_model::$db_handle);
+                  if (!$result)
+                  {
+                     $errtxt = "<p>Error: A problem was encountered while executing this query:</p>\n<p><pre>SET NAMES UTF8</pre></p>\n";
+                     $this->db_error($errtxt, "db_connect()", true);
+                  }                  
+               }
+               else 
+               {
+                  if (!mysql_set_charset('utf8', Db_model::$db_handle)) 
+                  {
+                     $errtxt = "<p>Error: A problem was encountered while setting the character set to UTF8</p>\n<p><pre>mysql_set_charset('utf8')</pre></p>";
+                     $this->db_error($errtxt, "db_connect()", true);
+                  }
+               }
+               */
+               
                break;
             }
          }

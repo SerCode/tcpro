@@ -422,8 +422,6 @@ elseif (isset($_POST['btn_abs_update']))
     * Log this event
     */
    $LOG->log("logUser",$L->checkLogin(),"log_user_allow_updated", $U->username);
-   //header("Location: ".$_SERVER['PHP_SELF']."?referrer=".$_REQUEST['referrer']."&username=".$U->username);
-   //die();
 }
 /**
  * =========================================================================
