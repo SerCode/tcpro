@@ -46,10 +46,6 @@ $U   = new User_model;
 $UA  = new User_announcement_model;
 
 /**
- * Get other options
- */
-
-/**
  * Get the URL action request
  */
 $display = $C->readConfig("homepage");
@@ -114,7 +110,7 @@ if ($luser=$L->checkLogin())
       
       if ( (floatval($nowstamp)-20) < floatval($userstamp) AND isAllowed("viewAnnouncements") ) 
       {
-         header("Location: announcement.php?uaname=".$user);
+         header("Location: announcement.php?uaname=".$luser);
          die();
       }
    }
