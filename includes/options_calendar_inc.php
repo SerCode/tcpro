@@ -62,7 +62,8 @@ if ($C->readConfig("showGroup")) {
 <?php } ?>
    
    
-<?php if ($C->readConfig("showToday")) {
+<?php if ($C->readConfig("showToday")) 
+{
    $selectedAbsence=$CONF['options']['absencefilter']; ?>
    <!-- Absence filter drop down -->
    &nbsp;&nbsp;<?=$LANG['nav_absencefilter']?>&nbsp;
@@ -77,10 +78,15 @@ if ($C->readConfig("showGroup")) {
    </select>
 <?php } ?>
 
-<?php if ($C->readConfig("showStart")) {
+<?php if ($C->readConfig("showStart")) 
+{
    $selectedMonth=$CONF['options']['month_id']; 
    $selectedYear=$CONF['options']['year_id']; 
-   $selectedAmount=$CONF['options']['show_id']; 
+   $selectedAmount=$CONF['options']['show_id'];
+    
+   $tz = $C->readConfig("timeZone");
+   if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+   else date_default_timezone_set ($tz);
    $today = getdate();
    $curryear = $today['year'];
    ?>

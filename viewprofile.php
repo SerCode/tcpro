@@ -68,6 +68,9 @@ $U->findByName($req_username);
 /**
  * Default period for absence count
  */
+$tz = $C->readConfig("timeZone");
+if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+else date_default_timezone_set ($tz);
 $today     = getdate();
 $countfrom = str_replace("-","",$C->readConfig("defperiodfrom"));
 $countto = str_replace("-","",$C->readConfig("defperiodto"));

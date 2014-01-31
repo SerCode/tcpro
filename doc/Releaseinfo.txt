@@ -10,6 +10,12 @@ DATE
 
 BUGFIXES
 
+https://georgelewe.atlassian.net/browse/TCP-95
+Timezone fix
+
+https://georgelewe.atlassian.net/browse/TCP-93
+Announcement page redirect in index.php
+
 https://georgelewe.atlassian.net/browse/TCP-92
 Absence count was wrong in profile dialog
 

@@ -13,6 +13,9 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
+$tz = $C->readConfig("timeZone");
+if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+else date_default_timezone_set ($tz);
 $today     = getdate();
 $curryear  = $today['year'];  // A full numeric representation of todays' year, 4 digits
 $showyear = $curryear;

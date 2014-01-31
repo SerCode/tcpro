@@ -48,6 +48,9 @@ if (!isAllowed("viewSystemLog")) showError("notallowed");
 /**
  * Get Today
  */
+$tz = $C->readConfig("timeZone");
+if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+else date_default_timezone_set ($tz);
 $today      = getdate();
 $daytoday   = sprintf("%02d",$today['mday']);   // Numeric representation of todays' day of the month
 $monthtoday = sprintf("%02d",$today['mon']);    // Numeric representation of todays' month

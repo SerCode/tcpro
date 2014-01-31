@@ -59,6 +59,9 @@ if (!isAllowed("editRegions")) showError("notallowed");
 /**
  * Get current month and year
  */
+$tz = $C->readConfig("timeZone");
+if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+else date_default_timezone_set ($tz);
 $today     = getdate();
 $monthtoday = $CONF['monthnames'][$today['mon']];   // Numeric representation of todays' month
 $yeartoday  = $today['year'];  // A full numeric representation of todays' year, 4 digits

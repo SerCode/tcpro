@@ -1219,6 +1219,13 @@ function getOptions() {
    $user = $L->checkLogin();
 
    /**
+    * Set time zone
+    */
+   $tz = $C->readConfig("timeZone");
+   if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+   else date_default_timezone_set ($tz);
+   
+   /**
     * Set defaults
     */
    $today = getdate();
@@ -1404,13 +1411,6 @@ function getOptions() {
       $debug.="tc_config['options']['remainder'] = ".$CONF['options']['remainder']."\\r\\n";
       echo "<script type=\"text/javascript\">alert(\"".$debug."\");</script>";
    }
-
-   /**
-    * Set time zone
-    */
-   $tz="UTC";
-   if (strlen($C->readConfig("timeZone"))) $tz=$C->readConfig("timeZone");
-   date_default_timezone_set($tz);
 }
 
 

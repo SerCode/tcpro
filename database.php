@@ -77,6 +77,9 @@ $message = false;
 if (!isAllowed("manageDatabase")) showError("notallowed");
 
 $monthnames = $CONF['monthnames'];
+$tz = $C->readConfig("timeZone");
+if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+else date_default_timezone_set ($tz);
 $today = getdate();
 $curryear = $today['year']; // numeric value, 4 digits
 $currmonth = $today['mon']; // numeric value

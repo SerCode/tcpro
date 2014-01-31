@@ -149,6 +149,9 @@ if (!$allowed) {
  */
 $monthnames = $CONF['monthnames'];
 $weekdays = $CONF['weekdays'];
+$tz = $C->readConfig("timeZone");
+if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+else date_default_timezone_set ($tz);
 $today     = getdate();
 $curryear  = $today['year'];  // A full numeric representation of todays' year, 4 digits
 $currmonth = $today['mon'];   // Numeric representation of todays' month

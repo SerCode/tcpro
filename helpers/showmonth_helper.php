@@ -85,6 +85,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
     * Now find out what today is and if it lies in the month we are about
     * to display
     */
+   $tz = $C->readConfig("timeZone");
+   if (!strlen($tz) OR $tz=="default") date_default_timezone_set ('UTC');
+   else date_default_timezone_set ($tz);
    $today     = getdate();
    $daytoday   = $today['mday'];  // Numeric representation of todays' day of the month
    $monthtoday = $today['mon'];   // Numeric representation of todays' month
