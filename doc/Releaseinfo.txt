@@ -6,9 +6,12 @@ TEAMCAL PRO RELEASE INFO
 [3.6.012]
 
 DATE
-2014-01-xx
+2014-02-xx
 
 BUGFIXES
+
+https://georgelewe.atlassian.net/browse/TCP-98
+Month selection not retained on subsequent pages
 
 https://georgelewe.atlassian.net/browse/TCP-95
 Timezone fix

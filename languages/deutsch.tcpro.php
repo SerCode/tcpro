@@ -1579,7 +1579,7 @@ $LANG['admin_dbmaint_del_pschemes'] = 'Eigene Berechtigungsschemen l&ouml;schen 
 /**
  * Editcalendar
  */
-$LANG['notification_new_template'] = 'Neues Template für: ';
+$LANG['notification_new_template'] = 'Neues Template f&uuml;r: ';
 
 
 /**

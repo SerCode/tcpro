@@ -78,6 +78,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
    $mydate = getdate($myts);   // Get first weekday of the current month
    $weekday1 = $mydate['wday'];
    if ($weekday1=="0") $weekday1="7";
+   $monthinteger = intval($mydate['mon']);
    $monthno = sprintf("%02d",intval($mydate['mon']));
    $monthname = $LANG['monthnames'][intval($monthno)]." ".$year; // Set the friendly name of the month
 
@@ -1715,6 +1716,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
        */
       if ($page) 
       {
+         $urlparms = '?action=calendar&amp;lang='.$CONF['options']['lang'].'&amp;groupfilter='.$groupfilter.'&amp;year_id='.$year.'&amp;month_id='.$monthinteger.'&amp;sort='.$sortorder;
          if ($intNumPages>1) 
          {
             if ($intDisplayPage==1) 
@@ -1723,7 +1725,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             }
             else 
             {
-               $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage-1).'&amp;lang='.$CONF['options']['lang'].'&amp;groupfilter='.$groupfilter.'\';" value="'.$LANG['btn_prev'].'">&nbsp;';
+               $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].$urlparms.'&amp;page='.($intDisplayPage-1).'\';" value="'.$LANG['btn_prev'].'">&nbsp;';
             }
       
             for ($i=1; $i<=$intNumPages; $i++) 
@@ -1734,7 +1736,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                }
                else 
                {
-                  $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($i).'&amp;lang='.$CONF['options']['lang'].'&amp;groupfilter='.$groupfilter.'\';" value="'.$i.'">&nbsp;';
+                  $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].$urlparms.'&amp;page='.($i).'\';" value="'.$i.'">&nbsp;';
                }
             }
       
@@ -1744,7 +1746,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             }
             else 
             {
-               $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].'?action=calendar&amp;page='.($intDisplayPage+1).'&amp;lang='.$CONF['options']['lang'].'&amp;groupfilter='.$groupfilter.'\';" value="'.$LANG['btn_next'].'">&nbsp;';
+               $showmonthBody .= '<input type="button" onclick="javascript:document.location.href=\''.$_SERVER['PHP_SELF'].$urlparms.'&amp;page='.($intDisplayPage+1).'\';" value="'.$LANG['btn_next'].'">&nbsp;';
             }
          }
       }
