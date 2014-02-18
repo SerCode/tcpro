@@ -10,6 +10,9 @@ DATE
 
 NEW FEATURES
 
+https://georgelewe.atlassian.net/browse/TCP-100
+Show region holidays per user
+
 https://georgelewe.atlassian.net/browse/TCP-99
 Import iCal into existing region
 

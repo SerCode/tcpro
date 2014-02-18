@@ -148,7 +148,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
    }
 
    /**
-    * Read Month Template
+    * Read Month Template from global default region
     */
    $found = $M->findByName($CONF['options']['region'], $year.$monthno);
    if ( !$found ) 
@@ -831,6 +831,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       
       // =====================================================================
       /**
+       * USER LOOP
+       * 
        * Loop through all users previously selected in the $users array.
        * Initialize the row count which is per user. It is used to repeat the month header
        * later based on repeatHeaderRowCount.
@@ -1090,7 +1092,41 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                }
                $T->create();
             }
-                                   
+
+            /**
+             * Determine the region to show in this row
+             */
+            if ($C->readConfig("showUserRegion"))
+            {
+               $userRegion = $UO->find($U->username,'defregion');
+               if ($userRegion == "default") $userRegion = $CONF['options']['region'];
+                  
+               /**
+                * Read Month Template from determined region
+                */
+               $found = $M->findByName($userRegion, $year.$monthno);
+               if ( !$found )
+               {
+                  /**
+                   * Seems there is no default template for this month yet.
+                   * Let's create a default one.
+                   */
+                  $M->region = $userRegion;
+                  $M->yearmonth = $year.$monthno;
+                  $M->template = createMonthTemplate($year,$month);
+                  $M->create();
+               }
+               else if ( empty($M->template) )
+               {
+                  /**
+                   * Seems there is an empty default template. That can't be.
+                   * Let's create a default one.
+                   */
+                  $M->template = createMonthTemplate($year,$month);
+                  $M->update($userRegion, $year.$monthno);
+               }
+            }
+            
             /**
              * Show the remainder section for this user
              */

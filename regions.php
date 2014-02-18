@@ -674,7 +674,7 @@ require("includes/menu_inc.php");
                               <td class="dlg-row2" width="30%"><input name="icalreg_descadd" size="34" type="text" class="text" value=""></td>
                               <td class="dlg-row2" width="10%"><input name="icalchkHide" type="checkbox" value="icalchkHide"></td>
                               <td class="dlg-row2" width="35%">
-                                 <input type="file" class="button" accept="text/calendar" name="ical_file">
+                                 <input type="file" accept="text/calendar" name="ical_file">
                                  <select name="icalHol" class="select">
                                  <?php
                                  $hols = array();

@@ -2107,4 +2107,13 @@ $LANG['region_ical_in_existing'] = '" importiert in bestehende Region: ';
 $LANG['msg_ical_import_caption'] = 'iCal Import';
 $LANG['msg_ical_import_text'] = 'iCal Datei "';
 $LANG['msg_region_merge_text'] = 'Diese Regionen wurden verschmolzen: ';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_userregion'] = 'Regionale Feiertage pro User anzeigen';
+$LANG['admin_config_userregion_comment'] =
+'Mit dieser Option zeigt der Kalender in jeder Nutzerzeile die regionalen Feiertage der Region an, die in den Optionen des Nutzers eingestellt ist. Diese Feiertage k&ouml;nnen sich von 
+den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden. Diese Option bietet eine bessere Sicht auf die unterschiedlichen regionalen Feiertage  
+unterschiedlicher Nutzer. Die Anzeige mag dabei aber auch un&uuml;bersichtlicher werden, je nach Anzahl Nutzer und Regionen. Probier es aus.';
 ?>

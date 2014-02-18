@@ -1052,6 +1052,5 @@ require( "includes/header_html_inc.php" );
    </div>
 </div>
 <?php
-if ($msg) echo ("<script type=\"text/javascript\">alert(\"".$message."\")</script>");
 require( "includes/footer_inc.php");
 ?>

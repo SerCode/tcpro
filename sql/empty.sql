@@ -104,7 +104,7 @@ CREATE TABLE `my_tc_config` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 AUTO_INCREMENT=132;
+) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 AUTO_INCREMENT=133;
 
 -- 
 -- Dumping data for table `my_tc_config`
@@ -240,6 +240,7 @@ INSERT INTO `my_tc_config` VALUES('128', 'logfrom', '2014-01-01');
 INSERT INTO `my_tc_config` VALUES('129', 'logto', '2014-12-31');
 INSERT INTO `my_tc_config` VALUES('130', 'logperiod', 'curr_all');
 INSERT INTO `my_tc_config` VALUES('131', 'emailNoPastNotifications', '0');
+INSERT INTO `my_tc_config` VALUES('132', 'showUserRegion', '0');
 
 -- --------------------------------------------------------
 

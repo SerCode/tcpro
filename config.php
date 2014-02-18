@@ -83,6 +83,7 @@ if ( isset($_POST['btn_confApply']) ) {
    $C->saveConfig("todayBorderSize",intval($_POST['txt_todayBorderSize']));
    $C->saveConfig("pastDayColor",strip_tags(stripslashes($_POST['txt_pastDayColor'])));
    if (trim($_POST['sel_defregion']))    $C->saveConfig("defregion",trim($_POST['sel_defregion'])); else $C->saveConfig("defregion","default");
+   if ( isset($_POST['chk_showUserRegion']) && $_POST['chk_showUserRegion'] ) $C->saveConfig("showUserRegion","1"); else $C->saveConfig("showUserRegion","0");
    if (trim($_POST['sel_defgroupfilter'])) $C->saveConfig("defgroupfilter",trim($_POST['sel_defgroupfilter'])); else $C->saveConfig("defgroupfilter","All");
    if ( isset($_POST['chk_userSearch']) && $_POST['chk_userSearch'] ) $C->saveConfig("userSearch","1"); else $C->saveConfig("userSearch","0");
    if ( isset($_POST['chk_hideManagers']) && $_POST['chk_hideManagers'] ) $C->saveConfig("hideManagers","1"); else $C->saveConfig("hideManagers","0");
@@ -562,6 +563,18 @@ if (ini_get('register_globals')) {
                                  }
                                  ?>
                               </select>
+                           </td>
+                        </tr>
+               
+                        <!-- showUserRegion -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_userregion']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_userregion_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input name="chk_showUserRegion" id="chk_showUserRegion" value="chk_showUserRegion" type="checkbox" <?=(intval($C->readConfig("showUserRegion"))?"CHECKED":"")?>>
                            </td>
                         </tr>
                

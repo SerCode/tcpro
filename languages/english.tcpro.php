@@ -2107,4 +2107,13 @@ $LANG['region_ical_in_existing'] = '" imported into existing region: ';
 $LANG['msg_ical_import_caption'] = 'iCal Import';
 $LANG['msg_ical_import_text'] = 'iCal file "';
 $LANG['msg_region_merge_text'] = 'These regions were merged: ';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_userregion'] = 'Show regional holidays per user';
+$LANG['admin_config_userregion_comment'] =
+'If this option is on, the calendar will show the regional holidays in each user row based on the default region set for the user. These holidays might then differ from the 
+global regional holidays shown in the month header. This offers a better view on regional holiday differences if you manage users from different regions. Note, that this might 
+might be a bit confusing depending on the amount of users and regions. Check it out and pick your choice.';
 ?>
