@@ -8,6 +8,11 @@ TEAMCAL PRO RELEASE INFO
 DATE
 2014-02-xx
 
+NEW FEATURES
+
+https://georgelewe.atlassian.net/browse/TCP-99
+Import iCal into existing region
+
 BUGFIXES
 
 https://georgelewe.atlassian.net/browse/TCP-98

@@ -127,7 +127,7 @@ if ( isset($_POST['btn_reg_add']) )
 }
 /**
  * =========================================================================
- * IMPORT
+ * IMPORT AS NEW REGION
  */
 else if ( isset($_POST['btn_import_ical']) ) 
 {
@@ -197,11 +197,14 @@ else if ( isset($_POST['btn_import_ical']) )
             preg_match("#(?sU)DTEND;.*DATE:([0-9]{8})#", $event, $end);
             $start = mktime (0,0,0, substr($start[1],4,2), substr($start[1],6,2), substr($start[1],0,4));
             $end = mktime (0,0,0, substr($end[1],4,2), substr($end[1],6,2), substr($end[1],0,4));
+            $end = $end - 86400; // Need to subtract 24h to limit entry to a single day (submitted by Stefan Mayr)
+                        
             /**
              * Catch the earliest and latest event date of the iCal file
              */
             if ($begin_of_ical > $start) $begin_of_ical = $start;
             if ($end_of_ical < $end) $end_of_ical = $end;
+            
             /**
              * Save this event to the array
              */
@@ -261,7 +264,7 @@ else if ( isset($_POST['btn_import_ical']) )
             }
 
             /**
-             * Put the user-selected absence type in the month template for the current event date.
+             * Put the user-selected absence type in the month template for the current iCal event
              */
             $dayno = date("j", $current_event);
             $start_of_iCal_period = min(array_keys($iCalEvents)); // Select start of earliest iCal period
@@ -301,7 +304,171 @@ else if ( isset($_POST['btn_import_ical']) )
           * Log this event
           */
          $LOG->log("logRegion",$L->checkLogin(),"log_region_ical", $_FILES['ical_file']['name'].$LANG['region_ical_in'].$R->regionname);
+         /**
+          * Setup confirmation message
+          */
+         $message       = true;
+         $msg_type    = 'success';
+         $msg_title   = $LANG['success'];
+         $msg_caption = $LANG['msg_ical_import_caption'];
+         $msg_text    = $LANG['msg_ical_import_text'].$_FILES['ical_file']['name'].$LANG['region_ical_in'].$R->regionname;
       }
+   }
+}
+/**
+ * =========================================================================
+ * IMPORT INTO EXISTING REGION (submitted by Stefan Mayr)
+ */
+else if ( isset($_POST['btn_import_ical2']) ) 
+{
+   if ( trim($_FILES['ical_file2']['tmp_name'])=='' ) 
+   {
+      /**
+       * No filename was submitted
+       */
+      $error = true;
+      $err_short = $LANG['err_input_caption'];
+      $err_long  = $LANG['err_input_no_filename'];
+      $err_module=$_SERVER['SCRIPT_NAME'];
+      $err_btn_close=FALSE;
+   }
+   else
+   {
+      $rname = preg_replace("/[^A-Za-z0-9_]/i",'',trim($_POST['icalRegion']));
+      $R->regionname = $rname;
+
+      /**
+       * Now parse the iCal file (original code by Franz)
+       */
+      $begin_of_ical = 999999999999999999999999999999;
+      $end_of_ical = 0;
+      $iCalEvents = array();
+      preg_match_all("#(?sU)BEGIN:VEVENT.*END:VEVENT#", file_get_contents($_FILES['ical_file2']['tmp_name']), $events);
+
+      foreach($events[0] as $event) 
+      {
+         preg_match("#(?sU)DTSTART;.*DATE:([0-9]{8})#", $event, $start);
+         preg_match("#(?sU)DTEND;.*DATE:([0-9]{8})#", $event, $end);
+         $start = mktime (0,0,0, substr($start[1],4,2), substr($start[1],6,2), substr($start[1],0,4));
+         $end = mktime (0,0,0, substr($end[1],4,2), substr($end[1],6,2), substr($end[1],0,4));
+         $end = $end - 86400; // Need to subtract 24h to limit entry to a single day (submitted by Stefan Mayr)
+         
+         /**
+          * Catch the earliest and latest event date of the iCal file
+          */
+         if ($begin_of_ical > $start) $begin_of_ical = $start;
+         if ($end_of_ical < $end) $end_of_ical = $end;
+
+         /**
+          * Save this event to the array
+          */
+         $iCalEvents[$start] = $end;
+      };
+      
+      
+      /**
+       * Ok, now we have all events in our array.
+       * Let's loop through all events an do this for each:
+       * - create a region month template for the event start and event end if not exists
+       * - add the absence symbol(s) for this event to the month template(s)
+       * - save the template(s)
+       */
+      $current_event = $begin_of_ical;
+      $M->yearmonth = 0;
+      while ($current_event < $end_of_ical) 
+      {
+         $current_year = date("Y", $current_event);
+         $current_month = date("M", $current_event);
+         $current_yearmonth = date("Ym", $current_event);
+
+         if ($M->yearmonth != $current_yearmonth) 
+         {
+            /**
+             * We don't have the month template we want. Two possible reasons:
+             * - we haven't loaded one
+             * - we stepped over a month border with our current_event
+             *
+             * Let's check with a second M2 instance if there is a template for this month yet.
+             * We need the second instance cause findByName() would overwrite an M instance that we might still
+             * have in memory and not saved yet.
+             */
+            if ( !$M2->findByName($R->regionname, $current_yearmonth) ) 
+            {
+               /**
+                * Seems there is no template for this month yet.
+                * If we have one in cache, write it first.
+                */
+               if ( $M->yearmonth ) $M->update($R->regionname, $M->yearmonth);
+               /**
+                * Create the new blank template
+                */
+               $M->region = $R->regionname;
+               $M->yearmonth = $current_yearmonth;
+               $M->template = createMonthTemplate((string)$current_year,(string)$current_month);
+               $M->create();
+            }
+            else 
+            {
+               /**
+                * There is a template for this month.
+                * Let's save the current and load the new.
+                */
+               $M->update($R->regionname, $M->yearmonth);
+               $M->findByName($R->regionname, $current_yearmonth);
+            }
+         }
+
+         /**
+          * Put the user-selected absence type in the month template for the current iCal event
+          */
+         $dayno = date("j", $current_event);
+
+         $start_of_iCal_period = min(array_keys($iCalEvents)); // Select start of earliest iCal period
+         $end_of_iCal_period = $iCalEvents[$start_of_iCal_period]; // Select end of earliest iCal period
+         if ($start_of_iCal_period <= $current_event) 
+         {
+            if ($end_of_iCal_period >= $current_event) 
+            {
+               /**
+                * We are currently inbetween begin and end of an iCal period
+                */
+               if (substr($M->template, $dayno-1, 1) != 1) 
+               {
+                  /**
+                   * This is a business day. Only change the holiday type in this case.
+                   */
+                  $M->template[$dayno-1] = $_POST['icalHol2'];
+               }
+            } 
+            else 
+            {
+               /**
+                * We are done with this event period! Remove this period from the iCalEvents array.
+                * That makes the next one the earliest.
+                */
+               unset($iCalEvents[$start_of_iCal_period]);
+            }
+         }
+         $current_event = strtotime("+1 day", $current_event);
+      }
+
+      /**
+       * Ok, lets save the last month
+       */
+      $M->update($R->regionname, $M->yearmonth);
+
+      /**
+       * Log this event
+      */
+      $LOG->log("logRegion",$L->checkLogin(),"log_region_ical", $_FILES['ical_file2']['name'].$LANG['region_ical_in_existing'].$R->regionname);
+      /**
+       * Setup confirmation message
+       */
+      $message       = true;
+      $msg_type    = 'success';
+      $msg_title   = $LANG['success'];
+      $msg_caption = $LANG['msg_ical_import_caption'];
+      $msg_text    = $LANG['msg_ical_import_text'].$_FILES['ical_file2']['name'].$LANG['region_ical_in_existing'].$R->regionname;
    }
 }
 /**
@@ -419,6 +586,14 @@ else if ( isset($_POST['btn_reg_merge']) )
        * Log this event
        */
       $LOG->log("logRegion",$L->checkLogin(),"log_region_merged", $_POST['sRegion']." => ".$_POST['tRegion']);
+      /**
+       * Setup confirmation message
+       */
+      $message       = true;
+      $msg_type    = 'success';
+      $msg_title   = $LANG['success'];
+      $msg_caption = $LANG['region_caption_merge'];
+      $msg_text    = $LANG['msg_region_merge_text'].$_POST['sRegion']." => ".$_POST['tRegion'];
    }
 }
 
@@ -495,12 +670,12 @@ require("includes/menu_inc.php");
                         <table class="dlg" style="border-top: 0px;">
                            <tr>
                               <td class="dlg-row2" width="5%"><img src="themes/<?=$theme?>/img/ico_calendar.png" alt="Region" title="<?=$LANG['tt_add_ical']?>" align="middle" style="padding-right: 2px;"></td>
-                              <td class="dlg-row2" width="20%"><input name="icalreg_nameadd" size="16" type="text" class="text" id="icalreg_nameadd" value=""></td>
-                              <td class="dlg-row2" width="30%"><input name="icalreg_descadd" size="34" type="text" class="text" id="icalreg_descadd" value=""></td>
+                              <td class="dlg-row2" width="20%"><input name="icalreg_nameadd" size="16" type="text" class="text" value=""></td>
+                              <td class="dlg-row2" width="30%"><input name="icalreg_descadd" size="34" type="text" class="text" value=""></td>
                               <td class="dlg-row2" width="10%"><input name="icalchkHide" type="checkbox" value="icalchkHide"></td>
                               <td class="dlg-row2" width="35%">
                                  <input type="file" class="button" accept="text/calendar" name="ical_file">
-                                 <select name="icalHol" id="icalHol" class="select">
+                                 <select name="icalHol" class="select">
                                  <?php
                                  $hols = array();
                                  $hols=$H->getAll();
@@ -591,8 +766,44 @@ require("includes/menu_inc.php");
                               </table>
                            </form>
                         <?php }
-                     }
-                     ?>
+                     } ?>
+                     
+                     <form class="form" name="form-ical-insert" method="POST" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
+                        <table class="dlg" style="border-top: 0px;">
+                           <tr>
+                              <td class="dlg-row2" width="5%"><img src="themes/<?=$theme?>/img/ico_calendar.png" alt="Region" title="<?=$LANG['tt_add_ical']?>" align="middle" style="padding-right: 2px;"></td>
+                              <td class="dlg-row2" width="60%" colspan="3">
+                                 <strong><?=$LANG['region_ical_into_region']?></strong><br>
+                                 <?=$LANG['region_ical_select_region']?><br>
+                                 <br>
+                                 <select name="icalRegion" class="select">
+                                 <?php
+                                 $result = $R->db->db_query("SELECT * FROM `".$R->table."` ORDER BY `regionname`;");
+                                 while ( $row = $R->db->db_fetch_array($result,MYSQL_ASSOC) ) { ?>
+                                    <option class="option" value="<?=$row['regionname']?>"><?=$row['regionname']?></option>
+                                 <?php } ?>
+                                 </select>
+                              </td>
+                              <td class="dlg-row2" width="35%">
+                                 <input type="file" accept="text/calendar" name="ical_file2">
+                                 <select name="icalHol2" class="select">
+                                 <?php
+                                 $hols = array();
+                                 $hols=$H->getAll();
+                                 foreach($hols as $hol) {
+                                    if ( $hol['cfgname']!="wend" AND $hol['cfgname']!="busi" ) { ?>
+                                       <option class="option" value="<?=$hol['cfgsym']?>"><?=$hol['dspname']?></option>
+                                    <?php }
+                                 }
+                                 ?>
+                                 </select>
+                                 <input type="submit" class="button" value="<?=$LANG['btn_import_ical']?>" name="btn_import_ical2">
+                                 <p><?=$LANG['region_ical_description']?></p>
+                              </td>
+                           </tr>
+                        </table>
+                     </form>
+                     
                   </div>
 
                   <!-- =======================================================

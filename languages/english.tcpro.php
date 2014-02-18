@@ -2082,7 +2082,7 @@ $LANG['admin_dbmaint_del_confirm_popup'] = "The selected records have been delet
 /**
  * Regions page
  */
-$LANG['region_ical_in'] = ' imported into region ';
+$LANG['region_ical_in'] = '" imported as new region: ';
 
 /**
  * Messages
@@ -2092,4 +2092,19 @@ $LANG['success'] = 'TeamCal Pro Success';
 $LANG['warning'] = 'TeamCal Pro Warning';
 $LANG['error'] = 'TeamCal Pro Error';
 $LANG['err_avatar_upload'] = 'An error occurred while uploading your avatar.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.012
+ */
+
+/**
+ * Regions page
+ */
+$LANG['region_ical_into_region'] = 'Import iCal into existing region';
+$LANG['region_ical_select_region'] = 'Select the region into which the iCal events shall be imported.';
+$LANG['region_ical_in_existing'] = '" imported into existing region: ';
+$LANG['msg_ical_import_caption'] = 'iCal Import';
+$LANG['msg_ical_import_text'] = 'iCal file "';
+$LANG['msg_region_merge_text'] = 'These regions were merged: ';
 ?>
