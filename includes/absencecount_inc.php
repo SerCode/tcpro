@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Fieldset showing absence counts. Used in editprofile and viewprofile.
  *
  * @package TeamCalPro
- * @version 3.6.011
+ * @version 3.6.012
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2013 by George Lewe
  * @link http://www.lewe.com
