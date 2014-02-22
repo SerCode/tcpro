@@ -29,6 +29,7 @@ require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 
 require_once ("models/upload_model.php");
 
+$C   = new Config_model;
 $UPL = new Upload_model;
 $error=FALSE;
 $upload=FALSE;

@@ -16,6 +16,8 @@ Show region holidays per user
 https://georgelewe.atlassian.net/browse/TCP-99
 Import iCal into existing region
 
+Cleaned up the confirmation and error messages
+
 BUGFIXES
 
 https://georgelewe.atlassian.net/browse/TCP-98
@@ -30,7 +32,7 @@ Announcement page redirect in index.php
 https://georgelewe.atlassian.net/browse/TCP-92
 Absence count was wrong in profile dialog
 
-Cleaned up the confirmation and error messages
+Missing config model in upload.php
 
 ------------------------------------------------------------------------------
 [3.6.011]
