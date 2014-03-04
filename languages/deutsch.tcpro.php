@@ -1043,7 +1043,6 @@ $LANG['admin_config_optionsbar_comment'] =
 'Die Optionsleiste liegt gleich unter der Menuzeile. Sie enth&auml;lt die Sprachauswahl, Gruppenauswahl '.
 'und andere Filteroptionen f&uuml;r die Kalenderanzeige. Diese k&ouml;nnen hier ein- bzw. ausgeschaltet werden.'.
 '</span><ul style="list-style: square; margin-left: 0px;">'.
-'<li><span class="function">Sprachauswahl</span><br><span class="config-comment">Zeigt die Drop Down Liste zur Sprachauswahl an.</span></li>'.
 '<li><span class="function">Gruppenauswahl</span><br><span class="config-comment">Zeigt die Drop Down Liste zur Gruppenauswahl an.</span></li>'.
 '<li><span class="function">Regionsauswahl</span><br><span class="config-comment">Zeigt die Drop Down Liste zur Regionsauswahl an.</span></li>'.
 '<li><span class="function">Heute-Auswahl</span><br><span class="config-comment">Zeigt die Drop Down Liste zur heutigen Abwesenheit an.</span></li>'.

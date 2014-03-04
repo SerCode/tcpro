@@ -1043,7 +1043,6 @@ $LANG['admin_config_optionsbar_comment'] =
 'The Options Bar is displayed right underneath the menu bar. It contains the language selection drop down, '.
 'group selection drop down and other filtering options. Use these settings to switch the seperate items on or off.'.
 '</span><ul style="list-style: square; margin-left: 0px;">'.
-'<li><span class="function">Language Selection</span><br><span class="config-comment">Displays the language selection drop down.</span></li>'.
 '<li><span class="function">Group Selection</span><br><span class="config-comment">Displays the group filter selection drop down.</span></li>'.
 '<li><span class="function">Region Selection</span><br><span class="config-comment">Displays the region selection drop down.</span></li>'.
 '<li><span class="function">Today Selection</span><br><span class="config-comment">Displays the today\'s absence selection drop down.</span></li>'.

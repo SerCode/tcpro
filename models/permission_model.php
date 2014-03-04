@@ -118,7 +118,7 @@ if (!class_exists("Permission_model"))
          }
          elseif ($this->db->db_numrows($result) == 0) 
          {
-            $query = "INSERT INTO ".$this->table." (scheme, permission, admin, director, manager, assistant, user, public) VALUES ('".$scheme."', '".$permission."', 0, 0, 0, 0, 0)";
+            $query = "INSERT INTO ".$this->table." (scheme, permission, admin, director, manager, assistant, user, public) VALUES ('".$scheme."', '".$permission."', 0, 0, 0, 0, 0, 0)";
             $result = $this->db->db_query($query);
             $query = "UPDATE ".$this->table." SET ".$role."=".$allowed." WHERE scheme='".$scheme."' AND permission = '".$permission."';";
             $result = $this->db->db_query($query);
