@@ -232,7 +232,9 @@ if (!class_exists("Template_model"))
        * @param string $uname Username to find
        * @param string $year Year to find (YYYY)
        * @param string $month Month to find (MM)
-       * @param string $day Day of month to find (D)
+       * @param string $absid Absence ID to find
+       * @param string $start Start day, defaults to 1
+       * @param string $end End day, defaults to 0 and is then computed
        * @return integer 0 or absence ID count
        */
       function countAbsence($uname='%', $year='', $month='', $absid, $start=1, $end=0) 

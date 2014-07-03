@@ -119,6 +119,7 @@ if ( isset($_POST['btn_bwd']) )
    $Year=$_POST['hid_bwdYear'];
    $Month=$_POST['hid_bwdMonth'];
    $caluser=$_POST['hid_Member'];
+   header("Location: ".$_SERVER['PHP_SELF'] . "?region=" . $region . "&Year=" . $Year . "&Month=" . $Month . "&lang=" . $CONF['options']['lang'] . "&Member=" . $caluser);
 }
 
 /**
@@ -130,6 +131,7 @@ if ( isset($_POST['btn_fwd']) )
    $Year=$_POST['hid_fwdYear'];
    $Month=$_POST['hid_fwdMonth'];
    $caluser=$_POST['hid_Member'];
+   header("Location: ".$_SERVER['PHP_SELF'] . "?region=" . $region . "&Year=" . $Year . "&Month=" . $Month . "&lang=" . $CONF['options']['lang'] . "&Member=" . $caluser);
 }
 
 /**

@@ -381,7 +381,6 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
             $month = $startmonth;
             $ymstart = intval($year.sprintf("%02d",$month));
             $ymend= intval($endyear.sprintf("%02d",$endmonth));
-         
             while ($ymstart<=$ymend) 
             {
                if ($year==$startyear AND $month==$startmonth) 
@@ -408,6 +407,7 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
                }
                $ymstart = intval($year.sprintf("%02d",$month));
             }
+            
             //
             // A combined count always uses the factor. Doesn't make sense otherwise.
             //
@@ -416,7 +416,8 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
       }
    }
     
-   return $count+$otherCount;
+   $count += $otherCount;
+   return $count;
 }
 
 // ---------------------------------------------------------------------------

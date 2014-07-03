@@ -216,7 +216,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          
          foreach($absences as $abs) 
          {
-            if ($abs['show_in_remainder']) $cntRemainders++;
+            if ($abs['show_in_remainder'] AND $abs['allowance']) $cntRemainders++;
          }
          
          if ( $CONF['options']['remainder']=="show" && $cntRemainders ) 
@@ -410,7 +410,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             $absences=$AC->getAll();
             foreach ($absences as $abs) 
             {
-               if ($abs['show_in_remainder']) 
+               if ($abs['show_in_remainder'] AND $abs['allowance']) 
                {
                   $monthHeader.="<td class=\"day-a".$abs['id']."\" title=\"".$abs['name']."\" style=\"border-right: 1px dotted #000000;\">";
                   if ($abs['icon']!="No") 
@@ -1144,7 +1144,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                   {
                      $isConfidential = $abs['confidential'];
                      if ($U->username == $UL->username) $isSameUser = TRUE; else $isSameUser = FALSE;
-                     if ($abs['show_in_remainder']) 
+                     if ($abs['show_in_remainder'] AND $abs['allowance']) 
                      {
                         if (isAllowed("editAllUserCalendars") OR isAllowed("editGroupUserCalendars") OR isAllowed("editOwnUserCalendars")) 
                         {
@@ -1206,7 +1206,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                         {
                            if (isAllowed("editAllUserCalendars") OR isAllowed("editGroupUserCalendars") OR isAllowed("editOwnUserCalendars")) 
                            {
-                              $thisTotal = $T->countAbsence($U->username,$year,$monthno,$abs['id']);
+                              $thisTotal = countAbsence($U->username,$abs['id'],$year.$monthno.'01',$year.$monthno.$nofdays,false,true);
                               if ( $isConfidential AND $regularUser AND !$isSameUser ) $thisTotal = "&nbsp;";
                                
                               $addStyle="";

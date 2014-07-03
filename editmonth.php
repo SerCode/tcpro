@@ -58,17 +58,21 @@ if (isset ($_REQUEST['Month']))  $Month = $_REQUEST['Month']; else $Month = date
  * =========================================================================
  * BACKWARD
  */
-if ( isset($_POST['btn_bwd']) ) {
+if ( isset($_POST['btn_bwd']) ) 
+{
    $Year=$_POST['hid_bwdYear'];
    $Month=$_POST['hid_bwdMonth'];
+   header("Location: ".$_SERVER['PHP_SELF'] . "?region=" . $region . "&Year=" . $Year . "&Month=" . $Month . "&lang=" . $CONF['options']['lang']);
 }
 /**
  * =========================================================================
  * FORWARD
  */
-if ( isset($_POST['btn_fwd']) ) {
+if ( isset($_POST['btn_fwd']) ) 
+{
    $Year=$_POST['hid_fwdYear'];
    $Month=$_POST['hid_fwdMonth'];
+   header("Location: ".$_SERVER['PHP_SELF'] . "?region=" . $region . "&Year=" . $Year . "&Month=" . $Month . "&lang=" . $CONF['options']['lang']);
 }
 
 $weekdays = $LANG['weekdays'];
