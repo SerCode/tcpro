@@ -1161,7 +1161,14 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       
                            $from = str_replace("-","",$C->readConfig("defperiodfrom"));
                            $to = str_replace("-","",$C->readConfig("defperiodto"));
-                           $thisYearTaken     = countAbsence($U->username,$abs['id'],$from,$to,true,true);
+                           if ($abs['counts_as'])
+                           {
+                              $thisYearTaken = countAbsence($U->username,$abs['id'],$from,$to,false,false);
+                           }
+                           else 
+                           {
+                              $thisYearTaken = countAbsence($U->username,$abs['id'],$from,$to,true,true);
+                           }
                            $thisYearRemainder = $lastYearAllowance+$thisYearAllowance-$thisYearTaken;
                            $totalAllowance    = $lastYearAllowance+$thisYearAllowance;
                                          
