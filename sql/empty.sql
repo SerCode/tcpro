@@ -112,7 +112,7 @@ CREATE TABLE `my_tc_config` (
 
 INSERT INTO `my_tc_config` VALUES('1', 'defgroupfilter', 'All');
 INSERT INTO `my_tc_config` VALUES('2', 'defregion', 'default');
-INSERT INTO `my_tc_config` VALUES('3', 'appSubTitle', 'Version 3.6.012');
+INSERT INTO `my_tc_config` VALUES('3', 'appSubTitle', 'Version 3.6.013');
 INSERT INTO `my_tc_config` VALUES('4', 'appFooterCpy', 'Copyright &amp;copy; 2014 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.');
 INSERT INTO `my_tc_config` VALUES('5', 'repeatHeaderCount', '8');
 INSERT INTO `my_tc_config` VALUES('6', 'todayBorderColor', 'FFCC00');

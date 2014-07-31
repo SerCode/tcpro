@@ -5,9 +5,9 @@
  * Displays the edit user dialog
  *
  * @package TeamCalPro
- * @version 3.6.012
+ * @version 3.6.013
  * @author George Lewe
- * @copyright Copyright (c) 2004-2013 by George Lewe
+ * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
@@ -200,15 +200,17 @@ if (isset($_POST['btn_apply']))
       }
       else $UO->save($U->username,"showInGroups","no");
 
-      if (isAllowed("manageUsers")) 
+      if (isAllowed("manageUsers") AND $U->username != 'admin') 
       {
          /**
           * Set user type
           */
-         $U->clearUserType($CONF['UTDIRECTOR']);
          $U->clearUserType($CONF['UTADMIN']);
+         $U->clearUserType($CONF['UTDIRECTOR']);
+         $U->clearUserType($CONF['UTASSISTANT']);
+         $U->clearUserType($CONF['UTUSER']);
          $U->clearUserType($CONF['UTTEMPLATE']);
-         
+          
          switch ($_POST['opt_usertype']) 
          {
             case "ut_admin":
@@ -987,7 +989,7 @@ require( "includes/header_html_inc.php" );
                               </tr>
                               <tr>
                                  <td class="dlg-frame-body" width="20">
-                                    <input name="opt_usertype" id="utuser" type="radio" value="ut_user" <?php if ( !$U->checkUserType($CONF['UTDIRECTOR']) && !$U->checkUserType($CONF['UTADMIN']) ) echo "CHECKED"; ?> >
+                                    <input name="opt_usertype" id="utuser" type="radio" value="ut_user" <?php if ( $U->checkUserType($CONF['UTUSER']) ) echo "CHECKED"; ?> >
                                  </td>
                                  <td class="dlg-frame-body"><?=$LANG['ut_user']?></td>
                                  <td class="dlg-frame-body">&nbsp;</td>

@@ -7,9 +7,9 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Based on "Easy PHP Upload 2.31" by Olaf Lederer
  * 
  * @package TeamCalPro
- * @version 3.6.012 
+ * @version 3.6.013 
  * @author George Lewe
- * @copyright Copyright (c) 2004-2013 by George Lewe
+ * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */

@@ -39,7 +39,7 @@ MERCHANTIBILITY or FITNESS FOR A PARTICULAR PURPOSE.
       </style>
    </head>
    <body>
-   <div style="border: 1px solid #000000; background-color: #FFB300; padding: 4px; font-weight: bold;">TeamCal Pro Update Helper 3.5 => 3.6</div>
+   <div style="border: 1px solid #000000; background-color: #FFB300; padding: 4px; font-weight: bold;">TeamCal Pro Update Helper 3.5 =&gt; 3.6</div>
 <?php
 define( '_VALID_TCPRO', 1 );
 require_once ("models/db_model.php");
