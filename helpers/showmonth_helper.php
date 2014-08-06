@@ -887,7 +887,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          {
             if (isAllowed("viewAllUserCalendars")) $allowed=TRUE;
          }
-      
+              
          if ( $allowed AND !($U->status&$CONF['USHIDDEN']) ) 
          {
             $intCurrentUserCount++;

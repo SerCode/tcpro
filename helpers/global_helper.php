@@ -1445,28 +1445,32 @@ function isAllowed($permission='') {
        * Someone is logged in. Check permission by role.
        */
       $UL->findByName($currentuser);
-      if ($UL->checkUserType($CONF['UTADMIN'])) {
-         //echo "<script type=\"text/javascript\">alert(\"Admin: ".$permission."=".$P->isAllowed($pscheme, $permission, "admin")."\");</script>";
+      if ($UL->checkUserType($CONF['UTADMIN'])) 
+      {
          return $P->isAllowed($pscheme, $permission, "admin");
       }
-      else if ($UL->checkUserType($CONF['UTDIRECTOR'])) {
-         //echo "<script type=\"text/javascript\">alert(\"Director: ".$permission."=".$P->isAllowed($pscheme, $permission, "director")."\");</script>";
+      else if ($UL->checkUserType($CONF['UTDIRECTOR'])) 
+      {
          return $P->isAllowed($pscheme, $permission, "director");
       }
-      else if ($UL->checkUserType($CONF['UTMANAGER'])) {
-         //echo "<script type=\"text/javascript\">alert(\"Manager: ".$permission."=".$P->isAllowed($pscheme, $permission, "manager")."\");</script>";
+      else if ($UL->checkUserType($CONF['UTMANAGER'])) 
+      {
          return $P->isAllowed($pscheme, $permission, "manager");
       }
-      else {
-         //echo "<script type=\"text/javascript\">alert(\"User: ".$permission."=".$P->isAllowed($pscheme, $permission, "user")."\");</script>";
+      else if ($UL->checkUserType($CONF['UTASSISTANT'])) 
+      {
+         return $P->isAllowed($pscheme, $permission, "assistant");
+      }
+      else 
+      {
          return $P->isAllowed($pscheme, $permission, "user");
       }
    }
-   else {
+   else 
+   {
       /**
        * It's a public viewer
        */
-      //echo "<script type=\"text/javascript\">alert(\"Public: ".$permission."=".$P->isAllowed($pscheme, $permission, "public")."\");</script>";
       return $P->isAllowed($pscheme, $permission, "public");
    }
 }
