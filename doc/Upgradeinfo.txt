@@ -35,6 +35,7 @@ INSERT INTO `my_tc_config` ( `id`, `name`, `value` ) VALUES ( NULL , 'showUserRe
 3. Update your config.tcpro.php backup file
 
    Add these lines in the Table names section
+   
 $CONF['db_table_archive_users']             = $CONF['db_table_prefix'].'tc_archive_users';
 $CONF['db_table_archive_user_group']        = $CONF['db_table_prefix'].'tc_archive_user_group';
 $CONF['db_table_archive_user_options']      = $CONF['db_table_prefix'].'tc_archive_user_options';
@@ -44,7 +45,9 @@ $CONF['db_table_archive_allowance']         = $CONF['db_table_prefix'].'tc_archi
 $CONF['db_table_archive_user_announcement'] = $CONF['db_table_prefix'].'tc_archive_user_announcement';
 
    Add these lines in the LDAP section
+   
 $CONF['LDAP_ADS']   = 0;                   // Set to 1 when authenticating against an Active Directory
+
    Set this value to 1 if you are using LDAP and are authenticating against an Active Directory
 
 4. Overwrite config.tcpro.php from your backup.
@@ -410,8 +413,8 @@ INSERT INTO `my_tc_config` VALUES('<your-ID-here>', 'webMeasure', '0');
 Optional:
 You can delete two entries from the my_tc_config table (might have a different
 prefix in your environment). It does not hurt though to leave them in.:
-DELETE FROM `tcpro`.`my_tc_config` WHERE `my_tc_config`.`name` = "publicMode";
-DELETE FROM `tcpro`.`my_tc_config` WHERE `my_tc_config`.`name` = "registeredMode";
+DELETE FROM `my_tc_config` WHERE `my_tc_config`.`name` = "publicMode";
+DELETE FROM `my_tc_config` WHERE `my_tc_config`.`name` = "registeredMode";
 
 
 ------------------------------------------------------------------------------
@@ -677,7 +680,7 @@ CREATE TABLE `my_tc_regions` (
 `description` VARCHAR( 100 ) NULL DEFAULT NULL ,
 `options` SMALLINT( 6 ) DEFAULT '0'  ,
 PRIMARY KEY ( `regionname` )
-) TYPE = MYISAM ;
+) ENGINE = MYISAM ;
 
 ALTER TABLE `my_tc_daynotes` ADD `region` VARCHAR( 40 ) NOT NULL DEFAULT 'default'; 
 ALTER TABLE `my_tc_months` ADD `region` VARCHAR( 40 ) NOT NULL DEFAULT 'default';

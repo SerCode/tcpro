@@ -687,7 +687,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
 	                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
 	                     " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
-	                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
+	                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '%".$groupfilter."%'))".
 	                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
 	                     " AND ".$CONF['db_table_user_group'].".type!='manager'" .
 	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
@@ -699,7 +699,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 	                     " WHERE ".$CONF['db_table_users'].".username != 'admin'" .
 	                     " AND ".$CONF['db_table_users'].".username=".$CONF['db_table_user_group'].".username" .
 	                     " AND (".$CONF['db_table_groups'].".groupname!='".$groupfilter."' AND " .
-	                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '".$groupfilter."'))".
+	                     "(".$CONF['db_table_users'].".username=".$CONF['db_table_user_options'].".username AND ".$CONF['db_table_user_options'].".option='showInGroups' AND ".$CONF['db_table_user_options'].".value LIKE '%".$groupfilter."%'))".
 	                     " AND (".$CONF['db_table_groups'].".groupname=".$CONF['db_table_user_group'].".groupname AND (".$CONF['db_table_groups'].".options&1)=0 )" .
 	                     " ORDER BY ".$CONF['db_table_users'].".lastname ".$sortorder.",".$CONF['db_table_users'].".firstname ASC";
 	         }

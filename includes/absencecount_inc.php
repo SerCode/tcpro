@@ -86,7 +86,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                           <td class="dlg-frame-bodyc" style="text-align: left; vertical-align: middle;">
                               <div style="border: 1px solid #000000; height: 24px; width: 24px; float: left; background-color: #<?=$A->dspbgcolor?>; text-align: center; vertical-align: middle; margin-right: 4px;">
                                  <?php if ($A->icon!='No') { ?>
-                                    <img style="padding-top: 4px;" alt="" src="<?=$CONF['app_icon_dir'].$A->icon?>">
+                                    <img style="padding-top: 4px; width: 16px; height: 16px;" alt="" src="<?=$CONF['app_icon_dir'].$A->icon?>">
                                  <?php
                                  }
                                  else { ?>

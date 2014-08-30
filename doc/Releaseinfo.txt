@@ -12,6 +12,20 @@ BUGFIXES
 
 Allowance check was not checking user type Assistant
 
+https://georgelewe.atlassian.net/browse/TCP-88
+editprofile.php - "Show in other groups" - not working
+
+https://georgelewe.atlassian.net/browse/TCP-89
+UTF8 characters destroyed in database
+
+IMPROVEMENTS
+
+https://georgelewe.atlassian.net/browse/TCP-106
+Adjustments to Upgradeinfo.txt
+
+https://georgelewe.atlassian.net/browse/TCP-107
+Set size to absencecount icons
+
 
 ------------------------------------------------------------------------------
 [3.6.013]
