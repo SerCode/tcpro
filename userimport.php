@@ -5,7 +5,7 @@
  * Displays and runs the user import dialog
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -49,9 +49,8 @@ if (!isAllowed("manageUsers")) showError("notallowed", TRUE);
 /**
  * Process form
  */
-global $HTTP_POST_FILES;
 if ( isset($_POST['btn_import']) ) {
-   $CSV->file_name = $HTTP_POST_FILES['file_source']['tmp_name'];
+   $CSV->file_name = $_FILES['file_source']['tmp_name'];
    $CSV->import($_POST['list_defgroup'],$_POST['list_deflang'],$_POST['chk_lockuser'],$_POST['chk_hideuser']);
 }
 elseif ( isset($_POST['btn_done']) ) {

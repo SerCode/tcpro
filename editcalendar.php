@@ -5,7 +5,7 @@
  * Displays the edit calendar dialog
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -94,7 +94,10 @@ if ( $luser == $caluser )
 }
 else if ( $UG->shareGroups($luser, $caluser) ) 
 {
-   if (isAllowed("editGroupUserCalendars")) $allowed=TRUE;
+   if (isAllowed("editGroupUserCalendars") AND !$UG->isGroupManagerOfUser($caluser, $luser) ) 
+   {
+      $allowed=TRUE;
+   }
 }
 else 
 {
@@ -1282,6 +1285,47 @@ $CONF['options']['lang']=$currlang;
                      }
                      ?>
                   </tr>
+                  
+                  <!-- Week number row -->
+                  <?php if (intval($C->readConfig("showWeekNumbers"))) 
+                  { ?>
+                  <tr>
+                     <td class="title"><?=$LANG['cal_caption_weeknumber']?></td>
+                     <td class="title-button">&nbsp;</td>
+                     <?php
+                     $mytime = $Month." 1,".$Year;
+                     $myts = strtotime($mytime);
+                     $mydate = getdate($myts);   // Get first weekday of the current month
+                     $wd = intval($weekday1);
+                     $colspan=0;
+                     $firstDayOfWeeknumber = intval($C->readConfig("firstDayOfWeek"));
+                     if ($firstDayOfWeeknumber<1 || $firstDayOfWeeknumber>7) $firstDayOfWeeknumber = 1;
+                     $lastDayOfWeeknumber = $firstDayOfWeeknumber-1;
+                     if ($lastDayOfWeeknumber==0) $lastDayOfWeeknumber = 7;
+                     
+                     for ($i=1; $i<=$nofdays; $i=$i+1) 
+                     {
+                        if ($wd != $lastDayOfWeeknumber) 
+                        {
+                           $colspan++;
+                           $wd++;
+                           if ($wd==8) $wd = 1;
+                        }
+                        else 
+                        {
+                           $colspan++;
+                           $w=date("W",mktime(0,0,0,intval($mydate['mon']),$i,$Year));
+                           echo "<td class=\"weeknumber\" colspan=\"".$colspan."\">".sprintf("%d",$w)."</td>\n\r";
+                           $colspan=0;
+                           $wd++;
+                           if ($wd==8) $wd = 1;
+                        }
+                     }
+                     $w=date("W",mktime(0,0,0,intval($mydate['mon']),$i,$Year));
+                     if ($colspan>0) echo "<td class=\"weeknumber\" colspan=\"".$colspan."\">".sprintf("%d",$w)."</td>\n\r";
+                     ?>
+                  </tr>
+                  <?php } ?>
                   
                   <!-- Global daynote row -->
                   <tr>

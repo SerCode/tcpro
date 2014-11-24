@@ -5,7 +5,7 @@
  * Displays and runs the user administration page
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -175,7 +175,7 @@ else if ( isset($_POST['btn_usr_pwd_reset']) AND isset($_POST['chk_user_active']
       $U->findByName($value);
       $newpwd = generatePassword();
       $U->password = crypt($newpwd,$CONF['salt']);
-      $U->last_pw_change = date("Y-m-d H:I:s");
+      $U->last_pw_change = date("Y-m-d H:i:s");
       $U->update($U->username);
       $U->clearStatus($CONF['USCHGPWD']);
       

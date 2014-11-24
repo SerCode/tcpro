@@ -112,7 +112,7 @@ CREATE TABLE `my_tc_config` (
 
 INSERT INTO `my_tc_config` VALUES('1', 'defgroupfilter', 'All');
 INSERT INTO `my_tc_config` VALUES('2', 'defregion', 'default');
-INSERT INTO `my_tc_config` VALUES('3', 'appSubTitle', 'Version 3.6.014');
+INSERT INTO `my_tc_config` VALUES('3', 'appSubTitle', 'Version 3.6.015');
 INSERT INTO `my_tc_config` VALUES('4', 'appFooterCpy', 'Copyright &amp;copy; 2014 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.');
 INSERT INTO `my_tc_config` VALUES('5', 'repeatHeaderCount', '8');
 INSERT INTO `my_tc_config` VALUES('6', 'todayBorderColor', 'FFCC00');
@@ -162,8 +162,8 @@ INSERT INTO `my_tc_config` VALUES('49', 'theme', 'tcpro');
 INSERT INTO `my_tc_config` VALUES('50', 'allowUserTheme', '1');
 INSERT INTO `my_tc_config` VALUES('51', 'hideManagers', '0');
 INSERT INTO `my_tc_config` VALUES('52', 'hideDaynotes', '0');
-INSERT INTO `my_tc_config` VALUES('53', 'defperiodfrom', '2013-01-01');
-INSERT INTO `my_tc_config` VALUES('54', 'defperiodto', '2013-12-31');
+INSERT INTO `my_tc_config` VALUES('53', 'defperiodfrom', '2014-01-01');
+INSERT INTO `my_tc_config` VALUES('54', 'defperiodto', '2014-12-31');
 INSERT INTO `my_tc_config` VALUES('55', 'homepage', 'welcome');
 INSERT INTO `my_tc_config` VALUES('56', 'welcomeTitle', 'Welcome To Our Team Calendar');
 INSERT INTO `my_tc_config` VALUES('57', 'welcomeText', 'This web application will help manage our absences.\r\n\r\nSelect &lt;i&gt;Login&lt;/i&gt; from the &lt;b&gt;TeamCal&lt;/b&gt; menu to login.\r\n\r\nAdmin account: admin/root\r\nUser account: mimouse/password\r\n\r\nOnce you\'re logged in, select &lt;i&gt;Calendar&lt;/i&gt; from the &lt;b&gt;View&lt;/b&gt; menu to display the calendar.');

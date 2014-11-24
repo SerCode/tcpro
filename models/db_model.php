@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Interface to the TeamCal Pro database
  *
  * @package TeamCalPro
- * @version 3.6.014 
+ * @version 3.6.015 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -235,6 +235,13 @@ if (!class_exists("Db_model"))
          <p><span style=\"font-weight: bold;\">Class: </span>Db_model</p>\n
          <p><span style=\"font-weight: bold;\">Function: </span>".$func."</p>\n
          <p><span style=\"font-weight: bold;\">Error: </span>".$errtxt."</p>\n";
+
+         switch ($this->db_type)
+         {
+            case 1 : // MySQL
+               $this->db_errortxt .= "<p><span style=\"font-weight: bold;\">SQL Error: </span><pre>".mysql_error(Db_model::$db_handle)."</pre></p>\n";
+               break;
+         }
          
          if ($die)
          {

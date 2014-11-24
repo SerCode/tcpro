@@ -5,7 +5,7 @@
  * Displays the groups administration page
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -91,7 +91,7 @@ if ( isset($_POST['btn_grp_add']) )
        * Assign all absence types to this group by default
        */
       $absences = $A->getAll();
-      foreach ($absences as $Arow) $AG->assign($Arow['cfgsym'],$G->groupname);
+      foreach ($absences as $Arow) $AG->assign($Arow['symbol'],$G->groupname);
       
       /**
        * Send notification mails

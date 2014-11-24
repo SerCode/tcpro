@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Provides classes to deal with CSV parsing
  *
  * @package TeamCalPro
- * @version 3.6.014 
+ * @version 3.6.015 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -302,8 +302,9 @@ if (!class_exists("CsvImport"))
 	                     $U->clearStatus($CONF['USLOGLOC']);
 	                     $U->clearStatus($CONF['USHIDDEN']);
 	                     if ($lock) $U->setStatus($CONF['USLOCKED']);              
-	                     if ($hide) $U->setStatus($CONF['USHIDDEN']);              
+	                     if ($hide) $U->setStatus($CONF['USHIDDEN']);
 	                     $U->notify = 0;
+	                     $U->last_pw_change = date("Y-m-d H:i:s");
 	                     $U->create();
 	                     
 	                     $UG->createUserGroupEntry($U->username, $defgroup, "member");

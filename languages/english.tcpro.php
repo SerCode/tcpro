@@ -5,7 +5,7 @@
  * English language file
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -963,7 +963,7 @@ $LANG['admin_config_optionsbar'] = 'Options Bar';
 $LANG['admin_config_optionsbar_language'] = 'Show Language Selection';
 $LANG['admin_config_optionsbar_group'] = 'Show Group Selection';
 $LANG['admin_config_optionsbar_today'] = 'Show Today Selection';
-$LANG['admin_config_optionsbar_start'] = 'Show Start Seelction';
+$LANG['admin_config_optionsbar_start'] = 'Show Start Selection';
 $LANG['admin_config_pastdaycolor'] = 'Past Day Color';
 $LANG['admin_config_pastdaycolor_comment'] = 'Sets a background color that is used for every day in the current month that lies in the past. '
 .'Delete this value if you don\'t want to color the past days.';
@@ -1432,17 +1432,17 @@ $LANG['perm_perm_viewUserAbsenceCounts_desc'] = "Allows to view the absence coun
 $LANG['perm_perm_editAllUserProfiles_title'] = "Edit All User Profiles";
 $LANG['perm_perm_editAllUserProfiles_desc'] = "Allows to edit the profile of all users. Note, a user can always edit his own profile.";
 $LANG['perm_perm_editGroupUserProfiles_title'] = "Edit Group User Profiles";
-$LANG['perm_perm_editGroupUserProfiles_desc'] = "Allows to edit the profile of own group users (member or manager of). Note, a user can always edit his own profile.";
+$LANG['perm_perm_editGroupUserProfiles_desc'] = "Allows to edit the profile of own group users (member or manager of). Note, a user can always edit his own profile but never of his own manager.";
 $LANG['perm_perm_editAllUserCalendars_title'] = "Edit All User Calendars";
 $LANG['perm_perm_editAllUserCalendars_desc'] = "Allows to edit the calendars of all users.";
 $LANG['perm_perm_editGroupUserCalendars_title'] = "Edit Group User Calendars";
-$LANG['perm_perm_editGroupUserCalendars_desc'] = "Allows to edit the calendars of own group users (member of or manager of).";
+$LANG['perm_perm_editGroupUserCalendars_desc'] = "Allows to edit the calendars of own group users (member of or manager of). Note, a user cannot edit the calendar of his manager.";
 $LANG['perm_perm_editOwnUserCalendars_title'] = "Edit Own User Calendars";
 $LANG['perm_perm_editOwnUserCalendars_desc'] = "Allows to edit only own calendars. If you run a central absence management you might want to switch this off for Users so they can only view, not edit their calendars.";
 $LANG['perm_perm_editAllUserDaynotes_title'] = "Edit All User Daynotes";
 $LANG['perm_perm_editAllUserDaynotes_desc'] = "Allows to edit the daynotes of all users. Note, a user can always edit his own daynotes.";
 $LANG['perm_perm_editGroupUserDaynotes_title'] = "Edit Group User Daynotes";
-$LANG['perm_perm_editGroupUserDaynotes_desc'] = "Allows to edit the daynotes of own group users (member or manager of). Note, a user can always edit his own daynotes.";
+$LANG['perm_perm_editGroupUserDaynotes_desc'] = "Allows to edit the daynotes of own group users (member or manager of). Note, a user can always edit his own daynotes but never of his own manager.";
 
 /**
  * Config page

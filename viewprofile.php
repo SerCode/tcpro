@@ -5,7 +5,7 @@
  * Displays the user profile dialog for viewing
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -180,7 +180,7 @@ require( "includes/header_html_inc.php" );
                </td>
             </tr>
 
-            <?php if (isAllowed("viewUserAbsenceCounts")) { ?>
+            <?php if (isAllowed("viewUserAbsenceCounts") AND !$UG->isGroupManagerOfUser($U->username, $UL->username) ) { ?>
             <tr>
                <td class="dlg-bodyffc">
                   <div align="center">

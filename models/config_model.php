@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Contains the class dealing with the config table
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com

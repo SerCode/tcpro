@@ -5,7 +5,7 @@
  * Displays the daynote dialog
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -73,7 +73,7 @@ else
    {
       $allowed=TRUE;
    }
-   else if ($UG->shareGroups($user, $_REQUEST['daynotefor']) AND isAllowed("editGroupUserDaynotes")) 
+   else if ($UG->shareGroups($user, $_REQUEST['daynotefor']) AND isAllowed("editGroupUserDaynotes") AND !$UG->isGroupManagerOfUser($_REQUEST['daynotefor'], $user) ) 
    {
       $allowed=TRUE;
    }

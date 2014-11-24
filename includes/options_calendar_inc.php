@@ -6,20 +6,22 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Displays the options bar for the calendar page
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
 
-if ($C->readConfig("userSearch")) { ?>
+if ($C->readConfig("userSearch")) 
+{ ?>
    &nbsp;&nbsp;<?=$LANG['cal_user_search']?>&nbsp;
    <input name="txt_calSearchUser" id="txt_calSearchUser" size="30" type="text" class="text" value="<?=$calSearchUser?>">
    <input name="btn_usrSearch" type="submit" class="button" value="<?=$LANG['btn_search']?>">
 <?php }
 
-if ($C->readConfig("showGroup")) {
+if ($C->readConfig("showGroup")) 
+{
    $selectedGroup=$CONF['options']['groupfilter']; ?>
    <!-- Group filter drop down -->
    &nbsp;&nbsp;<?=$LANG['nav_groupfilter']?>&nbsp;
@@ -29,16 +31,23 @@ if ($C->readConfig("showGroup")) {
       <?php
       $G = new Group_model;
       $groups=$G->getAll(TRUE); // TRUE = exclude hidden
-      foreach( $groups as $group ) {
-         if (!isAllowed("viewAllGroups")) {
-            if ($UG->isMemberOfGroup($user,$group['groupname']) OR $UG->isGroupManagerOfGroup($user,$group['groupname'])) { ?>
+      foreach( $groups as $group ) 
+      {
+         if (!isAllowed("viewAllGroups")) 
+         {
+            if ($UG->isMemberOfGroup($user,$group['groupname']) OR $UG->isGroupManagerOfGroup($user,$group['groupname'])) 
+            { ?>
                <option value="<?=$group['groupname']?>" <?=(($selectedGroup==$group['groupname'])?'SELECTED':'')?>><?=$group['groupname']?></option>
             <?php }
          }
-         else {
-            if ($UO->true($user,"owngroupsonly") AND $UG->isMemberOfGroup($user,$group['groupname'])) { ?>
+         else 
+         {
+            if ($UO->true($user,"owngroupsonly") AND $UG->isMemberOfGroup($user,$group['groupname'])) 
+            { ?>
                <option value="<?=$group['groupname']?>" <?=(($selectedGroup==$group['groupname'])?'SELECTED':'')?>><?=$group['groupname']?></option>
-            <?php } else { ?> 
+            <?php } 
+            else 
+            { ?> 
                <option value="<?=$group['groupname']?>" <?=(($selectedGroup==$group['groupname'])?'SELECTED':'')?>><?=$group['groupname']?></option>
             <?php } 
          }
@@ -47,7 +56,8 @@ if ($C->readConfig("showGroup")) {
    </select>
 <?php } ?>
    
-<?php if ($C->readConfig("showRegion")) {
+<?php if ($C->readConfig("showRegion")) 
+{
    $selectedRegion=$CONF['options']['region']; ?>
    <!-- Region drop down -->
    &nbsp;&nbsp;<?=$LANG['nav_regionfilter']?>&nbsp;
@@ -55,7 +65,8 @@ if ($C->readConfig("showGroup")) {
       <?php
       $R = new Region_model;
       $regions = $R->getAll();
-      foreach ($regions as $reg) { ?>
+      foreach ($regions as $reg) 
+      { ?>
          <option value="<?=$reg['regionname']?>" <?=(($selectedRegion==$reg['regionname'])?"SELECTED":"")?>><?=$reg['regionname']?></option>
       <?php } ?>
    </select>
@@ -72,7 +83,8 @@ if ($C->readConfig("showGroup")) {
       <?php
       $A = new Absence_model;
       $absences = $A->getAll();
-      foreach ($absences as $abs) { ?>
+      foreach ($absences as $abs) 
+      { ?>
          <option value="<?=$abs['id']?>" <?=(($selectedAbsence==$abs['id'])?' SELECTED':'')?>><?=$abs['name']?></option>
       <?php } ?>
    </select>

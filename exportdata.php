@@ -5,7 +5,7 @@
  * Launches the database export based on REQUEST parameters
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -111,15 +111,15 @@ foreach($tables as $table)
 switch ($format) 
 {
    case 'csv':
-      echo "# TeamCal Pro CSV Export\n# Date: ".date('d-m-Y')."\n# Time: ".date('H:i:m')."\n# Server: ".$_SERVER['SERVER_NAME']."\n# Database: ".$mydb->db_name."\n\n";
+      echo "# TeamCal Pro CSV Export\n# Date: ".date('d-m-Y')."\n# Time: ".date('H:i:s')."\n# Server: ".$_SERVER['SERVER_NAME']."\n# Database: ".$mydb->db_name."\n\n";
       echo $backup;
       break;
    case 'sql':
-      echo "# TeamCal Pro MySQL Export\n# Date: ".date('d-m-Y')."\n# Time: ".date('H:i:m')."\n# Server: ".$_SERVER['SERVER_NAME']."\n# Database: ".$mydb->db_name."\n\n";
+      echo "# TeamCal Pro MySQL Export\n# Date: ".date('d-m-Y')."\n# Time: ".date('H:i:s')."\n# Server: ".$_SERVER['SERVER_NAME']."\n# Database: ".$mydb->db_name."\n\n";
       echo $backup;
       break;
    case 'xml':
-      echo "<!-- TeamCal Pro XML Export -->\n<!-- Date: ".date('d-m-Y')." -->\n<!-- Time: ".date('H:i:m')." -->\n<!-- Server: ".$_SERVER['SERVER_NAME']." -->\n<!-- Database: ".$mydb->db_name." -->\n\n";
+      echo "<!-- TeamCal Pro XML Export -->\n<!-- Date: ".date('d-m-Y')." -->\n<!-- Time: ".date('H:i:s')." -->\n<!-- Server: ".$_SERVER['SERVER_NAME']." -->\n<!-- Database: ".$mydb->db_name." -->\n\n";
       echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Database Name=\"".$mydb->db_name."\">\n".$backup."\n</Database>";
       break;
    default:

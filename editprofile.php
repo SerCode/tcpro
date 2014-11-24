@@ -5,7 +5,7 @@
  * Displays the edit user dialog
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -75,7 +75,7 @@ if ( $user == $U->username )
 }
 else if ( $UG->shareGroups($user, $U->username) ) 
 {
-   if (isAllowed("editGroupUserProfiles")) $allowed=TRUE;
+   if (isAllowed("editGroupUserProfiles") AND !$UG->isGroupManagerOfUser($U->username, $user) ) $allowed=TRUE;
 }
 else 
 {
@@ -109,7 +109,7 @@ if (isset($_POST['btn_apply']))
       if ( $_POST['password']==$_POST['password2'] ) 
       {
          $U->password = crypt($_POST['password'],$CONF['salt']);
-         $U->last_pw_change = date("Y-m-d H:I:s");
+         $U->last_pw_change = date("Y-m-d H:i:s");
          $U->clearStatus($CONF['USCHGPWD']);
       } 
       else 
@@ -413,7 +413,7 @@ elseif (isset($_POST['btn_abs_update']))
                 * over from last year was specified or if the allowance
                 * differs from the general allowance for this absence type.
                 */
-               if ( $newlastyear>0 || $newallowance<>floatval($A->allowance)) 
+               if ( $newlastyear<>0 || $newallowance<>floatval($A->allowance)) 
                {
                   $B->username=$U->username;
                   $B->absid=$A->id;

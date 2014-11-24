@@ -7,7 +7,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * seperate file.
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -1008,9 +1008,9 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
              * Check permission to edit or view the profile
              */
             $editProfile=FALSE;
-            if ( ($UL->username==$U->username) 
-                  OR isAllowed("editAllUserProfiles") 
-                  OR (isAllowed("editGroupUserProfiles") AND $UG->shareGroups($UL->username, $U->username)) 
+            if (  $UL->username == $U->username 
+                  OR ( isAllowed("editAllUserProfiles") AND !$UG->isGroupManagerOfUser($U->username, $UL->username) )
+                  OR ( isAllowed("editGroupUserProfiles") AND $UG->shareGroups($UL->username, $U->username) AND !$UG->isGroupManagerOfUser($U->username, $UL->username) ) 
                ) 
             {
                $editProfile=TRUE;
@@ -1060,7 +1060,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             {
                if (isAllowed("editOwnUserCalendars")) $editCalendar=TRUE;
             }
-            else if ( $UG->shareGroups($UL->username, $U->username) ) 
+            else if ( $UG->shareGroups($UL->username, $U->username) AND !$UG->isGroupManagerOfUser($U->username, $UL->username) ) 
             {
                if (isAllowed("editGroupUserCalendars")) $editCalendar=TRUE;
             }

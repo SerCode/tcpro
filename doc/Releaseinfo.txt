@@ -3,6 +3,34 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.015]
+
+DATE
+2014-11-24
+
+BUGFIXES
+
+Fixed last_pw_change() was using a wrong date/time format
+
+Replaced obsolete $HTTP_POST_FILES with $_FILES in userimport.php
+
+Fixed catching NULL values for birthday and last login values in
+user_model.
+
+IMPROVEMENTS
+
+https://georgelewe.atlassian.net/browse/TCP-110
+Pro-Rata Entitlement
+
+https://georgelewe.atlassian.net/browse/TCP-111
+Week numbers in Edit mode
+
+https://georgelewe.atlassian.net/browse/TCP-112
+Management hierarchy
+
+
+
+------------------------------------------------------------------------------
 [3.6.014]
 
 DATE
@@ -17,6 +45,10 @@ editprofile.php - "Show in other groups" - not working
 
 https://georgelewe.atlassian.net/browse/TCP-89
 UTF8 characters destroyed in database
+
+Fixed last_pw_change() was using a wrong date/time format
+
+Replaced obsolete $HTTP_POST_FILES with $_FILES in userimport.php
 
 IMPROVEMENTS
 

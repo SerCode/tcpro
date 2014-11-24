@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Contains the class dealing with the user table
  * 
  * @package TeamCalPro
- * @version 3.6.014 
+ * @version 3.6.015 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -30,26 +30,26 @@ if (!class_exists("User_model"))
       var $archive_table = '';
       
       var $username = '';
-      var $password = '';
-      var $firstname = '';
-      var $lastname = '';
-      var $title = '';
-      var $position = '';
-      var $group = '';
-      var $phone = '';
-      var $mobile = '';
-      var $email = '';
-      var $notify = '0';
-      var $notify_group = '';
-      var $status = '0';
-      var $usertype = '0';
-      var $ut_group = '';
-      var $privileges = '0';
-      var $bad_logins = '0';
+      var $password = NULL;
+      var $firstname = NULL;
+      var $lastname = NULL;
+      var $title = NULL;
+      var $position = NULL;
+      var $group = NULL;
+      var $phone = NULL;
+      var $mobile = NULL;
+      var $email = NULL;
+      var $notify = 0;
+      var $notify_group = NULL;
+      var $status = 0;
+      var $usertype = 0;
+      var $ut_group = NULL;
+      var $privileges = 1;
+      var $bad_logins = 0;
       var $bad_logins_start = NULL;
       var $last_pw_change = NULL;
       var $birthday = NULL;
-      var $idnumber = '';
+      var $idnumber = NULL;
       var $last_login = NULL;
       var $custom1 = '';
       var $custom2 = '';
@@ -122,36 +122,36 @@ if (!class_exists("User_model"))
       {
          $query  = "INSERT INTO `".$this->table."` ";
          $query .= " (`username`,`password`,`firstname`,`lastname`,`title`,`position`,`group`,`phone`,`mobile`,`email`,`notify`,`notify_group`,`status`,`usertype`,`ut_group`,`privileges`,`bad_logins`,`bad_logins_start`,`last_pw_change`,`birthday`,`idnumber`,`last_login`,`custom1`,`custom2`,`custom3`,`custom4`,`custom5`,`customFree`,`customPopup`) ";
-         $query .= "VALUES ('";
-         $query .= addslashes($this->username) . "','";
-         $query .= $this->password . "','";
-         $query .= addslashes($this->firstname) . "','";
-         $query .= addslashes($this->lastname) . "','";
-         $query .= addslashes($this->title) . "','";
-         $query .= addslashes($this->position) . "','";
-         $query .= addslashes($this->group) . "','";
-         $query .= addslashes($this->phone) . "','";
-         $query .= addslashes($this->mobile) . "','";
-         $query .= addslashes($this->email) . "','";
-         $query .= $this->notify . "','";
-         $query .= addslashes($this->notify_group) . "','";
-         $query .= $this->status . "','";
-         $query .= $this->usertype . "','";
-         $query .= addslashes($this->ut_group) . "','";
-         $query .= $this->privileges . "','";
-         $query .= $this->bad_logins . "','";
-         $query .= $this->bad_logins_start . "','";
-         $query .= $this->last_pw_change . "','";
-         $query .= $this->birthday . "','";
-         $query .= addslashes($this->idnumber) . "','";
-         $query .= $this->last_login . "','";
-         $query .= addslashes($this->custom1) . "','";
-         $query .= addslashes($this->custom2) . "','";
-         $query .= addslashes($this->custom3) . "','";
-         $query .= addslashes($this->custom4) . "','";
-         $query .= addslashes($this->custom5) . "','";
-         $query .= addslashes($this->customFree) . "','";
-         $query .= addslashes($this->customPopup) . "'";
+         $query .= "VALUES (";
+         $query .= "'" . addslashes($this->username) . "',";
+         $query .= "'" . $this->password . "',";
+         $query .= "'" . addslashes($this->firstname) . "',";
+         $query .= "'" . addslashes($this->lastname) . "',";
+         $query .= "'" . addslashes($this->title) . "',";
+         $query .= "'" . addslashes($this->position) . "',";
+         $query .= "'" . addslashes($this->group) . "',";
+         $query .= "'" . addslashes($this->phone) . "',";
+         $query .= "'" . addslashes($this->mobile) . "',";
+         $query .= "'" . addslashes($this->email) . "',";
+         $query .= "'" . $this->notify . "',";
+         $query .= "'" . addslashes($this->notify_group) . "',";
+         $query .= "'" . $this->status . "',";
+         $query .= "'" . $this->usertype . "',";
+         $query .= "'" . addslashes($this->ut_group) . "',";
+         $query .= "'" . $this->privileges . "',";
+         $query .= "'" . $this->bad_logins . "',";
+         $query .= "'" . $this->bad_logins_start . "',";
+         $query .= "'" . $this->last_pw_change . "',";
+         if ($this->birthday == NULL) { $query .= "NULL,"; } else { $query .= "'" . $this->birthday . "',"; }
+         $query .= "'" . addslashes($this->idnumber) . "',";
+         if ($this->last_login == NULL) { $query .= "NULL,"; } else { $query .= "'" . $this->last_login . "',"; }
+         $query .= "'" . addslashes($this->custom1) . "',";
+         $query .= "'" . addslashes($this->custom2) . "',";
+         $query .= "'" . addslashes($this->custom3) . "',";
+         $query .= "'" . addslashes($this->custom4) . "',";
+         $query .= "'" . addslashes($this->custom5) . "',";
+         $query .= "'" . addslashes($this->customFree) . "',";
+         $query .= "'" . addslashes($this->customPopup) . "'";
          $query .= ")";
          $result = $this->db->db_query($query);
       }
@@ -498,9 +498,17 @@ if (!class_exists("User_model"))
          $query .= "`bad_logins`       = '" . $this->bad_logins . "', ";
          $query .= "`bad_logins_start` = '" . $this->bad_logins_start . "', ";
          $query .= "`last_pw_change`   = '" . $this->last_pw_change . "', ";
-         $query .= "`birthday`         = '" . $this->birthday . "', ";
+         if ($this->birthday == NULL) { 
+            $query .= "`birthday`      = NULL, "; 
+         } else { 
+            $query .= "`birthday`      = '" . $this->birthday . "', "; 
+         }
          $query .= "`idnumber`         = '" . $this->idnumber . "', ";
-         $query .= "`last_login`       = '" . substr($this->last_login, 0, 19) . "', ";
+         if ($this->last_login == NULL) { 
+            $query .= "`last_login`    = NULL, "; 
+         } else { 
+            $query .= "`last_login`    = '" . substr($this->last_login, 0, 19) . "', "; 
+         }
          $query .= "`custom1`          = '" . addslashes($this->custom1) . "', ";
          $query .= "`custom2`          = '" . addslashes($this->custom2) . "', ";
          $query .= "`custom3`          = '" . addslashes($this->custom3) . "', ";

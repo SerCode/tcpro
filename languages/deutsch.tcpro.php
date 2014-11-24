@@ -5,7 +5,7 @@
  * German language file
  *
  * @package TeamCalPro
- * @version 3.6.014
+ * @version 3.6.015
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2014 by George Lewe
  * @link http://www.lewe.com
@@ -1432,17 +1432,17 @@ $LANG['perm_perm_viewUserAbsenceCounts_desc'] = "Erlaubt die Anzeige der Abwesen
 $LANG['perm_perm_editAllUserProfiles_title'] = "Alle Nutzerprofile bearbeiten";
 $LANG['perm_perm_editAllUserProfiles_desc'] = "Erlaubt die Bearbeitung aller Nutzerprofile. Ein Nutzer kann aber immer sein eigenes Profil bearbeiten.";
 $LANG['perm_perm_editGroupUserProfiles_title'] = "Gruppen Nutzerprofile bearbeiten";
-$LANG['perm_perm_editGroupUserProfiles_desc'] = "Erlaubt die Bearbeitung aller Nutzerprofile der eigenen Gruppenmitglieder. Ein Nutzer kann aber immer sein eigenes Profil bearbeiten.";
+$LANG['perm_perm_editGroupUserProfiles_desc'] = "Erlaubt die Bearbeitung aller Nutzerprofile der eigenen Gruppenmitglieder. Ein Nutzer kann aber immer sein eigenes Profil bearbeiten aber nicht das seines eigenen Managers.";
 $LANG['perm_perm_editAllUserCalendars_title'] = "Alle Nutzerkalender bearbeiten";
 $LANG['perm_perm_editAllUserCalendars_desc'] = "Erlaubt die Bearbeitung aller Nutzerkalender.";
 $LANG['perm_perm_editGroupUserCalendars_title'] = "Gruppenkalender bearbeiten";
-$LANG['perm_perm_editGroupUserCalendars_desc'] = "Erlaubt die Bearbeitung aller Nutzerkalender der eigene Gruppenmitglieder.";
+$LANG['perm_perm_editGroupUserCalendars_desc'] = "Erlaubt die Bearbeitung aller Nutzerkalender der eigene Gruppenmitglieder. Ein Nutzer kann aber nicht den Kalender seines eigenen Managers bearbeiten.";
 $LANG['perm_perm_editOwnUserCalendars_title'] = "Eigenen Nutzerkalender bearbeiten";
 $LANG['perm_perm_editOwnUserCalendars_desc'] = "Erlaubt die Bearbeitung des eigenen Nutzeralenders. Wenn nur eine zentrale Bearbeitung erw&uuml;nscht ist, kann hiermit die Berechtigung den Nutzern entziehen.";
 $LANG['perm_perm_editAllUserDaynotes_title'] = "Alle Nutzertagesnotizen bearbeiten";
 $LANG['perm_perm_editAllUserDaynotes_desc'] = "Erlaubt die Bearbeitung aller Nutzertagesnotizen. Ein Nutzer kann aber immer seine eigenen Tagesnotizen bearbeiten.";
 $LANG['perm_perm_editGroupUserDaynotes_title'] = "Gruppentagesnotizen bearbeiten";
-$LANG['perm_perm_editGroupUserDaynotes_desc'] = "Erlaubt die Bearbeitung aller Nutzertagesnotizen der eigenen Gruppenmitglieder. Ein Nutzer kann aber immer seine eigenen Tagesnotizen bearbeiten.";
+$LANG['perm_perm_editGroupUserDaynotes_desc'] = "Erlaubt die Bearbeitung aller Nutzertagesnotizen der eigenen Gruppenmitglieder. Ein Nutzer kann aber immer seine eigenen Tagesnotizen bearbeiten aber nicht die seines eigenen Managers.";
 
 /**
  * Config page
