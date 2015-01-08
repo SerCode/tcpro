@@ -2135,4 +2135,10 @@ $LANG['admin_config_showRecurringInput'] = 'Show Recurring Input';
 $LANG['admin_config_showRecurringInput_comment'] = 'Check to show the Recurring Input section on the Edit Calendar page.';
 $LANG['admin_config_showCommentReason'] = 'Show Comment/Reason';
 $LANG['admin_config_showCommentReason_comment'] = 'Check to show the Comment/Reason section on the Edit Calendar page.';
+
+/**
+ * Absence page
+ */
+$LANG['abs_admin_allowance'] = 'Admin allowance';
+$LANG['abs_admin_allowance_desc'] = 'Check to only allow the admin to change the allowance for this type in the "Absences" tab of the Edit Profile dialog.';
 ?>

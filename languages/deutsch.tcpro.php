@@ -2135,4 +2135,10 @@ $LANG['admin_config_showRecurringInput'] = 'Wiederkehrende Eingabe anzeigen';
 $LANG['admin_config_showRecurringInput_comment'] = 'Hiermit kann die Wiederkehrende Eingabe im Kalenderbearbeitungsdialog ein- bzw. ausgeblendet werden.';
 $LANG['admin_config_showCommentReason'] = 'Kommentar/Begr&uuml;ndung anzeigen';
 $LANG['admin_config_showCommentReason_comment'] = 'Hiermit kann die Kommentar/Begr&uuml;ndung Eingabe im Kalenderbearbeitungsdialog ein- bzw. ausgeblendet werden.';
+
+/**
+ * Absence page
+ */
+$LANG['abs_admin_allowance'] = 'Admin Kontingent';
+$LANG['abs_admin_allowance_desc'] = 'Hiermit kann eingestellt werden, dass nur der Admin die erlaubte Anzahl dieses Typs im Nutzerprofilreiter "Abwesenheiten" &auml;ndern kann.';
 ?>

@@ -41,6 +41,7 @@ if (!class_exists("Absence_model"))
       var $manager_only = 0;
       var $hide_in_profile = 0;
       var $confidential = 0;
+      var $admin_allowance = 0;
       
       //----------------------------------------------------------------------
       /**
@@ -77,8 +78,9 @@ if (!class_exists("Absence_model"))
                      `counts_as_present`,
                      `manager_only`,
                      `hide_in_profile`,
-                     `confidential`
-                    ) ";
+                     `confidential`,
+                     `admin_allowance`
+                     ) ";
          
          $query .= "VALUES (
                    '".$this->name."',
@@ -95,7 +97,8 @@ if (!class_exists("Absence_model"))
                    '".$this->counts_as_present."',
                    '".$this->manager_only."',
                    '".$this->hide_in_profile."',
-                   '".$this->confidential."'
+                   '".$this->confidential."',
+                   '".$this->dmin_allowance."'
                    )";
          
          $result = $this->db->db_query($query);
@@ -162,6 +165,7 @@ if (!class_exists("Absence_model"))
                $this->manager_only = $row['manager_only'];
                $this->hide_in_profile = $row['hide_in_profile'];
                $this->confidential = $row['confidential'];
+               $this->admin_allowance = $row['admin_allowance'];
                $rc = 1;
             }
          }
@@ -305,6 +309,29 @@ if (!class_exists("Absence_model"))
       
       //----------------------------------------------------------------------
       /**
+       * Gets the admin allowance flag of an absence type
+       *
+       * @param string $absid Record ID
+       * @return boolean Admin allowance flag
+       */
+      function getAdminAllowance($absid = '') 
+      {
+         $rc=0; // Default return 0
+         if (isset($absid)) 
+         {
+            $query = "SELECT admin_allowance FROM `".$this->table."` WHERE id='".$absid."';";
+            $result = $this->db->db_query($query);
+            if ($this->db->db_numrows($result) == 1) 
+            {
+               $row = $this->db->db_fetch_array($result);
+               $rc = $row['admin_allowance'];
+            }
+         }
+         return $rc;
+      }
+      
+      //----------------------------------------------------------------------
+      /**
        * Gets the name of an absence type
        *
        * @param string $absid Record ID
@@ -424,7 +451,8 @@ if (!class_exists("Absence_model"))
                      `counts_as_present` = '".$this->counts_as_present."', 
                      `manager_only`      = '".$this->manager_only."', 
                      `hide_in_profile`   = '".$this->hide_in_profile."', 
-                     `confidential`      = '".$this->confidential."' 
+                     `confidential`      = '".$this->confidential."', 
+                     `admin_allowance`   = '".$this->admin_allowance."' 
                      WHERE id='".$absid."';";
             $result = $this->db->db_query($query);
          }

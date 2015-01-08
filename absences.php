@@ -185,7 +185,8 @@ else if ( isset($_POST['btn_absApply']) ) {
    if ( isset($_POST['chk_manager_only']) && $_POST['chk_manager_only'] )           $A->manager_only=1;      else $A->manager_only=0;
    if ( isset($_POST['chk_hide_in_profile']) && $_POST['chk_hide_in_profile'] )     $A->hide_in_profile=1;   else $A->hide_in_profile=0;
    if ( isset($_POST['chk_confidential']) && $_POST['chk_confidential'] )           $A->confidential=1;      else $A->confidential=0;
-
+   if ( isset($_POST['chk_admin_allowance']) && $_POST['chk_admin_allowance'] )     $A->admin_allowance=1;   else $A->admin_allowance=0;
+    
    $A->update($_POST['txt_absid']);
    
    $absences = $A->getAll();
@@ -510,6 +511,18 @@ require("includes/menu_inc.php");
             </td>
             <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                <input name="chk_confidential" id="chk_confidential" value="chk_confidential" type="checkbox" <?=(intval($A->confidential)?"CHECKED":"")?>>
+            </td>
+         </tr>
+
+         <!-- Admin allowance -->
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
+         <tr>
+            <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+               <span class="config-key"><?=$LANG['abs_admin_allowance']?></span><br>
+               <span class="config-comment"><?=$LANG['abs_admin_allowance_desc']?></span>
+            </td>
+            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+               <input name="chk_admin_allowance" id="chk_admin_allowance" value="chk_admin_allowance" type="checkbox" <?=(intval($A->admin_allowance)?"CHECKED":"")?>>
             </td>
          </tr>
 

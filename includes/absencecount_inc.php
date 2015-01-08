@@ -80,7 +80,13 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                         else 
                         {
                            if (isAllowed("editAllUserAllowances")) $allowed=TRUE;
-                        } ?>
+                        } 
+                        
+                        if ( $A->admin_allowance AND !$UL->checkUserType($CONF['UTADMIN']))
+                        {
+                           $allowed = FALSE;
+                        }
+                        ?>
 
                         <tr class="row<?=$rowstyle?>">
                           <td class="dlg-frame-bodyc" style="text-align: left; vertical-align: middle;">

@@ -28,6 +28,9 @@ Typo corrections in english language file
 https://georgelewe.atlassian.net/browse/TCP-114
 Optional Date Range Input
 
+https://georgelewe.atlassian.net/browse/TCP-115
+Admin allowance only
+
 
 ------------------------------------------------------------------------------
 [3.6.015]
