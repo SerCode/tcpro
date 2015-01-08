@@ -3,6 +3,30 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.016]
+
+DATE
+2014-xx-xx
+
+BUGFIXES
+
+Group update did not catch empty group name. The radio box processing needed a 
+code fix.
+
+https://georgelewe.atlassian.net/browse/TCP-113
+Managers cannot edit other manager's calendars or profiles
+
+
+
+IMPROVEMENTS
+
+Code improvements in
+- userimport.php
+- csv-model.php
+
+Typo corrections in english language file
+
+------------------------------------------------------------------------------
 [3.6.015]
 
 DATE

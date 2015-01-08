@@ -51,7 +51,9 @@ if (!isAllowed("manageUsers")) showError("notallowed", TRUE);
  */
 if ( isset($_POST['btn_import']) ) {
    $CSV->file_name = $_FILES['file_source']['tmp_name'];
-   $CSV->import($_POST['list_defgroup'],$_POST['list_deflang'],$_POST['chk_lockuser'],$_POST['chk_hideuser']);
+   $lock_user = array_key_exists('chk_lockuser', $_POST);
+   $hide_user = array_key_exists('chk_hideuser', $_POST);
+   $CSV->import($_POST['list_defgroup'],$_POST['list_deflang'],$lock_user,$hide_user);
 }
 elseif ( isset($_POST['btn_done']) ) {
    jsCloseAndReload("userlist.php");
@@ -99,6 +101,7 @@ require("includes/header_html_inc.php" );
                                        <td width="10">&nbsp;</td>
                                        <td>
                                           <select name="list_defgroup" id="list_defgroup" class="select">
+                                          <option class="option" value="">(none)</option>
                                           <?php
                                           $groups = $G->getAll();
                                           foreach ($groups as $row) {
@@ -129,14 +132,14 @@ require("includes/header_html_inc.php" );
                                        <td><?=$LANG['uimp_lockuser']?></td>
                                        <td width="10">&nbsp;</td>
                                        <td>
-                                          <input name="chk_lockuser" id="chk_lockuser" type="checkbox" value="chk_lockuser" CHECKED>
+                                          <input name="chk_lockuser" id="chk_lockuser" type="checkbox" value="chk_lockuser" checked="checked">
                                        </td>
                                     </tr>
                                     <tr>
                                        <td><?=$LANG['uimp_hideuser']?></td>
                                        <td width="10">&nbsp;</td>
                                        <td>
-                                          <input name="chk_hideuser" id="chk_hideuser" type="checkbox" value="chk_hideuser" CHECKED>
+                                          <input name="chk_hideuser" id="chk_hideuser" type="checkbox" value="chk_hideuser" checked="checked">
                                        </td>
                                     </tr>
                                     <tr>

@@ -1005,17 +1005,31 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             }
       
             /**
-             * Check permission to edit or view the profile
+             * Check permission to edit the profile
              */
             $editProfile=FALSE;
-            if (  $UL->username == $U->username 
-                  OR ( isAllowed("editAllUserProfiles") AND !$UG->isGroupManagerOfUser($U->username, $UL->username) )
-                  OR ( isAllowed("editGroupUserProfiles") AND $UG->shareGroups($UL->username, $U->username) AND !$UG->isGroupManagerOfUser($U->username, $UL->username) ) 
-               ) 
+            if ( $UL->username == $U->username )
             {
                $editProfile=TRUE;
             }
-      
+            else if ( $UG->shareGroups($UL->username, $U->username) )
+            {
+               if (isAllowed("editGroupUserProfiles"))
+               {
+                  if ($UG->isGroupManagerOfUser($UL->username, $U->username) OR !$UG->isGroupManagerOfUser($U->username, $UL->username))
+                  {
+                     $editProfile=TRUE;
+                  }
+               }
+            }
+            else
+            {
+               if (isAllowed("editAllUserProfiles")) $editProfile=TRUE;
+            }
+            
+            /**
+             * Check permission to view the profile
+             */
             $viewProfile=FALSE;
             if (isAllowed("viewUserProfiles")) $viewProfile=TRUE;
       

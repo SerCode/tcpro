@@ -135,7 +135,7 @@ $LANG['btn_upload'] = 'Upload';
 $LANG['cal_caption_weeknumber'] = 'Week';
 $LANG['cal_caption_name'] = 'Name';
 $LANG['cal_img_alt_edit_month'] = 'Edit holidays for this month...';
-$LANG['cal_img_alt_edit_cal'] = 'Edit calender for this person...';
+$LANG['cal_img_alt_edit_cal'] = 'Edit calendar for this person...';
 $LANG['cal_birthday'] = 'Birthday';
 $LANG['cal_age'] = 'Age';
 $LANG['sum_summary'] = 'Summary';
@@ -196,13 +196,13 @@ $LANG['ea_color_help'] .= "two digits represent the color Green, the last two di
 $LANG['ea_color_help'] .= "represent the color Blue. Combinations will mix the colors accordingly.<br><br>\r\n";
 $LANG['ea_color_help'] .= "Examples: 000000 = Black, FFFFFF = White, FF0000 = Red, 00FF00 = Green, 0000FF = Blue, 888888 = Gray.<br>";
 $LANG['ea_delete_confirm'] = "Are you sure you want to delete this absence type?\\r\\n";
-$LANG['ea_delete_confirm'] .= "All occurences of a deleted absence type will be\\r\\n";
+$LANG['ea_delete_confirm'] .= "All occurrences of a deleted absence type will be\\r\\n";
 $LANG['ea_delete_confirm'] .= "replaced with the absence type \'present\' for ALL users.";
 $LANG['ea_groups_all'] = "All";
 $LANG['ea_groups_selection'] = "Selection";
 $LANG['ea_tt_upload'] = "Click here to open the upload dialog to upload image files. Absence icons will always be displayed in 16*16 pixel size. After uploading an image you need to refresh this page so it is listed in the drop down lists.";
 $LANG['ea_tt_icon'] = "This is the icon of this absence type. It will be displayed in the calendar instead of its character symbol.";
-$LANG['ea_tt_groups'] = "Click here to open the Assignemt dialog where you can assign this absence type to certain groups only.";
+$LANG['ea_tt_groups'] = "Click here to open the Assignment dialog where you can assign this absence type to certain groups only.";
 
 /**
  * Edit Day Types Dialog
@@ -382,7 +382,7 @@ $LANG['show_profile_subject'] = 'Subject:';
 $LANG['show_profile_message'] = 'Message:';
 $LANG['show_profile_from'] = 'TeamCal Pro - Show Profile Message';
 $LANG['show_profile_msgsent'] = 'Your message was sent.';
-$LANG['user_delete_confirm'] = "Are you sure you want to delete the selected user/s?\\r\\n";
+$LANG['user_delete_confirm'] = "Are you sure you want to delete the selected user(s)?\\r\\n";
 $LANG['frame_user_type'] = "User&nbsp;Type";
 $LANG['ut_caption'] = "Grant privileges by assigning a special user type";
 $LANG['ut_user'] = "Regular User (Member and/or Manager)";
@@ -432,11 +432,11 @@ $LANG['user_add_info_2']    = "\nYour password: ";
 $LANG['user_add_info_3']    = "\n\nYour TeamCal Pro Administration\n";
 $LANG['tab_avatar']    = "Avatar";
 $LANG['ava_title']    = "Avatar";
-$LANG['ava_upload']    = "Upload an image from your hard drive. Allowed are images of the type JPG, GIF and PNG, not bigger than 250 KB with a maximum size of ".$LC->readConfig("avatarWidth")."*".$LC->readConfig("avatarHeight")." pixel.";
+$LANG['ava_upload']    = "Upload an image from your hard drive. Allowed are images of the type JPG, GIF and PNG, not bigger than 250 KB with a maximum size of ".$LC->readConfig("avatarWidth")."*".$LC->readConfig("avatarHeight")." pixels.";
 $LANG['ava_wrongtype_1']    = "Wrong file type: ";
 $LANG['ava_wrongtype_2']    = "Allowed are the file types ";
-$LANG['ava_write_error']    = "An error occured while writing the avatar file to its destination.";
-$LANG['ava_upload_error']    = "An unspecified error occured during upload. Maybe you want to double-check the size and type of the file you just uploaded.";
+$LANG['ava_write_error']    = "An error occurred while writing the avatar file to its destination.";
+$LANG['ava_upload_error']    = "An unspecified error occurred during upload. Maybe you want to double-check the size and type of the file you just uploaded.";
 $LANG['ava_upload_error_1']    = "The file is too big. It exceeds the upload_max_filesize directive in php.ini.";
 $LANG['ava_upload_error_2a']    = "The file is too big. The upload file size is limited to ";
 $LANG['ava_upload_error_2b']    = " bytes.";
@@ -462,13 +462,13 @@ $LANG['admin_user_title'] = 'Manage Users';
 $LANG['tt_user_logloc'] = "This user reached the maximum amount of failed logins. His account is currently on hold for a grace period.";
 $LANG['tt_user_locked'] = "This user is locked or not approved. The administrator can unlock this user by editing his profile.";
 $LANG['tt_user_hidden'] = "This user is hidden from the calendar. The administrator can unhide this user by editing his profile.";
-$LANG['tt_user_verify'] = "This user has not yet verified his account yet.";
+$LANG['tt_user_verify'] = "This user has not yet verified his account.";
 $LANG['admin_group_title'] = 'Manage Groups';
 $LANG['admin_absence_title'] = 'Manage Absence Types';
 $LANG['admin_holiday_title'] = 'Manage Holiday Types';
 $LANG['admin_help_title'] = 'Help';
 $LANG['admin_create_new_user'] = 'Create a new user...';
-$LANG['admin_import_user'] = 'Import user from CSV file...';
+$LANG['admin_import_user'] = 'Import user(s) from CSV file...';
 $LANG['admin_create_new_group'] = 'Create a new group...';
 $LANG['admin_create_new_absence'] = 'Create a new absence type...';
 $LANG['admin_create_new_holiday'] = 'Create a new holiday type...';
@@ -513,7 +513,7 @@ $LANG['admin_config_remainder_comment'] =
 $LANG['admin_config_remainder_total'] = 'Include Remainder Allowance';
 $LANG['admin_config_remainder_total_comment'] =
 'Checking this option will add the total allowance per absence type to the expandable remainder '.
-'display. The value is seperated by a slash.';
+'display. The value is separated by a slash.';
 $LANG['admin_config_show_remainder'] = 'Show Remainder';
 $LANG['admin_config_show_remainder_comment'] =
 'Checking this option will show/expand the remainder section by default';
@@ -526,7 +526,7 @@ $LANG['admin_config_show_summary_comment'] =
 'Checking this option will show/expand the summary section by default';
 $LANG['admin_config_repeatheadercount'] = 'Repeat Header Count';
 $LANG['admin_config_repeatheadercount_comment'] =
-'Specifies the amount of user lines in the calender before the month header '.
+'Specifies the amount of user lines in the calendar before the month header '.
 'is repeated for better readability.';
 $LANG['admin_config_todaybordercolor'] = 'Today Border Color';
 $LANG['admin_config_todaybordercolor_comment'] =
@@ -537,7 +537,7 @@ $LANG['admin_config_todaybordersize_comment'] =
 $LANG['admin_config_usericonsavatars'] = 'User Icons and Avatars';
 $LANG['admin_config_usericons'] = 'Show User Icons';
 $LANG['admin_config_usericons_comment'] =
-'Checking this option will show user icons to the left of the users\' name indicating the users\' role and gender.';
+'Checking this option will show user icons to the left of the users\' names indicating their role and gender.';
 $LANG['admin_config_avatars'] = 'Show Avatars';
 $LANG['admin_config_avatars_comment'] =
 'Checking this option will show a user avatar pop-up when moving the mouse over the user icon.'.
@@ -559,7 +559,7 @@ $LANG['admin_config_pwd_length'] = 'Password Length';
 $LANG['admin_config_pwd_length_comment'] = 'Minimal length of password.';
 $LANG['admin_config_pwd_strength'] = 'Password Strength';
 $LANG['admin_config_pwd_strength_comment'] =
-'The password strength defines how picky you wanna be with the password check.'.
+'The password strength defines how picky you want to be with the password check.'.
 '</span><ul style="list-style: square; margin-left: 0px;">'.
 '<li><span class="function">Minimum</span><br><span class="config-comment">Anything is allowed if the password is at least of minimum length '.
 'and a new password is not equal to the old.</span></li>'.
@@ -723,10 +723,10 @@ $LANG['uimp_success_2'] = ' lines skipped.';
  */
 $LANG['register_title'] = 'User Registration';
 $LANG['register_frame'] = 'Registration Details';
-$LANG['register_lastname'] = 'Lastname';
-$LANG['register_firstname'] = 'Firstname';
+$LANG['register_lastname'] = 'Last name';
+$LANG['register_firstname'] = 'First name';
 $LANG['register_username'] = 'Username';
-$LANG['register_email'] = 'e-mail Address';
+$LANG['register_email'] = 'E-mail Address';
 $LANG['register_password'] = 'Password';
 $LANG['register_password2'] = 'Repeat Password';
 $LANG['register_group'] = 'User Group';
@@ -738,7 +738,7 @@ $LANG['register_error_incomplete'] = 'You need to at least provide '.$LANG['regi
 $LANG['register_error_username'] = 'That username is already taken. Please choose another.';
 $LANG['register_error_username_format'] = 'Only alphanumeric characters are allowed in usernames.';
 $LANG['register_success'] = 'Your registration was successful. ';
-$LANG['register_success_ok'] = 'You can now close this dialog and login with the usernamen and password you provided.';
+$LANG['register_success_ok'] = 'You can now close this dialog and login with the username and password you provided.';
 $LANG['register_success_verify'] = ' An e-mail has been sent to you with a confirmation link that you need to follow to verify your account. ';
 $LANG['register_success_approval'] = ' Also, the administrator needs to approve your registration.';
 
@@ -772,7 +772,7 @@ $LANG['register_admin_mail_message_3'] = "\n\nYour TeamCal Pro Administration\n"
 
 $LANG['verify_title'] = 'User Verification';
 $LANG['verify_result'] = 'User Verification Result';
-$LANG['verify_err_link'] = 'The link you have used is incorrect or incomplete. Make sure you are using the complete link in your e-mail. Sometimes the link is seperated by a line break in the Mail. Copy and paste the complete string into your browsers\' URL box and try again.';
+$LANG['verify_err_link'] = 'The link you have used is incorrect or incomplete. Make sure you are using the complete link in your e-mail. Sometimes the link is separated by a line break in the Mail. Copy and paste the complete string into your browser\'s URL box and try again.';
 $LANG['verify_err_user'] = 'The username does not exist.';
 $LANG['verify_err_code'] = 'The verification code does not exist.';
 $LANG['verify_err_match'] = 'The verification code does not match.';
@@ -788,7 +788,7 @@ $LANG['verify_mail_greeting'] .= "----------------------------------------------
 $LANG['verify_mail_greeting'] .= "Hello Administrator,\n\n";
 $LANG['verify_mail_message']   = "the user [USERNAME] successfully verified his account.\n";
 $LANG['verify_mail_message']  .= "Your approval is needed to unlock and unhide his account.\n";
-$LANG['verify_mail_message']  .= "Please edit this users' profile according to your approval decision.\n\n";
+$LANG['verify_mail_message']  .= "Please edit this user's profile according to your approval decision.\n\n";
 $LANG['verify_mail_message']  .= "\n\nYour TeamCal Pro Administration\n";
 
 /**
@@ -824,11 +824,11 @@ $LANG['user_search'] = 'Search:';
 /**
  * Configuration Page
  */
-$LANG['admin_config_emailnotifications'] = 'E-Mail Notifications';
+$LANG['admin_config_emailnotifications'] = 'E-mail Notifications';
 $LANG['admin_config_emailnotifications_comment'] =
-'Enable/Disable E-Mail notifications. If you uncheck this option no automated notifications E-Mails are sent. ' .
+'Enable/Disable E-mail notifications. If you uncheck this option no automated notifications E-mails are sent. ' .
 'However, this does not apply to self-registration mails and to manually sent mails via the Message Center and '.
-'the Viewprofile dialog.';
+'the View Profile dialog.';
 $LANG['admin_config_userCustom'] = 'User Custom Fields';
 $LANG['admin_config_userCustom1'] = 'User Custom Field 1 Caption';
 $LANG['admin_config_userCustom1_comment'] = 'Enter the caption of this custom user field. The caption will be shown in the profile dialog.';
@@ -932,7 +932,7 @@ $LANG['totals'] = 'This Month';
 $LANG['admin_config_totals'] = 'Include Totals';
 $LANG['admin_config_totals_comment'] =
 'Checking this option will add a "totals this month" section in the remainder column '.
-'showing each users\'s totals per absence type for the month displayed. Note: You need to configure the '.
+'showing each user\'s totals per absence type for the month displayed. Note: You need to configure the '.
 'absence types that you want to be included in the totals column.';
 
 /**
@@ -1041,7 +1041,7 @@ $LANG['admin_config_defregion'] = 'Default Region for Base Calendar';
 $LANG['admin_config_defregion_comment'] = 'Select the default region for the base calendar to be used. Each user can still change his individual default region in his profile.';
 $LANG['admin_config_optionsbar_comment'] =
 'The Options Bar is displayed right underneath the menu bar. It contains the language selection drop down, '.
-'group selection drop down and other filtering options. Use these settings to switch the seperate items on or off.'.
+'group selection drop down and other filtering options. Use these settings to switch the separate items on or off.'.
 '</span><ul style="list-style: square; margin-left: 0px;">'.
 '<li><span class="function">Group Selection</span><br><span class="config-comment">Displays the group filter selection drop down.</span></li>'.
 '<li><span class="function">Region Selection</span><br><span class="config-comment">Displays the region selection drop down.</span></li>'.
@@ -1050,7 +1050,7 @@ $LANG['admin_config_optionsbar_comment'] =
 '</ul><span class="config-comment">';
 $LANG['admin_config_optionsbar_region'] = 'Show Region Selection';
 $LANG['admin_config_hide_daynotes'] = 'Hide Personal Daynotes';
-$LANG['admin_config_hide_daynotes_comment'] = 'Switching this on will hide personal daynotes from regular users. Only Managers, Directors and Administrators can edit and see them. That way the can be used for managing purposes only. This switch does not affect birthday notes.';
+$LANG['admin_config_hide_daynotes_comment'] = 'Switching this on will hide personal daynotes from regular users. Only Managers, Directors and Administrators can edit and see them. That way they can be used for managing purposes only. This switch does not affect birthday notes.';
 
 /**
  * User Profile Dialog
@@ -1174,7 +1174,7 @@ $LANG['cal_recurring_weekend'] = "Sa-Su";
  */
 $LANG['admin_config_defperiod'] = 'Default Allowance Period';
 $LANG['admin_config_defperiod_comment'] = 'Select the start date and end date of the default allowance period. Usually this is the ' .
-      'current year, from 1.Jan. to 31.Dec.. However, you might use a different period to count your allowances against. If you choose a ' .
+      'current year, from January 1st to December 31st. However, you might use a different period to count your allowances against. If you choose a ' .
       'different period than the calendar year, remember that the terms "current year" and "previous year" then refer to your custom period. ' .
       'The From-date must be smaller than the To-date.';
 $LANG['admin_config_defperiod_from'] = 'From';
@@ -1207,7 +1207,7 @@ $LANG['admin_config_welcome_comment'] = 'Enter a title and a text for the welcom
 /**
  * Userlist Page
  */
-$LANG['user_pwd_reset_confirm'] = "Are you sure you want to reset the password of the selected user/s?\\r\\n";
+$LANG['user_pwd_reset_confirm'] = "Are you sure you want to reset the password of the selected user(s)?\\r\\n";
 
 /**
  * Notification Messages
@@ -1251,11 +1251,11 @@ $LANG['message_type_announcement_welcome'] = 'Welcome Page';
  */
 $LANG['admin_config_usersperpage'] = 'Number of users per page';
 $LANG['admin_config_usersperpage_comment'] = 'If you maintain a large amount of users in TeamCal Pro you might want to use paging in the calendar display. ' .
-      'Indicate how much users you want to display on each page. A value of 0 will disable paging. In case you chose paging, there will be paging buttons ' .
+      'Indicate how much users you want to display on each page. A value of 0 will disable paging. In case you choose paging, there will be paging buttons ' .
       'at the bottom of each page.';
 $LANG['admin_config_mail_options'] = 'Email Options';
 $LANG['admin_config_mail_smtp'] = 'Use external SMTP server';
-$LANG['admin_config_mail_smtp_comment'] = 'Use an external SMTP server instead of the PHP mail() function to send out eMails. '.
+$LANG['admin_config_mail_smtp_comment'] = 'Use an external SMTP server instead of the PHP mail() function to send out E-mails. '.
 'This feature requires the PEAR Mail package to be installed on your server. Many hosters install this package by default. '.
 'It is also necessary for SMTP to work, that your Tcpro server can connect to the selected SMTP server via the usual SMTP ports 25, 465 or 587, '.
 'using plain SMTP or TLS/SSL protocol, depending on your settings. Some hosters have this communication closed down by firewall rules. '.
@@ -1294,7 +1294,7 @@ $LANG['column_source_region'] = 'Source region';
 $LANG['column_target_region'] = 'Target region';
 $LANG['column_overwrite'] = 'Overwrite';
 $LANG['err_input_same_region'] = 'You can\'t merge a reason with itself.';
-$LANG['err_input_region_exists'] = 'A region with that shortname already exists. Delete the existing region first or chose a different shortname.';
+$LANG['err_input_region_exists'] = 'A region with that shortname already exists. Delete the existing region first or choose a different shortname.';
 
 /**
  * Edit month page
@@ -1356,7 +1356,7 @@ $LANG['err_decl_approval'] = "' requires approval and cannot be changed or set."
  */
 $LANG['perm_select_confirm'] = "Are you sure you want to select this permission scheme?\\nAll changes to the current scheme that have not been applied will be lost.";
 $LANG['perm_activate_confirm'] = "Are you sure you want to activate\\nthis permission scheme?";
-$LANG['perm_reset_confirm'] = "Are you sure you want to reset the current permission scheme?\\nAll values will be set to their default?";
+$LANG['perm_reset_confirm'] = "Are you sure you want to reset the current permission scheme?\\nAll values will be set to their default.";
 $LANG['perm_delete_confirm'] = "Are you sure you want to delete the current permission scheme?\\nThe Default scheme will be loaded and activated.";
 $LANG['perm_title'] = "Permission Settings for scheme: ";
 $LANG['perm_sel_scheme'] = "Select scheme";
@@ -1416,7 +1416,7 @@ $LANG['perm_perm_viewYearCalendar_desc'] = "Allows to view the year calendar.";
 $LANG['perm_perm_viewAnnouncements_title'] = "View Announcement";
 $LANG['perm_perm_viewAnnouncements_desc'] = "Allows to view the announcements page. Note, that the announcements page only shows announcements for the logged in user.";
 $LANG['perm_perm_viewAllGroups_title'] = "View All Groups";
-$LANG['perm_perm_viewAllGroups_desc'] = "Allows to view all groups in calendars and filters. If unchecked, only own groups can be can be seen (member of or manager of).";
+$LANG['perm_perm_viewAllGroups_desc'] = "Allows to view all groups in calendars and filters. If unchecked, only own groups can be seen (member of or manager of).";
 $LANG['perm_perm_viewAllUserCalendars_title'] = "View All User Calendars";
 $LANG['perm_perm_viewAllUserCalendars_desc'] = "Allows to view all user calendars. Note, a user can always view his own calendar.";
 $LANG['perm_perm_viewGroupUserCalendars_title'] = "View Group User Calendars";
@@ -1448,7 +1448,7 @@ $LANG['perm_perm_editGroupUserDaynotes_desc'] = "Allows to edit the daynotes of 
  * Config page
  */
 $LANG['admin_config_pscheme'] = "Permission Scheme";
-$LANG['admin_config_pscheme_comment'] = "The permission defines who can do what in TeamCal Pro. The permisson schemes can be configured on the permissions page.";
+$LANG['admin_config_pscheme_comment'] = "The permission defines who can do what in TeamCal Pro. The permission schemes can be configured on the permissions page.";
 $LANG['admin_config_system_options'] = 'System Options';
 $LANG['admin_config_jQueryCDN'] = 'jQuery CDN';
 $LANG['admin_config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular '.
@@ -1456,7 +1456,7 @@ $LANG['admin_config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) ca
       'also offers an advantage that if the visitor to your webpage has already downloaded a copy of jQuery from the same CDN, it won\'t '.
       'have to be re-downloaded.<br>Switch this option off if you are running TeamCal Pro in an environment with no Internet connectivity.';
 $LANG['admin_config_welcomeIcon'] = 'Show Welcome Message Icon';
-$LANG['admin_config_welcomeIcon_comment'] = 'You can chose to display the TeamCal calendar icon next to the welcome text. It will be '.
+$LANG['admin_config_welcomeIcon_comment'] = 'You can choose to display the TeamCal calendar icon next to the welcome text. It will be '.
       'placed at the top left and the text will flow around it. Select the size in the drop down list.';
 $LANG['no']='No';
 $LANG['admin_config_googleAnalytics'] = "Google Analytics";
@@ -1558,7 +1558,7 @@ $LANG['upload_type_homepage'] = 'Welcome Page Image';
 /**
  * Declination Management Page
  */
-$LANG['admin_decl_notify_options'] = 'Select who shall be notified by e-mail in case a request is declined.';
+$LANG['admin_decl_notify_options'] = 'Select who will be notified by e-mail in case a request is declined.';
 $LANG['admin_decl_notify_options_ff'] = '(These settings have no affect if the adminstrator has disabled e-mail notifications globally.)';
 
 /**
@@ -1629,11 +1629,11 @@ $LANG['decl_before_comment'] = 'You can setup the declination of absence request
 $LANG['decl_before_today'] = 'Before today (not including)';
 $LANG['decl_before_date'] = 'Before date (not including)';
 $LANG['decl_period'] = 'Declination Period';
-$LANG['decl_period_comment'] = 'You can setup a declination period in which absence requests are declined. The start and end date you pick here is included in that period.';
+$LANG['decl_period_comment'] = 'You can setup a declination period in which absence requests are declined. The start and end date you pick here are included in that period.';
 $LANG['decl_period_start'] = 'Start date (included)';
 $LANG['decl_period_end'] = 'End date (included)';
 $LANG['decl_notify'] = 'Declination Notifications';
-$LANG['decl_notify_comment'] = 'Select here who will be notified via eMail in case a declination occurs.';
+$LANG['decl_notify_comment'] = 'Select here who will be notified via e-mail in case a declination occurs.';
 $LANG['decl_notify_user'] = 'Requesting user';
 $LANG['decl_notify_manager'] = 'Group Manager';
 $LANG['decl_notify_director'] = 'Director(s)';
@@ -1666,12 +1666,12 @@ $LANG['abs_create_abs'] = 'Create absence';
 $LANG['abs_title'] = 'Absence type settings for \'';
 $LANG['abs_help_title'] = 'Absence type settings';
 $LANG['abs_sample'] = 'Sample display';
-$LANG['abs_sample_desc'] = 'This is how your absence type will look in your calendar based on your current settings after they have been saved. This sample always uses the default symbol "A".';
+$LANG['abs_sample_desc'] = 'This is what your absence type will look in your calendar based on your current settings after they have been saved. This sample always uses the default symbol "A".';
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_desc'] = 'The absence type name is used in lists and descriptions and should tell what this absence type is about, e.g. "Duty trip". It can be 80 characters long.';
 $LANG['abs_symbol'] = 'Symbol';
 $LANG['abs_symbol_desc'] = 'The absence type symbol is used in the calendar display if no icon is set for this absence type. It is also used in '.
-'notification e-mails. Chose a single character. A symbol is mandatory for each absence type, however, you are not restricted and can use the same '.
+'notification e-mails. Choose a single character. A symbol is mandatory for each absence type, however, you are not restricted and can use the same '.
 'character for mutliple absence types. The default is "A".';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_desc'] = 'The absence type icon is used in the calendar display. If no icon is set for this absence type, the symbol will be used instead.';
@@ -1691,14 +1691,14 @@ $LANG['abs_allowance_desc'] = 'Set an allowance for this absence type per year h
 'user has used too many absence days of this type.). If allowance is set to 0 no limit is assumed.';
 $LANG['abs_show_in_remainder'] = 'Show in remainder';
 $LANG['abs_show_in_remainder_desc'] = 'The Calendar Display offers an expandable section to display the remaining allowance for each absence type for '.
-'each user for the current year. Use this switch to decide which absence types shall be included in that display. If none of the absence types is '.
+'each user for the current year. Use this switch to decide which absence types will be included in that display. If none of the absence types are '.
 'marked for display in the remainder section then no expand/collapse button will be visible in the calendar display even though showing the remainder '.
 'is generally switched on.<br>'.
 'Note: It does not seem to make sense to include an absence type in the remainder display when the Factor is set to 0. The allowance and remaining allowance will always be the same.';
 $LANG['abs_show_totals'] = 'Show totals';
 $LANG['abs_show_totals_desc'] = 'The remainder section can be configured to also include a totals display for the current month. This totals '.
 'section shows the sums of each absence type taken for the month displayed. Use this switch to include this absence type in that section. '.
-'If none of the absence types is marked for display in the totals section then the totals section will not be shown at all.';
+'If none of the absence types are marked for display in the totals section then the totals section will not be shown at all.';
 $LANG['abs_approval_required'] = 'Approval required';
 $LANG['abs_approval_required_desc'] = 'Checking this box defines that this absence type requires approval by the group manager, director or '.
 'administrator. A regular user choosing this absence type in his calendar will receive an error message telling him so. The group manager of '.
@@ -1714,11 +1714,11 @@ $LANG['abs_manager_only_desc'] = 'Checking this box defines that this absence ty
 'This feature comes in handy if only the manager or director is supposed to manage this absence, e.g. vacation.';
 $LANG['abs_hide_in_profile'] = 'Hide in profile';
 $LANG['abs_hide_in_profile_desc'] = 'Checking this box defines that regular users cannot see this absence type on the Absences tab of their profile. '.
-'Only Managers, Directors or Administrator will see it there. This feature is useful if a manager wants to use an absence type for tracking '.
+'Only Managers, Directors or Administrators will see it there. This feature is useful if a manager wants to use an absence type for tracking '.
 'purposes only or if the remainders are of no interest to regular users.';
 $LANG['abs_confidential'] = 'Confidential';
 $LANG['abs_confidential_desc'] = 'Checking this box marks this absence type a "confidential". The public and regular users cannot see this absence '.
-'in the calendar, except it is the regular user\'s own absence. This feature is useful if you want to hide sensitive absence types from regular users.';
+'in the calendar, except if it is the regular user\'s own absence. This feature is useful if you want to hide sensitive absence types from regular users.';
 $LANG['abs_groups'] = 'Group assignments';
 $LANG['abs_groups_desc'] = 'Select the groups for which this absence type is valid. If a group is not assigned, members of that group cannot use '.
 'this absence type.';
@@ -1731,7 +1731,7 @@ $LANG['err_input_abs_name'] = 'Please use only alphanumeric characters, blanks, 
 $LANG['err_input_abs_symbol'] = 'Please use only alphanumeric characters and any of -=+*#$%&*()_ in the absence type symbol.';
 $LANG['err_input_abs_color'] = 'Please use only hexadecimal characters as color and background color values.';
 $LANG['err_input_abs_factor'] = 'Please use a float number for Factor.';
-$LANG['err_input_abs_allowance'] = 'Please use a float number for Allowance.';
+$LANG['err_input_abs_allowance'] = 'Please use a decimal number for Allowance.';
 
 /**
  * Edit Calendar
@@ -1751,14 +1751,14 @@ $LANG['admin_config_mail_smtp_ssl_comment'] = 'Use the TLS/SSL protocol for the 
 $LANG['admin_config_jqtheme'] = 'jQuery Theme';
 $LANG['admin_config_jqtheme_comment'] = 'TeamCal Pro uses jQuery, a popular collection of Javascript utilities. jQuery offers themes as well '.
 'used for the display of the tabbed dialogs and other features. The default theme is "base" which is a neutral gray shaded theme. '.
-'Try more from the list, some of them are quite colorful. This is a global setting, users cannot chose an indiviual jQuery theme.';
+'Try more from the list, some of them are quite colorful. This is a global setting, users cannot choose an indiviual jQuery theme.';
 
 /**
  * Message Dialog
  */
 $LANG['message_title'] = 'TeamCal Pro Message Center';
 $LANG['message_type'] = 'Message Type';
-$LANG['message_type_desc'] = 'Chose the type of message you want to send. A silent announcement will be put on the announcement page only. '.
+$LANG['message_type_desc'] = 'Choose the type of message you want to send. A silent announcement will be put on the announcement page only. '.
 'A popup announcement will be put on the announcement page and the announcement page will be shown for every recipient upon login.';
 $LANG['message_type_email'] = 'e-mail';
 $LANG['message_type_announcement_silent'] = 'Silent announcement';
@@ -1848,7 +1848,7 @@ $LANG['admin_config_fastedit_comment'] = 'With this option enabled, an additiona
 'button for each day. Clicking it will show an absence drop down list for each user for that day. An absence type can be selected and the [Apply] '.
 'button will save the selected absences right away. Note, that no declination check will be performed with Fast Edit. This feature here is rather meant '.
 'for managers. However, you can of course enable the corresponding permission for regular users as well.<br>'.
-'<br><strong>Attention</strong>: Fast Edit may create a large amount of $_POST input variables, depending on the number of users. Ceck the <i>max_input_vars</i> '.
+'<br><strong>Attention</strong>: Fast Edit may create a large amount of $_POST input variables, depending on the number of users. Check the <i>max_input_vars</i> '.
 'value in your php.ini. It is commonly set to 1000, i.e. you will reach that amount if you maintain around 20 users. Fast Edit will not work anymore '.
 'if that value is exceeded.';
 
@@ -1889,7 +1889,7 @@ $LANG['admin_config_usermanual_comment'] = 'TeamCal Pro\'s user manual is mainta
 'TeamCal Pro community site (https://georgelewe.atlassian.net)</a> and create a task in the issue tracker for it.<br>'.
 'If you leave this field empty, TeamCal Pro will insert the default link.';
 $LANG['admin_config_lang'] = 'Default Language';
-$LANG['admin_config_lang_comment'] = 'TeamCal Pro is distributed in English and German. The adminstrator might have added more languages. '.
+$LANG['admin_config_lang_comment'] = 'TeamCal Pro is distributed in English and German. The administrator might have added more languages. '.
 'Chose the default language of your installation here.';
 
 /**
@@ -1905,7 +1905,7 @@ $LANG['about_misc'] = 'many users for testing and suggesting...';
 /**
  * Menu bar
  */
-$LANG['mnu_announcements'] = 'You got announcements. Click to read them...';
+$LANG['mnu_announcements'] = 'You\'ve got announcements. Click to read them...';
 
 /**
  * ============================================================================
@@ -1957,7 +1957,7 @@ $LANG['ut_assistant'] = 'Assistant';
  * Permission scheme page
  */
 $LANG['perm_col_assistant'] = "Assistant";
-$LANG['perm_col_assistant_tt'] = "Assistents can perform this action.";
+$LANG['perm_col_assistant_tt'] = "Assistants can perform this action.";
 
 /**
  * Status Bar
@@ -1990,11 +1990,11 @@ $LANG['month_personal_daynote'] = 'Personal Daynote';
 /**
  * Configuration Page
  */
-$LANG['admin_config_emailnopastnotifications'] = 'No Past E-Mail Notifications';
+$LANG['admin_config_emailnopastnotifications'] = 'No Past E-mail Notifications';
 $LANG['admin_config_emailnopastnotifications_comment'] =
-'Enable/Disable E-Mail notifications for calendar changes that are entirely in the past. This setting can be useful ' .
-'if you do cleanup work for past absences and don\'t want E-mails to be sent out for those changes. But as soon as one '.
-'of the changed dates is for today or in the future the E-Mails will be sent.';
+'Enable/Disable e-mail notifications for calendar changes that are entirely in the past. This setting can be useful ' .
+'if you do cleanup work for past absences and don\'t want e-mails to be sent out for those changes. But as soon as one '.
+'of the changed dates is for today or in the future the e-mails will be sent.';
 
 $LANG['admin_config_user_search'] = 'Show User Search Box';
 $LANG['admin_config_user_search_comment'] =
@@ -2002,7 +2002,7 @@ $LANG['admin_config_user_search_comment'] =
 
 $LANG['admin_config_avatarmaxsize'] = 'Avatar Max Size';
 $LANG['admin_config_avatarmaxsize_comment'] =
-'Specifies the maximum files size in Bytes for the avatar image file.';
+'Specifies the maximum files size in bytes for the avatar image file.';
 
 /**
  * Calendar page
@@ -2027,7 +2027,7 @@ $LANG['abs_counts_as_desc'] = 'Select whether taken absences of this type count 
  */
 $LANG['decl_applyto'] = 'Apply Declination To';
 $LANG['decl_applyto_comment'] =
-'Select whether the declination management shall apply to regular users only or to managers and directors too. Declination management does not apply to administrators.';
+'Select whether the declination management will apply to regular users only or to managers and directors too. Declination management does not apply to administrators.';
 $LANG['decl_applyto_regular'] = 'Regular users only';
 $LANG['decl_applyto_all'] = 'All users (but administrators)';
 
@@ -2101,7 +2101,7 @@ $LANG['err_avatar_upload'] = 'An error occurred while uploading your avatar.';
  * Regions page
  */
 $LANG['region_ical_into_region'] = 'Import iCal into existing region';
-$LANG['region_ical_select_region'] = 'Select the region into which the iCal events shall be imported.';
+$LANG['region_ical_select_region'] = 'Select the region into which the iCal events will be imported.';
 $LANG['region_ical_in_existing'] = '" imported into existing region: ';
 $LANG['msg_ical_import_caption'] = 'iCal Import';
 $LANG['msg_ical_import_text'] = 'iCal file "';
@@ -2112,7 +2112,17 @@ $LANG['msg_region_merge_text'] = 'These regions were merged: ';
  */
 $LANG['admin_config_userregion'] = 'Show regional holidays per user';
 $LANG['admin_config_userregion_comment'] =
-'If this option is on, the calendar will show the regional holidays in each user row based on the default region set for the user. These holidays might then differ from the 
-global regional holidays shown in the month header. This offers a better view on regional holiday differences if you manage users from different regions. Note, that this might 
+'If this option is on, the calendar will show the regional holidays in each user row based on the default region set for the user. These holidays might then differ from the  
+global regional holidays shown in the month header. This offers a better view on regional holiday differences if you manage users from different regions. Note, that this 
 might be a bit confusing depending on the amount of users and regions. Check it out and pick your choice.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.016
+ */
+
+/**
+ * Error messages
+ */
+$LANG['err_input_group_update'] = 'You have to enter a group name.';
 ?>

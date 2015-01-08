@@ -93,7 +93,7 @@ if ( isset($_POST['btn_apply']) )
             //
             // The radio button set name is the key value without the cgd prefix and the '#'
             //
-            $radioFieldName = ltrim($key, "hid_");
+            $radioFieldName = substr($key, 4); // remove "hid_"
             $radioFieldName = str_replace ( "#" , "" , $radioFieldName);
             
             if ($key=="hid_#".$username."#_t") 
@@ -121,7 +121,7 @@ if ( isset($_POST['btn_apply']) )
             }
             else 
             {
-               $groupName = ltrim($radioFieldName, $username."_");
+               $groupName = substr($radioFieldName, strlen($username) + 1); // Remove "<username>_" prefix
                switch ($_POST[$radioFieldName]) 
                {
                   case "notmember":

@@ -307,7 +307,9 @@ if (!class_exists("CsvImport"))
 	                     $U->last_pw_change = date("Y-m-d H:i:s");
 	                     $U->create();
 	                     
-	                     $UG->createUserGroupEntry($U->username, $defgroup, "member");
+	                     if ($defgroup != null && $defgroup != "") {
+	                        $UG->createUserGroupEntry($U->username, $defgroup, "member");
+	                     }
 	                     
 	                     $UO->create($U->username, "owngroupsonly", "no");
 	                     if (strtolower($arr[10])=="yes" || strtolower($arr[10])=="1") {

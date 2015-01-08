@@ -75,7 +75,13 @@ if ( $user == $U->username )
 }
 else if ( $UG->shareGroups($user, $U->username) ) 
 {
-   if (isAllowed("editGroupUserProfiles") AND !$UG->isGroupManagerOfUser($U->username, $user) ) $allowed=TRUE;
+   if (isAllowed("editGroupUserProfiles")) 
+   {
+      if ($UG->isGroupManagerOfUser($user, $U->username) OR !$UG->isGroupManagerOfUser($U->username, $user))
+      {
+         $allowed=TRUE;
+      }
+   }
 }
 else 
 {

@@ -91,7 +91,7 @@ if ( isset($_POST['btn_grp_add']) )
        * Assign all absence types to this group by default
        */
       $absences = $A->getAll();
-      foreach ($absences as $Arow) $AG->assign($Arow['symbol'],$G->groupname);
+      foreach ($absences as $Arow) $AG->assign($Arow['id'],$G->groupname);
       
       /**
        * Send notification mails
@@ -118,46 +118,57 @@ if ( isset($_POST['btn_grp_add']) )
  */
 else if ( isset($_POST['btn_grp_update']) ) 
 {
-   /**
-    * Delete group
-    */
-   $G->deleteByName($_POST['grp_namehidden']);
-   
-   /**
-    * Recreate with new values
-    */
-   $G->groupname=preg_replace("/[^A-Za-z0-9_]/i",'',trim($_POST['grp_name']));
-   $G->description=htmlspecialchars($_POST['grp_desc'],ENT_QUOTES);
-   $G->options=0x000000;
-   if (isset($_POST['chkMinPresent'])) $G->setOptions($CONF['G_MIN_PRESENT']);
-   if (is_numeric(trim($_POST['grp_min_present']))) $G->min_present = trim($_POST['grp_min_present']); else $G->min_present = 1;
-   if (isset($_POST['chkMaxAbsent'])) $G->setOptions($CONF['G_MAX_ABSENT']);
-   if (is_numeric(trim($_POST['grp_max_absent']))) $G->max_absent = trim($_POST['grp_max_absent']); else $G->max_absent = 1;
-   if (isset($_POST['chkHide'])) $G->setOptions($CONF['G_HIDE']);
-   $G->create();
-
-   /**
-    * If the group name changed we need to go through all team members of
-    * this group and change it there as well.
-    * Also, the absence type assigments for that group have to be updated.
-    */
-   if ($_POST['grp_name'] != $_POST['grp_namehidden']) 
+   if (trim($_POST['grp_name'])!='')
    {
-      $query= "UPDATE `".$UG->table."` SET `groupname` = '".$G->groupname."' WHERE `groupname` = '".$_POST['grp_namehidden']."';";
-      $result = $UG->db->db_query($query);
-      $query= "UPDATE `".$AG->table."` SET `group` = '".$G->groupname."' WHERE `group` = '".$_POST['grp_namehidden']."';";
-      $result = $AG->db->db_query($query);
-   }
-
-   /**
-    * Send notification mails
-    */
-   sendNotification("groupchange",$_POST['grp_namehidden'],"");
+      /**
+       * Delete group
+       */
+      $G->deleteByName($_POST['grp_namehidden']);
+      
+      /**
+       * Recreate with new values
+       */
+      $G->groupname=preg_replace("/[^A-Za-z0-9_]/i",'',trim($_POST['grp_name']));
+      $G->description=htmlspecialchars($_POST['grp_desc'],ENT_QUOTES);
+      $G->options=0x000000;
+      if (isset($_POST['chkMinPresent'])) $G->setOptions($CONF['G_MIN_PRESENT']);
+      if (is_numeric(trim($_POST['grp_min_present']))) $G->min_present = trim($_POST['grp_min_present']); else $G->min_present = 1;
+      if (isset($_POST['chkMaxAbsent'])) $G->setOptions($CONF['G_MAX_ABSENT']);
+      if (is_numeric(trim($_POST['grp_max_absent']))) $G->max_absent = trim($_POST['grp_max_absent']); else $G->max_absent = 1;
+      if (isset($_POST['chkHide'])) $G->setOptions($CONF['G_HIDE']);
+      $G->create();
    
-   /**
-    * Log this event
-    */
-   $LOG->log("logGroup",$L->checkLogin(),"log_group_updated", $G->groupname." ".$G->description);
+      /**
+       * If the group name changed we need to go through all team members of
+       * this group and change it there as well.
+       * Also, the absence type assigments for that group have to be updated.
+       */
+      if ($_POST['grp_name'] != $_POST['grp_namehidden']) 
+      {
+         $query= "UPDATE `".$UG->table."` SET `groupname` = '".$G->groupname."' WHERE `groupname` = '".$_POST['grp_namehidden']."';";
+         $result = $UG->db->db_query($query);
+         $query= "UPDATE `".$AG->table."` SET `group` = '".$G->groupname."' WHERE `group` = '".$_POST['grp_namehidden']."';";
+         $result = $AG->db->db_query($query);
+      }
+   
+      /**
+       * Send notification mails
+       */
+      sendNotification("groupchange",$_POST['grp_namehidden'],"");
+      
+      /**
+       * Log this event
+       */
+      $LOG->log("logGroup",$L->checkLogin(),"log_group_updated", $G->groupname." ".$G->description);
+   }
+   else 
+   {
+      $message     = true;
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['err_input_caption'];
+      $msg_text    = $LANG['err_input_group_update'];
+   }
 }
 /**
  * =========================================================================

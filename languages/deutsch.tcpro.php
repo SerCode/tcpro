@@ -2115,4 +2115,14 @@ $LANG['admin_config_userregion_comment'] =
 'Mit dieser Option zeigt der Kalender in jeder Nutzerzeile die regionalen Feiertage der Region an, die in den Optionen des Nutzers eingestellt ist. Diese Feiertage k&ouml;nnen sich von 
 den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden. Diese Option bietet eine bessere Sicht auf die unterschiedlichen regionalen Feiertage  
 unterschiedlicher Nutzer. Die Anzeige mag dabei aber auch un&uuml;bersichtlicher werden, je nach Anzahl Nutzer und Regionen. Probier es aus.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.016
+ */
+
+/**
+ * Error messages
+ */
+$LANG['err_input_group_update'] = 'Du musst mindestens einen Namen f&uuml;r die Gruppe angeben.';
 ?>

@@ -94,9 +94,12 @@ if ( $luser == $caluser )
 }
 else if ( $UG->shareGroups($luser, $caluser) ) 
 {
-   if (isAllowed("editGroupUserCalendars") AND !$UG->isGroupManagerOfUser($caluser, $luser) ) 
+   if (isAllowed("editGroupUserCalendars")) 
    {
-      $allowed=TRUE;
+      if ($UG->isGroupManagerOfUser($luser, $caluser) OR !$UG->isGroupManagerOfUser($caluser, $luser))
+      {
+         $allowed=TRUE;
+      }
    }
 }
 else 
