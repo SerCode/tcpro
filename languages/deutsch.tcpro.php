@@ -162,7 +162,7 @@ $LANG['cal_range_type'] = "Abwesenheitstyp:";
 $LANG['cal_range_from'] = "Von:";
 $LANG['cal_range_to'] = "Bis:";
 $LANG['cal_recurring_title'] = "Wiederkehrende Eingabe (innerhalb diesen Monats)";
-$LANG['cal_reason_title'] = "Kommentar/Beg&uuml;ndung (wird in Benachrichtigungsmails aufgef&uuml;hrt)";
+$LANG['cal_reason_title'] = "Kommentar/Begr&uuml;ndung (wird in Benachrichtigungsmails aufgef&uuml;hrt)";
 $LANG['cal_reason_dummy'] = "Gib einen Kommentar/Grund der Abwesenheitsanfrage hier ein...";
 
 /**
@@ -2125,4 +2125,14 @@ unterschiedlicher Nutzer. Die Anzeige mag dabei aber auch un&uuml;bersichtlicher
  * Error messages
  */
 $LANG['err_input_group_update'] = 'Du musst mindestens einen Namen f&uuml;r die Gruppe angeben.';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_showRangeInput'] = 'Zeitraum Eingabe anzeigen';
+$LANG['admin_config_showRangeInput_comment'] = 'Hiermit kann die Zeitraumeingabe im Kalenderbearbeitungsdialog ein- bzw. ausgeblendet werden.';
+$LANG['admin_config_showRecurringInput'] = 'Wiederkehrende Eingabe anzeigen';
+$LANG['admin_config_showRecurringInput_comment'] = 'Hiermit kann die Wiederkehrende Eingabe im Kalenderbearbeitungsdialog ein- bzw. ausgeblendet werden.';
+$LANG['admin_config_showCommentReason'] = 'Kommentar/Begr&uuml;ndung anzeigen';
+$LANG['admin_config_showCommentReason_comment'] = 'Hiermit kann die Kommentar/Begr&uuml;ndung Eingabe im Kalenderbearbeitungsdialog ein- bzw. ausgeblendet werden.';
 ?>

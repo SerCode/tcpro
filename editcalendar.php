@@ -1555,142 +1555,140 @@ $CONF['options']['lang']=$currlang;
                </table>
                
                <!-- RANGE INPUTS -->
-               <table style="width: 100%;">
-                  <tr>
-                     <td width="50%" style="vertical-align: top;">
-                        <fieldset><legend><?=$LANG['cal_range_title']?></legend>
-         			         <table>
-         			            <tr>
-         			               <td><?=$LANG['cal_range_type']?></td>
-         			               <td><?=$LANG['cal_range_from']?></td>
-         				           <td><?=$LANG['cal_range_to']?></td>
-         				           <td>&nbsp;</td>
-         				        </tr>
-         				        <tr>
-                                 <td style="padding-right: 4px;">
-                                    <select name="rangeabs" id="rangeabs" class="select">
-                                    <?php
-                                    foreach ($absences as $abs) {
-                                       /**
-                                        * Make sure this users calendar only contains those absence types
-                                        * that his group(s) is(are) entitled for
-                                        */
-                                       $showthisabsence=false;
-                                       $groups = $G->getAll();
-                                       foreach ($groups as $Grow) {
-                                          if ($UG->isMemberOfGroup($caluser,$Grow['groupname']) &&
-                                              $AG->isAssigned($abs['id'],$Grow['groupname'])
-                                             ) {
+               <div style="float: left; width: 48%; padding: 8px 8px 8px 0;<?=($C->readConfig('showRangeInput'))?"":" display: none;";?>">
+                  <fieldset><legend><?=$LANG['cal_range_title']?></legend>
+   			         <table>
+   			            <tr>
+   			               <td><?=$LANG['cal_range_type']?></td>
+   			               <td><?=$LANG['cal_range_from']?></td>
+   				           <td><?=$LANG['cal_range_to']?></td>
+   				           <td>&nbsp;</td>
+   				        </tr>
+   				        <tr>
+                           <td style="padding-right: 4px;">
+                              <select name="rangeabs" id="rangeabs" class="select">
+                              <?php
+                              foreach ($absences as $abs) {
+                                 /**
+                                  * Make sure this users calendar only contains those absence types
+                                  * that his group(s) is(are) entitled for
+                                  */
+                                 $showthisabsence=false;
+                                 $groups = $G->getAll();
+                                 foreach ($groups as $Grow) {
+                                    if ($UG->isMemberOfGroup($caluser,$Grow['groupname']) &&
+                                        $AG->isAssigned($abs['id'],$Grow['groupname'])
+                                       ) {
+                                       $showthisabsence=true;
+                                       if ($abs['manager_only']) {
+                                          if ( ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR'])) || ($UL->checkUserType($CONF['UTMANAGER']) && $UG->isMemberOfGroup($UL->username,$Grow['groupname'])) ) {
                                              $showthisabsence=true;
-                                             if ($abs['manager_only']) {
-                                                if ( ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR'])) || ($UL->checkUserType($CONF['UTMANAGER']) && $UG->isMemberOfGroup($UL->username,$Grow['groupname'])) ) {
-                                                   $showthisabsence=true;
-                                                }
-                                                else {
-                                                   $showthisabsence=false;
-                                                }
-                                             }
+                                          }
+                                          else {
+                                             $showthisabsence=false;
                                           }
                                        }
-                                       if ($showthisabsence) { ?>
-                                          <option class="option" value="<?=$abs['id']?>"><?=$abs['name']?></option>
-                                       <?php }
                                     }
-                                    ?>
-                                    </select>
-                                 </td>
-                                 <td style="padding-right: 4px;">
-                                    <script type="text/javascript">
-                                       $(function() { $( "#rangefrom" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
-                                       $(function() { $( "#rangeto" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
-                                    </script>
-                                    <input name="rangefrom" id="rangefrom" size="10" maxlength="10" type="text" class="text" value="">
-                                 </td>
-                                 <td style="padding-right: 4px;">
-                                    <input name="rangeto" id="rangeto" size="10" maxlength="10" type="text" class="text" value="">
-                                 </td>
-                                 <td>&nbsp;</td>
-                              </tr>
-                              <tr>
-                                 <td colspan="4" style="padding-bottom: 7px;"><input name="range_only_business" type="checkbox" id="range_only_business" value="range_only_business" checked="checked"><?=$LANG['cal_only_business']?></td>
-                              </tr>
-                           </table>
-                        </fieldset>
-                     </td>
-                     <td width="50%" style="vertical-align: top;">
-                        <fieldset><legend><?=$LANG['cal_recurring_title']?></legend>
-                        <table>
-                           <tr>
-                              <td><input name="monday" type="checkbox" id="monday" value="monday"></td>
-                              <td><?=$LANG['weekdays_long'][1]?></td>
-                              <td><input name="thursday" type="checkbox" id="thursday" value="thursday"></td>
-                              <td><?=$LANG['weekdays_long'][4]?></td>
-                              <td><input name="sunday" type="checkbox" id="sunday" value="sunday"></td>
-                              <td><?=$LANG['weekdays_long'][7]?></td>
-                              <td style="padding-left: 10px; vertical-align: top;"><?=$LANG['cal_range_type']?></td>
-                           </tr>
-                           <tr>
-                              <td><input name="tuesday" type="checkbox" id="tuesday" value="tuesday"></td>
-                              <td><?=$LANG['weekdays_long'][2]?></td>
-                              <td><input name="friday" type="checkbox" id="friday" value="friday"></td>
-                              <td><?=$LANG['weekdays_long'][5]?></td>
-                              <td><input name="workdays" type="checkbox" id="workdays" value="workdays"></td>
-                              <td><?=$LANG['cal_recurring_workdays']?></td>
-                              <td rowspan="2" style="padding-left: 10px; vertical-align: top;">
-                                 <select name="recurrabs" id="recurrabs" class="select">
-                                 <?php
-                                 foreach ($absences as $abs) {
-                                    /*
-                                     * Make sure this users calendar only contains those absence types
-                                     * that his group(s) is(are) entitled for
-                                     */
-                                    $showthisabsence=false;
-                                    $groups = $G->getAll();
-                                    foreach ($groups as $Grow) {
-                                       if ($UG->isMemberOfGroup($caluser,$Grow['groupname']) &&
-                                           $AG->isAssigned($abs['id'],$Grow['groupname'])
-                                          ) {
-                                          $showthisabsence=true;
-                                          if ($abs['manager_only']) {
-                                             if ( ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR'])) || ($UL->checkUserType($CONF['UTMANAGER']) && $UG->isMemberOfGroup($UL->username,$Grow['groupname'])) ) {
-                                                $showthisabsence=true;
-                                             }
-                                             else {
-                                                $showthisabsence=false;
-                                             }
-                                          }
-                                          if ($abs['approval_required']) $approvalNeeded=true;
-                                       }
-                                    }
-                                    if ($showthisabsence) { ?>
-                                       <option class="option" value="<?=$abs['id']?>"><?=$abs['name']?></option>
-                                    <?php }
                                  }
-                                 ?>
-                                 </select><br>
-                                 <input name="recurring_only_business" type="checkbox" id="recurring_only_business" value="rcurring_only_business" checked="checked"><?=$LANG['cal_only_business']?>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td><input name="wednesday" type="checkbox" id="wednesday" value="wednesday"></td>
-                              <td><?=$LANG['weekdays_long'][3]?></td>
-                              <td><input name="saturday" type="checkbox" id="saturday" value="saturday"></td>
-                              <td><?=$LANG['weekdays_long'][6]?></td>
-                              <td><input name="weekend" type="checkbox" id="weekend" value="weekend"></td>
-                              <td><?=$LANG['cal_recurring_weekend']?></td>
-                           </tr>
-                        </table>
-                        </fieldset>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td style="vertical-align: top; width: 100%;" colspan="2">
-                        <fieldset><legend><?=$LANG['cal_reason_title']?></legend>
-                           <input class="text" name="txtReason" id="txtReason" type="text" size="130" maxlength="130" value="<?=$LANG['cal_reason_dummy']?>">
-                        </fieldset>
-                     </td>
-                  </tr>
-               </table>
+                                 if ($showthisabsence) { ?>
+                                    <option class="option" value="<?=$abs['id']?>"><?=$abs['name']?></option>
+                                 <?php }
+                              }
+                              ?>
+                              </select>
+                           </td>
+                           <td style="padding-right: 4px;">
+                              <script type="text/javascript">
+                                 $(function() { $( "#rangefrom" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
+                                 $(function() { $( "#rangeto" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
+                              </script>
+                              <input name="rangefrom" id="rangefrom" size="10" maxlength="10" type="text" class="text" value="">
+                           </td>
+                           <td style="padding-right: 4px;">
+                              <input name="rangeto" id="rangeto" size="10" maxlength="10" type="text" class="text" value="">
+                           </td>
+                           <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                           <td colspan="4" style="padding-bottom: 7px;"><input name="range_only_business" type="checkbox" id="range_only_business" value="range_only_business" checked="checked"><?=$LANG['cal_only_business']?></td>
+                        </tr>
+                     </table>
+                  </fieldset>
+               </div>
+               
+               <div style="float: left; width: 48%; padding: 8px 0 8px 0;<?=($C->readConfig('showRecurringInput'))?"":" display: none;";?>">
+                  <fieldset><legend><?=$LANG['cal_recurring_title']?></legend>
+                  <table>
+                     <tr>
+                        <td><input name="monday" type="checkbox" id="monday" value="monday"></td>
+                        <td><?=$LANG['weekdays_long'][1]?></td>
+                        <td><input name="thursday" type="checkbox" id="thursday" value="thursday"></td>
+                        <td><?=$LANG['weekdays_long'][4]?></td>
+                        <td><input name="sunday" type="checkbox" id="sunday" value="sunday"></td>
+                        <td><?=$LANG['weekdays_long'][7]?></td>
+                        <td style="padding-left: 10px; vertical-align: top;"><?=$LANG['cal_range_type']?></td>
+                     </tr>
+                     <tr>
+                        <td><input name="tuesday" type="checkbox" id="tuesday" value="tuesday"></td>
+                        <td><?=$LANG['weekdays_long'][2]?></td>
+                        <td><input name="friday" type="checkbox" id="friday" value="friday"></td>
+                        <td><?=$LANG['weekdays_long'][5]?></td>
+                        <td><input name="workdays" type="checkbox" id="workdays" value="workdays"></td>
+                        <td><?=$LANG['cal_recurring_workdays']?></td>
+                        <td rowspan="2" style="padding-left: 10px; vertical-align: top;">
+                           <select name="recurrabs" id="recurrabs" class="select">
+                           <?php
+                           foreach ($absences as $abs) {
+                              /*
+                               * Make sure this users calendar only contains those absence types
+                               * that his group(s) is(are) entitled for
+                               */
+                              $showthisabsence=false;
+                              $groups = $G->getAll();
+                              foreach ($groups as $Grow) {
+                                 if ($UG->isMemberOfGroup($caluser,$Grow['groupname']) &&
+                                     $AG->isAssigned($abs['id'],$Grow['groupname'])
+                                    ) {
+                                    $showthisabsence=true;
+                                    if ($abs['manager_only']) {
+                                       if ( ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR'])) || ($UL->checkUserType($CONF['UTMANAGER']) && $UG->isMemberOfGroup($UL->username,$Grow['groupname'])) ) {
+                                          $showthisabsence=true;
+                                       }
+                                       else {
+                                          $showthisabsence=false;
+                                       }
+                                    }
+                                    if ($abs['approval_required']) $approvalNeeded=true;
+                                 }
+                              }
+                              if ($showthisabsence) { ?>
+                                 <option class="option" value="<?=$abs['id']?>"><?=$abs['name']?></option>
+                              <?php }
+                           }
+                           ?>
+                           </select><br>
+                           <input name="recurring_only_business" type="checkbox" id="recurring_only_business" value="rcurring_only_business" checked="checked"><?=$LANG['cal_only_business']?>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><input name="wednesday" type="checkbox" id="wednesday" value="wednesday"></td>
+                        <td><?=$LANG['weekdays_long'][3]?></td>
+                        <td><input name="saturday" type="checkbox" id="saturday" value="saturday"></td>
+                        <td><?=$LANG['weekdays_long'][6]?></td>
+                        <td><input name="weekend" type="checkbox" id="weekend" value="weekend"></td>
+                        <td><?=$LANG['cal_recurring_weekend']?></td>
+                     </tr>
+                  </table>
+                  </fieldset>
+               </div>
+               
+               <div style="clear: both; width: 97%; padding: 4px 0 8px 0;<?=($C->readConfig('showCommentReason'))?"":" display: none;";?>">
+                  <fieldset><legend><?=$LANG['cal_reason_title']?></legend>
+                     <input class="text" name="txtReason" id="txtReason" type="text" size="130" maxlength="130" value="<?=$LANG['cal_reason_dummy']?>">
+                  </fieldset>
+               </div>
+               
+               
             </td>
          </tr>
          <tr>

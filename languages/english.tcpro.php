@@ -2125,4 +2125,14 @@ might be a bit confusing depending on the amount of users and regions. Check it 
  * Error messages
  */
 $LANG['err_input_group_update'] = 'You have to enter a group name.';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_showRangeInput'] = 'Show Range Input';
+$LANG['admin_config_showRangeInput_comment'] = 'Check to show the Range Input section on the Edit Calendar page.';
+$LANG['admin_config_showRecurringInput'] = 'Show Recurring Input';
+$LANG['admin_config_showRecurringInput_comment'] = 'Check to show the Recurring Input section on the Edit Calendar page.';
+$LANG['admin_config_showCommentReason'] = 'Show Comment/Reason';
+$LANG['admin_config_showCommentReason_comment'] = 'Check to show the Comment/Reason section on the Edit Calendar page.';
 ?>

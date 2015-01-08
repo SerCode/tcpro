@@ -91,6 +91,9 @@ if ( isset($_POST['btn_confApply']) ) {
    if ( isset($_POST['chk_markConfidential']) ) $C->saveConfig("markConfidential","1"); else $C->saveConfig("markConfidential","0");
    if ( isset($_POST['chk_hideManagerOnlyAbsences']) ) $C->saveConfig("hideManagerOnlyAbsences","1"); else $C->saveConfig("hideManagerOnlyAbsences","0");
    if ( isset($_POST['chk_fastEdit']) ) $C->saveConfig("fastEdit","1"); else $C->saveConfig("fastEdit","0");
+   if ( isset($_POST['chk_showRangeInput']) ) $C->saveConfig("showRangeInput","1"); else $C->saveConfig("showRangeInput","0");
+   if ( isset($_POST['chk_showRecurringInput']) ) $C->saveConfig("showRecurringInput","1"); else $C->saveConfig("showRecurringInput","0");
+   if ( isset($_POST['chk_showCommentReason']) ) $C->saveConfig("showCommentReason","1"); else $C->saveConfig("showCommentReason","0");
     
    /**
     * User icons and avatars
@@ -664,7 +667,43 @@ if (ini_get('register_globals')) {
                               <input name="chk_fastEdit" value="chk_fastEdit" type="checkbox" <?=(intval($C->readConfig("fastEdit"))?"CHECKED":"")?>>
                            </td>
                         </tr>
-               
+
+                        <!-- showRangeInput -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_showRangeInput']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_showRangeInput_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input name="chk_showRangeInput" id="chk_showRangeInput" value="chk_showRangeInput" type="checkbox" <?=(intval($C->readConfig("showRangeInput"))?"CHECKED":"")?>>
+                           </td>
+                        </tr>
+                        
+                        <!-- showRecurringInput -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_showRecurringInput']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_showRecurringInput_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input name="chk_showRecurringInput" id="chk_showRecurringInput" value="chk_showRecurringInput" type="checkbox" <?=(intval($C->readConfig("showRecurringInput"))?"CHECKED":"")?>>
+                           </td>
+                        </tr>
+
+                        <!-- showCommentReason -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_showCommentReason']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_showCommentReason_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input name="chk_showCommentReason" id="chk_showCommentReason" value="chk_showCommentReason" type="checkbox" <?=(intval($C->readConfig("showCommentReason"))?"CHECKED":"")?>>
+                           </td>
+                        </tr>
+                        
                         <?=$buttonrow?>
                
                      </table>

@@ -17,7 +17,6 @@ https://georgelewe.atlassian.net/browse/TCP-113
 Managers cannot edit other manager's calendars or profiles
 
 
-
 IMPROVEMENTS
 
 Code improvements in
@@ -25,6 +24,10 @@ Code improvements in
 - csv-model.php
 
 Typo corrections in english language file
+
+https://georgelewe.atlassian.net/browse/TCP-114
+Optional Date Range Input
+
 
 ------------------------------------------------------------------------------
 [3.6.015]
