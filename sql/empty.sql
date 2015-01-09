@@ -5,9 +5,9 @@
 -- Empty core database for TeamCal Pro
 --
 -- @package TeamCalPro
--- @version 3.6.014
+-- @version 3.6.016
 -- @author George Lewe
--- @copyright Copyright (c) 2004-2014 by George Lewe
+-- @copyright Copyright (c) 2004-2015 by George Lewe
 -- @link http://www.lewe.com
 -- @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
 
@@ -33,14 +33,15 @@ CREATE TABLE `my_tc_absences` (
   `manager_only` tinyint(1) NOT NULL,
   `hide_in_profile` tinyint(1) NOT NULL,
   `confidential` tinyint(1) NOT NULL,
+  `admin_allowance` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2;
 
 -- 
 -- Dumping data for table `my_tc_absences`
 -- 
 
-INSERT INTO `my_tc_absences` VALUES('1', 'Vacation', 'V', 'sun.png', '000000', 'FC3737', '1', '20', '0', '1', '1', '1', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('1', 'Vacation', 'V', 'sun.png', '000000', 'FC3737', '1', '20', '0', '1', '1', '1', '0', '0', '0', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -104,7 +105,7 @@ CREATE TABLE `my_tc_config` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 AUTO_INCREMENT=133;
+) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 AUTO_INCREMENT=136;
 
 -- 
 -- Dumping data for table `my_tc_config`
@@ -241,6 +242,9 @@ INSERT INTO `my_tc_config` VALUES('129', 'logto', '2014-12-31');
 INSERT INTO `my_tc_config` VALUES('130', 'logperiod', 'curr_all');
 INSERT INTO `my_tc_config` VALUES('131', 'emailNoPastNotifications', '0');
 INSERT INTO `my_tc_config` VALUES('132', 'showUserRegion', '0');
+INSERT INTO `my_tc_config` VALUES('133', 'showRangeInput', '0');
+INSERT INTO `my_tc_config` VALUES('134', 'showRecurringInput', '0');
+INSERT INTO `my_tc_config` VALUES('135', 'showCommentReason', '0');
 
 -- --------------------------------------------------------
 

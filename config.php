@@ -5,9 +5,9 @@
  * Displays the configuration page
  *
  * @package TeamCalPro
- * @version 3.6.015
+ * @version 3.6.016
  * @author George Lewe
- * @copyright Copyright (c) 2004-2014 by George Lewe
+ * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */

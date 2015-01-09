@@ -6,9 +6,9 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Included by every page to displays the HTML footer
  *
  * @package TeamCalPro
- * @version 3.6.015
+ * @version 3.6.016
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2004-2014 by George Lewe
+ * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */

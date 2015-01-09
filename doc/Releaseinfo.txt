@@ -16,7 +16,6 @@ code fix.
 https://georgelewe.atlassian.net/browse/TCP-113
 Managers cannot edit other manager's calendars or profiles
 
-
 IMPROVEMENTS
 
 Code improvements in

@@ -6,9 +6,9 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Contains the version info
  *
  * @package TeamCalPro
- * @version 3.6.015
+ * @version 3.6.016
  * @author George Lewe
- * @copyright Copyright (c) 2004-2014 by George Lewe
+ * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
  */
@@ -22,9 +22,9 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
 date_default_timezone_set('UTC');
 
 $CONF['app_name'] = "TeamCal Pro";
-$CONF['app_version'] = "3.6.015";
+$CONF['app_version'] = "3.6.016";
 $CONF['app_help_root'] = "https://georgelewe.atlassian.net/wiki/display/TCP036/";
-$CONF['app_version_date'] = "2014-11-24";
+$CONF['app_version_date'] = "2015-01-09";
 $CONF['app_year'] = "2004";
 $CONF['app_curr_year'] = date('Y');
 $CONF['app_author'] = "George Lewe";

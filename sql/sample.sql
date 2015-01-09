@@ -5,9 +5,9 @@
 -- Sample database for TeamCal Pro
 --
 -- @package TeamCalPro
--- @version 3.6.014
+-- @version 3.6.016
 -- @author George Lewe
--- @copyright Copyright (c) 2004-2014 by George Lewe
+-- @copyright Copyright (c) 2004-2016 by George Lewe
 -- @link http://www.lewe.com
 -- @license http://tcpro.lewe.com/doc/license.txt Based on GNU Public License v3
 
@@ -33,6 +33,7 @@ CREATE TABLE `my_tc_absences` (
   `manager_only` tinyint(1) NOT NULL,
   `hide_in_profile` tinyint(1) NOT NULL,
   `confidential` tinyint(1) NOT NULL,
+  `admin_allowance` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 AUTO_INCREMENT=10;
 
@@ -40,15 +41,15 @@ CREATE TABLE `my_tc_absences` (
 -- Dumping data for table `my_tc_absences`
 -- 
 
-INSERT INTO `my_tc_absences` VALUES('1', 'Vacation', 'V', 'sun.png', '000000', 'FC3737', '1', '20', '0', '1', '1', '1', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('2', 'Sick', 'S', 'virus.png', '000000', 'FFCCFF', '1', '24', '0', '1', '0', '0', '0', '0', '0', '1');
-INSERT INTO `my_tc_absences` VALUES('3', 'Day Off', 'F', 'No', '000000', '00FF00', '1', '12', '0', '1', '1', '0', '0', '0', '1', '0');
-INSERT INTO `my_tc_absences` VALUES('4', 'Duty Trip', 'D', 'cactus.png', '000000', 'FFDB9E', '1', '20', '0', '1', '0', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('5', 'Home Office', 'H', 'home.png', '000000', 'ADD8E6', '1', '0', '0', '0', '0', '1', '1', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('6', 'Not Present', 'N', 'x.png', '000000', 'C0C0C0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('7', 'Training', 'T', 'book2.png', '000000', '6495ED', '1', '10', '0', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('8', 'Tentative Absence', 'A', 'alarm.png', '000000', 'EFEFEF', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('9', 'Half day', 'H', 'clock.png', '000000', 'FFAAAA', '1', '0', '1', '1', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('1', 'Vacation', 'V', 'sun.png', '000000', 'FC3737', '1', '20', '0', '1', '1', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('2', 'Sick', 'S', 'virus.png', '000000', 'FFCCFF', '1', '24', '0', '1', '0', '0', '0', '0', '0', '1', '0');
+INSERT INTO `my_tc_absences` VALUES('3', 'Day Off', 'F', 'No', '000000', '00FF00', '1', '12', '0', '1', '1', '0', '0', '0', '1', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('4', 'Duty Trip', 'D', 'cactus.png', '000000', 'FFDB9E', '1', '20', '0', '1', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('5', 'Home Office', 'H', 'home.png', '000000', 'ADD8E6', '1', '0', '0', '0', '0', '1', '1', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('6', 'Not Present', 'N', 'x.png', '000000', 'C0C0C0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('7', 'Training', 'T', 'book2.png', '000000', '6495ED', '1', '10', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('8', 'Tentative Absence', 'A', 'alarm.png', '000000', 'EFEFEF', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` VALUES('9', 'Half day', 'H', 'clock.png', '000000', 'FFAAAA', '1', '0', '1', '1', '1', '0', '0', '0', '0', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -151,7 +152,7 @@ CREATE TABLE `my_tc_config` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 AUTO_INCREMENT=133;
+) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 AUTO_INCREMENT=136;
 
 -- 
 -- Dumping data for table `my_tc_config`
@@ -288,6 +289,9 @@ INSERT INTO `my_tc_config` VALUES('129', 'logto', '2014-12-31');
 INSERT INTO `my_tc_config` VALUES('130', 'logperiod', 'curr_all');
 INSERT INTO `my_tc_config` VALUES('131', 'emailNoPastNotifications', '0');
 INSERT INTO `my_tc_config` VALUES('132', 'showUserRegion', '0');
+INSERT INTO `my_tc_config` VALUES('133', 'showRangeInput', '0');
+INSERT INTO `my_tc_config` VALUES('134', 'showRecurringInput', '0');
+INSERT INTO `my_tc_config` VALUES('135', 'showCommentReason', '0');
 
 -- --------------------------------------------------------
 
