@@ -5,7 +5,7 @@
  * Displays the yearly calendar view page
  *
  * @package TeamCalPro
- * @version 3.6.016
+ * @version 3.6.017
  * @author George Lewe
  * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com
@@ -474,26 +474,38 @@ require( "includes/menu_inc.php" );
                                * This overwrites the holiday settings.
                                */
                               $prop='abs'.$n;
-                              if ($A->get($T->$prop)) {
-                                 if ($pos=strpos($addstyle,"background-color: #")) {
-                                    $replace="background-color: #".$A->bgcolor.";";
-                                    $addstyle=substr_replace($addstyle,$replace,$pos,26);
+                              if ($A->get($T->$prop)) 
+                              {
+                                 if ( !$A->confidential OR $luser=='admin' OR ($A->confidential AND $luser==$showuser) )
+                                 {
+                                    if ($pos=strpos($addstyle,"background-color: #")) 
+                                    {
+                                       $replace="background-color: #".$A->bgcolor.";";
+                                       $addstyle=substr_replace($addstyle,$replace,$pos,26);
+                                    }
+                                    else
+                                       $addstyle.=" background-color: #".$A->bgcolor.";";
+   
+                                    $addstyle.=" color: #".$A->color.";";
+                                    if ($A->icon!='No') 
+                                    {
+                                       $content="<img title=\"".$A->name."\" align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
+                                    }
+                                    else 
+                                    {
+                                       $content="<span title=\"".$A->name."\">".$A->symbol."</span>";
+                                    }
                                  }
-                                 else
-                                    $addstyle.=" background-color: #".$A->bgcolor.";";
-
-                                 $addstyle.=" color: #".$A->color.";";
-                                 if ($A->icon!='No') {
-                                    $content="<img title=\"".$A->name."\" align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
-                                 }
-                                 else {
-                                    $content="<span title=\"".$A->name."\">".$A->symbol."</span>";
+                                 else 
+                                 {
+                                    $content="&nbsp;";
                                  }
                               }
-                              else {
+                              else
+                              {
                                  $content="&nbsp;";
                               }
-
+                              
                               /**
                                * Draw the cell
                                */
