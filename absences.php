@@ -77,7 +77,7 @@ if ( isset($_POST['btn_absCreate']) ) {
          $A->show_in_remainder = 1;
          $A->show_totals = 1;
          $A->approval_required = 0;
-         $A->counts_a_present = 0;
+         $A->counts_as_present = 0;
          $A->manager_only = 0;
          $A->hide_in_profile = 0;
          $A->confidential = 0;
@@ -347,6 +347,7 @@ require("includes/menu_inc.php");
                   <?php
                   $fileTypes = array ("gif", "jpg", "png");
                   $imgFiles = getFiles($CONF['app_icon_dir']);
+                  sort($imgFiles);
                   foreach ($imgFiles as $file) { ?>
                      <option style="background-image: url(<?=$CONF['app_icon_dir'].$file?>); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="<?=$file?>" <?=(($A->icon==$file)?"SELECTED":"")?>><?=$file?></option>
                   <?php } ?>
@@ -549,7 +550,7 @@ require("includes/menu_inc.php");
             <td class="dlg-menu" colspan="2" style="text-align: left;">
                <input name="btn_absApply" type="submit" class="button" value="<?=$LANG['btn_apply']?>">&nbsp;
                <input name="btn_absDelete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="if (confirm('<?=$LANG['abs_del_confirm'].$A->name?> (<?=$A->id?>)')) this.form.submit();" >&nbsp;
-               <input name="btn_help" type="button" class="button" onclick="javascript:window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
+               <input name="btn_help" type="button" class="button" onclick="window.open('<?=$help?>').void();" value="<?=$LANG['btn_help']?>">
             </td>
          </tr>
 
