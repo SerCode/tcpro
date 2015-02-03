@@ -141,7 +141,7 @@ if (!class_exists("User_model"))
          $query .= "'" . $this->privileges . "',";
          $query .= "'" . $this->bad_logins . "',";
          $query .= "'" . $this->bad_logins_start . "',";
-         $query .= "'" . $this->last_pw_change . "',";
+         if ($this->last_pw_change == NULL) { $query .= "NULL,"; } else { $query .= "'" . $this->last_pw_change . "',"; }
          if ($this->birthday == NULL) { $query .= "NULL,"; } else { $query .= "'" . $this->birthday . "',"; }
          $query .= "'" . addslashes($this->idnumber) . "',";
          if ($this->last_login == NULL) { $query .= "NULL,"; } else { $query .= "'" . $this->last_login . "',"; }
