@@ -120,7 +120,7 @@ if ( isset($_POST['btn_absCreate']) ) {
  * APPLY
  */
 else if ( isset($_POST['btn_absApply']) ) {
-
+    
    if (!empty($_POST['txt_name'])) {
       if (!preg_match('/^[a-zA-Z0-9-_\x20]*$/', $_POST['txt_name'])) {
          showError("input",$LANG['err_input_abs_name']);
@@ -157,7 +157,7 @@ else if ( isset($_POST['btn_absApply']) ) {
       }
    }
     
-   if (!empty($_POST['txt_factor'])) {
+   if (isset($_POST['txt_factor']) AND strlen($_POST['txt_factor'])) {
       if (!is_numeric($_POST['txt_factor'])) {
          showError("input",$LANG['err_input_abs_factor']);
       }
@@ -168,7 +168,7 @@ else if ( isset($_POST['btn_absApply']) ) {
 
    $A->counts_as = $_POST['sel_absCountsAs'];
     
-   if (!empty($_POST['txt_allowance'])) {
+   if (isset($_POST['txt_allowance']) AND strlen($_POST['txt_allowance'])) {
       if (!is_numeric($_POST['txt_allowance'])) {
          showError("input",$LANG['err_input_abs_allowance']);
       }
@@ -216,8 +216,8 @@ else if ( isset($_POST['btn_absApply']) ) {
     * Log this event
     */
    $LOG->log("logAbsence",$L->checkLogin(),"log_abs_updated", $A->name." (".$_POST['txt_absid'].")");
-   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['txt_absid']);
-   die();
+   //header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['txt_absid']);
+   //die();
 }
 /**
  * ========================================================================
