@@ -11,6 +11,9 @@ DATE
 BUGFIXES
 
 https://georgelewe.atlassian.net/browse/TCP-116
+Faktor and Allowance values 0 not saved
+
+https://georgelewe.atlassian.net/browse/TCP-116
 Confidential absence types in Year Calendar
 
 IMPROVEMENTS

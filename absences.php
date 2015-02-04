@@ -216,8 +216,8 @@ else if ( isset($_POST['btn_absApply']) ) {
     * Log this event
     */
    $LOG->log("logAbsence",$L->checkLogin(),"log_abs_updated", $A->name." (".$_POST['txt_absid'].")");
-   //header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['txt_absid']);
-   //die();
+   header("Location: ".$_SERVER['PHP_SELF']."?absid=".$_POST['txt_absid']);
+   die();
 }
 /**
  * ========================================================================
