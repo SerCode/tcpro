@@ -24,6 +24,9 @@ ALTER TABLE `my_tc_absences` ADD `admin_allowance` TINYINT NOT NULL ;
 
 3. Overwrite config.tcpro.php from your backup.
 
+4. Database changes (adjust your table name prefix accordingly):
+ALTER TABLE `my_tc_users` CHANGE `last_login` `last_login` DATETIME NULL DEFAULT NULL;
+
 
 ------------------------------------------------------------------------------
 [3.6.013] -> [3.6.014]

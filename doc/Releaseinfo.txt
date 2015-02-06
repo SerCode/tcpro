@@ -10,7 +10,10 @@ DATE
 
 BUGFIXES
 
-https://georgelewe.atlassian.net/browse/TCP-116
+https://georgelewe.atlassian.net/browse/TCP-118
+Put findAllByMonthUser() outside the loop
+
+https://georgelewe.atlassian.net/browse/TCP-117
 Faktor and Allowance values 0 not saved
 
 https://georgelewe.atlassian.net/browse/TCP-116

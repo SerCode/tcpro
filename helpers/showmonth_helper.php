@@ -467,6 +467,8 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       /**
        * Row 3: Weekdays continued
        */
+      $dayNotesExist = false;
+      if ( $N->findAllByMonthUser($year,$monthno,$nofdays,"all",$CONF['options']['region']) ) $dayNotesExist = true; 
       $ttbody = "";
       for ($i=1; $i<=$nofdays; $i=$i+1) 
       {
@@ -475,7 +477,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
           */
          if ($i<10) $dd="0".strval($i); else $dd=strval($i);
          
-         if ( $N->findAllByMonthUser($year,$monthno,$nofdays,"all",$CONF['options']['region']) ) 
+         if ( $dayNotesExist ) 
          {
             if (!empty($N->daynotes['all'][$year.$monthno.$dd])) 
             {
