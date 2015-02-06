@@ -480,11 +480,16 @@ require( "includes/menu_inc.php" );
                                  {
                                     if ($pos=strpos($addstyle,"background-color: #")) 
                                     {
-                                       $replace="background-color: #".$A->bgcolor.";";
-                                       $addstyle=substr_replace($addstyle,$replace,$pos,26);
+                                       if (!$A->bgtransparent) 
+                                       {
+                                          $replace="background-color: #".$A->bgcolor.";";
+                                          $addstyle=substr_replace($addstyle,$replace,$pos,26);
+                                       }
                                     }
                                     else
-                                       $addstyle.=" background-color: #".$A->bgcolor.";";
+                                    {
+                                       if (!$A->bgtransparent) $addstyle.=" background-color: #".$A->bgcolor.";";
+                                    }
    
                                     $addstyle.=" color: #".$A->color.";";
                                     if ($A->icon!='No') 

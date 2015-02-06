@@ -2141,4 +2141,15 @@ $LANG['admin_config_showCommentReason_comment'] = 'Hiermit kann die Kommentar/Be
  */
 $LANG['abs_admin_allowance'] = 'Admin Kontingent';
 $LANG['abs_admin_allowance_desc'] = 'Hiermit kann eingestellt werden, dass nur der Admin die erlaubte Anzahl dieses Typs im Nutzerprofilreiter "Abwesenheiten" &auml;ndern kann.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.017
+ */
+
+/**
+ * Absence page
+ */
+$LANG['abs_bgtransparent'] = 'Hintergrund transparent';
+$LANG['abs_bgtransparent_desc'] = 'Wenn diese Option gew&auml;hlt ist, wird die Hintergrundfarbe ignoriert.';
 ?>

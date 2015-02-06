@@ -654,7 +654,6 @@ function createCSS($theme) {
          $CSS->setKey("td.day".$daytype."-a".$abs['id']," ".$readkey);
          $CSS->setProperty("td.day".$daytype."-a".$abs['id'],"background-color","#".$abs['bgcolor']);
          $CSS->setProperty("td.day".$daytype."-a".$abs['id'],"color","#".$abs['color']);
-         
          $CSS->setKey("td.today".$daytype."-a".$abs['id']," ".$readkey);
          $CSS->setProperty("td.today".$daytype."-a".$abs['id'],"background-color","#".$abs['bgcolor']);
          $CSS->setProperty("td.today".$daytype."-a".$abs['id'],"color","#".$abs['color']);

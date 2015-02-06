@@ -3,6 +3,19 @@ TEAMCAL PRO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.6.016] -> [3.6.017]
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+
+3. Overwrite config.tcpro.php from your backup.
+
+4. Database changes (adjust your table name prefix accordingly):
+ALTER TABLE `my_tc_absences` ADD `bgtransparent` BOOLEAN NOT NULL DEFAULT FALSE AFTER `bgcolor`;
+
+
+------------------------------------------------------------------------------
 [3.6.015] -> [3.6.016]
 
 1. Backup your current files and database!

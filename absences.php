@@ -156,6 +156,8 @@ else if ( isset($_POST['btn_absApply']) ) {
          $A->bgcolor = $_POST['txt_bgcolor'];
       }
    }
+
+   if ( isset($_POST['chk_bgtransparent']) && $_POST['chk_bgtransparent'] ) $A->bgtransparent=1; else $A->bgtransparent=0;
     
    if (isset($_POST['txt_factor']) AND strlen($_POST['txt_factor'])) {
       if (!is_numeric($_POST['txt_factor'])) {
@@ -186,7 +188,7 @@ else if ( isset($_POST['btn_absApply']) ) {
    if ( isset($_POST['chk_hide_in_profile']) && $_POST['chk_hide_in_profile'] )     $A->hide_in_profile=1;   else $A->hide_in_profile=0;
    if ( isset($_POST['chk_confidential']) && $_POST['chk_confidential'] )           $A->confidential=1;      else $A->confidential=0;
    if ( isset($_POST['chk_admin_allowance']) && $_POST['chk_admin_allowance'] )     $A->admin_allowance=1;   else $A->admin_allowance=0;
-    
+     
    $A->update($_POST['txt_absid']);
    
    $absences = $A->getAll();
@@ -289,7 +291,8 @@ require("includes/menu_inc.php");
                <span class="config-comment"><?=$LANG['abs_sample_desc']?></span>
             </td>
             <td class="config-row<?=$style?>">
-            <div id="sample" style="color: #<?=$A->color?>; background-color: #<?=$A->bgcolor?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
+            <?php if ($A->bgtransparent) $backgroundstyle = ""; else $backgroundstyle = "background-color: #" . $A->bgcolor;?>
+            <div id="sample" style="color: #<?=$A->color?>; <?=$backgroundstyle?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
                <?php if ($A->icon=="No") {?>
                   <?=$A->symbol?>
                <?php } else { ?>
@@ -381,7 +384,19 @@ require("includes/menu_inc.php");
             </td>
             <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
                <input class="text" name="txt_bgcolor" id="txt_bgcolor" type="text" size="6" maxlength="6" value="<?=$A->bgcolor?>">
-               <span id="bgcolor_sample" style=" background-color: #<?=$A->bgcolor?>; margin: 0px 0px 0px 10px; padding: 4px;"><img src="img/blank.png" alt="" style="width: 20px; height: 20px;"></span>
+               <span id="bgcolor_sample" style="background-color: #<?=$A->bgcolor?>; margin: 0px 0px 0px 10px; padding: 4px;"><img src="img/blank.png" alt="" style="width: 20px; height: 20px;"></span>
+            </td>
+         </tr>
+
+         <!-- Background transparent -->
+         <?php if ($style=="1") $style="2"; else $style="1"; ?>
+         <tr>
+            <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+               <span class="config-key"><?=$LANG['abs_bgtransparent']?></span><br>
+               <span class="config-comment"><?=$LANG['abs_bgtransparent_desc']?></span>
+            </td>
+            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+               <input name="chk_bgtransparent" id="chk_bgtransparent" value="chk_bgtransparent" type="checkbox" <?=(intval($A->bgtransparent)?"CHECKED":"")?>>
             </td>
          </tr>
 

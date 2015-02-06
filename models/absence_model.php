@@ -31,6 +31,7 @@ if (!class_exists("Absence_model"))
       var $icon = '';
       var $color = '';
       var $bgcolor = '';
+      var $bgtransparent = 0;
       var $factor = 1;
       var $allowance = '0';
       var $counts_as = 0;
@@ -69,7 +70,8 @@ if (!class_exists("Absence_model"))
                      `icon`,
                      `color`,
                      `bgcolor`,
-                     `factor`,
+                     `bgcolor`,
+                     `bgtransparent`,
                      `allowance`,
                      `counts_as`,
          				`show_in_remainder`,
@@ -88,6 +90,7 @@ if (!class_exists("Absence_model"))
                    '".$this->icon."',
                    '".$this->color."',
                    '".$this->bgcolor."',
+                   '".$this->bgtransparent."',
                    '".$this->factor."',
                    '".$this->allowance."',
                    '".$this->counts_as."',
@@ -155,6 +158,7 @@ if (!class_exists("Absence_model"))
                $this->icon = $row['icon'];
                $this->color = $row['color'];
                $this->bgcolor = $row['bgcolor'];
+               $this->bgtransparent = $row['bgtransparent'];
                $this->factor = $row['factor'];
                $this->allowance = $row['allowance'];
                $this->counts_as = $row['counts_as'];
@@ -332,6 +336,29 @@ if (!class_exists("Absence_model"))
       
       //----------------------------------------------------------------------
       /**
+       * Gets the background transparent flag of an absence type
+       *
+       * @param string $absid Record ID
+       * @return boolean Background transparent flag
+       */
+      function getBackgroundTransparent($absid = '') 
+      {
+         $rc=0; // Default return 0
+         if (isset($absid)) 
+         {
+            $query = "SELECT bgtransparent FROM `".$this->table."` WHERE id='".$absid."';";
+            $result = $this->db->db_query($query);
+            if ($this->db->db_numrows($result) == 1) 
+            {
+               $row = $this->db->db_fetch_array($result);
+               $rc = $row['bgtransparent'];
+            }
+         }
+         return $rc;
+      }
+      
+      //----------------------------------------------------------------------
+      /**
        * Gets the name of an absence type
        *
        * @param string $absid Record ID
@@ -442,6 +469,7 @@ if (!class_exists("Absence_model"))
                      `icon`              = '".$this->icon."', 
                      `color`             = '".$this->color."', 
                      `bgcolor`           = '".$this->bgcolor."', 
+                     `bgtransparent`     = '".$this->bgtransparent."', 
                      `factor`            = '".$this->factor."', 
                      `allowance`         = '".$this->allowance."', 
                      `counts_as`         = '".$this->counts_as."', 

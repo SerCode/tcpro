@@ -10,6 +10,9 @@ DATE
 
 BUGFIXES
 
+https://georgelewe.atlassian.net/browse/TCP-119
+Allow transparent absence type background
+
 https://georgelewe.atlassian.net/browse/TCP-118
 Put findAllByMonthUser() outside the loop
 

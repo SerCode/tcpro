@@ -2141,4 +2141,15 @@ $LANG['admin_config_showCommentReason_comment'] = 'Check to show the Comment/Rea
  */
 $LANG['abs_admin_allowance'] = 'Admin allowance';
 $LANG['abs_admin_allowance_desc'] = 'Check to only allow the admin to change the allowance for this type in the "Absences" tab of the Edit Profile dialog.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.017
+ */
+
+/**
+ * Absence page
+ */
+$LANG['abs_bgtransparent'] = 'Background transparent';
+$LANG['abs_bgtransparent_desc'] = 'With this option checked, the background color will be ignored.';
 ?>

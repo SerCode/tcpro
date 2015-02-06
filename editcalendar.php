@@ -1443,16 +1443,36 @@ $CONF['options']['lang']=$currlang;
                      <?php for($idx=1; $idx<=strlen($M->template); $idx++) {
                         $prop='abs'.$idx;
                         $inner="&nbsp;";
-                        if ( $A->get($T->$prop) ) { 
-                           $class="day-a".$A->id;
+                        if ( $A->get($T->$prop) ) 
+                        {
+                           if ($A->bgtransparent)
+                           {
+                              if ( $H->findBySymbol($M->template[$idx-1]) ) $class="day-".$H->cfgname;
+                              else $class="day";
+                           }
+                           else 
+                           {
+                              $class="day-a".$A->id;
+                           }
                            if ($A->icon!='No')
+                           {
                               $inner = "<img align=\"top\" alt=\"\" src=\"".$CONF['app_icon_dir'].$A->icon."\" width=\"16\" height=\"16\">";
+                           }
                            else
+                           {   
                               $inner = $A->symbol;
+                           }
                         }
-                        else {
-                           if ( $H->findBySymbol($M->template[$idx-1]) ) $class="day-".$H->cfgname;
-                           else $class="day";
+                        else 
+                        {
+                           if ( $H->findBySymbol($M->template[$idx-1]) ) 
+                           {
+                              $class="day-".$H->cfgname;
+                           }
+                           else 
+                           {
+                              $class="day";
+                           }
                         } ?>
                         <td class="<?=$class?>"><?=$inner?></td>
                      <?php } ?>
@@ -1519,7 +1539,7 @@ $CONF['options']['lang']=$currlang;
                          */
                         for($idx=1; $idx<=strlen($M->template); $idx++) {
                            $prop='abs'.$idx;
-                           if ( $A->get($T->$prop) ) { 
+                           if ( $A->get($T->$prop) AND !$A->bgtransparent) { 
                               $class="day-a".$A->id;
                            }
                            else {
