@@ -2152,4 +2152,16 @@ $LANG['abs_admin_allowance_desc'] = 'Check to only allow the admin to change the
  */
 $LANG['abs_bgtransparent'] = 'Background transparent';
 $LANG['abs_bgtransparent_desc'] = 'With this option checked, the background color will be ignored.';
+
+/**
+ * Common
+ */
+$LANG['default']='Default';
+
+/**
+ * Config page
+ */
+$LANG['admin_config_appLogo'] = 'Application logo';
+$LANG['admin_config_appLogo_comment'] = 'You can select a logo from the "img" directory of the current Theme folder here. Default is "logo.gif" that comes with TeamCal Pro.  
+If an own logo was created and copied into the "img" directory of the theme folder, it can be selected here. The default logo has the dimensions of 264 x 55 pixels.';
 ?>

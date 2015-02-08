@@ -10,12 +10,6 @@ DATE
 
 BUGFIXES
 
-https://georgelewe.atlassian.net/browse/TCP-119
-Allow transparent absence type background
-
-https://georgelewe.atlassian.net/browse/TCP-118
-Put findAllByMonthUser() outside the loop
-
 https://georgelewe.atlassian.net/browse/TCP-117
 Faktor and Allowance values 0 not saved
 
@@ -23,6 +17,16 @@ https://georgelewe.atlassian.net/browse/TCP-116
 Confidential absence types in Year Calendar
 
 IMPROVEMENTS
+
+https://georgelewe.atlassian.net/browse/TCP-120
+Selectable application logo
+
+https://georgelewe.atlassian.net/browse/TCP-119
+Allow transparent absence type background
+
+https://georgelewe.atlassian.net/browse/TCP-118
+Put findAllByMonthUser() outside the loop
+
 
 
 ------------------------------------------------------------------------------

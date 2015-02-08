@@ -163,6 +163,7 @@ if ( isset($_POST['btn_confApply']) ) {
    if ($_POST['opt_presenceBase']) $C->saveConfig("presenceBase",$_POST['opt_presenceBase']);
     
    $C->saveConfig("appSubTitle",htmlspecialchars($_POST['txt_appSubTitle']));
+   if ($_POST['sel_appLogo']) $C->saveConfig("appLogo",$_POST['sel_appLogo']); else $C->saveConfig("appLogo","default");
    if ($_POST['opt_homepage']) $C->saveConfig("homepage",$_POST['opt_homepage']);
    $C->saveConfig("welcomeTitle",htmlspecialchars(addslashes(strip_tags($_POST['txt_welcomeTitle'],"<i><b>"))));
    $C->saveConfig("welcomeText",htmlspecialchars(addslashes(strip_tags($_POST['txt_welcomeText'],"<i><b>"))));
@@ -970,6 +971,32 @@ if (ini_get('register_globals')) {
                            </td>
                         </tr>
                
+                        <!-- appLogo -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_appLogo']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_appLogo_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%; vertical-align: top;">
+                              <select id="sel_appLogo" name="sel_appLogo" class="select" onchange="document.appLogo.src='<?=$CONF['app_homepage_dir']?>'+this.value;">
+                                 <option value="default" <?=(($C->readConfig("appLogo")=="default" OR $C->readConfig("appLogo")=="")?"SELECTED":"")?>><?=$LANG['default']?></option>
+                                 <?php
+                                 $fileTypes = array ("gif", "jpg", "png");
+                                 $imgFiles = getFiles($CONF['app_homepage_dir']);
+                                 foreach ($imgFiles as $logoFile) { ?>
+                                    <option style="background-image: url(<?=$CONF['app_homepage_dir'].$logoFile?>); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;" value="<?=$logoFile?>" <?=(($C->readConfig("appLogo")==$logoFile)?"SELECTED":"")?>><?=$logoFile?></option>
+                                 <?php } ?>
+                              </select>
+                              &nbsp;<input name="btn_upload" type="button" class="button" onclick="this.blur();openPopup('upload.php?target=homepage','upload','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=500,height=400');" value="<?=$LANG['btn_upload']?>">
+                              <?php
+                              if ($C->readConfig("appLogo")=="default" OR $C->readConfig("appLogo")=="") $logoImage = "themes/".$theme."/img/logo.gif";
+                              else $logoImage = $CONF['app_homepage_dir'].$C->readConfig("appLogo");
+                              ?>
+                              <img src="<?=$logoImage?>" alt="" align="top" id="appLogo">
+                           </td>
+                        </tr>
+               
                         <!-- appSubTitle -->
                         <?php if ($style=="1") $style="2"; else $style="1"; ?>
                         <tr>
@@ -1018,7 +1045,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_welcomeIcon_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%; vertical-align: top;">
-                              <select id="sel_welcomeIcon" name="sel_welcomeIcon" class="select" onchange="javascript: document.welcomeIcon.src='<?=$CONF['app_homepage_dir']?>'+this.value;">
+                              <select id="sel_welcomeIcon" name="sel_welcomeIcon" class="select" onchange="document.welcomeIcon.src='<?=$CONF['app_homepage_dir']?>'+this.value;">
                                  <option value="No" <?=(($C->readConfig("welcomeIcon")=="No")?"SELECTED":"")?>><?=$LANG['no']?></option>
                                  <?php
                                  $fileTypes = array ("gif", "jpg", "png");
@@ -1028,9 +1055,7 @@ if (ini_get('register_globals')) {
                                  <?php } ?>
                               </select>
                               &nbsp;<input name="btn_upload" type="button" class="button" onclick="javascript:this.blur();openPopup('upload.php?target=homepage','upload','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,titlebar=0,resizable=0,dependent=1,width=500,height=400');" value="<?=$LANG['btn_upload']?>">
-                              <?php if($C->readConfig("welcomeIcon")!="No") { ?>
                               <img src="<?=$CONF['app_homepage_dir'].$C->readConfig("welcomeIcon")?>" alt="" align="top" id="welcomeIcon">
-                              <?php } ?>
                            </td>
                         </tr>
                

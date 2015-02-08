@@ -15,7 +15,11 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  */
 ?>
 <div id="header">
-   <img src="themes/<?=$theme?>/img/logo.gif" alt="">
+   <?php
+   if ($C->readConfig("appLogo")=="default" OR $C->readConfig("appLogo")=="") $logo = "themes/".$theme."/img/logo.gif";
+   else $logo = $CONF['app_homepage_dir'].$C->readConfig("appLogo");
+   ?>
+   <img src="<?=$logo?>" alt="">
 </div>
 
 <div id="subheader">
