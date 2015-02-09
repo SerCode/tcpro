@@ -5,7 +5,7 @@
  * Displays and runs the user import dialog
  *
  * @package TeamCalPro
- * @version 3.6.016
+ * @version 3.6.017
  * @author George Lewe
  * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com
