@@ -242,9 +242,9 @@ INSERT INTO `my_tc_config` VALUES('129', 'logto', '2015-12-31');
 INSERT INTO `my_tc_config` VALUES('130', 'logperiod', 'curr_all');
 INSERT INTO `my_tc_config` VALUES('131', 'emailNoPastNotifications', '0');
 INSERT INTO `my_tc_config` VALUES('132', 'showUserRegion', '0');
-INSERT INTO `my_tc_config` VALUES('133', 'showRangeInput', '0');
-INSERT INTO `my_tc_config` VALUES('134', 'showRecurringInput', '0');
-INSERT INTO `my_tc_config` VALUES('135', 'showCommentReason', '0');
+INSERT INTO `my_tc_config` VALUES('133', 'showRangeInput', '1');
+INSERT INTO `my_tc_config` VALUES('134', 'showRecurringInput', '1');
+INSERT INTO `my_tc_config` VALUES('135', 'showCommentReason', '1');
 
 -- --------------------------------------------------------
 
