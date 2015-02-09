@@ -18,6 +18,9 @@ Confidential absence types in Year Calendar
 
 IMPROVEMENTS
 
+https://georgelewe.atlassian.net/browse/TCP-121
+Remainder Column not showing if default allowance is 0
+
 https://georgelewe.atlassian.net/browse/TCP-120
 Selectable application logo
 

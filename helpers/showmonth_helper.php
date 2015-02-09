@@ -216,7 +216,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          
          foreach($absences as $abs) 
          {
-            if ($abs['show_in_remainder'] AND $abs['allowance']) $cntRemainders++;
+            if ($abs['show_in_remainder']) $cntRemainders++;
          }
          
          if ( $CONF['options']['remainder']=="show" && $cntRemainders ) 
@@ -410,7 +410,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             $absences=$AC->getAll();
             foreach ($absences as $abs) 
             {
-               if ($abs['show_in_remainder'] AND $abs['allowance']) 
+               if ($abs['show_in_remainder']) 
                {
                   $monthHeader.="<td class=\"day-a".$abs['id']."\" title=\"".$abs['name']."\" style=\"border-right: 1px dotted #000000;\">";
                   if ($abs['icon']!="No") 
@@ -1165,7 +1165,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                   {
                      $isConfidential = $abs['confidential'];
                      if ($U->username == $UL->username) $isSameUser = TRUE; else $isSameUser = FALSE;
-                     if ($abs['show_in_remainder'] AND $abs['allowance']) 
+                     if ($abs['show_in_remainder']) 
                      {
                         if (isAllowed("editAllUserCalendars") OR isAllowed("editGroupUserCalendars") OR isAllowed("editOwnUserCalendars")) 
                         {
@@ -1192,18 +1192,20 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                            }
                            $thisYearRemainder = $lastYearAllowance+$thisYearAllowance-$thisYearTaken;
                            $totalAllowance    = $lastYearAllowance+$thisYearAllowance;
+                           $separator = "/";
                                          
-                           if ( $isConfidential AND $regularUser AND !$isSameUser )
+                           if ( ($isConfidential AND $regularUser AND !$isSameUser) OR !$totalAllowance )
                            {
                               $thisYearTaken     = "&nbsp;";
                               $thisYearRemainder = "&nbsp;";
                               $totalAllowance    = "&nbsp;";
+                              $separator = "";
                            }
       
                            if ( $thisYearRemainder<0 ) $addStyle=" style=\"color: #FF0000;\""; else $addStyle="";
                            if ( intval($C->readConfig("includeRemainderTotal")) ) 
                            {
-                              $monthBody .= "<td class=\"remainder\"><span".$addStyle.">".$thisYearRemainder."</span>/".$totalAllowance."</td>\n\r";
+                              $monthBody .= "<td class=\"remainder\"><span".$addStyle.">".$thisYearRemainder."</span>".$separator.$totalAllowance."</td>\n\r";
                            }
                            else 
                            {
