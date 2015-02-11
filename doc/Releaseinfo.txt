@@ -3,10 +3,25 @@ TEAMCAL PRO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
-[3.6.017]
+[3.6.018]
 
 DATE
 2015-xx-xx
+
+BUGFIXES
+
+
+IMPROVEMENTS
+
+https://georgelewe.atlassian.net/browse/TCP-122
+Negative remainder values for individual allowances
+
+
+------------------------------------------------------------------------------
+[3.6.017]
+
+DATE
+2015-02-09
 
 BUGFIXES
 
@@ -29,7 +44,6 @@ Allow transparent absence type background
 
 https://georgelewe.atlassian.net/browse/TCP-118
 Put findAllByMonthUser() outside the loop
-
 
 
 ------------------------------------------------------------------------------

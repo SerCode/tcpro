@@ -1194,7 +1194,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                            $totalAllowance    = $lastYearAllowance+$thisYearAllowance;
                            $separator = "/";
                                          
-                           if ( ($isConfidential AND $regularUser AND !$isSameUser) OR !$totalAllowance )
+                           if ( ($isConfidential AND $regularUser AND !$isSameUser) OR (!$thisYearRemainder AND !$totalAllowance) )
                            {
                               $thisYearTaken     = "&nbsp;";
                               $thisYearRemainder = "&nbsp;";
@@ -1202,7 +1202,15 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                               $separator = "";
                            }
       
-                           if ( $thisYearRemainder<0 ) $addStyle=" style=\"color: #FF0000;\""; else $addStyle="";
+                           if ( $thisYearRemainder < 0 ) 
+                           {
+                              $addStyle=" style=\"color: #FF0000;\"";
+                           }
+                           else
+                           {
+                              $addStyle="";
+                           }
+                           
                            if ( intval($C->readConfig("includeRemainderTotal")) ) 
                            {
                               $monthBody .= "<td class=\"remainder\"><span".$addStyle.">".$thisYearRemainder."</span>".$separator.$totalAllowance."</td>\n\r";
