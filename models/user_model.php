@@ -498,17 +498,27 @@ if (!class_exists("User_model"))
          $query .= "`bad_logins`       = '" . $this->bad_logins . "', ";
          $query .= "`bad_logins_start` = '" . $this->bad_logins_start . "', ";
          $query .= "`last_pw_change`   = '" . $this->last_pw_change . "', ";
+         
+         if ($this->last_pw_change == NULL) { 
+            $query .= "`last_pw_change`= NULL, "; 
+         } else { 
+            $query .= "`last_pw_change`= '" . $this->last_pw_change . "', "; 
+         }
+         
          if ($this->birthday == NULL) { 
             $query .= "`birthday`      = NULL, "; 
          } else { 
             $query .= "`birthday`      = '" . $this->birthday . "', "; 
          }
+         
          $query .= "`idnumber`         = '" . $this->idnumber . "', ";
+         
          if ($this->last_login == NULL) { 
             $query .= "`last_login`    = NULL, "; 
          } else { 
             $query .= "`last_login`    = '" . substr($this->last_login, 0, 19) . "', "; 
          }
+         
          $query .= "`custom1`          = '" . addslashes($this->custom1) . "', ";
          $query .= "`custom2`          = '" . addslashes($this->custom2) . "', ";
          $query .= "`custom3`          = '" . addslashes($this->custom3) . "', ";

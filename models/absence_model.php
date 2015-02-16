@@ -101,7 +101,7 @@ if (!class_exists("Absence_model"))
                    '".$this->manager_only."',
                    '".$this->hide_in_profile."',
                    '".$this->confidential."',
-                   '".$this->dmin_allowance."'
+                   '".$this->admin_allowance."'
                    )";
          
          $result = $this->db->db_query($query);

@@ -368,7 +368,7 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
    //
    // If requested, count all those absence types that count as this one
    //
-   $otherCount = 0;
+   $otherTotal = 0;
    if ($combined)
    {
       $otherAbsences = $A->getAll();
@@ -376,6 +376,7 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
       {
          if ($otherId=$otherAbs['counts_as'] AND $otherId==$absid) 
          {
+            $otherCount = 0;
             $otherFactor = $otherAbs['factor'];
             $year = $startyear;
             $month = $startmonth;
@@ -411,12 +412,12 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
             //
             // A combined count always uses the factor. Doesn't make sense otherwise.
             //
-            $otherCount*=$otherFactor;
+            $otherTotal += $otherCount * $otherFactor;
          }
       }
    }
     
-   $count += $otherCount;
+   $count += $otherTotal;
    return $count;
 }
 
