@@ -1483,6 +1483,11 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                   if ( $todaysmonth && $i+1==intval($today['mday']) )
                   {
                      $cssclass='today'.$style.'-a'.$A->id;
+                     if ($A->bgtransparent) 
+                     {
+                        $H->findBySymbol($M->template[$i]);
+                        $cssclass="today-".$H->cfgname.$style;
+                     }
                   }
                   else
                   {
@@ -1493,6 +1498,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
                         $cssclass="day-".$H->cfgname.$style;
                      }
                   }
+                  
                   $monthBody .= "class=\"".$cssclass."\" >";
                   
                   if ( strlen($ttbody) && isAllowed("viewUserProfiles") ) $monthBody .= createPopup($ttid, $ttbody, $ttcaption, $ttcapicon);
