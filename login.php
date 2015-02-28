@@ -52,6 +52,7 @@ $UO = new User_option_model;
 /**
  * Initiate view variables
  */
+if (isset ($_REQUEST['target'])) $target = $_REQUEST['target']; else $target = '';
 $errors = '';
 $uname = '';
 
@@ -62,6 +63,7 @@ if (isset($_POST['btn_login'])) {
    $pword = '';
    if (isset($_POST['uname'])) $uname = $_POST['uname'];
    if (isset($_POST['pword'])) $pword = $_POST['pword'];
+   
    switch ($L->login($uname,$pword)) {
       case 0 :
       /**
@@ -111,7 +113,14 @@ if (isset($_POST['btn_login'])) {
             $UA->assign($tstamp,$uname);
          }
       }
-      header("Location: index.php?action=".$C->readConfig("homepage"));
+      if (isset($_POST['hidden_target']))
+      {
+         header("Location: ".$_POST['hidden_target']);
+      }
+      else
+      {
+         header("Location: index.php?action=".$C->readConfig("homepage"));
+      }
       break;
 
       case 1 :
@@ -251,6 +260,7 @@ require("includes/menu_inc.php" );
 <div id="content">
    <div id="content-content">
       <form name="login" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+         <input type="hidden" name="hidden_target" value="<?=$target?>" />
          <table class="dlg">
             <tr>
                <td class="dlg-header" colspan="3">

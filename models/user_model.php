@@ -497,7 +497,6 @@ if (!class_exists("User_model"))
          $query .= "`privileges`       = '" . $this->privileges . "', ";
          $query .= "`bad_logins`       = '" . $this->bad_logins . "', ";
          $query .= "`bad_logins_start` = '" . $this->bad_logins_start . "', ";
-         $query .= "`last_pw_change`   = '" . $this->last_pw_change . "', ";
          
          if ($this->last_pw_change == NULL) { 
             $query .= "`last_pw_change`= NULL, "; 

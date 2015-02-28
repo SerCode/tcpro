@@ -31,13 +31,20 @@ require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
               <td class="err-body">
                  <p class="erraction"><?=$err_short?></p>
                  <p class="errortext"><?=$err_long?></p>
+                 <?php if (!$L->checkLogin()) { ?>
+                 <p class="errortext">
+                    <?=$LANG['err_not_authorized_login']?><br>
+                    <br>
+                    <input name="btn_login" type="button" class="button" onclick="window.location.href='login.php?target=<?=substr($err_module, strrpos($err_module, '/') + 1);?>';" value="<?=$LANG['btn_login']?>">
+                 </p>
+                 <?php } ?>
                  <br>
                  <hr size="1">
                  <p><span class="module">Module: <?=$err_module?></span></p>
               </td>
           </tr>
          <tr>
-           <td class="dlg-menu">
+           <td class="dlg-menu" style="text-align: left;">
               <?php if ($err_btn_close) { ?>
               <input name="btn_close" type="button" class="button" onclick="javascript:window.close();" value="<?=$LANG['btn_close']?>">
               <?php } ?>

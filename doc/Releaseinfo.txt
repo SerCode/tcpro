@@ -13,8 +13,13 @@ BUGFIXES
 https://georgelewe.atlassian.net/browse/TCP-119
 Today's background not transparent
 
+Code fixes
+
 
 IMPROVEMENTS
+
+https://georgelewe.atlassian.net/browse/TCP-123
+Login redirect to target page
 
 https://georgelewe.atlassian.net/browse/TCP-122
 Negative remainder values for individual allowances

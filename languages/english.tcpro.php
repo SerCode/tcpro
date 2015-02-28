@@ -2164,4 +2164,14 @@ $LANG['default']='Default';
 $LANG['admin_config_appLogo'] = 'Application logo';
 $LANG['admin_config_appLogo_comment'] = 'You can select a logo from the "img" directory of the current Theme folder here. Default is "logo.gif" that comes with TeamCal Pro.  
 If an own logo was created and copied into the "img" directory of the theme folder, it can be selected here. The default logo has the dimensions of 264 x 55 pixels.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.018
+ */
+
+/**
+ * Error page
+ */
+$LANG['err_not_authorized_login'] = 'If you have an account, try again by using the button below.';
 ?>
