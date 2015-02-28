@@ -18,6 +18,9 @@ Code fixes
 
 IMPROVEMENTS
 
+https://georgelewe.atlassian.net/browse/TCP-125
+Absence count to only show valid absence types
+
 https://georgelewe.atlassian.net/browse/TCP-123
 Login redirect to target page
 

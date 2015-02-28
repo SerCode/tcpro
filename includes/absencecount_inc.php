@@ -45,12 +45,24 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                $countfrom = str_replace("-","",$countfrom);
                $countto = str_replace("-","",$countto);
                $rowstyle=0;
-               $useFactor=TRUE;
-               $countCombined=TRUE;
-               $absences=$A->getAll();
+               $useFactor=false;
+               $countCombined=true;
+               
+               /**
+                * Only load absences valid for this users (valid for his groups that is)
+                */
+               $ugroups = $UG->getAllforUser($U->username);
+               $absences = array();
+               foreach ($ugroups as $ug)
+               {
+                  $groupabs=$AG->getAllForGroup($ug['groupname']);
+                  $absences = array_merge($absences, $groupabs);
+               }
+               
                foreach ($absences as $abs) 
                {
-                  if ($A->get($abs['id']) AND !$A->counts_as_present AND !$A->counts_as AND $A->factor) 
+                  $absid = $abs;
+                  if ($A->get($absid) AND !$A->counts_as_present AND !$A->counts_as AND $A->factor) 
                   {
                      if ( !$A->hide_in_profile ||
                           ($UL->checkUserType($CONF['UTADMIN']) || $UL->checkUserType($CONF['UTDIRECTOR']) || $UL->checkUserType($CONF['UTMANAGER']) )

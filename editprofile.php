@@ -28,6 +28,7 @@ getOptions();
 require_once ("languages/".$CONF['options']['lang'].".tcpro.php");
 
 require_once( "models/absence_model.php" );
+require_once( "models/absence_group_model.php" );
 require_once( "models/allowance_model.php" );
 require_once( "models/avatar_model.php" );
 require_once( "models/config_model.php");
@@ -43,6 +44,7 @@ require_once( "models/user_group_model.php" );
 require_once( "models/user_option_model.php" );
 
 $A   = new Absence_model;
+$AG  = new Absence_group_model;
 $AV  = new Avatar_model;
 $B   = new Allowance_model;
 $C   = new Config_model;

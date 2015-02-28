@@ -60,6 +60,22 @@ if (!class_exists("Absence_group_model"))
          $result = $this->db->db_query($query);
       }
 
+      //----------------------------------------------------------------------
+      /**
+       * Reads all absence IDs for a given groupname
+       * 
+       * @param string $groupname
+       * @return array $absarray Array with the IDs
+       */
+      function getAllForGroup($groupname="%") 
+      {
+         $absarray = array();
+         $query = "SELECT absid FROM `".$this->table."` WHERE `group` = '".$groupname."';";
+         $result = $this->db->db_query($query);
+         while ($row=$this->db->db_fetch_array($result)) $absarray[] = $row['absid'];
+         return $absarray;
+      }
+      
       // ---------------------------------------------------------------------
       /**
        * Deletes a record matching absence and group
