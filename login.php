@@ -113,7 +113,7 @@ if (isset($_POST['btn_login'])) {
             $UA->assign($tstamp,$uname);
          }
       }
-      if (isset($_POST['hidden_target']))
+      if (isset($_POST['hidden_target']) AND !empty($_POST['hidden_target']))
       {
          header("Location: ".$_POST['hidden_target']);
       }
