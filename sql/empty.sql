@@ -23,6 +23,7 @@ CREATE TABLE `my_tc_absences` (
   `icon` varchar(80) NOT NULL,
   `color` varchar(6) NOT NULL,
   `bgcolor` varchar(6) NOT NULL,
+  `bgtransparent` tinyint(1) NOT NULL DEFAULT '0',
   `factor` float NOT NULL,
   `allowance` float NOT NULL,
   `counts_as` int(11) NOT NULL,
@@ -41,7 +42,8 @@ CREATE TABLE `my_tc_absences` (
 -- Dumping data for table `my_tc_absences`
 -- 
 
-INSERT INTO `my_tc_absences` VALUES('1', 'Vacation', 'V', 'sun.png', '000000', 'FC3737', '1', '20', '0', '1', '1', '1', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `bgtransparent`, `factor`, `allowance`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`, `admin_allowance`) VALUES
+(1, 'Vacation', 'V', 'sun.png', '000000', 'FC3737', 0, 1, 20, 0, 1, 1, 1, 0, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -89,7 +91,7 @@ CREATE TABLE `my_tc_announcements` (
   `popup` tinyint(1) DEFAULT '0',
   `silent` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 AUTO_INCREMENT=7;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=7;
 
 
 -- --------------------------------------------------------
@@ -105,7 +107,7 @@ CREATE TABLE `my_tc_config` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 AUTO_INCREMENT=136;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=137;
 
 -- 
 -- Dumping data for table `my_tc_config`
@@ -245,6 +247,7 @@ INSERT INTO `my_tc_config` VALUES('132', 'showUserRegion', '0');
 INSERT INTO `my_tc_config` VALUES('133', 'showRangeInput', '1');
 INSERT INTO `my_tc_config` VALUES('134', 'showRecurringInput', '1');
 INSERT INTO `my_tc_config` VALUES('135', 'showCommentReason', '1');
+INSERT INTO `my_tc_config` VALUES('136', 'charset', 'utf-8');
 
 -- --------------------------------------------------------
 

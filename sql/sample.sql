@@ -23,6 +23,7 @@ CREATE TABLE `my_tc_absences` (
   `icon` varchar(80) NOT NULL,
   `color` varchar(6) NOT NULL,
   `bgcolor` varchar(6) NOT NULL,
+  `bgtransparent` tinyint(1) NOT NULL DEFAULT '0',
   `factor` float NOT NULL,
   `allowance` float NOT NULL,
   `counts_as` int(11) NOT NULL,
@@ -41,15 +42,17 @@ CREATE TABLE `my_tc_absences` (
 -- Dumping data for table `my_tc_absences`
 -- 
 
-INSERT INTO `my_tc_absences` VALUES('1', 'Vacation', 'V', 'sun.png', '000000', 'FC3737', '1', '20', '0', '1', '1', '1', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('2', 'Sick', 'S', 'virus.png', '000000', 'FFCCFF', '1', '24', '0', '1', '0', '0', '0', '0', '0', '1', '0');
-INSERT INTO `my_tc_absences` VALUES('3', 'Day Off', 'F', 'No', '000000', '00FF00', '1', '12', '0', '1', '1', '0', '0', '0', '1', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('4', 'Duty Trip', 'D', 'cactus.png', '000000', 'FFDB9E', '1', '20', '0', '1', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('5', 'Home Office', 'H', 'home.png', '000000', 'ADD8E6', '1', '0', '0', '0', '0', '1', '1', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('6', 'Not Present', 'N', 'x.png', '000000', 'C0C0C0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('7', 'Training', 'T', 'book2.png', '000000', '6495ED', '1', '10', '0', '0', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('8', 'Tentative Absence', 'A', 'alarm.png', '000000', 'EFEFEF', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0');
-INSERT INTO `my_tc_absences` VALUES('9', 'Half day', 'H', 'clock.png', '000000', 'FFAAAA', '1', '0', '1', '1', '1', '0', '0', '0', '0', '0', '0');
+INSERT INTO `my_tc_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `bgtransparent`, `factor`, `allowance`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`, `admin_allowance`) VALUES
+(1, 'Vacation', 'V', 'sun.png', '000000', 'FC3737', 0, 1, 20, 0, 1, 1, 1, 0, 0, 0, 0, 1),
+(2, 'Sick', 'S', 'virus.png', '000000', 'FFCCFF', 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0),
+(3, 'Day Off', 'F', 'No', '000000', '00E645', 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0),
+(4, 'Duty Trip', 'D', 'cactus.png', '000000', 'FFDB9E', 0, 1, 20, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+(5, 'Home Office', 'H', 'home.png', '000000', 'ADD8E6', 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0),
+(6, 'Not Present', 'N', 'x.png', '000000', 'C0C0C0', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
+(7, 'Training', 'T', 'book2.png', '000000', '6495ED', 0, 0.5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'Tentative Absence', 'A', 'alarm.png', '000000', 'EFEFEF', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0),
+(9, 'Half day', 'H', 'clock.png', '000000', 'FFAAAA', 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0);
+
 
 -- --------------------------------------------------------
 
@@ -136,7 +139,7 @@ CREATE TABLE `my_tc_announcements` (
   `popup` tinyint(1) DEFAULT '0',
   `silent` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
 -- --------------------------------------------------------
@@ -152,7 +155,7 @@ CREATE TABLE `my_tc_config` (
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 AUTO_INCREMENT=136;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=137;
 
 -- 
 -- Dumping data for table `my_tc_config`
@@ -292,6 +295,7 @@ INSERT INTO `my_tc_config` VALUES('132', 'showUserRegion', '0');
 INSERT INTO `my_tc_config` VALUES('133', 'showRangeInput', '1');
 INSERT INTO `my_tc_config` VALUES('134', 'showRecurringInput', '1');
 INSERT INTO `my_tc_config` VALUES('135', 'showCommentReason', '1');
+INSERT INTO `my_tc_config` VALUES('136', 'charset', 'utf-8');
 
 -- --------------------------------------------------------
 

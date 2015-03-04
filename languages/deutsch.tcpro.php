@@ -2171,6 +2171,13 @@ Wenn ein eigenes Logo erstellt wird und in das "img" Verzeichnis des Theme Ordne
  */
 
 /**
+ * Config page
+ */
+$LANG['admin_config_charset'] = 'Zeichensatz';
+$LANG['admin_config_charset_comment'] = 'Hier kann der HTML Zeichensatz eingestellt werden, um beispielsweise Umlaute in Namen richtig anzuzeigen. Der Standard Zeichensatz is "utf-8".
+      F&uuml;r deutsche Umlaute kann man "utf8_german2_ci" benutzen.';
+
+/**
  * Error page
  */
 $LANG['err_not_authorized_login'] = 'Wenn du ein Benutzerkonto hast, versuch es erneut mit dem folgenden Button.';

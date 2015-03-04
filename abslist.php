@@ -136,7 +136,7 @@ require("includes/menu_inc.php");
                   <tr>
                      <td class="dlg-row<?=$printrow?>" style="width: 24px; text-align: center;"><input type="checkbox" name="chk_abs[]" value="<?=$abs['id']?>"></td>
                      <td class="dlg-row<?=$printrow?>" style="width: 24px; padding-left: 12px;">
-                        <div style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
+                        <div style="color: #<?=$abs['color']?>; <?=(($abs['bgtransparent'])?"":"background-color: #".$abs['bgcolor'].";")?> border: 1px solid #000000; width: 24px; height: 20px; text-align: center; padding: 4px 0px 0px 0px;">
                         <?php if ($abs['icon']=="No") {?>
                            <?=$abs['symbol']?>
                         <?php } else { ?>

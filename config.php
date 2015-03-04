@@ -214,7 +214,8 @@ if ( isset($_POST['btn_confApply']) ) {
    if ( isset($_POST['chk_jQueryCDN']) && $_POST['chk_jQueryCDN'] ) $C->saveConfig("jQueryCDN","1"); else $C->saveConfig("jQueryCDN","0");
    if ( isset($_POST['chk_debugHide']) && $_POST['chk_debugHide'] ) $C->saveConfig("debugHide","1"); else $C->saveConfig("debugHide","0");
    if ($_POST['sel_timeZone']) $C->saveConfig("timeZone",$_POST['sel_timeZone']); else $C->saveConfig("timeZone","UTC");
-
+   if ( isset($_POST['txt_charset']) && strlen($_POST['txt_charset'])) $C->saveConfig("charset",$_POST['txt_charset']); else $C->saveConfig("charset","utf-8");
+    
    /**
     * Email options
     */
@@ -1246,6 +1247,18 @@ if (ini_get('register_globals')) {
                                  <option value="<?=$tz["name"]?>" <?=(($C->readConfig("timeZone")==$tz["name"])?"SELECTED":"")?>><?=$tz["name"]?></option>
                                  <?php } ?>
                               </select>
+                           </td>
+                        </tr>
+                        
+                        <!-- Charset -->
+                        <?php if ($style=="1") $style="2"; else $style="1"; ?>
+                        <tr>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 60%;">
+                              <span class="config-key"><?=$LANG['admin_config_charset']?></span><br>
+                              <span class="config-comment"><?=$LANG['admin_config_charset_comment']?></span>
+                           </td>
+                           <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
+                              <input class="text" name="txt_charset" id="txt_charset" type="text" size="50" value="<?=$C->readConfig("charset")?>">
                            </td>
                         </tr>
                
