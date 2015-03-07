@@ -305,7 +305,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
 
       // =====================================================================
       /**
-       * Row 2: Week numbers
+       * Row 2: Fwd/Bwd Buttons and Week numbers
        */
       if (intval($C->readConfig("showWeekNumbers"))) 
       {
@@ -313,7 +313,52 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
       
          $colspan=0;
          $monthHeader.="<tr>\n\r";
-         $monthHeader.="<td class=\"title\">".$LANG['cal_caption_weeknumber']."</td>\n\r";
+
+         /**
+          * Get the current URL and parse the query part into the bwd and fwd array
+          */
+         $urlarray = parse_url($_SERVER['PHP_SELF']."?".setRequests());
+         parse_str(html_entity_decode($urlarray['query']),$bwdarray);
+         parse_str(html_entity_decode($urlarray['query']),$fwdarray);
+         
+         /**
+          * Change the bwd and fwd year/month based on the currently displayed month
+          */
+         if ($monthno==1)
+         {
+            $bwdarray['year_id'] = $year-1;
+            $bwdarray['month_id'] = '12';
+            $fwdarray['year_id'] = $year;
+            $fwdarray['month_id'] = '2';
+         }
+         else if ($monthno==12) 
+         {
+            $bwdarray['year_id'] = $year;
+            $bwdarray['month_id'] = '11';
+            $fwdarray['year_id'] = $year+1;
+            $fwdarray['month_id'] = '1';
+         }
+         else
+         {
+            $bwdarray['year_id'] = $year;
+            $bwdarray['month_id'] = $monthno-1;
+            $fwdarray['year_id'] = $year;
+            $fwdarray['month_id'] = $monthno+1;
+         }
+         
+         /**
+          * Build the bwd and fwd URL query part
+          */
+         $bwdquery = http_build_query($bwdarray);
+         $fwdquery = http_build_query($fwdarray);
+          
+         /**
+          * Display the bwd and fwd buttons
+          */
+         $monthHeader.='<td class="title">
+               <input title="'.$LANG['tt_page_bwd'].'" name="btn_bwd" type="submit" class="button" style="padding-top: 0px; padding-bottom: 0px;" value="&lt;&lt;" onclick="location.href=\'calendar.php?'.htmlentities($bwdquery).'\'">
+               <input title="'.$LANG['tt_page_fwd'].'" name="btn_fwd" type="submit" class="button" style="padding-top: 0px; padding-bottom: 0px;" value="&gt;&gt;" onclick="location.href=\'calendar.php?'.htmlentities($fwdquery).'\'">
+            </td>';
          
          if ( $CONF['options']['remainder']=="show" && $cntRemainders ) 
          {
