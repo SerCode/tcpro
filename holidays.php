@@ -282,14 +282,22 @@ require("includes/menu_inc.php");
                         <td class="dlg-row<?=$printrow?>" width="15%">
                            <input name="hol_bgcolor" id="bgcolor-<?=$i?>" size="6" maxlength="6" type="text" class="text" style="text-align: center;" value="<?=$H->dspbgcolor?>">
                         </td>
-                        <td class="dlg-row<?=$printrow?>" width="10%"><input name="chkBusinessDay" type="checkbox" value="chkBusinessDay" <?=($H->checkOptions($CONF['H_BUSINESSDAY'])?'CHECKED':'')?>></td>
+                        <td class="dlg-row<?=$printrow?>" width="10%">
+                           <?php
+                           if ( $H->cfgsym!='0' && $H->cfgsym!='1' ) 
+                           { 
+                              // Business Day and Weekend Day cannot be set/unset as business days here.
+                              // For Sat and Sun this can be done in Config -> Calendar Display ?>
+                              <input name="chkBusinessDay" type="checkbox" value="chkBusinessDay" <?=($H->checkOptions($CONF['H_BUSINESSDAY'])?'CHECKED':'')?>>
+                           <?php } ?>
+                        </td>
                         <td class="dlg-row<?=$printrow?>" width="25%">
                            <input name="btn_hol_update" type="submit" class="button" value="<?=$LANG['btn_update']?>">&nbsp;
                            <?php
                            if ( $H->cfgsym!='0' && $H->cfgsym!='1' ) 
                            { 
-                             // Business Day and Weekend Day cannot be deleted ?>
-                             <input name="btn_hol_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="return confirmSubmit('<?=$LANG['ed_delete_confirm']?>')">
+                              // Business Day and Weekend Day cannot be deleted ?>
+                              <input name="btn_hol_delete" type="submit" class="button" value="<?=$LANG['btn_delete']?>" onclick="return confirmSubmit('<?=$LANG['ed_delete_confirm']?>')">
                            <?php } ?>
                         </td>
                      </tr>

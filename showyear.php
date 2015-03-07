@@ -260,7 +260,7 @@ require( "includes/menu_inc.php" );
                      {
                         if (($j=$i%7)==0) $j=7;
                         $class="yweekday";
-                        if ($j>5) $class="yweekday-wend";
+                        if ( ($j==6 AND !$C->readConfig('satBusi')) OR ($j==7 AND !$C->readConfig('sunBusi')) ) $class="yweekday-wend";
                         echo "<td class=\"".$class."\">".$LANG['weekdays'][$j]."</td>\n";
                      }
                      ?>

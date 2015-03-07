@@ -1269,9 +1269,9 @@ $LANG['admin_config_mail_smtp_username_comment'] = 'Specify the SMTP username.';
 $LANG['admin_config_mail_smtp_password'] = 'SMTP Password';
 $LANG['admin_config_mail_smtp_password_comment'] = 'Specify the SMTP password.';
 $LANG['admin_config_satbusi'] = 'Saturday is a Business Day';
-$LANG['admin_config_satbusi_comment'] = 'By default, Saturday is a weekend day and displayed accordingly in the calendar. Check this option if you want to make Saturday a business day.';
+$LANG['admin_config_satbusi_comment'] = 'Check this option if you want Saturday to be displayed and counted as a business day.';
 $LANG['admin_config_sunbusi'] = 'Sunday is a Business Day';
-$LANG['admin_config_sunbusi_comment'] = 'By default, Sunday is a weekend day and displayed accordingly in the calendar. Check this option if you want to make Sunday a business day.';
+$LANG['admin_config_sunbusi_comment'] = 'Check this option if you want Sunday to be displayed and counted as a business day.';
 
 /**
  * ============================================================================

@@ -1269,9 +1269,9 @@ $LANG['admin_config_mail_smtp_username_comment'] = 'Gib den SMTP Benutzernamen a
 $LANG['admin_config_mail_smtp_password'] = 'SMTP Passwort';
 $LANG['admin_config_mail_smtp_password_comment'] = 'Gib das SMTP Passwort an.';
 $LANG['admin_config_satbusi'] = 'Samstag ist ein Arbeitstag';
-$LANG['admin_config_satbusi_comment'] = 'Standardm&auml;&szlig;ig ist Samstag ein Wochenendtag und wird entsprechend im Kalender als solcher angezeigt. Mit dieser Option wird Samstag als Arbeitstag dargestellt.';
+$LANG['admin_config_satbusi_comment'] = 'Mit dieser Option wird Samstag als Arbeitstag dargestellt und gez&auml;hlt.';
 $LANG['admin_config_sunbusi'] = 'Sonntag ist ein Arbeitstag';
-$LANG['admin_config_sunbusi_comment'] = 'Standardm&auml;&szlig;ig ist Sonntag ein Wochenendtag und wird entsprechend im Kalender als solcher angezeigt. Mit dieser Option wird Sonntag als Arbeitstag dargestellt.';
+$LANG['admin_config_sunbusi_comment'] = 'Mit dieser Option wird Sonntag als Arbeitstag dargestellt und gez&auml;hlt.';
 
 /**
  * ============================================================================

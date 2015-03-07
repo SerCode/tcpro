@@ -186,6 +186,7 @@ if (!class_exists("Month_model"))
       /**
        * Removes a holiday from all month templates
        *  
+       * @param string $region Region to do this for
        * @param string $symbol Holiday symbol to delete
        */
       function removeHoliday($region='default', $symbol) 
@@ -211,6 +212,72 @@ if (!class_exists("Month_model"))
                {
                   if ( $dayofweek==6 || $dayofweek==7 ) $row['template'][$i-1] = 1;
                   else $row['template'][$i-1] = 0;   
+               }
+               $dayofweek += 1;
+               if ($dayofweek == 8) $dayofweek = 1;
+            }
+            // Now update the record
+            $qry  = "UPDATE `" . $this->table . "` ";
+            $qry .= "SET `template` = '" . $row['template'] . "' ";
+            $qry .= "WHERE `region` = '" . $row['region'] . "' ";
+            $qry .= "AND `yearmonth` = '" . $row['yearmonth'] . "'";
+            $res = $this->db->db_query($qry);
+         }
+      }
+
+      // ---------------------------------------------------------------------
+      /**
+       * Updates the weekends in all month templates based on the config setting
+       * whether Sat and/or Sun counts as a business day. If business day, the
+       * symbol will be set to '0' so that business day coloring is applied in
+       * the calendar displays.
+       */
+      function updateWeekends() 
+      {
+         global $C, $CONF;
+         
+         $query = "SELECT * FROM `".$this->table."`";
+         $result = $this->db->db_query($query);
+         
+         while ($row = $this->db->db_fetch_array($result)) 
+         {
+            $mymonth = $CONF['monthnames'][intval(substr($row['yearmonth'],4,2))];
+            $mytime = $mymonth . " 1," . substr($row['yearmonth'],0,4);
+            $myts = strtotime($mytime);
+            $mydate = getdate($myts);
+            $nofdays = date("t", $myts);
+            $weekday1 = $mydate['wday'];
+            if ($weekday1 == "0") $weekday1 = "7";
+            $dayofweek = intval($weekday1);
+            
+            /**
+             * Loop through all days of this month template
+             */
+            for ($i = 1; $i <= $nofdays; $i++) 
+            {
+               switch ($dayofweek) 
+               {
+                  case 6 : 
+                  /**
+                   * Saturday
+                   * Only change if not set as a custom holiday
+                   */
+                  if ( $row['template'][$i-1] == 0 OR $row['template'][$i-1] == 1 )
+                  {
+                     if ($C->readConfig("satBusi")) $template .= $row['template'][$i-1] = 0; else $template .= $row['template'][$i-1] = 1;
+                  }
+                  break;
+                  
+                  case 7 :
+                  /**
+                   * Sunday
+                   * Only change if not set as a custom holiday
+                   */
+                  if ( $row['template'][$i-1] == 0 OR $row['template'][$i-1] == 1 )
+                  {
+                     if ($C->readConfig("sunBusi")) $template .= $row['template'][$i-1] = 0; else $template .= $row['template'][$i-1] = 1;
+                  }
+                  break;
                }
                $dayofweek += 1;
                if ($dayofweek == 8) $dayofweek = 1;
