@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Contains the class dealing with login functions
  * 
  * @package TeamCalPro
- * @version 3.6.017 
+ * @version 3.6.018 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com

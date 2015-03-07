@@ -10,13 +10,22 @@ DATE
 
 BUGFIXES
 
+https://georgelewe.atlassian.net/browse/TCP-131
+Sat/Sun business day coloring
+
+https://georgelewe.atlassian.net/browse/TCP-129
+Special character sort
+
+https://georgelewe.atlassian.net/browse/TCP-128
+Sample data missing column
+
 https://georgelewe.atlassian.net/browse/TCP-119
 Today's background not transparent
 
-Code fixes
-
-
 IMPROVEMENTS
+
+https://georgelewe.atlassian.net/browse/TCP-130
+Nav buttons in main calendar
 
 https://georgelewe.atlassian.net/browse/TCP-125
 Absence count to only show valid absence types

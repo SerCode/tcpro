@@ -5,7 +5,7 @@
 -- Sample database for TeamCal Pro
 --
 -- @package TeamCalPro
--- @version 3.6.017
+-- @version 3.6.018
 -- @author George Lewe
 -- @copyright Copyright (c) 2004-2016 by George Lewe
 -- @link http://www.lewe.com
@@ -163,7 +163,7 @@ CREATE TABLE `my_tc_config` (
 
 INSERT INTO `my_tc_config` VALUES('1', 'defgroupfilter', 'All');
 INSERT INTO `my_tc_config` VALUES('2', 'defregion', 'default');
-INSERT INTO `my_tc_config` VALUES('3', 'appSubTitle', 'Version 3.6.017');
+INSERT INTO `my_tc_config` VALUES('3', 'appSubTitle', 'Version 3.6.018');
 INSERT INTO `my_tc_config` VALUES('4', 'appFooterCpy', 'Copyright &amp;copy; 2015 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.');
 INSERT INTO `my_tc_config` VALUES('5', 'repeatHeaderCount', '8');
 INSERT INTO `my_tc_config` VALUES('6', 'todayBorderColor', 'FFCC00');
