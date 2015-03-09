@@ -1261,7 +1261,7 @@ if (ini_get('register_globals')) {
                               <span class="config-comment"><?=$LANG['admin_config_charset_comment']?></span>
                            </td>
                            <td class="config-row<?=$style?>" style="text-align: left; width: 40%;">
-                              <input class="text" name="txt_charset" id="txt_charset" type="text" size="50" value="<?=$C->readConfig("charset")?>">
+                              <input class="text" name="txt_charset" id="txt_charset" type="text" size="50" value="<?=($mycharset=$C->readConfig("charset"))?$mycharset:"UTF-8";?>">
                            </td>
                         </tr>
                

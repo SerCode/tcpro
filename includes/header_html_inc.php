@@ -109,7 +109,7 @@ if (!$S->getStyle($theme)) createCSS($theme);
       <meta http-equiv="Pragma" content="no-cache">
       <meta http-equiv="Cache-Control" content="no-cache, must-revalidate, max_age=0">
       <meta http-equiv="Expires" content="0">
-      <meta http-equiv="Content-type" content="text/html;charset=<?=$C->readConfig("charset")?>">
+      <meta http-equiv="Content-type" content="text/html;charset=<?=($mycharset=$C->readConfig("charset"))?$mycharset:"UTF-8";?>">
       <meta http-equiv="Content-Style-Type" content="text/css">
       <meta name="copyright" content="<?=$CONF['app_copyright_html']?>">
       <meta name="keywords" content="Lewe TeamCal Pro">
