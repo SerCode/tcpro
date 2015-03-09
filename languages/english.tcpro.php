@@ -2174,7 +2174,7 @@ If an own logo was created and copied into the "img" directory of the theme fold
  * Config page
  */
 $LANG['admin_config_charset'] = 'Character Set';
-$LANG['admin_config_charset_comment'] = 'You can specify the HTML character set here. The default is "utf-8". Other options are for example "utf8_german2_ci" or "utf8_swedish_ci".';
+$LANG['admin_config_charset_comment'] = 'You can specify the HTML character set here. The default is "UTF-8". You can change that to "ISO-8859-1".';
 
 /**
  * Error page

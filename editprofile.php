@@ -105,7 +105,7 @@ $countto = $C->readConfig("defperiodto");
 
 /**
  * =========================================================================
- * UPDATE
+ * APPLY
  */
 if (isset($_POST['btn_apply'])) 
 {
