@@ -39,6 +39,18 @@ if (isset($_POST['rangeto'])) $rangetodate = $_POST['rangeto']; else $rangetodat
 <input name="rangefrom" id="rangefrom" size="10" maxlength="10" type="text" class="text" style="padding-top: 1px;" value="<?php echo $rangefromdate; ?>">
 <input name="rangeto" id="rangeto" size="10" maxlength="10" type="text" class="text" style="padding-top: 1px;" value="<?php echo $rangetodate; ?>">
 
+<!-- Region -->
+&nbsp;&nbsp;<?=$LANG['nav_regionfilter']?>&nbsp;
+<select name="statregion" class="select">
+   <?php
+   $regions = $R->getAll();
+   $selectedRegion=$statregion;
+   foreach ($regions as $reg) 
+   { ?>
+      <option value="<?=$reg['regionname']?>" <?=(($selectedRegion==$reg['regionname'])?"SELECTED":"")?>><?=$reg['regionname']?></option>
+   <?php } ?>
+</select>
+
 <!-- Group -->
 &nbsp;&nbsp;<?=$LANG['stat_choose_group']?>&nbsp;
 <select name="periodgroup" id="periodgroup" class="select">

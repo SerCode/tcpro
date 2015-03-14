@@ -33,6 +33,7 @@ require_once( "models/config_model.php" );
 require_once( "models/group_model.php" );
 require_once( "models/login_model.php" );
 require_once( "models/month_model.php" );
+require_once( "models/region_model.php" );
 require_once( "models/statistic_model.php" );
 require_once( "models/template_model.php" );
 require_once( "models/user_model.php" );
@@ -45,6 +46,7 @@ $G = new Group_model;
 $L = new Login_model;
 $M = new Month_model;
 $M2 = new Month_model;
+$R = new Region_model;
 $ST = new Statistic_model;
 $T = new Template_model;
 $U = new User_model;
@@ -88,15 +90,10 @@ $nofdays    = sprintf("%02d",date("t",time()));
 $periodType = "standard";
 $periodFrom = $yeartoday.$monthtoday."01";
 $periodTo = $yeartoday.$monthtoday.$nofdays;
+$statregion = "default";
 $statgroup = "%";
 $periodAbsence = "All";
 $periodAbsenceName = "All";
-
-$calendarDaysInPeriod = $periodTo-$periodFrom+1;
-$businessDaysInPeriod = countBusinessDays($periodFrom, $periodTo);
-
-if ($C->readConfig("presenceBase")=="calendardays") $daysInPeriod = $calendarDaysInPeriod;
-else $daysInPeriod = $businessDaysInPeriod;
 
 /**
  * =========================================================================
@@ -176,7 +173,7 @@ if (isset($_POST['btn_apply']))
       }
    }
    else {
-      /*
+      /**
        * Custom period was selected
        */
       $periodType = "custom";
@@ -184,11 +181,12 @@ if (isset($_POST['btn_apply']))
       $periodTo = str_replace("-","",$_POST['rangeto']);
    }
 
-   /*
-    * Get group and absence
+   /**
+    * Get region, group and absence
     */
-   if ($_POST['periodgroup']=="All") $statgroup="%";
-   else $statgroup = $_POST['periodgroup'];
+   if ( isset($_POST['statregion']) AND !empty($_POST['statregion'])) $statregion = $_POST['statregion']; else $statregion = 'default';
+   if ( isset($_POST['periodgroup']) AND !empty($_POST['periodgroup'])) $statgroup = $_POST['periodgroup']; else $statgroup="%";
+   if ( $statgroup =="All") $statgroup="%";
    $periodAbsence = $_POST['periodabsence'];
    $A->get($periodAbsence);
    $periodAbsenceName = $A->name;
@@ -200,15 +198,31 @@ if (isset($_POST['btn_apply']))
 for ($y=intval(substr($periodFrom,0,4)); $y<=intval(substr($periodTo,0,4)); $y++) {
    for ($m=1; $m<=12; $m++) {
       $find=strval($y).sprintf("%02d",$m);
-      if (!$M->findByName($CONF['options']['region'],$find)) {
+      if (!$M->findByName($statregion,$find)) {
          $M2->yearmonth = $find;
-         $M2->region = $CONF['options']['region'];
+         $M2->region = $statregion;
          $mname = $LANG['monthnames'][$m];
          $M2->template = createMonthTemplate(substr($find,0,4), $mname);
          $M2->create();
       }
    }
 }
+
+if ($C->readConfig("presenceBase")=="calendardays") 
+{
+   /**
+    * Count the calendar days in period
+    */
+   $daysInPeriod = $periodTo-$periodFrom+1;
+}
+else 
+{
+   /**
+    * Count the business days in period
+    */
+   $daysInPeriod = countBusinessDays($periodFrom, $periodTo, $statregion);
+}
+
 /**
  * HTML title. Will be shown in browser tab.
  */
@@ -616,9 +630,9 @@ require( "includes/menu_inc.php" );
                   }
                   echo "<tr><td class=\"stat-sum-caption\">".$LANG['stat_results_all_members']."</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$sum)." ".$LANG['stat_days']."</b></td></tr>\n\r";
                   $fromtoday=$yeartoday.$monthtoday.$daytoday;
-                  $remainBusi=countBusinessDays($fromtoday,$periodTo);
+                  $remainBusi=countBusinessDays($fromtoday,$periodTo,$statregion);
                   echo "<tr><td class=\"stat-sum-caption\">Remaining Business Days</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$remainBusi)." ".$LANG['stat_days']."</b></td></tr>\n\r";
-                  $remainBusi=countBusinessDays($fromtoday,$periodTo,1);
+                  $remainBusi=countBusinessDays($fromtoday,$periodTo,$statregion,1);
                   echo "<tr><td class=\"stat-sum-caption\">Remaining Man Days</td><td class=\"stat-sum-value\"><b>".sprintf("%1.1f",$remainBusi)." ".$LANG['stat_days']."</b></td></tr>\n\r";
                   echo "</table>\n\r";
                   echo "</td><td style=\"vertical-align: top; padding-left: 20px;\">";

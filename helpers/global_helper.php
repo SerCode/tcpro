@@ -425,12 +425,13 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
 /**
  * Counts all business days or man days in a given time period
  *
- * @param boolean $cntManDays Switch whether to multiply the business days by the amount of users and return that value instead
  * @param string $cntfrom Date to count from (including)
  * @param string $cntto Date to count to (including)
+ * @param string $region Region to count for
+ * @param boolean $cntManDays Switch whether to multiply the business days by the amount of users and return that value instead
  * @return boolean True if reached, false if not
  */
-function countBusinessDays($cntfrom, $cntto, $cntManDays = 0) 
+function countBusinessDays($cntfrom, $cntto, $region = 'default', $cntManDays = 0) 
 {
    global $CONF;
    require_once ($CONF['app_root'] . "models/holiday_model.php");
@@ -455,7 +456,7 @@ function countBusinessDays($cntfrom, $cntto, $cntManDays = 0)
 
    while ($yearmonth <= $endyearmonth) 
    {
-      $queryM = "SELECT * FROM `".$M->table."` WHERE `yearmonth`='".$yearmonth."' AND region='default';";
+      $queryM = "SELECT * FROM `".$M->table."` WHERE `yearmonth`='".$yearmonth."' AND region='".$region."';";
       $resultM = $M->db->db_query($queryM);
       while ($rowM = $M->db->db_fetch_array($resultM, MYSQL_ASSOC)) 
       {
