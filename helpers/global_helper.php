@@ -336,11 +336,22 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
    $ymstart = intval($year.sprintf("%02d",$month));
    $ymend= intval($endyear.sprintf("%02d",$endmonth));
 
+   // 
+   // Loop through every month of the requested period
+   //
    while ($ymstart<=$ymend) 
    {
       if ($year==$startyear AND $month==$startmonth) 
       {
-         $count+=$T->countAbsence($user,$year,$month,$absid,$startday);
+         $lastday = 0;
+         if ($startmonth == $endmonth) 
+         {
+            // 
+            // We only have one month. Make sure to only count until the requested end day.
+            //
+            $lastday = $endday;
+         }
+         $count+=$T->countAbsence($user,$year,$month,$absid,$startday,$lastday);
       }
       else if ($year==$endyear AND $month==$endmonth) 
       {
