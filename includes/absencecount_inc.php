@@ -56,7 +56,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
                foreach ($ugroups as $ug)
                {
                   $groupabs=$AG->getAllForGroup($ug['groupname']);
-                  $absences = array_merge($absences, $groupabs);
+                  $absences = array_unique(array_merge($absences, $groupabs));
                }
                
                foreach ($absences as $abs) 

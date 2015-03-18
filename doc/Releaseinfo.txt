@@ -10,6 +10,9 @@ DATE
 
 BUGFIXES
 
+https://georgelewe.atlassian.net/browse/TCP-135
+Duplicate absences in user profile
+
 https://georgelewe.atlassian.net/browse/TCP-133
 Statistics custom period within one month
 
