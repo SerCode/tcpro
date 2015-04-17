@@ -121,19 +121,21 @@ if (!class_exists("Login_model"))
        * @param string $pwnew2 Repeated new password
        * @return string Empty if ok, or error message abot what went wrong
        */
-      function isPasswordValid($uname='', $pw='', $pwnew1='', $pwnew2='') 
+      function passwordCheck($uname='', $pw='', $pwnew1='', $pwnew2='') 
       {
+         global $LANG;
+         
          if (!isset ($this->pw_strength)) $this->pw_strength = 0;
          $rstr = '';
 
-         if (empty ($uname)) return 'You must specify a user name.<br>';
-         if (empty ($pwnew1) || empty ($pwnew2)) return "Either the new password or its confirmation is missing.<br>";
-         if ($pwnew1 != $pwnew2) return "New password mismatch.<br>";
+         if (empty ($uname)) $rstr .= $LANG['pwchk_username'];
+         if (empty ($pwnew1) || empty ($pwnew2)) $rstr .= $LANG['pwchk_confirm'];
+         if ($pwnew1 != $pwnew2) $rstr .= $LANG['pwchk_mismatch'];
 
          /**
           * MINIMUM STRENGTH
           */
-         if (strlen($pwnew1) < $this->min_pw_length) $rstr .= "The password must be at least ".$this->min_pw_length." characters long.<br>";
+         if (strlen($pwnew1) < $this->min_pw_length) $rstr .= $LANG['pwchk_minlength'];
 
          if ($this->pw_strength > 0) 
          {
@@ -145,33 +147,33 @@ if (!class_exists("Login_model"))
              * common number for letter substitutions    
              * then lowercase the username as well.
              */
-            $pw_lower = strtolower($pw);
+            if (strlen($pw)) $pw_lower = strtolower($pw);
             $pwnew1_lower = strtolower($pwnew1);
             $pwnew1_denum = strtr($pwnew1_lower, '5301!', 'seoll');
             $uname_lower = strtolower($uname);
 
-            if (ereg($uname_lower, $pwnew1_denum)) $rstr .= "The new password can not contain the username.<br>";
-            if (ereg(strrev($uname_lower), $pwnew1_denum)) $rstr .= "The new password can not contain the username backwards.<br>";
-            if ($pwnew1_lower == $pw_lower) $rstr .= "The new password can not match the old one.<br>";
-
+            if (ereg($uname_lower, $pwnew1_denum)) $rstr .= $LANG['pwchk_notusername'];
+            if (ereg(strrev($uname_lower), $pwnew1_denum)) $rstr .= $LANG['pwchk_notusername_backwards'];
+            if (strlen($pw) AND ($pwnew1_lower == $pw_lower)) $rstr .= $LANG['pwchk_notold'];
+            
             if ($this->pw_strength > 1) 
             {
                /**
                 * MEDIUM STRENGTH
                 */
-               if (!ereg('[0-9]', $pwnew1)) $rstr .= "The new Password must contain a number.<br>";
-
+               if (!ereg('[0-9]', $pwnew1)) $rstr .= $LANG['pwchk_number'];
+                
                if ($this->pw_strength > 2) {
                   /**
                    * HIGH STRENGTH
                    */
-                  if (!ereg('[a-z]', $pwnew1)) $rstr .= "The new password must contain a lower case letter.<br>";
-                  if (!ereg('[A-Z]', $pwnew1)) $rstr .= "The new password must contain an upper case letter.<br>";
-                  if (!ereg('[^a-zA-Z0-9]', $pwnew1)) $rstr .= "The new password must contain a puncutation character.<br>";
+                  if (!ereg('[a-z]', $pwnew1)) $rstr .= $LANG['pwchk_lower'];
+                  if (!ereg('[A-Z]', $pwnew1)) $rstr .= $LANG['pwchk_upper'];
+                  if (!ereg('[^a-zA-Z0-9]', $pwnew1)) $rstr .= $LANG['pwchk_punctuation'];
                }
             }
-            return $rstr;
          }
+         return $rstr;
       }
 
       // ---------------------------------------------------------------------

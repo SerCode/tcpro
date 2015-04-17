@@ -59,7 +59,6 @@ $UO = new User_option_model;
 if (!isAllowed("manageUsers")) showError("notallowed", TRUE);
 
 $msg = false;
-$pwdmismatch = false;
 
 /**
  * =========================================================================
@@ -71,12 +70,18 @@ if (isset ($_POST['btn_add'])) {
    if (!preg_match('/^[a-zA-Z0-9.]*$/', $username)) 
    {
       $msg = true;
-      $message = $LANG['error_user_nospecialchars'];
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['add_profile_title'];
+      $msg_text    = $LANG['error_user_nospecialchars'];
    }
    elseif ($res = $U->findByName($username)) 
    {
       $msg = true;
-      $message = $LANG['error_user_exists'];
+      $msg_type    = 'error';
+      $msg_title   = $LANG['error'];
+      $msg_caption = $LANG['add_profile_title'];
+      $msg_text    = $LANG['error_user_exists'];
       $_REQUEST['action'] = "add";
    } 
    else 
@@ -84,21 +89,26 @@ if (isset ($_POST['btn_add'])) {
       $U->username = $username;
       if (strlen($_POST['password'])) 
       {
-         if ($_POST['password'] == $_POST['password2']) 
+         $pwcheckResult = '';
+         $pwerror = false;
+         if (strlen($pwcheckResult=$L->passwordCheck($U->username, '', $_POST['password'], $_POST['password2'])))
          {
-            $U->password = crypt($_POST['password'], $CONF['salt']);
+            $pwerror = true;
+            $msg     = true;
+            $msg_type    = 'error';
+            $msg_title   = $LANG['error'];
+            $msg_caption = $LANG['add_profile_title'];
+            $msg_text    = $pwcheckResult;
+         }
+         else
+         {
+            $U->password = crypt($_POST['password'],$CONF['salt']);
             $U->last_pw_change = date("Y-m-d H:i:s");
             $U->clearStatus($CONF['USCHGPWD']);
-         } 
-         else 
-         {
-            $pwdmismatch = true;
-            $msg = true;
-            $message = $LANG['error_password_mismatch'];
          }
       }
       
-      if (!$pwdmismatch && !$msg) 
+      if (!$pwerror && !$msg) 
       {
          $U->lastname    = htmlspecialchars($_POST['lastname'], ENT_QUOTES);
          $U->firstname   = htmlspecialchars($_POST['firstname'], ENT_QUOTES);
@@ -300,7 +310,7 @@ if (isset ($_POST['btn_add'])) {
          $LOG->log("logUser", $L->checkLogin(), "log_user_added", $U->username . " (" . $fullname . ")");
 
          jsCloseAndReload("userlist.php");
-      } // endif !$pwdmismatch
+      } // endif !$pwerror
    }
 
 }
@@ -330,6 +340,9 @@ require("includes/header_html_inc.php");
 <div id="content">
    <div id="content-content">
 
+      <!-- Message -->
+      <?php if ($msg) echo jQueryPopup($msg_type, $msg_title, $msg_caption, $msg_text); ?>
+                        
       <script type="text/javascript">$(function() { $( "#tabs" ).tabs(); });</script>
       <form name="userprofile" method="POST" action="<?=$_SERVER['PHP_SELF']."?username=".$U->username?>">
          <table class="dlg">
@@ -756,6 +769,5 @@ require("includes/header_html_inc.php");
    </div>
 </div>
 <?php
-if ($msg) echo ("<script type=\"text/javascript\">alert(\"" . $message . "\")</script>");
 require("includes/footer_inc.php");
 ?>

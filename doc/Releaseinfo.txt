@@ -10,6 +10,9 @@ DATE
 
 BUGFIXES
 
+https://georgelewe.atlassian.net/browse/TCP-136
+Password rules not working
+
 https://georgelewe.atlassian.net/browse/TCP-135
 Duplicate absences in user profile
 
@@ -18,6 +21,7 @@ Statistics custom period within one month
 
 https://georgelewe.atlassian.net/browse/TCP-132
 Days in period calculation for statistics
+
 
 ------------------------------------------------------------------------------
 [3.6.018]

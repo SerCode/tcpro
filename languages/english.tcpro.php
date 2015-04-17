@@ -2180,4 +2180,24 @@ $LANG['admin_config_charset_comment'] = 'You can specify the HTML character set 
  * Error page
  */
 $LANG['err_not_authorized_login'] = 'If you have an account, try again by using the button below.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.019
+ */
+
+/**
+ * Password Check
+ */
+$LANG['pwchk_username'] = 'You must specify a valid username.<br>';
+$LANG['pwchk_confirm'] = 'Either the new password or its confirmation is missing.<br>';
+$LANG['pwchk_mismatch'] = 'The new password and its confirmation do not match.<br>';
+$LANG['pwchk_minlength'] = 'The password must be at least ' . $LC->readConfig("pwdLength") . ' characters long.<br>';
+$LANG['pwchk_notusername'] = 'The new password cannot contain the username.<br>';
+$LANG['pwchk_notusername_backwards'] = 'The new password cannot contain the username backwards.<br>';
+$LANG['pwchk_notold'] = 'The new password cannot be the old one.<br>';
+$LANG['pwchk_number'] = 'The password must contain a number.<br>';
+$LANG['pwchk_lower'] = 'The password must contain a lower case letter.<br>';
+$LANG['pwchk_upper'] = 'The password must contain an UPPER case letter.<br>';
+$LANG['pwchk_punctuation'] = 'The password must contain a punctuation character.<br>';
 ?>

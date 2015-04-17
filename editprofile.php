@@ -62,7 +62,6 @@ $UO  = new User_option_model;
 $error=false;
 $grouprights=false;
 $message = false;
-$pwdmismatch = false;
 
 if ($user=$L->checkLogin()) $UL->findByName($user);
 if (isset($_REQUEST['username'])) $U->findByName(stripslashes($_REQUEST['username']));
@@ -114,24 +113,26 @@ if (isset($_POST['btn_apply']))
     */
    if ( strlen($_POST['password']) ) 
    {
-      if ( $_POST['password']==$_POST['password2'] ) 
+      $pwcheckResult = '';
+      $pwerror = false;
+      if (strlen($pwcheckResult=$L->passwordCheck($U->username, $U->password, $_POST['password'], $_POST['password2'])))
       {
-         $U->password = crypt($_POST['password'],$CONF['salt']);
-         $U->last_pw_change = date("Y-m-d H:i:s");
-         $U->clearStatus($CONF['USCHGPWD']);
-      } 
-      else 
-      {
-         $pwdmismatch = true;
+         $pwerror = true;
          $message     = true;
          $msg_type    = 'error';
          $msg_title   = $LANG['error'];
          $msg_caption = $LANG['edit_profile_title'];
-         $msg_text    = $LANG['error_password_mismatch'];
+         $msg_text    = $pwcheckResult;
+      }
+      else 
+      {
+         $U->password = crypt($_POST['password'],$CONF['salt']);
+         $U->last_pw_change = date("Y-m-d H:i:s");
+         $U->clearStatus($CONF['USCHGPWD']);
       }
    }
 
-   if ( !$pwdmismatch ) 
+   if ( !$pwerror ) 
    {
       $U->lastname    = htmlspecialchars($_POST['lastname'],ENT_QUOTES);
       $U->firstname   = htmlspecialchars($_POST['firstname'],ENT_QUOTES);

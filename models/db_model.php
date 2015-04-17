@@ -239,7 +239,7 @@ if (!class_exists("Db_model"))
          switch ($this->db_type)
          {
             case 1 : // MySQL
-               $this->db_errortxt .= "<p><span style=\"font-weight: bold;\">SQL Error: </span><pre>".mysql_error(Db_model::$db_handle)."</pre></p>\n";
+               $this->db_errortxt .= "<p><span style=\"font-weight: bold;\">SQL Error: </span><pre>". @ mysql_error(Db_model::$db_handle) . "</pre></p>\n";
                break;
          }
          

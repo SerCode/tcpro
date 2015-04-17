@@ -2181,4 +2181,24 @@ $LANG['admin_config_charset_comment'] = 'Hier kann der HTML Zeichensatz eingeste
  * Error page
  */
 $LANG['err_not_authorized_login'] = 'Wenn du ein Benutzerkonto hast, versuch es erneut mit dem folgenden Button.';
+
+/**
+ * ============================================================================
+ * Added in TeamCal Pro 3.6.019
+ */
+
+/**
+ * Password Check
+ */
+$LANG['pwchk_username'] = 'Es muss ein Username angegeben werden.<br>';
+$LANG['pwchk_confirm'] = 'Das neue Passwort oder die Wiederholung fehlt.<br>';
+$LANG['pwchk_mismatch'] = 'Das neue Passwort oder die Wiederholung stimmen nicht &uuml;berein.<br>';
+$LANG['pwchk_minlength'] = 'Das Passwort muss mindestens ' . $LC->readConfig("pwdLength") . ' Zeichen lang sein.<br>';
+$LANG['pwchk_notusername'] = 'Das Passwort darf nicht den Usernamen enthalten.<br>';
+$LANG['pwchk_notusername_backwards'] = 'Das Passwort darf nicht den Usernamen r&uuml;ckw&auml;ts enthalten.<br>';
+$LANG['pwchk_notold'] = 'Das neue Passwort darf nicht das alte sein.<br>';
+$LANG['pwchk_number'] = 'Dass Passwort muss eine Zahl enthalten.<br>';
+$LANG['pwchk_lower'] = 'Das Passwort muss einen Kleinbuchstaben enthalten.<br>';
+$LANG['pwchk_upper'] = 'Das Passwort muss einen Gro&szlig;buchstaben enthalten.<br>';
+$LANG['pwchk_punctuation'] = 'Das Passwort muss Interpunktionszeichen enthalten.<br>';
 ?>
