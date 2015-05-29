@@ -78,7 +78,7 @@ else if ( $UG->shareGroups($user, $U->username) )
 {
    if (isAllowed("editGroupUserProfiles")) 
    {
-      if ($UG->isGroupManagerOfUser($user, $U->username) OR !$UG->isGroupManagerOfUser($U->username, $user))
+      if ($UG->isGroupManagerOfUser($user, $U->username) OR !$UG->isGroupManagerOfUser($U->username, $user) OR $UL->checkUserType($CONF['UTADMIN']))
       {
          $allowed=TRUE;
       }

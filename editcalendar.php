@@ -96,7 +96,7 @@ else if ( $UG->shareGroups($luser, $caluser) )
 {
    if (isAllowed("editGroupUserCalendars")) 
    {
-      if ($UG->isGroupManagerOfUser($luser, $caluser) OR !$UG->isGroupManagerOfUser($caluser, $luser))
+      if ($UG->isGroupManagerOfUser($luser, $caluser) OR !$UG->isGroupManagerOfUser($caluser, $luser) OR $UL->checkUserType($CONF['UTADMIN']))
       {
          $allowed=TRUE;
       }
