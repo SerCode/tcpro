@@ -6,7 +6,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * Provides classes to deal with CSV parsing
  *
  * @package TeamCalPro
- * @version 3.6.018 
+ * @version 3.6.019 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com

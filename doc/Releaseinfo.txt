@@ -6,9 +6,12 @@ TEAMCAL PRO RELEASE INFO
 [3.6.019]
 
 DATE
-2015-xx-xx
+2015-05-29
 
 BUGFIXES
+
+https://georgelewe.atlassian.net/browse/TCP-137
+Create absence fails
 
 https://georgelewe.atlassian.net/browse/TCP-136
 Password rules not working

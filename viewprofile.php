@@ -5,7 +5,7 @@
  * Displays the user profile dialog for viewing
  *
  * @package TeamCalPro
- * @version 3.6.018
+ * @version 3.6.019
  * @author George Lewe
  * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com
