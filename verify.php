@@ -5,7 +5,7 @@
  * Verifies a user registration
  *
  * @package TeamCalPro
- * @version 3.6.019
+ * @version 3.6.020
  * @author George Lewe
  * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com

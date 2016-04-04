@@ -6,12 +6,15 @@ TEAMCAL PRO RELEASE INFO
 [3.6.020]
 
 DATE
-2015-xx-xx
+2016-04-04
 
 BUGFIXES
 
 https://georgelewe.atlassian.net/browse/TCP-139
 Global Daynote edit permission
+
+https://georgelewe.atlassian.net/browse/TCP-140
+German Umlauts problem
 
 
 ------------------------------------------------------------------------------

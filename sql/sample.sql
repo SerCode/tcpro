@@ -5,7 +5,7 @@
 -- Sample database for TeamCal Pro
 --
 -- @package TeamCalPro
--- @version 3.6.019
+-- @version 3.6.020
 -- @author George Lewe
 -- @copyright Copyright (c) 2004-2016 by George Lewe
 -- @link http://www.lewe.com
@@ -163,8 +163,8 @@ CREATE TABLE `my_tc_config` (
 
 INSERT INTO `my_tc_config` VALUES('1', 'defgroupfilter', 'All');
 INSERT INTO `my_tc_config` VALUES('2', 'defregion', 'default');
-INSERT INTO `my_tc_config` VALUES('3', 'appSubTitle', 'Version 3.6.019');
-INSERT INTO `my_tc_config` VALUES('4', 'appFooterCpy', 'Copyright &amp;copy; 2015 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.');
+INSERT INTO `my_tc_config` VALUES('3', 'appSubTitle', 'Version 3.6.020');
+INSERT INTO `my_tc_config` VALUES('4', 'appFooterCpy', 'Copyright &amp;copy; 2016 by &lt;a href=&quot;http://www.lewe.com&quot; class=&quot;copyright&quot; target=&quot;_blank&quot;&gt;Lewe.com&lt;/a&gt;.');
 INSERT INTO `my_tc_config` VALUES('5', 'repeatHeaderCount', '8');
 INSERT INTO `my_tc_config` VALUES('6', 'todayBorderColor', 'FFCC00');
 INSERT INTO `my_tc_config` VALUES('7', 'todayBorderSize', '2');
@@ -213,8 +213,8 @@ INSERT INTO `my_tc_config` VALUES('49', 'theme', 'tcpro');
 INSERT INTO `my_tc_config` VALUES('50', 'allowUserTheme', '1');
 INSERT INTO `my_tc_config` VALUES('51', 'hideManagers', '0');
 INSERT INTO `my_tc_config` VALUES('52', 'hideDaynotes', '0');
-INSERT INTO `my_tc_config` VALUES('53', 'defperiodfrom', '2015-01-01');
-INSERT INTO `my_tc_config` VALUES('54', 'defperiodto', '2015-12-31');
+INSERT INTO `my_tc_config` VALUES('53', 'defperiodfrom', '2016-01-01');
+INSERT INTO `my_tc_config` VALUES('54', 'defperiodto', '2016-12-31');
 INSERT INTO `my_tc_config` VALUES('55', 'homepage', 'welcome');
 INSERT INTO `my_tc_config` VALUES('56', 'welcomeTitle', 'Welcome To Our Team Calendar');
 INSERT INTO `my_tc_config` VALUES('57', 'welcomeText', 'This web application will help manage our absences.\r\n\r\nSelect &lt;i&gt;Login&lt;/i&gt; from the &lt;b&gt;TeamCal&lt;/b&gt; menu to login.\r\n\r\nAdmin account: admin/root\r\nUser account: mimouse/password\r\n\r\nOnce you\'re logged in, select &lt;i&gt;Calendar&lt;/i&gt; from the &lt;b&gt;View&lt;/b&gt; menu to display the calendar.');
@@ -257,7 +257,7 @@ INSERT INTO `my_tc_config` VALUES('93', 'sunBusi', '0');
 INSERT INTO `my_tc_config` VALUES('94', 'declAbsence', '0');
 INSERT INTO `my_tc_config` VALUES('95', 'declBefore', '0');
 INSERT INTO `my_tc_config` VALUES('96', 'declBeforeToday', '0');
-INSERT INTO `my_tc_config` VALUES('97', 'declBeforeDate', '20141231');
+INSERT INTO `my_tc_config` VALUES('97', 'declBeforeDate', '20151231');
 INSERT INTO `my_tc_config` VALUES('98', 'declPeriod', '0');
 INSERT INTO `my_tc_config` VALUES('99', 'declThreshold', '0');
 INSERT INTO `my_tc_config` VALUES('100', 'declBase', 'group');
@@ -265,8 +265,8 @@ INSERT INTO `my_tc_config` VALUES('101', 'declNotifyUser', '1');
 INSERT INTO `my_tc_config` VALUES('102', 'declNotifyManager', '1');
 INSERT INTO `my_tc_config` VALUES('103', 'declNotifyDirector', '0');
 INSERT INTO `my_tc_config` VALUES('104', 'declNotifyAdmin', '0');
-INSERT INTO `my_tc_config` VALUES('106', 'declPeriodStart', '20150101');
-INSERT INTO `my_tc_config` VALUES('107', 'declPeriodEnd', '20151231');
+INSERT INTO `my_tc_config` VALUES('106', 'declPeriodStart', '20160101');
+INSERT INTO `my_tc_config` VALUES('107', 'declPeriodEnd', '20161231');
 INSERT INTO `my_tc_config` VALUES('108', 'permissionScheme', 'Default');
 INSERT INTO `my_tc_config` VALUES('109', 'logfilterPermission', '1');
 INSERT INTO `my_tc_config` VALUES('110', 'logPermission', '1');
@@ -287,8 +287,8 @@ INSERT INTO `my_tc_config` VALUES('124', 'logLanguage', 'english');
 INSERT INTO `my_tc_config` VALUES('125', 'avatarMaxSize', '250000');
 INSERT INTO `my_tc_config` VALUES('126', 'userSearch', '1');
 INSERT INTO `my_tc_config` VALUES('127', 'logoption', 'standard');
-INSERT INTO `my_tc_config` VALUES('128', 'logfrom', '2015-01-01');
-INSERT INTO `my_tc_config` VALUES('129', 'logto', '2015-12-31');
+INSERT INTO `my_tc_config` VALUES('128', 'logfrom', '2016-01-01');
+INSERT INTO `my_tc_config` VALUES('129', 'logto', '2016-12-31');
 INSERT INTO `my_tc_config` VALUES('130', 'logperiod', 'curr_all');
 INSERT INTO `my_tc_config` VALUES('131', 'emailNoPastNotifications', '0');
 INSERT INTO `my_tc_config` VALUES('132', 'showUserRegion', '0');
@@ -318,7 +318,7 @@ CREATE TABLE `my_tc_daynotes` (
 -- Dumping data for table `my_tc_daynotes`
 -- 
 
-INSERT INTO `my_tc_daynotes` VALUES('1', '20150122', 'First day after my duty trip. Don\'t call me.', 'mmouse', 'default');
+INSERT INTO `my_tc_daynotes` VALUES('1', '20160122', 'First day after my duty trip. Don\'t call me.', 'mmouse', 'default');
 
 -- --------------------------------------------------------
 

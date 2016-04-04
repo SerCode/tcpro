@@ -7,7 +7,7 @@ if (!defined('_VALID_TCPRO')) exit ('No direct access allowed!');
  * seperate file.
  *
  * @package TeamCalPro
- * @version 3.6.019
+ * @version 3.6.020
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2004-2015 by George Lewe
  * @link http://www.lewe.com
@@ -795,7 +795,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
          while ( $row = $U->db->db_fetch_array($result,MYSQL_ASSOC) ) 
          {
             $users[$i]['group']=$row['group'];
-            $users[$i]['user']=$row['username'];
+            $users[$i]['user'] = $row['username'];
             $users[$i]['mship']="real";
             $i++;
          }
@@ -965,6 +965,7 @@ function showMonth($year,$month,$groupfilter,$sortorder,$page=1,$calSearchUser='
             else                     $showname = stripslashes($U->lastname);//user
       
             if (!strlen($showname)) $showname = $U->username;
+            else                    $showname = mb_convert_encoding($showname, "UTF-8");
       
             $rowid = $U->username."_".$year."_".$monthno;
             
